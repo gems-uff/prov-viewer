@@ -58,4 +58,42 @@ public class EdgeStroke {
         return new BasicStroke(size, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, null, 0.0f);
     }
     
+    /**
+     * Method to define edge stroke by type
+     * @param edge Edge
+     * @param variables Variables type
+     * @return Stroke
+     */
+    public static Stroke StrokeByType(Edge edge, Variables variables) {
+        if (edge.getInfluence().contains(GraphFrame.FilterEdgeCreditsButton.getText())) {
+            return defineStroke(edge.getValue(), ((Variables) variables).credits);
+        } else if (edge.getInfluence().contains(GraphFrame.FilterEdgeQualityButton.getText())) {
+            return defineStroke(edge.getValue(), ((Variables) variables).quality);
+        } else if (edge.getInfluence().contains(GraphFrame.FilterEdgeAidButton.getText())) {
+            return defineStroke(edge.getValue(), ((Variables) variables).aid);
+        } else if (edge.getInfluence().contains(GraphFrame.FilterEdgeProgressButton.getText())) {
+            return defineStroke(edge.getValue(), ((Variables) variables).progress);
+        } else if (edge.getInfluence().contains(GraphFrame.FilterEdgeValButton.getText())) {
+            return defineStroke(edge.getValue(), ((Variables) variables).validation);
+        } else if (edge.getInfluence().contains(GraphFrame.FilterEdgeDiscoveryButton.getText())) {
+            return defineStroke(edge.getValue(), ((Variables) variables).discovery);
+        } else if (edge.getInfluence().contains(GraphFrame.FilterEdgeBugsButton.getText())) {
+            return defineStroke(edge.getValue(), ((Variables) variables).bugs);
+        } else if (edge.getInfluence().contains(GraphFrame.FilterEdgeRepairButton.getText())) {
+            return defineStroke(edge.getValue(), ((Variables) variables).repair);
+        } else if (edge.getInfluence().contains(GraphFrame.FilterEdgeTCButton.getText())) {
+            return defineStroke(edge.getValue(), ((Variables) variables).tc);
+        } else if (edge.getInfluence().contains(GraphFrame.FilterEdgeMoraleButton.getText())) {
+            return defineStroke(edge.getValue(), ((Variables) variables).morale);
+        } else if (edge.getInfluence().contains(GraphFrame.FilterEdgeStaminaButton.getText())) {
+            return defineStroke(edge.getValue(), ((Variables) variables).stamina);
+        } else if (edge.getInfluence().contains(GraphFrame.FilterEdgePrototypeButton.getText())) {
+            return defineStroke(edge.getValue(), ((Variables) variables).prototype);
+        } else if (edge.getInfluence().contains(GraphFrame.FilterEdgeNegotiationButton.getText())) {
+            return defineStroke(edge.getValue(), ((Variables) variables).negotiation);
+        }
+        //float[] dash = {5.0f};
+        return EdgeStroke(edge);
+    }
+    
 }

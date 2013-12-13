@@ -1,10 +1,5 @@
-package br.uff.ic.SDM;
+package br.uff.ic.Prov_Viewer;
 
-import br.uff.ic.Prov_Viewer.Collapser;
-import br.uff.ic.Prov_Viewer.Edge;
-import br.uff.ic.Prov_Viewer.PreFilters;
-import br.uff.ic.Prov_Viewer.Variables;
-import br.uff.ic.Prov_Viewer.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.uci.ics.jung.graph.Graph;
@@ -34,7 +29,7 @@ import org.apache.commons.collections15.Predicate;
 import org.apache.commons.collections15.Transformer;
 
 /**
- * Prov Viewer GUI customized to SDM game. Can be used as a Template.
+ * Prov Viewer GUI. Can be used as a Template.
  * @author kohwalter
  */
 public class GraphFrame extends javax.swing.JFrame {
@@ -51,9 +46,9 @@ public class GraphFrame extends javax.swing.JFrame {
     DefaultModalGraphMouse mouse = new DefaultModalGraphMouse();
     boolean filterCredits = false;
 
-    Variables variables = new SDM_Variables();
-    Collapser collapser = new SDM_Collapser();
-    SDM_Filters filter = new SDM_Filters();
+    Variables variables = new Variables();
+    Collapser collapser = new Collapser();
+    Filters filter = new Filters();
 
     /**
      * Creates new form GraphFrame
@@ -73,6 +68,9 @@ public class GraphFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
+        buttonGroup3 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         G7Days = new javax.swing.JButton();
         CollapseAgent = new javax.swing.JButton();
@@ -95,13 +93,15 @@ public class GraphFrame extends javax.swing.JFrame {
         EdgeLineShapeSelection = new javax.swing.JComboBox();
         StatusFilterBox = new javax.swing.JComboBox();
         ShowEdgeTextButton = new javax.swing.JCheckBox();
-        EdgeFilterTCButton = new javax.swing.JCheckBox();
-        EdgeFilterBugsButton = new javax.swing.JCheckBox();
+        FilterEdgeTCButton = new javax.swing.JCheckBox();
+        FilterEdgeBugsButton = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        EdgeFilterStaminaButton = new javax.swing.JCheckBox();
-        EdgeFilterMoraleButton = new javax.swing.JCheckBox();
+        FilterEdgeStaminaButton = new javax.swing.JCheckBox();
+        FilterEdgeMoraleButton = new javax.swing.JCheckBox();
+        FilterEdgePrototypeButton = new javax.swing.JCheckBox();
+        FilterEdgeNegotiationButton = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Prov Viewer");
@@ -246,17 +246,17 @@ public class GraphFrame extends javax.swing.JFrame {
             }
         });
 
-        EdgeFilterTCButton.setText("Test Cases");
-        EdgeFilterTCButton.addActionListener(new java.awt.event.ActionListener() {
+        FilterEdgeTCButton.setText("TC");
+        FilterEdgeTCButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EdgeFilterTCButtonActionPerformed(evt);
+                FilterEdgeTCButtonActionPerformed(evt);
             }
         });
 
-        EdgeFilterBugsButton.setText("Bugs");
-        EdgeFilterBugsButton.addActionListener(new java.awt.event.ActionListener() {
+        FilterEdgeBugsButton.setText("Bug");
+        FilterEdgeBugsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EdgeFilterBugsButtonActionPerformed(evt);
+                FilterEdgeBugsButtonActionPerformed(evt);
             }
         });
 
@@ -266,17 +266,31 @@ public class GraphFrame extends javax.swing.JFrame {
 
         jLabel5.setText("Mouse Mode");
 
-        EdgeFilterStaminaButton.setText("Stamina");
-        EdgeFilterStaminaButton.addActionListener(new java.awt.event.ActionListener() {
+        FilterEdgeStaminaButton.setText("Stamina");
+        FilterEdgeStaminaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EdgeFilterStaminaButtonActionPerformed(evt);
+                FilterEdgeStaminaButtonActionPerformed(evt);
             }
         });
 
-        EdgeFilterMoraleButton.setText("Morale");
-        EdgeFilterMoraleButton.addActionListener(new java.awt.event.ActionListener() {
+        FilterEdgeMoraleButton.setText("Morale");
+        FilterEdgeMoraleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EdgeFilterMoraleButtonActionPerformed(evt);
+                FilterEdgeMoraleButtonActionPerformed(evt);
+            }
+        });
+
+        FilterEdgePrototypeButton.setText("Prototype");
+        FilterEdgePrototypeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FilterEdgePrototypeButtonActionPerformed(evt);
+            }
+        });
+
+        FilterEdgeNegotiationButton.setText("Negotiation");
+        FilterEdgeNegotiationButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FilterEdgeNegotiationButtonActionPerformed(evt);
             }
         });
 
@@ -291,12 +305,11 @@ public class GraphFrame extends javax.swing.JFrame {
                         .addComponent(G7Days)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(CollapseAgent)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
                         .addComponent(Collapse)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Expand)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Reset))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(FilterNodeLonelyButton)
@@ -329,25 +342,30 @@ public class GraphFrame extends javax.swing.JFrame {
                                     .addComponent(FilterEdgeDiscoveryButton))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(EdgeFilterTCButton)
-                                    .addComponent(EdgeFilterBugsButton))
+                                    .addComponent(FilterEdgeTCButton)
+                                    .addComponent(FilterEdgeBugsButton))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(EdgeFilterMoraleButton)
-                                    .addComponent(EdgeFilterStaminaButton))))))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(StatusFilterBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(FilterEdgeMoraleButton)
+                                    .addComponent(FilterEdgeStaminaButton))))
+                        .addGap(4, 4, 4)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(Reset)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(StatusFilterBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(FilterEdgePrototypeButton)
+                    .addComponent(FilterEdgeNegotiationButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(MouseModes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(EdgeLineShapeSelection, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(jLabel4))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(MouseModes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(EdgeLineShapeSelection, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel4)
                     .addComponent(jLabel5))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -382,17 +400,19 @@ public class GraphFrame extends javax.swing.JFrame {
                             .addComponent(FilterEdgeQualityButton)
                             .addComponent(FilterEdgeAidButton)
                             .addComponent(FilterEdgeDiscoveryButton)
-                            .addComponent(EdgeFilterBugsButton)
-                            .addComponent(EdgeFilterMoraleButton))
+                            .addComponent(FilterEdgeBugsButton)
+                            .addComponent(FilterEdgeMoraleButton)
+                            .addComponent(FilterEdgePrototypeButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(FilterEdgeProgressButton)
                                 .addComponent(FilterEdgeValButton)
                                 .addComponent(FilterEdgeRepairButton)
-                                .addComponent(EdgeFilterTCButton)
+                                .addComponent(FilterEdgeTCButton)
                                 .addComponent(MouseModes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(EdgeFilterStaminaButton))
+                                .addComponent(FilterEdgeStaminaButton)
+                                .addComponent(FilterEdgeNegotiationButton))
                             .addComponent(FilterEdgeCreditsButton)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -481,7 +501,7 @@ public class GraphFrame extends javax.swing.JFrame {
         {
             Collection picked = new HashSet(variables.layout.getGraph().getNeighbors(node));
             picked.add(node);
-            if(!(node instanceof SDM_AgentVertex)) 
+            if(!(node instanceof AgentVertex)) 
             {
                 picked.removeAll(picked);
             }   
@@ -498,7 +518,7 @@ public class GraphFrame extends javax.swing.JFrame {
         //Collapse agent's nodes 7 by 7
         for(Object z : variables.layout.getGraph().getVertices())
         {
-            if(z instanceof SDM_AgentVertex)
+            if(z instanceof AgentVertex)
             {
                 collapser.Granularity(variables, filter, z, 7);
             }
@@ -609,7 +629,7 @@ public class GraphFrame extends javax.swing.JFrame {
          */
     private void StatusFilterBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StatusFilterBoxActionPerformed
         variables.SetMode((String)StatusFilterBox.getSelectedItem());
-        SDM_VertexPainter.VertexPainter(variables.view, variables);
+        VertexPainter.VertexPainter(variables.view, variables);
         variables.view.repaint();
     }//GEN-LAST:event_StatusFilterBoxActionPerformed
     /**
@@ -640,27 +660,37 @@ public class GraphFrame extends javax.swing.JFrame {
          * Filter bug edges button
          * ================================================
          */
-    private void EdgeFilterBugsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EdgeFilterBugsButtonActionPerformed
+    private void FilterEdgeBugsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterEdgeBugsButtonActionPerformed
         collapser.Filters(variables, filter);
-    }//GEN-LAST:event_EdgeFilterBugsButtonActionPerformed
+    }//GEN-LAST:event_FilterEdgeBugsButtonActionPerformed
     /**
          * ================================================
          * Filter Test Case edges button
          * ================================================
          */
-    private void EdgeFilterTCButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EdgeFilterTCButtonActionPerformed
+    private void FilterEdgeTCButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterEdgeTCButtonActionPerformed
         collapser.Filters(variables, filter);
-    }//GEN-LAST:event_EdgeFilterTCButtonActionPerformed
+    }//GEN-LAST:event_FilterEdgeTCButtonActionPerformed
     
-    private void EdgeFilterStaminaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EdgeFilterStaminaButtonActionPerformed
+    private void FilterEdgeStaminaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterEdgeStaminaButtonActionPerformed
         // TODO add your handling code here:
         collapser.Filters(variables, filter);
-    }//GEN-LAST:event_EdgeFilterStaminaButtonActionPerformed
+    }//GEN-LAST:event_FilterEdgeStaminaButtonActionPerformed
 
-    private void EdgeFilterMoraleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EdgeFilterMoraleButtonActionPerformed
+    private void FilterEdgeMoraleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterEdgeMoraleButtonActionPerformed
         // TODO add your handling code here:
         collapser.Filters(variables, filter);
-    }//GEN-LAST:event_EdgeFilterMoraleButtonActionPerformed
+    }//GEN-LAST:event_FilterEdgeMoraleButtonActionPerformed
+
+    private void FilterEdgePrototypeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterEdgePrototypeButtonActionPerformed
+        // TODO add your handling code here:
+        collapser.Filters(variables, filter);
+    }//GEN-LAST:event_FilterEdgePrototypeButtonActionPerformed
+
+    private void FilterEdgeNegotiationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterEdgeNegotiationButtonActionPerformed
+        // TODO add your handling code here:
+        collapser.Filters(variables, filter);
+    }//GEN-LAST:event_FilterEdgeNegotiationButtonActionPerformed
 
     /**
      * ================================================
@@ -669,6 +699,9 @@ public class GraphFrame extends javax.swing.JFrame {
      */
     private void initGraphComponent(DirectedGraph<Object, Edge> graph) {
 
+//        String[] items = {"Item A", "Item B", "Item C"};
+//        StatusFilterBox.setModel(new DefaultComboBoxModel(items));
+        
         filter.filteredGraph = graph;
         variables.collapsedGraph = graph;
         filter.FilterInit();
@@ -681,7 +714,7 @@ public class GraphFrame extends javax.swing.JFrame {
         
 //        Layout<Object, Edge> layout = new CircleLayout<Object, Edge>(graph);
 //        layout = new FRLayout<Object, Edge>(graph);
-        variables.layout = new SDM_Temporal_Layout<Object, Edge>(graph);
+        variables.layout = new Temporal_Layout<Object, Edge>(graph);
 //        layout = new FRLayout2<Object, Edge>(graph);
 //        Layout<Object, Edge> layout = new ISOMLayout<Object, Edge>(graph);
 //        layout = new ISOMLayout<Object, Edge>(graph);
@@ -762,15 +795,12 @@ public class GraphFrame extends javax.swing.JFrame {
                     if(v instanceof Graph) {
                         for(Object vertex : ((Graph)v).getVertices())
                         {
-                            if(vertex instanceof SDM_AgentVertex) {
+                            if(vertex instanceof AgentVertex) {
                                 return "<html><font size=\"10\">" + ((Vertex)vertex).getName();
                             }
                         }    
                     }
-                    if((v instanceof SDM_AgentVertex) || (v instanceof SDM_ClientVertex)) {
-                        return "<html><font size=\"10\">" + ((Vertex)v).getName();
-                    }
-                    if(v instanceof SDM_ProjectVertex) {
+                    if(v instanceof EntityVertex) {
                         return "<html><font size=\"10\">" + String.valueOf(((Vertex)v).getDate());
                     }
                     return "";
@@ -785,7 +815,7 @@ public class GraphFrame extends javax.swing.JFrame {
         Transformer<Object, Stroke> nodeStrokeTransformer =  new Transformer<Object, Stroke>() {
             @Override
             public Stroke transform(Object v) {
-                return SDM_VertexStroke.VertexStroke(v, variables.view, variables.layout);
+                return VertexStroke.VertexStroke(v, variables.view, variables.layout);
         }};
         variables.view.getRenderContext().setVertexStrokeTransformer(nodeStrokeTransformer);
         /**
@@ -797,7 +827,7 @@ public class GraphFrame extends javax.swing.JFrame {
         Transformer<Edge, Stroke> edgeStrokeTransformer =  new Transformer<Edge, Stroke>() {
             @Override
             public Stroke transform(Edge e) {
-                return SDM_EdgeStroke.StrokeByType(e, variables);
+                return EdgeStroke.StrokeByType(e, variables);
             }
         };
         variables.view.getRenderContext().setEdgeStrokeTransformer(edgeStrokeTransformer);
@@ -806,7 +836,7 @@ public class GraphFrame extends javax.swing.JFrame {
          * Vertex Paint
          * ================================================
          */
-        SDM_VertexPainter.VertexPainter(variables.view, variables);
+        VertexPainter.VertexPainter(variables.view, variables);
         /**
          * ================================================
          * Edge Paint
@@ -827,7 +857,7 @@ public class GraphFrame extends javax.swing.JFrame {
          * Node Shape
          * ================================================
          */
-        variables.view.getRenderContext().setVertexShapeTransformer(new SDM_VertexShape());
+        variables.view.getRenderContext().setVertexShapeTransformer(new VertexShape());
 
         //graphicsContext.fill(shape);
         PreFilters.PreFilter();
@@ -845,7 +875,7 @@ public class GraphFrame extends javax.swing.JFrame {
         try {
         //    try {
         //        TSVReader tsvReader = new TSVReader("log.txt");
-                SDM_TSVReader tsvReader = new SDM_TSVReader(path);
+                TSVReader tsvReader = new TSVReader(path);
         //        for (Node node : tsvReader.getNodes()) {
         //            graph.addVertex(node.getID());
         //        }
@@ -908,19 +938,21 @@ public class GraphFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Collapse;
     private javax.swing.JButton CollapseAgent;
-    public static javax.swing.JCheckBox EdgeFilterBugsButton;
-    public static javax.swing.JCheckBox EdgeFilterMoraleButton;
-    public static javax.swing.JCheckBox EdgeFilterStaminaButton;
-    public static javax.swing.JCheckBox EdgeFilterTCButton;
     private javax.swing.JComboBox EdgeLineShapeSelection;
     private javax.swing.JButton Expand;
     public static javax.swing.JCheckBox FilterEdgeAidButton;
+    public static javax.swing.JCheckBox FilterEdgeBugsButton;
     public static javax.swing.JCheckBox FilterEdgeCreditsButton;
     public static javax.swing.JCheckBox FilterEdgeDiscoveryButton;
+    public static javax.swing.JCheckBox FilterEdgeMoraleButton;
+    public static javax.swing.JCheckBox FilterEdgeNegotiationButton;
     public static javax.swing.JCheckBox FilterEdgeNeutralButton;
     public static javax.swing.JCheckBox FilterEdgeProgressButton;
+    public static javax.swing.JCheckBox FilterEdgePrototypeButton;
     public static javax.swing.JCheckBox FilterEdgeQualityButton;
     public static javax.swing.JCheckBox FilterEdgeRepairButton;
+    public static javax.swing.JCheckBox FilterEdgeStaminaButton;
+    public static javax.swing.JCheckBox FilterEdgeTCButton;
     public static javax.swing.JCheckBox FilterEdgeValButton;
     public static javax.swing.JCheckBox FilterNodeAgentButton;
     public static javax.swing.JCheckBox FilterNodeLonelyButton;
@@ -928,7 +960,10 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox MouseModes;
     private javax.swing.JButton Reset;
     private javax.swing.JCheckBox ShowEdgeTextButton;
-    private javax.swing.JComboBox StatusFilterBox;
+    public static javax.swing.JComboBox StatusFilterBox;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

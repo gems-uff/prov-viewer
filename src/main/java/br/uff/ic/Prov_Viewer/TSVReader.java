@@ -1,7 +1,5 @@
-package br.uff.ic.SDM;
+package br.uff.ic.Prov_Viewer;
 
-import br.uff.ic.Prov_Viewer.Edge;
-import br.uff.ic.Prov_Viewer.Vertex;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -16,7 +14,7 @@ import java.util.Map;
  * TSV Reader. Class to read the Game Flow Log txt file
  * @author Kohwalter
  */
-public class SDM_TSVReader {
+public class TSVReader {
     private Map<String, Vertex> nodes = new HashMap<String, Vertex>();
     private Collection<Edge> edges = new ArrayList<Edge>();
     
@@ -26,7 +24,7 @@ public class SDM_TSVReader {
      * @throws URISyntaxException
      * @throws IOException 
      */
-    public SDM_TSVReader(String file) throws URISyntaxException, IOException  {
+    public TSVReader(String file) throws URISyntaxException, IOException  {
 //        Path path = Paths.get(ClassLoader.getSystemResource(file).toURI());
 //        List<String> lines = Files.readAllLines(path, Charset.forName("UTF-8"));
          
@@ -46,56 +44,56 @@ public class SDM_TSVReader {
                 {
 //                    Edge edge = new SDM_Edge(getAgent(Arrays.copyOfRange(names, 1, 16)),
 //                            getProcess(Arrays.copyOfRange(names, 16, 29)), "", i);
-                    Edge edge = new SDM_Edge(getProcess(Arrays.copyOfRange(names, 16, 29)),
-                            getAgent(Arrays.copyOfRange(names, 1, 16)), "");
+                    Edge edge = new Edge(getProcess(Arrays.copyOfRange(names, 4, 8)),
+                            getAgent(Arrays.copyOfRange(names, 1, 4)), "");
                     edges.add(edge);
                 }
                 //Action Action
                 if(names[0].equalsIgnoreCase("IAcAc"))
                 {
-                   Edge edge = new SDM_Edge(getProcess(Arrays.copyOfRange(names, 1, 13)),
-                            getProcess(Arrays.copyOfRange(names, 13, 25)), names[25]); 
+                   Edge edge = new Edge(getProcess(Arrays.copyOfRange(names, 1, 5)),
+                            getProcess(Arrays.copyOfRange(names, 5, 9)), names[9]); 
                    edges.add(edge);
                 }
                 //Action Artifact
                 if(names[0].equalsIgnoreCase("IAcAr"))
                 {
-                   Edge edge = new SDM_Edge(getProcess(Arrays.copyOfRange(names, 1, 13)),
-                            getArtifact(names[13]), names[14]); 
+                   Edge edge = new Edge(getProcess(Arrays.copyOfRange(names, 1, 5)),
+                            getArtifact(Arrays.copyOfRange(names, 5, 9)), names[9]); 
                    edges.add(edge);
                 }
                 //Artifac Action
                 if(names[0].equalsIgnoreCase("IArAc"))
                 {
                     //System.out.println(names.length);
-                   Edge edge = new SDM_Edge(getArtifact(names[1]),
-                            getProcess(Arrays.copyOfRange(names, 2, 14)), names[14]); 
+                   Edge edge = new Edge(getArtifact(Arrays.copyOfRange(names, 1, 5)),
+                            getProcess(Arrays.copyOfRange(names, 5, 9)), names[9]); 
                    edges.add(edge);
                 }
                 if(names[0].equalsIgnoreCase("PP"))
                 {
                     //System.out.println(line);
-                    Edge edge = new SDM_Edge(getProject(Arrays.copyOfRange(names, 1, 21)),
-                            getProject(Arrays.copyOfRange(names, 21, 41)), names[41]);
+                    Edge edge = new Edge(getProject(Arrays.copyOfRange(names, 1, 5)),
+                            getProject(Arrays.copyOfRange(names, 5, 9)), names[9]);
                     edges.add(edge);
                 }
                 if(names[0].equalsIgnoreCase("AcP"))
                 {
-                    Edge edge = new SDM_Edge(getProcess(Arrays.copyOfRange(names, 1, 13)),
-                            getProject(Arrays.copyOfRange(names, 13, 33)), names[33]);
+                    Edge edge = new Edge(getProcess(Arrays.copyOfRange(names, 1, 5)),
+                            getProject(Arrays.copyOfRange(names, 5, 9)), names[9]);
                     edges.add(edge);
                 }
-                if(names[0].equalsIgnoreCase("CP"))
+                if(names[0].equalsIgnoreCase("AgP"))
                 {
                     //System.out.println(line);
-                    Edge edge = new SDM_Edge(getClient(names[1]),
-                            getProject(Arrays.copyOfRange(names, 2, 22)), names[22]);
+                    Edge edge = new Edge(getAgent(Arrays.copyOfRange(names, 1, 4)),
+                            getProject(Arrays.copyOfRange(names, 4, 8)), names[8]);
                     edges.add(edge);
                 }
                 if(names[0].equalsIgnoreCase("AcAg"))
                 {
-                    Edge edge = new SDM_Edge(getProcess(Arrays.copyOfRange(names, 1, 13)),
-                            getAgent(Arrays.copyOfRange(names, 13, 28)), names[28]);
+                    Edge edge = new Edge(getProcess(Arrays.copyOfRange(names, 1, 5)),
+                            getAgent(Arrays.copyOfRange(names, 5, 8)), names[8]);
                     edges.add(edge);
                 }
             }
@@ -109,37 +107,20 @@ public class SDM_TSVReader {
         
         if (node == null) 
         {
-            node = new SDM_ProcessVertex(array);
+            node = new ActivityVertex(array);
             nodes.put(array[0], node);
         }
         return node;
     }
-    private Vertex getArtifact(String id) {
-        Vertex node = nodes.get(id);
-        
-        if (node == null) 
-        {
-            String[] line = id.split(" ");
-            String date = line[0];
-            String type = line[1]; 
-            if(id.contains("Cases"))
-            {
-                type = line[1] + " " +line[2] + " " + line[3];
-            }
-//            System.out.println("ID: " + id);
-//            System.out.println("Date: " + date + " / Type:" + type);
-//            node = new ArtifactNode(id);
-            node = new SDM_ArtifactVertex(type, date);
-            nodes.put(id, node);
-        }
-        return node;
+    private Vertex getArtifact(String[] id) {
+        return getProject(id);
     }
     private Vertex getAgent(String[] array) {
         Vertex node = nodes.get(array[0]);
         
         if (node == null) 
         {
-            node = new SDM_AgentVertex(array);
+            node = new AgentVertex(array);
             nodes.put(array[0], node);
         }
         return node;
@@ -149,21 +130,21 @@ public class SDM_TSVReader {
         
         if (node == null) 
         {
-            node = new SDM_ProjectVertex(array);
+            node = new EntityVertex(array);
             nodes.put(array[0], node);
         }
         return node;
     }
-    private Vertex getClient(String id) {
-        Vertex node = nodes.get(id);
-        
-        if (node == null) 
-        {
-            node = new SDM_ClientVertex(id);
-            nodes.put(id, node);
-        }
-        return node;
-    }
+//    private Vertex getClient(String id) {
+//        Vertex node = nodes.get(id);
+//        
+//        if (node == null) 
+//        {
+//            node = new SDM_ClientVertex(id);
+//            nodes.put(id, node);
+//        }
+//        return node;
+//    }
 
     /**
      * Return edges

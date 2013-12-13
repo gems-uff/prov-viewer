@@ -36,6 +36,22 @@ public abstract class Vertex extends Object{
         return id;
     }
     
+    public String getAttributeValue(String attribute)
+    {
+        String[] line = id.split(attribute);
+        if (line.length > 1) {
+            String[] line2 = line[1].split(" ");
+
+            return line2[1];
+        }
+        return "0";
+    }
+    
+    public int getAttributeValueInteger(String attribute)
+    {
+        return Integer.parseInt(this.getAttributeValue(attribute));
+    }
+    
     /**
      * Method to return the vertex shape
      * @return the Shape of the vertex

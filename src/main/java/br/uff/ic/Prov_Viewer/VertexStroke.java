@@ -40,4 +40,30 @@ public class VertexStroke {
         }
     }
     
+    /**
+     * Compute Vertex Stroke. Uses SDM terms (idle, promoted, fired, training, hired)
+     * @param v
+     * @param view
+     * @param layout
+     * @return 
+     */
+    public static Stroke VertexStroke(Object v, VisualizationViewer<Object, Edge> view, Layout<Object, Edge> layout)
+    {
+        float[] dash = null;
+        
+        if(v instanceof ActivityVertex)
+        {
+            String role = ((ActivityVertex)v).getAttributeValue(Config.VSatribute);
+            if(!"".equals(role))
+            {
+                if(role.equalsIgnoreCase(Config.VSvar1) || role.equalsIgnoreCase(Config.VSvar2) 
+                        || role.equalsIgnoreCase(Config.VSvar3) || role.equalsIgnoreCase(Config.VSvar4) ||
+                        role.equalsIgnoreCase(Config.VSvar5)) {
+                    dash = new float[1];
+                    dash[0] = 4.0f;
+                }
+            }
+        }
+        return VertexStroke(v, dash, view, layout);
+    }
 }

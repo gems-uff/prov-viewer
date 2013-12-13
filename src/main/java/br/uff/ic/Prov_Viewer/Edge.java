@@ -4,10 +4,10 @@ import java.awt.Color;
 import java.awt.Paint;
 
 /**
- * Abstract Edge. Edge's influence (String) is composed of a value + type (i.e. +9 damage)
+ * Edge. Edge's influence (String) is composed of a value + type (i.e. +9 damage)
  * @author Kohwalter
  */
-public abstract class Edge {
+public class Edge {
     private Object source;
     private Object target;
     private String influence;
@@ -221,5 +221,10 @@ public abstract class Edge {
      * Method used during the collapse of edges. This method defines if the collapsed edge's influence value will be the sum of the edges values or the average
      * @return (boolean) Return true if influence from collapsed edges are added. Return false if average
      */
-    public abstract boolean AddInfluence();
+    public boolean AddInfluence() {
+        if (this.getInfluence().contains(Config.EinfTypeNotAdd)) {
+            return false;
+        }
+        return true;
+    }
 }

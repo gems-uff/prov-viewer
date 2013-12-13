@@ -1,6 +1,5 @@
-package br.uff.ic.SDM;
+package br.uff.ic.Prov_Viewer;
 
-import br.uff.ic.Prov_Viewer.Vertex;
 import edu.uci.ics.jung.algorithms.layout.AbstractLayout;
 import edu.uci.ics.jung.algorithms.util.IterativeContext;
 import edu.uci.ics.jung.graph.Graph;
@@ -9,12 +8,12 @@ import java.util.Collection;
 import java.util.ConcurrentModificationException;
 
 /**
- * Temporal Layout for SDM. Based on Temporal_Layout_Template
+ * Temporal Layout for Prov Viewer. Based on Temporal_Layout_Template
  * @author Kohwalter
  * @param <V>
  * @param <E> 
  */
-public class SDM_Temporal_Layout<V, E> extends AbstractLayout<V, E> implements IterativeContext {
+public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements IterativeContext {
 
 //    private Map<V, MyLayout.FRVertexData> frVertexData =
 //    	LazyMap.decorate(new HashMap<V,MyLayout.FRVertexData>(), new Factory<MyLayout.FRVertexData>() {
@@ -30,7 +29,7 @@ public class SDM_Temporal_Layout<V, E> extends AbstractLayout<V, E> implements I
      * Creates an instance for the specified graph.
      * @param g 
      */
-    public SDM_Temporal_Layout(Graph<V, E> g) {
+    public Temporal_Layout(Graph<V, E> g) {
         super(g);
 //        initialize();
     }
@@ -78,7 +77,7 @@ public class SDM_Temporal_Layout<V, E> extends AbstractLayout<V, E> implements I
             if(v instanceof Graph) {
                 for(Object vertex : ((Graph)v).getVertices())
                 {
-                    if(vertex instanceof SDM_AgentVertex)
+                    if(vertex instanceof AgentVertex)
                     {
                         //Change offset sign so 2 consecutive agents 
                         //dont have the same X position
@@ -100,7 +99,7 @@ public class SDM_Temporal_Layout<V, E> extends AbstractLayout<V, E> implements I
                     }
                 } 
             }
-            else if(v instanceof SDM_AgentVertex)
+            else if(v instanceof AgentVertex)
             {
                 //Change offset sign so 2 consecutive agents 
                 //dont have the same X position
@@ -162,26 +161,26 @@ public class SDM_Temporal_Layout<V, E> extends AbstractLayout<V, E> implements I
             //Node's X position is defined by the day it was created
             newXPos = ((Vertex)v).getDate() * XDISTANCE;
             //If node is a ProjectNode-type
-            if(v instanceof SDM_ProjectVertex)
+            if((v instanceof EntityVertex) && ((EntityVertex)v).getName().contains("Project"))
             {
-                //I want the Project-type node to always be on Y = 0
-                newYPos = 0;
-                xyd.setLocation(newXPos + XDISTANCE * 0.2, newYPos);
+                    //I want the Project-type node to always be on Y = 0
+                    newYPos = 0;
+                    xyd.setLocation(newXPos + XDISTANCE * 0.2, newYPos);
             }
             //If node is a ClientNode-type
-            else if(v instanceof SDM_ClientVertex)
-            {
-                newYPos = -YDISTANCE * 7;
-                xyd.setLocation(newXPos - XDISTANCE, newYPos);
-            }
+//            else if(v instanceof SDM_ClientVertex)
+//            {
+//                newYPos = -YDISTANCE * 7;
+//                xyd.setLocation(newXPos - XDISTANCE, newYPos);
+//            }
             //If node is a ArtifactNode-type
-            else if(v instanceof SDM_ArtifactVertex)
+            else if((v instanceof EntityVertex) && !((Vertex)v).getName().contains("Project"))
             {
                 newYPos = -YDISTANCE * 6;
                 xyd.setLocation(newXPos, newYPos);
             }
             //If node is a ProcessNode-type
-            else if(v instanceof SDM_ProcessVertex)
+            else if(v instanceof ActivityVertex)
             {
                 //The XY position for this type of node is dependable of the
                 //agent who executed the process
@@ -193,7 +192,7 @@ public class SDM_Temporal_Layout<V, E> extends AbstractLayout<V, E> implements I
                 {
                     //if the edge link to an Agent-node
 //                    if(graph.getDest(edge) instanceof SDM_AgentVertex)
-                    if(graph.getSource(edge) instanceof SDM_AgentVertex)
+                    if(graph.getSource(edge) instanceof AgentVertex)
                     {
                         //Compute position according to the agent position
 //                        Point2D agentPos = transform(graph.getDest(edge));
@@ -218,12 +217,12 @@ public class SDM_Temporal_Layout<V, E> extends AbstractLayout<V, E> implements I
      */
     protected synchronized void calcRepulsion(V v1) {
         //Only Process and Artifact types can have the same position, so lets check
-        if((v1 instanceof SDM_ProcessVertex) || (v1 instanceof SDM_ArtifactVertex))
+        if((v1 instanceof ActivityVertex) || ((v1 instanceof EntityVertex) && !((Vertex)v1).getName().contains("Project")))
         {
             try {
                 for(V v2 : graph.getVertices()) 
                 {
-                    if((v2 instanceof SDM_ProcessVertex)||(v2 instanceof SDM_ArtifactVertex))
+                    if((v2 instanceof ActivityVertex)||((v2 instanceof EntityVertex) && !((Vertex)v2).getName().contains("Project")))
                     {
                         //A check to see if we are not comparing him with himself
                         if(v1 != v2)

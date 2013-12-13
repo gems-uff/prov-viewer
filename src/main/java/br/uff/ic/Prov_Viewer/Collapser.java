@@ -14,12 +14,11 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * Abstract class to Collapse/Expand selected vertices and edges
+ * Class to Collapse/Expand selected vertices and edges
  * @author Kohwalter
  * 
  */
-public abstract class Collapser {
-    
+public class Collapser {
     /**
      * Method for resetting the Graph to the original state
      * @param variables Variables type
@@ -349,20 +348,54 @@ public abstract class Collapser {
      * @param influence (String) Edge's influence value and type (i.e. "+9 damage")
      * @return 
      */
-    public abstract Edge CollapsedEdgeType(Object target, Object source, String influence);
+    public Edge CollapsedEdgeType(Object target, Object source, String influence) {
+        return new Edge(target, source, influence);
+    }
     
     /**
      * Method to apply filters after an operation
      * @param variables
      * @param filter 
      */
-    public abstract void AddFilters(Variables variables, Filters filter);
+    public void AddFilters(Variables variables, br.uff.ic.Prov_Viewer.Filters filter) {
+        GraphFrame.FilterNodeAgentButton.setSelected(false);
+        GraphFrame.FilterNodeLonelyButton.setSelected(false);
+        GraphFrame.FilterEdgeQualityButton.setSelected(true);
+        GraphFrame.FilterEdgeValButton.setSelected(true);
+        GraphFrame.FilterEdgeProgressButton.setSelected(true);
+        GraphFrame.FilterEdgeCreditsButton.setSelected(true);
+        GraphFrame.FilterEdgeNeutralButton.setSelected(true);
+        GraphFrame.FilterEdgeAidButton.setSelected(true);
+        GraphFrame.FilterEdgeDiscoveryButton.setSelected(true);
+        GraphFrame.FilterEdgeRepairButton.setSelected(true);
+        GraphFrame.FilterEdgeBugsButton.setSelected(true);
+        GraphFrame.FilterEdgeTCButton.setSelected(true);
+        GraphFrame.FilterEdgePrototypeButton.setSelected(true);
+        GraphFrame.FilterEdgeNegotiationButton.setSelected(true);
+        Filters(variables, filter, false);
+    }
     
     /**
      * Method to remove filters before an operation, avoiding the loss of information
      * @param variables
      * @param filter 
      */
-    public abstract void RemoveFilters(Variables variables, Filters filter);
+    public void RemoveFilters(Variables variables, br.uff.ic.Prov_Viewer.Filters filter) {
+        GraphFrame.FilterNodeAgentButton.setSelected(false);
+        GraphFrame.FilterNodeLonelyButton.setSelected(false);
+        GraphFrame.FilterEdgeQualityButton.setSelected(false);
+        GraphFrame.FilterEdgeValButton.setSelected(false);
+        GraphFrame.FilterEdgeProgressButton.setSelected(false);
+        GraphFrame.FilterEdgeCreditsButton.setSelected(false);
+        GraphFrame.FilterEdgeNeutralButton.setSelected(true);
+        GraphFrame.FilterEdgeAidButton.setSelected(false);
+        GraphFrame.FilterEdgeDiscoveryButton.setSelected(false);
+        GraphFrame.FilterEdgeRepairButton.setSelected(false);
+        GraphFrame.FilterEdgeBugsButton.setSelected(false);
+        GraphFrame.FilterEdgeTCButton.setSelected(false);
+        GraphFrame.FilterEdgePrototypeButton.setSelected(false);
+        GraphFrame.FilterEdgeNegotiationButton.setSelected(false);
+        Filters(variables, filter);
+    }
     
 }

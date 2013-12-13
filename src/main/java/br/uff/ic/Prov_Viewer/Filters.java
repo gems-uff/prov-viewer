@@ -9,14 +9,15 @@ import edu.uci.ics.jung.algorithms.filters.Filter;
 import edu.uci.ics.jung.algorithms.filters.VertexPredicateFilter;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.DirectedGraph;
+import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import org.apache.commons.collections15.Predicate;
 
 /**
- * Abstract class to filter information
+ * Class to filter information
  * @author Kohwalter
  */
-public abstract class Filters {
+public class Filters {
     /**
      * Variable FilteredGraph
      */
@@ -79,11 +80,134 @@ public abstract class Filters {
      * @param hiddenEdges Boolean (consider hidden edges or not?)
      * @return new EdgePredicateFilter<Object, Edge>(new Predicate<Edge>()
      */
-    public abstract Filter<Object, Edge> FilterEdges(final boolean hiddenEdges);
+    public Filter<Object, Edge> FilterEdges(final boolean hiddenEdges)
+    {
+        Filter<Object, Edge> filterEdge = new EdgePredicateFilter<Object, Edge>(new Predicate<Edge>() {
+            @Override
+            public boolean evaluate(Edge edge) {
+//                String[] line = edge.toString().split(" ");
+                if(!GraphFrame.FilterEdgeCreditsButton.isSelected())
+                {
+                    if(edge.getInfluence().contains(GraphFrame.FilterEdgeCreditsButton.getText())) {
+                        return false;
+                    }
+                }
+                if(!GraphFrame.FilterEdgeNeutralButton.isSelected())
+                {
+                    if(edge.isNeutral()) {
+                        return false;
+                    }
+                }
+                if(!GraphFrame.FilterEdgeQualityButton.isSelected())
+                {
+                    if(edge.getInfluence().contains(GraphFrame.FilterEdgeQualityButton.getText())) {
+                        return false;
+                    }
+                }
+                if(!GraphFrame.FilterEdgeAidButton.isSelected())
+                {
+                    if(edge.getInfluence().contains(GraphFrame.FilterEdgeAidButton.getText())){
+                        return false;
+                    }
+                }
+                if(!GraphFrame.FilterEdgeProgressButton.isSelected())
+                {
+                    if(edge.getInfluence().contains(GraphFrame.FilterEdgeProgressButton.getText())) {
+                        return false;
+                    }
+                }
+                if(!GraphFrame.FilterEdgeValButton.isSelected())
+                {
+                    if(edge.getInfluence().contains(GraphFrame.FilterEdgeValButton.getText())) {
+                        return false;
+                    }
+                }
+                if(!GraphFrame.FilterEdgeDiscoveryButton.isSelected())
+                {
+                    if(edge.getInfluence().contains(GraphFrame.FilterEdgeDiscoveryButton.getText())) {
+                        return false;
+                    }
+                }
+                if(!GraphFrame.FilterEdgeRepairButton.isSelected())
+                {
+                    if(edge.getInfluence().contains(GraphFrame.FilterEdgeRepairButton.getText())) {
+                        return false;
+                    }
+                }
+                if(!GraphFrame.FilterEdgeBugsButton.isSelected())
+                {
+                    if(edge.getInfluence().contains(GraphFrame.FilterEdgeBugsButton.getText())) {
+                        return false;
+                    }
+                }
+                if(!GraphFrame.FilterEdgeTCButton.isSelected())
+                {
+                    if(edge.getInfluence().contains(GraphFrame.FilterEdgeTCButton.getText())) {
+                        return false;
+                    }
+                }
+                if(!GraphFrame.FilterEdgeMoraleButton.isSelected())
+                {
+                    if(edge.getInfluence().contains(GraphFrame.FilterEdgeMoraleButton.getText())) {
+                        return false;
+                    }
+                }
+                if(!GraphFrame.FilterEdgeStaminaButton.isSelected())
+                {
+                    if(edge.getInfluence().contains(GraphFrame.FilterEdgeStaminaButton.getText())) {
+                        return false;
+                    }
+                }
+                if(!GraphFrame.FilterEdgePrototypeButton.isSelected())
+                {
+                    if(edge.getInfluence().contains(GraphFrame.FilterEdgePrototypeButton.getText())) {
+                        return false;
+                    }
+                }
+                if(!GraphFrame.FilterEdgeNegotiationButton.isSelected())
+                {
+                    if(edge.getInfluence().contains(GraphFrame.FilterEdgeNegotiationButton.getText())) {
+                        return false;
+                    }
+                }
+                if(hiddenEdges)
+                {
+                    if(edge.isHidden()) 
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        });
+        return filterEdge;
+    }
     
     /**
      * Method for filtering vertices
      * @return new VertexPredicateFilter<Object, Edge>(new Predicate<Object>()
      */
-    public abstract Filter<Object, Edge> FilterVertex();
+    public Filter<Object, Edge> FilterVertex()
+    {
+        Filter<Object, Edge> filterVertex = new VertexPredicateFilter<Object, Edge>(new Predicate<Object>() {
+        @Override
+        public boolean evaluate(Object vertex) {
+            final Graph test = filteredGraph;
+            if(GraphFrame.FilterNodeAgentButton.isSelected())
+            {
+                if(vertex instanceof AgentVertex) {
+                    return false;
+                }
+            }
+            if(GraphFrame.FilterNodeLonelyButton.isSelected())
+            {
+                if(test.getNeighborCount(vertex) == 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        });
+        return filterVertex;
+    }
 }

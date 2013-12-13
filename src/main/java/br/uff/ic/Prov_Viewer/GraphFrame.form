@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
+    </Component>
+    <Component class="javax.swing.ButtonGroup" name="buttonGroup2">
+    </Component>
+    <Component class="javax.swing.ButtonGroup" name="buttonGroup3">
+    </Component>
+  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="title" type="java.lang.String" value="Prov Viewer"/>
@@ -49,12 +57,11 @@
                           <Component id="G7Days" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="CollapseAgent" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="101" max="32767" attributes="0"/>
+                          <EmptySpace pref="98" max="32767" attributes="0"/>
                           <Component id="Collapse" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="Expand" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="Reset" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -95,22 +102,30 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="EdgeFilterTCButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="EdgeFilterBugsButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="FilterEdgeTCButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="FilterEdgeBugsButton" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="EdgeFilterMoraleButton" min="-2" max="-2" attributes="0"/>
-                                      <Component id="EdgeFilterStaminaButton" min="-2" max="-2" attributes="0"/>
+                                      <Component id="FilterEdgeMoraleButton" min="-2" max="-2" attributes="0"/>
+                                      <Component id="FilterEdgeStaminaButton" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
+                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jLabel3" max="32767" attributes="0"/>
-                      <Component id="StatusFilterBox" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="Reset" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jLabel3" max="32767" attributes="0"/>
+                              <Component id="StatusFilterBox" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Component id="FilterEdgePrototypeButton" min="-2" max="-2" attributes="0"/>
+                      <Component id="FilterEdgeNegotiationButton" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -121,7 +136,7 @@
                       <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="53" max="32767" attributes="0"/>
+                  <EmptySpace pref="56" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -166,8 +181,9 @@
                               <Component id="FilterEdgeQualityButton" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="FilterEdgeAidButton" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="FilterEdgeDiscoveryButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="EdgeFilterBugsButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="EdgeFilterMoraleButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="FilterEdgeBugsButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="FilterEdgeMoraleButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="FilterEdgePrototypeButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -175,9 +191,10 @@
                                   <Component id="FilterEdgeProgressButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="FilterEdgeValButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="FilterEdgeRepairButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="EdgeFilterTCButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="FilterEdgeTCButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="MouseModes" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="EdgeFilterStaminaButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="FilterEdgeStaminaButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="FilterEdgeNegotiationButton" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="FilterEdgeCreditsButton" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -412,6 +429,9 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="StatusFilterBoxActionPerformed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JCheckBox" name="ShowEdgeTextButton">
           <Properties>
@@ -421,23 +441,23 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ShowEdgeTextButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JCheckBox" name="EdgeFilterTCButton">
+        <Component class="javax.swing.JCheckBox" name="FilterEdgeTCButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Test Cases"/>
+            <Property name="text" type="java.lang.String" value="TC"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EdgeFilterTCButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FilterEdgeTCButtonActionPerformed"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JCheckBox" name="EdgeFilterBugsButton">
+        <Component class="javax.swing.JCheckBox" name="FilterEdgeBugsButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Bugs"/>
+            <Property name="text" type="java.lang.String" value="Bug"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EdgeFilterBugsButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FilterEdgeBugsButtonActionPerformed"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
@@ -458,23 +478,45 @@
             <Property name="text" type="java.lang.String" value="Mouse Mode"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JCheckBox" name="EdgeFilterStaminaButton">
+        <Component class="javax.swing.JCheckBox" name="FilterEdgeStaminaButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Stamina"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EdgeFilterStaminaButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FilterEdgeStaminaButtonActionPerformed"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JCheckBox" name="EdgeFilterMoraleButton">
+        <Component class="javax.swing.JCheckBox" name="FilterEdgeMoraleButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Morale"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EdgeFilterMoraleButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FilterEdgeMoraleButtonActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="FilterEdgePrototypeButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Prototype"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FilterEdgePrototypeButtonActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="FilterEdgeNegotiationButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Negotiation"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FilterEdgeNegotiationButtonActionPerformed"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>

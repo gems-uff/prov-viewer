@@ -8,7 +8,7 @@
             </goals>
             <properties>
                 <exec.classpathScope>runtime</exec.classpathScope>
-                <exec.args>-classpath %classpath br.uff.ic.SDM.GraphFrame</exec.args>
+                <exec.args>-classpath %classpath br.uff.ic.Prov_Viewer.GraphFrame</exec.args>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>
@@ -19,7 +19,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2:exec</goal>
             </goals>
             <properties>
-                <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -classpath %classpath br.uff.ic.SDM.GraphFrame</exec.args>
+                <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -classpath %classpath br.uff.ic.Prov_Viewer.GraphFrame</exec.args>
                 <exec.executable>java</exec.executable>
                 <exec.classpathScope>runtime</exec.classpathScope>
                 <jpda.listen>true</jpda.listen>
@@ -32,7 +32,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2:exec</goal>
             </goals>
             <properties>
-                <exec.args>${profiler.args} -classpath %classpath br.uff.ic.SDM.GraphFrame</exec.args>
+                <exec.args>${profiler.args} -classpath %classpath br.uff.ic.Prov_Viewer.GraphFrame</exec.args>
                 <exec.executable>${profiler.java}</exec.executable>
             </properties>
         </action>

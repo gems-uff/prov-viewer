@@ -4,12 +4,18 @@
  */
 package br.uff.ic.Prov_Viewer;
 
+import java.awt.Color;
+import java.awt.Paint;
+import java.awt.Shape;
+import java.awt.geom.Ellipse2D;
+
 /**
- * Abstract Subclass for Vertex named after PROV nomenclature and type
+ * Subclass for Vertex named after PROV nomenclature and type
  * @author Kohwalter
  */
-public abstract class EntityVertex extends Vertex {
-    
+public class EntityVertex extends Vertex {
+    private String name;
+    private String date;
     /**
      * Constructor
      * @param id This param is used by JUNG for collapsed vertices and tooltips.
@@ -17,4 +23,45 @@ public abstract class EntityVertex extends Vertex {
     public EntityVertex(String id) {
         super(id); 
     }    
+    
+    public EntityVertex(String[] array) {
+        super("Entity<br> " + "<b>Name: " + array[1] + "</b>"
+                + " <br>" + "Date: " + array[2]
+                + " <br>" + array[3] + " <br><br>");
+
+        this.name = array[1];
+        this.date = array[2];
+    }
+    
+    @Override
+    public Shape getShape() {
+        return new Ellipse2D.Float(-7, -7, 17, 17);
+    }    
+
+    @Override
+    public Paint getColor() {
+        return new Color(255,222,173);
+    }
+
+    @Override
+    public String getNodeType() {
+        return "Entity";
+    }
+    
+    @Override
+    public String getDayName() {
+        String[] day = date.split(":");
+        return day[1];
+    }
+
+    @Override
+    public int getDate() {
+        String[] day = date.split(":");
+        return Integer.parseInt(day[0]);
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
 }

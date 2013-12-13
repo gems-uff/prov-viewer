@@ -12,7 +12,7 @@ import java.awt.geom.Ellipse2D;
  */
 public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
 
-        VertexShape() {
+        public VertexShape() {
             setSizeTransformer(new VertexSize<V>(20));
         }
         
@@ -24,15 +24,30 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
         @Override
         public Shape transform(V v) 
         {
-            if(v instanceof Graph) 
-            {
-                int size = ((Graph)v).getVertexCount();
-                if (size < 8) {   
-                    int sides = Math.max(size, 3);
-                    return factory.getRegularPolygon(v, sides);
-                }
-                else {
-                    return factory.getRegularStar(v, size);
+            if (v instanceof Graph) {
+//                int size = ((Graph)v).getVertexCount();
+//                if (size < 8) {   
+//                    int sides = Math.max(size, 3);
+//                    return factory.getRegularPolygon(v, sides);
+//                }
+//                else {
+//                    return factory.getRegularStar(v, size);
+//                }
+                String line = ((Graph) v).toString();
+                if (line.contains("Entity")) {
+                    return new Ellipse2D.Float(-7, -7, 30, 30);
+                } else if ((line.contains("Agent"))) {
+                    return factory.getRegularPolygon(v, 8);
+                } else if (line.contains("Activity")) {
+                    return factory.getRegularPolygon(v, 4);
+                } else {
+                    int size = ((Graph) v).getVertexCount();
+                    if (size < 8) {
+                        int sides = Math.max(size, 3);
+                        return factory.getRegularPolygon(v, sides);
+                    } else {
+                        return factory.getRegularStar(v, size);
+                    }
                 }
             }
             if(v instanceof EntityVertex) 
