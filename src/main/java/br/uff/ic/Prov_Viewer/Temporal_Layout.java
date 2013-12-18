@@ -161,7 +161,7 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
             //Node's X position is defined by the day it was created
             newXPos = ((Vertex)v).getDate() * XDISTANCE;
             //If node is a ProjectNode-type
-            if((v instanceof EntityVertex) && ((EntityVertex)v).getName().contains("Project"))
+            if((v instanceof EntityVertex) && ((EntityVertex)v).getName().contains(Config.TLspecialVertexType))
             {
                     //I want the Project-type node to always be on Y = 0
                     newYPos = 0;
@@ -174,7 +174,7 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
 //                xyd.setLocation(newXPos - XDISTANCE, newYPos);
 //            }
             //If node is a ArtifactNode-type
-            else if((v instanceof EntityVertex) && !((Vertex)v).getName().contains("Project"))
+            else if((v instanceof EntityVertex) && !((Vertex)v).getName().contains(Config.TLspecialVertexType))
             {
                 newYPos = -YDISTANCE * 6;
                 xyd.setLocation(newXPos, newYPos);
@@ -217,12 +217,12 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
      */
     protected synchronized void calcRepulsion(V v1) {
         //Only Process and Artifact types can have the same position, so lets check
-        if((v1 instanceof ActivityVertex) || ((v1 instanceof EntityVertex) && !((Vertex)v1).getName().contains("Project")))
+        if((v1 instanceof ActivityVertex) || ((v1 instanceof EntityVertex) && !((Vertex)v1).getName().contains(Config.TLspecialVertexType)))
         {
             try {
                 for(V v2 : graph.getVertices()) 
                 {
-                    if((v2 instanceof ActivityVertex)||((v2 instanceof EntityVertex) && !((Vertex)v2).getName().contains("Project")))
+                    if((v2 instanceof ActivityVertex)||((v2 instanceof EntityVertex) && !((Vertex)v2).getName().contains(Config.TLspecialVertexType)))
                     {
                         //A check to see if we are not comparing him with himself
                         if(v1 != v2)

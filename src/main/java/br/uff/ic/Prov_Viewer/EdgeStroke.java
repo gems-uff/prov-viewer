@@ -65,32 +65,32 @@ public class EdgeStroke {
      * @return Stroke
      */
     public static Stroke StrokeByType(Edge edge, Variables variables) {
-        if (edge.getInfluence().contains(GraphFrame.FilterEdgeCreditsButton.getText())) {
-            return defineStroke(edge.getValue(), ((Variables) variables).credits);
-        } else if (edge.getInfluence().contains(GraphFrame.FilterEdgeQualityButton.getText())) {
-            return defineStroke(edge.getValue(), ((Variables) variables).quality);
-        } else if (edge.getInfluence().contains(GraphFrame.FilterEdgeAidButton.getText())) {
-            return defineStroke(edge.getValue(), ((Variables) variables).aid);
-        } else if (edge.getInfluence().contains(GraphFrame.FilterEdgeProgressButton.getText())) {
-            return defineStroke(edge.getValue(), ((Variables) variables).progress);
-        } else if (edge.getInfluence().contains(GraphFrame.FilterEdgeValButton.getText())) {
-            return defineStroke(edge.getValue(), ((Variables) variables).validation);
-        } else if (edge.getInfluence().contains(GraphFrame.FilterEdgeDiscoveryButton.getText())) {
-            return defineStroke(edge.getValue(), ((Variables) variables).discovery);
-        } else if (edge.getInfluence().contains(GraphFrame.FilterEdgeBugsButton.getText())) {
-            return defineStroke(edge.getValue(), ((Variables) variables).bugs);
-        } else if (edge.getInfluence().contains(GraphFrame.FilterEdgeRepairButton.getText())) {
-            return defineStroke(edge.getValue(), ((Variables) variables).repair);
-        } else if (edge.getInfluence().contains(GraphFrame.FilterEdgeTCButton.getText())) {
-            return defineStroke(edge.getValue(), ((Variables) variables).tc);
-        } else if (edge.getInfluence().contains(GraphFrame.FilterEdgeMoraleButton.getText())) {
-            return defineStroke(edge.getValue(), ((Variables) variables).morale);
-        } else if (edge.getInfluence().contains(GraphFrame.FilterEdgeStaminaButton.getText())) {
-            return defineStroke(edge.getValue(), ((Variables) variables).stamina);
-        } else if (edge.getInfluence().contains(GraphFrame.FilterEdgePrototypeButton.getText())) {
-            return defineStroke(edge.getValue(), ((Variables) variables).prototype);
-        } else if (edge.getInfluence().contains(GraphFrame.FilterEdgeNegotiationButton.getText())) {
-            return defineStroke(edge.getValue(), ((Variables) variables).negotiation);
+        if (edge.getInfluence().contains(GraphFrame.FilterEdge01.getText())) {
+            return defineStroke(edge.getValue(), ((Variables) variables).edge01[0]);
+        } else if (edge.getInfluence().contains(GraphFrame.FilterEdge02.getText())) {
+            return defineStroke(edge.getValue(), ((Variables) variables).edge02[0]);
+        } else if (edge.getInfluence().contains(GraphFrame.FilterEdge04.getText())) {
+            return defineStroke(edge.getValue(), ((Variables) variables).edge03[0]);
+        } else if (edge.getInfluence().contains(GraphFrame.FilterEdge03.getText())) {
+            return defineStroke(edge.getValue(), ((Variables) variables).edge04[0]);
+        } else if (edge.getInfluence().contains(GraphFrame.FilterEdge05.getText())) {
+            return defineStroke(edge.getValue(), ((Variables) variables).edge05[0]);
+        } else if (edge.getInfluence().contains(GraphFrame.FilterEdge06.getText())) {
+            return defineStroke(edge.getValue(), ((Variables) variables).edge06[0]);
+        } else if (edge.getInfluence().contains(GraphFrame.FilterEdge08.getText())) {
+            return defineStroke(edge.getValue(), ((Variables) variables).edge08[0]);
+        } else if (edge.getInfluence().contains(GraphFrame.FilterEdge07.getText())) {
+            return defineStroke(edge.getValue(), ((Variables) variables).edge07[0]);
+        } else if (edge.getInfluence().contains(GraphFrame.FilterEdge09.getText())) {
+            return defineStroke(edge.getValue(), ((Variables) variables).edge09[0]);
+        } else if (edge.getInfluence().contains(GraphFrame.FilterEdge10.getText())) {
+            return defineStroke(edge.getValue(), ((Variables) variables).edge10[0]);
+        } else if (edge.getInfluence().contains(GraphFrame.FilterEdge11.getText())) {
+            return defineStroke(edge.getValue(), ((Variables) variables).edge11[0]);
+        } else if (edge.getInfluence().contains(GraphFrame.FilterEdge12.getText())) {
+            return defineStroke(edge.getValue(), ((Variables) variables).edge12[0]);
+        } else if (edge.getInfluence().contains(GraphFrame.FilterEdge13.getText())) {
+            return defineStroke(edge.getValue(), ((Variables) variables).edge13[0]);
         }
         //float[] dash = {5.0f};
         return EdgeStroke(edge);

@@ -86,87 +86,87 @@ public class Filters {
             @Override
             public boolean evaluate(Edge edge) {
 //                String[] line = edge.toString().split(" ");
-                if(!GraphFrame.FilterEdgeCreditsButton.isSelected())
+                if(!GraphFrame.FilterEdge01.isSelected())
                 {
-                    if(edge.getInfluence().contains(GraphFrame.FilterEdgeCreditsButton.getText())) {
+                    if(edge.getInfluence().contains(GraphFrame.FilterEdge01.getText())) {
                         return false;
                     }
                 }
-                if(!GraphFrame.FilterEdgeNeutralButton.isSelected())
+                if(!GraphFrame.FilterEdgeNeutral.isSelected())
                 {
                     if(edge.isNeutral()) {
                         return false;
                     }
                 }
-                if(!GraphFrame.FilterEdgeQualityButton.isSelected())
+                if(!GraphFrame.FilterEdge02.isSelected())
                 {
-                    if(edge.getInfluence().contains(GraphFrame.FilterEdgeQualityButton.getText())) {
+                    if(edge.getInfluence().contains(GraphFrame.FilterEdge02.getText())) {
                         return false;
                     }
                 }
-                if(!GraphFrame.FilterEdgeAidButton.isSelected())
+                if(!GraphFrame.FilterEdge04.isSelected())
                 {
-                    if(edge.getInfluence().contains(GraphFrame.FilterEdgeAidButton.getText())){
+                    if(edge.getInfluence().contains(GraphFrame.FilterEdge04.getText())){
                         return false;
                     }
                 }
-                if(!GraphFrame.FilterEdgeProgressButton.isSelected())
+                if(!GraphFrame.FilterEdge03.isSelected())
                 {
-                    if(edge.getInfluence().contains(GraphFrame.FilterEdgeProgressButton.getText())) {
+                    if(edge.getInfluence().contains(GraphFrame.FilterEdge03.getText())) {
                         return false;
                     }
                 }
-                if(!GraphFrame.FilterEdgeValButton.isSelected())
+                if(!GraphFrame.FilterEdge05.isSelected())
                 {
-                    if(edge.getInfluence().contains(GraphFrame.FilterEdgeValButton.getText())) {
+                    if(edge.getInfluence().contains(GraphFrame.FilterEdge05.getText())) {
                         return false;
                     }
                 }
-                if(!GraphFrame.FilterEdgeDiscoveryButton.isSelected())
+                if(!GraphFrame.FilterEdge06.isSelected())
                 {
-                    if(edge.getInfluence().contains(GraphFrame.FilterEdgeDiscoveryButton.getText())) {
+                    if(edge.getInfluence().contains(GraphFrame.FilterEdge06.getText())) {
                         return false;
                     }
                 }
-                if(!GraphFrame.FilterEdgeRepairButton.isSelected())
+                if(!GraphFrame.FilterEdge07.isSelected())
                 {
-                    if(edge.getInfluence().contains(GraphFrame.FilterEdgeRepairButton.getText())) {
+                    if(edge.getInfluence().contains(GraphFrame.FilterEdge07.getText())) {
                         return false;
                     }
                 }
-                if(!GraphFrame.FilterEdgeBugsButton.isSelected())
+                if(!GraphFrame.FilterEdge08.isSelected())
                 {
-                    if(edge.getInfluence().contains(GraphFrame.FilterEdgeBugsButton.getText())) {
+                    if(edge.getInfluence().contains(GraphFrame.FilterEdge08.getText())) {
                         return false;
                     }
                 }
-                if(!GraphFrame.FilterEdgeTCButton.isSelected())
+                if(!GraphFrame.FilterEdge09.isSelected())
                 {
-                    if(edge.getInfluence().contains(GraphFrame.FilterEdgeTCButton.getText())) {
+                    if(edge.getInfluence().contains(GraphFrame.FilterEdge09.getText())) {
                         return false;
                     }
                 }
-                if(!GraphFrame.FilterEdgeMoraleButton.isSelected())
+                if(!GraphFrame.FilterEdge10.isSelected())
                 {
-                    if(edge.getInfluence().contains(GraphFrame.FilterEdgeMoraleButton.getText())) {
+                    if(edge.getInfluence().contains(GraphFrame.FilterEdge10.getText())) {
                         return false;
                     }
                 }
-                if(!GraphFrame.FilterEdgeStaminaButton.isSelected())
+                if(!GraphFrame.FilterEdge11.isSelected())
                 {
-                    if(edge.getInfluence().contains(GraphFrame.FilterEdgeStaminaButton.getText())) {
+                    if(edge.getInfluence().contains(GraphFrame.FilterEdge11.getText())) {
                         return false;
                     }
                 }
-                if(!GraphFrame.FilterEdgePrototypeButton.isSelected())
+                if(!GraphFrame.FilterEdge12.isSelected())
                 {
-                    if(edge.getInfluence().contains(GraphFrame.FilterEdgePrototypeButton.getText())) {
+                    if(edge.getInfluence().contains(GraphFrame.FilterEdge12.getText())) {
                         return false;
                     }
                 }
-                if(!GraphFrame.FilterEdgeNegotiationButton.isSelected())
+                if(!GraphFrame.FilterEdge13.isSelected())
                 {
-                    if(edge.getInfluence().contains(GraphFrame.FilterEdgeNegotiationButton.getText())) {
+                    if(edge.getInfluence().contains(GraphFrame.FilterEdge13.getText())) {
                         return false;
                     }
                 }

@@ -222,7 +222,13 @@ public class Edge {
      * @return (boolean) Return true if influence from collapsed edges are added. Return false if average
      */
     public boolean AddInfluence() {
-        if (this.getInfluence().contains(Config.EinfTypeNotAdd)) {
+        if ((this.getInfluence().contains(Config.EinfTypeNotAdd01))|| (this.getInfluence().contains(Config.EinfTypeNotAdd02))
+                || (this.getInfluence().contains(Config.EinfTypeNotAdd03)) || (this.getInfluence().contains(Config.EinfTypeNotAdd04))
+                || (this.getInfluence().contains(Config.EinfTypeNotAdd05)) || (this.getInfluence().contains(Config.EinfTypeNotAdd06))
+                || (this.getInfluence().contains(Config.EinfTypeNotAdd07)) || (this.getInfluence().contains(Config.EinfTypeNotAdd08))
+                || (this.getInfluence().contains(Config.EinfTypeNotAdd09)) || (this.getInfluence().contains(Config.EinfTypeNotAdd10))
+                || (this.getInfluence().contains(Config.EinfTypeNotAdd11)) || (this.getInfluence().contains(Config.EinfTypeNotAdd12))
+                || (this.getInfluence().contains(Config.EinfTypeNotAdd13))) {
             return false;
         }
         return true;

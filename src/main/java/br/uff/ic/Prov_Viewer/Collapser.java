@@ -181,10 +181,8 @@ public class Collapser {
                     //If collapased any edge, create it in the graph
                     if(collapse)
                     {
-//                        System.out.println("Value = " + value);
                         if(!((Edge)sorted.get(j)).AddInfluence())
                         {
-//                            System.out.println("Count = " + count);
                             value = value / count;
                         }
                         String influence;
@@ -360,18 +358,20 @@ public class Collapser {
     public void AddFilters(Variables variables, br.uff.ic.Prov_Viewer.Filters filter) {
         GraphFrame.FilterNodeAgentButton.setSelected(false);
         GraphFrame.FilterNodeLonelyButton.setSelected(false);
-        GraphFrame.FilterEdgeQualityButton.setSelected(true);
-        GraphFrame.FilterEdgeValButton.setSelected(true);
-        GraphFrame.FilterEdgeProgressButton.setSelected(true);
-        GraphFrame.FilterEdgeCreditsButton.setSelected(true);
-        GraphFrame.FilterEdgeNeutralButton.setSelected(true);
-        GraphFrame.FilterEdgeAidButton.setSelected(true);
-        GraphFrame.FilterEdgeDiscoveryButton.setSelected(true);
-        GraphFrame.FilterEdgeRepairButton.setSelected(true);
-        GraphFrame.FilterEdgeBugsButton.setSelected(true);
-        GraphFrame.FilterEdgeTCButton.setSelected(true);
-        GraphFrame.FilterEdgePrototypeButton.setSelected(true);
-        GraphFrame.FilterEdgeNegotiationButton.setSelected(true);
+        GraphFrame.FilterEdgeNeutral.setSelected(true);
+        GraphFrame.FilterEdge01.setSelected(true);
+        GraphFrame.FilterEdge02.setSelected(true);
+        GraphFrame.FilterEdge03.setSelected(true);
+        GraphFrame.FilterEdge04.setSelected(true);
+        GraphFrame.FilterEdge05.setSelected(true);
+        GraphFrame.FilterEdge06.setSelected(true);
+        GraphFrame.FilterEdge07.setSelected(true);
+        GraphFrame.FilterEdge08.setSelected(true);
+        GraphFrame.FilterEdge09.setSelected(true);
+        GraphFrame.FilterEdge10.setSelected(true);
+        GraphFrame.FilterEdge11.setSelected(true);
+        GraphFrame.FilterEdge12.setSelected(true);
+        GraphFrame.FilterEdge13.setSelected(true);
         Filters(variables, filter, false);
     }
     
@@ -383,18 +383,20 @@ public class Collapser {
     public void RemoveFilters(Variables variables, br.uff.ic.Prov_Viewer.Filters filter) {
         GraphFrame.FilterNodeAgentButton.setSelected(false);
         GraphFrame.FilterNodeLonelyButton.setSelected(false);
-        GraphFrame.FilterEdgeQualityButton.setSelected(false);
-        GraphFrame.FilterEdgeValButton.setSelected(false);
-        GraphFrame.FilterEdgeProgressButton.setSelected(false);
-        GraphFrame.FilterEdgeCreditsButton.setSelected(false);
-        GraphFrame.FilterEdgeNeutralButton.setSelected(true);
-        GraphFrame.FilterEdgeAidButton.setSelected(false);
-        GraphFrame.FilterEdgeDiscoveryButton.setSelected(false);
-        GraphFrame.FilterEdgeRepairButton.setSelected(false);
-        GraphFrame.FilterEdgeBugsButton.setSelected(false);
-        GraphFrame.FilterEdgeTCButton.setSelected(false);
-        GraphFrame.FilterEdgePrototypeButton.setSelected(false);
-        GraphFrame.FilterEdgeNegotiationButton.setSelected(false);
+        GraphFrame.FilterEdgeNeutral.setSelected(true);
+        GraphFrame.FilterEdge01.setSelected(false);
+        GraphFrame.FilterEdge02.setSelected(false);
+        GraphFrame.FilterEdge03.setSelected(false);
+        GraphFrame.FilterEdge04.setSelected(false);
+        GraphFrame.FilterEdge05.setSelected(false);
+        GraphFrame.FilterEdge06.setSelected(false);
+        GraphFrame.FilterEdge07.setSelected(false);
+        GraphFrame.FilterEdge08.setSelected(false);
+        GraphFrame.FilterEdge09.setSelected(false);
+        GraphFrame.FilterEdge10.setSelected(false);
+        GraphFrame.FilterEdge11.setSelected(false);
+        GraphFrame.FilterEdge12.setSelected(false);
+        GraphFrame.FilterEdge13.setSelected(false);
         Filters(variables, filter);
     }
     

@@ -53,7 +53,7 @@ public class VertexStroke {
         
         if(v instanceof ActivityVertex)
         {
-            String role = ((ActivityVertex)v).getAttributeValue(Config.VSatribute);
+            String role = ((ActivityVertex)v).getAttributeValue(Config.VSattribute);
             if(!"".equals(role))
             {
                 if(role.equalsIgnoreCase(Config.VSvar1) || role.equalsIgnoreCase(Config.VSvar2) 

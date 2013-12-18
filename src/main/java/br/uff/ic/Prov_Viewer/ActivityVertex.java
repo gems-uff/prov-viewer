@@ -60,21 +60,21 @@ public class ActivityVertex extends Vertex {
     @Override
     public Paint getColor() {
         if(this.getAttributeValue(Config.AVatt1).contains(Config.AVval1)) {
-            return new Color(255,69,0);
+            return new Color(238,180,180);
         }
         else if(this.getAttributeValue(Config.AVatt2).contains(Config.AVval2)) {
             return new Color(102,0,102);
         }
-        else if(this.getAttributeValue(Config.AVatt1).contains(Config.AVval3)) {
+        else if(this.getAttributeValue(Config.AVatt3).contains(Config.AVval3)) {
             return new Color(139,69,19);
         }
-        else if(this.getAttributeValue(Config.AVatt1).contains(Config.AVval4)) {
+        else if(this.getAttributeValue(Config.AVatt4).contains(Config.AVval4)) {
             return new Color(0,153,0);
         }
-        else if(this.getAttributeValue(Config.AVatt1).contains(Config.AVval5)) {
+        else if(this.getAttributeValue(Config.AVatt5).contains(Config.AVval5)) {
             return new Color(139,136,120);
         }
-        else if(this.getAttributeValue(Config.AVatt1).contains(Config.AVval6)) {
+        else if(this.getAttributeValue(Config.AVatt6).contains(Config.AVval6)) {
             return new Color(193,205,193);
         }
         return new Color(190,190,190);
