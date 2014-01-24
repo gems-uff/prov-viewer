@@ -11,6 +11,7 @@ import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
+import java.util.List;
 import org.apache.commons.collections15.Predicate;
 
 /**
@@ -86,90 +87,7 @@ public class Filters {
             @Override
             public boolean evaluate(Edge edge) {
 //                String[] line = edge.toString().split(" ");
-                if(!GraphFrame.FilterEdge01.isSelected())
-                {
-                    if(edge.getInfluence().contains(GraphFrame.FilterEdge01.getText())) {
-                        return false;
-                    }
-                }
-                if(!GraphFrame.FilterEdgeNeutral.isSelected())
-                {
-                    if(edge.isNeutral()) {
-                        return false;
-                    }
-                }
-                if(!GraphFrame.FilterEdge02.isSelected())
-                {
-                    if(edge.getInfluence().contains(GraphFrame.FilterEdge02.getText())) {
-                        return false;
-                    }
-                }
-                if(!GraphFrame.FilterEdge04.isSelected())
-                {
-                    if(edge.getInfluence().contains(GraphFrame.FilterEdge04.getText())){
-                        return false;
-                    }
-                }
-                if(!GraphFrame.FilterEdge03.isSelected())
-                {
-                    if(edge.getInfluence().contains(GraphFrame.FilterEdge03.getText())) {
-                        return false;
-                    }
-                }
-                if(!GraphFrame.FilterEdge05.isSelected())
-                {
-                    if(edge.getInfluence().contains(GraphFrame.FilterEdge05.getText())) {
-                        return false;
-                    }
-                }
-                if(!GraphFrame.FilterEdge06.isSelected())
-                {
-                    if(edge.getInfluence().contains(GraphFrame.FilterEdge06.getText())) {
-                        return false;
-                    }
-                }
-                if(!GraphFrame.FilterEdge07.isSelected())
-                {
-                    if(edge.getInfluence().contains(GraphFrame.FilterEdge07.getText())) {
-                        return false;
-                    }
-                }
-                if(!GraphFrame.FilterEdge08.isSelected())
-                {
-                    if(edge.getInfluence().contains(GraphFrame.FilterEdge08.getText())) {
-                        return false;
-                    }
-                }
-                if(!GraphFrame.FilterEdge09.isSelected())
-                {
-                    if(edge.getInfluence().contains(GraphFrame.FilterEdge09.getText())) {
-                        return false;
-                    }
-                }
-                if(!GraphFrame.FilterEdge10.isSelected())
-                {
-                    if(edge.getInfluence().contains(GraphFrame.FilterEdge10.getText())) {
-                        return false;
-                    }
-                }
-                if(!GraphFrame.FilterEdge11.isSelected())
-                {
-                    if(edge.getInfluence().contains(GraphFrame.FilterEdge11.getText())) {
-                        return false;
-                    }
-                }
-                if(!GraphFrame.FilterEdge12.isSelected())
-                {
-                    if(edge.getInfluence().contains(GraphFrame.FilterEdge12.getText())) {
-                        return false;
-                    }
-                }
-                if(!GraphFrame.FilterEdge13.isSelected())
-                {
-                    if(edge.getInfluence().contains(GraphFrame.FilterEdge13.getText())) {
-                        return false;
-                    }
-                }
+                
                 if(hiddenEdges)
                 {
                     if(edge.isHidden()) 
@@ -177,7 +95,107 @@ public class Filters {
                         return false;
                     }
                 }
-                return true;
+                
+                List filtersL = GraphFrame.FilterList.getSelectedValuesList();
+                
+                boolean returnValue = false;
+                for(int i = 0; i < filtersL.size(); i++)
+                {
+                    String filter = (String)filtersL.get(i);
+                    if(edge.getInfluence().contains(filter)) {
+                        if(!returnValue) {
+                            returnValue = true;
+                        }
+                    }
+                }
+                
+                return returnValue;
+                
+//                
+//                if(!GraphFrame.FilterEdge01.isSelected())
+//                {
+//                    if(edge.getInfluence().contains(GraphFrame.FilterEdge01.getText())) {
+//                        return false;
+//                    }
+//                }
+//                if(!GraphFrame.FilterEdgeNeutral.isSelected())
+//                {
+//                    if(edge.isNeutral()) {
+//                        return false;
+//                    }
+//                }
+//                if(!GraphFrame.FilterEdge02.isSelected())
+//                {
+//                    if(edge.getInfluence().contains(GraphFrame.FilterEdge02.getText())) {
+//                        return false;
+//                    }
+//                }
+//                if(!GraphFrame.FilterEdge04.isSelected())
+//                {
+//                    if(edge.getInfluence().contains(GraphFrame.FilterEdge04.getText())){
+//                        return false;
+//                    }
+//                }
+//                if(!GraphFrame.FilterEdge03.isSelected())
+//                {
+//                    if(edge.getInfluence().contains(GraphFrame.FilterEdge03.getText())) {
+//                        return false;
+//                    }
+//                }
+//                if(!GraphFrame.FilterEdge05.isSelected())
+//                {
+//                    if(edge.getInfluence().contains(GraphFrame.FilterEdge05.getText())) {
+//                        return false;
+//                    }
+//                }
+//                if(!GraphFrame.FilterEdge06.isSelected())
+//                {
+//                    if(edge.getInfluence().contains(GraphFrame.FilterEdge06.getText())) {
+//                        return false;
+//                    }
+//                }
+//                if(!GraphFrame.FilterEdge07.isSelected())
+//                {
+//                    if(edge.getInfluence().contains(GraphFrame.FilterEdge07.getText())) {
+//                        return false;
+//                    }
+//                }
+//                if(!GraphFrame.FilterEdge08.isSelected())
+//                {
+//                    if(edge.getInfluence().contains(GraphFrame.FilterEdge08.getText())) {
+//                        return false;
+//                    }
+//                }
+//                if(!GraphFrame.FilterEdge09.isSelected())
+//                {
+//                    if(edge.getInfluence().contains(GraphFrame.FilterEdge09.getText())) {
+//                        return false;
+//                    }
+//                }
+//                if(!GraphFrame.FilterEdge10.isSelected())
+//                {
+//                    if(edge.getInfluence().contains(GraphFrame.FilterEdge10.getText())) {
+//                        return false;
+//                    }
+//                }
+//                if(!GraphFrame.FilterEdge11.isSelected())
+//                {
+//                    if(edge.getInfluence().contains(GraphFrame.FilterEdge11.getText())) {
+//                        return false;
+//                    }
+//                }
+//                if(!GraphFrame.FilterEdge12.isSelected())
+//                {
+//                    if(edge.getInfluence().contains(GraphFrame.FilterEdge12.getText())) {
+//                        return false;
+//                    }
+//                }
+//                if(!GraphFrame.FilterEdge13.isSelected())
+//                {
+//                    if(edge.getInfluence().contains(GraphFrame.FilterEdge13.getText())) {
+//                        return false;
+//                    }
+//                }
             }
         });
         return filterEdge;

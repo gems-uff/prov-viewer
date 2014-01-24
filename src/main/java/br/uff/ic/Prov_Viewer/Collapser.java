@@ -356,22 +356,24 @@ public class Collapser {
      * @param filter 
      */
     public void AddFilters(Variables variables, br.uff.ic.Prov_Viewer.Filters filter) {
-        GraphFrame.FilterNodeAgentButton.setSelected(false);
-        GraphFrame.FilterNodeLonelyButton.setSelected(false);
-        GraphFrame.FilterEdgeNeutral.setSelected(true);
-        GraphFrame.FilterEdge01.setSelected(true);
-        GraphFrame.FilterEdge02.setSelected(true);
-        GraphFrame.FilterEdge03.setSelected(true);
-        GraphFrame.FilterEdge04.setSelected(true);
-        GraphFrame.FilterEdge05.setSelected(true);
-        GraphFrame.FilterEdge06.setSelected(true);
-        GraphFrame.FilterEdge07.setSelected(true);
-        GraphFrame.FilterEdge08.setSelected(true);
-        GraphFrame.FilterEdge09.setSelected(true);
-        GraphFrame.FilterEdge10.setSelected(true);
-        GraphFrame.FilterEdge11.setSelected(true);
-        GraphFrame.FilterEdge12.setSelected(true);
-        GraphFrame.FilterEdge13.setSelected(true);
+//        GraphFrame.FilterNodeAgentButton.setSelected(false);
+//        GraphFrame.FilterNodeLonelyButton.setSelected(false);
+//        GraphFrame.FilterEdgeNeutral.setSelected(true);
+//        GraphFrame.FilterEdge01.setSelected(true);
+//        GraphFrame.FilterEdge02.setSelected(true);
+//        GraphFrame.FilterEdge03.setSelected(true);
+//        GraphFrame.FilterEdge04.setSelected(true);
+//        GraphFrame.FilterEdge05.setSelected(true);
+//        GraphFrame.FilterEdge06.setSelected(true);
+//        GraphFrame.FilterEdge07.setSelected(true);
+//        GraphFrame.FilterEdge08.setSelected(true);
+//        GraphFrame.FilterEdge09.setSelected(true);
+//        GraphFrame.FilterEdge10.setSelected(true);
+//        GraphFrame.FilterEdge11.setSelected(true);
+//        GraphFrame.FilterEdge12.setSelected(true);
+//        GraphFrame.FilterEdge13.setSelected(true);
+        
+        GraphFrame.FilterList.setSelectionInterval(0, Config.length - 1);
         Filters(variables, filter, false);
     }
     
@@ -381,22 +383,23 @@ public class Collapser {
      * @param filter 
      */
     public void RemoveFilters(Variables variables, br.uff.ic.Prov_Viewer.Filters filter) {
-        GraphFrame.FilterNodeAgentButton.setSelected(false);
-        GraphFrame.FilterNodeLonelyButton.setSelected(false);
-        GraphFrame.FilterEdgeNeutral.setSelected(true);
-        GraphFrame.FilterEdge01.setSelected(false);
-        GraphFrame.FilterEdge02.setSelected(false);
-        GraphFrame.FilterEdge03.setSelected(false);
-        GraphFrame.FilterEdge04.setSelected(false);
-        GraphFrame.FilterEdge05.setSelected(false);
-        GraphFrame.FilterEdge06.setSelected(false);
-        GraphFrame.FilterEdge07.setSelected(false);
-        GraphFrame.FilterEdge08.setSelected(false);
-        GraphFrame.FilterEdge09.setSelected(false);
-        GraphFrame.FilterEdge10.setSelected(false);
-        GraphFrame.FilterEdge11.setSelected(false);
-        GraphFrame.FilterEdge12.setSelected(false);
-        GraphFrame.FilterEdge13.setSelected(false);
+        GraphFrame.FilterList.setSelectedIndex(0);
+//        GraphFrame.FilterNodeAgentButton.setSelected(false);
+//        GraphFrame.FilterNodeLonelyButton.setSelected(false);
+//        GraphFrame.FilterEdgeNeutral.setSelected(true);
+//        GraphFrame.FilterEdge01.setSelected(false);
+//        GraphFrame.FilterEdge02.setSelected(false);
+//        GraphFrame.FilterEdge03.setSelected(false);
+//        GraphFrame.FilterEdge04.setSelected(false);
+//        GraphFrame.FilterEdge05.setSelected(false);
+//        GraphFrame.FilterEdge06.setSelected(false);
+//        GraphFrame.FilterEdge07.setSelected(false);
+//        GraphFrame.FilterEdge08.setSelected(false);
+//        GraphFrame.FilterEdge09.setSelected(false);
+//        GraphFrame.FilterEdge10.setSelected(false);
+//        GraphFrame.FilterEdge11.setSelected(false);
+//        GraphFrame.FilterEdge12.setSelected(false);
+//        GraphFrame.FilterEdge13.setSelected(false);
         Filters(variables, filter);
     }
     

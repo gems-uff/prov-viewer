@@ -102,6 +102,8 @@ public class GraphFrame extends javax.swing.JFrame {
         FilterEdge10 = new javax.swing.JCheckBox();
         FilterEdge12 = new javax.swing.JCheckBox();
         FilterEdge13 = new javax.swing.JCheckBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        FilterList = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Prov Viewer");
@@ -294,6 +296,18 @@ public class GraphFrame extends javax.swing.JFrame {
             }
         });
 
+        FilterList.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        FilterList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                FilterListValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(FilterList);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -365,7 +379,8 @@ public class GraphFrame extends javax.swing.JFrame {
                         .addComponent(EdgeLineShapeSelection, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -428,7 +443,10 @@ public class GraphFrame extends javax.swing.JFrame {
                                 .addComponent(jLabel5)
                                 .addGap(3, 3, 3)))
                         .addComponent(FilterNodeLonelyButton)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
@@ -692,6 +710,11 @@ public class GraphFrame extends javax.swing.JFrame {
         collapser.Filters(variables, filter);
     }//GEN-LAST:event_FilterEdge13ActionPerformed
 
+    private void FilterListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_FilterListValueChanged
+        // TODO add your handling code here:
+        collapser.Filters(variables, filter);
+    }//GEN-LAST:event_FilterListValueChanged
+
     /**
      * ================================================
      * Init Graph Component
@@ -952,6 +975,7 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JCheckBox FilterEdge12;
     public static javax.swing.JCheckBox FilterEdge13;
     public static javax.swing.JCheckBox FilterEdgeNeutral;
+    public static javax.swing.JList FilterList;
     public static javax.swing.JCheckBox FilterNodeAgentButton;
     public static javax.swing.JCheckBox FilterNodeLonelyButton;
     private javax.swing.JButton G7Days;
@@ -968,5 +992,6 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
