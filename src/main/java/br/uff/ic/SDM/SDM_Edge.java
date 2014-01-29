@@ -1,6 +1,6 @@
 package br.uff.ic.SDM;
 
-import br.uff.ic.Prov_Viewer.Edge;
+import br.uff.ic.Prov_Viewer.Edge.Edge;
 import java.awt.Color;
 import java.awt.Paint;
 

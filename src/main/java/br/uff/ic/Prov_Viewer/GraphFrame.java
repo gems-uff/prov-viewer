@@ -1,5 +1,18 @@
 package br.uff.ic.Prov_Viewer;
 
+import br.uff.ic.Prov_Viewer.Input.Config;
+import br.uff.ic.Prov_Viewer.Input.TSVReader;
+import br.uff.ic.Prov_Viewer.Filter.Filters;
+import br.uff.ic.Prov_Viewer.Filter.PreFilters;
+import br.uff.ic.Prov_Viewer.Vertex.EntityVertex;
+import br.uff.ic.Prov_Viewer.Vertex.AgentVertex;
+import br.uff.ic.Prov_Viewer.Layout.Temporal_Layout;
+import br.uff.ic.Prov_Viewer.Stroke.EdgeStroke;
+import br.uff.ic.Prov_Viewer.Edge.Edge;
+import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.VertexPainter;
+import br.uff.ic.Prov_Viewer.Stroke.VertexStroke;
+import br.uff.ic.Prov_Viewer.Vertex.VertexShape;
+import br.uff.ic.Prov_Viewer.Vertex.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.uci.ics.jung.graph.Graph;

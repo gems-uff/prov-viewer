@@ -1,4 +1,4 @@
-package br.uff.ic.Prov_Viewer;
+package br.uff.ic.Prov_Viewer.Vertex;
 
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.decorators.EllipseVertexShapeTransformer;

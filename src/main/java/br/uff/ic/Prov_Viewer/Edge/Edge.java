@@ -1,5 +1,6 @@
-package br.uff.ic.Prov_Viewer;
+package br.uff.ic.Prov_Viewer.Edge;
 
+import br.uff.ic.Prov_Viewer.Input.Config;
 import java.awt.Color;
 import java.awt.Paint;
 

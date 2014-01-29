@@ -1,5 +1,9 @@
-package br.uff.ic.Prov_Viewer;
+package br.uff.ic.Prov_Viewer.Layout;
 
+import br.uff.ic.Prov_Viewer.Vertex.ActivityVertex;
+import br.uff.ic.Prov_Viewer.Vertex.AgentVertex;
+import br.uff.ic.Prov_Viewer.Vertex.EntityVertex;
+import br.uff.ic.Prov_Viewer.Vertex.Vertex;
 import edu.uci.ics.jung.algorithms.layout.AbstractLayout;
 import edu.uci.ics.jung.algorithms.util.IterativeContext;
 import edu.uci.ics.jung.graph.Graph;

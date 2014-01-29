@@ -1,4 +1,4 @@
-package br.uff.ic.Prov_Viewer;
+package br.uff.ic.Prov_Viewer.Vertex;
 
 import java.awt.BasicStroke;
 import java.awt.Paint;

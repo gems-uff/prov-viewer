@@ -4,6 +4,11 @@
  */
 package br.uff.ic.Prov_Viewer;
 
+import br.uff.ic.Prov_Viewer.Input.Config;
+import br.uff.ic.Prov_Viewer.Filter.Filters;
+import br.uff.ic.Prov_Viewer.Vertex.ActivityVertex;
+import br.uff.ic.Prov_Viewer.Edge.Edge;
+import br.uff.ic.Prov_Viewer.Vertex.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.Graph;
 import java.awt.geom.Point2D;
@@ -355,7 +360,7 @@ public class Collapser {
      * @param variables
      * @param filter 
      */
-    public void AddFilters(Variables variables, br.uff.ic.Prov_Viewer.Filters filter) {
+    public void AddFilters(Variables variables, br.uff.ic.Prov_Viewer.Filter.Filters filter) {
 //        GraphFrame.FilterNodeAgentButton.setSelected(false);
 //        GraphFrame.FilterNodeLonelyButton.setSelected(false);
 //        GraphFrame.FilterEdgeNeutral.setSelected(true);
@@ -382,7 +387,7 @@ public class Collapser {
      * @param variables
      * @param filter 
      */
-    public void RemoveFilters(Variables variables, br.uff.ic.Prov_Viewer.Filters filter) {
+    public void RemoveFilters(Variables variables, br.uff.ic.Prov_Viewer.Filter.Filters filter) {
         GraphFrame.FilterList.setSelectedIndex(0);
 //        GraphFrame.FilterNodeAgentButton.setSelected(false);
 //        GraphFrame.FilterNodeLonelyButton.setSelected(false);

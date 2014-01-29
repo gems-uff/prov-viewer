@@ -1,5 +1,5 @@
 
-package br.uff.ic.Prov_Viewer;
+package br.uff.ic.Prov_Viewer.Vertex;
 
 import edu.uci.ics.jung.graph.Graph;
 import org.apache.commons.collections15.Transformer;

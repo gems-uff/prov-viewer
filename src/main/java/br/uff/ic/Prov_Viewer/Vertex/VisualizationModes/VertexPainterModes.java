@@ -2,8 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.uff.ic.Prov_Viewer;
+package br.uff.ic.Prov_Viewer.Vertex.VisualizationModes;
 
+import br.uff.ic.Prov_Viewer.Input.Config;
+import br.uff.ic.Prov_Viewer.Variables;
+import br.uff.ic.Prov_Viewer.Vertex.ActivityVertex;
+import br.uff.ic.Prov_Viewer.Vertex.EntityVertex;
+import br.uff.ic.Prov_Viewer.Vertex.Vertex;
+import br.uff.ic.Prov_Viewer.Vertex.VertexFilterPainter;
 import java.awt.Color;
 import java.awt.Paint;
 

@@ -1,6 +1,9 @@
 
-package br.uff.ic.Prov_Viewer;
+package br.uff.ic.Prov_Viewer.Stroke;
 
+import br.uff.ic.Prov_Viewer.Input.Config;
+import br.uff.ic.Prov_Viewer.Edge.Edge;
+import br.uff.ic.Prov_Viewer.Vertex.ActivityVertex;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.picking.PickedState;

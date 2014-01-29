@@ -2,8 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.uff.ic.Prov_Viewer;
+package br.uff.ic.Prov_Viewer.Stroke;
 
+import br.uff.ic.Prov_Viewer.Input.Config;
+import br.uff.ic.Prov_Viewer.Edge.Edge;
+import br.uff.ic.Prov_Viewer.Variables;
 import java.awt.BasicStroke;
 import java.awt.Stroke;
 

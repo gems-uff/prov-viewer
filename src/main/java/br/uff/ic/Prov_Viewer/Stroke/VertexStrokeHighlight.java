@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.uff.ic.Prov_Viewer;
+package br.uff.ic.Prov_Viewer.Stroke;
 
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.picking.PickedInfo;

@@ -2,8 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.uff.ic.Prov_Viewer;
+package br.uff.ic.Prov_Viewer.Filter;
 
+import br.uff.ic.Prov_Viewer.Vertex.AgentVertex;
+import br.uff.ic.Prov_Viewer.Edge.Edge;
+import br.uff.ic.Prov_Viewer.GraphFrame;
 import edu.uci.ics.jung.algorithms.filters.EdgePredicateFilter;
 import edu.uci.ics.jung.algorithms.filters.Filter;
 import edu.uci.ics.jung.algorithms.filters.VertexPredicateFilter;

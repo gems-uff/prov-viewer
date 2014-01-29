@@ -2,8 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.uff.ic.Prov_Viewer;
+package br.uff.ic.Prov_Viewer.Vertex.VisualizationModes;
 
+import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.VertexPainterModes;
+import br.uff.ic.Prov_Viewer.Edge.Edge;
+import br.uff.ic.Prov_Viewer.Variables;
+import br.uff.ic.Prov_Viewer.Vertex.ActivityVertex;
+import br.uff.ic.Prov_Viewer.Vertex.AgentVertex;
+import br.uff.ic.Prov_Viewer.Vertex.EntityVertex;
+import br.uff.ic.Prov_Viewer.Vertex.Vertex;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import java.awt.Color;
