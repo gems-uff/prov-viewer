@@ -4,9 +4,11 @@
  */
 package br.uff.ic.Prov_Viewer.Vertex.VisualizationModes;
 
+import br.uff.ic.Prov_Viewer.Edge.Edge;
 import br.uff.ic.Prov_Viewer.Input.Config;
 import br.uff.ic.Prov_Viewer.Variables;
 import br.uff.ic.Prov_Viewer.Vertex.Vertex;
+import edu.uci.ics.jung.graph.DirectedGraph;
 import java.awt.Color;
 import java.awt.Paint;
 
@@ -26,7 +28,7 @@ public class WeekendMode extends VertexPaintMode{
     }
     
     @Override
-    public Paint Execute() {
+    public Paint Execute(DirectedGraph<Object,Edge> graph) {
         String day = ((Vertex) v).getDayName();
         if (day.equalsIgnoreCase(Config.VPMsaturday) || day.equalsIgnoreCase(Config.VPMsunday)) {
             return new Color(255, 0, 0);

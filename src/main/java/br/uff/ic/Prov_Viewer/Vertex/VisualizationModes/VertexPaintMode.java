@@ -4,7 +4,9 @@
  */
 package br.uff.ic.Prov_Viewer.Vertex.VisualizationModes;
 
+import br.uff.ic.Prov_Viewer.Edge.Edge;
 import br.uff.ic.Prov_Viewer.Variables;
+import edu.uci.ics.jung.graph.DirectedGraph;
 import java.awt.Paint;
 
 /**
@@ -36,7 +38,7 @@ public abstract class VertexPaintMode {
         this.valueYellowThreshold = y;
     }
     
-    public abstract Paint Execute();
+    public abstract Paint Execute(DirectedGraph<Object,Edge> graph);
     public abstract Paint CompareValue(int value, float constant);
 
 }

@@ -5,32 +5,40 @@
 package br.uff.ic.Prov_Viewer.Vertex.VisualizationModes;
 
 import br.uff.ic.Prov_Viewer.Edge.Edge;
+import br.uff.ic.Prov_Viewer.GraphFrame;
+import br.uff.ic.Prov_Viewer.Input.Config;
 import br.uff.ic.Prov_Viewer.Variables;
 import br.uff.ic.Prov_Viewer.Vertex.ActivityVertex;
+import br.uff.ic.Prov_Viewer.Vertex.EntityVertex;
 import br.uff.ic.Prov_Viewer.Vertex.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import java.awt.Color;
 import java.awt.Paint;
+import java.util.Collection;
 
 /**
  *
  * @author Kohwalter
  */
-public class ConstantAttributeMode extends VertexPaintMode{
+public class EntityAttributeMode extends VertexPaintMode{
 
-    public ConstantAttributeMode(Object v, final Variables variables, String attribute) {
+    float[] entityValue = new float[]{0,0};
+    
+    public EntityAttributeMode(Object v, final Variables variables, String attribute) {
         super(v, variables, attribute);
     }
     
-    public ConstantAttributeMode(Object v, final Variables variables, String attribute, double g, double y)
+    public EntityAttributeMode(Object v, final Variables variables, String attribute, double g, double y)
     {
         super(v, variables, attribute, g, y);
     }
     
     @Override
     public Paint Execute(DirectedGraph<Object,Edge> graph) {
-        if ((((Variables) variables).showMode1) && (v instanceof ActivityVertex)) {
-            return this.CompareValue(((ActivityVertex) v).getAttributeValueInteger(this.attribute), ((Variables) variables).entityValue[0]);
+
+        ComputeValue(graph);
+        if (v instanceof EntityVertex) {
+            return this.CompareValue(((EntityVertex) v).getAttributeValueInteger(this.attribute), this.entityValue[0]);
         }
         return ((Vertex) v).getColor();
     }
@@ -51,6 +59,18 @@ public class ConstantAttributeMode extends VertexPaintMode{
             else
             {
                 return new Color(255,0,0);
+            }
+        }
+    }
+    
+    public void ComputeValue(DirectedGraph<Object,Edge> graph)
+    { 
+        Collection<Object> nodes = graph.getVertices();
+        for (Object node : nodes)
+        {
+            if(node instanceof EntityVertex)
+            {
+                entityValue[0] = Math.max(entityValue[0], Math.abs(((EntityVertex)node).getAttributeValueInteger(this.attribute)));
             }
         }
     }
