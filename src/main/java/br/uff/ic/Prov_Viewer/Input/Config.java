@@ -23,19 +23,7 @@ public class Config {
     
     //Edge Stroke
     public static boolean[] EdgeStroke;
-//    public static boolean ES01;
-//    public static boolean ES02;
-//    public static boolean ES03;
-//    public static boolean ES04;
-//    public static boolean ES05;
-//    public static boolean ES06;
-//    public static boolean ES07;
-//    public static boolean ES08;
-//    public static boolean ES09;
-//    public static boolean ES10;
-//    public static boolean ES11;
-//    public static boolean ES12;
-//    public static boolean ES13;
+
     //ActivityVertex
     public static String AVatt1;
     public static String AVatt2;
@@ -71,19 +59,7 @@ public class Config {
     public static String VPMattValue6;
     //Edge
     public static String[] EinfTypeNotAdd;
-//    public static String EinfTypeNotAdd01;
-//    public static String EinfTypeNotAdd02;
-//    public static String EinfTypeNotAdd03;
-//    public static String EinfTypeNotAdd04;
-//    public static String EinfTypeNotAdd05;
-//    public static String EinfTypeNotAdd06;
-//    public static String EinfTypeNotAdd07;
-//    public static String EinfTypeNotAdd08;
-//    public static String EinfTypeNotAdd09;
-//    public static String EinfTypeNotAdd10;
-//    public static String EinfTypeNotAdd11;
-//    public static String EinfTypeNotAdd12;
-//    public static String EinfTypeNotAdd13;
+
     
     //Temporal Layout
     public static String TLspecialVertexType;
@@ -96,20 +72,6 @@ public class Config {
         length = filterList.length;
         GraphFrame.FilterList.setListData(filterList);
         
-//        GraphFrame.FilterEdgeNeutral.setText("Neutral");
-//        GraphFrame.FilterEdge01.setText("Credits");
-//        GraphFrame.FilterEdge02.setText("Quality");
-//        GraphFrame.FilterEdge03.setText("Progress");
-//        GraphFrame.FilterEdge04.setText("Aid");
-//        GraphFrame.FilterEdge05.setText("Val");
-//        GraphFrame.FilterEdge06.setText("Discovery");
-//        GraphFrame.FilterEdge07.setText("Repair");
-//        GraphFrame.FilterEdge08.setText("Bug");
-//        GraphFrame.FilterEdge09.setText("TC");
-//        GraphFrame.FilterEdge10.setText("Morale");
-//        GraphFrame.FilterEdge11.setText("Stamina");
-//        GraphFrame.FilterEdge12.setText("Prototype");
-//        GraphFrame.FilterEdge13.setText("Negotiation");
         //Initialize Interface Status Filter Box (Display Mode labels)
         String[] items = {"Default", "Morale", "Stamina", "Hours", "Credits", "Role", "Weekend"};
         GraphFrame.StatusFilterBox.setModel(new DefaultComboBoxModel(items));
@@ -131,19 +93,7 @@ public class Config {
         {
             EdgeStroke[i] = true;
         }
-//        ES01 = false;
-//        ES02 = true;
-//        ES03 = true;
-//        ES04 = true;
-//        ES05 = true;
-//        ES06 = true;
-//        ES07 = true;
-//        ES08 = true;
-//        ES09 = true;
-//        ES10 = true;
-//        ES11 = true;
-//        ES12 = true;
-//        ES13 = true;
+
         //ActivityVertex
         //These attributes are used to distinguish vertex color. 
         //The specific values used to change the color (for each attribute)

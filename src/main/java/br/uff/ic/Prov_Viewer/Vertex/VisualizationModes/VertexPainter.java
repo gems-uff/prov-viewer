@@ -4,7 +4,6 @@
  */
 package br.uff.ic.Prov_Viewer.Vertex.VisualizationModes;
 
-import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.VertexPainterModes;
 import br.uff.ic.Prov_Viewer.Edge.Edge;
 import br.uff.ic.Prov_Viewer.Variables;
 import br.uff.ic.Prov_Viewer.Vertex.ActivityVertex;

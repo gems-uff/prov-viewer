@@ -4,9 +4,9 @@
  */
 package br.uff.ic.Prov_Viewer;
 
+import br.uff.ic.Prov_Viewer.Edge.Edge;
 import br.uff.ic.Prov_Viewer.Input.Config;
 import br.uff.ic.Prov_Viewer.Vertex.EntityVertex;
-import br.uff.ic.Prov_Viewer.Edge.Edge;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
@@ -108,19 +108,6 @@ public class Variables extends Object{
         return value;
     }
     public TwoFloat[] edgeArray = new TwoFloat[99];
-//    public float[] edge01 = new float[]{0,0};
-//    public float[] edge02 = new float[]{0,0};
-//    public float[] edge03 = new float[]{0,0};
-//    public float[] edge04 = new float[]{0,0};
-//    public float[] edge05 = new float[]{0,0};
-//    public float[] edge06 = new float[]{0,0};
-//    public float[] edge07 = new float[]{0,0};
-//    public float[] edge08 = new float[]{0,0};
-//    public float[] edge09 = new float[]{0,0};
-//    public float[] edge10 = new float[]{0,0};
-//    public float[] edge11 = new float[]{0,0};
-//    public float[] edge12 = new float[]{0,0};
-//    public float[] edge13 = new float[]{0,0};
     public float[] entityValue = new float[]{0,0};
     
     public boolean showMode1 = false;
@@ -188,51 +175,15 @@ public class Variables extends Object{
                 GraphFrame.FilterList.setSelectedIndex(i);
                 edgeArray[i].value = ComputeValue(edgeArray[i].value, GraphFrame.FilterList.getSelectedValue().toString(), edge, Config.EdgeStroke[i]);
             }
-//            edge01 = ComputeValue(edge01, GraphFrame.FilterEdge01.getText(), edge, Config.ES01);
-//            edge02 = ComputeValue(edge02, GraphFrame.FilterEdge02.getText(), edge, Config.ES02);
-//            edge03 = ComputeValue(edge03, GraphFrame.FilterEdge03.getText(), edge, Config.ES03);
-//            edge04 = ComputeValue(edge04, GraphFrame.FilterEdge04.getText(), edge, Config.ES04);
-//            edge05 = ComputeValue(edge05, GraphFrame.FilterEdge05.getText(), edge, Config.ES05);
-//            edge06 = ComputeValue(edge06, GraphFrame.FilterEdge06.getText(), edge, Config.ES06);
-//            edge07 = ComputeValue(edge07, GraphFrame.FilterEdge07.getText(), edge, Config.ES07);
-//            edge08 = ComputeValue(edge08, GraphFrame.FilterEdge08.getText(), edge, Config.ES08);
-//            edge09 = ComputeValue(edge09, GraphFrame.FilterEdge09.getText(), edge, Config.ES09);
-//            edge10 = ComputeValue(edge10, GraphFrame.FilterEdge10.getText(), edge, Config.ES10);
-//            edge11 = ComputeValue(edge11, GraphFrame.FilterEdge11.getText(), edge, Config.ES11);
-//            edge12 = ComputeValue(edge12, GraphFrame.FilterEdge12.getText(), edge, Config.ES12);
-//            edge13 = ComputeValue(edge13, GraphFrame.FilterEdge13.getText(), edge, Config.ES13);
-            
-//            edge02[0] = CompareMax(GraphFrame.FilterEdge02.getText(), edge02[0], edge);
-//            edge03[0] = CompareMax(GraphFrame.FilterEdge03.getText(), edge03[0], edge);
-//            edge04[0] = CompareMax(GraphFrame.FilterEdge04.getText(), edge04[0], edge);
-//            edge05[0] = CompareMax(GraphFrame.FilterEdge05.getText(), edge05[0], edge);
-//            edge06[0] = CompareMax(GraphFrame.FilterEdge06.getText(), edge06[0], edge);
-//            edge07[0] = CompareMax(GraphFrame.FilterEdge07.getText(), edge07[0], edge);
-//            edge08[0] = CompareMax(GraphFrame.FilterEdge08.getText(), edge08[0], edge);
-//            edge09[0] = CompareMax(GraphFrame.FilterEdge09.getText(), edge09[0], edge);
-//            edge10[0] = CompareMax(GraphFrame.FilterEdge10.getText(), edge10[0], edge);
-//            edge11[0] = CompareMax(GraphFrame.FilterEdge11.getText(), edge11[0], edge);
-//            edge12[0] = CompareMax(GraphFrame.FilterEdge12.getText(), edge12[0], edge);
-//            edge13[0] = CompareMax(GraphFrame.FilterEdge13.getText(), edge13[0], edge);
         }
         for(int i = 0; i < Config.length; i++)
         {
-            GraphFrame.FilterList.setSelectedIndex(i);
+//            GraphFrame.FilterList.setSelectedIndex(i);
             edgeArray[i].value = Average(edgeArray[i].value, Config.EdgeStroke[i]);
         }
-//        edge01 = Average(edge01, Config.ES01);
-//        edge02 = Average(edge02, Config.ES02);
-//        edge03 = Average(edge03, Config.ES03);
-//        edge04 = Average(edge04, Config.ES04);
-//        edge05 = Average(edge05, Config.ES05);
-//        edge06 = Average(edge06, Config.ES06);
-//        edge07 = Average(edge07, Config.ES07);
-//        edge08 = Average(edge08, Config.ES08);
-//        edge09 = Average(edge09, Config.ES09);
-//        edge10 = Average(edge10, Config.ES10);
-//        edge11 = Average(edge11, Config.ES11);
-//        edge12 = Average(edge12, Config.ES12);
-//        edge13 = Average(edge13, Config.ES13);
+        //
+        //For vertex painter mode 4
+        //
         Collection<Object> nodes = graph.getVertices();
         
         for (Object node : nodes)
