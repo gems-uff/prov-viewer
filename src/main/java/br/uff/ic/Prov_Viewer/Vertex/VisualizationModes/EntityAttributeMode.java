@@ -41,7 +41,6 @@ public class EntityAttributeMode extends VertexPaintMode {
 
     @Override
     public Paint CompareValue(int value, float constant) {
-        System.out.println("Value= " + value + " Constant = " + constant);
         if (value > (constant * this.valueGreenThreshold)) {
             return new Color(0, 255, 0);
         } else {
