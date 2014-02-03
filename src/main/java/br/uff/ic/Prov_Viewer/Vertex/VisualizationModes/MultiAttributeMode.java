@@ -20,19 +20,19 @@ import java.awt.Paint;
 public class MultiAttributeMode extends VertexPaintMode{
     String[] values;
 
-    public MultiAttributeMode(Object v, final Variables variables, String attribute, String[] array) {
-        super(v, variables, attribute);
+    public MultiAttributeMode(String attribute, String[] array) {
+        super(attribute);
         this.values = array;
     }
     
-    public MultiAttributeMode(Object v, final Variables variables, String attribute, double g, double y)
+    public MultiAttributeMode(String attribute, double g, double y)
     {
-        super(v, variables, attribute, g, y);
+        super(attribute, g, y);
         this.values = new String[]{"Empty"};
     }
     
     @Override
-    public Paint Execute(DirectedGraph<Object,Edge> graph) {
+    public Paint Execute(Object v, final Variables variables) {
         if (v instanceof ActivityVertex) {
             return GetAttributeColor(((ActivityVertex) v).getAttributeValue(this.attribute));
         }
@@ -61,9 +61,9 @@ public class MultiAttributeMode extends VertexPaintMode{
         {
             if (value.equalsIgnoreCase(values[i])) {
                 int r, g, b = 0;
-                r = (int) (255);
-                g = (int) (255 / i);
-                b = (int) (255 / (i * i));
+                r = (int) (120);
+                g = (int) (255 / (i + 1));
+                b = (int) (255 / ((i + 1) * (i + 1)));
                 return new Color(r, g, b);
             }
         }

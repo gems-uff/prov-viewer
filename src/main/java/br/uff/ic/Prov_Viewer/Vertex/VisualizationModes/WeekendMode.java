@@ -17,20 +17,26 @@ import java.awt.Paint;
  * @author Kohwalter
  */
 public class WeekendMode extends VertexPaintMode{
+    public String sat;
+    public String sun;
 
-    public WeekendMode(Object v, final Variables variables, String attribute) {
-        super(v, variables, attribute);
+    public WeekendMode(String attribute, String sat, String sun) {
+        super(attribute);
+        this.sat = sat;
+        this.sun = sun;
     }
     
-    public WeekendMode(Object v, final Variables variables, String attribute, double g, double y)
+    public WeekendMode(String attribute, String sat, String sun, double g, double y)
     {
-        super(v, variables, attribute, g, y);
+        super(attribute, g, y);
+        this.sat = sat;
+        this.sun = sun;
     }
     
     @Override
-    public Paint Execute(DirectedGraph<Object,Edge> graph) {
+    public Paint Execute(Object v, final Variables variables) {
         String day = ((Vertex) v).getDayName();
-        if (day.equalsIgnoreCase(Config.VPMsaturday) || day.equalsIgnoreCase(Config.VPMsunday)) {
+        if (day.equalsIgnoreCase(sat) || day.equalsIgnoreCase(sun)) {
             return new Color(255, 0, 0);
         }
         return ((Vertex) v).getColor();

@@ -434,7 +434,7 @@ public class GraphFrame extends javax.swing.JFrame {
          */
     private void StatusFilterBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StatusFilterBoxActionPerformed
         variables.SetMode((String)StatusFilterBox.getSelectedItem());
-        VertexPainter.VertexPainter(variables.view, variables);
+        VertexPainter.VertexPainter((String)StatusFilterBox.getSelectedItem(), variables.view, variables);
         variables.view.repaint();
     }//GEN-LAST:event_StatusFilterBoxActionPerformed
     /**
@@ -609,7 +609,7 @@ public class GraphFrame extends javax.swing.JFrame {
          * Vertex Paint
          * ================================================
          */
-        VertexPainter.VertexPainter(variables.view, variables);
+        VertexPainter.VertexPainter("Default", variables.view, variables);
         /**
          * ================================================
          * Edge Paint

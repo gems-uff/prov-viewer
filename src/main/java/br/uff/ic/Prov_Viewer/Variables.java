@@ -7,6 +7,7 @@ package br.uff.ic.Prov_Viewer;
 import br.uff.ic.Prov_Viewer.Edge.Edge;
 import br.uff.ic.Prov_Viewer.Input.Config;
 import br.uff.ic.Prov_Viewer.Vertex.EntityVertex;
+import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.VertexPaintMode;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
@@ -123,6 +124,7 @@ public class Variables extends Object{
      */
     public void SetMode(String mode)
     {
+        
         if (mode.equalsIgnoreCase((String) GraphFrame.StatusFilterBox.getItemAt(0))) {
             SetDefault();
         }

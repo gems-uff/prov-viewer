@@ -5,6 +5,16 @@
 package br.uff.ic.Prov_Viewer.Input;
 
 import br.uff.ic.Prov_Viewer.GraphFrame;
+import br.uff.ic.Prov_Viewer.Variables;
+import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.AttributeMode;
+import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.DefaultMode;
+import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.EntityAttributeMode;
+import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.InvertedAttributeMode;
+import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.MultiAttributeMode;
+import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.VertexPaintMode;
+import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.WeekendMode;
+import java.util.ArrayList;
+import java.util.Collection;
 import javax.swing.DefaultComboBoxModel;
 
 /**
@@ -42,6 +52,8 @@ public class Config {
     public static String VPMsaturday;
     public static String VPMsunday;
     //Modes
+//    public static VertexPaintMode[] vertexModes;
+    public static Collection<VertexPaintMode> vertexModes = new ArrayList<VertexPaintMode>();
     public static String VPMattMode1;
     public static String VPMattMode2;
     public static String VPMattMode3;
@@ -73,7 +85,30 @@ public class Config {
         GraphFrame.FilterList.setListData(filterList);
         
         //Initialize Interface Status Filter Box (Display Mode labels)
-        String[] items = {"Default", "Morale", "Stamina", "Hours", "Credits", "Role", "Weekend"};
+
+        DefaultMode def = new DefaultMode("Default");
+        vertexModes.add(def);
+        AttributeMode morale = new AttributeMode("Morale");
+        vertexModes.add(morale);
+        AttributeMode stamina = new AttributeMode("Stamina");
+        vertexModes.add(stamina);
+        InvertedAttributeMode hours = new InvertedAttributeMode("Hours", 6, 12);
+        vertexModes.add(hours);
+        EntityAttributeMode credits = new EntityAttributeMode("Credits");
+        vertexModes.add(credits);
+        String[] roles = new String[]{"Analyst", "Architect", "Manager", "Marketing", "Programmer", "Tester"};
+        MultiAttributeMode role = new MultiAttributeMode("Role", roles);
+        vertexModes.add(role);
+        WeekendMode week = new WeekendMode("Weekend", "Sat", "Sun");
+        vertexModes.add(week);
+        
+        
+        String[] items = new String[10];
+        int j = 0;
+        for (VertexPaintMode mode : vertexModes) {
+            items[j] = mode.GetName();
+            j++;
+        }
         GraphFrame.StatusFilterBox.setModel(new DefaultComboBoxModel(items));
 
         //Vertex Stroke variables

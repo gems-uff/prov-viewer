@@ -5,6 +5,8 @@
 package br.uff.ic.Prov_Viewer.Vertex.VisualizationModes;
 
 import br.uff.ic.Prov_Viewer.Edge.Edge;
+import br.uff.ic.Prov_Viewer.GraphFrame;
+import br.uff.ic.Prov_Viewer.Input.Config;
 import br.uff.ic.Prov_Viewer.Variables;
 import br.uff.ic.Prov_Viewer.Vertex.ActivityVertex;
 import br.uff.ic.Prov_Viewer.Vertex.AgentVertex;
@@ -61,7 +63,7 @@ public class VertexPainter {
         };
         view.getRenderContext().setVertexFillPaintTransformer(vertexPainter);
     }
-    public static void VertexPainter(VisualizationViewer<Object, Edge> view, final Variables variables)
+    public static void VertexPainter(final String mode, VisualizationViewer<Object, Edge> view, final Variables variables)
     {
         Transformer vertexPainter = new Transformer<Object,Paint>() {
 
@@ -86,34 +88,42 @@ public class VertexPainter {
                 }
                 else
                 {
-                    if(((Variables)variables).showMode1)
-                    {
-                        return VertexPainterModes.Mode1(v, variables);
+                    int j = 0;
+                    for (VertexPaintMode vm : Config.vertexModes) {
+                        if (mode.equalsIgnoreCase((String) GraphFrame.StatusFilterBox.getItemAt(j))) {
+                            System.out.println("Executed Mode " + vm.GetName());
+                            return vm.Execute(v, variables);
+                        }
+                        j++;
                     }
-                    if(((Variables)variables).showMode2)
-                    {
-                        return VertexPainterModes.Mode2(v, variables);
-                    }
-                    if(((Variables)variables).showMode3)
-                    {
-                        return VertexPainterModes.Mode3(v, variables);
-                    }
-                    if(((Variables)variables).showMode4)
-                    {
-                        return VertexPainterModes.Mode4(v, variables);
-                    }
-                    if(((Variables)variables).showMode5)
-                    {
-                        return VertexPainterModes.Mode5(v, variables);
-                    }
-                    if(((Variables)variables).showMode6)
-                    {
-                        return VertexPainterModes.Mode6(v, variables);
-                    }
-                    if((v instanceof AgentVertex) || (v instanceof ActivityVertex) || (v instanceof EntityVertex)) 
-                    {
-                         return ((Vertex)v).getColor();
-                    }
+//                    if(((Variables)variables).showMode1)
+//                    {
+//                        return VertexPainterModes.Mode1(v, variables);
+//                    }
+//                    if(((Variables)variables).showMode2)
+//                    {
+//                        return VertexPainterModes.Mode2(v, variables);
+//                    }
+//                    if(((Variables)variables).showMode3)
+//                    {
+//                        return VertexPainterModes.Mode3(v, variables);
+//                    }
+//                    if(((Variables)variables).showMode4)
+//                    {
+//                        return VertexPainterModes.Mode4(v, variables);
+//                    }
+//                    if(((Variables)variables).showMode5)
+//                    {
+//                        return VertexPainterModes.Mode5(v, variables);
+//                    }
+//                    if(((Variables)variables).showMode6)
+//                    {
+//                        return VertexPainterModes.Mode6(v, variables);
+//                    }
+//                    if((v instanceof AgentVertex) || (v instanceof ActivityVertex) || (v instanceof EntityVertex)) 
+//                    {
+//                         return ((Vertex)v).getColor();
+//                    }
                 }
                 return new Color(0,0,0);
             }

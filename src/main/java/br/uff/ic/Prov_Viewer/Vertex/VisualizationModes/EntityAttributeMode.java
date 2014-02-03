@@ -24,19 +24,19 @@ public class EntityAttributeMode extends VertexPaintMode{
 
     float[] entityValue = new float[]{0,0};
     
-    public EntityAttributeMode(Object v, final Variables variables, String attribute) {
-        super(v, variables, attribute);
+    public EntityAttributeMode(String attribute) {
+        super(attribute);
     }
     
-    public EntityAttributeMode(Object v, final Variables variables, String attribute, double g, double y)
+    public EntityAttributeMode(String attribute, double g, double y)
     {
-        super(v, variables, attribute, g, y);
+        super(attribute, g, y);
     }
     
     @Override
-    public Paint Execute(DirectedGraph<Object,Edge> graph) {
+    public Paint Execute(Object v, final Variables variables) {
 
-        ComputeValue(graph);
+        ComputeValue(variables.graph);
         if (v instanceof EntityVertex) {
             return this.CompareValue(((EntityVertex) v).getAttributeValueInteger(this.attribute), this.entityValue[0]);
         }

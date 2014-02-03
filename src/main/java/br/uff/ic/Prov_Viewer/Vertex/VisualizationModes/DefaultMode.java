@@ -16,22 +16,19 @@ import java.awt.Paint;
  *
  * @author Kohwalter
  */
-public class AttributeMode extends VertexPaintMode{
+public class DefaultMode extends VertexPaintMode{
 
-    public AttributeMode(String attribute) {
+    public DefaultMode(String attribute) {
         super(attribute);
     }
     
-    public AttributeMode(String attribute, double g, double y)
+    public DefaultMode(String attribute, double g, double y)
     {
         super(attribute, g, y);
     }
     
     @Override
     public Paint Execute(Object v, final Variables variables) {
-        if (v instanceof ActivityVertex) {
-            return this.CompareValue(((ActivityVertex) v).getAttributeValueInteger(this.attribute), 0);
-        }
         return ((Vertex) v).getColor();
     }
 

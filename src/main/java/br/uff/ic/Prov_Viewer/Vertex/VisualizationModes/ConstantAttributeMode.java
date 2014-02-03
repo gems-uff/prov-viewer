@@ -18,18 +18,18 @@ import java.awt.Paint;
  */
 public class ConstantAttributeMode extends VertexPaintMode{
 
-    public ConstantAttributeMode(Object v, final Variables variables, String attribute) {
-        super(v, variables, attribute);
+    public ConstantAttributeMode(String attribute) {
+        super(attribute);
     }
     
-    public ConstantAttributeMode(Object v, final Variables variables, String attribute, double g, double y)
+    public ConstantAttributeMode(String attribute, double g, double y)
     {
-        super(v, variables, attribute, g, y);
+        super(attribute, g, y);
     }
     
     @Override
-    public Paint Execute(DirectedGraph<Object,Edge> graph) {
-        if ((((Variables) variables).showMode1) && (v instanceof ActivityVertex)) {
+    public Paint Execute(Object v, final Variables variables) {
+        if (v instanceof ActivityVertex) {
             return this.CompareValue(((ActivityVertex) v).getAttributeValueInteger(this.attribute), ((Variables) variables).entityValue[0]);
         }
         return ((Vertex) v).getColor();
