@@ -4,12 +4,9 @@
  */
 package br.uff.ic.Prov_Viewer.Vertex.VisualizationModes;
 
-import br.uff.ic.Prov_Viewer.Edge.Edge;
-import br.uff.ic.Prov_Viewer.Input.Config;
 import br.uff.ic.Prov_Viewer.Variables;
 import br.uff.ic.Prov_Viewer.Vertex.ActivityVertex;
 import br.uff.ic.Prov_Viewer.Vertex.Vertex;
-import edu.uci.ics.jung.graph.DirectedGraph;
 import java.awt.Color;
 import java.awt.Paint;
 
@@ -17,20 +14,20 @@ import java.awt.Paint;
  *
  * @author Kohwalter
  */
-public class MultiAttributeMode extends VertexPaintMode{
+public class MultiAttributeMode extends VertexPaintMode {
+
     String[] values;
 
     public MultiAttributeMode(String attribute, String[] array) {
         super(attribute);
         this.values = array;
     }
-    
-    public MultiAttributeMode(String attribute, double g, double y)
-    {
+
+    public MultiAttributeMode(String attribute, double g, double y) {
         super(attribute, g, y);
         this.values = new String[]{"Empty"};
     }
-    
+
     @Override
     public Paint Execute(Object v, final Variables variables) {
         if (v instanceof ActivityVertex) {
@@ -41,24 +38,20 @@ public class MultiAttributeMode extends VertexPaintMode{
 
     @Override
     public Paint CompareValue(int value, float constant) {
-        if(value > this.valueGreenThreshold) {
-            return new Color(0,255,0);
-        }
-        else
-        {
-            if(value > this.valueYellowThreshold) {
-                return new Color(255,255,0);
-            }
-            else {
-                return new Color(255,0,0);
+        if (value > this.valueGreenThreshold) {
+            return new Color(0, 255, 0);
+        } else {
+            if (value > this.valueYellowThreshold) {
+                return new Color(255, 255, 0);
+            } else {
+                return new Color(255, 0, 0);
             }
         }
     }
-    
+
     //Method to return 7 dif types of colors depending on the value
     public Paint GetAttributeColor(String value) {
-        for (int i = 0; i < values.length; i++)
-        {
+        for (int i = 0; i < values.length; i++) {
             if (value.equalsIgnoreCase(values[i])) {
                 int r, g, b = 0;
                 r = (int) (120);
@@ -82,5 +75,4 @@ public class MultiAttributeMode extends VertexPaintMode{
 //        }
         return new Color(128, 128, 128);
     }
-    
 }

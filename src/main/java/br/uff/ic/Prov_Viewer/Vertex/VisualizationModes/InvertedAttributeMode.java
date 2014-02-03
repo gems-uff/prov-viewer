@@ -14,17 +14,16 @@ import java.awt.Paint;
  *
  * @author Kohwalter
  */
-public class InvertedAttributeMode extends VertexPaintMode{
+public class InvertedAttributeMode extends VertexPaintMode {
 
     public InvertedAttributeMode(String attribute) {
         super(attribute);
     }
-    
-    public InvertedAttributeMode(String attribute, double g, double y)
-    {
+
+    public InvertedAttributeMode(String attribute, double g, double y) {
         super(attribute, g, y);
     }
-    
+
     @Override
     public Paint Execute(Object v, final Variables variables) {
         if (v instanceof ActivityVertex) {
@@ -35,18 +34,14 @@ public class InvertedAttributeMode extends VertexPaintMode{
 
     @Override
     public Paint CompareValue(int value, float constant) {
-        if(value < this.valueGreenThreshold) {
-            return new Color(0,255,0);
-        }
-        else
-        {
-            if(value < this.valueYellowThreshold) {
-                return new Color(255,255,0);
-            }
-            else {
-                return new Color(255,0,0);
+        if (value < this.valueGreenThreshold) {
+            return new Color(0, 255, 0);
+        } else {
+            if (value < this.valueYellowThreshold) {
+                return new Color(255, 255, 0);
+            } else {
+                return new Color(255, 0, 0);
             }
         }
     }
-    
 }

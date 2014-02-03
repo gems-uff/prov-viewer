@@ -6,16 +6,15 @@ package br.uff.ic.Prov_Viewer.Filter;
 
 /**
  * This class is used to filter the graph before rendering it for the 1st time
+ *
  * @author Kohwalter
  */
 public class PreFilters {
-    
+
     /**
      * Method for loading filters during graph first draw
      */
-    public static void PreFilter()
-    {
+    public static void PreFilter() {
         //Add desired filters here
     }
-    
 }

@@ -19,13 +19,15 @@ import org.apache.commons.collections15.Predicate;
 
 /**
  * Class to filter information
+ *
  * @author Kohwalter
  */
 public class Filters {
+
     /**
      * Variable FilteredGraph
      */
-    public DirectedGraph<Object,Edge> filteredGraph;
+    public DirectedGraph<Object, Edge> filteredGraph;
     /**
      * Variable EdgeFilter
      */
@@ -34,12 +36,11 @@ public class Filters {
      * Variable VertexFilter
      */
     public Filter<Object, Edge> VertexFilter;
-        
+
     /**
      * Initialize filters
      */
-    public void FilterInit()
-    {
+    public void FilterInit() {
         //All vertices are visiable
         VertexFilter = new VertexPredicateFilter<Object, Edge>(new Predicate<Object>() {
             @Override
@@ -55,65 +56,63 @@ public class Filters {
             }
         });
     }
-    
+
     /**
      * Method to use filters (Vertex and Edge)
+     *
      * @param view VisualizationViewer<Object, Edge> view
      * @param layout Layout<Object, Edge> layout
      * @param collapsedGraph DirectedGraph<Object,Edge> collapsedGraph
-     * @param hiddenEdges Boolean (filter original edges that composes a collapsed one or not?)
+     * @param hiddenEdges Boolean (filter original edges that composes a
+     * collapsed one or not?)
      */
-    public void Filter(VisualizationViewer<Object, Edge> view, 
-            Layout<Object, Edge> layout, 
-            DirectedGraph<Object,Edge> collapsedGraph,
-            boolean hiddenEdges)
-    {
+    public void Filter(VisualizationViewer<Object, Edge> view,
+            Layout<Object, Edge> layout,
+            DirectedGraph<Object, Edge> collapsedGraph,
+            boolean hiddenEdges) {
         filteredGraph = collapsedGraph;
-        
+
         EdgeFilter = FilterEdges(hiddenEdges);
         VertexFilter = FilterVertex();
-        
-        filteredGraph = (DirectedGraph<Object, Edge>)EdgeFilter.transform(filteredGraph);
-        filteredGraph = (DirectedGraph<Object, Edge>)VertexFilter.transform(filteredGraph);
+
+        filteredGraph = (DirectedGraph<Object, Edge>) EdgeFilter.transform(filteredGraph);
+        filteredGraph = (DirectedGraph<Object, Edge>) VertexFilter.transform(filteredGraph);
         layout.setGraph(filteredGraph);
         view.repaint();
     }
-    
+
     /**
      * Method for filtering edges
+     *
      * @param hiddenEdges Boolean (consider hidden edges or not?)
      * @return new EdgePredicateFilter<Object, Edge>(new Predicate<Edge>()
      */
-    public Filter<Object, Edge> FilterEdges(final boolean hiddenEdges)
-    {
+    public Filter<Object, Edge> FilterEdges(final boolean hiddenEdges) {
         Filter<Object, Edge> filterEdge = new EdgePredicateFilter<Object, Edge>(new Predicate<Edge>() {
             @Override
             public boolean evaluate(Edge edge) {
 //                String[] line = edge.toString().split(" ");
-                
-                if(hiddenEdges)
-                {
-                    if(edge.isHidden()) 
-                    {
+
+                if (hiddenEdges) {
+                    if (edge.isHidden()) {
                         return false;
                     }
                 }
-                
+
                 List filtersL = GraphFrame.FilterList.getSelectedValuesList();
-                
+
                 boolean returnValue = false;
-                for(int i = 0; i < filtersL.size(); i++)
-                {
-                    String filter = (String)filtersL.get(i);
-                    if(edge.getInfluence().contains(filter)) {
-                        if(!returnValue) {
+                for (int i = 0; i < filtersL.size(); i++) {
+                    String filter = (String) filtersL.get(i);
+                    if (edge.getInfluence().contains(filter)) {
+                        if (!returnValue) {
                             returnValue = true;
                         }
                     }
                 }
-                
+
                 return returnValue;
-                
+
 //                
 //                if(!GraphFrame.FilterEdge01.isSelected())
 //                {
@@ -203,31 +202,29 @@ public class Filters {
         });
         return filterEdge;
     }
-    
+
     /**
      * Method for filtering vertices
+     *
      * @return new VertexPredicateFilter<Object, Edge>(new Predicate<Object>()
      */
-    public Filter<Object, Edge> FilterVertex()
-    {
+    public Filter<Object, Edge> FilterVertex() {
         Filter<Object, Edge> filterVertex = new VertexPredicateFilter<Object, Edge>(new Predicate<Object>() {
-        @Override
-        public boolean evaluate(Object vertex) {
-            final Graph test = filteredGraph;
-            if(GraphFrame.FilterNodeAgentButton.isSelected())
-            {
-                if(vertex instanceof AgentVertex) {
-                    return false;
+            @Override
+            public boolean evaluate(Object vertex) {
+                final Graph test = filteredGraph;
+                if (GraphFrame.FilterNodeAgentButton.isSelected()) {
+                    if (vertex instanceof AgentVertex) {
+                        return false;
+                    }
                 }
-            }
-            if(GraphFrame.FilterNodeLonelyButton.isSelected())
-            {
-                if(test.getNeighborCount(vertex) == 0) {
-                    return false;
+                if (GraphFrame.FilterNodeLonelyButton.isSelected()) {
+                    if (test.getNeighborCount(vertex) == 0) {
+                        return false;
+                    }
                 }
+                return true;
             }
-            return true;
-        }
         });
         return filterVertex;
     }

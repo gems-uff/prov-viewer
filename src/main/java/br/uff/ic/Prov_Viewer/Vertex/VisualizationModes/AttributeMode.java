@@ -4,11 +4,9 @@
  */
 package br.uff.ic.Prov_Viewer.Vertex.VisualizationModes;
 
-import br.uff.ic.Prov_Viewer.Edge.Edge;
 import br.uff.ic.Prov_Viewer.Variables;
 import br.uff.ic.Prov_Viewer.Vertex.ActivityVertex;
 import br.uff.ic.Prov_Viewer.Vertex.Vertex;
-import edu.uci.ics.jung.graph.DirectedGraph;
 import java.awt.Color;
 import java.awt.Paint;
 
@@ -16,17 +14,16 @@ import java.awt.Paint;
  *
  * @author Kohwalter
  */
-public class AttributeMode extends VertexPaintMode{
+public class AttributeMode extends VertexPaintMode {
 
     public AttributeMode(String attribute) {
         super(attribute);
     }
-    
-    public AttributeMode(String attribute, double g, double y)
-    {
+
+    public AttributeMode(String attribute, double g, double y) {
         super(attribute, g, y);
     }
-    
+
     @Override
     public Paint Execute(Object v, final Variables variables) {
         if (v instanceof ActivityVertex) {
@@ -37,18 +34,14 @@ public class AttributeMode extends VertexPaintMode{
 
     @Override
     public Paint CompareValue(int value, float constant) {
-        if(value > this.valueGreenThreshold) {
-            return new Color(0,255,0);
-        }
-        else
-        {
-            if(value > this.valueYellowThreshold) {
-                return new Color(255,255,0);
-            }
-            else {
-                return new Color(255,0,0);
+        if (value > this.valueGreenThreshold) {
+            return new Color(0, 255, 0);
+        } else {
+            if (value > this.valueYellowThreshold) {
+                return new Color(255, 255, 0);
+            } else {
+                return new Color(255, 0, 0);
             }
         }
     }
-    
 }

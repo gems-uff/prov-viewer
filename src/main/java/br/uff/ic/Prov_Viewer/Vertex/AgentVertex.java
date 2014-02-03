@@ -12,14 +12,16 @@ import java.awt.Shape;
 
 /**
  * Subclass for Vertex named after PROV nomenclature and type
+ *
  * @author Kohwalter
  */
 public class AgentVertex extends Vertex {
-    
+
     private String name;
 
     /**
      * Constructor
+     *
      * @param id This param is used by JUNG for collapsed vertices and tooltips.
      */
     public AgentVertex(String id) {
@@ -28,6 +30,7 @@ public class AgentVertex extends Vertex {
 
     /**
      * Constructor overload
+     *
      * @param array for TSV Reader
      */
     public AgentVertex(String[] array) {

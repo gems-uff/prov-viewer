@@ -12,19 +12,23 @@ import java.awt.geom.Ellipse2D;
 
 /**
  * Subclass for Vertex named after PROV nomenclature and type
+ *
  * @author Kohwalter
  */
 public class EntityVertex extends Vertex {
+
     private String name;
     private String date;
+
     /**
      * Constructor
+     *
      * @param id This param is used by JUNG for collapsed vertices and tooltips.
      */
     public EntityVertex(String id) {
-        super(id); 
-    }    
-    
+        super(id);
+    }
+
     public EntityVertex(String[] array) {
         super("Entity<br> " + "<b>Name: " + array[1] + "</b>"
                 + " <br>" + "Date: " + array[2]
@@ -33,22 +37,22 @@ public class EntityVertex extends Vertex {
         this.name = array[1];
         this.date = array[2];
     }
-    
+
     @Override
     public Shape getShape() {
         return new Ellipse2D.Float(-7, -7, 17, 17);
-    }    
+    }
 
     @Override
     public Paint getColor() {
-        return new Color(255,222,173);
+        return new Color(255, 222, 173);
     }
 
     @Override
     public String getNodeType() {
         return "Entity";
     }
-    
+
     @Override
     public String getDayName() {
         String[] day = date.split(":");

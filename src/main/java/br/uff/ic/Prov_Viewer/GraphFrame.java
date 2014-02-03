@@ -433,7 +433,6 @@ public class GraphFrame extends javax.swing.JFrame {
          * ================================================
          */
     private void StatusFilterBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StatusFilterBoxActionPerformed
-        variables.SetMode((String)StatusFilterBox.getSelectedItem());
         VertexPainter.VertexPainter((String)StatusFilterBox.getSelectedItem(), variables.view, variables);
         variables.view.repaint();
     }//GEN-LAST:event_StatusFilterBoxActionPerformed
