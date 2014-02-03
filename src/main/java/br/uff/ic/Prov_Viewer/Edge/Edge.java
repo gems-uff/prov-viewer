@@ -231,20 +231,11 @@ public class Edge {
      * added. Return false if average
      */
     public boolean AddInfluence() {
-        for (int i = 0; i < Config.EinfTypeNotAdd.length; i++) {
-            if (this.getInfluence().contains(Config.EinfTypeNotAdd[i])) {
+        for (int i = 0; i < Config.edgeInfluenceTypeNotAdd.length; i++) {
+            if (this.getInfluence().contains(Config.edgeInfluenceTypeNotAdd[i])) {
                 return false;
             }
         }
-//        if ((this.getInfluence().contains(Config.EinfTypeNotAdd01))|| (this.getInfluence().contains(Config.EinfTypeNotAdd02))
-//                || (this.getInfluence().contains(Config.EinfTypeNotAdd03)) || (this.getInfluence().contains(Config.EinfTypeNotAdd04))
-//                || (this.getInfluence().contains(Config.EinfTypeNotAdd05)) || (this.getInfluence().contains(Config.EinfTypeNotAdd06))
-//                || (this.getInfluence().contains(Config.EinfTypeNotAdd07)) || (this.getInfluence().contains(Config.EinfTypeNotAdd08))
-//                || (this.getInfluence().contains(Config.EinfTypeNotAdd09)) || (this.getInfluence().contains(Config.EinfTypeNotAdd10))
-//                || (this.getInfluence().contains(Config.EinfTypeNotAdd11)) || (this.getInfluence().contains(Config.EinfTypeNotAdd12))
-//                || (this.getInfluence().contains(Config.EinfTypeNotAdd13))) {
-//            return false;
-//        }
         return true;
     }
 }

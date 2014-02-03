@@ -52,13 +52,13 @@ public class VertexStroke {
         float[] dash = null;
 
         if (v instanceof ActivityVertex) {
-            String role = ((ActivityVertex) v).getAttributeValue(Config.VSattribute);
+            String role = ((ActivityVertex) v).getAttributeValue(Config.vertexStrokevariables[0]);
             if (!"".equals(role)) {
-                if (role.equalsIgnoreCase(Config.VSvar1) || role.equalsIgnoreCase(Config.VSvar2)
-                        || role.equalsIgnoreCase(Config.VSvar3) || role.equalsIgnoreCase(Config.VSvar4)
-                        || role.equalsIgnoreCase(Config.VSvar5)) {
-                    dash = new float[1];
-                    dash[0] = 4.0f;
+                for (int i = 1; i < Config.vertexStrokevariables.length; i++) {
+                    if (role.equalsIgnoreCase(Config.vertexStrokevariables[i])) {
+                        dash = new float[1];
+                        dash[0] = 4.0f;
+                    }
                 }
             }
         }

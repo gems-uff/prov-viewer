@@ -12,6 +12,8 @@ import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.InvertedAttributeMode;
 import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.MultiAttributeMode;
 import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.VertexPaintMode;
 import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.WeekendMode;
+import java.awt.Color;
+import java.awt.Paint;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.swing.DefaultComboBoxModel;
@@ -30,32 +32,16 @@ public class Config {
     //Modes
     public static Collection<VertexPaintMode> vertexModes = new ArrayList<VertexPaintMode>();
     //Edge
-    public static String[] EinfTypeNotAdd;
+    public static String[] edgeInfluenceTypeNotAdd;
     //Temporal Layout
-    public static String TLspecialVertexType;
-    
+    public static String layoutSpecialVertexType;
     //Vertex Stroke variables
-    //TODO: Change to array for scalability
-    public static String VSattribute;
-    public static String VSvar1;
-    public static String VSvar2;
-    public static String VSvar3;
-    public static String VSvar4;
-    public static String VSvar5;
+    public static String[] vertexStrokevariables;
     //ActivityVertex
-    //TODO: Change to array for scalability
-    public static String AVatt1;
-    public static String AVatt2;
-    public static String AVatt3;
-    public static String AVatt4;
-    public static String AVatt5;
-    public static String AVatt6;
-    public static String AVval1;
-    public static String AVval2;
-    public static String AVval3;
-    public static String AVval4;
-    public static String AVval5;
-    public static String AVval6;
+    //All 3 arrays must have the same size
+    public static String[] actVerAtt;
+    public static String[] actVerValue;
+    public static Paint[] actVerColor;
 
     public static void Initialize() {
         //Initialize Interface Filters
@@ -65,10 +51,10 @@ public class Config {
         //Edges
         //Attribute to define if any edge will use a dif collapse function to compute collapsed value
         //(which is: Multiply values instead of adding)
-        EinfTypeNotAdd = new String[length];
-        EinfTypeNotAdd[0] = "Aid";
+        edgeInfluenceTypeNotAdd = new String[length];
+        edgeInfluenceTypeNotAdd[0] = "Aid";
         for (int i = 1; i < length; i++) {
-            EinfTypeNotAdd[i] = "Not_Used";
+            edgeInfluenceTypeNotAdd[i] = "Not_Used";
         }
         //Edge Stroke
         EdgeStroke = new boolean[length];
@@ -78,7 +64,7 @@ public class Config {
             EdgeStroke[i] = true;
         }
         //Temporal Layout
-        TLspecialVertexType = "Project";
+        layoutSpecialVertexType = "Project";
         //Initialize Vertex Paint Modes
         DefaultMode def = new DefaultMode("Default");
         vertexModes.add(def);
@@ -96,43 +82,23 @@ public class Config {
         WeekendMode week = new WeekendMode("Weekend", "Sat", "Sun");
         vertexModes.add(week);
 
-        String[] items = new String[10];
+        String[] items = new String[vertexModes.size()];
         int j = 0;
         for (VertexPaintMode mode : vertexModes) {
             items[j] = mode.GetName();
             j++;
         }
         GraphFrame.StatusFilterBox.setModel(new DefaultComboBoxModel(items));
-
-        //TODO: See at variables declarations
         //Vertex Stroke variables
-        //It evaluates an attribute (VSattribute) and changes the vertex stroke if the value equals to
-        //any of the defined values (VSvar1 to VSvar5)
-        VSattribute = "Role";
-        VSvar1 = "Idle";
-        VSvar2 = "Fired";
-        VSvar3 = "Promotion";
-        VSvar4 = "Training";
-        VSvar5 = "Hired";
-
+        //It evaluates an attribute (i = 0) and changes the vertex stroke if the value equals to
+        //any of the defined values ( i > 0)
+        vertexStrokevariables = new String[]{"Role", "Idle", "Fired", "Promotion", "Training", "Hired"};
         //ActivityVertex
         //These attributes are used to distinguish vertex color. 
-        //The specific values used to change the color (for each attribute)
-        //are below
+        //The specific values used to change the color (for each attribute) are below
+        actVerAtt = new String[]{"Task", "Role", "Morale", "Stamina", "Hours", "Credits"};
+        actVerValue = new String[]{"Idle", "Training", "Fired", "Promotion", "Hired", "Negotiation"};
+        actVerColor = new Paint[]{new Color(238, 180, 180), new Color(102, 0, 102), new Color(139, 69, 19), new Color(0, 153, 0), new Color(139, 136, 120), new Color(193, 205, 193)};
 
-        //TODO: Make arrays instead for scalability
-        AVatt1 = "Task";
-        AVatt2 = "Role";
-        AVatt3 = "Morale";
-        AVatt4 = "Stamina";
-        AVatt5 = "Hours";
-        AVatt6 = "Credits";
-        //These are the corresponding values for each attribute
-        AVval1 = "Idle";
-        AVval2 = "Training";
-        AVval3 = "Fired";
-        AVval4 = "Promotion";
-        AVval5 = "Hired";
-        AVval6 = "Negotiation";
     }
 }
