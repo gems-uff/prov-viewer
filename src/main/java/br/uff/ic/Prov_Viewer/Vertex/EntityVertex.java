@@ -4,7 +4,6 @@
  */
 package br.uff.ic.Prov_Viewer.Vertex;
 
-import br.uff.ic.Prov_Viewer.Vertex.Vertex;
 import java.awt.Color;
 import java.awt.Paint;
 import java.awt.Shape;
@@ -17,8 +16,8 @@ import java.awt.geom.Ellipse2D;
  */
 public class EntityVertex extends Vertex {
 
-    private String name;
-    private String date;
+//    private String name;
+//    private String date;
 
     /**
      * Constructor
@@ -34,8 +33,8 @@ public class EntityVertex extends Vertex {
                 + " <br>" + "Date: " + array[2]
                 + " <br>" + array[3] + " <br><br>");
 
-        this.name = array[1];
-        this.date = array[2];
+        this.SetName(array[1]);
+        this.SetDate(array[2]);
     }
 
     @Override
@@ -45,7 +44,7 @@ public class EntityVertex extends Vertex {
 
     @Override
     public Paint getColor() {
-        return new Color(255, 222, 173);
+        return new Color(255, 252, 135);
     }
 
     @Override
@@ -53,20 +52,20 @@ public class EntityVertex extends Vertex {
         return "Entity";
     }
 
-    @Override
-    public String getDayName() {
-        String[] day = date.split(":");
-        return day[1];
-    }
+//    @Override
+//    public String getDayName() {
+//        String[] day = date.split(":");
+//        return day[1];
+//    }
+//
+//    @Override
+//    public int getDate() {
+//        String[] day = date.split(":");
+//        return Integer.parseInt(day[0]);
+//    }
 
-    @Override
-    public int getDate() {
-        String[] day = date.split(":");
-        return Integer.parseInt(day[0]);
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
+//    @Override
+//    public String getName() {
+//        return name;
+//    }
 }

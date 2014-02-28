@@ -7,7 +7,7 @@ package br.uff.ic.Prov_Viewer.Input;
 import br.uff.ic.Prov_Viewer.GraphFrame;
 import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.AttributeMode;
 import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.DefaultMode;
-import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.EntityAttributeMode;
+import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.ConstantEntityAttributeMode;
 import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.InvertedAttributeMode;
 import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.MultiAttributeMode;
 import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.VertexPaintMode;
@@ -74,7 +74,7 @@ public class Config {
         vertexModes.add(stamina);
         InvertedAttributeMode hours = new InvertedAttributeMode("Hours", 6, 12);
         vertexModes.add(hours);
-        EntityAttributeMode credits = new EntityAttributeMode("Credits");
+        ConstantEntityAttributeMode credits = new ConstantEntityAttributeMode("Credits");
         vertexModes.add(credits);
         String[] roles = new String[]{"Analyst", "Architect", "Manager", "Marketing", "Programmer", "Tester"};
         MultiAttributeMode role = new MultiAttributeMode("Role", roles);

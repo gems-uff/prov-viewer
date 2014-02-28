@@ -13,6 +13,9 @@ import br.uff.ic.Prov_Viewer.Vertex.EntityVertex;
 import br.uff.ic.Prov_Viewer.Vertex.Vertex;
 import br.uff.ic.Prov_Viewer.Vertex.VertexShape;
 import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.VertexPainter;
+import edu.uci.ics.jung.algorithms.layout.CircleLayout;
+import edu.uci.ics.jung.algorithms.layout.FRLayout;
+import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.uci.ics.jung.graph.Graph;
@@ -23,8 +26,10 @@ import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
 import edu.uci.ics.jung.visualization.control.ScalingControl;
 import edu.uci.ics.jung.visualization.decorators.EdgeShape;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
+import edu.uci.ics.jung.visualization.layout.LayoutTransition;
 import edu.uci.ics.jung.visualization.picking.PickedInfo;
 import edu.uci.ics.jung.visualization.subLayout.GraphCollapser;
+import edu.uci.ics.jung.visualization.util.Animator;
 import edu.uci.ics.jung.visualization.util.PredicatedParallelEdgeIndexFunction;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -69,6 +74,7 @@ public class GraphFrame extends javax.swing.JFrame {
      */
     public GraphFrame(DirectedGraph<Object, Edge> graph) {
         initComponents();
+        Layouts.setSelectedItem("TemporalLayout");
         initGraphComponent(graph);
     }
 
@@ -103,6 +109,8 @@ public class GraphFrame extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         FilterList = new javax.swing.JList();
+        Layouts = new javax.swing.JComboBox();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Prov Viewer");
@@ -208,6 +216,15 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(FilterList);
 
+        Layouts.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CircleLayout", "FRLayout", "TemporalLayout" }));
+        Layouts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LayoutsActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Graph Layout");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -240,10 +257,13 @@ public class GraphFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Reset))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(StatusFilterBox, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(StatusFilterBox, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Layouts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(MouseModes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -291,9 +311,13 @@ public class GraphFrame extends javax.swing.JFrame {
                                     .addComponent(StatusFilterBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(EdgeLineShapeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel5)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(MouseModes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(MouseModes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Layouts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE))))))
         );
 
@@ -466,11 +490,35 @@ public class GraphFrame extends javax.swing.JFrame {
         collapser.Filters(variables, filter);
     }//GEN-LAST:event_FilterListValueChanged
 
+    private void LayoutsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LayoutsActionPerformed
+        // TODO add your handling code here:
+//        String layout = (String) Layouts.getSelectedItem();
+//        if (layout.equalsIgnoreCase("CircleLayout")) {
+//            variables.layout = new CircleLayout<Object, Edge>(variables.graph);
+//        }
+//        if (layout.equalsIgnoreCase("FRLayout")) {
+//            variables.layout = new FRLayout<Object, Edge>(variables.graph);
+//        }
+//        if (layout.equalsIgnoreCase("TemporalLayout")) {
+//            variables.layout = new Temporal_Layout<Object, Edge>(variables.graph);
+//        }
+//        variables.view = new VisualizationViewer<Object, Edge>(variables.layout);
+//        variables.view.repaint();
+
+//        initGraphComponent(variables.graph);
+//        layout = new FRLayout2<Object, Edge>(graph);
+//        Layout<Object, Edge> layout = new ISOMLayout<Object, Edge>(graph);
+//        layout = new ISOMLayout<Object, Edge>(graph);
+//        layout = new KKLayout<Object, Edge>(graph);
+//        Layout<Object, Edge> layout = new StaticLayout<Object, Edge>(graph);
+    }//GEN-LAST:event_LayoutsActionPerformed
+
     /**
      * ================================================
      * Init Graph Component
      * ================================================
      */
+    boolean lay = true;
     private void initGraphComponent(DirectedGraph<Object, Edge> graph) {
 
         Config.Initialize();
@@ -482,11 +530,18 @@ public class GraphFrame extends javax.swing.JFrame {
          * Choosing layout
          * ================================================
          */
+//        if(lay)
+//        {
+//            Layouts.setSelectedItem("TemporalLayout");
+//            lay = false;
+//        }
+//        Layouts.setSelectedIndex(Layouts.getSelectedIndex());
 //        layout = new SpringLayout2<Object, Edge>(graph);
         
 //        Layout<Object, Edge> layout = new CircleLayout<Object, Edge>(graph);
 //        layout = new FRLayout<Object, Edge>(graph);
-        variables.layout = new Temporal_Layout<Object, Edge>(graph);
+//            variables.layout = new FRLayout<Object, Edge>(graph);
+          variables.layout = new Temporal_Layout<Object, Edge>(graph);
 //        layout = new FRLayout2<Object, Edge>(graph);
 //        Layout<Object, Edge> layout = new ISOMLayout<Object, Edge>(graph);
 //        layout = new ISOMLayout<Object, Edge>(graph);
@@ -716,6 +771,7 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JCheckBox FilterNodeAgentButton;
     public static javax.swing.JCheckBox FilterNodeLonelyButton;
     private javax.swing.JButton G7Days;
+    private javax.swing.JComboBox Layouts;
     private javax.swing.JComboBox MouseModes;
     private javax.swing.JButton Reset;
     private javax.swing.JCheckBox ShowEdgeTextButton;
@@ -728,6 +784,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

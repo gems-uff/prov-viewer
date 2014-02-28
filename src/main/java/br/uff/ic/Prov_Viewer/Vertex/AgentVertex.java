@@ -4,7 +4,6 @@
  */
 package br.uff.ic.Prov_Viewer.Vertex;
 
-import br.uff.ic.Prov_Viewer.Vertex.Vertex;
 import java.awt.Color;
 import java.awt.Paint;
 import java.awt.Polygon;
@@ -17,7 +16,7 @@ import java.awt.Shape;
  */
 public class AgentVertex extends Vertex {
 
-    private String name;
+//    private String name;
 
     /**
      * Constructor
@@ -37,7 +36,7 @@ public class AgentVertex extends Vertex {
         super("Agent<br> " + "<b>Name: " + array[1] + "</b>"
                 + " <br>" + array[2] + " <br><br>");
 
-        this.name = array[1];
+        this.SetName(array[1]);
     }
 
     @Override
@@ -50,7 +49,7 @@ public class AgentVertex extends Vertex {
 
     @Override
     public Paint getColor() {
-        return new Color(119, 136, 153);
+        return new Color(254, 211, 127);
     }
 
     @Override
@@ -68,8 +67,8 @@ public class AgentVertex extends Vertex {
         return 0;
     }
 
-    @Override
-    public String getName() {
-        return name;
-    }
+//    @Override
+//    public String getName() {
+//        return name;
+//    }
 }

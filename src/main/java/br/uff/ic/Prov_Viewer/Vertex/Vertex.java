@@ -13,6 +13,8 @@ import java.awt.Stroke;
 public abstract class Vertex extends Object {
 
     private String id;
+    private String name;
+    private String date;
 
     /**
      * Constructor
@@ -30,6 +32,18 @@ public abstract class Vertex extends Object {
      */
     public String getID() {
         return id;
+    }
+    
+    public String getFullDate() {
+        return date;
+    }
+    
+    public void SetName(String t){
+        this.name = t;
+    }
+    
+    public void SetDate(String t){
+        this.date = t;
     }
 
     /**
@@ -97,7 +111,10 @@ public abstract class Vertex extends Object {
      *
      * @return (String) the day of the week (mon, tue, wed, ...)
      */
-    public abstract String getDayName();
+    public String getDayName() {
+        String[] day = this.date.split(":");
+        return day[1];
+    }
 
     /**
      * Method for returning the vertex name (not type) from the sub-classes.
@@ -105,12 +122,18 @@ public abstract class Vertex extends Object {
      *
      * @return (String) name
      */
-    public abstract String getName();
+    public String getName(){
+        return this.name;
+    }
+    
 
     /**
      * Method for returning the vertex day (if any)
      *
      * @return (int) date
      */
-    public abstract int getDate();
+    public int getDate() {
+        String[] day = this.date.split(":");
+        return Integer.parseInt(day[0]);
+    }
 }

@@ -17,15 +17,15 @@ import java.util.Collection;
  *
  * @author Kohwalter
  */
-public class EntityAttributeMode extends VertexPaintMode {
+public class ConstantEntityAttributeMode extends VertexPaintMode {
 
     float[] entityValue = new float[]{0, 0};
 
-    public EntityAttributeMode(String attribute) {
+    public ConstantEntityAttributeMode(String attribute) {
         super(attribute, 0.7, 0.4);
     }
 
-    public EntityAttributeMode(String attribute, double g, double y) {
+    public ConstantEntityAttributeMode(String attribute, double g, double y) {
         super(attribute, g, y);
     }
 
@@ -41,12 +41,12 @@ public class EntityAttributeMode extends VertexPaintMode {
 
     @Override
     public Paint CompareValue(int value, float constant) {
-        if (value > (this.valueGreenThreshold)) {
+        if (value > (constant * this.valueGreenThreshold)) {
             return new Color(0, 255, 0);
         } else {
-            if (value > (this.valueYellowThreshold)) {
+            if (value > (constant * this.valueYellowThreshold)) {
                 return new Color(255, 255, 0);
-            } else if (value > (this.valueYellowThreshold * 0.5)) {
+            } else if (value > (constant * this.valueYellowThreshold * 0.5)) {
                 return new Color(140, 23, 23);
             } else {
                 return new Color(255, 0, 0);

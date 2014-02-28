@@ -14,13 +14,13 @@ import java.awt.Paint;
  *
  * @author Kohwalter
  */
-public class ConstantAttributeMode extends VertexPaintMode {
+public class InvertedConstantAttributeMode extends VertexPaintMode {
 
-    public ConstantAttributeMode(String attribute) {
+    public InvertedConstantAttributeMode(String attribute) {
         super(attribute);
     }
 
-    public ConstantAttributeMode(String attribute, double g, double y) {
+    public InvertedConstantAttributeMode(String attribute, double g, double y) {
         super(attribute, g, y);
     }
 
@@ -34,12 +34,12 @@ public class ConstantAttributeMode extends VertexPaintMode {
 
     @Override
     public Paint CompareValue(int value, float constant) {
-        if (value > (constant * this.valueGreenThreshold)) {
+        if (value < (constant * this.valueGreenThreshold)) {
             return new Color(0, 255, 0);
         } else {
-            if (value > (constant * this.valueYellowThreshold)) {
+            if (value < (constant * this.valueYellowThreshold)) {
                 return new Color(255, 255, 0);
-            } else if (value > (constant * this.valueYellowThreshold * 0.5)) {
+            } else if (value < (constant * this.valueYellowThreshold * 0.5)) {
                 return new Color(140, 23, 23);
             } else {
                 return new Color(255, 0, 0);

@@ -19,8 +19,8 @@ import java.awt.geom.Rectangle2D;
  */
 public class ActivityVertex extends Vertex {
 
-    private String name;
-    private String date;
+//    private String name;
+//    private String date;
 
     /**
      * Constructor
@@ -41,8 +41,8 @@ public class ActivityVertex extends Vertex {
                 + " <br>" + "Date: " + array[2]
                 + " <br>" + array[3] + " <br><br>");
 
-        this.name = array[1];
-        this.date = array[2];
+        this.SetName(array[1]);
+        this.SetDate(array[2]);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class ActivityVertex extends Vertex {
                 return Config.actVerColor[i];
             }
         }
-        return new Color(190, 190, 190);
+        return new Color(159, 177, 252);
     }
 
     @Override
@@ -73,20 +73,20 @@ public class ActivityVertex extends Vertex {
         return "Activity";
     }
 
-    @Override
-    public String getDayName() {
-        String[] day = this.date.split(":");
-        return day[1];
-    }
+//    @Override
+//    public String getDayName() {
+//        String[] day = this.date.split(":");
+//        return day[1];
+//    }
 
-    @Override
-    public String getName() {
-        return name;
-    }
+//    @Override
+//    public String getName() {
+//        return name;
+//    }
 
-    @Override
-    public int getDate() {
-        String[] day = this.date.split(":");
-        return Integer.parseInt(day[0]);
-    }
+//    @Override
+//    public int getDate() {
+//        String[] day = this.date.split(":");
+//        return Integer.parseInt(day[0]);
+//    }
 }
