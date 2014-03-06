@@ -34,8 +34,8 @@ public class Collapser {
      */
     public void ResetGraph(Variables variables, Filters filter) {
         //Reset graph to the original version
-        variables.layout.setGraph(Variables.graph);
-        variables.collapsedGraph = Variables.graph;
+        variables.layout.setGraph(variables.graph);
+        variables.collapsedGraph = variables.graph;
         //Remove collapsed edges, otherwise they will be invisible when Reset
         for (Object node : Variables.graph.getVertices()) {
             RemoveCollapsedEdges(variables, node);

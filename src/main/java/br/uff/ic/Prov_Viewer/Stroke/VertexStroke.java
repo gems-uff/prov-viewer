@@ -3,6 +3,7 @@ package br.uff.ic.Prov_Viewer.Stroke;
 import br.uff.ic.Prov_Viewer.Input.Config;
 import br.uff.ic.Prov_Viewer.Edge.Edge;
 import br.uff.ic.Prov_Viewer.Vertex.ActivityVertex;
+import br.uff.ic.Prov_Viewer.Vertex.Vertex;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.picking.PickedState;
@@ -51,11 +52,11 @@ public class VertexStroke {
     public static Stroke VertexStroke(Object v, VisualizationViewer<Object, Edge> view, Layout<Object, Edge> layout) {
         float[] dash = null;
 
-        if (v instanceof ActivityVertex) {
-            String role = ((ActivityVertex) v).getAttributeValue(Config.vertexStrokevariables[0]);
-            if (!"".equals(role)) {
+        if (v instanceof Vertex) {
+            String att = ((Vertex) v).getAttributeValue(Config.vertexStrokevariables[0]);
+            if (!"".equals(att)) {
                 for (int i = 1; i < Config.vertexStrokevariables.length; i++) {
-                    if (role.equalsIgnoreCase(Config.vertexStrokevariables[i])) {
+                    if (att.equalsIgnoreCase(Config.vertexStrokevariables[i])) {
                         dash = new float[1];
                         dash[0] = 4.0f;
                     }

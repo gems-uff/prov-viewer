@@ -38,7 +38,7 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
             if (line.contains("Entity")) {
                 return new Ellipse2D.Float(-7, -7, 30, 30);
             } else if ((line.contains("Agent"))) {
-                return factory.getRegularPolygon(v, 8);
+                return factory.getRegularPolygon(v, 5);
             } else if (line.contains("Activity")) {
                 return factory.getRegularPolygon(v, 4);
             } else {
@@ -55,7 +55,7 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
             return new Ellipse2D.Float(-7, -7, 20, 20);
         }
         if (v instanceof AgentVertex) {
-            return factory.getRegularPolygon(v, 8);
+            return factory.getRegularPolygon(v, 5);
         } else//activity vertex 
         {
             return factory.getRegularPolygon(v, 4);

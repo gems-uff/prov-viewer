@@ -15,7 +15,11 @@ import br.uff.ic.Prov_Viewer.Vertex.VertexShape;
 import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.VertexPainter;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
+import edu.uci.ics.jung.algorithms.layout.FRLayout2;
+import edu.uci.ics.jung.algorithms.layout.ISOMLayout;
+import edu.uci.ics.jung.algorithms.layout.KKLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
+import edu.uci.ics.jung.algorithms.layout.StaticLayout;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.uci.ics.jung.graph.Graph;
@@ -74,7 +78,7 @@ public class GraphFrame extends javax.swing.JFrame {
      */
     public GraphFrame(DirectedGraph<Object, Edge> graph) {
         initComponents();
-        Layouts.setSelectedItem("TemporalLayout");
+//        Layouts.setSelectedItem("TemporalLayout");
         initGraphComponent(graph);
     }
 
@@ -216,7 +220,7 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(FilterList);
 
-        Layouts.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CircleLayout", "FRLayout", "TemporalLayout" }));
+        Layouts.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CircleLayout", "FRLayout", "FRLayout2", "TemporalLayout", "ISOMLayout", "KKLayout" }));
         Layouts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LayoutsActionPerformed(evt);
@@ -492,25 +496,27 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private void LayoutsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LayoutsActionPerformed
         // TODO add your handling code here:
-//        String layout = (String) Layouts.getSelectedItem();
-//        if (layout.equalsIgnoreCase("CircleLayout")) {
-//            variables.layout = new CircleLayout<Object, Edge>(variables.graph);
-//        }
-//        if (layout.equalsIgnoreCase("FRLayout")) {
-//            variables.layout = new FRLayout<Object, Edge>(variables.graph);
-//        }
-//        if (layout.equalsIgnoreCase("TemporalLayout")) {
-//            variables.layout = new Temporal_Layout<Object, Edge>(variables.graph);
-//        }
-//        variables.view = new VisualizationViewer<Object, Edge>(variables.layout);
-//        variables.view.repaint();
-
-//        initGraphComponent(variables.graph);
-//        layout = new FRLayout2<Object, Edge>(graph);
-//        Layout<Object, Edge> layout = new ISOMLayout<Object, Edge>(graph);
-//        layout = new ISOMLayout<Object, Edge>(graph);
-//        layout = new KKLayout<Object, Edge>(graph);
-//        Layout<Object, Edge> layout = new StaticLayout<Object, Edge>(graph);
+        String layout = (String) Layouts.getSelectedItem();
+        if (layout.equalsIgnoreCase("CircleLayout")) {
+            variables.layout = new CircleLayout<Object, Edge>(variables.layout.getGraph());
+        }
+        if (layout.equalsIgnoreCase("FRLayout")) {
+            variables.layout = new FRLayout<Object, Edge>(variables.layout.getGraph());
+        }
+        if (layout.equalsIgnoreCase("FRLayout2")) {
+            variables.layout = new FRLayout2<Object, Edge>(variables.layout.getGraph());
+        }
+        if (layout.equalsIgnoreCase("TemporalLayout")) {
+            variables.layout = new Temporal_Layout<Object, Edge>(variables.layout.getGraph());
+        }
+        if (layout.equalsIgnoreCase("ISOMLayout")) {
+            variables.layout = new ISOMLayout<Object, Edge>(variables.layout.getGraph());
+        }
+        if (layout.equalsIgnoreCase("KKLayout")) {
+            variables.layout = new KKLayout<Object, Edge>(variables.layout.getGraph());
+        }
+        variables.view.setGraphLayout(variables.layout);
+        variables.view.repaint();
     }//GEN-LAST:event_LayoutsActionPerformed
 
     /**
@@ -530,23 +536,13 @@ public class GraphFrame extends javax.swing.JFrame {
          * Choosing layout
          * ================================================
          */
-//        if(lay)
-//        {
-//            Layouts.setSelectedItem("TemporalLayout");
-//            lay = false;
-//        }
-//        Layouts.setSelectedIndex(Layouts.getSelectedIndex());
-//        layout = new SpringLayout2<Object, Edge>(graph);
-        
-//        Layout<Object, Edge> layout = new CircleLayout<Object, Edge>(graph);
-//        layout = new FRLayout<Object, Edge>(graph);
-//            variables.layout = new FRLayout<Object, Edge>(graph);
-          variables.layout = new Temporal_Layout<Object, Edge>(graph);
-//        layout = new FRLayout2<Object, Edge>(graph);
-//        Layout<Object, Edge> layout = new ISOMLayout<Object, Edge>(graph);
-//        layout = new ISOMLayout<Object, Edge>(graph);
-//        layout = new KKLayout<Object, Edge>(graph);
-//        Layout<Object, Edge> layout = new StaticLayout<Object, Edge>(graph);
+        if(lay)
+        {
+            variables.layout = new Temporal_Layout<Object, Edge>(graph);
+            variables.view = new VisualizationViewer<Object, Edge>(variables.layout);
+            Layouts.setSelectedItem("TemporalLayout");
+            lay = false;
+        }
 //        layout.setSize(new Dimension(2000, 2000));
         /**
          * ================================================

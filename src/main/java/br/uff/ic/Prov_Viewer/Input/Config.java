@@ -6,8 +6,8 @@ package br.uff.ic.Prov_Viewer.Input;
 
 import br.uff.ic.Prov_Viewer.GraphFrame;
 import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.AttributeMode;
-import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.DefaultMode;
 import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.ConstantEntityAttributeMode;
+import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.DefaultMode;
 import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.InvertedAttributeMode;
 import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.MultiAttributeMode;
 import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.VertexPaintMode;
@@ -28,7 +28,7 @@ public class Config {
     public static String[] filterList;
     public static int length;
     //Edge Stroke
-    public static boolean[] EdgeStroke;
+    public static boolean[] edgeStroke;
     //Modes
     public static Collection<VertexPaintMode> vertexModes = new ArrayList<VertexPaintMode>();
     //Edge
@@ -57,11 +57,11 @@ public class Config {
             edgeInfluenceTypeNotAdd[i] = "Not_Used";
         }
         //Edge Stroke
-        EdgeStroke = new boolean[length];
+        edgeStroke = new boolean[length];
         //Edge Stroke
-        EdgeStroke[0] = false;
+        edgeStroke[0] = false;
         for (int i = 1; i < length; i++) {
-            EdgeStroke[i] = true;
+            edgeStroke[i] = true;
         }
         //Temporal Layout
         layoutSpecialVertexType = "Project";

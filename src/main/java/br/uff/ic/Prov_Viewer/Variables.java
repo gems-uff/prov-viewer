@@ -127,11 +127,11 @@ public class Variables extends Object {
         for (Edge edge : edges) {
             for (int i = 0; i < Config.length; i++) {
                 GraphFrame.FilterList.setSelectedIndex(i);
-                edgeArray[i].value = ComputeValue(edgeArray[i].value, GraphFrame.FilterList.getSelectedValue().toString(), edge, Config.EdgeStroke[i]);
+                edgeArray[i].value = ComputeValue(edgeArray[i].value, GraphFrame.FilterList.getSelectedValue().toString(), edge, Config.edgeStroke[i]);
             }
         }
         for (int i = 0; i < Config.length; i++) {
-            edgeArray[i].value = Average(edgeArray[i].value, Config.EdgeStroke[i]);
+            edgeArray[i].value = Average(edgeArray[i].value, Config.edgeStroke[i]);
         }
         GraphFrame.FilterList.setSelectedIndex(0);
     }

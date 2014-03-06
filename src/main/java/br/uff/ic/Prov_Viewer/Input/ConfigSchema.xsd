@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<xs:schema version="1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+    
+    <xs:element name="config" type="Configuration"/>
+    
+    <!-- Configuration Type -->
+    <xs:complexType name="Configuration">
+        <xs:sequence>
+            <!-- Temporal Layout backbone vertex type -->
+            <xs:element layoutSpecialVertexType="backbone" type="xs:string"/>
+            <!-- List of all edges and their configuration values -->
+            <xs:element edgeType="edgetypes" type="EdgeType"/>
+            <!-- List of all special vertices that has different stroke -->
+            <xs:element vertexStrokeType="vertexstroketype" type="stringlist"/>
+            <!-- List of all display modes -->
+            <xs:element displayMode="mode" type="Modes"/>
+            <!-- List of types of activity vertex and their configuration values -->
+            <xs:element activityVexter="activityVariables" type="Activity"/>
+        </xs:sequence>
+    </xs:complexType>
+  
+    <!-- String List -->
+    <xs:simpleType name="stringlist">
+        <xs:list itemType="xs:string"/>
+    </xs:simpleType>
+        
+    <!-- Edge Type -->
+    <xs:complexType name="EdgeType">
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element edge="name" type="xs:string"/>
+            <!-- Take max value or average value for each edge type -->
+            <xs:element edgeStroke="edgestroke=" type="xs:boolean"/>
+            <!-- Collapse function used: True = multiplication; False = Add -->
+            <xs:element collapsefuncion="collapse=" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!-- Mode Type -->
+    <xs:complexType name="Modes">
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element mode="modefunction" type="xs:string"/>
+            <xs:element attribute="attributes" type="stringlist"/>
+            <xs:element invertedGreenThreshold="InvGreenT" type="xs:integer"/>
+            <xs:element invertedYellowThreshold="InvYellowT" type="xs:integer"/>
+        </xs:sequence>
+    </xs:complexType>
+        
+    <!-- Activity Vertex Type -->
+    <xs:complexType name="Activity">
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element actVerAtt="attribute" type="xs:string"/>
+            <xs:element actVerValue="value" type="xs:string"/>
+            <xs:element actVerColor="color" type="Color"/>
+        </xs:sequence>
+    </xs:complexType>
+        
+    <!-- Color Type -->
+    <xs:complexType name="Color">
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="r" type="xs:integer"/>
+            <xs:element name="g" type="xs:integer"/>
+            <xs:element name="b" type="xs:integer"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

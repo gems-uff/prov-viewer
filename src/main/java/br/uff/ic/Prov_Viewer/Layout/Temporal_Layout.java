@@ -166,7 +166,7 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
             //Node's X position is defined by the day it was created
             newXPos = ((Vertex)v).getDate() * XDISTANCE;
             //If node is a ProjectNode-type
-            if((v instanceof EntityVertex) && ((EntityVertex)v).getName().contains(Config.layoutSpecialVertexType))
+            if((v instanceof Vertex) && ((Vertex)v).getName().contains(Config.layoutSpecialVertexType))
             {
                     //I want the Project-type node to always be on Y = 0
                     newYPos = 0;
