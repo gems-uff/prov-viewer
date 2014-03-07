@@ -96,7 +96,7 @@ public class Config {
         //ActivityVertex
         //These attributes are used to distinguish vertex color. 
         //The specific values used to change the color (for each attribute) are below
-        actVerAtt = new String[]{"Task", "Role", "Morale", "Stamina", "Hours", "Credits"};
+        actVerAtt = new String[]{"Task", "Role", "Task", "Task", "Task", "Task"};
         actVerValue = new String[]{"Idle", "Training", "Fired", "Promotion", "Hired", "Negotiation"};
         actVerColor = new Paint[]{new Color(238, 180, 180), new Color(102, 0, 102), new Color(139, 69, 19), new Color(0, 153, 0), new Color(139, 136, 120), new Color(193, 205, 193)};
 
