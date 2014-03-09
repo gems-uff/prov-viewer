@@ -27,6 +27,11 @@ public class MultiAttributeMode extends VertexPaintMode {
         super(attribute, g, y);
         this.values = new String[]{"Empty"};
     }
+    
+    public MultiAttributeMode(String attribute, String valuesList, double g, double y) {
+        super(attribute, g, y);
+        this.values = valuesList.split(" ");
+    }
 
     @Override
     public Paint Execute(Object v, final Variables variables) {

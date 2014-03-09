@@ -24,6 +24,10 @@ public class InvertedAttributeMode extends VertexPaintMode {
         super(attribute, g, y);
     }
 
+    public InvertedAttributeMode(String attribute, String empty, double g, double y) {
+        super(attribute, g, y);
+    }
+    
     @Override
     public Paint Execute(Object v, final Variables variables) {
         if (v instanceof ActivityVertex) {

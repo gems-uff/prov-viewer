@@ -69,8 +69,8 @@ public class EdgeStroke {
      * @return Stroke
      */
     public static Stroke StrokeByType(Edge edge, Variables variables) {
-        for (int i = 0; i < Config.length; i++) {
-            if (edge.getInfluence().contains(Config.filterList[i])) {
+        for (int i = 0; i < Config.edgetype.size(); i++) {
+            if (edge.getInfluence().contains(Config.edgetype.get(i))) {
                 return defineStroke(edge.getValue(), ((Variables) variables).edgeArray[i].value[0]);
             }
         }

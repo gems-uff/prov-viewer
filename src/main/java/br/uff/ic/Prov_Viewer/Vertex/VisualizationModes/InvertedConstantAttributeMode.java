@@ -23,6 +23,10 @@ public class InvertedConstantAttributeMode extends VertexPaintMode {
     public InvertedConstantAttributeMode(String attribute, double g, double y) {
         super(attribute, g, y);
     }
+    
+    public InvertedConstantAttributeMode(String attribute, String empty, double g, double y) {
+        super(attribute, g, y);
+    }
 
     @Override
     public Paint Execute(Object v, final Variables variables) {

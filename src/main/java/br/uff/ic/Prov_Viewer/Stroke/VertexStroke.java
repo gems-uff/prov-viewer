@@ -53,12 +53,17 @@ public class VertexStroke {
         float[] dash = null;
 
         if (v instanceof Vertex) {
-            String att = ((Vertex) v).getAttributeValue(Config.vertexStrokevariables[0]);
-            if (!"".equals(att)) {
-                for (int i = 1; i < Config.vertexStrokevariables.length; i++) {
-                    if (att.equalsIgnoreCase(Config.vertexStrokevariables[i])) {
-                        dash = new float[1];
-                        dash[0] = 4.0f;
+            if (!Config.vertexStrokevariables.isEmpty()) {
+                for (int i = 0; i < Config.vertexStrokevariables.size(); i++) {
+                    String[] list = Config.vertexStrokevariables.get(i).split(" ");
+                    String att = ((Vertex) v).getAttributeValue(list[0]);
+                    if (!"".equals(att)) {
+                        for (int j = 1; j < list.length; j++) {
+                            if (att.equalsIgnoreCase(list[j])) {
+                                dash = new float[1];
+                                dash[0] = 4.0f;
+                            }
+                        }
                     }
                 }
             }

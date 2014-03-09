@@ -28,6 +28,10 @@ public class EntityAttributeMode extends VertexPaintMode {
     public EntityAttributeMode(String attribute, double g, double y) {
         super(attribute, g, y);
     }
+    
+    public EntityAttributeMode(String attribute, String empty, double g, double y) {
+        super(attribute, g, y);
+    }
 
     @Override
     public Paint Execute(Object v, final Variables variables) {

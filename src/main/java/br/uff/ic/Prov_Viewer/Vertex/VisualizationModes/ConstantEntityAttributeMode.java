@@ -28,6 +28,10 @@ public class ConstantEntityAttributeMode extends VertexPaintMode {
     public ConstantEntityAttributeMode(String attribute, double g, double y) {
         super(attribute, g, y);
     }
+    
+    public ConstantEntityAttributeMode(String attribute, String empty, double g, double y) {
+        super(attribute, g, y);
+    }
 
     @Override
     public Paint Execute(Object v, final Variables variables) {

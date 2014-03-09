@@ -29,6 +29,13 @@ public class WeekendMode extends VertexPaintMode {
         this.sat = sat;
         this.sun = sun;
     }
+    
+    public WeekendMode(String attribute, String days, double g, double y) {
+        super(attribute, g, y);
+        String[] names = days.split(" ");
+        this.sat = names[0];
+        this.sun = names[1];
+    }
 
     @Override
     public Paint Execute(Object v, final Variables variables) {

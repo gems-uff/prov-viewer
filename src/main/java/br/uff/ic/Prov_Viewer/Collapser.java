@@ -356,7 +356,7 @@ public class Collapser {
 //        GraphFrame.FilterEdge12.setSelected(true);
 //        GraphFrame.FilterEdge13.setSelected(true);
 
-        GraphFrame.FilterList.setSelectionInterval(0, Config.length - 1);
+        GraphFrame.FilterList.setSelectionInterval(0, Config.edgetype.size() - 1);
         Filters(variables, filter, false);
     }
 

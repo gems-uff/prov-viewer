@@ -23,6 +23,9 @@ public class AttributeMode extends VertexPaintMode {
     public AttributeMode(String attribute, double g, double y) {
         super(attribute, g, y);
     }
+    public AttributeMode(String attribute, String empty, double g, double y) {
+        super(attribute, g, y);
+    }
 
     @Override
     public Paint Execute(Object v, final Variables variables) {

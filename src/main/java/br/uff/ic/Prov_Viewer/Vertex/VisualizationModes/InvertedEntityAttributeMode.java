@@ -28,6 +28,10 @@ public class InvertedEntityAttributeMode extends VertexPaintMode {
     public InvertedEntityAttributeMode(String attribute, double g, double y) {
         super(attribute, g, y);
     }
+    
+    public InvertedEntityAttributeMode(String attribute, String empty, double g, double y) {
+        super(attribute, g, y);
+    }
 
     @Override
     public Paint Execute(Object v, final Variables variables) {

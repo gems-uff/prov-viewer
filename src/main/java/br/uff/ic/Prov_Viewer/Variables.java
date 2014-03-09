@@ -125,13 +125,13 @@ public class Variables extends Object {
         }
         Collection<Edge> edges = graph.getEdges();
         for (Edge edge : edges) {
-            for (int i = 0; i < Config.length; i++) {
+            for (int i = 0; i < Config.edgeStroke.size(); i++) {
                 GraphFrame.FilterList.setSelectedIndex(i);
-                edgeArray[i].value = ComputeValue(edgeArray[i].value, GraphFrame.FilterList.getSelectedValue().toString(), edge, Config.edgeStroke[i]);
+                edgeArray[i].value = ComputeValue(edgeArray[i].value, GraphFrame.FilterList.getSelectedValue().toString(), edge, Config.edgeStroke.get(i));
             }
         }
-        for (int i = 0; i < Config.length; i++) {
-            edgeArray[i].value = Average(edgeArray[i].value, Config.edgeStroke[i]);
+        for (int i = 0; i < Config.edgeStroke.size(); i++) {
+            edgeArray[i].value = Average(edgeArray[i].value, Config.edgeStroke.get(i));
         }
         GraphFrame.FilterList.setSelectedIndex(0);
     }
