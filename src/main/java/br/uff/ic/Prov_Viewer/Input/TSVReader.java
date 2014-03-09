@@ -1,9 +1,9 @@
 package br.uff.ic.Prov_Viewer.Input;
 
-import br.uff.ic.Prov_Viewer.Vertex.ActivityVertex;
-import br.uff.ic.Prov_Viewer.Vertex.EntityVertex;
-import br.uff.ic.Prov_Viewer.Vertex.AgentVertex;
 import br.uff.ic.Prov_Viewer.Edge.Edge;
+import br.uff.ic.Prov_Viewer.Vertex.ActivityVertex;
+import br.uff.ic.Prov_Viewer.Vertex.AgentVertex;
+import br.uff.ic.Prov_Viewer.Vertex.EntityVertex;
 import br.uff.ic.Prov_Viewer.Vertex.Vertex;
 import java.io.BufferedReader;
 import java.io.FileReader;
