@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Paint;
 import java.io.File;
 import java.lang.reflect.Constructor;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -51,19 +52,17 @@ public class Config {
     public static void Initialize() {
         try {
 
-            File fXmlFile = new File("configSDM.xml");
+            URL location = Config.class.getProtectionDomain().getCodeSource().getLocation();
+            File fXmlFile = new File(location.getFile() + "/br/uff/ic/Prov_Viewer/Input/configSDM.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(fXmlFile);
 
             doc.getDocumentElement().normalize();
 
-            System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
-
             //Temporal Layout Backbone
             NodeList nList = doc.getElementsByTagName("layoutSpecialVertexType");
             layoutSpecialVertexType = nList.item(0).getTextContent();
-            System.out.println("layoutSpecialVertexType :" + nList.item(0).getTextContent());
 
             //Edge Types
             nList = doc.getElementsByTagName("edgetypes");

@@ -18,8 +18,6 @@ import edu.uci.ics.jung.algorithms.layout.FRLayout;
 import edu.uci.ics.jung.algorithms.layout.FRLayout2;
 import edu.uci.ics.jung.algorithms.layout.ISOMLayout;
 import edu.uci.ics.jung.algorithms.layout.KKLayout;
-import edu.uci.ics.jung.algorithms.layout.Layout;
-import edu.uci.ics.jung.algorithms.layout.StaticLayout;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.uci.ics.jung.graph.Graph;
@@ -30,10 +28,8 @@ import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
 import edu.uci.ics.jung.visualization.control.ScalingControl;
 import edu.uci.ics.jung.visualization.decorators.EdgeShape;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
-import edu.uci.ics.jung.visualization.layout.LayoutTransition;
 import edu.uci.ics.jung.visualization.picking.PickedInfo;
 import edu.uci.ics.jung.visualization.subLayout.GraphCollapser;
-import edu.uci.ics.jung.visualization.util.Animator;
 import edu.uci.ics.jung.visualization.util.PredicatedParallelEdgeIndexFunction;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -41,6 +37,7 @@ import java.awt.Paint;
 import java.awt.Stroke;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -55,8 +52,7 @@ import org.apache.commons.collections15.Transformer;
  * @author kohwalter
  */
 public class GraphFrame extends javax.swing.JFrame {
-    static String filePath = "log.txt";
-    static String tutorialPath = "tutorial.txt";
+    static String filePath = "/br/uff/ic/Prov_Viewer/Input/log.txt";
     final Set exclusions = new HashSet();
     
 //    VisualizationViewer<Object, Edge> view;
@@ -749,7 +745,8 @@ public class GraphFrame extends javax.swing.JFrame {
 //        }
         //</editor-fold>
 
-        Variables.graph = getGraph(filePath);
+        URL location = GraphFrame.class.getProtectionDomain().getCodeSource().getLocation();
+        Variables.graph = getGraph(location.getFile() + filePath);
         java.awt.EventQueue.invokeLater(new Runnable() {
                 
             @Override
