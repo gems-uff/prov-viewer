@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<xs:schema version="1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+    
+    <xs:element name="provenancedata" type="ProvData"/>
+    
+    <!-- Configuration Type -->
+    <xs:complexType name="ProvData">
+        <xs:sequence>
+            <!-- Temporal Layout backbone vertex type -->
+            <xs:element name="vertex" type="Vertex" minOccurs="0" maxOccurs="unbounded"/>
+            <!-- List of all edges and their configuration values -->
+            <xs:element name="edge" type="Edge" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!-- Edge Type -->
+    <xs:complexType name="Edge">
+        <xs:sequence>
+            <!-- Edge unique ID -->
+            <xs:element name="id" type="xs:string"/>
+            <!-- Edge type -->
+            <xs:element name="type" type="xs:string"/>
+            <!-- Edge value -->
+            <xs:element name="value" type="xs:string"/>
+            <!-- Source vertex's unique ID -->
+            <xs:element name="sourceid" type="xs:string"/>
+            <!-- Target vertex's unique ID -->
+            <xs:element name="targetid" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!-- Vertex Node -->
+    <xs:complexType name="Vertex">
+        <xs:sequence>
+            <!-- Vertex unique ID -->
+            <xs:element name="id" type="xs:string"/>
+            <!-- Vertex type (Activity, Entity, Agent) -->
+            <xs:element name="type" type="xs:string"/>
+            <!-- Vertex Name -->
+            <xs:element name="name" type="xs:string"/>
+            <!-- Vertex Date of Creation/Appearance -->
+            <xs:element name="date" type="xs:string"/>
+            <!-- Vertex additional information -->
+            <xs:element name="details" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

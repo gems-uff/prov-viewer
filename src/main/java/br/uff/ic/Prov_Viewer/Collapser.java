@@ -329,7 +329,7 @@ public class Collapser {
      * @return
      */
     public Edge CollapsedEdgeType(Object target, Object source, String influence) {
-        return new Edge(target, source, influence);
+        return new Edge("C" + ((Vertex)target).getID() + ((Vertex)source).getID(), target, source, influence);
     }
 
     /**

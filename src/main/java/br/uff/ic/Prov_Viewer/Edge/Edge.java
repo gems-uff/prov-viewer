@@ -12,6 +12,7 @@ import java.awt.Paint;
  */
 public class Edge {
 
+    private String id;
     private Object source;
     private Object target;
     private String influence;
@@ -28,7 +29,8 @@ public class Edge {
      * @param source Vertex source
      * @param influence Influence value and type (i.e. "+9 damage")
      */
-    public Edge(Object target, Object source, String influence) {
+    public Edge(String id, Object target, Object source, String influence) {
+        this.id = id;
         this.source = source;
         this.target = target;
         if (influence.equalsIgnoreCase("")) {
@@ -46,7 +48,8 @@ public class Edge {
      * @param target Vertex target
      * @param source Vertex Source
      */
-    public Edge(Object target, Object source) {
+    public Edge(String id, Object target, Object source) {
+        this.id = id;
         this.source = source;
         this.target = target;
         this.influence = "Neutral";

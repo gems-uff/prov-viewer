@@ -24,7 +24,7 @@ public class AgentVertex extends Vertex {
      * @param id This param is used by JUNG for collapsed vertices and tooltips.
      */
     public AgentVertex(String id) {
-        super(id);
+        super(id, "","","");
     }
 
     /**
@@ -33,10 +33,9 @@ public class AgentVertex extends Vertex {
      * @param array for TSV Reader
      */
     public AgentVertex(String[] array) {
-        super("Agent<br> " + "<b>Name: " + array[1] + "</b>"
-                + " <br>" + array[2] + " <br><br>");
+        super(array[0], array[1], array[2], array[3]);
 
-        this.SetName(array[1]);
+//        this.SetName(array[1]);
     }
 
     @Override

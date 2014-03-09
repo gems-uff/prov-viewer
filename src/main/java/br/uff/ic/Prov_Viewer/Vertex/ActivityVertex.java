@@ -28,7 +28,7 @@ public class ActivityVertex extends Vertex {
      * @param id This param is used by JUNG for collapsed vertices and tooltips.
      */
     public ActivityVertex(String id) {
-        super(id);
+        super(id, "", "", "");
     }
 
     /**
@@ -37,12 +37,10 @@ public class ActivityVertex extends Vertex {
      * @param array for TSV Reader
      */
     public ActivityVertex(String[] array) {
-        super("Activity<br> " + "<b>Name: " + array[1] + "</b>"
-                + " <br>" + "Date: " + array[2]
-                + " <br>" + array[3] + " <br><br>");
+        super(array[0], array[1], array[2], array[3]);
 
-        this.SetName(array[1]);
-        this.SetDate(array[2]);
+//        this.SetName(array[1]);
+//        this.SetDate(array[2]);
     }
 
     @Override

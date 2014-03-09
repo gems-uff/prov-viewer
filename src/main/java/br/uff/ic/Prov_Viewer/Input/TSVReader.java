@@ -49,21 +49,21 @@ public class TSVReader {
                 {
 //                    Edge edge = new SDM_Edge(getAgent(Arrays.copyOfRange(names, 1, 16)),
 //                            getProcess(Arrays.copyOfRange(names, 16, 29)), "", i);
-                    Edge edge = new Edge(getProcess(Arrays.copyOfRange(names, 4, 8)),
-                            getAgent(Arrays.copyOfRange(names, 1, 4)), "");
+                    Edge edge = new Edge("edge" + i, getProcess(Arrays.copyOfRange(names, 5, 9)),
+                            getAgent(Arrays.copyOfRange(names, 1, 5)), "");
                     edges.add(edge);
                 }
                 //Action Action
                 if(names[0].equalsIgnoreCase("IAcAc"))
                 {
-                   Edge edge = new Edge(getProcess(Arrays.copyOfRange(names, 1, 5)),
+                   Edge edge = new Edge("edge" + i, getProcess(Arrays.copyOfRange(names, 1, 5)),
                             getProcess(Arrays.copyOfRange(names, 5, 9)), names[9]); 
                    edges.add(edge);
                 }
                 //Action Artifact
                 if(names[0].equalsIgnoreCase("IAcAr"))
                 {
-                   Edge edge = new Edge(getProcess(Arrays.copyOfRange(names, 1, 5)),
+                   Edge edge = new Edge("edge" + i, getProcess(Arrays.copyOfRange(names, 1, 5)),
                             getArtifact(Arrays.copyOfRange(names, 5, 9)), names[9]); 
                    edges.add(edge);
                 }
@@ -71,34 +71,34 @@ public class TSVReader {
                 if(names[0].equalsIgnoreCase("IArAc"))
                 {
                     //System.out.println(names.length);
-                   Edge edge = new Edge(getArtifact(Arrays.copyOfRange(names, 1, 5)),
+                   Edge edge = new Edge("edge" + i, getArtifact(Arrays.copyOfRange(names, 1, 5)),
                             getProcess(Arrays.copyOfRange(names, 5, 9)), names[9]); 
                    edges.add(edge);
                 }
                 if(names[0].equalsIgnoreCase("PP"))
                 {
                     //System.out.println(line);
-                    Edge edge = new Edge(getProject(Arrays.copyOfRange(names, 1, 5)),
+                    Edge edge = new Edge("edge" + i, getProject(Arrays.copyOfRange(names, 1, 5)),
                             getProject(Arrays.copyOfRange(names, 5, 9)), names[9]);
                     edges.add(edge);
                 }
                 if(names[0].equalsIgnoreCase("AcP"))
                 {
-                    Edge edge = new Edge(getProcess(Arrays.copyOfRange(names, 1, 5)),
+                    Edge edge = new Edge("edge" + i, getProcess(Arrays.copyOfRange(names, 1, 5)),
                             getProject(Arrays.copyOfRange(names, 5, 9)), names[9]);
                     edges.add(edge);
                 }
                 if(names[0].equalsIgnoreCase("AgP"))
                 {
                     //System.out.println(line);
-                    Edge edge = new Edge(getAgent(Arrays.copyOfRange(names, 1, 4)),
-                            getProject(Arrays.copyOfRange(names, 4, 8)), names[8]);
+                    Edge edge = new Edge("edge" + i, getAgent(Arrays.copyOfRange(names, 1, 5)),
+                            getProject(Arrays.copyOfRange(names, 5, 9)), names[9]);
                     edges.add(edge);
                 }
                 if(names[0].equalsIgnoreCase("AcAg"))
                 {
-                    Edge edge = new Edge(getProcess(Arrays.copyOfRange(names, 1, 5)),
-                            getAgent(Arrays.copyOfRange(names, 5, 8)), names[8]);
+                    Edge edge = new Edge("edge" + i, getProcess(Arrays.copyOfRange(names, 1, 5)),
+                            getAgent(Arrays.copyOfRange(names, 5, 9)), names[9]);
                     edges.add(edge);
                 }
             }

@@ -15,14 +15,18 @@ public abstract class Vertex extends Object {
     private String id;
     private String name;
     private String date;
+    private String details;
 
     /**
      * Constructor
      *
      * @param id This param is used by JUNG for collapsed vertices and tooltips.
      */
-    public Vertex(String id) {
+    public Vertex(String id, String name, String date, String details) {
         this.id = id;
+        this.name = name;
+        this.date = date;
+        this.details = details;
     }
 
     /**
@@ -53,11 +57,14 @@ public abstract class Vertex extends Object {
      */
     @Override
     public String toString() {
-        return id;
+//        return id;
+        return "Activity<br> " + "<b>Name: " + this.name + "</b>"
+                + " <br>" + "Date: " + this.date
+                + " <br>" + this.details + " <br><br>";
     }
 
     public String getAttributeValue(String attribute) {
-        String[] line = id.split(attribute);
+        String[] line = this.toString().split(attribute);
         if (line.length > 1) {
             String[] line2 = line[1].split(" ");
 
