@@ -17,20 +17,20 @@ import java.util.Collection;
  *
  * @author Kohwalter
  */
-public class EntityAttributeMode extends VertexPaintMode {
+public class EntityAttributeMode extends ColorScheme {
 
     float[] entityValue = new float[]{0, 0};
 
-    public EntityAttributeMode(String attribute) {
-        super(attribute, 0.7, 0.4);
-    }
-
-    public EntityAttributeMode(String attribute, double g, double y) {
-        super(attribute, g, y);
-    }
+//    public EntityAttributeMode(String attribute) {
+//        super(attribute, 0.7, 0.4);
+//    }
+//
+//    public EntityAttributeMode(String attribute, double g, double y) {
+//        super(attribute, g, y);
+//    }
     
     public EntityAttributeMode(String attribute, String empty, double g, double y) {
-        super(attribute, g, y);
+        super(attribute, empty, g, y);
     }
 
     @Override

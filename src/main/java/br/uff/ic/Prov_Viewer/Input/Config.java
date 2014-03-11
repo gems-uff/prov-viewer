@@ -6,7 +6,7 @@ package br.uff.ic.Prov_Viewer.Input;
 
 import br.uff.ic.Prov_Viewer.GraphFrame;
 import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.DefaultMode;
-import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.VertexPaintMode;
+import br.uff.ic.Prov_Viewer.Vertex.VisualizationModes.ColorScheme;
 import java.awt.Color;
 import java.awt.Paint;
 import java.io.File;
@@ -38,7 +38,7 @@ public class Config {
     public static List<Boolean> edgecollapse = new ArrayList<Boolean>();
     ;
     //Modes
-    public static Collection<VertexPaintMode> vertexModes = new ArrayList<VertexPaintMode>();
+    public static Collection<ColorScheme> vertexModes = new ArrayList<ColorScheme>();
     //Temporal Layout
     public static String layoutSpecialVertexType;
     //Vertex Stroke variables
@@ -51,9 +51,11 @@ public class Config {
 
     public static void Initialize() {
         try {
+            URL location = Config.class.getResource("/configSDM.xml");
 
-            URL location = Config.class.getProtectionDomain().getCodeSource().getLocation();
-            File fXmlFile = new File(location.getFile() + "/br/uff/ic/Prov_Viewer/Input/configSDM.xml");
+//            URL location = Config.class.getProtectionDomain().getCodeSource().getLocation();
+//            File fXmlFile = new File(location.getFile() + "/br/uff/ic/Prov_Viewer/Input/configSDM.xml");
+            File fXmlFile = new File(location.getFile());
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(fXmlFile);
@@ -91,7 +93,7 @@ public class Config {
                 }
             }
 
-            //Display Modes
+            //Vertex Color Schemes
             //Default mode is always set, no matter the config.xml
             DefaultMode def = new DefaultMode("Default");
             vertexModes.add(def);
@@ -117,7 +119,7 @@ public class Config {
 
                     Class cl = Class.forName("br.uff.ic.Prov_Viewer.Vertex.VisualizationModes." + eElement.getElementsByTagName("modefunction").item(0).getTextContent());
                     Constructor con = cl.getConstructor(String.class, String.class, double.class, double.class);
-                    VertexPaintMode attMode = (VertexPaintMode) con.newInstance(attribute, values, invGreenT, InvYellowT);
+                    ColorScheme attMode = (ColorScheme) con.newInstance(attribute, values, invGreenT, InvYellowT);
                     vertexModes.add(attMode);
                 }
             }
@@ -146,7 +148,7 @@ public class Config {
 
         String[] items = new String[vertexModes.size()];
         int j = 0;
-        for (VertexPaintMode mode : vertexModes) {
+        for (ColorScheme mode : vertexModes) {
             items[j] = mode.GetName();
             j++;
         }

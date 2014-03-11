@@ -14,18 +14,18 @@ import java.awt.Paint;
  *
  * @author Kohwalter
  */
-public class InvertedAttributeMode extends VertexPaintMode {
+public class InvertedAttributeMode extends ColorScheme {
 
-    public InvertedAttributeMode(String attribute) {
-        super(attribute);
-    }
-
-    public InvertedAttributeMode(String attribute, double g, double y) {
-        super(attribute, g, y);
-    }
+//    public InvertedAttributeMode(String attribute) {
+//        super(attribute);
+//    }
+//
+//    public InvertedAttributeMode(String attribute, double g, double y) {
+//        super(attribute, g, y);
+//    }
 
     public InvertedAttributeMode(String attribute, String empty, double g, double y) {
-        super(attribute, g, y);
+        super(attribute, empty, g, y);
     }
     
     @Override

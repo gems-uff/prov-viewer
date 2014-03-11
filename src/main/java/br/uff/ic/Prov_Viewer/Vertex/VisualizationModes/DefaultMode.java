@@ -13,14 +13,14 @@ import java.awt.Paint;
  *
  * @author Kohwalter
  */
-public class DefaultMode extends VertexPaintMode {
+public class DefaultMode extends ColorScheme {
 
     public DefaultMode(String attribute) {
         super(attribute);
     }
 
-    public DefaultMode(String attribute, double g, double y) {
-        super(attribute, g, y);
+    public DefaultMode(String attribute, String empty, double g, double y) {
+        super(attribute, empty, g, y);
     }
 
     @Override

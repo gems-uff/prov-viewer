@@ -17,20 +17,20 @@ import java.util.Collection;
  *
  * @author Kohwalter
  */
-public class InvertedConstantEntityAttributeMode extends VertexPaintMode {
+public class InvertedConstantEntityAttributeMode extends ColorScheme {
 
     float[] entityValue = new float[]{0, 0};
 
-    public InvertedConstantEntityAttributeMode(String attribute) {
-        super(attribute, 0.7, 0.4);
-    }
-
-    public InvertedConstantEntityAttributeMode(String attribute, double g, double y) {
-        super(attribute, g, y);
-    }
+//    public InvertedConstantEntityAttributeMode(String attribute) {
+//        super(attribute, 0.7, 0.4);
+//    }
+//
+//    public InvertedConstantEntityAttributeMode(String attribute, double g, double y) {
+//        super(attribute, g, y);
+//    }
     
     public InvertedConstantEntityAttributeMode(String attribute, String empty, double g, double y) {
-        super(attribute, g, y);
+        super(attribute, empty, g, y);
     }
 
     @Override

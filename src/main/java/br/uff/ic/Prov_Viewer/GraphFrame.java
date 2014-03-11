@@ -52,7 +52,6 @@ import org.apache.commons.collections15.Transformer;
  * @author kohwalter
  */
 public class GraphFrame extends javax.swing.JFrame {
-    static String filePath = "/br/uff/ic/Prov_Viewer/Input/log.txt";
     final Set exclusions = new HashSet();
     
 //    VisualizationViewer<Object, Edge> view;
@@ -745,8 +744,9 @@ public class GraphFrame extends javax.swing.JFrame {
 //        }
         //</editor-fold>
 
-        URL location = GraphFrame.class.getProtectionDomain().getCodeSource().getLocation();
-        Variables.graph = getGraph(location.getFile() + filePath);
+//        URL location = GraphFrame.class.getProtectionDomain().getCodeSource().getLocation();
+        URL location = Config.class.getResource("/log.txt");
+        Variables.graph = getGraph(location.getFile());
         java.awt.EventQueue.invokeLater(new Runnable() {
                 
             @Override

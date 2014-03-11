@@ -14,23 +14,23 @@ import java.awt.Paint;
  *
  * @author Kohwalter
  */
-public class MultiAttributeMode extends VertexPaintMode {
+public class MultiAttributeMode extends ColorScheme {
 
-    String[] values;
+//    String[] values;
 
-    public MultiAttributeMode(String attribute, String[] array) {
-        super(attribute);
-        this.values = array;
-    }
-
-    public MultiAttributeMode(String attribute, double g, double y) {
-        super(attribute, g, y);
-        this.values = new String[]{"Empty"};
-    }
+//    public MultiAttributeMode(String attribute, String[] array) {
+//        super(attribute);
+//        this.values = array;
+//    }
+//
+//    public MultiAttributeMode(String attribute, double g, double y) {
+//        super(attribute, g, y);
+//        this.values = new String[]{"Empty"};
+//    }
     
     public MultiAttributeMode(String attribute, String valuesList, double g, double y) {
-        super(attribute, g, y);
-        this.values = valuesList.split(" ");
+        super(attribute, valuesList, g, y);
+//        this.values = valuesList.split(" ");
     }
 
     @Override
@@ -56,8 +56,8 @@ public class MultiAttributeMode extends VertexPaintMode {
 
     //Method to return 7 dif types of colors depending on the value
     public Paint GetAttributeColor(String value) {
-        for (int i = 0; i < values.length; i++) {
-            if (value.equalsIgnoreCase(values[i])) {
+        for (int i = 0; i < this.value.length; i++) {
+            if (value.equalsIgnoreCase(this.value[i])) {
                 int r, g, b = 0;
                 r = (int) (120);
                 g = (int) (255 / (i + 1));

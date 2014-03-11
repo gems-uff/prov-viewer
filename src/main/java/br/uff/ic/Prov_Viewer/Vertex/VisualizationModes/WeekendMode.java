@@ -13,34 +13,34 @@ import java.awt.Paint;
  *
  * @author Kohwalter
  */
-public class WeekendMode extends VertexPaintMode {
+public class WeekendMode extends ColorScheme {
 
-    public String sat;
-    public String sun;
-
-    public WeekendMode(String attribute, String sat, String sun) {
-        super(attribute);
-        this.sat = sat;
-        this.sun = sun;
-    }
-
-    public WeekendMode(String attribute, String sat, String sun, double g, double y) {
-        super(attribute, g, y);
-        this.sat = sat;
-        this.sun = sun;
-    }
+//    public String sat;
+//    public String sun;
+//
+//    public WeekendMode(String attribute, String sat, String sun) {
+//        super(attribute);
+//        this.sat = sat;
+//        this.sun = sun;
+//    }
+//
+//    public WeekendMode(String attribute, String sat, String sun, double g, double y) {
+//        super(attribute, g, y);
+//        this.sat = sat;
+//        this.sun = sun;
+//    }
     
     public WeekendMode(String attribute, String days, double g, double y) {
-        super(attribute, g, y);
-        String[] names = days.split(" ");
-        this.sat = names[0];
-        this.sun = names[1];
+        super(attribute, days, g, y);
+//        String[] names = days.split(" ");
+//        this.sat = names[0];
+//        this.sun = names[1];
     }
 
     @Override
     public Paint Execute(Object v, final Variables variables) {
         String day = ((Vertex) v).getDayName();
-        if (day.equalsIgnoreCase(sat) || day.equalsIgnoreCase(sun)) {
+        if (day.equalsIgnoreCase(this.value[0]) || day.equalsIgnoreCase(this.value[1])) {
             return new Color(255, 0, 0);
         }
         return ((Vertex) v).getColor();

@@ -14,18 +14,18 @@ import java.awt.Paint;
  *
  * @author Kohwalter
  */
-public class ConstantAttributeMode extends VertexPaintMode {
+public class ConstantAttributeMode extends ColorScheme {
 
-    public ConstantAttributeMode(String attribute) {
-        super(attribute);
-    }
-
-    public ConstantAttributeMode(String attribute, double g, double y) {
-        super(attribute, g, y);
-    }
+//    public ConstantAttributeMode(String attribute) {
+//        super(attribute);
+//    }
+//
+//    public ConstantAttributeMode(String attribute, double g, double y) {
+//        super(attribute, g, y);
+//    }
     
     public ConstantAttributeMode(String attribute, String empty, double g, double y) {
-        super(attribute, g, y);
+        super(attribute, empty, g, y);
     }
 
     @Override

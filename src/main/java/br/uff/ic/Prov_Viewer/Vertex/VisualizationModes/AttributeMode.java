@@ -14,17 +14,17 @@ import java.awt.Paint;
  *
  * @author Kohwalter
  */
-public class AttributeMode extends VertexPaintMode {
+public class AttributeMode extends ColorScheme {
 
-    public AttributeMode(String attribute) {
-        super(attribute);
-    }
-
-    public AttributeMode(String attribute, double g, double y) {
-        super(attribute, g, y);
-    }
+//    public AttributeMode(String attribute) {
+//        super(attribute);
+//    }
+//
+//    public AttributeMode(String attribute, double g, double y) {
+//        super(attribute, g, y);
+//    }
     public AttributeMode(String attribute, String empty, double g, double y) {
-        super(attribute, g, y);
+        super(attribute, empty, g, y);
     }
 
     @Override

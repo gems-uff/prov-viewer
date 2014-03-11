@@ -74,7 +74,7 @@ public class VertexPainter {
                     }
                 } else {
                     int j = 0;
-                    for (VertexPaintMode vm : Config.vertexModes) {
+                    for (ColorScheme vm : Config.vertexModes) {
                         if (mode.equalsIgnoreCase((String) GraphFrame.StatusFilterBox.getItemAt(j))) {
                             return vm.Execute(v, variables);
                         }
