@@ -79,52 +79,52 @@ and open the template in the editor.
         <edgestroke>true</edgestroke>
         <collapsefunction>false</collapsefunction>
     </edgetypes>
+    <colorscheme>
+        <attribute>Morale</attribute>
+        <class>AttributeMode</class>
+        <values></values>
+        <GreenThreshold></GreenThreshold>
+        <YellowThreshold></YellowThreshold>
+    </colorscheme>
+    <colorscheme>
+        <attribute>Stamina</attribute>
+        <class>AttributeMode</class>
+        <values></values>
+        <GreenThreshold></GreenThreshold>
+        <YellowThreshold></YellowThreshold>
+    </colorscheme>
+    <colorscheme>
+        <attribute>Hours</attribute>
+        <class>InvertedAttributeMode</class>
+        <values></values>
+        <GreenThreshold>6</GreenThreshold>
+        <YellowThreshold>12</YellowThreshold>
+    </colorscheme>
+    <colorscheme>
+        <attribute>Credits</attribute>
+        <class>ConstantEntityAttributeMode</class>
+        <values></values>
+        <GreenThreshold></GreenThreshold>
+        <YellowThreshold></YellowThreshold>
+    </colorscheme>
+    <colorscheme>
+        <attribute>Role</attribute>
+        <class>MultiAttributeMode</class>
+        <values>Analyst Architect Manager Marketing Programmer Tester</values>
+        <GreenThreshold></GreenThreshold>
+        <YellowThreshold></YellowThreshold>
+    </colorscheme>
+    <colorscheme>
+        <attribute>Weekend</attribute>
+        <class>WeekendMode</class>
+        <values>Sat Sun</values>
+        <GreenThreshold></GreenThreshold>
+        <YellowThreshold></YellowThreshold>
+    </colorscheme>
     <vertexstroketype>
         <attribute>Role</attribute>
         <values>Idle Fired Promotion Training Hired"</values>
     </vertexstroketype>
-    <displaymode>
-        <attribute>Morale</attribute>
-        <modefunction>AttributeMode</modefunction>
-        <values></values>
-        <InvGreenT></InvGreenT>
-        <InvYellowT></InvYellowT>
-    </displaymode>
-    <displaymode>
-        <attribute>Stamina</attribute>
-        <modefunction>AttributeMode</modefunction>
-        <values></values>
-        <InvGreenT></InvGreenT>
-        <InvYellowT></InvYellowT>
-    </displaymode>
-    <displaymode>
-        <attribute>Hours</attribute>
-        <modefunction>InvertedAttributeMode</modefunction>
-        <values></values>
-        <InvGreenT>6</InvGreenT>
-        <InvYellowT>12</InvYellowT>
-    </displaymode>
-    <displaymode>
-        <attribute>Credits</attribute>
-        <modefunction>ConstantEntityAttributeMode</modefunction>
-        <values></values>
-        <InvGreenT></InvGreenT>
-        <InvYellowT></InvYellowT>
-    </displaymode>
-    <displaymode>
-        <attribute>Role</attribute>
-        <modefunction>MultiAttributeMode</modefunction>
-        <values>Analyst Architect Manager Marketing Programmer Tester</values>
-        <InvGreenT></InvGreenT>
-        <InvYellowT></InvYellowT>
-    </displaymode>
-    <displaymode>
-        <attribute>Weekend</attribute>
-        <modefunction>WeekendMode</modefunction>
-        <values>Sat Sun</values>
-        <InvGreenT></InvGreenT>
-        <InvYellowT></InvYellowT>
-    </displaymode>
     <activityVariables>
         <attribute>Task</attribute>
         <value>Idle</value>

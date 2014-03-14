@@ -17,10 +17,10 @@ and open the template in the editor.
             <xs:element name="layoutSpecialVertexType" type="xs:string"/>
             <!-- List of all edges and their configuration values -->
             <xs:element name="edgetypes" type="EdgeType" minOccurs="0" maxOccurs="unbounded"/>
+            <!-- List of all display modes -->
+            <xs:element name="colorscheme" type="ColorScheme" minOccurs="0" maxOccurs="unbounded"/>
             <!-- List of all special vertices that has different stroke -->
             <xs:element name="vertexstroketype" type="VertexStroke" minOccurs="0" maxOccurs="unbounded"/>
-            <!-- List of all display modes -->
-            <xs:element name="displaymode" type="Modes" minOccurs="0" maxOccurs="unbounded"/>
             <!-- List of types of activity vertex and their configuration values -->
             <xs:element name="activityVariables" type="Activity" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
@@ -41,17 +41,6 @@ and open the template in the editor.
             <xs:element name="collapsefunction" type="xs:boolean"/>
         </xs:sequence>
     </xs:complexType>
-    
-    <!-- Mode Type -->
-    <xs:complexType name="Modes">
-        <xs:sequence>
-            <xs:element name="attribute" type="xs:string"/>
-            <xs:element name="modefunction" type="xs:string"/>
-            <xs:element name="values" type="stringlist"/>
-            <xs:element name="InvGreenT" type="xs:integer"/>
-            <xs:element name="InvYellowT" type="xs:integer"/>
-        </xs:sequence>
-    </xs:complexType>
       
     <!-- Special Vertex Stroke -->
     <xs:complexType name="VertexStroke">
@@ -60,6 +49,17 @@ and open the template in the editor.
             <xs:element name="values" type="stringlist"/>
         </xs:sequence>
     </xs:complexType>  
+    
+    <!-- Mode Type -->
+    <xs:complexType name="ColorScheme">
+        <xs:sequence>
+            <xs:element name="attribute" type="xs:string"/>
+            <xs:element name="class" type="xs:string"/>
+            <xs:element name="values" type="stringlist"/>
+            <xs:element name="GreenThreshold" type="xs:integer"/>
+            <xs:element name="YellowThreshold" type="xs:integer"/>
+        </xs:sequence>
+    </xs:complexType>
     
     <!-- Activity Vertex Type -->
     <xs:complexType name="Activity">
