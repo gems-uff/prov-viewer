@@ -8,7 +8,7 @@ This project was initiated by Troy Kohwalter and professors Leonardo Murta and E
 
 * Troy Costa Kohwalter (joined in July 2011)
 * Leonardo Gresta Paulino Murta (joined in July 2011)
-* Esteban Walter Gonzalez Clua (joined in September 2011)
+* Esteban Walter Gonzalez Clua (joined in July 2011)
 
 #Additional contributors
 
