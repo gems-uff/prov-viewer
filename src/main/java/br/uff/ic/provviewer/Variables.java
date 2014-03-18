@@ -10,7 +10,9 @@ import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.subLayout.GraphCollapser;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Class containing graph related variables (View, Layout, GraphCollapser,
@@ -57,6 +59,22 @@ public class Variables extends Object {
         }
         return value;
     }
+    
+    /**
+     * Return the min value between 2 values
+     *
+     * @param type (String) Edge type to be analyzed
+     * @param value (Float) Current max value
+     * @param edge (Edge) Second value is extracted from this edge, if the
+     * influence type is the same
+     * @return max value between value and edge.getValue
+     */
+    public float CompareMin(String type, float value, Edge edge) {
+        if ((edge.getType().contains(type))) {
+            value = Math.min(value, Math.abs(edge.getValue()));
+        }
+        return value;
+    }
 
     /**
      * Return the added value between 2 values
@@ -67,10 +85,9 @@ public class Variables extends Object {
      * influence type is the same
      * @return added value between value and edge.getValue
      */
-    public float[] Add(String type, float[] value, Edge edge) {
+    public float Add(String type, float value, Edge edge) {
         if (edge.getType().contains(type)) {
-            value[0] += Math.abs(edge.getValue());
-            value[1]++;
+            value += Math.abs(edge.getValue());
         }
         return value;
     }
@@ -103,35 +120,26 @@ public class Variables extends Object {
      * @return value, according to the operation, between value and
      * edge.getValue
      */
-    public float[] ComputeValue(float[] value, String type, Edge edge, String max) {
-        if (max.equalsIgnoreCase("MAX")) {
-            value[0] = CompareMax(type, value[0], edge);
-        } else {
-            value = Add(type, value, edge);
-        }
-        return value;
+    public EdgeType ComputeValue(EdgeType etype, String type, Edge edge, String max) {
+        etype.max = CompareMax(type, etype.max, edge);
+        etype.min = CompareMin(type, etype.max, edge);
+        etype.count++;
+        etype.total = Add(type, etype.total, edge);
+        return etype;
     }
-    public TwoFloat[] edgeArray = new TwoFloat[99];
-    public float[] entityValue = new float[]{0, 0};
 
     /**
      * Find max values for each edge type. Used for edge width.
      *
      * @param graph Graph
      */
-    public void FindMax(DirectedGraph<Object, Edge> graph) {
-        for (int i = 0; i < 99; i++) {
-            edgeArray[i] = new TwoFloat();
-        }
+    public void ComputeEdgeTypeValues(DirectedGraph<Object, Edge> graph) {
         Collection<Edge> edges = graph.getEdges();
         for (Edge edge : edges) {
-            for (int i = 0; i < Config.edgeStroke.size(); i++) {
+            for (int i = 0; i < Config.edgetype.size(); i++) {
                 GraphFrame.FilterList.setSelectedIndex(i);
-                edgeArray[i].value = ComputeValue(edgeArray[i].value, GraphFrame.FilterList.getSelectedValue().toString(), edge, Config.edgeStroke.get(i));
+                Config.edgetype.set(i, ComputeValue(Config.edgetype.get(i), GraphFrame.FilterList.getSelectedValue().toString(), edge, Config.edgetype.get(i).stroke));
             }
-        }
-        for (int i = 0; i < Config.edgeStroke.size(); i++) {
-            edgeArray[i].value = Average(edgeArray[i].value, Config.edgeStroke.get(i));
         }
         GraphFrame.FilterList.setSelectedIndex(0);
     }

@@ -641,7 +641,7 @@ public class GraphFrame extends javax.swing.JFrame {
          * Edge Stroke
          * ================================================
          */
-        variables.FindMax(graph);
+        variables.ComputeEdgeTypeValues(graph);
         Transformer<Edge, Stroke> edgeStrokeTransformer =  new Transformer<Edge, Stroke>() {
             @Override
             public Stroke transform(Edge e) {

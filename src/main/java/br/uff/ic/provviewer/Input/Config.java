@@ -4,9 +4,10 @@
  */
 package br.uff.ic.provviewer.Input;
 
+import br.uff.ic.provviewer.EdgeType;
 import br.uff.ic.provviewer.GraphFrame;
-import br.uff.ic.provviewer.Vertex.ColorScheme.DefaultMode;
 import br.uff.ic.provviewer.Vertex.ColorScheme.ColorScheme;
+import br.uff.ic.provviewer.Vertex.ColorScheme.DefaultScheme;
 import java.awt.Color;
 import java.awt.Paint;
 import java.io.File;
@@ -30,13 +31,11 @@ import org.w3c.dom.NodeList;
 public class Config {
     //Filter List
 
-    public static List<String> edgetype = new ArrayList<String>();
+    public static List<EdgeType> edgetype = new ArrayList<EdgeType>();
     //Edge Stroke
-    public static List<String> edgeStroke = new ArrayList<String>();
-    ;   
-    //Edge
-    public static List<String> edgecollapse = new ArrayList<String>();
-    ;
+//    public static List<String> edgeStroke = new ArrayList<String>();
+//    //Edge
+//    public static List<String> edgecollapse = new ArrayList<String>();
     //Modes
     public static Collection<ColorScheme> vertexModes = new ArrayList<ColorScheme>();
     //Temporal Layout
@@ -53,8 +52,6 @@ public class Config {
         try {
             URL location = Config.class.getResource("/config.xml");
 
-//            URL location = Config.class.getProtectionDomain().getCodeSource().getLocation();
-//            File fXmlFile = new File(location.getFile() + "/br/uff/ic/Prov_Viewer/Input/configSDM.xml");
             File fXmlFile = new File(location.getFile());
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -73,9 +70,11 @@ public class Config {
                 Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
-                    edgetype.add(eElement.getElementsByTagName("edge").item(0).getTextContent());
-                    edgeStroke.add(eElement.getElementsByTagName("edgestroke").item(0).getTextContent());
-                    edgecollapse.add(eElement.getElementsByTagName("collapsefunction").item(0).getTextContent());
+                    EdgeType etype = new EdgeType();
+                    etype.type = eElement.getElementsByTagName("edge").item(0).getTextContent();
+                    etype.stroke = eElement.getElementsByTagName("edgestroke").item(0).getTextContent();
+                    etype.collapse = eElement.getElementsByTagName("collapsefunction").item(0).getTextContent();
+                    edgetype.add(etype);
                 }
             }
             //Vertex Stroke Types
@@ -95,7 +94,7 @@ public class Config {
 
             //Vertex Color Schemes
             //Default mode is always set, no matter the config.xml
-            DefaultMode def = new DefaultMode("Default");
+            DefaultScheme def = new DefaultScheme("Default");
             vertexModes.add(def);
 
             nList = doc.getElementsByTagName("colorscheme");
@@ -105,21 +104,21 @@ public class Config {
                     Element eElement = (Element) nNode;
                     String attribute = eElement.getElementsByTagName("attribute").item(0).getTextContent();
                     String values = "empty";
-                    double invGreenT = 0;
-                    double InvYellowT = 0;
+                    double maxvalue = 0;
+                    double minvalue = 0;
                     if (!eElement.getElementsByTagName("values").item(0).getTextContent().isEmpty()) {
                         values = eElement.getElementsByTagName("values").item(0).getTextContent();
                     }
-                    if (!eElement.getElementsByTagName("GreenThreshold").item(0).getTextContent().isEmpty()) {
-                        invGreenT = Double.parseDouble(eElement.getElementsByTagName("GreenThreshold").item(0).getTextContent());
+                    if (!eElement.getElementsByTagName("maxvalue").item(0).getTextContent().isEmpty()) {
+                        maxvalue = Double.parseDouble(eElement.getElementsByTagName("maxvalue").item(0).getTextContent());
                     }
-                    if (!eElement.getElementsByTagName("YellowThreshold").item(0).getTextContent().isEmpty()) {
-                        InvYellowT = Double.parseDouble(eElement.getElementsByTagName("YellowThreshold").item(0).getTextContent());
+                    if (!eElement.getElementsByTagName("minvalue").item(0).getTextContent().isEmpty()) {
+                        minvalue = Double.parseDouble(eElement.getElementsByTagName("minvalue").item(0).getTextContent());
                     }
 
                     Class cl = Class.forName("br.uff.ic.provviewer.Vertex.ColorScheme." + eElement.getElementsByTagName("class").item(0).getTextContent());
                     Constructor con = cl.getConstructor(String.class, String.class, double.class, double.class);
-                    ColorScheme attMode = (ColorScheme) con.newInstance(attribute, values, invGreenT, InvYellowT);
+                    ColorScheme attMode = (ColorScheme) con.newInstance(attribute, values, maxvalue, minvalue);
                     vertexModes.add(attMode);
                 }
             }
@@ -144,7 +143,12 @@ public class Config {
         }
 
         //Initialize Interface Filters
-        GraphFrame.FilterList.setListData(edgetype.toArray());
+        String[] types = new String[edgetype.size()];
+        for(int x = 0; x < types.length; x++)
+        {
+            types[x] = edgetype.get(x).type;
+        }
+        GraphFrame.FilterList.setListData(types);
 
         String[] items = new String[vertexModes.size()];
         int j = 0;

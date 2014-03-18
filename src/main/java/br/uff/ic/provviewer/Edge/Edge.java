@@ -247,9 +247,9 @@ public class Edge {
      * added. Return false if average
      */
     public boolean AddInfluence() {
-        for (int i = 0; i < Config.edgecollapse.size(); i++) {
-            if (this.getInfluence().contains(Config.edgetype.get(i))) {
-                if(Config.edgecollapse.get(i).equalsIgnoreCase("AVERAGE"))
+        for (int i = 0; i < Config.edgetype.size(); i++) {
+            if (this.getInfluence().contains(Config.edgetype.get(i).type)) {
+                if(Config.edgetype.get(i).collapse.equalsIgnoreCase("AVERAGE"))
                     return false;
             }
         }

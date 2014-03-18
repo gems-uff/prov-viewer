@@ -35,7 +35,7 @@ and open the template in the editor.
     <xs:complexType name="edgetype">
         <xs:sequence>
             <xs:element name="edge" type="xs:string"/>
-            <!-- Take max value or average value for each edge type -->
+            <!-- Take MAX value or MEAN value for each edge type -->
             <xs:element name="edgestroke" type="xs:string"/>
             <!-- Collapse function used: True = multiplication; False = Add -->
             <xs:element name="collapsefunction" type="xs:string"/>
@@ -56,8 +56,8 @@ and open the template in the editor.
             <xs:element name="attribute" type="xs:string"/>
             <xs:element name="class" type="xs:string"/>
             <xs:element name="values" type="stringlist"/>
-            <xs:element name="GreenThreshold" type="xs:integer"/>
-            <xs:element name="YellowThreshold" type="xs:integer"/>
+            <xs:element name="maxvalue" type="xs:integer"/>
+            <xs:element name="minvalue" type="xs:integer"/>
         </xs:sequence>
     </xs:complexType>
     

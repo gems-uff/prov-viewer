@@ -81,45 +81,45 @@ and open the template in the editor.
     </edgetype>
     <colorscheme>
         <attribute>Morale</attribute>
-        <class>AttributeMode</class>
+        <class>ActivityScheme</class>
         <values></values>
-        <GreenThreshold></GreenThreshold>
-        <YellowThreshold></YellowThreshold>
+        <maxvalue>100</maxvalue>
+        <minvalue>0</minvalue>
     </colorscheme>
     <colorscheme>
         <attribute>Stamina</attribute>
-        <class>AttributeMode</class>
+        <class>ActivityScheme</class>
         <values></values>
-        <GreenThreshold></GreenThreshold>
-        <YellowThreshold></YellowThreshold>
+        <maxvalue></maxvalue>
+        <minvalue></minvalue>
     </colorscheme>
     <colorscheme>
         <attribute>Hours</attribute>
-        <class>InvertedAttributeMode</class>
+        <class>ActivityInvertedLimitedScheme</class>
         <values></values>
-        <GreenThreshold>6</GreenThreshold>
-        <YellowThreshold>12</YellowThreshold>
+        <maxvalue>0</maxvalue>
+        <minvalue>16</minvalue>
     </colorscheme>
     <colorscheme>
         <attribute>Credits</attribute>
-        <class>ConstantEntityAttributeMode</class>
+        <class>EntityScheme</class>
         <values></values>
-        <GreenThreshold></GreenThreshold>
-        <YellowThreshold></YellowThreshold>
+        <maxvalue></maxvalue>
+        <minvalue></minvalue>
     </colorscheme>
     <colorscheme>
         <attribute>Role</attribute>
-        <class>MultiAttributeMode</class>
+        <class>ActivityMultiScheme</class>
         <values>Analyst Architect Manager Marketing Programmer Tester</values>
-        <GreenThreshold></GreenThreshold>
-        <YellowThreshold></YellowThreshold>
+        <maxvalue></maxvalue>
+        <minvalue></minvalue>
     </colorscheme>
     <colorscheme>
         <attribute>Weekend</attribute>
-        <class>WeekendMode</class>
+        <class>WeekendScheme</class>
         <values>Sat Sun</values>
-        <GreenThreshold></GreenThreshold>
-        <YellowThreshold></YellowThreshold>
+        <maxvalue></maxvalue>
+        <minvalue></minvalue>
     </colorscheme>
     <vertexstroke>
         <attribute>Role</attribute>

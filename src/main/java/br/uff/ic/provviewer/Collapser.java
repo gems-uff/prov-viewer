@@ -40,7 +40,7 @@ public class Collapser {
         for (Object node : Variables.graph.getVertices()) {
             RemoveCollapsedEdges(variables, node);
         }
-        variables.FindMax((DirectedGraph) Variables.graph);
+        variables.ComputeEdgeTypeValues((DirectedGraph) Variables.graph);
         RemoveFilters(variables, filter);
     }
 
@@ -98,7 +98,7 @@ public class Collapser {
             variables.view.repaint();
         }
         CollapseEdges(variables);
-        variables.FindMax((DirectedGraph) Variables.graph);
+        variables.ComputeEdgeTypeValues((DirectedGraph) Variables.graph);
         RemoveFilters(variables, filter);
     }
 
@@ -239,7 +239,7 @@ public class Collapser {
             }
         }
         variables.view.getPickedVertexState().clear();
-        variables.FindMax((DirectedGraph) Variables.graph);
+        variables.ComputeEdgeTypeValues((DirectedGraph) Variables.graph);
         variables.view.repaint();
         CollapseEdges(variables);
     }

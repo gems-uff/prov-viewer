@@ -70,8 +70,13 @@ public class EdgeStroke {
      */
     public static Stroke StrokeByType(Edge edge, Variables variables) {
         for (int i = 0; i < Config.edgetype.size(); i++) {
-            if (edge.getType().contains(Config.edgetype.get(i))) {
-                return defineStroke(edge.getValue(), ((Variables) variables).edgeArray[i].value[0]);
+            if (edge.getType().contains(Config.edgetype.get(i).type)) {
+                if(Config.edgetype.get(i).stroke.equalsIgnoreCase("MAX")){
+                    return defineStroke(edge.getValue(), Config.edgetype.get(i).max);
+                }
+                else{
+                    return defineStroke(edge.getValue(), (Config.edgetype.get(i).total / Config.edgetype.get(i).count));
+                }
             }
         }
 

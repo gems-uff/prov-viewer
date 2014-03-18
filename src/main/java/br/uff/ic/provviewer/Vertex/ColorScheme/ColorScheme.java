@@ -4,8 +4,14 @@
  */
 package br.uff.ic.provviewer.Vertex.ColorScheme;
 
+import br.uff.ic.provviewer.Edge.Edge;
 import br.uff.ic.provviewer.Variables;
+import br.uff.ic.provviewer.Vertex.ActivityVertex;
+import br.uff.ic.provviewer.Vertex.EntityVertex;
+import edu.uci.ics.jung.graph.DirectedGraph;
+import java.awt.Color;
 import java.awt.Paint;
+import java.util.Collection;
 
 /**
  *
@@ -15,8 +21,10 @@ public abstract class ColorScheme {
 
     public String attribute;
     public String[] value;
-    public double valueGreenThreshold;
-    public double valueYellowThreshold;
+    public double max;
+    public double min;
+    public double givenMax;
+    public double givenMin;
 
     /**
      * This constructor is used by the Default color scheme
@@ -24,15 +32,8 @@ public abstract class ColorScheme {
      */
     public ColorScheme(String attribute) {
         this.attribute = attribute;
-        this.valueGreenThreshold = 75;
-        this.valueYellowThreshold = 40;
     }
-//
-//    public ColorScheme(String attribute, double g, double y) {
-//        this.attribute = attribute;
-//        this.valueGreenThreshold = g;
-//        this.valueYellowThreshold = y;
-//    }
+
     /**
      * All new Vertex Paint Mode classes must use a constructor with 4 params, 
      * in the following order and types: String, String, double, double
@@ -44,15 +45,36 @@ public abstract class ColorScheme {
     public ColorScheme(String attribute, String value, double g, double y) {
         this.attribute = attribute;
         this.value = value.split(" ");
-        this.valueGreenThreshold = g;
-        this.valueYellowThreshold = y;
+        this.givenMax = g;
+        this.givenMin = y;
     }
 
     public String GetName() {
         return attribute;
     }
+
+    public Paint CompareValue(int value, double min, double max){
+        int proportion = (int) Math.round(510 * (value - min) / (float) (max - min));
+        return new Color(Math.min(255, 510 - proportion), Math.min(255, proportion), 0);
+    }
+
+    public void ComputeValue(DirectedGraph<Object, Edge> graph) {
+        Collection<Object> nodes = graph.getVertices();
+        for (Object node : nodes) {
+            if(node instanceof ActivityVertex) {
+                this.max = Math.max(this.max, Math.abs(((ActivityVertex) node).getAttributeValueInteger(this.attribute)));
+                this.min = Math.min(this.min, Math.abs(((ActivityVertex) node).getAttributeValueInteger(this.attribute)));
+            }
+            else if (node instanceof EntityVertex) {
+                this.max = Math.max(this.max, Math.abs(((EntityVertex) node).getAttributeValueInteger(this.attribute)));
+                this.min = Math.min(this.min, Math.abs(((EntityVertex) node).getAttributeValueInteger(this.attribute)));
+            }
+        }
+//        System.out.println("Attribute = " + this.attribute);
+//        System.out.println("Max = " + this.max);
+//        System.out.println("Min = " + this.min);
+    }
     
     public abstract Paint Execute(Object v, final Variables variables);
-
-    public abstract Paint CompareValue(int value, float constant);
+    
 }
