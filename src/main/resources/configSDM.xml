@@ -8,77 +8,77 @@ and open the template in the editor.
 <config
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
     xsi:noNamespaceSchemaLocation='ConfigSchema.xsd'>
-    <layoutSpecialVertexType>Project</layoutSpecialVertexType>
-    <edgetypes>
+    <layoutbackbone>Project</layoutbackbone>
+    <edgetype>
         <edge>Neutral</edge>
-        <edgestroke>true</edgestroke>
-        <collapsefunction>false</collapsefunction>
-    </edgetypes>
-    <edgetypes>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+    <edgetype>
         <edge>Credits</edge>
-        <edgestroke>false</edgestroke>
-        <collapsefunction>false</collapsefunction>
-    </edgetypes>
-    <edgetypes>
+        <edgestroke>MEAN</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+    <edgetype>
         <edge>Quality</edge>
-        <edgestroke>true</edgestroke>
-        <collapsefunction>false</collapsefunction>
-    </edgetypes>
-    <edgetypes>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+    <edgetype>
         <edge>Progress</edge>
-        <edgestroke>true</edgestroke>
-        <collapsefunction>false</collapsefunction>
-    </edgetypes>
-    <edgetypes>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+    <edgetype>
         <edge>Aid</edge>
-        <edgestroke>true</edgestroke>
-        <collapsefunction>true</collapsefunction>
-    </edgetypes>
-    <edgetypes>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>AVERAGE</collapsefunction>
+    </edgetype>
+    <edgetype>
         <edge>Val</edge>
-        <edgestroke>true</edgestroke>
-        <collapsefunction>false</collapsefunction>
-    </edgetypes>
-    <edgetypes>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+    <edgetype>
         <edge>Discovery</edge>
         <edgestroke>true</edgestroke>
-        <collapsefunction>false</collapsefunction>
-    </edgetypes>
-    <edgetypes>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+    <edgetype>
         <edge>Repair</edge>
-        <edgestroke>true</edgestroke>
-        <collapsefunction>false</collapsefunction>
-    </edgetypes>
-    <edgetypes>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+    <edgetype>
         <edge>Bug</edge>
-        <edgestroke>true</edgestroke>
-        <collapsefunction>false</collapsefunction>
-    </edgetypes>
-    <edgetypes>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+    <edgetype>
         <edge>TC</edge>
-        <edgestroke>true</edgestroke>
-        <collapsefunction>false</collapsefunction>
-    </edgetypes>
-    <edgetypes>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+    <edgetype>
         <edge>Morale</edge>
-        <edgestroke>true</edgestroke>
-        <collapsefunction>false</collapsefunction>
-    </edgetypes>
-    <edgetypes>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+    <edgetype>
         <edge>Stamina</edge>
-        <edgestroke>true</edgestroke>
-        <collapsefunction>false</collapsefunction>
-    </edgetypes>
-    <edgetypes>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+    <edgetype>
         <edge>Prototype</edge>
-        <edgestroke>true</edgestroke>
-        <collapsefunction>false</collapsefunction>
-    </edgetypes>
-    <edgetypes>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+    <edgetype>
         <edge>Negotiation</edge>
-        <edgestroke>true</edgestroke>
-        <collapsefunction>false</collapsefunction>
-    </edgetypes>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
     <colorscheme>
         <attribute>Morale</attribute>
         <class>AttributeMode</class>
@@ -121,11 +121,11 @@ and open the template in the editor.
         <GreenThreshold></GreenThreshold>
         <YellowThreshold></YellowThreshold>
     </colorscheme>
-    <vertexstroketype>
+    <vertexstroke>
         <attribute>Role</attribute>
         <values>Idle Fired Promotion Training Hired"</values>
-    </vertexstroketype>
-    <activityVariables>
+    </vertexstroke>
+    <activitycolor>
         <attribute>Task</attribute>
         <value>Idle</value>
         <vercolor>
@@ -133,8 +133,8 @@ and open the template in the editor.
             <g>180</g>
             <b>180</b>
         </vercolor>
-    </activityVariables>
-    <activityVariables>
+    </activitycolor>
+    <activitycolor>
         <attribute>Role</attribute>
         <value>Training</value>
         <vercolor>
@@ -142,8 +142,8 @@ and open the template in the editor.
             <g>0</g>
             <b>102</b>
         </vercolor>
-    </activityVariables>
-    <activityVariables>
+    </activitycolor>
+    <activitycolor>
         <attribute>Task</attribute>
         <value>Fired</value>
         <vercolor>
@@ -151,8 +151,8 @@ and open the template in the editor.
             <g>69</g>
             <b>19</b>
         </vercolor>
-    </activityVariables>
-    <activityVariables>
+    </activitycolor>
+    <activitycolor>
         <attribute>Task</attribute>
         <value>Promotion</value>
         <vercolor>
@@ -160,8 +160,8 @@ and open the template in the editor.
             <g>153</g>
             <b>0</b>
         </vercolor>
-    </activityVariables>
-    <activityVariables>
+    </activitycolor>
+    <activitycolor>
         <attribute>Task</attribute>
         <value>Hired</value>
         <vercolor>
@@ -169,8 +169,8 @@ and open the template in the editor.
             <g>136</g>
             <b>120</b>
         </vercolor>
-    </activityVariables>
-    <activityVariables>
+    </activitycolor>
+    <activitycolor>
         <attribute>Task</attribute>
         <value>Negotiation</value>
         <vercolor>
@@ -178,6 +178,6 @@ and open the template in the editor.
             <g>205</g>
             <b>193</b>
         </vercolor>
-    </activityVariables>
+    </activitycolor>
 
 </config>

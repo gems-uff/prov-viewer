@@ -63,11 +63,11 @@ public class Config {
             doc.getDocumentElement().normalize();
 
             //Temporal Layout Backbone
-            NodeList nList = doc.getElementsByTagName("layoutSpecialVertexType");
+            NodeList nList = doc.getElementsByTagName("layoutbackbone");
             layoutSpecialVertexType = nList.item(0).getTextContent();
 
             //Edge Types
-            nList = doc.getElementsByTagName("edgetypes");
+            nList = doc.getElementsByTagName("edgetype");
 
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 Node nNode = nList.item(temp);
@@ -79,7 +79,7 @@ public class Config {
                 }
             }
             //Vertex Stroke Types
-            nList = doc.getElementsByTagName("vertexstroketype");
+            nList = doc.getElementsByTagName("vertexstroke");
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -98,7 +98,7 @@ public class Config {
             DefaultMode def = new DefaultMode("Default");
             vertexModes.add(def);
 
-            nList = doc.getElementsByTagName("displaymode");
+            nList = doc.getElementsByTagName("colorscheme");
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -110,14 +110,14 @@ public class Config {
                     if (!eElement.getElementsByTagName("values").item(0).getTextContent().isEmpty()) {
                         values = eElement.getElementsByTagName("values").item(0).getTextContent();
                     }
-                    if (!eElement.getElementsByTagName("InvGreenT").item(0).getTextContent().isEmpty()) {
-                        invGreenT = Double.parseDouble(eElement.getElementsByTagName("InvGreenT").item(0).getTextContent());
+                    if (!eElement.getElementsByTagName("GreenThreshold").item(0).getTextContent().isEmpty()) {
+                        invGreenT = Double.parseDouble(eElement.getElementsByTagName("GreenThreshold").item(0).getTextContent());
                     }
-                    if (!eElement.getElementsByTagName("InvYellowT").item(0).getTextContent().isEmpty()) {
-                        InvYellowT = Double.parseDouble(eElement.getElementsByTagName("InvYellowT").item(0).getTextContent());
+                    if (!eElement.getElementsByTagName("YellowThreshold").item(0).getTextContent().isEmpty()) {
+                        InvYellowT = Double.parseDouble(eElement.getElementsByTagName("YellowThreshold").item(0).getTextContent());
                     }
 
-                    Class cl = Class.forName("br.uff.ic.Prov_Viewer.Vertex.VisualizationModes." + eElement.getElementsByTagName("modefunction").item(0).getTextContent());
+                    Class cl = Class.forName("br.uff.ic.provviewer.Vertex.ColorScheme." + eElement.getElementsByTagName("class").item(0).getTextContent());
                     Constructor con = cl.getConstructor(String.class, String.class, double.class, double.class);
                     ColorScheme attMode = (ColorScheme) con.newInstance(attribute, values, invGreenT, InvYellowT);
                     vertexModes.add(attMode);
@@ -125,7 +125,7 @@ public class Config {
             }
 
             //Activity Variables
-            nList = doc.getElementsByTagName("activityVariables");
+            nList = doc.getElementsByTagName("activitycolor");
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {

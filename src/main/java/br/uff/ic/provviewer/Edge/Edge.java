@@ -15,7 +15,9 @@ public class Edge {
     private String id;
     private Object source;
     private Object target;
-    private String influence;
+    private String type;
+    private float value;
+    private String label;
     //used to hide this edge when collapsing a group of edges
     private boolean hide;
     //used to say this edge is a temporary one
@@ -33,10 +35,29 @@ public class Edge {
         this.id = id;
         this.source = source;
         this.target = target;
+        this.label = "";
         if (influence.equalsIgnoreCase("")) {
-            this.influence = "Neutral";
+            this.type = "Neutral";
+            this.value = 0;
         } else {
-            this.influence = influence;
+            this.type = getTypeFromInfluence(influence);
+            this.value = getValueFromInfluence(influence);
+        }
+        hide = false;
+        collapsed = false;
+    }
+    
+    public Edge(String id, String type, String label, float value, Object target, Object source) {
+        this.id = id;
+        this.label = label;
+        this.source = source;
+        this.target = target;
+        if (type.equalsIgnoreCase("")) {
+            this.type = "Neutral";
+            this.value = 0;
+        } else {
+            this.type = type;
+            this.value = value;
         }
         hide = false;
         collapsed = false;
@@ -52,7 +73,9 @@ public class Edge {
         this.id = id;
         this.source = source;
         this.target = target;
-        this.influence = "Neutral";
+        this.type = "Neutral";
+        this.label = "";
+        this.value = 0;
         hide = false;
         collapsed = false;
     }
@@ -73,15 +96,6 @@ public class Edge {
      */
     public Object getTarget() {
         return target;
-    }
-
-    /**
-     * Method to get the edge's influence (value + type)
-     *
-     * @return (String) influence
-     */
-    public String getInfluence() {
-        return influence;
     }
 
     /**
@@ -122,27 +136,13 @@ public class Edge {
     }
 
     /**
-     * Method to get the edge's influence, ignoring edges with influence == 0
-     *
-     * @deprecated
-     * @return (String) influence
-     */
-    public String getDetails() {
-        if (influence.equalsIgnoreCase("0")) {
-            return null;
-        }
-
-        return influence;
-    }
-
-    /**
      * Method for returning the edge's influence value (edge.influence = value +
      * type)
      *
      * @return (float) edge's influence value
      */
-    public float getValue() {
-        String[] line = this.influence.toString().split(" ");
+    public float getValueFromInfluence(String influence) {
+        String[] line = influence.toString().split(" ");
 
         if (this.isNeutral()) {
             return 0;
@@ -150,23 +150,41 @@ public class Edge {
             return Float.parseFloat(line[0]);
         }
     }
+    /**
+     * Method for returning the edge's influence type (edge.influence = value +
+     * type)
+     *
+     * @return (float) edge's influence value
+     */
+    public String getTypeFromInfluence(String influence) {
+        String[] line = influence.toString().split(" ");
+
+        if (line.length > 1) {
+            return line[1];
+        } else {
+            return "Neutral";
+        }
+    }
+    
+    public float getValue() {
+        return this.value;
+    }
 
     /**
-     * Method for returning the edge's influence type
+     * Method for returning the edge's type
      *
      * @return (String) influence type
      */
     public String getType() {
-        String[] line = this.influence.toString().split(" ");
-        if (this.isNeutral()) {
-            return "Neutral";
-        } else {
-            if (line[1].equals("%")) {
-                return line[2];
-            } else {
-                return line[1];
-            }
-        }
+        return type;
+    }
+    
+    public String getLabel() {
+        return label;
+    }
+    
+    public String getInfluence() {
+        return this.value + " " + this.type;
     }
 
     /**
@@ -176,19 +194,10 @@ public class Edge {
      * @return (boolean) is neutral or not
      */
     public boolean isNeutral() {
-        String[] line = this.influence.toString().split(" ");
-        if (this.influence.equalsIgnoreCase("0")) {
+        if(this.type.equalsIgnoreCase("Neutral")) {
             return true;
         }
-        if ((this.influence.equalsIgnoreCase(""))
-                || (this.influence.isEmpty())
-                || (this.influence.equalsIgnoreCase("Neutral"))) {
-            return true;
-        }
-        if (line.length == 0) {
-            return true;
-        }
-        return false;
+        return false;  
     }
 
     /**
@@ -198,11 +207,7 @@ public class Edge {
      */
     @Override
     public String toString() {
-        //return source + " --> " + target;
-        if (this.isNeutral()) {
-            return "";
-        }
-        return influence;
+        return this.label;
     }
 
     /**
@@ -212,12 +217,11 @@ public class Edge {
      * @return
      */
     public Paint getColor() {
-        float value = getValue();
         //Green
-        if (value > 0) {
+        if (this.value > 0) {
             return new Color(34, 139, 34);
         } //Red
-        else if (value < 0) {
+        else if (this.value < 0) {
             return new Color(255, 0, 0);
         } //Black
         else {
@@ -235,9 +239,10 @@ public class Edge {
      */
     public boolean AddInfluence() {
         for (int i = 0; i < Config.edgecollapse.size(); i++) {
-            if (this.getInfluence().contains(Config.edgetype.get(i))) {
-                if(Config.edgecollapse.get(i))
+            if (this.type.contains(Config.edgetype.get(i))) {
+                if(Config.edgecollapse.get(i)) {
                     return false;
+                }
             }
         }
         return true;
