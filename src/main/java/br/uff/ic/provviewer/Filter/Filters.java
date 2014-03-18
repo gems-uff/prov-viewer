@@ -4,9 +4,9 @@
  */
 package br.uff.ic.provviewer.Filter;
 
-import br.uff.ic.provviewer.Vertex.AgentVertex;
 import br.uff.ic.provviewer.Edge.Edge;
 import br.uff.ic.provviewer.GraphFrame;
+import br.uff.ic.provviewer.Vertex.AgentVertex;
 import edu.uci.ics.jung.algorithms.filters.EdgePredicateFilter;
 import edu.uci.ics.jung.algorithms.filters.Filter;
 import edu.uci.ics.jung.algorithms.filters.VertexPredicateFilter;

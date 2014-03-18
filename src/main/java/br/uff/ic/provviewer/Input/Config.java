@@ -32,10 +32,10 @@ public class Config {
 
     public static List<String> edgetype = new ArrayList<String>();
     //Edge Stroke
-    public static List<Boolean> edgeStroke = new ArrayList<Boolean>();
+    public static List<String> edgeStroke = new ArrayList<String>();
     ;   
     //Edge
-    public static List<Boolean> edgecollapse = new ArrayList<Boolean>();
+    public static List<String> edgecollapse = new ArrayList<String>();
     ;
     //Modes
     public static Collection<ColorScheme> vertexModes = new ArrayList<ColorScheme>();
@@ -51,7 +51,7 @@ public class Config {
 
     public static void Initialize() {
         try {
-            URL location = Config.class.getResource("/configSDM.xml");
+            URL location = Config.class.getResource("/config.xml");
 
 //            URL location = Config.class.getProtectionDomain().getCodeSource().getLocation();
 //            File fXmlFile = new File(location.getFile() + "/br/uff/ic/Prov_Viewer/Input/configSDM.xml");
@@ -74,8 +74,8 @@ public class Config {
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
                     edgetype.add(eElement.getElementsByTagName("edge").item(0).getTextContent());
-                    edgeStroke.add(Boolean.parseBoolean(eElement.getElementsByTagName("edgestroke").item(0).getTextContent()));
-                    edgecollapse.add(Boolean.parseBoolean(eElement.getElementsByTagName("collapsefunction").item(0).getTextContent()));
+                    edgeStroke.add(eElement.getElementsByTagName("edgestroke").item(0).getTextContent());
+                    edgecollapse.add(eElement.getElementsByTagName("collapsefunction").item(0).getTextContent());
                 }
             }
             //Vertex Stroke Types

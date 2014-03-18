@@ -85,9 +85,9 @@ public class Variables extends Object {
      * @param average (Boolean) To compute the average or not
      * @return average value between value and edge.getValue
      */
-    public float[] Average(float[] value, boolean average) {
-        if (!average) {
-            value[0] = value[0] / value[1];
+    public float[] Average(float[] value, String average) {
+        if (average.equalsIgnoreCase("MEAN")) {
+            value[0] = value[0] / (value[1] - 1);
         }
         return value;
     }
@@ -103,8 +103,8 @@ public class Variables extends Object {
      * @return value, according to the operation, between value and
      * edge.getValue
      */
-    public float[] ComputeValue(float[] value, String type, Edge edge, boolean max) {
-        if (max) {
+    public float[] ComputeValue(float[] value, String type, Edge edge, String max) {
+        if (max.equalsIgnoreCase("MAX")) {
             value[0] = CompareMax(type, value[0], edge);
         } else {
             value = Add(type, value, edge);

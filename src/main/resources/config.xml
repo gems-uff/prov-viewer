@@ -7,7 +7,7 @@ and open the template in the editor.
 
 <config
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-    xsi:noNamespaceSchemaLocation='ConfigSchema.xsd'>
+    xsi:noNamespaceSchemaLocation='config.xsd'>
     <layoutbackbone>Project</layoutbackbone>
     <edgetype>
         <edge>Neutral</edge>
