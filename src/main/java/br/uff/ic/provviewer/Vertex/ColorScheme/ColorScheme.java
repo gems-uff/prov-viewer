@@ -42,11 +42,11 @@ public abstract class ColorScheme {
      * is split with " " due to how XML list works
      * @param attribute 
      */
-    public ColorScheme(String attribute, String value, double g, double y) {
+    public ColorScheme(String attribute, String value, double max, double min) {
         this.attribute = attribute;
         this.value = value.split(" ");
-        this.givenMax = g;
-        this.givenMin = y;
+        this.givenMax = max;
+        this.givenMin = min;
     }
 
     public String GetName() {

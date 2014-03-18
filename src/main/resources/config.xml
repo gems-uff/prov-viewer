@@ -97,8 +97,8 @@ and open the template in the editor.
         <attribute>Hours</attribute>
         <class>ActivityInvertedLimitedScheme</class>
         <values></values>
-        <maxvalue>0</maxvalue>
-        <minvalue>16</minvalue>
+        <maxvalue>16</maxvalue>
+        <minvalue>0</minvalue>
     </colorscheme>
     <colorscheme>
         <attribute>Credits</attribute>
