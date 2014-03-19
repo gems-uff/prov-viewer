@@ -16,8 +16,8 @@ import java.awt.Paint;
  */
 public class ActivityMultiScheme extends ColorScheme {
     
-    public ActivityMultiScheme(String attribute, String valuesList, double g, double y) {
-        super(attribute, valuesList, g, y);
+    public ActivityMultiScheme(String attribute, String valuesList, double g, double y, boolean l) {
+        super(attribute, valuesList, g, y, l);
     }
 
     @Override

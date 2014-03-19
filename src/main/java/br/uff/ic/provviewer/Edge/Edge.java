@@ -75,6 +75,13 @@ public class Edge {
     }
 
     /**
+     * Return Edge's id
+     * @return 
+     */
+    public String getID() {
+        return id;
+    }
+    /**
      * Method to get the edge's source
      *
      * @return vertex source

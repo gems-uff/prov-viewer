@@ -15,8 +15,8 @@ import java.awt.Paint;
  */
 public class EntityScheme extends ColorScheme {
     
-    public EntityScheme(String attribute, String empty, double g, double y) {
-        super(attribute, empty, g, y);
+    public EntityScheme(String attribute, String empty, double g, double y, boolean l) {
+        super(attribute, empty, g, y, l);
     }
 
     @Override
@@ -24,7 +24,12 @@ public class EntityScheme extends ColorScheme {
         
         ComputeValue(variables.graph);
         if (v instanceof EntityVertex) {
-            return this.CompareValue(((EntityVertex) v).getAttributeValueInteger(this.attribute), this.min, this.max);
+            if(!limited) {
+                return this.CompareValue(((EntityVertex) v).getAttributeValueInteger(this.attribute), this.min, this.max);
+            }
+            else {
+                return this.CompareValue(((EntityVertex) v).getAttributeValueInteger(this.attribute), this.givenMin, this.givenMax);
+            }
         }
         return ((Vertex) v).getColor();
     }

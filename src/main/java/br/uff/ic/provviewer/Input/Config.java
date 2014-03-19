@@ -106,19 +106,30 @@ public class Config {
                     String values = "empty";
                     double maxvalue = 0;
                     double minvalue = 0;
+                    boolean limited = false;
                     if (!eElement.getElementsByTagName("values").item(0).getTextContent().isEmpty()) {
                         values = eElement.getElementsByTagName("values").item(0).getTextContent();
                     }
-                    if (!eElement.getElementsByTagName("maxvalue").item(0).getTextContent().isEmpty()) {
-                        maxvalue = Double.parseDouble(eElement.getElementsByTagName("maxvalue").item(0).getTextContent());
+                    NodeList goodattribute = eElement.getElementsByTagName("goodvalue");
+                    if(goodattribute != null && goodattribute.getLength() > 0)
+                    {
+                        if (!eElement.getElementsByTagName("goodvalue").item(0).getTextContent().isEmpty()) {
+                            maxvalue = Double.parseDouble(eElement.getElementsByTagName("goodvalue").item(0).getTextContent());
+                            limited = true;
+                        }
                     }
-                    if (!eElement.getElementsByTagName("minvalue").item(0).getTextContent().isEmpty()) {
-                        minvalue = Double.parseDouble(eElement.getElementsByTagName("minvalue").item(0).getTextContent());
+                    NodeList badattribute = eElement.getElementsByTagName("badvalue");
+                    if(badattribute != null && goodattribute.getLength() > 0)
+                    {
+                        if (!eElement.getElementsByTagName("badvalue").item(0).getTextContent().isEmpty()) {
+                            minvalue = Double.parseDouble(eElement.getElementsByTagName("badvalue").item(0).getTextContent());
+                            limited = true;
+                        }
                     }
 
                     Class cl = Class.forName("br.uff.ic.provviewer.Vertex.ColorScheme." + eElement.getElementsByTagName("class").item(0).getTextContent());
-                    Constructor con = cl.getConstructor(String.class, String.class, double.class, double.class);
-                    ColorScheme attMode = (ColorScheme) con.newInstance(attribute, values, maxvalue, minvalue);
+                    Constructor con = cl.getConstructor(String.class, String.class, double.class, double.class, boolean.class);
+                    ColorScheme attMode = (ColorScheme) con.newInstance(attribute, values, maxvalue, minvalue, limited);
                     vertexModes.add(attMode);
                 }
             }

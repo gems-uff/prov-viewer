@@ -16,8 +16,8 @@ import java.awt.Paint;
  */
 public class ActivityInvertedScheme extends ColorScheme {
 
-    public ActivityInvertedScheme(String attribute, String empty, double g, double y) {
-        super(attribute, empty, g, y);
+    public ActivityInvertedScheme(String attribute, String empty, double g, double y, boolean l) {
+        super(attribute, empty, g, y, l);
     }
     
     @Override
@@ -25,7 +25,12 @@ public class ActivityInvertedScheme extends ColorScheme {
         
         ComputeValue(variables.graph);
         if (v instanceof ActivityVertex) {
-            return this.CompareValue(((ActivityVertex) v).getAttributeValueInteger(this.attribute), this.max, this.min);
+            if(!limited) {
+                return this.CompareValue(((ActivityVertex) v).getAttributeValueInteger(this.attribute), this.max, this.min);
+            }
+            else {
+                return this.CompareValue(((ActivityVertex) v).getAttributeValueInteger(this.attribute), this.givenMax, this.givenMin);
+            }
         }
         return ((Vertex) v).getColor();
     }

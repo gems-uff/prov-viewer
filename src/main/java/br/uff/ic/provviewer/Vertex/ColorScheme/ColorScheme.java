@@ -25,6 +25,7 @@ public abstract class ColorScheme {
     public double min;
     public double givenMax;
     public double givenMin;
+    public boolean limited;
 
     /**
      * This constructor is used by the Default color scheme
@@ -42,11 +43,12 @@ public abstract class ColorScheme {
      * is split with " " due to how XML list works
      * @param attribute 
      */
-    public ColorScheme(String attribute, String value, double max, double min) {
+    public ColorScheme(String attribute, String value, double max, double min, boolean inverted) {
         this.attribute = attribute;
         this.value = value.split(" ");
         this.givenMax = max;
         this.givenMin = min;
+        this.limited = inverted;
     }
 
     public String GetName() {

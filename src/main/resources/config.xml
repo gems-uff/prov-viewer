@@ -83,43 +83,43 @@ and open the template in the editor.
         <attribute>Morale</attribute>
         <class>ActivityScheme</class>
         <values></values>
-        <maxvalue>100</maxvalue>
-        <minvalue>0</minvalue>
+        <goodvalue>100</goodvalue>
+        <badvalue>0</badvalue>
     </colorscheme>
     <colorscheme>
         <attribute>Stamina</attribute>
         <class>ActivityScheme</class>
         <values></values>
-        <maxvalue></maxvalue>
-        <minvalue></minvalue>
+        <goodvalue></goodvalue>
+        <badvalue></badvalue>
     </colorscheme>
     <colorscheme>
         <attribute>Hours</attribute>
         <class>ActivityInvertedLimitedScheme</class>
         <values></values>
-        <maxvalue>16</maxvalue>
-        <minvalue>0</minvalue>
+        <goodvalue>16</goodvalue>
+        <badvalue>0</badvalue>
     </colorscheme>
     <colorscheme>
         <attribute>Credits</attribute>
         <class>EntityScheme</class>
         <values></values>
-        <maxvalue></maxvalue>
-        <minvalue></minvalue>
+        <goodvalue></goodvalue>
+        <badvalue></badvalue>
     </colorscheme>
     <colorscheme>
         <attribute>Role</attribute>
         <class>ActivityMultiScheme</class>
         <values>Analyst Architect Manager Marketing Programmer Tester</values>
-        <maxvalue></maxvalue>
-        <minvalue></minvalue>
+        <goodvalue></goodvalue>
+        <badvalue></badvalue>
     </colorscheme>
     <colorscheme>
         <attribute>Weekend</attribute>
         <class>WeekendScheme</class>
         <values>Sat Sun</values>
-        <maxvalue></maxvalue>
-        <minvalue></minvalue>
+        <goodvalue></goodvalue>
+        <badvalue></badvalue>
     </colorscheme>
     <vertexstroke>
         <attribute>Role</attribute>
