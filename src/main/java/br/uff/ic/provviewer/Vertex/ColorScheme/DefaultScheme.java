@@ -18,7 +18,7 @@ public class DefaultScheme extends ColorScheme {
         super(attribute);
     }
 
-    public DefaultScheme(String attribute, String empty, double g, double y, boolean l) {
+    public DefaultScheme(String attribute, String empty, String g, String y, boolean l) {
         super(attribute, empty, g, y, l);
     }
 

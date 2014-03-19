@@ -16,7 +16,7 @@ import java.awt.Paint;
  */
 public class EntityMultiScheme extends ColorScheme {
     
-    public EntityMultiScheme(String attribute, String valuesList, double g, double y, boolean l) {
+    public EntityMultiScheme(String attribute, String valuesList, String g, String y, boolean l) {
         super(attribute, valuesList, g, y, l);
     }
 

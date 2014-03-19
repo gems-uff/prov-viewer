@@ -56,8 +56,8 @@ and open the template in the editor.
             <xs:element name="attribute" type="xs:string"/>
             <xs:element name="class" type="xs:string"/>
             <xs:element name="values" type="stringlist"/>
-            <xs:element name="goodvalue" type="xs:integer" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="badvalue" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="goodvalue" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="badvalue" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
     

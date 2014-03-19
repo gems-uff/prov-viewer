@@ -23,8 +23,8 @@ public abstract class ColorScheme {
     public String[] value;
     public double max;
     public double min;
-    public double givenMax;
-    public double givenMin;
+    public String givenMax;
+    public String givenMin;
     public boolean limited;
 
     /**
@@ -43,7 +43,7 @@ public abstract class ColorScheme {
      * is split with " " due to how XML list works
      * @param attribute 
      */
-    public ColorScheme(String attribute, String value, double max, double min, boolean inverted) {
+    public ColorScheme(String attribute, String value, String max, String min, boolean inverted) {
         this.attribute = attribute;
         this.value = value.split(" ");
         this.givenMax = max;
