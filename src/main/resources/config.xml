@@ -123,7 +123,7 @@ and open the template in the editor.
     </colorscheme>
     <vertexstroke>
         <attribute>Role</attribute>
-        <values>Idle Fired Promotion Training Hired"</values>
+        <values>Idle Fired Promotion Training Hired</values>
     </vertexstroke>
     <activitycolor>
         <attribute>Task</attribute>

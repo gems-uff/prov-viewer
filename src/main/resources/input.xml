@@ -1,0 +1,840 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<provenancedata
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:noNamespaceSchemaLocation='input.xsd'>
+    <vertex>
+        <id>ag0</id>
+        <type>Agent</type>
+        <label>Tal</label>
+        <date>0</date>
+		<attribute>Salary: 6560</attribute>
+		<attribute>Job: Junior</attribute>
+        <attribute>Level: 1</attribute>
+        <attribute>Adaptability: 65</attribute>
+        <attribute>Autodidact: 56</attribute>
+		<attribute>Meticulous: 46</attribute>
+		<attribute>Negotiation: 75</attribute>
+		<attribute>Objectivity: 49</attribute>
+		<attribute>Organization: 94</attribute>
+		<attribute>Patience: 65</attribute>
+		<attribute>LogicalReasoning: 58</attribute>
+		<attribute>HumanRelations: 83</attribute>
+		<attribute>Specializations: Agile Methods  Proj Management  Planning</attribute>
+		<attribute>Profile: Manager</attribute>
+        <details>Last name is Henrique</details>
+    </vertex>
+	<vertex>
+        <id>ag1</id>
+        <type>Agent</type>
+        <label>Todra</label>
+        <date>0</date>
+		<attribute>Salary: 5540</attribute>
+		<attribute>Job: Junior</attribute>
+        <attribute>Level: 1</attribute>
+        <attribute>Adaptability: 65</attribute>
+        <attribute>Autodidact: 44</attribute>
+		<attribute>Meticulous: 40</attribute>
+		<attribute>Negotiation: 56</attribute>
+		<attribute>Objectivity: 59</attribute>
+		<attribute>Organization: 42</attribute>
+		<attribute>Patience: 58</attribute>
+		<attribute>LogicalReasoning: 59</attribute>
+		<attribute>HumanRelations: 72</attribute>
+		<attribute>Specializations: Agile Methods  Metrics  Test</attribute>
+		<attribute>Profile: Analyst</attribute>
+        <details></details>
+    </vertex>
+	<vertex>
+        <id>ag2</id>
+        <type>Agent</type>
+        <label>Shoon</label>
+        <date>0</date>
+		<attribute>Salary: 6190</attribute>
+		<attribute>Job: Junior</attribute>
+        <attribute>Level: 1</attribute>
+        <attribute>Adaptability: 89</attribute>
+        <attribute>Autodidact: 47</attribute>
+		<attribute>Meticulous: 48</attribute>
+		<attribute>Negotiation: 96</attribute>
+		<attribute>Objectivity: 74</attribute>
+		<attribute>Organization: 57</attribute>
+		<attribute>Patience: 78</attribute>
+		<attribute>LogicalReasoning: 43</attribute>
+		<attribute>HumanRelations: 87</attribute>
+		<attribute>Specializations: Agile Methods</attribute>
+		<attribute>Profile: Marketing</attribute>
+        <details></details>
+    </vertex>
+	<vertex>
+        <id>ag3</id>
+        <type>Agent</type>
+        <label>Tinian</label>
+        <date>0</date>
+		<attribute>Salary: 6740</attribute>
+		<attribute>Job: Junior</attribute>
+        <attribute>Level: 1</attribute>
+        <attribute>Adaptability: 78</attribute>
+        <attribute>Autodidact: 95</attribute>
+		<attribute>Meticulous: 67</attribute>
+		<attribute>Negotiation: 25</attribute>
+		<attribute>Objectivity: 70</attribute>
+		<attribute>Organization: 78</attribute>
+		<attribute>Patience: 47</attribute>
+		<attribute>LogicalReasoning: 79</attribute>
+		<attribute>HumanRelations: 63</attribute>
+		<attribute>Specializations: Java  Agile Methods  Debugging</attribute>
+		<attribute>Profile: Programmer</attribute>
+        <details></details>
+    </vertex>
+    <vertex>
+        <id>ac0</id>
+        <type>Activity</type>
+        <label>Action</label>
+        <date>1:Tue</date>
+        <attribute>Role: Manager</attribute>
+        <attribute>Task: Aid_Analyst</attribute>
+        <attribute>Morale: 100</attribute>
+        <attribute>Stamina 100</attribute>
+        <attribute>Hours: 8</attribute>
+        <attribute>Cost: 251</attribute>
+        <attribute>Work: 389% Aid</attribute>
+        <attribute>Rate: 100</attribute>
+        <details></details>
+    </vertex>
+    <vertex>
+        <id>ac1</id>
+        <type>Activity</type>
+        <label>Action</label>
+        <date>2:Wed</date>
+        <attribute>Role: Manager</attribute>
+        <attribute>Task: Aid_Analyst</attribute>
+        <attribute>Morale: 100</attribute>
+        <attribute>Stamina 60</attribute>
+        <attribute>Hours: 12</attribute>
+        <attribute>Cost: 251</attribute>
+        <attribute>Work: 419% Aid</attribute>
+        <attribute>Rate: 100</attribute>
+        <details></details>
+    </vertex>
+	<vertex>
+        <id>ac2</id>
+        <type>Activity</type>
+        <label>Action</label>
+        <date>3:Thu</date>
+        <attribute>Role: Manager</attribute>
+        <attribute>Task: Aid_Analyst</attribute>
+        <attribute>Morale: 100</attribute>
+        <attribute>Stamina 40</attribute>
+        <attribute>Hours: 16</attribute>
+        <attribute>Cost: 251</attribute>
+        <attribute>Work: 377% Aid</attribute>
+        <attribute>Rate: 100</attribute>
+        <details></details>
+    </vertex>
+	<vertex>
+        <id>ac3</id>
+        <type>Activity</type>
+        <label>Action</label>
+        <date>4:Fri</date>
+        <attribute>Role: Manager</attribute>
+        <attribute>Task: Aid_Analyst</attribute>
+        <attribute>Morale: 100</attribute>
+        <attribute>Stamina 20</attribute>
+        <attribute>Hours: 4</attribute>
+        <attribute>Cost: 251</attribute>
+        <attribute>Work: 363% Aid</attribute>
+        <attribute>Rate: 100</attribute>
+        <details></details>
+    </vertex>
+	<vertex>
+        <id>ac4</id>
+        <type>Activity</type>
+        <label>Action</label>
+        <date>1:Tue</date>
+        <attribute>Role: Analyst</attribute>
+        <attribute>Task: Elicitation</attribute>
+        <attribute>Morale: 100</attribute>
+        <attribute>Stamina 100</attribute>
+        <attribute>Hours: 8</attribute>
+        <attribute>Cost: 176</attribute>
+        <attribute>Work: 45 Discovery</attribute>
+        <attribute>Rate: 100</attribute>
+        <details></details>
+    </vertex>
+	<vertex>
+        <id>ac6</id>
+        <type>Activity</type>
+        <label>Action</label>
+        <date>2:Wed</date>
+        <attribute>Role: Analyst</attribute>
+        <attribute>Task: Elicitation</attribute>
+        <attribute>Morale: 100</attribute>
+        <attribute>Stamina 100</attribute>
+        <attribute>Hours: 8</attribute>
+        <attribute>Cost: 176</attribute>
+        <attribute>Work: 14 Discovery</attribute>
+        <attribute>Rate: 100</attribute>
+        <details></details>
+    </vertex>
+	<vertex>
+        <id>ac8</id>
+        <type>Activity</type>
+        <label>Action</label>
+        <date>3:Thu</date>
+        <attribute>Role: Analyst</attribute>
+        <attribute>Task: Elicitation</attribute>
+        <attribute>Morale: 100</attribute>
+        <attribute>Stamina 100</attribute>
+        <attribute>Hours: 8</attribute>
+        <attribute>Cost: 176</attribute>
+        <attribute>Work: 12 Discovery</attribute>
+        <attribute>Rate: 100</attribute>
+        <details></details>
+    </vertex>
+	<vertex>
+        <id>ac10</id>
+        <type>Activity</type>
+        <label>Action</label>
+        <date>4:Fri:Tue</date>
+        <attribute>Role: Analyst</attribute>
+        <attribute>Task: Elicitation</attribute>
+        <attribute>Morale: 100</attribute>
+        <attribute>Stamina 100</attribute>
+        <attribute>Hours: 8</attribute>
+        <attribute>Cost: 176</attribute>
+        <attribute>Work: 14 Discovery</attribute>
+        <attribute>Rate: 100</attribute>
+        <details></details>
+    </vertex>
+	<vertex>
+        <id>ac5</id>
+        <type>Activity</type>
+        <label>Action</label>
+        <date>1:Tue</date>
+        <attribute>Role: Marketing</attribute>
+        <attribute>Task: Marketing</attribute>
+        <attribute>Morale: 100</attribute>
+        <attribute>Stamina 100</attribute>
+        <attribute>Hours: 8</attribute>
+        <attribute>Cost: 236</attribute>
+        <attribute>Work: 218% Aid</attribute>
+        <attribute>Rate: 100</attribute>
+        <details></details>
+    </vertex>
+	<vertex>
+        <id>ac7</id>
+        <type>Activity</type>
+        <label>Action</label>
+        <date>2:Wed</date>
+        <attribute>Role: Marketing</attribute>
+        <attribute>Task: Marketing</attribute>
+        <attribute>Morale: 100</attribute>
+        <attribute>Stamina 100</attribute>
+        <attribute>Hours: 8</attribute>
+        <attribute>Cost: 236</attribute>
+        <attribute>Work: 96% Aid</attribute>
+        <attribute>Rate: 100</attribute>
+        <details></details>
+    </vertex>
+	<vertex>
+        <id>ac9</id>
+        <type>Activity</type>
+        <label>Action</label>
+        <date>3:Thu</date>
+        <attribute>Role: Marketing</attribute>
+        <attribute>Task: Marketing</attribute>
+        <attribute>Morale: 100</attribute>
+        <attribute>Stamina 100</attribute>
+        <attribute>Hours: 8</attribute>
+        <attribute>Cost: 236</attribute>
+        <attribute>Work: 107% Aid</attribute>
+        <attribute>Rate: 100</attribute>
+        <details></details>
+    </vertex>
+	<vertex>
+        <id>ac11</id>
+        <type>Activity</type>
+        <label>Action</label>
+        <date>4:Fri</date>
+        <attribute>Role: Marketing</attribute>
+        <attribute>Task: Marketing</attribute>
+        <attribute>Morale: 100</attribute>
+        <attribute>Stamina 100</attribute>
+        <attribute>Hours: 8</attribute>
+        <attribute>Cost: 236</attribute>
+        <attribute>Work: 149% Aid</attribute>
+        <attribute>Rate: 100</attribute>
+        <details></details>
+    </vertex>
+	<vertex>
+        <id>ac12</id>
+        <type>Activity</type>
+        <label>Action</label>
+        <date>1:Tue</date>
+        <attribute>Role: Idle</attribute>
+        <attribute>Task: Idle</attribute>
+        <attribute>Morale: 100</attribute>
+        <attribute>Stamina 100</attribute>
+        <attribute>Hours: 8</attribute>
+        <attribute>Cost: 251</attribute>
+        <attribute>Work: </attribute>
+        <attribute>Rate: 100</attribute>
+        <details></details>
+    </vertex>
+	<vertex>
+        <id>ac13</id>
+        <type>Activity</type>
+        <label>Action</label>
+        <date>2:Wed</date>
+        <attribute>Role: Idle</attribute>
+        <attribute>Task: Idle</attribute>
+        <attribute>Morale: 100</attribute>
+        <attribute>Stamina 100</attribute>
+        <attribute>Hours: 8</attribute>
+        <attribute>Cost: 251</attribute>
+        <attribute>Work: </attribute>
+        <attribute>Rate: 100</attribute>
+        <details></details>
+    </vertex>
+	<vertex>
+        <id>ac14</id>
+        <type>Activity</type>
+        <label>Action</label>
+        <date>3:Thu</date>
+        <attribute>Role: Idle</attribute>
+        <attribute>Task: Idle</attribute>
+        <attribute>Morale: 100</attribute>
+        <attribute>Stamina 100</attribute>
+        <attribute>Hours: 8</attribute>
+        <attribute>Cost: 251</attribute>
+        <attribute>Work: </attribute>
+        <attribute>Rate: 100</attribute>
+        <details></details>
+    </vertex>
+	<vertex>
+        <id>ac15</id>
+        <type>Activity</type>
+        <label>Action</label>
+        <date>4:Fri</date>
+        <attribute>Role: Idle</attribute>
+        <attribute>Task: Idle</attribute>
+        <attribute>Morale: 100</attribute>
+        <attribute>Stamina 100</attribute>
+        <attribute>Hours: 8</attribute>
+        <attribute>Cost: 251</attribute>
+        <attribute>Work: </attribute>
+        <attribute>Rate: 100</attribute>
+        <details></details>
+    </vertex>
+	<vertex>
+        <id>ent0</id>
+        <type>Entity</type>
+        <label>Project</label>
+        <date>0:Mon</date>
+		<attribute>Deadline: 32</attribute>
+		<attribute>ProgrammingLanguage: java</attribute>
+        <attribute>Payment: 15000</attribute>
+		<attribute>Credits: 40000</attribute>
+        <attribute>Especification: 0</attribute>
+        <attribute>Elicitation: 0</attribute>
+		<attribute>CodeQuality: 80</attribute>
+		<attribute>CodeComplete: 0</attribute>
+		<attribute>UnitaryBugFound: 0</attribute>
+		<attribute>IntegrationBugFound: 0</attribute>
+		<attribute>SystemBugFound: 0</attribute>
+		<attribute>AcceptionBugFound: 0</attribute>
+		<attribute>UnitaryBugRepaired: 0</attribute>
+		<attribute>IntegrationBugRepaired: 0</attribute>
+		<attribute>SystemBugRepaired: 0</attribute>
+		<attribute>AcceptionBugRepaired: 0</attribute>
+		<attribute>TotalBugs: 0: 0 0 0 0</attribute>
+        <details></details>
+    </vertex>
+	<vertex>
+        <id>ent1</id>
+        <type>Entity</type>
+        <label>Project</label>
+        <date>1:Tue</date>
+		<attribute>Deadline: 32</attribute>
+		<attribute>ProgrammingLanguage: java</attribute>
+        <attribute>Payment: 15000</attribute>
+		<attribute>Credits: 39791</attribute>
+        <attribute>Especification: 0</attribute>
+        <attribute>Elicitation: 45</attribute>
+		<attribute>CodeQuality: 80</attribute>
+		<attribute>CodeComplete: 0</attribute>
+		<attribute>UnitaryBugFound: 0</attribute>
+		<attribute>IntegrationBugFound: 0</attribute>
+		<attribute>SystemBugFound: 0</attribute>
+		<attribute>AcceptionBugFound: 0</attribute>
+		<attribute>UnitaryBugRepaired: 0</attribute>
+		<attribute>IntegrationBugRepaired: 0</attribute>
+		<attribute>SystemBugRepaired: 0</attribute>
+		<attribute>AcceptionBugRepaired: 0</attribute>
+		<attribute>TotalBugs: 0: 0 0 0 0</attribute>
+        <details></details>
+    </vertex>
+	<vertex>
+        <id>ent2</id>
+        <type>Entity</type>
+        <label>Project</label>
+        <date>2:Wed</date>
+		<attribute>Deadline: 32</attribute>
+		<attribute>ProgrammingLanguage: java</attribute>
+        <attribute>Payment: 15000</attribute>
+		<attribute>Credits: 40011</attribute>
+        <attribute>Especification: 0</attribute>
+        <attribute>Elicitation: 59</attribute>
+		<attribute>CodeQuality: 80</attribute>
+		<attribute>CodeComplete: 0</attribute>
+		<attribute>UnitaryBugFound: 0</attribute>
+		<attribute>IntegrationBugFound: 0</attribute>
+		<attribute>SystemBugFound: 0</attribute>
+		<attribute>AcceptionBugFound: 0</attribute>
+		<attribute>UnitaryBugRepaired: 0</attribute>
+		<attribute>IntegrationBugRepaired: 0</attribute>
+		<attribute>SystemBugRepaired: 0</attribute>
+		<attribute>AcceptionBugRepaired: 0</attribute>
+		<attribute>TotalBugs: 0: 0 0 0 0</attribute>
+        <details></details>
+    </vertex>
+	<vertex>
+        <id>ent3</id>
+        <type>Entity</type>
+        <label>Project</label>
+        <date>3:Thu</date>
+		<attribute>Deadline: 32</attribute>
+		<attribute>ProgrammingLanguage: java</attribute>
+        <attribute>Payment: 15000</attribute>
+		<attribute>Credits: 39842</attribute>
+        <attribute>Especification: 0</attribute>
+        <attribute>Elicitation: 71</attribute>
+		<attribute>CodeQuality: 80</attribute>
+		<attribute>CodeComplete: 0</attribute>
+		<attribute>UnitaryBugFound: 0</attribute>
+		<attribute>IntegrationBugFound: 0</attribute>
+		<attribute>SystemBugFound: 0</attribute>
+		<attribute>AcceptionBugFound: 0</attribute>
+		<attribute>UnitaryBugRepaired: 0</attribute>
+		<attribute>IntegrationBugRepaired: 0</attribute>
+		<attribute>SystemBugRepaired: 0</attribute>
+		<attribute>AcceptionBugRepaired: 0</attribute>
+		<attribute>TotalBugs: 0: 0 0 0 0</attribute>
+        <details></details>
+    </vertex>
+	<vertex>
+        <id>ent4</id>
+        <type>Entity</type>
+        <label>Project</label>
+        <date>4:Fri</date>
+		<attribute>Deadline: 32</attribute>
+		<attribute>ProgrammingLanguage: java</attribute>
+        <attribute>Payment: 15000</attribute>
+		<attribute>Credits: 39244</attribute>
+        <attribute>Especification: 0</attribute>
+        <attribute>Elicitation: 84</attribute>
+		<attribute>CodeQuality: 80</attribute>
+		<attribute>CodeComplete: 0</attribute>
+		<attribute>UnitaryBugFound: 0</attribute>
+		<attribute>IntegrationBugFound: 0</attribute>
+		<attribute>SystemBugFound: 0</attribute>
+		<attribute>AcceptionBugFound: 0</attribute>
+		<attribute>UnitaryBugRepaired: 0</attribute>
+		<attribute>IntegrationBugRepaired: 0</attribute>
+		<attribute>SystemBugRepaired: 0</attribute>
+		<attribute>AcceptionBugRepaired: 0</attribute>
+		<attribute>TotalBugs: 0: 0 0 0 0</attribute>
+        <details></details>
+    </vertex>
+    <edge>
+        <id>e0</id>
+        <type>Neutral</type>
+        <label>wasDerivedFrom</label>
+        <value></value>
+        <sourceid>ent0</sourceid>
+        <targetid>ent1</targetid>
+    </edge>
+	<edge>
+        <id>e1</id>
+        <type>Neutral</type>
+        <label>wasDerivedFrom</label>
+        <value></value>
+        <sourceid>ent1</sourceid>
+        <targetid>ent2</targetid>
+    </edge>
+	<edge>
+        <id>e2</id>
+        <type>Neutral</type>
+        <label>wasDerivedFrom</label>
+        <value></value>
+        <sourceid>ent2</sourceid>
+        <targetid>ent3</targetid>
+    </edge>
+	<edge>
+        <id>e3</id>
+        <type>Neutral</type>
+        <label>wasDerivedFrom</label>
+        <value></value>
+        <sourceid>ent3</sourceid>
+        <targetid>ent4</targetid>
+    </edge>
+	<edge>
+        <id>e4</id>
+        <type>Neutral</type>
+        <label>wasAssociatedWith</label>
+        <value></value>
+        <sourceid>ag0</sourceid>
+        <targetid>ac0</targetid>
+    </edge>
+	<edge>
+        <id>e5</id>
+        <type>Credits</type>
+        <label>used</label>
+        <value>-251</value>
+        <sourceid>ac0</sourceid>
+        <targetid>ent1</targetid>
+    </edge>
+	<edge>
+        <id>e6</id>
+        <type>Neutral</type>
+        <label>wasAssociatedWith</label>
+        <value></value>
+        <sourceid>ag0</sourceid>
+        <targetid>ac1</targetid>
+    </edge>
+	<edge>
+        <id>e7</id>
+        <type>Credits</type>
+        <label>used</label>
+        <value>-251</value>
+        <sourceid>ac1</sourceid>
+        <targetid>ent2</targetid>
+    </edge>
+	<edge>
+        <id>e8</id>
+        <type>Neutral</type>
+        <label>wasAssociatedWith</label>
+        <value></value>
+        <sourceid>ag0</sourceid>
+        <targetid>ac2</targetid>
+    </edge>
+	<edge>
+        <id>e9</id>
+        <type>Credits</type>
+        <label>used</label>
+        <value>-251</value>
+        <sourceid>ac2</sourceid>
+        <targetid>ent3</targetid>
+    </edge>
+	<edge>
+        <id>e10</id>
+        <type>Neutral</type>
+        <label>wasAssociatedWith</label>
+        <value></value>
+        <sourceid>ag0</sourceid>
+        <targetid>ac3</targetid>
+    </edge>
+	<edge>
+        <id>e11</id>
+        <type>Credits</type>
+        <label>used</label>
+        <value>-251</value>
+        <sourceid>ac3</sourceid>
+        <targetid>ent4</targetid>
+    </edge>
+	<edge>
+        <id>e12</id>
+        <type>Neutral</type>
+        <label>wasAssociatedWith</label>
+        <value></value>
+        <sourceid>ag1</sourceid>
+        <targetid>ac4</targetid>
+    </edge>
+	<edge>
+        <id>e13</id>
+        <type>Aid</type>
+        <label>wasInfluencedBy</label>
+        <value>389 %</value>
+        <sourceid>ac0</sourceid>
+        <targetid>ac4</targetid>
+    </edge>
+	<edge>
+        <id>e14</id>
+        <type>Aid</type>
+        <label>wasInfluencedBy</label>
+        <value>218 %</value>
+        <sourceid>ac5</sourceid>
+        <targetid>ac4</targetid>
+    </edge>
+	<edge>
+        <id>e15</id>
+        <type>Credits</type>
+        <label>used</label>
+        <value>-176</value>
+        <sourceid>ac4</sourceid>
+        <targetid>ent1</targetid>
+    </edge>
+	<edge>
+        <id>e16</id>
+        <type>Neutral</type>
+        <label>wasAssociatedWith</label>
+        <value></value>
+        <sourceid>ag1</sourceid>
+        <targetid>ac6</targetid>
+    </edge>
+	<edge>
+        <id>e17</id>
+        <type>Aid</type>
+        <label>wasInfluencedBy</label>
+        <value>419 %</value>
+        <sourceid>ac1</sourceid>
+        <targetid>ac6</targetid>
+    </edge>
+	<edge>
+        <id>e18</id>
+        <type>Aid</type>
+        <label>wasInfluencedBy</label>
+        <value>96 %</value>
+        <sourceid>ac7</sourceid>
+        <targetid>ac6</targetid>
+    </edge>
+	<edge>
+        <id>e19</id>
+        <type>Credits</type>
+        <label>used</label>
+        <value>-176</value>
+        <sourceid>ac6</sourceid>
+        <targetid>ent2</targetid>
+    </edge>
+	<edge>
+        <id>e20</id>
+        <type>Neutral</type>
+        <label>wasAssociatedWith</label>
+        <value></value>
+        <sourceid>ag1</sourceid>
+        <targetid>ac8</targetid>
+    </edge>
+	<edge>
+        <id>e21</id>
+        <type>Aid</type>
+        <label>wasInfluencedBy</label>
+        <value>377 %</value>
+        <sourceid>ac2</sourceid>
+        <targetid>ac8</targetid>
+    </edge>
+	<edge>
+        <id>e22</id>
+        <type>Aid</type>
+        <label>wasInfluencedBy</label>
+        <value>107 %</value>
+        <sourceid>ac9</sourceid>
+        <targetid>ac8</targetid>
+    </edge>
+	<edge>
+        <id>e23</id>
+        <type>Credits</type>
+        <label>used</label>
+        <value>-176</value>
+        <sourceid>ac8</sourceid>
+        <targetid>ent3</targetid>
+    </edge>
+	<edge>
+        <id>e24</id>
+        <type>Neutral</type>
+        <label>wasAssociatedWith</label>
+        <value></value>
+        <sourceid>ag1</sourceid>
+        <targetid>ac10</targetid>
+    </edge>
+	<edge>
+        <id>e25</id>
+        <type>Aid</type>
+        <label>wasInfluencedBy</label>
+        <value>363 %</value>
+        <sourceid>ac3</sourceid>
+        <targetid>ac10</targetid>
+    </edge>
+	<edge>
+        <id>e26</id>
+        <type>Aid</type>
+        <label>wasInfluencedBy</label>
+        <value>149 %</value>
+        <sourceid>ac11</sourceid>
+        <targetid>ac10</targetid>
+    </edge>
+	<edge>
+        <id>e27</id>
+        <type>Credits</type>
+        <label>used</label>
+        <value>-176</value>
+        <sourceid>ac10</sourceid>
+        <targetid>ent4</targetid>
+    </edge>
+	<edge>
+        <id>e28</id>
+        <type>Neutral</type>
+        <label>wasAssociatedWith</label>
+        <value></value>
+        <sourceid>ag2</sourceid>
+        <targetid>ac5</targetid>
+    </edge>
+	<edge>
+        <id>e29</id>
+        <type>Credits</type>
+        <label>used</label>
+        <value>-236</value>
+        <sourceid>ac5</sourceid>
+        <targetid>ent1</targetid>
+    </edge>
+	<edge>
+        <id>e30</id>
+        <type>Credits</type>
+        <label>used</label>
+        <value>705</value>
+        <sourceid>ac5</sourceid>
+        <targetid>ent1</targetid>
+    </edge>
+	<edge>
+        <id>e31</id>
+        <type>Neutral</type>
+        <label>wasAssociatedWith</label>
+        <value></value>
+        <sourceid>ag2</sourceid>
+        <targetid>ac7</targetid>
+    </edge>
+	<edge>
+        <id>e32</id>
+        <type>Credits</type>
+        <label>used</label>
+        <value>-236</value>
+        <sourceid>ac7</sourceid>
+        <targetid>ent2</targetid>
+    </edge>
+	<edge>
+        <id>e33</id>
+        <type>Credits</type>
+        <label>used</label>
+        <value>1134</value>
+        <sourceid>ac7</sourceid>
+        <targetid>ent2</targetid>
+    </edge>
+	<edge>
+        <id>e34</id>
+        <type>Neutral</type>
+        <label>wasAssociatedWith</label>
+        <value></value>
+        <sourceid>ag2</sourceid>
+        <targetid>ac9</targetid>
+    </edge>
+	<edge>
+        <id>e35</id>
+        <type>Credits</type>
+        <label>used</label>
+        <value>-236</value>
+        <sourceid>ac9</sourceid>
+        <targetid>ent3</targetid>
+    </edge>
+	<edge>
+        <id>e36</id>
+        <type>Credits</type>
+        <label>used</label>
+        <value>745</value>
+        <sourceid>ac9</sourceid>
+        <targetid>ent3</targetid>
+    </edge>
+	<edge>
+        <id>e37</id>
+        <type>Neutral</type>
+        <label>wasAssociatedWith</label>
+        <value></value>
+        <sourceid>ag2</sourceid>
+        <targetid>ac11</targetid>
+    </edge>
+	<edge>
+        <id>e38</id>
+        <type>Credits</type>
+        <label>used</label>
+        <value>-236</value>
+        <sourceid>ac11</sourceid>
+        <targetid>ent4</targetid>
+    </edge>
+	<edge>
+        <id>e39</id>
+        <type>Credits</type>
+        <label>used</label>
+        <value>316</value>
+        <sourceid>ac11</sourceid>
+        <targetid>ent4</targetid>
+    </edge>
+	<edge>
+        <id>e40</id>
+        <type>Neutral</type>
+        <label>wasAssociatedWith</label>
+        <value></value>
+        <sourceid>ag3</sourceid>
+        <targetid>ac12</targetid>
+    </edge>
+	<edge>
+        <id>e41</id>
+        <type>Credits</type>
+        <label>used</label>
+        <value>-251</value>
+        <sourceid>ac12</sourceid>
+        <targetid>ent1</targetid>
+    </edge>
+	<edge>
+        <id>e42</id>
+        <type>Neutral</type>
+        <label>wasAssociatedWith</label>
+        <value></value>
+        <sourceid>ag3</sourceid>
+        <targetid>ac13</targetid>
+    </edge>
+	<edge>
+        <id>e43</id>
+        <type>Credits</type>
+        <label>used</label>
+        <value>-251</value>
+        <sourceid>ac13</sourceid>
+        <targetid>ent2</targetid>
+    </edge>
+	<edge>
+        <id>e44</id>
+        <type>Neutral</type>
+        <label>wasAssociatedWith</label>
+        <value></value>
+        <sourceid>ag3</sourceid>
+        <targetid>ac14</targetid>
+    </edge>
+	<edge>
+        <id>e45</id>
+        <type>Credits</type>
+        <label>used</label>
+        <value>-251</value>
+        <sourceid>ac14</sourceid>
+        <targetid>ent3</targetid>
+    </edge>
+	<edge>
+        <id>e46</id>
+        <type>Neutral</type>
+        <label>wasAssociatedWith</label>
+        <value></value>
+        <sourceid>ag3</sourceid>
+        <targetid>ac15</targetid>
+    </edge>
+	<edge>
+        <id>e47</id>
+        <type>Credits</type>
+        <label>used</label>
+        <value>-251</value>
+        <sourceid>ac15</sourceid>
+        <targetid>ent4</targetid>
+    </edge>
+
+</provenancedata>

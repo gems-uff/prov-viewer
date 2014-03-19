@@ -5,6 +5,7 @@ import br.uff.ic.provviewer.Filter.Filters;
 import br.uff.ic.provviewer.Filter.PreFilters;
 import br.uff.ic.provviewer.Input.Config;
 import br.uff.ic.provviewer.Input.TSVReader;
+import br.uff.ic.provviewer.Input.XMLReader;
 import br.uff.ic.provviewer.Layout.Temporal_Layout;
 import br.uff.ic.provviewer.Stroke.EdgeStroke;
 import br.uff.ic.provviewer.Stroke.VertexStroke;
@@ -693,11 +694,12 @@ public class GraphFrame extends javax.swing.JFrame {
         try {
         //    try {
         //        TSVReader tsvReader = new TSVReader("log.txt");
-                TSVReader tsvReader = new TSVReader(path);
+//                TSVReader xmlReader = new TSVReader(path);
+                XMLReader xmlReader = new XMLReader();
         //        for (Node node : tsvReader.getNodes()) {
         //            graph.addVertex(node.getID());
         //        }
-                for (Edge edge : tsvReader.getEdges()) {
+                for (Edge edge : xmlReader.getEdges()) {
         //            g.addEdge(edge, edge.getSource().getID(), edge.getTarget().getID());
                     g.addEdge(edge, edge.getSource(), edge.getTarget());
                 }

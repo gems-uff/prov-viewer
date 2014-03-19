@@ -27,6 +27,10 @@ public class EntityVertex extends Vertex {
     public EntityVertex(String id) {
         super(id,"","","");
     }
+    
+    public EntityVertex(String id, String label, String date, String details) {
+        super(id, label, date, details);
+    }
 
     public EntityVertex(String[] array) {
         super(array[0], array[1], array[2], array[3]);

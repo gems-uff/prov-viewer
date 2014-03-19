@@ -59,6 +59,8 @@ public class VertexStroke {
                     String att = ((Vertex) v).getAttributeValue(list[0]);
                     if (!"".equals(att)) {
                         for (int j = 1; j < list.length; j++) {
+                            System.out.println("Attvalue: " + att);
+                            System.out.println("Listvalue: " + list[j]);
                             if (att.equalsIgnoreCase(list[j])) {
                                 dash = new float[1];
                                 dash[0] = 4.0f;

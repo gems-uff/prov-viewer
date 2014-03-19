@@ -26,6 +26,10 @@ public class AgentVertex extends Vertex {
     public AgentVertex(String id) {
         super(id, "","","");
     }
+    
+    public AgentVertex(String id, String label, String date, String details) {
+        super(id, label, date, details);
+    }
 
     /**
      * Constructor overload

@@ -5,6 +5,9 @@
 package br.uff.ic.provviewer.Input;
 
 import br.uff.ic.provviewer.Edge.Edge;
+import br.uff.ic.provviewer.Vertex.ActivityVertex;
+import br.uff.ic.provviewer.Vertex.AgentVertex;
+import br.uff.ic.provviewer.Vertex.EntityVertex;
 import br.uff.ic.provviewer.Vertex.Vertex;
 import java.io.File;
 import java.io.IOException;
@@ -57,21 +60,43 @@ public class XMLReader {
                     String attribute = "";
                     NodeList aList = eElement.getElementsByTagName("attribute");
                     for(int i = 0; i < aList.getLength(); i++){
-                        attribute += eElement.getElementsByTagName("attribute").item(i).getTextContent() + "<br>";
+                        attribute += eElement.getElementsByTagName("attribute").item(i).getTextContent() + " <br>";
                     }
                     String details = eElement.getElementsByTagName("details").item(0).getTextContent();
+                    Vertex node;
+                    if(type.equalsIgnoreCase("Activity"))
+                    {
+                        node = new ActivityVertex(id, label, date, attribute + " <br>" + details);
+                    }
+                    else if(type.equalsIgnoreCase("Entity"))
+                    {
+                        node = new EntityVertex(id, label, date, attribute + " <br>" + details);
+                    }
+                    else //Agent
+                    {
+                        node = new AgentVertex(id, label, date, attribute + " <br>" + details);
+                    }
+                    nodes.put(node.getID(), node);
                 }
             }
-
-//            ActivityVertex node = new ActivityVertex();
-//            EntityVertex node = new EntityVertex();
-//            AgentVertex node = new AgentVertex();
-//            nodes.put(node.getID(), node);
-
+            
             //Read all edges
+            nList = doc.getElementsByTagName("edge");
 
-//            Edge edge = new Edge(id, type, label, value, nodes.get(target), nodes.get(source));
-//            edges.add(edge);
+            for (int temp = 0; temp < nList.getLength(); temp++) {
+                Node nNode = nList.item(temp);
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element eElement = (Element) nNode;
+                    String id = eElement.getElementsByTagName("id").item(0).getTextContent();
+                    String type = eElement.getElementsByTagName("type").item(0).getTextContent();
+                    String label = eElement.getElementsByTagName("label").item(0).getTextContent();
+                    String value = eElement.getElementsByTagName("value").item(0).getTextContent();
+                    String source = eElement.getElementsByTagName("sourceid").item(0).getTextContent();
+                    String target = eElement.getElementsByTagName("targetid").item(0).getTextContent();
+                    Edge edge = new Edge(id, type, label, value, nodes.get(target), nodes.get(source));
+                    edges.add(edge);
+                }
+            }
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -49,7 +49,7 @@ public class Edge {
         this.source = source;
         this.target = target;
         this.label = label;
-        if (type.equalsIgnoreCase("")) {
+        if (type.equalsIgnoreCase("") || (type == null) || type.equalsIgnoreCase("Neutral")) {
             this.influence = "Neutral";
         } else {
             this.influence = value + " " + type;

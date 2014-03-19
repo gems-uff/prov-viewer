@@ -30,6 +30,10 @@ public class ActivityVertex extends Vertex {
     public ActivityVertex(String id) {
         super(id, "", "", "");
     }
+    
+    public ActivityVertex(String id, String label, String date, String details) {
+        super(id, label, date, details);
+    }
 
     /**
      * Constructor overload
