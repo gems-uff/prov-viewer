@@ -50,10 +50,18 @@ and open the template in the editor.
             <!-- Vertex Date of Creation/Appearance -->
             <xs:element name="date" type="xs:string"/>
             <!-- Vertex Attributes -->
-            <xs:element name="attribute" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="attribute" type="vertexattribute" minOccurs="0" maxOccurs="unbounded"/>
             <!-- Vertex additional information -->
             <xs:element name="details" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
+    
+    <!-- Special Vertex Stroke -->
+    <xs:complexType name="vertexattribute">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="value" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>  
 
 </xs:schema>

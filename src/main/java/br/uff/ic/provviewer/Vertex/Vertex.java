@@ -58,9 +58,11 @@ public abstract class Vertex extends Object {
     @Override
     public String toString() {
 //        return id;
-        return "Activity<br> " + "<b>Name: " + this.name + "</b>"
+        return this.getNodeType() + "<br> "
+                + "<br>ID: " + this.id + "<br>"
+                + "<b>Name: " + this.name + "</b>"
                 + " <br>" + "Date: " + this.date
-                + " <br>" + this.details + " <br><br>";
+                + " <br>" + this.details;
     }
 
     public String getAttributeValue(String attribute) {
@@ -79,9 +81,10 @@ public abstract class Vertex extends Object {
 
     /**
      * Method to return the vertex shape
-     *
+     * @deprecated
      * @return the Shape of the vertex
      */
+    
     public abstract Shape getShape();
 
     /**
@@ -107,7 +110,7 @@ public abstract class Vertex extends Object {
     /**
      * Method used to identify the vertex type
      *
-     * @deprecated Use the vertex sub-class to check the type
+     * 
      * @return (String) vertex type
      */
     public abstract String getNodeType();

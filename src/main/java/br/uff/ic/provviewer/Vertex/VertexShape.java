@@ -26,30 +26,22 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
     @Override
     public Shape transform(V v) {
         if (v instanceof Graph) {
-//                int size = ((Graph)v).getVertexCount();
-//                if (size < 8) {   
-//                    int sides = Math.max(size, 3);
-//                    return factory.getRegularPolygon(v, sides);
-//                }
-//                else {
-//                    return factory.getRegularStar(v, size);
-//                }
-            String line = ((Graph) v).toString();
-            if (line.contains("Entity")) {
-                return new Ellipse2D.Float(-7, -7, 30, 30);
-            } else if ((line.contains("Agent"))) {
-                return factory.getRegularPolygon(v, 5);
-            } else if (line.contains("Activity")) {
-                return factory.getRegularPolygon(v, 4);
-            } else {
-                int size = ((Graph) v).getVertexCount();
-                if (size < 8) {
-                    int sides = Math.max(size, 3);
-                    return factory.getRegularPolygon(v, sides);
-                } else {
-                    return factory.getRegularStar(v, size);
-                }
+//            String line = ((Graph) v).toString();
+//            if (line.contains("Entity")) {
+//                return new Ellipse2D.Float(-7, -7, 20, 20);
+//            } else if ((line.contains("Agent"))) {
+//                return factory.getRegularPolygon(v, 5);
+//            } else {
+//                return factory.getRegularPolygon(v, 4);
+//            }
+            
+            
+            Object vertex;
+            vertex = (((Graph) v).getVertices()).iterator().next();
+            while (vertex instanceof Graph) {
+                vertex = (((Graph) vertex).getVertices()).iterator().next();
             }
+            v = (V) vertex;
         }
         if (v instanceof EntityVertex) {
             return new Ellipse2D.Float(-7, -7, 20, 20);
@@ -60,7 +52,5 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
         {
             return factory.getRegularPolygon(v, 4);
         }
-        //return new Rectangle2D.Float(-7, -7, 20, 20);
-        //return super.transform(v);
     }
 }

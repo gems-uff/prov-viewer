@@ -13,20 +13,62 @@ and open the template in the editor.
         <type>Agent</type>
         <label>Tal</label>
         <date>0</date>
-		<attribute>Salary: 6560</attribute>
-		<attribute>Job: Junior</attribute>
-        <attribute>Level: 1</attribute>
-        <attribute>Adaptability: 65</attribute>
-        <attribute>Autodidact: 56</attribute>
-		<attribute>Meticulous: 46</attribute>
-		<attribute>Negotiation: 75</attribute>
-		<attribute>Objectivity: 49</attribute>
-		<attribute>Organization: 94</attribute>
-		<attribute>Patience: 65</attribute>
-		<attribute>LogicalReasoning: 58</attribute>
-		<attribute>HumanRelations: 83</attribute>
-		<attribute>Specializations: Agile Methods  Proj Management  Planning</attribute>
-		<attribute>Profile: Manager</attribute>
+        <attribute>
+            <name>Salary</name>
+            <value>6560</value>
+        </attribute>
+        <attribute>
+            <name>Job</name>
+            <value>Junior</value>
+        </attribute>
+        <attribute>
+            <name>Level</name>
+            <value>1</value>
+        </attribute>
+        <attribute>
+            <name>Adaptability</name>
+            <value>65</value>
+        </attribute>
+        <attribute>
+            <name>Autodidact</name>
+            <value>56</value>
+        </attribute>
+        <attribute>
+            <name>Meticulous</name>
+            <value>46</value>
+        </attribute>
+        <attribute>
+            <name>Negotiation</name>
+            <value>75</value>
+        </attribute>
+        <attribute>
+            <name>Objectivity</name>
+            <value>49</value>
+        </attribute>
+        <attribute>
+            <name>Organization</name>
+            <value>94</value>
+        </attribute>
+        <attribute>
+            <name>Patience</name>
+            <value>65</value>
+        </attribute>
+        <attribute>
+            <name>LogicalReasoning</name>
+            <value>58</value>
+        </attribute>
+        <attribute>
+            <name>HumanRelations</name>
+            <value>83</value>
+        </attribute>
+        <attribute>
+            <name>Specializations</name>
+            <value>Agile Methods  Proj Management  Planning</value>
+        </attribute>
+        <attribute>
+            <name>Profile</name>
+            <value>Manager</value>
+        </attribute>
         <details>Last name is Henrique</details>
     </vertex>
 	<vertex>
@@ -34,20 +76,62 @@ and open the template in the editor.
         <type>Agent</type>
         <label>Todra</label>
         <date>0</date>
-		<attribute>Salary: 5540</attribute>
-		<attribute>Job: Junior</attribute>
-        <attribute>Level: 1</attribute>
-        <attribute>Adaptability: 65</attribute>
-        <attribute>Autodidact: 44</attribute>
-		<attribute>Meticulous: 40</attribute>
-		<attribute>Negotiation: 56</attribute>
-		<attribute>Objectivity: 59</attribute>
-		<attribute>Organization: 42</attribute>
-		<attribute>Patience: 58</attribute>
-		<attribute>LogicalReasoning: 59</attribute>
-		<attribute>HumanRelations: 72</attribute>
-		<attribute>Specializations: Agile Methods  Metrics  Test</attribute>
-		<attribute>Profile: Analyst</attribute>
+        <attribute>
+            <name>Salary</name>
+            <value>5540</value>
+        </attribute>
+        <attribute>
+            <name>Job</name>
+            <value>Junior</value>
+        </attribute>
+        <attribute>
+            <name>Level</name>
+            <value>1</value>
+        </attribute>
+        <attribute>
+            <name>Adaptability</name>
+            <value>65</value>
+        </attribute>
+        <attribute>
+            <name>Autodidact</name>
+            <value>44</value>
+        </attribute>
+        <attribute>
+            <name>Meticulous</name>
+            <value>40</value>
+        </attribute>
+        <attribute>
+            <name>Negotiation</name>
+            <value>56</value>
+        </attribute>
+        <attribute>
+            <name>Objectivity</name>
+            <value>59</value>
+        </attribute>
+        <attribute>
+            <name>Organization</name>
+            <value>42</value>
+        </attribute>
+        <attribute>
+            <name>Patience</name>
+            <value>58</value>
+        </attribute>
+        <attribute>
+            <name>LogicalReasoning</name>
+            <value>59</value>
+        </attribute>
+        <attribute>
+            <name>HumanRelations</name>
+            <value>72</value>
+        </attribute>
+        <attribute>
+            <name>Specializations</name>
+            <value>Agile Methods  Metrics  Test</value>
+        </attribute>
+        <attribute>
+            <name>Profile</name>
+            <value>Analyst</value>
+        </attribute>
         <details></details>
     </vertex>
 	<vertex>
@@ -55,20 +139,62 @@ and open the template in the editor.
         <type>Agent</type>
         <label>Shoon</label>
         <date>0</date>
-		<attribute>Salary: 6190</attribute>
-		<attribute>Job: Junior</attribute>
-        <attribute>Level: 1</attribute>
-        <attribute>Adaptability: 89</attribute>
-        <attribute>Autodidact: 47</attribute>
-		<attribute>Meticulous: 48</attribute>
-		<attribute>Negotiation: 96</attribute>
-		<attribute>Objectivity: 74</attribute>
-		<attribute>Organization: 57</attribute>
-		<attribute>Patience: 78</attribute>
-		<attribute>LogicalReasoning: 43</attribute>
-		<attribute>HumanRelations: 87</attribute>
-		<attribute>Specializations: Agile Methods</attribute>
-		<attribute>Profile: Marketing</attribute>
+        <attribute>
+            <name>Salary</name>
+            <value>6190</value>
+        </attribute>
+        <attribute>
+            <name>Job</name>
+            <value>Junior</value>
+        </attribute>
+        <attribute>
+            <name>Level</name>
+            <value>1</value>
+        </attribute>
+        <attribute>
+            <name>Adaptability</name>
+            <value>89</value>
+        </attribute>
+        <attribute>
+            <name>Autodidact</name>
+            <value>47</value>
+        </attribute>
+        <attribute>
+            <name>Meticulous</name>
+            <value>48</value>
+        </attribute>
+        <attribute>
+            <name>Negotiation</name>
+            <value>96</value>
+        </attribute>
+        <attribute>
+            <name>Objectivity</name>
+            <value>74</value>
+        </attribute>
+        <attribute>
+            <name>Organization</name>
+            <value>57</value>
+        </attribute>
+        <attribute>
+            <name>Patience</name>
+            <value>78</value>
+        </attribute>
+        <attribute>
+            <name>LogicalReasoning</name>
+            <value>53</value>
+        </attribute>
+        <attribute>
+            <name>HumanRelations</name>
+            <value>87</value>
+        </attribute>
+        <attribute>
+            <name>Specializations</name>
+            <value>Agile Methods</value>
+        </attribute>
+        <attribute>
+            <name>Profile</name>
+            <value>Marketing</value>
+        </attribute>
         <details></details>
     </vertex>
 	<vertex>
@@ -76,20 +202,62 @@ and open the template in the editor.
         <type>Agent</type>
         <label>Tinian</label>
         <date>0</date>
-		<attribute>Salary: 6740</attribute>
-		<attribute>Job: Junior</attribute>
-        <attribute>Level: 1</attribute>
-        <attribute>Adaptability: 78</attribute>
-        <attribute>Autodidact: 95</attribute>
-		<attribute>Meticulous: 67</attribute>
-		<attribute>Negotiation: 25</attribute>
-		<attribute>Objectivity: 70</attribute>
-		<attribute>Organization: 78</attribute>
-		<attribute>Patience: 47</attribute>
-		<attribute>LogicalReasoning: 79</attribute>
-		<attribute>HumanRelations: 63</attribute>
-		<attribute>Specializations: Java  Agile Methods  Debugging</attribute>
-		<attribute>Profile: Programmer</attribute>
+        <attribute>
+            <name>Salary</name>
+            <value>6740</value>
+        </attribute>
+        <attribute>
+            <name>Job</name>
+            <value>Junior</value>
+        </attribute>
+        <attribute>
+            <name>Level</name>
+            <value>1</value>
+        </attribute>
+        <attribute>
+            <name>Adaptability</name>
+            <value>78</value>
+        </attribute>
+        <attribute>
+            <name>Autodidact</name>
+            <value>95</value>
+        </attribute>
+        <attribute>
+            <name>Meticulous</name>
+            <value>67</value>
+        </attribute>
+        <attribute>
+            <name>Negotiation</name>
+            <value>25</value>
+        </attribute>
+        <attribute>
+            <name>Objectivity</name>
+            <value>70</value>
+        </attribute>
+        <attribute>
+            <name>Organization</name>
+            <value>78</value>
+        </attribute>
+        <attribute>
+            <name>Patience</name>
+            <value>47</value>
+        </attribute>
+        <attribute>
+            <name>LogicalReasoning</name>
+            <value>79</value>
+        </attribute>
+        <attribute>
+            <name>HumanRelations</name>
+            <value>63</value>
+        </attribute>
+        <attribute>
+            <name>Specializations</name>
+            <value>Java  Agile Methods  Debugging</value>
+        </attribute>
+        <attribute>
+            <name>Profile</name>
+            <value>Programmer</value>
+        </attribute>
         <details></details>
     </vertex>
     <vertex>
@@ -97,14 +265,38 @@ and open the template in the editor.
         <type>Activity</type>
         <label>Action</label>
         <date>1:Tue</date>
-        <attribute>Role: Manager</attribute>
-        <attribute>Task: Aid_Analyst</attribute>
-        <attribute>Morale: 100</attribute>
-        <attribute>Stamina 100</attribute>
-        <attribute>Hours: 8</attribute>
-        <attribute>Cost: 251</attribute>
-        <attribute>Work: 389% Aid</attribute>
-        <attribute>Rate: 100</attribute>
+        <attribute>
+            <name>Role</name>
+            <value>Manager</value>
+        </attribute>
+        <attribute>
+            <name>Task</name>
+            <value>Aid_Analyst</value>
+        </attribute>
+        <attribute>
+            <name>Morale</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Stamina</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Hours</name>
+            <value>8</value>
+        </attribute>
+        <attribute>
+            <name>Cost</name>
+            <value>251</value>
+        </attribute>
+        <attribute>
+            <name>Work</name>
+            <value>389% Aid</value>
+        </attribute>
+        <attribute>
+            <name>Rate</name>
+            <value>100</value>
+        </attribute>
         <details></details>
     </vertex>
     <vertex>
@@ -112,14 +304,38 @@ and open the template in the editor.
         <type>Activity</type>
         <label>Action</label>
         <date>2:Wed</date>
-        <attribute>Role: Manager</attribute>
-        <attribute>Task: Aid_Analyst</attribute>
-        <attribute>Morale: 100</attribute>
-        <attribute>Stamina 60</attribute>
-        <attribute>Hours: 12</attribute>
-        <attribute>Cost: 251</attribute>
-        <attribute>Work: 419% Aid</attribute>
-        <attribute>Rate: 100</attribute>
+        <attribute>
+            <name>Role</name>
+            <value>Manager</value>
+        </attribute>
+        <attribute>
+            <name>Task</name>
+            <value>Aid_Analyst</value>
+        </attribute>
+        <attribute>
+            <name>Morale</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Stamina</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Hours</name>
+            <value>12</value>
+        </attribute>
+        <attribute>
+            <name>Cost</name>
+            <value>251</value>
+        </attribute>
+        <attribute>
+            <name>Work</name>
+            <value>419% Aid</value>
+        </attribute>
+        <attribute>
+            <name>Rate</name>
+            <value>100</value>
+        </attribute>
         <details></details>
     </vertex>
 	<vertex>
@@ -127,14 +343,38 @@ and open the template in the editor.
         <type>Activity</type>
         <label>Action</label>
         <date>3:Thu</date>
-        <attribute>Role: Manager</attribute>
-        <attribute>Task: Aid_Analyst</attribute>
-        <attribute>Morale: 100</attribute>
-        <attribute>Stamina 40</attribute>
-        <attribute>Hours: 16</attribute>
-        <attribute>Cost: 251</attribute>
-        <attribute>Work: 377% Aid</attribute>
-        <attribute>Rate: 100</attribute>
+        <attribute>
+            <name>Role</name>
+            <value>Manager</value>
+        </attribute>
+        <attribute>
+            <name>Task</name>
+            <value>Aid_Analyst</value>
+        </attribute>
+        <attribute>
+            <name>Morale</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Stamina</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Hours</name>
+            <value>16</value>
+        </attribute>
+        <attribute>
+            <name>Cost</name>
+            <value>251</value>
+        </attribute>
+        <attribute>
+            <name>Work</name>
+            <value>377% Aid</value>
+        </attribute>
+        <attribute>
+            <name>Rate</name>
+            <value>100</value>
+        </attribute>
         <details></details>
     </vertex>
 	<vertex>
@@ -142,14 +382,38 @@ and open the template in the editor.
         <type>Activity</type>
         <label>Action</label>
         <date>4:Fri</date>
-        <attribute>Role: Manager</attribute>
-        <attribute>Task: Aid_Analyst</attribute>
-        <attribute>Morale: 100</attribute>
-        <attribute>Stamina 20</attribute>
-        <attribute>Hours: 4</attribute>
-        <attribute>Cost: 251</attribute>
-        <attribute>Work: 363% Aid</attribute>
-        <attribute>Rate: 100</attribute>
+        <attribute>
+            <name>Role</name>
+            <value>Manager</value>
+        </attribute>
+        <attribute>
+            <name>Task</name>
+            <value>Aid_Analyst</value>
+        </attribute>
+        <attribute>
+            <name>Morale</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Stamina</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Hours</name>
+            <value>4</value>
+        </attribute>
+        <attribute>
+            <name>Cost</name>
+            <value>251</value>
+        </attribute>
+        <attribute>
+            <name>Work</name>
+            <value>363% Aid</value>
+        </attribute>
+        <attribute>
+            <name>Rate</name>
+            <value>100</value>
+        </attribute>
         <details></details>
     </vertex>
 	<vertex>
@@ -157,14 +421,38 @@ and open the template in the editor.
         <type>Activity</type>
         <label>Action</label>
         <date>1:Tue</date>
-        <attribute>Role: Analyst</attribute>
-        <attribute>Task: Elicitation</attribute>
-        <attribute>Morale: 100</attribute>
-        <attribute>Stamina 100</attribute>
-        <attribute>Hours: 8</attribute>
-        <attribute>Cost: 176</attribute>
-        <attribute>Work: 45 Discovery</attribute>
-        <attribute>Rate: 100</attribute>
+        <attribute>
+            <name>Role</name>
+            <value>Analyst</value>
+        </attribute>
+        <attribute>
+            <name>Task</name>
+            <value>Elicitation</value>
+        </attribute>
+        <attribute>
+            <name>Morale</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Stamina</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Hours</name>
+            <value>8</value>
+        </attribute>
+        <attribute>
+            <name>Cost</name>
+            <value>176</value>
+        </attribute>
+        <attribute>
+            <name>Work</name>
+            <value>45 Discovery</value>
+        </attribute>
+        <attribute>
+            <name>Rate</name>
+            <value>100</value>
+        </attribute>
         <details></details>
     </vertex>
 	<vertex>
@@ -172,14 +460,38 @@ and open the template in the editor.
         <type>Activity</type>
         <label>Action</label>
         <date>2:Wed</date>
-        <attribute>Role: Analyst</attribute>
-        <attribute>Task: Elicitation</attribute>
-        <attribute>Morale: 100</attribute>
-        <attribute>Stamina 100</attribute>
-        <attribute>Hours: 8</attribute>
-        <attribute>Cost: 176</attribute>
-        <attribute>Work: 14 Discovery</attribute>
-        <attribute>Rate: 100</attribute>
+        <attribute>
+            <name>Role</name>
+            <value>Analyst</value>
+        </attribute>
+        <attribute>
+            <name>Task</name>
+            <value>Elicitation</value>
+        </attribute>
+        <attribute>
+            <name>Morale</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Stamina</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Hours</name>
+            <value>8</value>
+        </attribute>
+        <attribute>
+            <name>Cost</name>
+            <value>176</value>
+        </attribute>
+        <attribute>
+            <name>Work</name>
+            <value>14 Discovery</value>
+        </attribute>
+        <attribute>
+            <name>Rate</name>
+            <value>100</value>
+        </attribute>
         <details></details>
     </vertex>
 	<vertex>
@@ -187,14 +499,38 @@ and open the template in the editor.
         <type>Activity</type>
         <label>Action</label>
         <date>3:Thu</date>
-        <attribute>Role: Analyst</attribute>
-        <attribute>Task: Elicitation</attribute>
-        <attribute>Morale: 100</attribute>
-        <attribute>Stamina 100</attribute>
-        <attribute>Hours: 8</attribute>
-        <attribute>Cost: 176</attribute>
-        <attribute>Work: 12 Discovery</attribute>
-        <attribute>Rate: 100</attribute>
+        <attribute>
+            <name>Role</name>
+            <value>Analyst</value>
+        </attribute>
+        <attribute>
+            <name>Task</name>
+            <value>Elicitation</value>
+        </attribute>
+        <attribute>
+            <name>Morale</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Stamina</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Hours</name>
+            <value>8</value>
+        </attribute>
+        <attribute>
+            <name>Cost</name>
+            <value>176</value>
+        </attribute>
+        <attribute>
+            <name>Work</name>
+            <value>12 Discovery</value>
+        </attribute>
+        <attribute>
+            <name>Rate</name>
+            <value>100</value>
+        </attribute>
         <details></details>
     </vertex>
 	<vertex>
@@ -202,14 +538,38 @@ and open the template in the editor.
         <type>Activity</type>
         <label>Action</label>
         <date>4:Fri:Tue</date>
-        <attribute>Role: Analyst</attribute>
-        <attribute>Task: Elicitation</attribute>
-        <attribute>Morale: 100</attribute>
-        <attribute>Stamina 100</attribute>
-        <attribute>Hours: 8</attribute>
-        <attribute>Cost: 176</attribute>
-        <attribute>Work: 14 Discovery</attribute>
-        <attribute>Rate: 100</attribute>
+        <attribute>
+            <name>Role</name>
+            <value>Analyst</value>
+        </attribute>
+        <attribute>
+            <name>Task</name>
+            <value>Elicitation</value>
+        </attribute>
+        <attribute>
+            <name>Morale</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Stamina</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Hours</name>
+            <value>8</value>
+        </attribute>
+        <attribute>
+            <name>Cost</name>
+            <value>176</value>
+        </attribute>
+        <attribute>
+            <name>Work</name>
+            <value>14 Discovery</value>
+        </attribute>
+        <attribute>
+            <name>Rate</name>
+            <value>100</value>
+        </attribute>
         <details></details>
     </vertex>
 	<vertex>
@@ -217,14 +577,38 @@ and open the template in the editor.
         <type>Activity</type>
         <label>Action</label>
         <date>1:Tue</date>
-        <attribute>Role: Marketing</attribute>
-        <attribute>Task: Marketing</attribute>
-        <attribute>Morale: 100</attribute>
-        <attribute>Stamina 100</attribute>
-        <attribute>Hours: 8</attribute>
-        <attribute>Cost: 236</attribute>
-        <attribute>Work: 218% Aid</attribute>
-        <attribute>Rate: 100</attribute>
+        <attribute>
+            <name>Role</name>
+            <value>Marketing</value>
+        </attribute>
+        <attribute>
+            <name>Task</name>
+            <value>Marketing</value>
+        </attribute>
+        <attribute>
+            <name>Morale</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Stamina</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Hours</name>
+            <value>8</value>
+        </attribute>
+        <attribute>
+            <name>Cost</name>
+            <value>236</value>
+        </attribute>
+        <attribute>
+            <name>Work</name>
+            <value>218% Aid</value>
+        </attribute>
+        <attribute>
+            <name>Rate</name>
+            <value>100</value>
+        </attribute>
         <details></details>
     </vertex>
 	<vertex>
@@ -232,14 +616,38 @@ and open the template in the editor.
         <type>Activity</type>
         <label>Action</label>
         <date>2:Wed</date>
-        <attribute>Role: Marketing</attribute>
-        <attribute>Task: Marketing</attribute>
-        <attribute>Morale: 100</attribute>
-        <attribute>Stamina 100</attribute>
-        <attribute>Hours: 8</attribute>
-        <attribute>Cost: 236</attribute>
-        <attribute>Work: 96% Aid</attribute>
-        <attribute>Rate: 100</attribute>
+        <attribute>
+            <name>Role</name>
+            <value>Marketing</value>
+        </attribute>
+        <attribute>
+            <name>Task</name>
+            <value>Marketing</value>
+        </attribute>
+        <attribute>
+            <name>Morale</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Stamina</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Hours</name>
+            <value>8</value>
+        </attribute>
+        <attribute>
+            <name>Cost</name>
+            <value>236</value>
+        </attribute>
+        <attribute>
+            <name>Work</name>
+            <value>96 Aid</value>
+        </attribute>
+        <attribute>
+            <name>Rate</name>
+            <value>100</value>
+        </attribute>
         <details></details>
     </vertex>
 	<vertex>
@@ -247,14 +655,38 @@ and open the template in the editor.
         <type>Activity</type>
         <label>Action</label>
         <date>3:Thu</date>
-        <attribute>Role: Marketing</attribute>
-        <attribute>Task: Marketing</attribute>
-        <attribute>Morale: 100</attribute>
-        <attribute>Stamina 100</attribute>
-        <attribute>Hours: 8</attribute>
-        <attribute>Cost: 236</attribute>
-        <attribute>Work: 107% Aid</attribute>
-        <attribute>Rate: 100</attribute>
+        <attribute>
+            <name>Role</name>
+            <value>Marketing</value>
+        </attribute>
+        <attribute>
+            <name>Task</name>
+            <value>Marketing</value>
+        </attribute>
+        <attribute>
+            <name>Morale</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Stamina</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Hours</name>
+            <value>8</value>
+        </attribute>
+        <attribute>
+            <name>Cost</name>
+            <value>236</value>
+        </attribute>
+        <attribute>
+            <name>Work</name>
+            <value>107 Aid</value>
+        </attribute>
+        <attribute>
+            <name>Rate</name>
+            <value>100</value>
+        </attribute>
         <details></details>
     </vertex>
 	<vertex>
@@ -262,14 +694,38 @@ and open the template in the editor.
         <type>Activity</type>
         <label>Action</label>
         <date>4:Fri</date>
-        <attribute>Role: Marketing</attribute>
-        <attribute>Task: Marketing</attribute>
-        <attribute>Morale: 100</attribute>
-        <attribute>Stamina 100</attribute>
-        <attribute>Hours: 8</attribute>
-        <attribute>Cost: 236</attribute>
-        <attribute>Work: 149% Aid</attribute>
-        <attribute>Rate: 100</attribute>
+        <attribute>
+            <name>Role</name>
+            <value>Marketing</value>
+        </attribute>
+        <attribute>
+            <name>Task</name>
+            <value>Marketing</value>
+        </attribute>
+        <attribute>
+            <name>Morale</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Stamina</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Hours</name>
+            <value>8</value>
+        </attribute>
+        <attribute>
+            <name>Cost</name>
+            <value>236</value>
+        </attribute>
+        <attribute>
+            <name>Work</name>
+            <value>149 Aid</value>
+        </attribute>
+        <attribute>
+            <name>Rate</name>
+            <value>100</value>
+        </attribute>
         <details></details>
     </vertex>
 	<vertex>
@@ -277,14 +733,38 @@ and open the template in the editor.
         <type>Activity</type>
         <label>Action</label>
         <date>1:Tue</date>
-        <attribute>Role: Idle</attribute>
-        <attribute>Task: Idle</attribute>
-        <attribute>Morale: 100</attribute>
-        <attribute>Stamina 100</attribute>
-        <attribute>Hours: 8</attribute>
-        <attribute>Cost: 251</attribute>
-        <attribute>Work: </attribute>
-        <attribute>Rate: 100</attribute>
+        <attribute>
+            <name>Role</name>
+            <value>Idle</value>
+        </attribute>
+        <attribute>
+            <name>Task</name>
+            <value>Idle</value>
+        </attribute>
+        <attribute>
+            <name>Morale</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Stamina</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Hours</name>
+            <value>8</value>
+        </attribute>
+        <attribute>
+            <name>Cost</name>
+            <value>251</value>
+        </attribute>
+        <attribute>
+            <name>Work</name>
+            <value> </value>
+        </attribute>
+        <attribute>
+            <name>Rate</name>
+            <value>100</value>
+        </attribute>
         <details></details>
     </vertex>
 	<vertex>
@@ -292,14 +772,38 @@ and open the template in the editor.
         <type>Activity</type>
         <label>Action</label>
         <date>2:Wed</date>
-        <attribute>Role: Idle</attribute>
-        <attribute>Task: Idle</attribute>
-        <attribute>Morale: 100</attribute>
-        <attribute>Stamina 100</attribute>
-        <attribute>Hours: 8</attribute>
-        <attribute>Cost: 251</attribute>
-        <attribute>Work: </attribute>
-        <attribute>Rate: 100</attribute>
+        <attribute>
+            <name>Role</name>
+            <value>Idle</value>
+        </attribute>
+        <attribute>
+            <name>Task</name>
+            <value>Idle</value>
+        </attribute>
+        <attribute>
+            <name>Morale</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Stamina</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Hours</name>
+            <value>8</value>
+        </attribute>
+        <attribute>
+            <name>Cost</name>
+            <value>251</value>
+        </attribute>
+        <attribute>
+            <name>Work</name>
+            <value> </value>
+        </attribute>
+        <attribute>
+            <name>Rate</name>
+            <value>100</value>
+        </attribute>
         <details></details>
     </vertex>
 	<vertex>
@@ -307,14 +811,38 @@ and open the template in the editor.
         <type>Activity</type>
         <label>Action</label>
         <date>3:Thu</date>
-        <attribute>Role: Idle</attribute>
-        <attribute>Task: Idle</attribute>
-        <attribute>Morale: 100</attribute>
-        <attribute>Stamina 100</attribute>
-        <attribute>Hours: 8</attribute>
-        <attribute>Cost: 251</attribute>
-        <attribute>Work: </attribute>
-        <attribute>Rate: 100</attribute>
+        <attribute>
+            <name>Role</name>
+            <value>Idle</value>
+        </attribute>
+        <attribute>
+            <name>Task</name>
+            <value>Idle</value>
+        </attribute>
+        <attribute>
+            <name>Morale</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Stamina</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Hours</name>
+            <value>8</value>
+        </attribute>
+        <attribute>
+            <name>Cost</name>
+            <value>251</value>
+        </attribute>
+        <attribute>
+            <name>Work</name>
+            <value> </value>
+        </attribute>
+        <attribute>
+            <name>Rate</name>
+            <value>100</value>
+        </attribute>
         <details></details>
     </vertex>
 	<vertex>
@@ -322,14 +850,38 @@ and open the template in the editor.
         <type>Activity</type>
         <label>Action</label>
         <date>4:Fri</date>
-        <attribute>Role: Idle</attribute>
-        <attribute>Task: Idle</attribute>
-        <attribute>Morale: 100</attribute>
-        <attribute>Stamina 100</attribute>
-        <attribute>Hours: 8</attribute>
-        <attribute>Cost: 251</attribute>
-        <attribute>Work: </attribute>
-        <attribute>Rate: 100</attribute>
+        <attribute>
+            <name>Role</name>
+            <value>Idle</value>
+        </attribute>
+        <attribute>
+            <name>Task</name>
+            <value>Idle</value>
+        </attribute>
+        <attribute>
+            <name>Morale</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Stamina</name>
+            <value>100</value>
+        </attribute>
+        <attribute>
+            <name>Hours</name>
+            <value>8</value>
+        </attribute>
+        <attribute>
+            <name>Cost</name>
+            <value>251</value>
+        </attribute>
+        <attribute>
+            <name>Work</name>
+            <value> </value>
+        </attribute>
+        <attribute>
+            <name>Rate</name>
+            <value>100</value>
+        </attribute>
         <details></details>
     </vertex>
 	<vertex>
@@ -337,23 +889,74 @@ and open the template in the editor.
         <type>Entity</type>
         <label>Project</label>
         <date>0:Mon</date>
-		<attribute>Deadline: 32</attribute>
-		<attribute>ProgrammingLanguage: java</attribute>
-        <attribute>Payment: 15000</attribute>
-		<attribute>Credits: 40000</attribute>
-        <attribute>Especification: 0</attribute>
-        <attribute>Elicitation: 0</attribute>
-		<attribute>CodeQuality: 80</attribute>
-		<attribute>CodeComplete: 0</attribute>
-		<attribute>UnitaryBugFound: 0</attribute>
-		<attribute>IntegrationBugFound: 0</attribute>
-		<attribute>SystemBugFound: 0</attribute>
-		<attribute>AcceptionBugFound: 0</attribute>
-		<attribute>UnitaryBugRepaired: 0</attribute>
-		<attribute>IntegrationBugRepaired: 0</attribute>
-		<attribute>SystemBugRepaired: 0</attribute>
-		<attribute>AcceptionBugRepaired: 0</attribute>
-		<attribute>TotalBugs: 0: 0 0 0 0</attribute>
+        <attribute>
+            <name>Deadline</name>
+            <value>32</value>
+        </attribute>
+	<attribute>
+            <name>ProgrammingLanguage</name>
+            <value>java</value>
+        </attribute>
+	<attribute>
+            <name>Payment</name>
+            <value>15000</value>
+        </attribute>
+        <attribute>
+            <name>Credits</name>
+            <value>40000</value>
+        </attribute>
+	<attribute>
+            <name>Especification</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>Elicitation</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>CodeQuality</name>
+            <value>80</value>
+        </attribute>
+        <attribute>
+            <name>CodeComplete</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>UnitaryBugFound</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>IntegrationBugFound</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>SystemBugFound</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>AcceptionBugFound</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>UnitaryBugRepaired</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>IntegrationBugRepaired</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>SystemBugRepaired</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>AcceptionBugRepaired</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>TotalBugs</name>
+            <value>0: 0 0 0 0</value>
+        </attribute>
         <details></details>
     </vertex>
 	<vertex>
@@ -361,23 +964,74 @@ and open the template in the editor.
         <type>Entity</type>
         <label>Project</label>
         <date>1:Tue</date>
-		<attribute>Deadline: 32</attribute>
-		<attribute>ProgrammingLanguage: java</attribute>
-        <attribute>Payment: 15000</attribute>
-		<attribute>Credits: 39791</attribute>
-        <attribute>Especification: 0</attribute>
-        <attribute>Elicitation: 45</attribute>
-		<attribute>CodeQuality: 80</attribute>
-		<attribute>CodeComplete: 0</attribute>
-		<attribute>UnitaryBugFound: 0</attribute>
-		<attribute>IntegrationBugFound: 0</attribute>
-		<attribute>SystemBugFound: 0</attribute>
-		<attribute>AcceptionBugFound: 0</attribute>
-		<attribute>UnitaryBugRepaired: 0</attribute>
-		<attribute>IntegrationBugRepaired: 0</attribute>
-		<attribute>SystemBugRepaired: 0</attribute>
-		<attribute>AcceptionBugRepaired: 0</attribute>
-		<attribute>TotalBugs: 0: 0 0 0 0</attribute>
+        <attribute>
+            <name>Deadline</name>
+            <value>32</value>
+        </attribute>
+	<attribute>
+            <name>ProgrammingLanguage</name>
+            <value>java</value>
+        </attribute>
+	<attribute>
+            <name>Payment</name>
+            <value>15000</value>
+        </attribute>
+        <attribute>
+            <name>Credits</name>
+            <value>39791</value>
+        </attribute>
+	<attribute>
+            <name>Especification</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>Elicitation</name>
+            <value>45</value>
+        </attribute>
+        <attribute>
+            <name>CodeQuality</name>
+            <value>80</value>
+        </attribute>
+        <attribute>
+            <name>CodeComplete</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>UnitaryBugFound</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>IntegrationBugFound</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>SystemBugFound</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>AcceptionBugFound</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>UnitaryBugRepaired</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>IntegrationBugRepaired</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>SystemBugRepaired</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>AcceptionBugRepaired</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>TotalBugs</name>
+            <value>0: 0 0 0 0</value>
+        </attribute>
         <details></details>
     </vertex>
 	<vertex>
@@ -385,23 +1039,74 @@ and open the template in the editor.
         <type>Entity</type>
         <label>Project</label>
         <date>2:Wed</date>
-		<attribute>Deadline: 32</attribute>
-		<attribute>ProgrammingLanguage: java</attribute>
-        <attribute>Payment: 15000</attribute>
-		<attribute>Credits: 40011</attribute>
-        <attribute>Especification: 0</attribute>
-        <attribute>Elicitation: 59</attribute>
-		<attribute>CodeQuality: 80</attribute>
-		<attribute>CodeComplete: 0</attribute>
-		<attribute>UnitaryBugFound: 0</attribute>
-		<attribute>IntegrationBugFound: 0</attribute>
-		<attribute>SystemBugFound: 0</attribute>
-		<attribute>AcceptionBugFound: 0</attribute>
-		<attribute>UnitaryBugRepaired: 0</attribute>
-		<attribute>IntegrationBugRepaired: 0</attribute>
-		<attribute>SystemBugRepaired: 0</attribute>
-		<attribute>AcceptionBugRepaired: 0</attribute>
-		<attribute>TotalBugs: 0: 0 0 0 0</attribute>
+        <attribute>
+            <name>Deadline</name>
+            <value>32</value>
+        </attribute>
+	<attribute>
+            <name>ProgrammingLanguage</name>
+            <value>java</value>
+        </attribute>
+	<attribute>
+            <name>Payment</name>
+            <value>15000</value>
+        </attribute>
+        <attribute>
+            <name>Credits</name>
+            <value>40011</value>
+        </attribute>
+	<attribute>
+            <name>Especification</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>Elicitation</name>
+            <value>59</value>
+        </attribute>
+        <attribute>
+            <name>CodeQuality</name>
+            <value>80</value>
+        </attribute>
+        <attribute>
+            <name>CodeComplete</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>UnitaryBugFound</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>IntegrationBugFound</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>SystemBugFound</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>AcceptionBugFound</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>UnitaryBugRepaired</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>IntegrationBugRepaired</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>SystemBugRepaired</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>AcceptionBugRepaired</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>TotalBugs</name>
+            <value>0: 0 0 0 0</value>
+        </attribute>
         <details></details>
     </vertex>
 	<vertex>
@@ -409,23 +1114,74 @@ and open the template in the editor.
         <type>Entity</type>
         <label>Project</label>
         <date>3:Thu</date>
-		<attribute>Deadline: 32</attribute>
-		<attribute>ProgrammingLanguage: java</attribute>
-        <attribute>Payment: 15000</attribute>
-		<attribute>Credits: 39842</attribute>
-        <attribute>Especification: 0</attribute>
-        <attribute>Elicitation: 71</attribute>
-		<attribute>CodeQuality: 80</attribute>
-		<attribute>CodeComplete: 0</attribute>
-		<attribute>UnitaryBugFound: 0</attribute>
-		<attribute>IntegrationBugFound: 0</attribute>
-		<attribute>SystemBugFound: 0</attribute>
-		<attribute>AcceptionBugFound: 0</attribute>
-		<attribute>UnitaryBugRepaired: 0</attribute>
-		<attribute>IntegrationBugRepaired: 0</attribute>
-		<attribute>SystemBugRepaired: 0</attribute>
-		<attribute>AcceptionBugRepaired: 0</attribute>
-		<attribute>TotalBugs: 0: 0 0 0 0</attribute>
+        <attribute>
+            <name>Deadline</name>
+            <value>32</value>
+        </attribute>
+	<attribute>
+            <name>ProgrammingLanguage</name>
+            <value>java</value>
+        </attribute>
+	<attribute>
+            <name>Payment</name>
+            <value>15000</value>
+        </attribute>
+        <attribute>
+            <name>Credits</name>
+            <value>39842</value>
+        </attribute>
+	<attribute>
+            <name>Especification</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>Elicitation</name>
+            <value>71</value>
+        </attribute>
+        <attribute>
+            <name>CodeQuality</name>
+            <value>80</value>
+        </attribute>
+        <attribute>
+            <name>CodeComplete</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>UnitaryBugFound</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>IntegrationBugFound</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>SystemBugFound</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>AcceptionBugFound</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>UnitaryBugRepaired</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>IntegrationBugRepaired</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>SystemBugRepaired</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>AcceptionBugRepaired</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>TotalBugs</name>
+            <value>0: 0 0 0 0</value>
+        </attribute>
         <details></details>
     </vertex>
 	<vertex>
@@ -433,23 +1189,74 @@ and open the template in the editor.
         <type>Entity</type>
         <label>Project</label>
         <date>4:Fri</date>
-		<attribute>Deadline: 32</attribute>
-		<attribute>ProgrammingLanguage: java</attribute>
-        <attribute>Payment: 15000</attribute>
-		<attribute>Credits: 39244</attribute>
-        <attribute>Especification: 0</attribute>
-        <attribute>Elicitation: 84</attribute>
-		<attribute>CodeQuality: 80</attribute>
-		<attribute>CodeComplete: 0</attribute>
-		<attribute>UnitaryBugFound: 0</attribute>
-		<attribute>IntegrationBugFound: 0</attribute>
-		<attribute>SystemBugFound: 0</attribute>
-		<attribute>AcceptionBugFound: 0</attribute>
-		<attribute>UnitaryBugRepaired: 0</attribute>
-		<attribute>IntegrationBugRepaired: 0</attribute>
-		<attribute>SystemBugRepaired: 0</attribute>
-		<attribute>AcceptionBugRepaired: 0</attribute>
-		<attribute>TotalBugs: 0: 0 0 0 0</attribute>
+        <attribute>
+            <name>Deadline</name>
+            <value>32</value>
+        </attribute>
+	<attribute>
+            <name>ProgrammingLanguage</name>
+            <value>java</value>
+        </attribute>
+	<attribute>
+            <name>Payment</name>
+            <value>15000</value>
+        </attribute>
+        <attribute>
+            <name>Credits</name>
+            <value>39244</value>
+        </attribute>
+	<attribute>
+            <name>Especification</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>Elicitation</name>
+            <value>84</value>
+        </attribute>
+        <attribute>
+            <name>CodeQuality</name>
+            <value>80</value>
+        </attribute>
+        <attribute>
+            <name>CodeComplete</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>UnitaryBugFound</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>IntegrationBugFound</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>SystemBugFound</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>AcceptionBugFound</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>UnitaryBugRepaired</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>IntegrationBugRepaired</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>SystemBugRepaired</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>AcceptionBugRepaired</name>
+            <value>0</value>
+        </attribute>
+        <attribute>
+            <name>TotalBugs</name>
+            <value>0: 0 0 0 0</value>
+        </attribute>
         <details></details>
     </vertex>
     <edge>

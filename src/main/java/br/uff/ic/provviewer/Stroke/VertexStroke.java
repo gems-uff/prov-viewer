@@ -1,10 +1,10 @@
 package br.uff.ic.provviewer.Stroke;
 
-import br.uff.ic.provviewer.Input.Config;
 import br.uff.ic.provviewer.Edge.Edge;
-import br.uff.ic.provviewer.Vertex.ActivityVertex;
+import br.uff.ic.provviewer.Input.Config;
 import br.uff.ic.provviewer.Vertex.Vertex;
 import edu.uci.ics.jung.algorithms.layout.Layout;
+import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.picking.PickedState;
 import java.awt.BasicStroke;
@@ -51,6 +51,9 @@ public class VertexStroke {
      */
     public static Stroke VertexStroke(Object v, VisualizationViewer<Object, Edge> view, Layout<Object, Edge> layout) {
         float[] dash = null;
+        if (v instanceof Graph) {
+            return new BasicStroke(0);
+        }
 
         if (v instanceof Vertex) {
             if (!Config.vertexStrokevariables.isEmpty()) {
@@ -59,8 +62,6 @@ public class VertexStroke {
                     String att = ((Vertex) v).getAttributeValue(list[0]);
                     if (!"".equals(att)) {
                         for (int j = 1; j < list.length; j++) {
-                            System.out.println("Attvalue: " + att);
-                            System.out.println("Listvalue: " + list[j]);
                             if (att.equalsIgnoreCase(list[j])) {
                                 dash = new float[1];
                                 dash[0] = 4.0f;

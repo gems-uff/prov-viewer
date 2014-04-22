@@ -31,6 +31,7 @@ public class VertexPainter {
      *
      * @param view VisualizationViewer<Object, Edge> view
      */
+    @Deprecated
     public static void VertexPainter(VisualizationViewer<Object, Edge> view) {
         Transformer vertexPainter = new Transformer<Object, Paint>() {
             @Override
@@ -61,25 +62,21 @@ public class VertexPainter {
         Transformer vertexPainter = new Transformer<Object, Paint>() {
             @Override
             public Paint transform(Object v) {
-                if (v instanceof Graph) {
-                    String text = ((Graph) v).toString();
-                    if (text.contains("Agent")) {
-                        return new Color(119, 136, 153);
-                    } else if (text.contains("Entity")) {
-                        return new Color(255, 222, 173);
-                    } else if (text.contains("Activity")) {
-                        return new Color(190, 190, 190);
-                    } else {
-                        return new Color(150, 150, 150);
-                    }
-                } else {
-                    int j = 0;
-                    for (ColorScheme vm : Config.vertexModes) {
-                        if (mode.equalsIgnoreCase((String) GraphFrame.StatusFilterBox.getItemAt(j))) {
+                int j = 0;
+                for (ColorScheme vm : Config.vertexModes) {
+                    if (mode.equalsIgnoreCase((String) GraphFrame.StatusFilterBox.getItemAt(j))) {
+                        if (v instanceof Graph) {
+                            Object vertex;
+                            vertex = (((Graph) v).getVertices()).iterator().next();
+                            while (vertex instanceof Graph) {
+                                vertex = (((Graph) vertex).getVertices()).iterator().next();
+                            }
+                            return vm.Execute(((Vertex) vertex), variables);
+                        } else {
                             return vm.Execute(v, variables);
                         }
-                        j++;
                     }
+                    j++;
                 }
                 return new Color(0, 0, 0);
             }

@@ -60,7 +60,8 @@ public class XMLReader {
                     String attribute = "";
                     NodeList aList = eElement.getElementsByTagName("attribute");
                     for(int i = 0; i < aList.getLength(); i++){
-                        attribute += eElement.getElementsByTagName("attribute").item(i).getTextContent() + " <br>";
+                        attribute += eElement.getElementsByTagName("name").item(i).getTextContent() + ": ";
+                        attribute += eElement.getElementsByTagName("value").item(i).getTextContent() + " <br>";
                     }
                     String details = eElement.getElementsByTagName("details").item(0).getTextContent();
                     Vertex node;
