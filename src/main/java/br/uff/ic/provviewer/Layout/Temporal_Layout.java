@@ -191,17 +191,18 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
                 //agent who executed the process
                 
                 //Get edges from node v
-//                Collection<E> edges = graph.getOutEdges(v);
-                Collection<E> edges = graph.getInEdges(v);
+                Collection<E> edges = graph.getOutEdges(v);
+//                Collection<E> edges = graph.getInEdges(v);
                 for (E edge : edges)
                 {
                     //if the edge link to an Agent-node
 //                    if(graph.getDest(edge) instanceof SDM_AgentVertex)
-                    if(graph.getSource(edge) instanceof AgentVertex)
+//                    if(graph.getSource(edge) instanceof AgentVertex)
+                    if(graph.getDest(edge) instanceof AgentVertex)
                     {
                         //Compute position according to the agent position
-//                        Point2D agentPos = transform(graph.getDest(edge));
-                        Point2D agentPos = transform(graph.getSource(edge));
+                        Point2D agentPos = transform(graph.getDest(edge));
+//                        Point2D agentPos = transform(graph.getSource(edge));
                         //Adding an offset to not be in the same line
                         newYPos = agentPos.getY() + 50;
                         //Compute X from the Agent position, removing the -XDISTANCE

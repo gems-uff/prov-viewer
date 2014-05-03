@@ -23,6 +23,7 @@ import java.util.List;
  *
  * @author Kohwalter
  *
+ * TODO: Collapsing only with same Source. Need to collpase with same target as well
  */
 public class Collapser {
 
