@@ -90,9 +90,7 @@ public class Collapser {
                 sumx += p.getX();
                 sumy += p.getY();
             }
-            System.out.println("Size = " + picked.size());
-            System.out.println("sumy = " + sumy);
-            System.out.println("Total = " + sumy / picked.size());
+            
             //store position
             Point2D cp = new Point2D.Double(sumx / picked.size(), sumy / picked.size());
             variables.view.getRenderContext().getParallelEdgeIndexFunction().reset();
