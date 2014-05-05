@@ -54,8 +54,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="G7Days" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="131" max="-2" attributes="0"/>
                           <Component id="CollapseAgent" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="FilterNodeLonelyButton" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -113,7 +112,6 @@
                   <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="CollapseAgent" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="G7Days" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="Collapse" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="Expand" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -174,14 +172,6 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="G7Days">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Granularity: 7 days"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="G7DaysActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JButton" name="CollapseAgent">
           <Properties>
             <Property name="text" type="java.lang.String" value="CollapseAgent"/>

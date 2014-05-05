@@ -9,8 +9,12 @@ import edu.uci.ics.jung.algorithms.layout.AbstractLayout;
 import edu.uci.ics.jung.algorithms.util.IterativeContext;
 import edu.uci.ics.jung.graph.Graph;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.ConcurrentModificationException;
+import java.util.List;
 
 /**
  * Temporal Layout for Prov Viewer. Based on Temporal_Layout_Template
@@ -77,10 +81,26 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
         //X offset for Agent-type nodes
         double xOffset = 10.0;
         //Compute Agent-type node position
-        for(V v : graph.getVertices()) 
+        
+        //Sort Agent vertices to avoid changing position during graph visualization
+        List sorted = new ArrayList(graph.getVertices());
+            //Date comparator
+            Comparator comparator = new Comparator<Object>() {
+                @Override
+                public int compare(Object c1, Object c2) {
+                    if(!(c1 instanceof Graph) && !(c2 instanceof Graph))
+                        return ((Vertex)c1).getID().compareTo(((Vertex)c2).getID());
+                    else
+                        return 0;
+                }
+            };
+            //Sort nodes by date
+            Collections.sort(sorted, comparator);
+            
+        for(int i = 0; i < sorted.size(); i++) 
         {
-            if(v instanceof Graph) {
-                for(Object vertex : ((Graph)v).getVertices())
+            if(sorted.get(i) instanceof Graph) {
+                for(Object vertex : ((Graph)sorted.get(i)).getVertices())
                 {
                     if(vertex instanceof AgentVertex)
                     {
@@ -93,7 +113,7 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
                             xOffset = 10;
                         }  
                         //Compute position for the agent
-                        calcAgentPositions(v, ypos, xOffset);
+                        calcAgentPositions((V)sorted.get(i), ypos, xOffset);
                         //Update Y position for the next agent
                         ypos += 100.0;
                         //Skip position 0
@@ -104,7 +124,7 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
                     }
                 } 
             }
-            else if(v instanceof AgentVertex)
+            else if(sorted.get(i) instanceof AgentVertex)
             {
                 //Change offset sign so 2 consecutive agents 
                 //dont have the same X position
@@ -115,7 +135,7 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
                     xOffset = 10;
                 }  
                 //Compute position for the agent
-                calcAgentPositions(v, ypos, xOffset);
+                calcAgentPositions((V)sorted.get(i), ypos, xOffset);
                 //Update Y position for the next agent
                 ypos += 100.0;
                 //Skip position 0

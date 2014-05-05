@@ -16,7 +16,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Class to Collapse/Expand selected vertices and edges
@@ -88,6 +90,9 @@ public class Collapser {
                 sumx += p.getX();
                 sumy += p.getY();
             }
+            System.out.println("Size = " + picked.size());
+            System.out.println("sumy = " + sumy);
+            System.out.println("Total = " + sumy / picked.size());
             //store position
             Point2D cp = new Point2D.Double(sumx / picked.size(), sumy / picked.size());
             variables.view.getRenderContext().getParallelEdgeIndexFunction().reset();
@@ -282,6 +287,16 @@ public class Collapser {
      * vertex for collapsing all his activity vertices
      * @param gran The granularity (int) used to collapse vertices. I.e. 7 by 7
      */
+    
+//    collapser.ResetGraph(variables, filter);
+//        //Collapse agent's nodes 7 by 7
+//        for(Object z : variables.layout.getGraph().getVertices())
+//        {
+//            if(z instanceof AgentVertex)
+//            {
+//                collapser.Granularity(variables, filter, z, 7);
+//            }
+//        }  
     public void Granularity(Variables variables, Filters filter, Object vertex, int gran) {
         //gran = 7;
         if (vertex instanceof Vertex) {
@@ -332,6 +347,35 @@ public class Collapser {
     public Edge CollapsedEdgeType(Object target, Object source, String influence) {
         return new Edge("C", target, source, influence);
     }
+    
+    public void CollapseIrrelevant(Variables variables, Filters filter, String list) {
+            Collection selected = new ArrayList();
+            String[] group = list.split(" ");
+            //Object[] nodes = new Array<Object>();
+            Object[] nodes = new Object[Variables.graph.getVertexCount()];
+            //Map<String, Vertex> nodes = new HashMap<String, Vertex>();
+            //run the list
+            for (int i = 0; i < group.length; i++) {
+                //collapse nodes in a factor of "gran" (ex: gran = 7, then collapse by 7 by 7 days
+                String[] vertexlist = group[i].split(",");
+                for (int j = 0; j < vertexlist.length; j++) {
+                    nodes = (Variables.graph.getVertices()).toArray();
+                    for(int w = 0; w < nodes.length; w++){
+                        if(((Vertex)(nodes[w])).getID().equalsIgnoreCase(vertexlist[j]))
+                        {
+                            Vertex node = (Vertex)nodes[w];
+                            selected.add(node);
+                        }
+                    }
+                }
+                //Collection picked = new HashSet(a);
+                //Collapse selected vertices
+                if (!selected.isEmpty()) {
+                    Collapse(variables, filter, selected);
+                }
+                selected.clear();
+            }//e
+    }
 
     /**
      * Method to apply filters after an operation
@@ -340,23 +384,6 @@ public class Collapser {
      * @param filter
      */
     public void AddFilters(Variables variables, br.uff.ic.provviewer.Filter.Filters filter) {
-//        GraphFrame.FilterNodeAgentButton.setSelected(false);
-//        GraphFrame.FilterNodeLonelyButton.setSelected(false);
-//        GraphFrame.FilterEdgeNeutral.setSelected(true);
-//        GraphFrame.FilterEdge01.setSelected(true);
-//        GraphFrame.FilterEdge02.setSelected(true);
-//        GraphFrame.FilterEdge03.setSelected(true);
-//        GraphFrame.FilterEdge04.setSelected(true);
-//        GraphFrame.FilterEdge05.setSelected(true);
-//        GraphFrame.FilterEdge06.setSelected(true);
-//        GraphFrame.FilterEdge07.setSelected(true);
-//        GraphFrame.FilterEdge08.setSelected(true);
-//        GraphFrame.FilterEdge09.setSelected(true);
-//        GraphFrame.FilterEdge10.setSelected(true);
-//        GraphFrame.FilterEdge11.setSelected(true);
-//        GraphFrame.FilterEdge12.setSelected(true);
-//        GraphFrame.FilterEdge13.setSelected(true);
-
         GraphFrame.FilterList.setSelectionInterval(0, Config.edgetype.size() - 1);
         Filters(variables, filter, false);
     }
@@ -370,22 +397,6 @@ public class Collapser {
      */
     public void RemoveFilters(Variables variables, br.uff.ic.provviewer.Filter.Filters filter) {
         GraphFrame.FilterList.setSelectedIndex(0);
-//        GraphFrame.FilterNodeAgentButton.setSelected(false);
-//        GraphFrame.FilterNodeLonelyButton.setSelected(false);
-//        GraphFrame.FilterEdgeNeutral.setSelected(true);
-//        GraphFrame.FilterEdge01.setSelected(false);
-//        GraphFrame.FilterEdge02.setSelected(false);
-//        GraphFrame.FilterEdge03.setSelected(false);
-//        GraphFrame.FilterEdge04.setSelected(false);
-//        GraphFrame.FilterEdge05.setSelected(false);
-//        GraphFrame.FilterEdge06.setSelected(false);
-//        GraphFrame.FilterEdge07.setSelected(false);
-//        GraphFrame.FilterEdge08.setSelected(false);
-//        GraphFrame.FilterEdge09.setSelected(false);
-//        GraphFrame.FilterEdge10.setSelected(false);
-//        GraphFrame.FilterEdge11.setSelected(false);
-//        GraphFrame.FilterEdge12.setSelected(false);
-//        GraphFrame.FilterEdge13.setSelected(false);
         Filters(variables, filter);
     }
 }

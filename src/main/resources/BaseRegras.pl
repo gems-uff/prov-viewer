@@ -10,7 +10,7 @@ vertices(L) :- findall(X, vertex(_, _, X, _, _, _, _, _),R), sort(R,L).
 add(X, L, [X|L]).
 threshold(X,Y,VAL) :- abs(X - Y) < VAL.
 
-%StandartDeviation
+%StandardDeviation
 stddev(List,Stddev) :-
 	length(List,N),
 	sum(List,Sum),
@@ -36,17 +36,15 @@ attstddev(V,L, ATT) :-
 	stddev(L,V).
 	
 %Paths
-path(X, Y) :- path(X,Y,[]).
-path(X,Y,_) :- edge(_, _, _, _, _, _, X, Y).
-path(X,Y,_) :- edge(_, _, _, _, _, _, Y, X).
+path(X, Y) :- path(X,Y,[]); path(Y,X,[]).
+path(X,Y,_) :- edge(_, _, _, _, _, _, X, Y); edge(_, _, _, _, _, _, Y, X).
 path(X,Y,V) :- \+ member(X, V), edge(_, _, _, _, _, _, X, Z), path(Z,Y, [X|V]).
 
-pathType(X, Y, TYPE) :- pathType(X,Y,[],TYPE).
-pathType(X,Y,_,TYPE) :- edge(_, _, _, TYPE, _, _, X, Y).
-pathType(X,Y,_,TYPE) :- edge(_, _, _, TYPE, _, _, Y, X).
+pathType(X, Y, TYPE) :- pathType(X,Y,[],TYPE); pathType(Y,X,[],TYPE).
+pathType(X,Y,_,TYPE) :- edge(_, _, _, TYPE, _, _, X, Y); edge(_, _, _, TYPE, _, _, Y, X).
 pathType(X,Y,V,TYPE) :- \+ member(X, V), edge(_, _, _, TYPE, _, _, X, Z), pathType(Z,Y, [X|V],TYPE).
 
-pathAgent(X, Y) :- pathAgent(X,Y,[]).
+pathAgent(X, Y) :- pathAgent(X,Y,[]); pathAgent(Y,X,[]).
 pathAgent(X,Y,_) :- edge(_, _, _, _, _, _, X, Y), vertex(_, _, Y, 'Agent', _, _, _).
 pathAgent(X,Y,_) :- edge(_, _, _, _, _, _, Y, X), vertex(_, _, X, 'Agent', _, _, _).
 pathAgent(X,Y,V) :- \+ member(X, V), edge(_, _, _, _, _, _, X, Z), pathAgent(Z,Y, [X|V]).
@@ -74,6 +72,7 @@ collapsevertex(X, ATT,TYPE) :-
 	add(Y,L,L2),
 	sort(L2,X).
 
+collapse(L,X,ATT,TYPE) :- setof(X,collapsevertex(X,ATT,TYPE),L).
 
 %setof(X,collapsevertex(X,'Hours','Neutral'),L).
 %set_prolog_flag(toplevel_print_options, [quoted(true), portray(true), max_depth(100), priority(699)]).

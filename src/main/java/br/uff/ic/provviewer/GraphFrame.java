@@ -1,19 +1,19 @@
 package br.uff.ic.provviewer;
 
+import br.uff.ic.provviewer.Inference.PrologInference;
 import br.uff.ic.provviewer.Edge.Edge;
 import br.uff.ic.provviewer.Filter.Filters;
 import br.uff.ic.provviewer.Filter.PreFilters;
 import br.uff.ic.provviewer.Input.Config;
-import br.uff.ic.provviewer.Input.TSVReader;
 import br.uff.ic.provviewer.Input.XMLReader;
 import br.uff.ic.provviewer.Layout.Temporal_Layout;
 import br.uff.ic.provviewer.Stroke.EdgeStroke;
 import br.uff.ic.provviewer.Stroke.VertexStroke;
 import br.uff.ic.provviewer.Vertex.AgentVertex;
+import br.uff.ic.provviewer.Vertex.ColorScheme.VertexPainter;
 import br.uff.ic.provviewer.Vertex.EntityVertex;
 import br.uff.ic.provviewer.Vertex.Vertex;
 import br.uff.ic.provviewer.Vertex.VertexShape;
-import br.uff.ic.provviewer.Vertex.ColorScheme.VertexPainter;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
 import edu.uci.ics.jung.algorithms.layout.FRLayout2;
@@ -67,6 +67,8 @@ public class GraphFrame extends javax.swing.JFrame {
     Variables variables = new Variables();
     Collapser collapser = new Collapser();
     Filters filter = new Filters();
+    
+    PrologInference testProlog = new PrologInference();
 
     /**
      * Creates new form GraphFrame
@@ -91,7 +93,6 @@ public class GraphFrame extends javax.swing.JFrame {
         buttonGroup2 = new javax.swing.ButtonGroup();
         buttonGroup3 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        G7Days = new javax.swing.JButton();
         CollapseAgent = new javax.swing.JButton();
         Reset = new javax.swing.JButton();
         Expand = new javax.swing.JButton();
@@ -116,13 +117,6 @@ public class GraphFrame extends javax.swing.JFrame {
         setTitle("Prov Viewer");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        G7Days.setText("Granularity: 7 days");
-        G7Days.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                G7DaysActionPerformed(evt);
-            }
-        });
 
         CollapseAgent.setText("CollapseAgent");
         CollapseAgent.addActionListener(new java.awt.event.ActionListener() {
@@ -233,8 +227,7 @@ public class GraphFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(G7Days)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(131, 131, 131)
                         .addComponent(CollapseAgent))
                     .addComponent(FilterNodeLonelyButton)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -278,7 +271,6 @@ public class GraphFrame extends javax.swing.JFrame {
                 .addGap(5, 5, 5)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CollapseAgent)
-                    .addComponent(G7Days)
                     .addComponent(jLabel2)
                     .addComponent(Collapse)
                     .addComponent(Expand)
@@ -398,22 +390,6 @@ public class GraphFrame extends javax.swing.JFrame {
             collapser.Collapse(variables, filter, picked);
         }
     }//GEN-LAST:event_CollapseAgentActionPerformed
-    /**
-     * ================================================
-     * Set week granularity Button
-     * ================================================
-     */
-    private void G7DaysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_G7DaysActionPerformed
-        collapser.ResetGraph(variables, filter);
-        //Collapse agent's nodes 7 by 7
-        for(Object z : variables.layout.getGraph().getVertices())
-        {
-            if(z instanceof AgentVertex)
-            {
-                collapser.Granularity(variables, filter, z, 7);
-            }
-        }      
-    }//GEN-LAST:event_G7DaysActionPerformed
 
    /**
          * ================================================
@@ -457,8 +433,11 @@ public class GraphFrame extends javax.swing.JFrame {
          * ================================================
          */
     private void StatusFilterBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StatusFilterBoxActionPerformed
+        collapser.ResetGraph(variables, filter);
         VertexPainter.VertexPainter((String)StatusFilterBox.getSelectedItem(), variables.view, variables);
         variables.view.repaint();
+        String list = testProlog.QueryCollapse((String)StatusFilterBox.getSelectedItem(), "Neutral");
+        collapser.CollapseIrrelevant(variables, filter, list);
     }//GEN-LAST:event_StatusFilterBoxActionPerformed
     /**
          * ================================================
@@ -527,6 +506,8 @@ public class GraphFrame extends javax.swing.JFrame {
         filter.filteredGraph = graph;
         variables.collapsedGraph = graph;
         filter.FilterInit();
+        //Initialize Prolog
+        testProlog.Init();
         /**
          * ================================================
          * Choosing layout
@@ -765,7 +746,6 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JList FilterList;
     public static javax.swing.JCheckBox FilterNodeAgentButton;
     public static javax.swing.JCheckBox FilterNodeLonelyButton;
-    private javax.swing.JButton G7Days;
     private javax.swing.JComboBox Layouts;
     private javax.swing.JComboBox MouseModes;
     private javax.swing.JButton Reset;

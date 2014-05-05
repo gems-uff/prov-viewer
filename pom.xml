@@ -122,6 +122,11 @@
       <version>2.0.1</version>
       <type>jar</type>
     </dependency>
+    <dependency>
+      <groupId>jpl</groupId>
+      <artifactId>jpl</artifactId>
+      <version>3.1.4-alpha</version>
+    </dependency>
   </dependencies>
 <!--    <reporting>
         <plugins>
