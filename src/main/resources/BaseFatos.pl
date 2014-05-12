@@ -801,7 +801,7 @@ name(1353, 1354, 'Payment').
 value(1353, 1356, '15000').
 attribute(1334, 1358).
 name(1358, 1359, 'Credits').
-value(1358, 1361, '40011').
+value(1358, 1361, '30011').
 attribute(1334, 1363).
 name(1363, 1364, 'Especification').
 value(1363, 1366, '0').
@@ -915,7 +915,7 @@ name(1545, 1546, 'Payment').
 value(1545, 1548, '15000').
 attribute(1526, 1550).
 name(1550, 1551, 'Credits').
-value(1550, 1553, '39244').
+value(1550, 1553, '39844').
 attribute(1526, 1555).
 name(1555, 1556, 'Especification').
 value(1555, 1558, '0').
@@ -961,29 +961,29 @@ id(1622, 1623, 'e0').
 type(1622, 1625, 'Neutral').
 label(1622, 1627, 'wasDerivedFrom').
 value(1622, 1629, '').
-sourceid(1622, 1631, 'ent0').
-targetid(1622, 1633, 'ent1').
+sourceid(1622, 1631, 'ent1').
+targetid(1622, 1633, 'ent0').
 edge(1, 1635).
 id(1635, 1636, 'e1').
 type(1635, 1638, 'Neutral').
 label(1635, 1640, 'wasDerivedFrom').
 value(1635, 1642, '').
-sourceid(1635, 1644, 'ent1').
-targetid(1635, 1646, 'ent2').
+sourceid(1635, 1644, 'ent2').
+targetid(1635, 1646, 'ent1').
 edge(1, 1648).
 id(1648, 1649, 'e2').
 type(1648, 1651, 'Neutral').
 label(1648, 1653, 'wasDerivedFrom').
 value(1648, 1655, '').
-sourceid(1648, 1657, 'ent2').
-targetid(1648, 1659, 'ent3').
+sourceid(1648, 1657, 'ent3').
+targetid(1648, 1659, 'ent2').
 edge(1, 1661).
 id(1661, 1662, 'e3').
 type(1661, 1664, 'Neutral').
 label(1661, 1666, 'wasDerivedFrom').
 value(1661, 1668, '').
-sourceid(1661, 1670, 'ent3').
-targetid(1661, 1672, 'ent4').
+sourceid(1661, 1670, 'ent4').
+targetid(1661, 1672, 'ent3').
 edge(1, 1674).
 id(1674, 1675, 'e4').
 type(1674, 1677, 'Neutral').
@@ -1292,3 +1292,87 @@ label(2233, 2238, 'used').
 value(2233, 2240, '-251').
 sourceid(2233, 2242, 'ac15').
 targetid(2233, 2244, 'ent4').
+edge(1, 2246).
+id(2246, 2247, 'e48').
+type(2246, 2249, 'Neutral').
+label(2246, 2251, 'wasInfluencedBy').
+value(2246, 2253, '').
+sourceid(2246, 2255, 'ac13').
+targetid(2246, 2257, 'ac12').
+edge(1, 2259).
+id(2259, 2260, 'e49').
+type(2259, 2262, 'Neutral').
+label(2259, 2264, 'wasInfluencedBy').
+value(2259, 2266, '').
+sourceid(2259, 2268, 'ac14').
+targetid(2259, 2270, 'ac13').
+edge(1, 2272).
+id(2272, 2273, 'e50').
+type(2272, 2275, 'Neutral').
+label(2272, 2277, 'wasInfluencedBy').
+value(2272, 2279, '').
+sourceid(2272, 2281, 'ac15').
+targetid(2272, 2283, 'ac14').
+edge(1, 2285).
+id(2285, 2286, 'e51').
+type(2285, 2288, 'Neutral').
+label(2285, 2290, 'wasInfluencedBy').
+value(2285, 2292, '').
+sourceid(2285, 2294, 'ac7').
+targetid(2285, 2296, 'ac5').
+edge(1, 2298).
+id(2298, 2299, 'e52').
+type(2298, 2301, 'Neutral').
+label(2298, 2303, 'wasInfluencedBy').
+value(2298, 2305, '').
+sourceid(2298, 2307, 'ac9').
+targetid(2298, 2309, 'ac7').
+edge(1, 2311).
+id(2311, 2312, 'e53').
+type(2311, 2314, 'Neutral').
+label(2311, 2316, 'wasInfluencedBy').
+value(2311, 2318, '').
+sourceid(2311, 2320, 'ac11').
+targetid(2311, 2322, 'ac9').
+edge(1, 2324).
+id(2324, 2325, 'e54').
+type(2324, 2327, 'Neutral').
+label(2324, 2329, 'wasInfluencedBy').
+value(2324, 2331, '').
+sourceid(2324, 2333, 'ac6').
+targetid(2324, 2335, 'ac4').
+edge(1, 2337).
+id(2337, 2338, 'e55').
+type(2337, 2340, 'Neutral').
+label(2337, 2342, 'wasInfluencedBy').
+value(2337, 2344, '').
+sourceid(2337, 2346, 'ac8').
+targetid(2337, 2348, 'ac6').
+edge(1, 2350).
+id(2350, 2351, 'e56').
+type(2350, 2353, 'Neutral').
+label(2350, 2355, 'wasInfluencedBy').
+value(2350, 2357, '').
+sourceid(2350, 2359, 'ac10').
+targetid(2350, 2361, 'ac8').
+edge(1, 2363).
+id(2363, 2364, 'e57').
+type(2363, 2366, 'Neutral').
+label(2363, 2368, 'wasInfluencedBy').
+value(2363, 2370, '').
+sourceid(2363, 2372, 'ac1').
+targetid(2363, 2374, 'ac0').
+edge(1, 2376).
+id(2376, 2377, 'e58').
+type(2376, 2379, 'Neutral').
+label(2376, 2381, 'wasInfluencedBy').
+value(2376, 2383, '').
+sourceid(2376, 2385, 'ac2').
+targetid(2376, 2387, 'ac1').
+edge(1, 2389).
+id(2389, 2390, 'e59').
+type(2389, 2392, 'Neutral').
+label(2389, 2394, 'wasInfluencedBy').
+value(2389, 2396, '').
+sourceid(2389, 2398, 'ac3').
+targetid(2389, 2400, 'ac2').

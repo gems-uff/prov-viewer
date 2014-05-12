@@ -1,5 +1,6 @@
 package br.uff.ic.provviewer;
 
+import alice.tuprolog.InvalidTheoryException;
 import br.uff.ic.provviewer.Inference.PrologInference;
 import br.uff.ic.provviewer.Edge.Edge;
 import br.uff.ic.provviewer.Filter.Filters;
@@ -437,7 +438,7 @@ public class GraphFrame extends javax.swing.JFrame {
         VertexPainter.VertexPainter((String)StatusFilterBox.getSelectedItem(), variables.view, variables);
         variables.view.repaint();
         String list = testProlog.QueryCollapse((String)StatusFilterBox.getSelectedItem(), "Neutral");
-        collapser.CollapseIrrelevant(variables, filter, list);
+        collapser.CollapseIrrelevant(variables, filter, list, "Neutral");
     }//GEN-LAST:event_StatusFilterBoxActionPerformed
     /**
          * ================================================
@@ -506,8 +507,14 @@ public class GraphFrame extends javax.swing.JFrame {
         filter.filteredGraph = graph;
         variables.collapsedGraph = graph;
         filter.FilterInit();
-        //Initialize Prolog
-        testProlog.Init();
+        try {
+            //Initialize Prolog
+            testProlog.Init();
+        } catch (IOException ex) {
+            Logger.getLogger(GraphFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidTheoryException ex) {
+            Logger.getLogger(GraphFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
         /**
          * ================================================
          * Choosing layout

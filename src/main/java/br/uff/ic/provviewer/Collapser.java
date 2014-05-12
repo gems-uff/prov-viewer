@@ -107,7 +107,7 @@ public class Collapser {
     }
 
     /**
-     * Collapse edges from the same type and source Problem: Between Collapsed
+     * Collapse edges from the same type and target Problem: Between Collapsed
      * Vertices
      *
      * @param variables Variables type
@@ -119,16 +119,17 @@ public class Collapser {
         for (Object node : variables.layout.getGraph().getVertices()) {
             //Only need to collapse if the node is a graph
             if (node instanceof Graph) {
-                List sorted = new ArrayList(variables.layout.getGraph().getInEdges(node));
+                List sorted = new ArrayList(variables.layout.getGraph().getOutEdges(node));//.getInEdges(node));
 //                sorted.addAll(layout.getGraph().getOutEdges(node));
                 //Type comparator
                 Comparator comparator = new Comparator<Edge>() {
                     @Override
                     public int compare(Edge s1, Edge s2) {
-                        return (s1.getType() + ((Object) s1.getSource()).toString()).compareTo((s2.getType() + ((Object) s2.getSource()).toString()));
+                        //return (s1.getType() + ((Object) s1.getSource()).toString()).compareTo((s2.getType() + ((Object) s2.getSource()).toString()));
+                        return (s1.getType() + ((Object) s1.getTarget()).toString()).compareTo((s2.getType() + ((Object) s2.getTarget()).toString()));
                     }
                 };
-                //Sort edges by type and source (alphabetical order)
+                //Sort edges by type and target (alphabetical order)
                 Collections.sort(sorted, comparator);
                 //Run the list of edges
                 int j = 0;
@@ -137,25 +138,27 @@ public class Collapser {
                     //for each edge check if their types and destinations are the same
                     //if so, hide them and make a new collapsed edge
                     boolean collapse = false;
-                    Object source = null;
+                    Object target = null;
                     int count = 1;
                     float value = ((Edge) sorted.get(j)).getValue();
 
-                    // while same type and source
+                    // while same type and target
                     while ((j < (sorted.size() - 1)) && ((Edge) sorted.get(j)).getType().equals(((Edge) sorted.get(j + 1)).getType())) {
                         boolean sameGraph = false;
                         //check if there is any graph_vertex.
                         for (Object g : variables.layout.getGraph().getVertices()) {
                             if (g instanceof Graph) {
-                                //If the graph has the source vertex, then the graph is the source
-                                if ((((Graph) g).containsVertex(((Edge) sorted.get(j)).getSource())) || (((Graph) g).containsVertex(((Edge) sorted.get(j + 1)).getSource()))) {
+                                //If the graph has the target vertex, then the graph is the target
+                                //if ((((Graph) g).containsVertex(((Edge) sorted.get(j)).getSource())) || (((Graph) g).containsVertex(((Edge) sorted.get(j + 1)).getSource()))) {
+                                if ((((Graph) g).containsVertex(((Edge) sorted.get(j)).getTarget())) || (((Graph) g).containsVertex(((Edge) sorted.get(j + 1)).getTarget()))) {
                                     sameGraph = true;
-                                    source = g;
+                                    target = g;
                                 }
                             }
                         }
-                        //If they have the same source or a graph has the source
-                        if ((((Edge) sorted.get(j)).getSource().equals(((Edge) sorted.get(j + 1)).getSource())) || sameGraph) {
+                        //If they have the same target or a graph has the target
+                        //if ((((Edge) sorted.get(j)).getSource().equals(((Edge) sorted.get(j + 1)).getSource())) || sameGraph) {
+                        if ((((Edge) sorted.get(j)).getTarget().equals(((Edge) sorted.get(j + 1)).getTarget())) || sameGraph) {
                             //If the edge is a collapsed one, then remove it
                             //Deal only with the original edges
                             if (((Edge) sorted.get(j + 1)).isCollapased()) {
@@ -186,11 +189,14 @@ public class Collapser {
                         }
                         //Create collpased edge and add it in the graph                        
                         Edge edge;
-                        if (source == null) {
-                            source = ((Edge) sorted.get(j)).getSource();
-                            edge = CollapsedEdgeType(node, source, influence);
+                        if (target == null) {
+                            //source = ((Edge) sorted.get(j)).getSource();
+                            //edge = CollapsedEdgeType(node, target, influence);
+                            target = ((Edge) sorted.get(j)).getTarget();
+                            edge = CollapsedEdgeType(target, node, influence);
                         } else {
-                            edge = CollapsedEdgeType(node, source, influence);
+                            //edge = CollapsedEdgeType(node, target, influence);
+                            edge = CollapsedEdgeType(target, node, influence);
                         }
                         //======================================================
 
@@ -337,7 +343,7 @@ public class Collapser {
      * type
      *
      * @param target (Vertex) Target of the edge
-     * @param source (Vertex) Source of the edge
+     * @param target (Vertex) Source of the edge
      * @param influence (String) Edge's influence value and type (i.e. "+9
      * damage")
      * @return
@@ -346,33 +352,77 @@ public class Collapser {
         return new Edge("C", target, source, influence);
     }
     
-    public void CollapseIrrelevant(Variables variables, Filters filter, String list) {
-            Collection selected = new ArrayList();
-            String[] group = list.split(" ");
-            //Object[] nodes = new Array<Object>();
+    public void CollapseIrrelevant(Variables variables, Filters filter, String list, String edgetype) {
+            
+        Collection selected = new ArrayList();
+            //System.out.println( "L = " + list);
+            List<String> collapsegroup = new ArrayList<String>();
+            List<String> used = new ArrayList<String>();
+            
+            String[] elements = list.split(" ");
+            
+            for (int i = 0; i < elements.length; i++) {
+                collapsegroup.add(elements[i]);
+            }
+            //Sort list by decreasing order of string.length
+            Comparator comparator = new Comparator<String>() {
+                @Override
+                public int compare(String c1, String c2) {
+                    return c2.length() - c1.length();
+                }
+            };
+            Collections.sort(collapsegroup, comparator);
+
             Object[] nodes = new Object[Variables.graph.getVertexCount()];
-            //Map<String, Vertex> nodes = new HashMap<String, Vertex>();
-            //run the list
-            for (int i = 0; i < group.length; i++) {
-                //collapse nodes in a factor of "gran" (ex: gran = 7, then collapse by 7 by 7 days
-                String[] vertexlist = group[i].split(",");
+            nodes = (Variables.graph.getVertices()).toArray();
+
+            //For each elements of collapses
+            for (int i = 0; i < collapsegroup.size(); i++) {
+                System.out.println( "Current Group = " + collapsegroup.get(i));
+                String[] vertexlist = collapsegroup.get(i).split(",");
+                //For each vertex in the elements
                 for (int j = 0; j < vertexlist.length; j++) {
-                    nodes = (Variables.graph.getVertices()).toArray();
-                    for(int w = 0; w < nodes.length; w++){
-                        if(((Vertex)(nodes[w])).getID().equalsIgnoreCase(vertexlist[j]))
-                        {
-                            Vertex node = (Vertex)nodes[w];
-                            selected.add(node);
+                    //If vertex was not processed yet
+                    if(!used.contains(vertexlist[j]))
+                    {
+                        used.add(vertexlist[j]);
+                        //Find the vertex in the graph by its ID
+                        for(int w = 0; w < nodes.length; w++){
+                            if(((Vertex)(nodes[w])).getID().equalsIgnoreCase(vertexlist[j])){
+                                Vertex node = ((Vertex)nodes[w]);
+                                selected.add(node);
+                            }
                         }
                     }
                 }
-                //Collection picked = new HashSet(a);
                 //Collapse selected vertices
                 if (!selected.isEmpty()) {
                     Collapse(variables, filter, selected);
                 }
                 selected.clear();
-            }//e
+            }
+            
+            //Old collapse function
+            //For each elements
+//            for (int i = 0; i < elements.length; i++) {
+//                String[] vertexlist = elements[i].split(",");
+//                //For each vertex in the elements
+//                for (int j = 0; j < vertexlist.length; j++) {
+//                    nodes = (Variables.graph.getVertices()).toArray();
+//                    //Find the vertex
+//                    for(int w = 0; w < nodes.length; w++){
+//                        if(((Vertex)(nodes[w])).getID().equalsIgnoreCase(vertexlist[j])){
+//                            Vertex node = ((Vertex)nodes[w]);
+//                            selected.add(node);
+//                        }
+//                    }
+//                }
+//                //Collapse selected vertices
+//                if (!selected.isEmpty()) {
+//                    Collapse(variables, filter, selected);
+//                }
+//                selected.clear();
+//            }
     }
 
     /**
