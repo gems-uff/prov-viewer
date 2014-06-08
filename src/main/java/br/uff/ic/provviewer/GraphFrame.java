@@ -1,6 +1,7 @@
 package br.uff.ic.provviewer;
 
 import alice.tuprolog.InvalidTheoryException;
+import alice.tuprolog.NoMoreSolutionException;
 import br.uff.ic.provviewer.Inference.PrologInference;
 import br.uff.ic.provviewer.Edge.Edge;
 import br.uff.ic.provviewer.Filter.Filters;
@@ -437,8 +438,13 @@ public class GraphFrame extends javax.swing.JFrame {
         collapser.ResetGraph(variables, filter);
         VertexPainter.VertexPainter((String)StatusFilterBox.getSelectedItem(), variables.view, variables);
         variables.view.repaint();
-        String list = testProlog.QueryCollapse((String)StatusFilterBox.getSelectedItem(), "Neutral");
-        collapser.CollapseIrrelevant(variables, filter, list, "Neutral");
+        String list;
+        try {
+            list = testProlog.QueryCollapse((String)StatusFilterBox.getSelectedItem(), "Neutral");
+            collapser.CollapseIrrelevant(variables, filter, list, "Neutral");
+        } catch (NoMoreSolutionException ex) {
+            Logger.getLogger(GraphFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_StatusFilterBoxActionPerformed
     /**
          * ================================================

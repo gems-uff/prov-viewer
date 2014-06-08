@@ -27,6 +27,7 @@ public class PrologInference {
     private Hashtable solution;
     private Variable X = new Variable();
     
+    //TuProlog
     Prolog engine = new Prolog();
     Theory theory;
     Theory theory2;
@@ -41,6 +42,7 @@ public class PrologInference {
         qKnowledgeBase.query();
         qFactBase.query();
         
+        //TuProlog
          try {
             theory = new Theory(new FileInputStream(knowledge.getPath()));
             theory2 = new Theory(new FileInputStream(fact.getPath()));
@@ -50,27 +52,39 @@ public class PrologInference {
             Logger.getLogger(PrologInference.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public String QueryCollapse(String attribute, String edgeType) {
+    public String QueryCollapse(String attribute, String edgeType) throws NoMoreSolutionException {
 
         
        
+        //TuProlog
+        SolveInfo info;
+        try {
+//            String q = "c2(L,"+attribute+","+ edgeType+").";
+//            int a = 1;
+//            int b = 2;
+//            String q = "append(X,Y,[" + a + "," + b+ "]).";
+//            info = engine.solve(q);
+            info = engine.solve("collapse_vertices(L,'Hours','Neutral').");
+//            info = engine.solve("attribute_value(L,'Hours').");
+//            info = engine.solve("attribute(_, _, 'Morale, Y).");
+//            info =  engine.solve("append(X,Y,[1,2]).");
 
-//        SolveInfo info;
-//        try {
-//            String q = "collapse(L,"+attribute+","+ edgeType+").";
-//            info = engine.solve("collapse(L,'Hours','Neutral').");
-//            try {
-//                System.out.println(info.getSolution());
-//            } catch (NoSolutionException ex) {
-//                Logger.getLogger(PrologInference.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        } catch (MalformedGoalException ex) {
-//            Logger.getLogger(PrologInference.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        
-
-
-        Query q1 = new Query(new Compound("c2", new Term[] { new Variable("L"), new Atom(attribute), new Atom(edgeType)}));
+                while (info.isSuccess()) {
+//                    System.out.println("solution: " + info.getSolution()
+//                            + " - bindings: " + info);
+                    System.out.println("solution: " + info);
+                    if (engine.hasOpenAlternatives()) {
+                        info = engine.solveNext();
+                    } else {
+                        break;
+                    }
+                }
+        } catch (MalformedGoalException ex) {
+            Logger.getLogger(PrologInference.class.getName()).log(Level.SEVERE, null, ex);
+        }
+               
+        //SWI Prolog
+        Query q1 = new Query(new Compound("collapse_vertices", new Term[] { new Variable("L"), new Atom(attribute), new Atom(edgeType)}));
 
         q1.query();
         solution = q1.oneSolution();
@@ -89,7 +103,7 @@ public class PrologInference {
             aux = aux.replace(",  ,", " ");
 
             //Print Solution
-            System.out.println( "L = " + aux);
+            //System.out.println( "L = " + aux);
             return aux;
         }
         return "";

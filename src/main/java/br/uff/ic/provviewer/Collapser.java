@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +26,8 @@ import java.util.Map;
  *
  * @author Kohwalter
  *
- * TODO: Collapsing only with same Source. Need to collpase with same target as well
+ * TODO: Collapsing only with same Source. Need to collpase with same target as
+ * well
  */
 public class Collapser {
 
@@ -90,7 +92,7 @@ public class Collapser {
                 sumx += p.getX();
                 sumy += p.getY();
             }
-            
+
             //store position
             Point2D cp = new Point2D.Double(sumx / picked.size(), sumy / picked.size());
             variables.view.getRenderContext().getParallelEdgeIndexFunction().reset();
@@ -291,7 +293,6 @@ public class Collapser {
      * vertex for collapsing all his activity vertices
      * @param gran The granularity (int) used to collapse vertices. I.e. 7 by 7
      */
-    
 //    collapser.ResetGraph(variables, filter);
 //        //Collapse agent's nodes 7 by 7
 //        for(Object z : variables.layout.getGraph().getVertices())
@@ -351,59 +352,64 @@ public class Collapser {
     public Edge CollapsedEdgeType(Object target, Object source, String influence) {
         return new Edge("C", target, source, influence);
     }
-    
+
     public void CollapseIrrelevant(Variables variables, Filters filter, String list, String edgetype) {
-            
+
         Collection selected = new ArrayList();
-            //System.out.println( "L = " + list);
-            List<String> collapsegroup = new ArrayList<String>();
-            List<String> used = new ArrayList<String>();
-            
-            String[] elements = list.split(" ");
-            
-            for (int i = 0; i < elements.length; i++) {
-                collapsegroup.add(elements[i]);
+        //System.out.println( "L = " + list);
+        List<String> collapsegroup = new ArrayList<String>();
+        List<String> used = new ArrayList<String>();
+
+        String[] elements = list.split(" ");
+
+        for (int i = 0; i < elements.length; i++) {
+            collapsegroup.add(elements[i]);
+        }
+        //Sort list by decreasing order of string.length
+        Comparator comparator = new Comparator<String>() {
+            @Override
+            public int compare(String c1, String c2) {
+                return c2.length() - c1.length();
             }
-            //Sort list by decreasing order of string.length
-            Comparator comparator = new Comparator<String>() {
-                @Override
-                public int compare(String c1, String c2) {
-                    return c2.length() - c1.length();
-                }
-            };
-            Collections.sort(collapsegroup, comparator);
+        };
+        Collections.sort(collapsegroup, comparator);
 
-            Object[] nodes = new Object[Variables.graph.getVertexCount()];
-            nodes = (Variables.graph.getVertices()).toArray();
+        Object[] nodes = new Object[Variables.graph.getVertexCount()];
+        nodes = (Variables.graph.getVertices()).toArray();
 
-            //For each elements of collapses
-            for (int i = 0; i < collapsegroup.size(); i++) {
-                System.out.println( "Current Group = " + collapsegroup.get(i));
-                String[] vertexlist = collapsegroup.get(i).split(",");
-                //For each vertex in the elements
-                for (int j = 0; j < vertexlist.length; j++) {
-                    //If vertex was not processed yet
-                    if(!used.contains(vertexlist[j]))
-                    {
-                        used.add(vertexlist[j]);
-                        //Find the vertex in the graph by its ID
-                        for(int w = 0; w < nodes.length; w++){
-                            if(((Vertex)(nodes[w])).getID().equalsIgnoreCase(vertexlist[j])){
-                                Vertex node = ((Vertex)nodes[w]);
-                                selected.add(node);
-                            }
+        //For each elements of collapses
+        for (int i = 0; i < collapsegroup.size(); i++) {
+            //System.out.println("Current Group = " + collapsegroup.get(i));
+            String[] vertexlist = collapsegroup.get(i).split(",");
+            //For each vertex in the elements
+            for (int j = 0; j < vertexlist.length; j++) {
+                //If vertex was not processed yet
+                if (!used.contains(vertexlist[j])) {
+                    used.add(vertexlist[j]);
+                    //Find the vertex in the graph by its ID
+                    for (int w = 0; w < nodes.length; w++) {
+                        if (((Vertex) (nodes[w])).getID().equalsIgnoreCase(vertexlist[j])) {
+                            Vertex node = ((Vertex) nodes[w]);
+                            selected.add(node);
                         }
                     }
                 }
-                //Collapse selected vertices
-                if (!selected.isEmpty()) {
-                    Collapse(variables, filter, selected);
-                }
-                selected.clear();
             }
-            
-            //Old collapse function
-            //For each elements
+            //Collapse selected vertices
+            if (!selected.isEmpty() && (selected.size() > 1)) {
+                Collapse(variables, filter, selected);
+            } else {
+                //If there is only one vertex, then there is no collapse
+                Iterator itr = selected.iterator();
+                while (itr.hasNext()) {
+                    used.remove(((Vertex) itr.next()).getID());
+                }
+            }
+            selected.clear();
+        }
+
+        //Old collapse function
+        //For each elements
 //            for (int i = 0; i < elements.length; i++) {
 //                String[] vertexlist = elements[i].split(",");
 //                //For each vertex in the elements

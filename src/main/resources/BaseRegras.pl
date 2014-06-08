@@ -9,7 +9,7 @@ attribute(IDPARENT, IDATTRIBUTE, NAME, VALUE) :- name(IDATTRIBUTE, IDNAME,NAME),
 %NewRules
 vertices(L) :- findall(X, vertex(_, _, X, _, _, _, _, _),R), sort(R,L).
 add(X, L, [X|L]).
-threshold(X,Y,VAL) :- abs(X - Y) < VAL.
+threshold(X,Y,VAL) :- abs(X - Y) =< VAL.
 
 %StandardDeviation
 stddev(List,Stddev) :-
@@ -59,30 +59,10 @@ pathAgent(X,Y,V) :- \+ member(X, V), edge(_, _, _, _, _, _, X, Z), pathAgent(Z,Y
 filterlower(X, Y, Z) :- vertex(_, _, X, _, _, _, IDATTRIBUTE, _), attribute(_, IDATTRIBUTE, Y, VALUE), atom_number(VALUE, W), W < Z.
 filtergreater(X, Y, Z) :- vertex(_, _, X, _, _, _, IDATTRIBUTE, _), attribute(_, IDATTRIBUTE, Y, VALUE), atom_number(VALUE, W), W > Z.
 
-%CollapseFilter
-filter(V1, V2, ATT,TYPE) :- 
-	pathType(V1,V2,TYPE), 
-	vertex(_, _, V1, _, _, _, IDATTRIBUTE1, _), 
-	vertex(_, _, V2, _, _, _, IDATTRIBUTE2, _), 
-	attribute(_, IDATTRIBUTE1, ATT, VALUE1), 
-	attribute(_, IDATTRIBUTE2, ATT, VALUE2), 
-	atom_number(VALUE1, W1), 
-	atom_number(VALUE2, W2), 
-	attstddev(VAL, L, ATT),
-	threshold(W1,W2,VAL), 
-	not(IDATTRIBUTE1 = IDATTRIBUTE2).
-
-collapsevertex(X, ATT,TYPE) :- 
-	setof(X,filter(X,Y,ATT,TYPE),L), 
-	add(Y,L,L2),
-	sort(L2,X).
-
-collapse(L,ATT,TYPE) :- setof(X,collapsevertex(X,ATT,TYPE),L).
-
-%setof(X,collapsevertex(X,'Hours','Neutral'),L).
 %set_prolog_flag(toplevel_print_options, [quoted(true), portray(true), max_depth(100), priority(699)]).
+%CollapseFilter
 
-filter2(Lant,ATT,TYPE,MIN,MAX,[X|Lresp]) :- 
+filter_vertex_first(Lant,ATT,TYPE,MIN,MAX,[X|Lresp]) :- 
 	first(Lant,Y),
 	pathType3(Y,X,TYPE), 
 	vertex(_, _, Y, _, _, _, IDATTRIBUTE1, _), 
@@ -98,10 +78,10 @@ filter2(Lant,ATT,TYPE,MIN,MAX,[X|Lresp]) :-
 	attstddev(STD, L, ATT),
 	threshold(MX2,MN2,STD),
 	not(IDATTRIBUTE1 = IDATTRIBUTE2),
-	filter3([X|Lant],ATT,TYPE,MN2,MX2,Lresp).
+	filter_vertex_second([X|Lant],ATT,TYPE,MN2,MX2,Lresp).
 
-filter3(_,ATT,TYPE,MIN,MAX,[]).	
-filter3(Lant,ATT,TYPE,MIN,MAX,[X|Lresp]) :- 
+filter_vertex_second(_,ATT,TYPE,MIN,MAX,[]).	
+filter_vertex_second(Lant,ATT,TYPE,MIN,MAX,[X|Lresp]) :- 
 	first(Lant,Y),
 	pathType3(Y,X,TYPE), 
 	vertex(_, _, X, _, _, _, IDATTRIBUTE2, _), 
@@ -111,16 +91,16 @@ filter3(Lant,ATT,TYPE,MIN,MAX,[X|Lresp]) :-
 	min(W2,MIN,MN2),
 	attstddev(STD, L, ATT),
 	threshold(MX2,MN2,STD),
-	filter3([X|Lant],ATT,TYPE,MN2,MX2,Lresp).
+	filter_vertex_second([X|Lant],ATT,TYPE,MN2,MX2,Lresp).
 	
 	
 pathType3(X, Y, TYPE) :- edge(_, _, _, TYPE, _, _, Y, X), vertex(_, _, X, T, _, _, _), vertex(_, _, Y, T, _, _, _).
 	
-c(R, ATT, TYPE) :- 
+collapse_irrelevant(R, ATT, TYPE) :- 
 	MIN is 999999 ,
 	MAX is -999999 ,
-	filter2([X],ATT,TYPE,MIN,MAX,L),
+	filter_vertex_first([X],ATT,TYPE,MIN,MAX,L),
 	add(X,L,R).
 
 	
-c2(L,ATT,TYPE) :- setof(X,c(X,ATT,TYPE),L).
+collapse_vertices(L,ATT,TYPE) :- setof(X,collapse_irrelevant(X,ATT,TYPE),L).
