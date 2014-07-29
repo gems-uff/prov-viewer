@@ -10,9 +10,7 @@ import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.subLayout.GraphCollapser;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Class containing graph related variables (View, Layout, GraphCollapser,

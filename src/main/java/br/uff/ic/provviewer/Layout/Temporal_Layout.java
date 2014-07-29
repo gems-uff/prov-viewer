@@ -1,8 +1,8 @@
 package br.uff.ic.provviewer.Layout;
 
+import br.uff.ic.provviewer.Input.Config;
 import br.uff.ic.provviewer.Vertex.ActivityVertex;
 import br.uff.ic.provviewer.Vertex.AgentVertex;
-import br.uff.ic.provviewer.Input.Config;
 import br.uff.ic.provviewer.Vertex.EntityVertex;
 import br.uff.ic.provviewer.Vertex.Vertex;
 import edu.uci.ics.jung.algorithms.layout.AbstractLayout;

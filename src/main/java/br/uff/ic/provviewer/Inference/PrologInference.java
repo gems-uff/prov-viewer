@@ -74,7 +74,7 @@ public static void addLibraryPath(String pathToAdd) throws Exception{
         }
 
         URL knowledge = PrologInference.class.getResource("/BaseRegras.pl");
-        URL fact = PrologInference.class.getResource("/BaseFatos.pl");
+        URL fact = PrologInference.class.getResource("/PrologFacts.pl");
         Query qKnowledgeBase = new Query("consult", new Term[]{new Atom(knowledge.getPath())});
         Query qFactBase = new Query("consult", new Term[]{new Atom(fact.getPath())});
         qKnowledgeBase.query();

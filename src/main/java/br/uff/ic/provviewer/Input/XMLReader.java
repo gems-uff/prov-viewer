@@ -12,7 +12,6 @@ import br.uff.ic.provviewer.Vertex.Vertex;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -33,11 +32,11 @@ public class XMLReader {
     private Map<String, Vertex> nodes = new HashMap<String, Vertex>();
     private Collection<Edge> edges = new ArrayList<Edge>();
 
-    public XMLReader() throws URISyntaxException, IOException {
+    public XMLReader(File fXmlFile) throws URISyntaxException, IOException {
         try {
-            URL location = XMLReader.class.getResource("/input.xml");
+            //URL location = XMLReader.class.getResource("/input.xml");
 
-            File fXmlFile = new File(location.getFile());
+            //File fXmlFile = new File(location.getFile());
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(fXmlFile);

@@ -48,11 +48,11 @@ public class Config {
     public static List<String> actVerValue = new ArrayList<String>();
     public static List<Paint> actVerColor = new ArrayList<Paint>();
 
-    public static void Initialize() {
+    public static void Initialize(File fXmlFile) {
         try {
-            URL location = Config.class.getResource("/config.xml");
-
-            File fXmlFile = new File(location.getFile());
+//            URL location = Config.class.getResource("/config.xml");
+//
+//            File fXmlFile = new File(location.getFile());
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(fXmlFile);
