@@ -84,6 +84,8 @@ public class GraphFrame extends javax.swing.JFrame {
      */
     public GraphFrame() {
         initComponents();
+        //TODO: Initialize with a default config and graph
+        
     }
 
     /** This method is called from within the constructor to
@@ -612,11 +614,9 @@ public class GraphFrame extends javax.swing.JFrame {
     
     private void initGraphComponent(DirectedGraph<Object, Edge> graph) {
 
-//        Config.Initialize();
         filter.filteredGraph = graph;
         variables.collapsedGraph = graph;
         filter.FilterInit();
-        //Initialize Prolog
         /**
          * ================================================
          * Choosing layout
