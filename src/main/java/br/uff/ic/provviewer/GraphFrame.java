@@ -1,11 +1,10 @@
 package br.uff.ic.provviewer;
 
-import alice.tuprolog.InvalidTheoryException;
 import alice.tuprolog.NoMoreSolutionException;
-import br.uff.ic.provviewer.Inference.PrologInference;
 import br.uff.ic.provviewer.Edge.Edge;
 import br.uff.ic.provviewer.Filter.Filters;
 import br.uff.ic.provviewer.Filter.PreFilters;
+import br.uff.ic.provviewer.Inference.PrologInference;
 import br.uff.ic.provviewer.Input.Config;
 import br.uff.ic.provviewer.Input.XMLReader;
 import br.uff.ic.provviewer.Layout.Temporal_Layout;
@@ -71,6 +70,7 @@ public class GraphFrame extends javax.swing.JFrame {
     Filters filter = new Filters();
     
     PrologInference testProlog = new PrologInference();
+    boolean prologIsInitialized = false;
 
     /**
      * Creates new form GraphFrame
@@ -114,6 +114,7 @@ public class GraphFrame extends javax.swing.JFrame {
         FilterList = new javax.swing.JList();
         Layouts = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
+        prologInferenceButton = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Prov Viewer");
@@ -221,6 +222,13 @@ public class GraphFrame extends javax.swing.JFrame {
 
         jLabel6.setText("Graph Layout");
 
+        prologInferenceButton.setText("Prolog Inference");
+        prologInferenceButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                prologInferenceButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -231,14 +239,17 @@ public class GraphFrame extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(131, 131, 131)
                         .addComponent(CollapseAgent))
-                    .addComponent(FilterNodeLonelyButton)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(FilterNodeAgentButton)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(FilterNodeAgentButton)
+                            .addComponent(FilterNodeLonelyButton))
                         .addGap(18, 18, 18)
-                        .addComponent(ShowEdgeTextButton)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(prologInferenceButton)
+                            .addComponent(ShowEdgeTextButton))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
@@ -260,12 +271,11 @@ public class GraphFrame extends javax.swing.JFrame {
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(MouseModes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(EdgeLineShapeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel4)
-                            .addComponent(jLabel5))))
-                .addGap(79, 79, 79))
+                            .addComponent(jLabel5)
+                            .addComponent(EdgeLineShapeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(MouseModes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -288,7 +298,9 @@ public class GraphFrame extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(FilterNodeAgentButton)
                                     .addComponent(ShowEdgeTextButton))
-                                .addComponent(FilterNodeLonelyButton)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(FilterNodeLonelyButton)
+                                    .addComponent(prologInferenceButton))))
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -438,12 +450,16 @@ public class GraphFrame extends javax.swing.JFrame {
         collapser.ResetGraph(variables, filter);
         VertexPainter.VertexPainter((String)StatusFilterBox.getSelectedItem(), variables.view, variables);
         variables.view.repaint();
-        String list;
-        try {
-            list = testProlog.QueryCollapse((String)StatusFilterBox.getSelectedItem(), "Neutral");
-            collapser.CollapseIrrelevant(variables, filter, list, "Neutral");
-        } catch (NoMoreSolutionException ex) {
-            Logger.getLogger(GraphFrame.class.getName()).log(Level.SEVERE, null, ex);
+        //Automatic Collapse
+        if(prologInferenceButton.isSelected())
+        {
+            String list;
+            try {
+                list = testProlog.QueryCollapse((String)StatusFilterBox.getSelectedItem(), "Neutral");
+                collapser.CollapseIrrelevant(variables, filter, list, "Neutral");
+            } catch (NoMoreSolutionException ex) {
+                Logger.getLogger(GraphFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_StatusFilterBoxActionPerformed
     /**
@@ -501,6 +517,15 @@ public class GraphFrame extends javax.swing.JFrame {
         variables.view.repaint();
     }//GEN-LAST:event_LayoutsActionPerformed
 
+    private void prologInferenceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prologInferenceButtonActionPerformed
+        // TODO add your handling code here:
+        if(prologInferenceButton.isSelected() && !prologIsInitialized)
+        {
+            prologIsInitialized = true;
+            testProlog.Init();
+        }
+    }//GEN-LAST:event_prologInferenceButtonActionPerformed
+
     /**
      * ================================================
      * Init Graph Component
@@ -513,14 +538,7 @@ public class GraphFrame extends javax.swing.JFrame {
         filter.filteredGraph = graph;
         variables.collapsedGraph = graph;
         filter.FilterInit();
-        try {
-            //Initialize Prolog
-            testProlog.Init();
-        } catch (IOException ex) {
-            Logger.getLogger(GraphFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidTheoryException ex) {
-            Logger.getLogger(GraphFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        //Initialize Prolog
         /**
          * ================================================
          * Choosing layout
@@ -775,5 +793,6 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JCheckBox prologInferenceButton;
     // End of variables declaration//GEN-END:variables
 }

@@ -57,15 +57,20 @@
                           <EmptySpace min="-2" pref="131" max="-2" attributes="0"/>
                           <Component id="CollapseAgent" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="FilterNodeLonelyButton" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="FilterNodeAgentButton" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="FilterNodeAgentButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="FilterNodeLonelyButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="ShowEdgeTextButton" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="prologInferenceButton" min="-2" max="-2" attributes="0"/>
+                              <Component id="ShowEdgeTextButton" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -93,16 +98,14 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="MouseModes" max="32767" attributes="0"/>
-                                  <Component id="EdgeLineShapeSelection" min="-2" max="-2" attributes="0"/>
-                              </Group>
                               <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="EdgeLineShapeSelection" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="MouseModes" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
+                  <EmptySpace pref="83" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -130,7 +133,10 @@
                                       <Component id="FilterNodeAgentButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="ShowEdgeTextButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="FilterNodeLonelyButton" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="FilterNodeLonelyButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="prologInferenceButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
@@ -355,6 +361,14 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Graph Layout"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="prologInferenceButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Prolog Inference"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="prologInferenceButtonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

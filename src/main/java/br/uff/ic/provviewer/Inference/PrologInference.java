@@ -4,20 +4,18 @@
  */
 package br.uff.ic.provviewer.Inference;
 
-import br.uff.ic.provviewer.Input.Config;
+import alice.tuprolog.*;
+import java.lang.reflect.Field;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Hashtable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import jpl.Atom;
 import jpl.Compound;
 import jpl.Query;
 import jpl.Term;
 import jpl.Variable;
-import alice.tuprolog.*;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -32,25 +30,64 @@ public class PrologInference {
     Theory theory;
     Theory theory2;
 
-//    Variable X = new Variable();
-    public void Init() throws IOException, InvalidTheoryException
+    /**
+* Adds the specified path to the java library path
+*
+* @param pathToAdd the path to add
+* @throws Exception
+*/
+public static void addLibraryPath(String pathToAdd) throws Exception{
+    final Field usrPathsField = ClassLoader.class.getDeclaredField("usr_paths");
+    usrPathsField.setAccessible(true);
+ 
+    //get array of paths
+    final String[] paths = (String[])usrPathsField.get(null);
+ 
+    //check if the path to add is already present
+    for(String path : paths) {
+        if(path.equals(pathToAdd)) {
+            return;
+        }
+    }
+ 
+    //add the new path
+    final String[] newPaths = Arrays.copyOf(paths, paths.length + 1);
+    newPaths[newPaths.length-1] = pathToAdd;
+    usrPathsField.set(null, newPaths);
+}
+    public void Init()
     {
-        URL knowledge = Config.class.getResource("/BaseRegras.pl");
-        URL fact = Config.class.getResource("/BaseFatos.pl");
+//        try {
+//            System.loadLibrary("jpl");
+//        } catch (UnsatisfiedLinkError e) {
+//            System.err.println("Native code library failed to load.\n" + e);
+//        }
+//        try {
+//            System.load("C:/Program Files/swipl/binjpl.dll");
+//        } catch (UnsatisfiedLinkError e) {
+//            System.err.println("Native code library failed to load.\n" + e);
+//        }
+        try {
+            addLibraryPath("C:/Program Files/swipl/bin");
+        } catch (Exception ex) {
+            Logger.getLogger(PrologInference.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        URL knowledge = PrologInference.class.getResource("/BaseRegras.pl");
+        URL fact = PrologInference.class.getResource("/BaseFatos.pl");
         Query qKnowledgeBase = new Query("consult", new Term[]{new Atom(knowledge.getPath())});
         Query qFactBase = new Query("consult", new Term[]{new Atom(fact.getPath())});
         qKnowledgeBase.query();
         qFactBase.query();
-        
-        //TuProlog
-         try {
-            theory = new Theory(new FileInputStream(knowledge.getPath()));
-            theory2 = new Theory(new FileInputStream(fact.getPath()));
-            engine.addTheory(theory);
-            engine.addTheory(theory2);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(PrologInference.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//            //TuProlog
+//            try {
+//                theory = new Theory(new FileInputStream(knowledge.getPath()));
+//                theory2 = new Theory(new FileInputStream(fact.getPath()));
+//                engine.addTheory(theory);
+//                engine.addTheory(theory2);
+//            } catch (FileNotFoundException ex) {
+//                Logger.getLogger(PrologInference.class.getName()).log(Level.SEVERE, null, ex);
+//            }
     }
     public String QueryCollapse(String attribute, String edgeType) throws NoMoreSolutionException {
 
@@ -103,7 +140,7 @@ public class PrologInference {
             aux = aux.replace(",  ,", " ");
 
             //Print Solution
-            //System.out.println( "L = " + aux);
+            System.out.println( "L = " + aux);
             return aux;
         }
         return "";
