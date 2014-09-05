@@ -24,7 +24,7 @@ and open the template in the editor.
     <xs:complexType name="edge">
         <xs:sequence>
             <!-- Edge unique ID -->
-            <xs:element name="id" type="xs:string"/>
+            <xs:element name="ID" type="xs:string"/>
             <!-- Edge type -->
             <xs:element name="type" type="xs:string"/>
             <!-- Edge label -->
@@ -32,9 +32,9 @@ and open the template in the editor.
             <!-- Edge value -->
             <xs:element name="value" type="xs:string"/>
             <!-- Source vertex's unique ID -->
-            <xs:element name="sourceid" type="xs:string"/>
+            <xs:element name="sourceID" type="xs:string"/>
             <!-- Target vertex's unique ID -->
-            <xs:element name="targetid" type="xs:string"/>
+            <xs:element name="targetID" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
     
@@ -42,7 +42,7 @@ and open the template in the editor.
     <xs:complexType name="vertex">
         <xs:sequence>
             <!-- Vertex unique ID -->
-            <xs:element name="id" type="xs:string"/>
+            <xs:element name="ID" type="xs:string"/>
             <!-- Vertex type (Activity, Entity, Agent) -->
             <xs:element name="type" type="xs:string"/>
             <!-- Vertex label -->

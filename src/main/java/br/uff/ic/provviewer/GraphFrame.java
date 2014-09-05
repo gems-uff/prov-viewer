@@ -41,6 +41,7 @@ import java.awt.Stroke;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -82,8 +83,9 @@ public class GraphFrame extends javax.swing.JFrame {
      * Creates new form GraphFrame
      * @param graph 
      */
-    public GraphFrame() {
+    public GraphFrame(DirectedGraph<Object, Edge> graph) {
         initComponents();
+        initGraphComponent(graph);
         //TODO: Initialize with a default config and graph
         
     }
@@ -597,8 +599,8 @@ public class GraphFrame extends javax.swing.JFrame {
                 initGraphComponent(Variables.graph);
                 variables.view.repaint();
                 //Convert XML file to prolog
-                XMLConverter xmlConv = new XMLConverter();
-                xmlConv.ConvertXMLtoProlog(file);
+                //XMLConverter xmlConv = new XMLConverter();
+                //xmlConv.ConvertXMLtoProlog(file);
 
             } else {
                 System.out.println("File access cancelled by user.");
@@ -613,7 +615,7 @@ public class GraphFrame extends javax.swing.JFrame {
      */
     
     private void initGraphComponent(DirectedGraph<Object, Edge> graph) {
-
+        initConfig = true;
         filter.filteredGraph = graph;
         variables.collapsedGraph = graph;
         filter.FilterInit();
@@ -624,6 +626,7 @@ public class GraphFrame extends javax.swing.JFrame {
          */
         if(initLayout)
         {
+            Config.Initialize();
             variables.layout = new Temporal_Layout<Object, Edge>(graph);
             variables.view = new VisualizationViewer<Object, Edge>(variables.layout);
             Layouts.setSelectedItem("TemporalLayout");
@@ -825,12 +828,15 @@ public class GraphFrame extends javax.swing.JFrame {
 //            java.util.logging.Logger.getLogger(GraphFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
         //</editor-fold>
-
+        //Config.Initialize();
+        URL location = XMLReader.class.getResource("/provenancedata.xml");
+        File graphFile = new File(location.getFile());
+        Variables.graph = getGraph(graphFile);
         java.awt.EventQueue.invokeLater(new Runnable() {
                 
             @Override
                 public void run() {
-                    new GraphFrame().setVisible(true);
+                    new GraphFrame(Variables.graph).setVisible(true);
                 }
             });
     }

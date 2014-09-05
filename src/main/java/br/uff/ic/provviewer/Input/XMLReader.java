@@ -52,7 +52,7 @@ public class XMLReader {
                 Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
-                    String id = eElement.getElementsByTagName("id").item(0).getTextContent();
+                    String id = eElement.getElementsByTagName("ID").item(0).getTextContent();
                     String type = eElement.getElementsByTagName("type").item(0).getTextContent();
                     String label = eElement.getElementsByTagName("label").item(0).getTextContent();
                     String date = eElement.getElementsByTagName("date").item(0).getTextContent();
@@ -87,14 +87,15 @@ public class XMLReader {
                 Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
-                    String id = eElement.getElementsByTagName("id").item(0).getTextContent();
+                    String id = eElement.getElementsByTagName("ID").item(0).getTextContent();
                     String type = eElement.getElementsByTagName("type").item(0).getTextContent();
                     String label = eElement.getElementsByTagName("label").item(0).getTextContent();
                     String value = eElement.getElementsByTagName("value").item(0).getTextContent();
-                    String source = eElement.getElementsByTagName("sourceid").item(0).getTextContent();
-                    String target = eElement.getElementsByTagName("targetid").item(0).getTextContent();
+                    String source = eElement.getElementsByTagName("sourceID").item(0).getTextContent();
+                    String target = eElement.getElementsByTagName("targetID").item(0).getTextContent();
                     Edge edge = new Edge(id, type, label, value, nodes.get(target), nodes.get(source));
                     edges.add(edge);
+                    System.out.println(edge.toString());
                 }
             }
 
