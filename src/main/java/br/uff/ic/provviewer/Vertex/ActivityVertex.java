@@ -63,7 +63,8 @@ public class ActivityVertex extends Vertex {
     @Override
     public Paint getColor() {
         for (int i = 0; i < Config.actVerAtt.size(); i++) {
-            if (this.getAttributeValue(Config.actVerAtt.get(i)).contains(Config.actVerValue.get(i))) {
+            //if (this.getAttributeValue(Config.actVerAtt.get(i)).contains(Config.actVerValue.get(i))) {
+            if (this.getAttributeValue(Config.actVerAtt.get(i)).equalsIgnoreCase(Config.actVerValue.get(i))) {
                 return Config.actVerColor.get(i);
             }
         }

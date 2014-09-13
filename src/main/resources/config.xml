@@ -9,6 +9,7 @@ and open the template in the editor.
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
     xsi:noNamespaceSchemaLocation='config.xsd'>
     <layoutbackbone>Project</layoutbackbone>
+	<layoutscale>1.0</layoutscale>
     <edgetype>
         <edge>Neutral</edge>
         <edgestroke>MAX</edgestroke>
@@ -163,7 +164,7 @@ and open the template in the editor.
     </activitycolor>
     <activitycolor>
         <attribute>Task</attribute>
-        <value>Hired</value>
+        <value>Hired_Employee</value>
         <vercolor>
             <r>139</r>
             <g>136</g>

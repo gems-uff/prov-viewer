@@ -66,7 +66,7 @@ public class AgentVertex extends Vertex {
     }
 
     @Override
-    public int getDate() {
+    public float getDate() {
         return 0;
     }
 

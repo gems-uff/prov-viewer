@@ -142,8 +142,10 @@ public abstract class Vertex extends Object {
      *
      * @return (int) date
      */
-    public int getDate() {
+    public float getDate() {    
         String[] day = this.date.split(":");
-        return Integer.parseInt(day[0]);
+        //return Integer.parseInt(day[0]);
+        //return Math.round(Float.parseFloat(day[0]));
+        return (Float.parseFloat(day[0]));
     }
 }

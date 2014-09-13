@@ -70,21 +70,22 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
     	doInit();
     }
 
-    private double XDISTANCE = 200.0;
-    private double YDISTANCE = 50.0;
+    private double XDISTANCE = 200.0 * Config.scale;
+    private double YDISTANCE = -150.0;
+    private int agentQnt = 0;
     private Graph<V,E> graph;
     
     private void doInit() {
     	graph = getGraph();
         //Starting Y position
-        double ypos = -250.0;
+        double ypos = -100.0;
         //X offset for Agent-type nodes
         double xOffset = 10.0;
         //Compute Agent-type node position
         
         //Sort Agent vertices to avoid changing position during graph visualization
         List sorted = new ArrayList(graph.getVertices());
-            //Date comparator
+            //AgentID comparator
             Comparator comparator = new Comparator<Object>() {
                 @Override
                 public int compare(Object c1, Object c2) {
@@ -94,12 +95,27 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
                         return 0;
                 }
             };
-            //Sort nodes by date
+            //Sort nodes by ID
             Collections.sort(sorted, comparator);
             
+        agentQnt = 0;
         for(int i = 0; i < sorted.size(); i++) 
         {
-            if(sorted.get(i) instanceof Graph) {
+            if(sorted.get(i) instanceof AgentVertex)
+            {
+                agentQnt ++;
+            }
+        }
+        ypos = ypos * (agentQnt * 0.5) - 50;    
+        for(int i = 0; i < sorted.size(); i++) 
+        {
+            // If the backbone happens to be an agent, then we need to set it to y = 0 to correctly position all his activities
+            if((sorted.get(i) instanceof AgentVertex) && ((Vertex)sorted.get(i)).getName().contains(Config.layoutSpecialVertexType))
+            {
+                    //I want the Project-type node to always be on Y = 0
+                    calcAgentPositions((V)sorted.get(i), 0, xOffset);
+            }
+            else if(sorted.get(i) instanceof Graph) {
                 for(Object vertex : ((Graph)sorted.get(i)).getVertices())
                 {
                     if(vertex instanceof AgentVertex)
@@ -172,36 +188,27 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
      * @param v 
      */
     protected synchronized void calcPositions(V v) {
-//        MyLayout.FRVertexData fvd = getFRData(v);
-//        if(fvd == null) {
-//            return;
-//        }
+
         Point2D xyd = transform(v);
 
-        double newXPos = xyd.getX();
-        double newYPos = xyd.getY();
+        double newXPos;
+        double newYPos;
         
         if(v instanceof Vertex)
         {
             //Node's X position is defined by the day it was created
-            newXPos = ((Vertex)v).getDate() * XDISTANCE;
-            //If node is a ProjectNode-type
+            newXPos = Math.round(((Vertex)v).getDate()) * XDISTANCE;
+            //If node is from the backbone type
             if((v instanceof Vertex) && ((Vertex)v).getName().contains(Config.layoutSpecialVertexType))
             {
-                    //I want the Project-type node to always be on Y = 0
-                    newYPos = 0;
-                    xyd.setLocation(newXPos + XDISTANCE * 0.2, newYPos);
+                    //I want the backbone-type node to always be on Y = 0
+                    xyd.setLocation(newXPos + XDISTANCE * 0.2, 0);
             }
-            //If node is a ClientNode-type
-//            else if(v instanceof SDM_ClientVertex)
-//            {
-//                newYPos = -YDISTANCE * 7;
-//                xyd.setLocation(newXPos - XDISTANCE, newYPos);
-//            }
+
             //If node is a ArtifactNode-type
             else if((v instanceof EntityVertex) && !((Vertex)v).getName().contains(Config.layoutSpecialVertexType))
             {
-                newYPos = -YDISTANCE * 6;
+                newYPos = -YDISTANCE * agentQnt;
                 xyd.setLocation(newXPos, newYPos);
             }
             //If node is a ProcessNode-type
@@ -212,22 +219,18 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
                 
                 //Get edges from node v
                 Collection<E> edges = graph.getOutEdges(v);
-//                Collection<E> edges = graph.getInEdges(v);
                 for (E edge : edges)
                 {
                     //if the edge link to an Agent-node
-//                    if(graph.getDest(edge) instanceof SDM_AgentVertex)
-//                    if(graph.getSource(edge) instanceof AgentVertex)
                     if(graph.getDest(edge) instanceof AgentVertex)
                     {
                         //Compute position according to the agent position
                         Point2D agentPos = transform(graph.getDest(edge));
-//                        Point2D agentPos = transform(graph.getSource(edge));
                         //Adding an offset to not be in the same line
                         newYPos = agentPos.getY() + 50;
                         //Compute X from the Agent position, removing the -XDISTANCE
                         //to start at x=0, instead of x= -XDISTANCE position
-                        newXPos = agentPos.getX() + XDISTANCE + newXPos;
+                        //newXPos = agentPos.getX() + XDISTANCE + newXPos;
                         xyd.setLocation(newXPos, newYPos);
                     }
                 }
@@ -261,8 +264,8 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
                             //Need to check both X and Y positions, so it is from the same employee
                             if(Equals(p1.getX(), p2.getX()) && Equals(p1.getY(), p2.getY()))
                             {
-                                p1.setLocation(p1.getX(), p1.getY() - variation * 0.5);
-                                p2.setLocation(p2.getX(), p2.getY() + variation * 0.5);
+                                p1.setLocation(p1.getX(), p1.getY() - variation);
+                                p2.setLocation(p2.getX(), p2.getY() + variation);
                                 //Need to check again in case another node is at the same new position
                                 calcRepulsion(v1);
                             }

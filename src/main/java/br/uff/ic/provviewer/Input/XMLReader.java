@@ -95,7 +95,6 @@ public class XMLReader {
                     String target = eElement.getElementsByTagName("targetID").item(0).getTextContent();
                     Edge edge = new Edge(id, type, label, value, nodes.get(target), nodes.get(source));
                     edges.add(edge);
-                    //System.out.println(edge.toString());
                 }
             }
 

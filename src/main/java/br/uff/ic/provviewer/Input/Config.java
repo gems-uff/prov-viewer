@@ -40,6 +40,7 @@ public class Config {
     public static Collection<ColorScheme> vertexModes = new ArrayList<ColorScheme>();
     //Temporal Layout
     public static String layoutSpecialVertexType;
+    public static double scale;
     //Vertex Stroke variables
     public static List<String> vertexStrokevariables = new ArrayList<String>();
     //ActivityVertex
@@ -49,7 +50,7 @@ public class Config {
     public static List<Paint> actVerColor = new ArrayList<Paint>();
 
     public static void Initialize() {
-        URL location = Config.class.getResource("/config.xml");
+        URL location = Config.class.getResource("/2D_Provenance_config.xml");
 
         File fXmlFile = new File(location.getFile());
         System.out.println(fXmlFile.getPath());
@@ -58,6 +59,14 @@ public class Config {
     
     public static void Initialize(File fXmlFile) {
         try {
+            edgetype = new ArrayList<EdgeType>();
+            vertexModes = new ArrayList<ColorScheme>();
+            layoutSpecialVertexType = "";
+            scale = 1.0;
+            vertexStrokevariables = new ArrayList<String>();
+            actVerAtt = new ArrayList<String>();
+            actVerValue = new ArrayList<String>();
+            actVerColor = new ArrayList<Paint>();
 //            URL location = Config.class.getResource("/config.xml");
 //
 //            File fXmlFile = new File(location.getFile());
@@ -70,6 +79,8 @@ public class Config {
             //Temporal Layout Backbone
             NodeList nList = doc.getElementsByTagName("layoutbackbone");
             layoutSpecialVertexType = nList.item(0).getTextContent();
+            nList = doc.getElementsByTagName("layoutscale");
+            scale = Double.parseDouble(nList.item(0).getTextContent());
 
             //Edge Types
             nList = doc.getElementsByTagName("edgetype");

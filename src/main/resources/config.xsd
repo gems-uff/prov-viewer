@@ -15,6 +15,8 @@ and open the template in the editor.
         <xs:sequence>
             <!-- Temporal Layout backbone vertex type -->
             <xs:element name="layoutbackbone" type="xs:string"/>
+			<!-- Temporal Layout scale -->
+            <xs:element name="layoutscale" type="xs:string"/>
             <!-- List of all edges and their configuration values -->
             <xs:element name="edgetype" type="edgetype" minOccurs="0" maxOccurs="unbounded"/>
             <!-- List of all display modes -->

@@ -829,7 +829,7 @@ public class GraphFrame extends javax.swing.JFrame {
 //        }
         //</editor-fold>
         //Config.Initialize();
-        URL location = XMLReader.class.getResource("/provenancedata.xml");
+        URL location = XMLReader.class.getResource("/2D_Provenance.xml");
         File graphFile = new File(location.getFile());
         Variables.graph = getGraph(graphFile);
         java.awt.EventQueue.invokeLater(new Runnable() {

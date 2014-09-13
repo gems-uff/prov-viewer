@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<config
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:noNamespaceSchemaLocation='config.xsd'>
+    <layoutbackbone>Player</layoutbackbone>
+	<layoutscale>0.5</layoutscale>
+	<edgetype>
+        <edge>None</edge>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+    <edgetype>
+        <edge>Neutral</edge>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+    <edgetype>
+        <edge>Damage</edge>
+        <edgestroke>MEAN</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+	<edgetype>
+        <edge>Score</edge>
+        <edgestroke>MEAN</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+    <colorscheme>
+        <attribute>Health</attribute>
+        <class>ActivityScheme</class>
+        <values></values>
+        <goodvalue></goodvalue>
+        <badvalue></badvalue>
+    </colorscheme>
+    <colorscheme>
+        <attribute>Score</attribute>
+        <class>ActivityScheme</class>
+        <values></values>
+        <goodvalue></goodvalue>
+        <badvalue></badvalue>
+    </colorscheme>
+    <vertexstroke>
+        <attribute>Role</attribute>
+        <values>Idle Fired Promotion Training Hired</values>
+    </vertexstroke>
+    <activitycolor>
+        <attribute>Health</attribute>
+        <value>0</value>
+        <vercolor>
+            <r>255</r>
+            <g>180</g>
+            <b>180</b>
+        </vercolor>
+    </activitycolor>
+
+
+</config>

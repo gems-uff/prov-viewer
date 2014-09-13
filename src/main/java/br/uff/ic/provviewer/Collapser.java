@@ -311,7 +311,7 @@ public class Collapser {
             Comparator comparator = new Comparator<Vertex>() {
                 @Override
                 public int compare(Vertex c1, Vertex c2) {
-                    return c1.getDate() - c2.getDate();
+                    return (int)(c1.getDate() - c2.getDate());
                 }
             };
             //Sort nodes by date

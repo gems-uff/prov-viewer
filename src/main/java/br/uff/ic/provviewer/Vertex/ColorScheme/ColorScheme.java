@@ -56,7 +56,7 @@ public abstract class ColorScheme {
     }
 
     public Paint CompareValue(int value, double min, double max){
-        int proportion = (int) Math.round(510 * (value - min) / (float) (max - min));
+        int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
         return new Color(Math.min(255, 510 - proportion), Math.min(255, proportion), 0);
     }
 
