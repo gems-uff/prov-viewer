@@ -599,8 +599,8 @@ public class GraphFrame extends javax.swing.JFrame {
                 initGraphComponent(Variables.graph);
                 variables.view.repaint();
                 //Convert XML file to prolog
-                //XMLConverter xmlConv = new XMLConverter();
-                //xmlConv.ConvertXMLtoProlog(file);
+                XMLConverter xmlConv = new XMLConverter();
+                xmlConv.ConvertXMLtoProlog(file);
 
             } else {
                 System.out.println("File access cancelled by user.");
@@ -832,6 +832,9 @@ public class GraphFrame extends javax.swing.JFrame {
         URL location = XMLReader.class.getResource("/2D_Provenance.xml");
         File graphFile = new File(location.getFile());
         Variables.graph = getGraph(graphFile);
+        XMLConverter xmlConv = new XMLConverter();
+        xmlConv.ConvertXMLtoProlog(graphFile);
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
                 
             @Override
