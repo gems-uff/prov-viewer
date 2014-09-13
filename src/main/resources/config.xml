@@ -10,6 +10,7 @@ and open the template in the editor.
     xsi:noNamespaceSchemaLocation='config.xsd'>
     <layoutbackbone>Project</layoutbackbone>
 	<layoutscale>1.0</layoutscale>
+	<showentitydate>true</showentitydate>
     <edgetype>
         <edge>Neutral</edge>
         <edgestroke>MAX</edgestroke>

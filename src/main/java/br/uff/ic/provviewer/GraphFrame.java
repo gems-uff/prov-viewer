@@ -712,8 +712,12 @@ public class GraphFrame extends javax.swing.JFrame {
                             }
                         }    
                     }
-                    if(v instanceof EntityVertex) {
-                        return "<html><font size=\"10\">" + String.valueOf(((Vertex)v).getDate());
+                    if(v instanceof AgentVertex) {
+                                return "<html><font size=\"10\">" + ((Vertex)v).getName();
+                            }
+                    
+                    else if((v instanceof EntityVertex) && Config.showEntityDate) {
+                        return "<html><font size=\"10\">" + String.valueOf((int)((Vertex)v).getDate());
                     }
                     return "";
                 }

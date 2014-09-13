@@ -10,6 +10,7 @@ and open the template in the editor.
     xsi:noNamespaceSchemaLocation='config.xsd'>
     <layoutbackbone>Player</layoutbackbone>
 	<layoutscale>0.5</layoutscale>
+	<showentitydate>false</showentitydate>
 	<edgetype>
         <edge>None</edge>
         <edgestroke>MAX</edgestroke>
@@ -27,6 +28,16 @@ and open the template in the editor.
     </edgetype>
 	<edgetype>
         <edge>Score</edge>
+        <edgestroke>MEAN</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+	<edgetype>
+        <edge>Health</edge>
+        <edgestroke>MEAN</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+	<edgetype>
+        <edge>Bomb</edge>
         <edgestroke>MEAN</edgestroke>
         <collapsefunction>SUM</collapsefunction>
     </edgetype>

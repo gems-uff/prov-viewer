@@ -24,16 +24,6 @@ import java.util.List;
  */
 public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements IterativeContext {
 
-//    private Map<V, MyLayout.FRVertexData> frVertexData =
-//    	LazyMap.decorate(new HashMap<V,MyLayout.FRVertexData>(), new Factory<MyLayout.FRVertexData>() {
-//            @Override
-//    		public MyLayout.FRVertexData create() {
-//    			return new MyLayout.FRVertexData();
-//    		}});
-
-
-//    private double max_dimension;
-
     /**
      * Creates an instance for the specified graph.
      * @param g 
@@ -42,24 +32,6 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
         super(g);
 //        initialize();
     }
-
-    /**
-     * Creates an instance of size {@code d} for the specified graph.
-     */
-//    public MyLayout(Graph<V, E> g, Dimension d) {
-//        super(g, new RandomLocationTransformer<V>(d), d);
-////        initialize();
-//        max_dimension = Math.max(d.height, d.width);
-////    }
-//
-//	@Override
-//	public void setSize(Dimension size) {
-//		if(initialized == false) {
-//			setInitializer(new RandomLocationTransformer<V>(size));
-//		}
-//		super.setSize(size);
-//        max_dimension = Math.max(size.height, size.width);
-//	}
 
         @Override
 	public void reset() {
@@ -71,7 +43,7 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
     }
 
     private double XDISTANCE = 200.0 * Config.scale;
-    private double YDISTANCE = -150.0;
+    private double YDISTANCE = -100.0;
     private int agentQnt = 0;
     private Graph<V,E> graph;
     
@@ -106,7 +78,7 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
                 agentQnt ++;
             }
         }
-        ypos = ypos * (agentQnt * 0.5) - 50;    
+        ypos = ypos * (int)(agentQnt * 0.5);    
         for(int i = 0; i < sorted.size(); i++) 
         {
             // If the backbone happens to be an agent, then we need to set it to y = 0 to correctly position all his activities
@@ -124,8 +96,7 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
                         //dont have the same X position
                         xOffset = xOffset * -2;
 
-                        if(Math.abs(xOffset) > 60) 
-                        {
+                        if(Math.abs(xOffset) > 60) {
                             xOffset = 10;
                         }  
                         //Compute position for the agent
@@ -133,9 +104,9 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
                         //Update Y position for the next agent
                         ypos += 100.0;
                         //Skip position 0
-                        if(ypos == -50.0) 
+                        if(ypos == -100.0) 
                         {
-                            ypos += 150.0;
+                            ypos += 400.0;
                         }
                     }
                 } 
@@ -146,8 +117,7 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
                 //dont have the same X position
                 xOffset = xOffset * -2;
 
-                if(Math.abs(xOffset) > 60) 
-                {
+                if(Math.abs(xOffset) > 60) {
                     xOffset = 10;
                 }  
                 //Compute position for the agent
@@ -155,9 +125,9 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
                 //Update Y position for the next agent
                 ypos += 100.0;
                 //Skip position 0
-                if(ypos == -50.0) 
+                if(ypos == -100.0) 
                 {
-                    ypos += 150.0;
+                    ypos += 400.0;
                 }
             }
         }
@@ -206,17 +176,16 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
             }
 
             //If node is a ArtifactNode-type
-            else if((v instanceof EntityVertex) && !((Vertex)v).getName().contains(Config.layoutSpecialVertexType))
+            else if(v instanceof EntityVertex)
             {
-                newYPos = -YDISTANCE * agentQnt;
-                xyd.setLocation(newXPos, newYPos);
+                xyd.setLocation(newXPos, 200);
             }
             //If node is a ProcessNode-type
-            else if(v instanceof ActivityVertex)
+//            else if(v instanceof ActivityVertex)
+            else
             {
                 //The XY position for this type of node is dependable of the
                 //agent who executed the process
-                
                 //Get edges from node v
                 Collection<E> edges = graph.getOutEdges(v);
                 for (E edge : edges)

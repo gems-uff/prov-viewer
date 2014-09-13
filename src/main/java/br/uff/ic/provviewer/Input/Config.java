@@ -41,6 +41,7 @@ public class Config {
     //Temporal Layout
     public static String layoutSpecialVertexType;
     public static double scale;
+    public static boolean showEntityDate;
     //Vertex Stroke variables
     public static List<String> vertexStrokevariables = new ArrayList<String>();
     //ActivityVertex
@@ -81,6 +82,8 @@ public class Config {
             layoutSpecialVertexType = nList.item(0).getTextContent();
             nList = doc.getElementsByTagName("layoutscale");
             scale = Double.parseDouble(nList.item(0).getTextContent());
+            nList = doc.getElementsByTagName("showentitydate");
+            showEntityDate = Boolean.parseBoolean(nList.item(0).getTextContent());
 
             //Edge Types
             nList = doc.getElementsByTagName("edgetype");

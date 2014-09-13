@@ -16,9 +16,6 @@ import java.awt.geom.Ellipse2D;
  */
 public class EntityVertex extends Vertex {
 
-//    private String name;
-//    private String date;
-
     /**
      * Constructor
      *
@@ -34,9 +31,6 @@ public class EntityVertex extends Vertex {
 
     public EntityVertex(String[] array) {
         super(array[0], array[1], array[2], array[3]);
-
-//        this.SetName(array[1]);
-//        this.SetDate(array[2]);
     }
 
     @Override
@@ -53,21 +47,4 @@ public class EntityVertex extends Vertex {
     public String getNodeType() {
         return "Entity";
     }
-
-//    @Override
-//    public String getDayName() {
-//        String[] day = date.split(":");
-//        return day[1];
-//    }
-//
-//    @Override
-//    public int getDate() {
-//        String[] day = date.split(":");
-//        return Integer.parseInt(day[0]);
-//    }
-
-//    @Override
-//    public String getName() {
-//        return name;
-//    }
 }
