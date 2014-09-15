@@ -21,37 +21,57 @@
                 </configuration>
             </plugin>
             
-            <!--New Addition-->
-<!--            <plugin>
-			<artifactId>maven-jar-plugin</artifactId>
-			<configuration>
-				<archive>
-					<manifest>
-						<mainClass>br.uff.ic.Provenance_Graph.GraphFrame</mainClass>
-					</manifest>
-				</archive>
-			</configuration>
-		</plugin>
-		<plugin>
-			<artifactId>maven-dependency-plugin</artifactId>
-			<executions>
-				<execution>
-					<id>unpack-dependencies</id>
-					<phase>package</phase>
-					<goals>
-						<goal>unpack-dependencies</goal>
-					</goals>
-				</execution>
-			</executions>
-		</plugin>
-	</plugins>
-	<resources>
-		<resource>
-			<directory>${basedir}/target/dependency</directory>
-		</resource>
-	</resources>-->
-        
-        <!--This is working better than above-->
+            <!--Download Dependencies--> 
+            <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <version>2.8</version>
+            <executions>
+              <execution>
+                <id>copy-dependencies</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>copy-dependencies</goal>
+                </goals>
+                <configuration>
+                  <outputDirectory>${project.build.directory}</outputDirectory>
+                  <overWriteReleases>false</overWriteReleases>
+                  <overWriteSnapshots>false</overWriteSnapshots>
+                  <overWriteIfNewer>true</overWriteIfNewer>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+      <!--
+          <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <version>2.2</version>
+            <configuration>
+              <descriptorRefs>
+                <descriptorRef>jar-with-dependencies</descriptorRef>
+              </descriptorRefs>
+              <archive>
+                <manifest>
+                  <mainClass>com.stackoverflow.App</mainClass>
+                </manifest>
+                <manifestEntries>
+                  <Class-Path>.</Class-Path>
+                </manifestEntries>
+              </archive>
+            </configuration>
+            <executions>
+              <execution>
+                <id>make-assembly</id> 
+                <phase>package</phase> 
+                <goals>
+                  <goal>single</goal> 
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          
+          -->
+        <!--Class Path-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -59,30 +79,33 @@
                   <archive>
                     <manifest>
                       <addClasspath>true</addClasspath>
-                      <mainClass>br.uff.ic.GraphFrame</mainClass>
+                      <mainClass>br.uff.ic.provviewer.GraphFrame</mainClass>
                     </manifest>
                   </archive>
                 </configuration>
           </plugin>
-          
-<!--          <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-
-               <configuration>
-                    <archive>
-                        <manifest>
-                             <mainClass>br.uff.ic.GraphFrame</mainClass>
-                             <addClasspath>true</addClasspath>
-                              <classpathPrefix>lib/</classpathPrefix>
-                        </manifest>
-                        <manifestEntries>
-                            <Class-Path>conf/</Class-Path>
-                        </manifestEntries>
-                     </archive>
-                 </configuration>
-             </plugin>-->
- 
+         <!--  
+          <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>2.0</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>br.uff.ic.provviewer.GraphFrame</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+       -->    
       
         </plugins>
     </build>

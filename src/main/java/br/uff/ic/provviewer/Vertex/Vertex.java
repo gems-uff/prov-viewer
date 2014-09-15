@@ -69,7 +69,6 @@ public abstract class Vertex extends Object {
         String[] line = this.toString().split(attribute);
         if (line.length > 1) {
             String[] line2 = line[1].split(" ");
-
             return line2[1];
         }
         return "0";

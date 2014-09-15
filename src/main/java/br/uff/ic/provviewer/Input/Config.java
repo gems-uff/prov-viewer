@@ -12,10 +12,13 @@ import java.awt.Color;
 import java.awt.Paint;
 import java.io.File;
 import java.lang.reflect.Constructor;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -52,7 +55,6 @@ public class Config {
 
     public static void Initialize() {
         URL location = Config.class.getResource("/2D_Provenance_config.xml");
-
         File fXmlFile = new File(location.getFile());
         System.out.println(fXmlFile.getPath());
         Initialize(fXmlFile);
