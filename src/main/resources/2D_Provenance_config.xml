@@ -21,8 +21,13 @@ and open the template in the editor.
         <edgestroke>MAX</edgestroke>
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
-    <edgetype>
-        <edge>Damage</edge>
+	<edgetype>
+        <edge>Health (Player)</edge>
+        <edgestroke>MEAN</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+	<edgetype>
+        <edge>Health (Enemy)</edge>
         <edgestroke>MEAN</edgestroke>
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
