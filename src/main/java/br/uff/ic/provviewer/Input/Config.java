@@ -12,13 +12,10 @@ import java.awt.Color;
 import java.awt.Paint;
 import java.io.File;
 import java.lang.reflect.Constructor;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -53,11 +50,12 @@ public class Config {
     public static List<String> actVerValue = new ArrayList<String>();
     public static List<Paint> actVerColor = new ArrayList<Paint>();
 
-    public static void Initialize() {
-        URL location = Config.class.getResource("/2D_Provenance_config.xml");
+    public void Initialize() {
+        URL location = this.getClass().getResource("/2D_Provenance_config.xml");
         File fXmlFile = new File(location.getFile());
+//        File fXmlFile = new File("2D_Provenance_config.xml");
         System.out.println(fXmlFile.getPath());
-        Initialize(fXmlFile);
+        Initialize(fXmlFile);      
     }
     
     public static void Initialize(File fXmlFile) {

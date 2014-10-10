@@ -71,7 +71,7 @@ public class GraphFrame extends javax.swing.JFrame {
     Variables variables = new Variables();
     Collapser collapser = new Collapser();
     Filters filter = new Filters();
-    
+    Config config = new Config();
     PrologInference testProlog = new PrologInference();
     boolean prologIsInitialized = false;
     boolean initLayout = true;
@@ -289,7 +289,7 @@ public class GraphFrame extends javax.swing.JFrame {
                             .addComponent(MouseModeLabel)
                             .addComponent(EdgeLineShapeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(MouseModes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
         ToolMenuLayout.setVerticalGroup(
             ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -374,7 +374,7 @@ public class GraphFrame extends javax.swing.JFrame {
         setJMenuBar(MenuBar);
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-639)/2, (screenSize.height-738)/2, 639, 738);
+        setBounds((screenSize.width-672)/2, (screenSize.height-738)/2, 672, 738);
     }// </editor-fold>//GEN-END:initComponents
     /**
      * ================================================
@@ -595,12 +595,13 @@ public class GraphFrame extends javax.swing.JFrame {
             int returnVal = fileChooser.showOpenDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
-                Variables.graph = getGraph(file);
-                initGraphComponent(Variables.graph);
+                
+                initGraphComponent(getGraph(file));
+
                 variables.view.repaint();
                 //Convert XML file to prolog
-                XMLConverter xmlConv = new XMLConverter();
-                xmlConv.ConvertXMLtoProlog(file);
+                ConvertXML(file);
+//                
 
             } else {
                 System.out.println("File access cancelled by user.");
@@ -608,17 +609,27 @@ public class GraphFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_OpenGraphActionPerformed
 
-    /**
-     * ================================================
-     * Init Graph Component
-     * ================================================
-     */
+    private static void ConvertXML(File file)
+    {
+//        XMLConverter xmlConv = new XMLConverter();
+//        xmlConv.ConvertXMLtoProlog(file);
+    }
     
-    private void initGraphComponent(DirectedGraph<Object, Edge> graph) {
-        initConfig = true;
-        filter.filteredGraph = graph;
-        variables.collapsedGraph = graph;
-        filter.FilterInit();
+    private void InitVariables()
+    {
+        mouse = new DefaultModalGraphMouse();
+        filterCredits = false;
+        variables = new Variables();
+        collapser = new Collapser();
+        filter = new Filters();
+        testProlog = new PrologInference();
+        prologIsInitialized = false;
+        initLayout = true;
+        initConfig = false;
+    }
+    
+    private void SetView(DirectedGraph<Object, Edge> graph)
+    {
         /**
          * ================================================
          * Choosing layout
@@ -626,13 +637,13 @@ public class GraphFrame extends javax.swing.JFrame {
          */
         if(initLayout)
         {
-            Config.Initialize();
+            config.Initialize();
             variables.layout = new Temporal_Layout<Object, Edge>(graph);
             variables.view = new VisualizationViewer<Object, Edge>(variables.layout);
             Layouts.setSelectedItem("TemporalLayout");
             initLayout = false;
         }
-
+        
         /**
          * ================================================
          * VisualizationViewer<Node, Edge> view = new VisualizationViewer<Node, Edge>(layout);
@@ -659,6 +670,10 @@ public class GraphFrame extends javax.swing.JFrame {
         
         variables.view.setBackground(Color.white);
         this.getContentPane().add(variables.view, BorderLayout.CENTER);
+    }
+    
+    private void MouseInteraction()
+    {
         /**
          * ================================================
          * Adding interaction via mouse
@@ -668,6 +683,10 @@ public class GraphFrame extends javax.swing.JFrame {
 //        DefaultModalGraphMouse mouse = new DefaultModalGraphMouse();
         variables.view.setGraphMouse(mouse);
         variables.view.addKeyListener(mouse.getModeKeyListener());
+    }
+    
+    private void Tooltip()
+    {
         /**
          * ================================================
          * Add a listener for ToolTips
@@ -682,7 +701,7 @@ public class GraphFrame extends javax.swing.JFrame {
                     return ("<html>" + v.toString() + "</html>");
                     //return super.transform(v);
             }});
-        /**
+         /**
          * ================================================
          * Edge Tooltip
          * ================================================
@@ -694,6 +713,10 @@ public class GraphFrame extends javax.swing.JFrame {
                 return n.getInfluence();
             }
         });
+    }
+    
+    private void VertexLabel()
+    {
         /**
          * ================================================
          * Labeling Vertex
@@ -722,7 +745,10 @@ public class GraphFrame extends javax.swing.JFrame {
                     return "";
                 }
             });
-        
+    }
+    
+    private void Stroke(DirectedGraph<Object, Edge> graph)
+    {
         /**
          * ================================================
          * Vertex Stroke
@@ -747,6 +773,10 @@ public class GraphFrame extends javax.swing.JFrame {
             }
         };
         variables.view.getRenderContext().setEdgeStrokeTransformer(edgeStrokeTransformer);
+    }
+    
+    private void GraphPaint()
+    {
         /**
          * ================================================
          * Vertex Paint
@@ -767,18 +797,46 @@ public class GraphFrame extends javax.swing.JFrame {
         variables.view.getRenderContext().setEdgeDrawPaintTransformer(edgePainter);
         variables.view.getRenderContext().setArrowDrawPaintTransformer(edgePainter);
         variables.view.getRenderContext().setArrowFillPaintTransformer(edgePainter);
-
+    }
+    
+    private void VertexShape()
+    {
         /**
          * ================================================
-         * Node Shape
+         * Vertex Shape
          * ================================================
          */
         variables.view.getRenderContext().setVertexShapeTransformer(new VertexShape());
-
-        //graphicsContext.fill(shape);
+    }
+    
+    private void InitFilters(DirectedGraph<Object, Edge> graph)
+    {
+        filter.filteredGraph = graph;
+        filter.FilterInit();
+        
         PreFilters.PreFilter();
         //Initialize selected filters from the GUI
         collapser.Filters(variables, filter);
+    }
+    /**
+     * ================================================
+     * Init Graph Component
+     * ================================================
+     */
+    
+    private void initGraphComponent(DirectedGraph<Object, Edge> graph) {
+        initConfig = true;
+        variables.graph = graph;
+        variables.collapsedGraph = variables.graph;
+
+        SetView(variables.graph); 
+        MouseInteraction(); 
+        Tooltip();
+        VertexLabel();
+        Stroke(variables.graph); 
+        GraphPaint();
+        VertexShape();
+        InitFilters(variables.graph);
     }
     
     /**
@@ -833,11 +891,16 @@ public class GraphFrame extends javax.swing.JFrame {
 //        }
         //</editor-fold>
         //Config.Initialize();
-        URL location = XMLReader.class.getResource("/2D_Provenance.xml");
+        URL location = GraphFrame.class.getResource("/2D_Provenance.xml");
+        System.out.println(location.getFile());
         File graphFile = new File(location.getFile());
+        
+        //URL location = GraphFrame.class.getClassLoader().getResourceAsStream("/2D_Provenance.xml");
+        //File graphFile = new File(location.getFile());
+        //File graphFile = new File(GraphFrame.class.getClassLoader().getResourceAsStream("/2D_Provenance.xml" ));
         Variables.graph = getGraph(graphFile);
-        XMLConverter xmlConv = new XMLConverter();
-        xmlConv.ConvertXMLtoProlog(graphFile);
+
+        ConvertXML(graphFile);
         
         java.awt.EventQueue.invokeLater(new Runnable() {
                 
