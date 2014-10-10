@@ -11,13 +11,13 @@ and open the template in the editor.
     <layoutbackbone>Player</layoutbackbone>
 	<layoutscale>0.5</layoutscale>
 	<showentitydate>false</showentitydate>
-	<edgetype>
-        <edge>None</edge>
+    <edgetype>
+        <edge>Neutral</edge>
         <edgestroke>MAX</edgestroke>
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
-    <edgetype>
-        <edge>Neutral</edge>
+	<edgetype>
+        <edge>None</edge>
         <edgestroke>MAX</edgestroke>
         <collapsefunction>SUM</collapsefunction>
     </edgetype>

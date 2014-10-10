@@ -29,8 +29,8 @@ import org.w3c.dom.NodeList;
  * @author Kohwalter
  */
 public class Config {
+    
     //Filter List
-
     public static List<EdgeType> edgetype = new ArrayList<EdgeType>();
     //Edge Stroke
 //    public static List<String> edgeStroke = new ArrayList<String>();

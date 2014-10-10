@@ -58,6 +58,7 @@ import org.apache.commons.collections15.Transformer;
  */
 public class GraphFrame extends javax.swing.JFrame {
     final Set exclusions = new HashSet();
+    static String demo = "/2D_Provenance.xml";
     
 //    VisualizationViewer<Object, Edge> view;
 //    Layout<Object, Edge> layout;
@@ -67,6 +68,7 @@ public class GraphFrame extends javax.swing.JFrame {
     
     DefaultModalGraphMouse mouse = new DefaultModalGraphMouse();
     boolean filterCredits = false;
+    File file;
 
     Variables variables = new Variables();
     Collapser collapser = new Collapser();
@@ -561,11 +563,19 @@ public class GraphFrame extends javax.swing.JFrame {
         variables.view.repaint();
     }//GEN-LAST:event_LayoutsActionPerformed
 
+    boolean initialGraph = true;
     private void prologInferenceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prologInferenceButtonActionPerformed
         // TODO add your handling code here:
         if(prologInferenceButton.isSelected() && !prologIsInitialized)
         {
             prologIsInitialized = true;
+            if(initialGraph)
+            {
+                URL location = GraphFrame.class.getResource(demo);
+                file = new File(location.getFile());
+                initialGraph = false;
+            }
+            ConvertXML(file);
             testProlog.Init();
         }
     }//GEN-LAST:event_prologInferenceButtonActionPerformed
@@ -594,13 +604,18 @@ public class GraphFrame extends javax.swing.JFrame {
         {
             int returnVal = fileChooser.showOpenDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File file = fileChooser.getSelectedFile();
+                file = fileChooser.getSelectedFile();
                 
-                initGraphComponent(getGraph(file));
+                //initGraphComponent(getGraph(file));
+                variables.graph = getGraph(file);
+                variables.collapsedGraph = variables.graph;
+                collapser.Filters(variables, filter);
+                //variables.layout.setGraph(variables.graph);
 
                 variables.view.repaint();
                 //Convert XML file to prolog
-                ConvertXML(file);
+                // Moved to prologInferenceButtonActionPerformed
+//                ConvertXML(file);
 //                
 
             } else {
@@ -611,8 +626,8 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private static void ConvertXML(File file)
     {
-//        XMLConverter xmlConv = new XMLConverter();
-//        xmlConv.ConvertXMLtoProlog(file);
+        XMLConverter xmlConv = new XMLConverter();
+        xmlConv.ConvertXMLtoProlog(file);
     }
     
     private void InitVariables()
@@ -891,22 +906,21 @@ public class GraphFrame extends javax.swing.JFrame {
 //        }
         //</editor-fold>
         //Config.Initialize();
-        URL location = GraphFrame.class.getResource("/2D_Provenance.xml");
+        URL location = GraphFrame.class.getResource(demo);
         System.out.println(location.getFile());
         File graphFile = new File(location.getFile());
-        
         //URL location = GraphFrame.class.getClassLoader().getResourceAsStream("/2D_Provenance.xml");
         //File graphFile = new File(location.getFile());
         //File graphFile = new File(GraphFrame.class.getClassLoader().getResourceAsStream("/2D_Provenance.xml" ));
-        Variables.graph = getGraph(graphFile);
+        final DirectedGraph<Object, Edge> graph = getGraph(graphFile);
 
-        ConvertXML(graphFile);
+        //ConvertXML(graphFile);
         
         java.awt.EventQueue.invokeLater(new Runnable() {
                 
             @Override
                 public void run() {
-                    new GraphFrame(Variables.graph).setVisible(true);
+                    new GraphFrame(graph).setVisible(true);
                 }
             });
     }
