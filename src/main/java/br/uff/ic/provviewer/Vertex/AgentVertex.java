@@ -6,8 +6,6 @@ package br.uff.ic.provviewer.Vertex;
 
 import java.awt.Color;
 import java.awt.Paint;
-import java.awt.Polygon;
-import java.awt.Shape;
 
 /**
  * Subclass for Vertex named after PROV nomenclature and type
@@ -15,8 +13,6 @@ import java.awt.Shape;
  * @author Kohwalter
  */
 public class AgentVertex extends Vertex {
-
-//    private String name;
 
     /**
      * Constructor
@@ -38,16 +34,6 @@ public class AgentVertex extends Vertex {
      */
     public AgentVertex(String[] array) {
         super(array[0], array[1], array[2], array[3]);
-
-//        this.SetName(array[1]);
-    }
-
-    @Override
-    public Shape getShape() {
-        int[] XArray = {-7, -2, 3, 8, 8, 3, -2, -7};
-        int[] YArray = {-2, -7, -7, -2, 3, 8, 8, 3};
-
-        return new Polygon(XArray, YArray, 8);
     }
 
     @Override
@@ -70,8 +56,4 @@ public class AgentVertex extends Vertex {
         return 0;
     }
 
-//    @Override
-//    public String getName() {
-//        return name;
-//    }
 }

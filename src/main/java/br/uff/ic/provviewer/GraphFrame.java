@@ -7,7 +7,7 @@ import br.uff.ic.provviewer.Filter.Filters;
 import br.uff.ic.provviewer.Filter.PreFilters;
 import br.uff.ic.provviewer.Inference.PrologInference;
 import br.uff.ic.provviewer.Input.Config;
-import br.uff.ic.provviewer.Input.XMLReader;
+import br.uff.ic.provviewer.Input.UnityReader;
 import br.uff.ic.provviewer.Layout.Temporal_Layout;
 import br.uff.ic.provviewer.Stroke.EdgeStroke;
 import br.uff.ic.provviewer.Stroke.VertexStroke;
@@ -746,12 +746,12 @@ public class GraphFrame extends javax.swing.JFrame {
                         for(Object vertex : ((Graph)v).getVertices())
                         {
                             if(vertex instanceof AgentVertex) {
-                                return "<html><font size=\"10\">" + ((Vertex)vertex).getName();
+                                return "<html><font size=\"10\">" + ((Vertex)vertex).getLabel();
                             }
                         }    
                     }
                     if(v instanceof AgentVertex) {
-                                return "<html><font size=\"10\">" + ((Vertex)v).getName();
+                                return "<html><font size=\"10\">" + ((Vertex)v).getLabel();
                             }
                     
                     else if((v instanceof EntityVertex) && Config.showEntityDate) {
@@ -862,7 +862,8 @@ public class GraphFrame extends javax.swing.JFrame {
     public static DirectedGraph<Object,Edge> getGraph(File xmlGraph) {
         DirectedGraph<Object,Edge> g = new DirectedSparseMultigraph<Object,Edge>();
         try {
-                XMLReader xmlReader = new XMLReader(xmlGraph);
+                UnityReader xmlReader = new UnityReader(xmlGraph);
+                xmlReader.ReadXML();
                 for (Edge edge : xmlReader.getEdges()) {
                     g.addEdge(edge, edge.getSource(), edge.getTarget());
                 }

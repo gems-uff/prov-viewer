@@ -82,7 +82,7 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
         for(int i = 0; i < sorted.size(); i++) 
         {
             // If the backbone happens to be an agent, then we need to set it to y = 0 to correctly position all his activities
-            if((sorted.get(i) instanceof AgentVertex) && ((Vertex)sorted.get(i)).getName().contains(Config.layoutSpecialVertexType))
+            if((sorted.get(i) instanceof AgentVertex) && ((Vertex)sorted.get(i)).getLabel().contains(Config.layoutSpecialVertexType))
             {
                     //I want the Project-type node to always be on Y = 0
                     calcAgentPositions((V)sorted.get(i), 0, xOffset);
@@ -169,7 +169,7 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
             //Node's X position is defined by the day it was created
             newXPos = Math.round(((Vertex)v).getDate()) * XDISTANCE;
             //If node is from the backbone type
-            if((v instanceof Vertex) && ((Vertex)v).getName().contains(Config.layoutSpecialVertexType))
+            if((v instanceof Vertex) && ((Vertex)v).getLabel().contains(Config.layoutSpecialVertexType))
             {
                     //I want the backbone-type node to always be on Y = 0
                     xyd.setLocation(newXPos + XDISTANCE * 0.2, 0);
@@ -215,12 +215,12 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
      */
     protected synchronized void calcRepulsion(V v1) {
         //Only Process and Artifact types can have the same position, so lets check
-        if((v1 instanceof ActivityVertex) || ((v1 instanceof EntityVertex) && !((Vertex)v1).getName().contains(Config.layoutSpecialVertexType)))
+        if((v1 instanceof ActivityVertex) || ((v1 instanceof EntityVertex) && !((Vertex)v1).getLabel().contains(Config.layoutSpecialVertexType)))
         {
             try {
                 for(V v2 : graph.getVertices()) 
                 {
-                    if((v2 instanceof ActivityVertex)||((v2 instanceof EntityVertex) && !((Vertex)v2).getName().contains(Config.layoutSpecialVertexType)))
+                    if((v2 instanceof ActivityVertex)||((v2 instanceof EntityVertex) && !((Vertex)v2).getLabel().contains(Config.layoutSpecialVertexType)))
                     {
                         //A check to see if we are not comparing him with himself
                         if(v1 != v2)

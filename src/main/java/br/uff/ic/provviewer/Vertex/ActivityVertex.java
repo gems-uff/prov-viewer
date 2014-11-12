@@ -8,9 +8,7 @@ import br.uff.ic.provviewer.Input.Config;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Paint;
-import java.awt.Shape;
 import java.awt.Stroke;
-import java.awt.geom.Rectangle2D;
 
 /**
  * Subclass for Vertex named after PROV nomenclature and type
@@ -19,8 +17,6 @@ import java.awt.geom.Rectangle2D;
  */
 public class ActivityVertex extends Vertex {
 
-//    private String name;
-//    private String date;
 
     /**
      * Constructor
@@ -42,14 +38,6 @@ public class ActivityVertex extends Vertex {
      */
     public ActivityVertex(String[] array) {
         super(array[0], array[1], array[2], array[3]);
-
-//        this.SetName(array[1]);
-//        this.SetDate(array[2]);
-    }
-
-    @Override
-    public Shape getShape() {
-        return new Rectangle2D.Float(-7, -7, 17, 17);
     }
 
     @Override
@@ -75,21 +63,4 @@ public class ActivityVertex extends Vertex {
     public String getNodeType() {
         return "Activity";
     }
-
-//    @Override
-//    public String getDayName() {
-//        String[] day = this.date.split(":");
-//        return day[1];
-//    }
-
-//    @Override
-//    public String getName() {
-//        return name;
-//    }
-
-//    @Override
-//    public int getDate() {
-//        String[] day = this.date.split(":");
-//        return Integer.parseInt(day[0]);
-//    }
 }

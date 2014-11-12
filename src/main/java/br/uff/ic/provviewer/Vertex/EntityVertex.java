@@ -6,8 +6,6 @@ package br.uff.ic.provviewer.Vertex;
 
 import java.awt.Color;
 import java.awt.Paint;
-import java.awt.Shape;
-import java.awt.geom.Ellipse2D;
 
 /**
  * Subclass for Vertex named after PROV nomenclature and type
@@ -31,11 +29,6 @@ public class EntityVertex extends Vertex {
 
     public EntityVertex(String[] array) {
         super(array[0], array[1], array[2], array[3]);
-    }
-
-    @Override
-    public Shape getShape() {
-        return new Ellipse2D.Float(-7, -7, 17, 17);
     }
 
     @Override

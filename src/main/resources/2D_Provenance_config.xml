@@ -61,8 +61,8 @@ and open the template in the editor.
         <badvalue></badvalue>
     </colorscheme>
     <vertexstroke>
-        <attribute>Role</attribute>
-        <values>Idle Fired Promotion Training Hired</values>
+        <attribute>Health</attribute>
+        <values>0</values>
     </vertexstroke>
     <activitycolor>
         <attribute>Health</attribute>
