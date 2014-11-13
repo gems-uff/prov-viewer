@@ -3,7 +3,6 @@ package br.uff.ic.provviewer.Vertex;
 import br.uff.ic.provviewer.Attribute;
 import java.awt.BasicStroke;
 import java.awt.Paint;
-import java.awt.Shape;
 import java.awt.Stroke;
 import java.util.Collection;
 import java.util.HashMap;
@@ -12,6 +11,7 @@ import java.util.Map;
 /**
  * Abstract (Generic) vertex type for the provenance graph
  *
+ * Time format must be either a Number or DayNumber:DayName (for the weekend display mode)
  * @author Kohwalter
  */
 public abstract class Vertex extends Object {
@@ -19,41 +19,47 @@ public abstract class Vertex extends Object {
     private String id;                              // prov:id
     private String label;                           // prov:label
     private String time;                            // prov:startTime
-    private String details;
+                                                    // Refactor for datetime type
+    private String details;                         // Other text information
     
-    private String location;                        // prov:location
-    private String type;                            // prov:type
-//    private String endTime;
+    // Refactor to be inside attributes
+//    private String location;                        // prov:location
+//    private String type;                            // prov:type
+//    private String endTime;                         // prov:endTime
     
     private Map<String, Attribute> attributes;      // prov:value
 
     /**
-     * Constructor
-     *
-     * @param id This param is used by JUNG for collapsed vertices and tooltips.
-     * @param name
-     * @param date
-     * @param details
+     * Constructor without attributes
+     * Using this constructor, attributes must be added later
+     * 
+     * @param id vertex unique ID
+     * @param label HUman readable name
+     * @param time Time-related value. Used for temporal layouts
+     * @param details Other textual information for the vertex
      */
-    
-    // Old
     public Vertex(String id, String label, String time, String details) {
         this.id = id;
         this.label = label;
         this.time = time;
-        this.type = "";
-        this.location = "";
         this.details = details;
         this.attributes  = new HashMap<String, Attribute>();
     }
     
-    public Vertex(String id, String name, String label, 
-            String location, String type, String startTime, String endTime, String time, String details) {
+    /**
+     * Constructor with attributes
+     * @param id
+     * @param label
+     * @param time
+     * @param attributes
+     * @param details 
+     */
+    public Vertex(String id, String label, String time, Map<String, Attribute> attributes, String details) {
         this.id = id;
-        this.label = name;
+        this.label = label;
         this.time = time;
         this.details = details;
-        this.attributes  = new HashMap<String, Attribute>();
+        this.attributes.putAll(attributes);
     }
 
     /**
@@ -82,14 +88,8 @@ public abstract class Vertex extends Object {
      */
     public float getDate() {    
         String[] day = this.time.split(":");
-        //return Integer.parseInt(day[0]);
-        //return Math.round(Float.parseFloat(day[0]));
         return (Float.parseFloat(day[0]));
     }
-    
-//    public String getFullDate() {
-//        return time;
-//    }
     
     public void SetLabel(String t){
         this.label = t;
@@ -129,39 +129,59 @@ public abstract class Vertex extends Object {
                 + " <br>" + this.details;
     }
 
-    // TODO: Refactor
+    /**
+     * Method to return the attribute value (not necessarily a number)
+     * If the attribute does not exist, returns "Unknown"
+     * @param attribute
+     * @return 
+     */
     public String getAttributeValue(String attribute) {
-//        String[] line = this.toString().split(attribute);
-//        if (line.length > 1) {
-//            String[] line2 = line[1].split(" ");
-//            return line2[1];
-//        }
-//        return "0";
         Attribute aux = attributes.get(attribute);
-        if(aux != null)
+        if(aux != null) {
             return aux.getValue();
-        else
-            return "0";
+        }
+        else {
+            return "Unknown";
+        }
     }
     
-
-    public int getAttributeValueInteger(String attribute) {
-        if(tryParseInt(attributes.get(attribute).getValue()))
-            return Integer.parseInt(attributes.get(attribute).getValue());
-        else
+    /**
+     * Method to return the attribute value as float
+     * @param attribute
+     * @return 
+     */
+    public float getAttributeValueFloat(String attribute) {
+        if(tryParseFloat(attributes.get(attribute).getValue())) {
+            return Float.parseFloat(attributes.get(attribute).getValue());
+        }
+        else {
             return 0;
+        }
     }
     
+    /**
+     * Get method to return one specific attribute
+     * @param attribute Desired attribute name
+     * @return the attribute, containing name and value
+     */
     public Attribute getAttribute(String attribute)
     {
         return attributes.get(attribute);
     }
     
+    /**
+     * Get method for all attributes
+     * @return vertex attributes as collection
+     */
     public Collection<Attribute> getAttributes()
     {
         return attributes.values();
     }
     
+    /**
+     * Method that generates a String with all attributes names and values
+     * @return String containing attribute names and values
+     */
     public String PrintAttributes()
     {
         String attributeList = "";
@@ -172,14 +192,23 @@ public abstract class Vertex extends Object {
         return attributeList;
     }
     
+    /**
+     * Method to add a new vertex attribute in the attribute map
+     * @param att New attribute to be added
+     */
     public void AddAttribute(Attribute att)
     {
         attributes.put(att.getName(), att);
     }
 
-    boolean tryParseInt(String value) {
+    /**
+     * Method to check if it is possible to parse the value to float
+     * @param value desired to be parsed to float
+     * @return boolean
+     */
+    boolean tryParseFloat(String value) {
         try {
-            Integer.parseInt(value);
+            Float.parseFloat(value);
             return true;
         } catch (NumberFormatException nfe) {
             return false;

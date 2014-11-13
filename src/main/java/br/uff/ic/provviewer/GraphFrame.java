@@ -500,12 +500,12 @@ public class GraphFrame extends javax.swing.JFrame {
         if(prologInferenceButton.isSelected())
         {
             String list;
-            try {
+//            try {
                 list = testProlog.QueryCollapse((String)StatusFilterBox.getSelectedItem(), "Neutral");
                 collapser.CollapseIrrelevant(variables, filter, list, "Neutral");
-            } catch (NoMoreSolutionException ex) {
-                Logger.getLogger(GraphFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//            } catch (NoMoreSolutionException ex) {
+//                Logger.getLogger(GraphFrame.class.getName()).log(Level.SEVERE, null, ex);
+//            }
         }
     }//GEN-LAST:event_StatusFilterBoxActionPerformed
     /**

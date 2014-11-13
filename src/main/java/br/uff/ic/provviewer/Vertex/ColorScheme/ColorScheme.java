@@ -55,7 +55,7 @@ public abstract class ColorScheme {
         return attribute;
     }
 
-    public Paint CompareValue(int value, double min, double max){
+    public Paint CompareValue(float value, double min, double max){
         int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
         return new Color(Math.min(255, 510 - proportion), Math.min(255, proportion), 0);
     }
@@ -64,12 +64,12 @@ public abstract class ColorScheme {
         Collection<Object> nodes = graph.getVertices();
         for (Object node : nodes) {
             if(node instanceof ActivityVertex) {
-                this.max = Math.max(this.max, Math.abs(((ActivityVertex) node).getAttributeValueInteger(this.attribute)));
-                this.min = Math.min(this.min, Math.abs(((ActivityVertex) node).getAttributeValueInteger(this.attribute)));
+                this.max = Math.max(this.max, Math.abs(((ActivityVertex) node).getAttributeValueFloat(this.attribute)));
+                this.min = Math.min(this.min, Math.abs(((ActivityVertex) node).getAttributeValueFloat(this.attribute)));
             }
             else if (node instanceof EntityVertex) {
-                this.max = Math.max(this.max, Math.abs(((EntityVertex) node).getAttributeValueInteger(this.attribute)));
-                this.min = Math.min(this.min, Math.abs(((EntityVertex) node).getAttributeValueInteger(this.attribute)));
+                this.max = Math.max(this.max, Math.abs(((EntityVertex) node).getAttributeValueFloat(this.attribute)));
+                this.min = Math.min(this.min, Math.abs(((EntityVertex) node).getAttributeValueFloat(this.attribute)));
             }
         }
 //        System.out.println("Attribute = " + this.attribute);

@@ -4,7 +4,7 @@
  */
 package br.uff.ic.provviewer.Inference;
 
-import alice.tuprolog.*;
+//import alice.tuprolog.*;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.Arrays;
@@ -23,12 +23,12 @@ import jpl.Variable;
  */
 public class PrologInference {
     private Hashtable solution;
-    private Variable X = new Variable();
-    
-    //TuProlog
-    Prolog engine = new Prolog();
-    Theory theory;
-    Theory theory2;
+//    private Variable X = new Variable();
+//    
+//    //TuProlog
+//    Prolog engine = new Prolog();
+//    Theory theory;
+//    Theory theory2;
 
     /**
 * Adds the specified path to the java library path
@@ -90,7 +90,7 @@ public static void addLibraryPath(String pathToAdd) throws Exception{
 //                Logger.getLogger(PrologInference.class.getName()).log(Level.SEVERE, null, ex);
 //            }
     }
-    public String QueryCollapse(String attribute, String edgeType) throws NoMoreSolutionException {
+    public String QueryCollapse(String attribute, String edgeType) {
 
         
        

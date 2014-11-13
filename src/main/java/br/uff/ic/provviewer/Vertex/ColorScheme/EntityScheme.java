@@ -25,17 +25,17 @@ public class EntityScheme extends ColorScheme {
         ComputeValue(variables.graph);
         if (v instanceof EntityVertex) {
             if(!limited) {
-                return this.CompareValue(((EntityVertex) v).getAttributeValueInteger(this.attribute), this.min, this.max);
+                return this.CompareValue(((EntityVertex) v).getAttributeValueFloat(this.attribute), this.min, this.max);
             }
             else {
                 if(this.givenMax == null) {
-                    return this.CompareValue(((EntityVertex) v).getAttributeValueInteger(this.attribute), this.min, Double.parseDouble(this.givenMax));
+                    return this.CompareValue(((EntityVertex) v).getAttributeValueFloat(this.attribute), this.min, Double.parseDouble(this.givenMax));
                 }
                 if(this.givenMin == null) {
-                    return this.CompareValue(((EntityVertex) v).getAttributeValueInteger(this.attribute), Double.parseDouble(this.givenMin), this.max);
+                    return this.CompareValue(((EntityVertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMin), this.max);
                 }
                 else {
-                    return this.CompareValue(((EntityVertex) v).getAttributeValueInteger(this.attribute), Double.parseDouble(this.givenMin), Double.parseDouble(this.givenMax));
+                    return this.CompareValue(((EntityVertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMin), Double.parseDouble(this.givenMax));
                 }
             }
         }

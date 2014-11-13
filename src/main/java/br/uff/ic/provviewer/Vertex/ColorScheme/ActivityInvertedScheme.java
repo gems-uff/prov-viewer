@@ -26,17 +26,17 @@ public class ActivityInvertedScheme extends ColorScheme {
         ComputeValue(variables.graph);
         if (v instanceof ActivityVertex) {
             if(!limited) {
-                return this.CompareValue(((ActivityVertex) v).getAttributeValueInteger(this.attribute), this.max, this.min);
+                return this.CompareValue(((ActivityVertex) v).getAttributeValueFloat(this.attribute), this.max, this.min);
             }
             else {
                 if(this.givenMax == null) {
-                    return this.CompareValue(((ActivityVertex) v).getAttributeValueInteger(this.attribute), this.max, Double.parseDouble(this.givenMin));
+                    return this.CompareValue(((ActivityVertex) v).getAttributeValueFloat(this.attribute), this.max, Double.parseDouble(this.givenMin));
                 }
                 if(this.givenMin == null) {
-                    return this.CompareValue(((ActivityVertex) v).getAttributeValueInteger(this.attribute), Double.parseDouble(this.givenMax), this.min);
+                    return this.CompareValue(((ActivityVertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMax), this.min);
                 }
                 else {
-                    return this.CompareValue(((ActivityVertex) v).getAttributeValueInteger(this.attribute), Double.parseDouble(this.givenMax), Double.parseDouble(this.givenMin));
+                    return this.CompareValue(((ActivityVertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMax), Double.parseDouble(this.givenMin));
                 }
             }
         }

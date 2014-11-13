@@ -40,13 +40,6 @@ public class ActivityVertex extends Vertex {
         super(array[0], array[1], array[2], array[3]);
     }
 
-    @Override
-    public Stroke getStroke(float width) {
-        //dash = null returns a continuous line
-        float[] dash = {4.0f};
-        final Stroke nodeStroke = new BasicStroke(width, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
-        return nodeStroke;
-    }
 
     @Override
     public Paint getColor() {
