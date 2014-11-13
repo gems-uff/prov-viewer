@@ -104,7 +104,7 @@ public class Filters {
                 boolean returnValue = false;
                 for (int i = 0; i < filtersL.size(); i++) {
                     String filter = (String) filtersL.get(i);
-                    if (edge.getInfluence().contains(filter)) {
+                    if (edge.getEdgeInfluence().contains(filter)) {
                         if (!returnValue) {
                             returnValue = true;
                         }

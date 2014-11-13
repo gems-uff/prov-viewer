@@ -187,7 +187,7 @@ public abstract class Vertex extends Object {
         String attributeList = "";
         for(Attribute att : getAttributes())
         {
-            attributeList += att.getName() + ": " + att.getValue() + " <br>";
+            attributeList += att.printAttribute();
         }
         return attributeList;
     }

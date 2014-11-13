@@ -725,7 +725,7 @@ public class GraphFrame extends javax.swing.JFrame {
         @Override
             public String transform(Edge n) 
             {
-                return n.getInfluence();
+                return n.getEdgeInfluence();
             }
         });
     }

@@ -52,7 +52,7 @@ public class Variables extends Object {
      * @return max value between value and edge.getValue
      */
     public float CompareMax(String type, float value, Edge edge) {
-        if ((edge.getType().contains(type))) {
+        if ((edge.getInfluence().contains(type))) {
             value = Math.max(value, Math.abs(edge.getValue()));
         }
         return value;
@@ -68,7 +68,7 @@ public class Variables extends Object {
      * @return max value between value and edge.getValue
      */
     public float CompareMin(String type, float value, Edge edge) {
-        if ((edge.getType().contains(type))) {
+        if ((edge.getInfluence().contains(type))) {
             value = Math.min(value, Math.abs(edge.getValue()));
         }
         return value;
@@ -84,7 +84,7 @@ public class Variables extends Object {
      * @return added value between value and edge.getValue
      */
     public float Add(String type, float value, Edge edge) {
-        if (edge.getType().contains(type)) {
+        if (edge.getInfluence().contains(type)) {
             value += Math.abs(edge.getValue());
         }
         return value;

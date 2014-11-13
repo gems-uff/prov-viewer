@@ -49,4 +49,9 @@ public class Attribute {
     {
         this.value = t;
     }
+    
+    public String printAttribute()
+    {
+        return this.getName() + ": " + this.getValue() + " <br>";
+    }
 }

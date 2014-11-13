@@ -127,8 +127,8 @@ public class Collapser {
                 Comparator comparator = new Comparator<Edge>() {
                     @Override
                     public int compare(Edge s1, Edge s2) {
-                        //return (s1.getType() + ((Object) s1.getSource()).toString()).compareTo((s2.getType() + ((Object) s2.getSource()).toString()));
-                        return (s1.getType() + ((Object) s1.getTarget()).toString()).compareTo((s2.getType() + ((Object) s2.getTarget()).toString()));
+                        //return (s1.getInfluence() + ((Object) s1.getSource()).toString()).compareTo((s2.getInfluence() + ((Object) s2.getSource()).toString()));
+                        return (s1.getInfluence() + ((Object) s1.getTarget()).toString()).compareTo((s2.getInfluence() + ((Object) s2.getTarget()).toString()));
                     }
                 };
                 //Sort edges by type and target (alphabetical order)
@@ -145,7 +145,7 @@ public class Collapser {
                     float value = ((Edge) sorted.get(j)).getValue();
 
                     // while same type and target
-                    while ((j < (sorted.size() - 1)) && ((Edge) sorted.get(j)).getType().equals(((Edge) sorted.get(j + 1)).getType())) {
+                    while ((j < (sorted.size() - 1)) && ((Edge) sorted.get(j)).getInfluence().equals(((Edge) sorted.get(j + 1)).getInfluence())) {
                         boolean sameGraph = false;
                         //check if there is any graph_vertex.
                         for (Object g : variables.layout.getGraph().getVertices()) {
@@ -184,21 +184,22 @@ public class Collapser {
                         }
                         String influence;
                         //If it is neutral, dont add the 0.0 value
-                        if (((Edge) sorted.get(j)).getType().equalsIgnoreCase("Neutral")) {
-                            influence = ((Edge) sorted.get(j)).getType();
-                        } else {
-                            influence = value + " " + ((Edge) sorted.get(j)).getType();
-                        }
+//                        if (((Edge) sorted.get(j)).getInfluence().equalsIgnoreCase("Neutral")) {
+//                            influence = ((Edge) sorted.get(j)).getInfluence();
+//                        } else {
+//                            influence = value + " " + ((Edge) sorted.get(j)).getInfluence();
+//                        }
+                        influence = ((Edge) sorted.get(j)).getInfluence();
                         //Create collpased edge and add it in the graph                        
                         Edge edge;
                         if (target == null) {
                             //source = ((Edge) sorted.get(j)).getSource();
                             //edge = CollapsedEdgeType(node, target, influence);
                             target = ((Edge) sorted.get(j)).getTarget();
-                            edge = CollapsedEdgeType(target, node, influence);
+                            edge = CollapsedEdgeType(target, node, influence, Float.toString(value));
                         } else {
                             //edge = CollapsedEdgeType(node, target, influence);
-                            edge = CollapsedEdgeType(target, node, influence);
+                            edge = CollapsedEdgeType(target, node, influence, Float.toString(value));
                         }
                         //======================================================
 
@@ -211,7 +212,7 @@ public class Collapser {
         }//end for
         //Add collapsed edges in the graph
         for (Edge edge : addEdges) {
-//            System.out.println(edge.getInfluence());
+//            System.out.println(edge.getEdgeInfluence());
             newGraph.addEdge(edge, edge.getSource(), edge.getTarget());
         }
         //Remove old collapsed edges
@@ -349,8 +350,9 @@ public class Collapser {
      * damage")
      * @return
      */
-    public Edge CollapsedEdgeType(Object target, Object source, String influence) {
-        return new Edge("C", target, source, influence);
+    public Edge CollapsedEdgeType(Object target, Object source, String influence, String value) {
+//        return new Edge("C", target, source, influence);
+        return new Edge("C", influence, influence, value, "Collapsed", target, source);
     }
 
     public void CollapseIrrelevant(Variables variables, Filters filter, String list, String edgetype) {

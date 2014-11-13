@@ -65,17 +65,48 @@ public abstract class XMLReader {
         }
     }
 
-    public void AddEdge(String id, String type, String label, String value, String target, String source)
+    /**
+     * Create the edge and add to the Map
+     * @param id
+     * @param influence
+     * @param type
+     * @param value
+     * @param label
+     * @param target
+     * @param source 
+     */
+    public void AddEdge(String id, String influence, String type, String value, String label, String target, String source)
     {
-        Edge edge = new Edge(id, type, label, value, nodes.get(target), nodes.get(source));
+        Edge edge = new Edge(id, influence, type, value, label, nodes.get(target), nodes.get(source));
         edges.add(edge);
     }
     
+    /**
+     *  Overload method from AddEdge without Label
+     * @param id
+     * @param influence
+     * @param type
+     * @param value
+     * @param target
+     * @param source 
+     */
+    public void AddEdge(String id, String influence, String type, String value, String target, String source)
+    {
+        AddEdge(id, influence, type, value, "", target, source);
+    }
+    
+    /**
+     * Method to add Vertex to the Map
+     * @param node 
+     */
     public void AddNode(Vertex node)
     {
         nodes.put(node.getID(), node);
     }
     
+    /**
+     * Abstract method to read a XML file depending on the XML-Schema
+     */
     public abstract void ReadXML();
 
 }
