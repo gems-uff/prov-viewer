@@ -5,6 +5,7 @@
  */
 package br.uff.ic.provviewer.Input;
 
+import br.uff.ic.provviewer.Attribute;
 import br.uff.ic.provviewer.Edge.Edge;
 import br.uff.ic.provviewer.Vertex.Vertex;
 import java.io.File;
@@ -63,6 +64,12 @@ public abstract class XMLReader {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    public void AddEdge(String id, String influence, String type, String value, String label, Map<String, Attribute> attributes, String target, String source)
+    {
+        Edge edge = new Edge(id, influence, type, value, label, attributes, nodes.get(target), nodes.get(source));
+        edges.add(edge);
     }
 
     /**

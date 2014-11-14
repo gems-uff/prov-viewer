@@ -1,9 +1,11 @@
 package br.uff.ic.provviewer.Edge;
 
 import br.uff.ic.provviewer.Attribute;
+import br.uff.ic.provviewer.GraphObject;
 import br.uff.ic.provviewer.Input.Config;
 import java.awt.Color;
 import java.awt.Paint;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +14,7 @@ import java.util.Map;
  *
  * @author Kohwalter
  */
-public class Edge {
+public class Edge extends GraphObject{
 
     private String id;
     private Object source;
@@ -28,7 +30,7 @@ public class Edge {
 //    private String location;
 //    private String type;
 //    private String role;
-    private Map<String, Attribute> attributes;
+    
 
     /**
      * Constructor
@@ -283,31 +285,62 @@ public class Edge {
         return true;
     }
     
-    /**
-     * Method that generates a String with all attributes names and values
-     * @return String containing attribute names and values
-     */
-    public String PrintAttributes()
-    {
-        String attributeList = "";
-        for(Attribute att : attributes.values())
-        {
-            attributeList += att.printAttribute();
-        }
-        return attributeList;
-    }
-    
-    /**
-     * Method to check if it is possible to parse the value to float
-     * @param value desired to be parsed to float
-     * @return boolean
-     */
-    boolean tryParseFloat(String value) {
-        try {
-            Float.parseFloat(value);
-            return true;
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
-    }
+//     /**
+//     * Get method to return one specific attribute
+//     * @param attribute Desired attribute name
+//     * @return the attribute, containing name and value
+//     */
+//    public Attribute getAttribute(String attribute)
+//    {
+//        return attributes.get(attribute);
+//    }
+//    
+//    /**
+//     * Get method for all attributes
+//     * @return vertex attributes as collection
+//     */
+//    public Collection<Attribute> getAttributes()
+//    {
+//        return attributes.values();
+//    }
+//    
+//    /**
+//     * Method that generates a String with all attributes names and values
+//     * @return String containing attribute names and values
+//     */
+//    public String PrintAttributes()
+//    {
+//        String attributeList = "";
+//        if(!attributes.values().isEmpty())
+//        {
+//            for(Attribute att : attributes.values())
+//            {
+//                attributeList += att.printAttribute();
+//            }
+//        }
+//        return attributeList;
+//    }
+//    
+//    /**
+//     * Method to add a new vertex attribute in the attribute map
+//     * @param att New attribute to be added
+//     */
+//    public void AddAttribute(Attribute att)
+//    {
+//        attributes.put(att.getName(), att);
+//    }
+//    
+//    /**
+//     * Method to check if it is possible to parse the value to float
+//     * @param value desired to be parsed to float
+//     * @return boolean
+//     */
+//    public boolean tryParseFloat(String value) {
+//        try {
+//            Float.parseFloat(value);
+//            return true;
+//        } catch (NumberFormatException nfe) {
+//            return false;
+//        }
+//    }
 }

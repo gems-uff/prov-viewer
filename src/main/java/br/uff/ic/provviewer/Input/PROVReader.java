@@ -13,6 +13,8 @@ import br.uff.ic.provviewer.Vertex.Vertex;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -59,15 +61,18 @@ public class PROVReader extends XMLReader {
 //        ReadPlan();
     }
 
-    public void GetVertexValues(String elementType) {
+    public void GetVertexValues(String elementType, Boolean isVertex, Boolean activityAsTarget) {
         NodeList nList;
 
         nList = doc.getElementsByTagName(elementType);
 
         for (int temp = 0; temp < nList.getLength(); temp++) {
             Node nNode = nList.item(temp);
+            
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) nNode;
+                
+                Map<String, Attribute> attributes  = new HashMap<String, Attribute>();
 
                 Vertex vertex;
                 // Primary Attributes
@@ -80,45 +85,54 @@ public class PROVReader extends XMLReader {
                 // Secundary Attributes
                 String time = "0";  // Time and startTime
                 String endTime = "";
-
+                String primarySource = "";
+                String secondarySource = "";
+                String primaryTarget = "";
+                String secondaryTarget = "";
+                String plan = "";
+              
                 // Initial Attributes
-                GetProvVertexSecundaryAttributes(eElement, time, endTime);
+                GetProvSecondaryAttributes(eElement, time, endTime, primarySource, 
+                        secondarySource, primaryTarget, secondaryTarget, plan, activityAsTarget);
                 // Prov attributes
                 GetProvAttributes(eElement, label, location, role, type, value, id);
-
-                // Check vertex type
-                if (type.equalsIgnoreCase("Activity")) {
-                    vertex = new ActivityVertex(id, label, time, "");
-                } else if (type.equalsIgnoreCase("Entity")) {
-                    vertex = new EntityVertex(id, label, time, "");
-                } else { //Agent
-                    vertex = new AgentVertex(id, label, time, "");
-                }
-
+                
                 // Add Prov Attributes
-                AddProvAttributes(vertex, label, location, role, type, value, endTime);
+                AddProvAttributes(attributes, label, location, role, type, value,
+                        endTime, plan);
 
                 // Add ##other attributes
-                HasOtherAttributes(nNode, vertex);
+                HasOtherAttributes(nNode, attributes);
+                
+                HasOtherElements(nNode);
+                    
+                if(isVertex)
+                {
+                // Check vertex type
+                    if (elementType.equalsIgnoreCase("Activity")) {
+                        vertex = new ActivityVertex(id, label, time, "");
+                    } else if (elementType.equalsIgnoreCase("Entity")) {
+                        vertex = new EntityVertex(id, label, time, "");
+                    } else { //Agent
+                        vertex = new AgentVertex(id, label, time, "");
+                    }
+                    // Add attributes to vertex
+                    vertex.AddAllAttributes(attributes);
 
-                AddNode(vertex);
+                    AddNode(vertex);
+                }
+                else
+                {   // is Edge
+                    
+                    
+                }
             }
         }
     }
 
-    public void ReadEntity() {
-        GetVertexValues("Entity");
-    }
-
-    private void ReadActivity() {
-        GetVertexValues("Activity");
-    }
-
-    private void ReadAgent() {
-        GetVertexValues("Agent");
-    }
-
-    private void GetProvVertexSecundaryAttributes(Element eElement, String time, String endTime) {
+    private void GetProvSecondaryAttributes(Element eElement, String time, String endTime,
+            String primarySource, String secondarySource, String primaryTarget, String secondaryTarget,
+            String plan, Boolean activityAsTarget) {
         if (eElement.getElementsByTagName("startTime").item(0) != null) {
             time = eElement.getElementsByTagName("startTime").item(0).getTextContent();
         }
@@ -128,9 +142,87 @@ public class PROVReader extends XMLReader {
         if (eElement.getElementsByTagName("time").item(0) != null) {
             time = eElement.getElementsByTagName("time").item(0).getTextContent();
         }
+        if (eElement.getElementsByTagName("plan").item(0) != null) {
+            plan = eElement.getElementsByTagName("plan").item(0).getTextContent();
+        }
+        
+        // Assign source and target
+        if(activityAsTarget)
+        {
+            if (eElement.getElementsByTagName("entity").item(0) != null) {
+                primarySource = eElement.getElementsByTagName("entity").item(0).getTextContent();
+            }
+            if (eElement.getElementsByTagName("activity").item(0) != null) {
+                primaryTarget = eElement.getElementsByTagName("activity").item(0).getTextContent();
+            }
+        }
+        else
+        {
+            if (eElement.getElementsByTagName("activity").item(0) != null) {
+                primarySource = eElement.getElementsByTagName("activity").item(0).getTextContent();
+            }
+            if (eElement.getElementsByTagName("entity").item(0) != null) {
+                primaryTarget = eElement.getElementsByTagName("entity").item(0).getTextContent();
+            }
+        }
+        // Communication
+        if (eElement.getElementsByTagName("informed").item(0) != null) {
+            primarySource = eElement.getElementsByTagName("informed").item(0).getTextContent();
+        }
+        if (eElement.getElementsByTagName("informant").item(0) != null) {
+            primaryTarget = eElement.getElementsByTagName("informant").item(0).getTextContent();
+        }
+        
+        // Trigger
+        if (eElement.getElementsByTagName("trigger").item(0) != null) {
+            primaryTarget = eElement.getElementsByTagName("trigger").item(0).getTextContent();
+        }
+        
+        // Starter
+        if (eElement.getElementsByTagName("starter").item(0) != null) {
+            primaryTarget = eElement.getElementsByTagName("starter").item(0).getTextContent();
+        }
+        
+        // Ender
+        if (eElement.getElementsByTagName("ender").item(0) != null) {
+            primaryTarget = eElement.getElementsByTagName("ender").item(0).getTextContent();
+        }
+        
+        // Agent
+        if (eElement.getElementsByTagName("agent").item(0) != null) {
+            primaryTarget = eElement.getElementsByTagName("agent").item(0).getTextContent();
+        }
+        
+        // Influence
+        if (eElement.getElementsByTagName("influencee").item(0) != null) {
+            primarySource = eElement.getElementsByTagName("influencee").item(0).getTextContent();
+        }
+        if (eElement.getElementsByTagName("influencer").item(0) != null) {
+            primaryTarget = eElement.getElementsByTagName("influencer").item(0).getTextContent();
+        }
+        
+        // Specialization
+        if (eElement.getElementsByTagName("specificEntity").item(0) != null) {
+            primarySource = eElement.getElementsByTagName("specificEntity").item(0).getTextContent();
+        }
+        if (eElement.getElementsByTagName("generalEntity").item(0) != null) {
+            primaryTarget = eElement.getElementsByTagName("generalEntity").item(0).getTextContent();
+        }
+        
+        // Alternate
+        if (eElement.getElementsByTagName("alternate1").item(0) != null) {
+            primarySource = eElement.getElementsByTagName("alternate1").item(0).getTextContent();
+        }
+        if (eElement.getElementsByTagName("alternate2").item(0) != null) {
+            primaryTarget = eElement.getElementsByTagName("alternate2").item(0).getTextContent();
+        }
+
+        // TODO: Derivation and Delegation assignments
+        
     }
 
-    public void GetProvAttributes(Element eElement, String label, String location, String role, String type, String value, String id) {
+    public void GetProvAttributes(Element eElement, String label, String location, 
+            String role, String type, String value, String id) {
         if (eElement.getElementsByTagName("label").item(0) != null) {
             label = eElement.getElementsByTagName("prov:label").item(0).getTextContent();
         }
@@ -146,35 +238,44 @@ public class PROVReader extends XMLReader {
         if (eElement.getElementsByTagName("prov:value").item(0) != null) {
             value = eElement.getElementsByTagName("prov:value").item(0).getTextContent();
         }
-        id = eElement.getAttribute("prov:id");
+        if(eElement.getAttribute("prov:id") != null) {
+            id = eElement.getAttribute("prov:id");
+        }
     }
 
-    public void AddProvAttributes(Vertex vertex, String label, String location, String role, String type, String value, String endTime) {
+    public void AddProvAttributes(Map<String, Attribute> attributes, String label, String location, 
+            String role, String type, String value, String endTime, String plan) {
         Attribute att;
         if (!"".equals(endTime)) {
             att = new Attribute("endTime", endTime);
-            vertex.AddAttribute(att);
+            attributes.put(att.getName(), att);
         }
         if (!"".equals(location)) {
             att = new Attribute("prov:location", location);
-            vertex.AddAttribute(att);
+            attributes.put(att.getName(), att);
         }
         if (!"".equals(role)) {
             att = new Attribute("prov:role", role);
-            vertex.AddAttribute(att);
+            attributes.put(att.getName(), att);
         }
         if (!"".equals(type)) {
             att = new Attribute("prov:type", type);
-            vertex.AddAttribute(att);
+            attributes.put(att.getName(), att);
         }
         if (!"".equals(value)) {
             att = new Attribute("prov:value", value);
-            vertex.AddAttribute(att);
+            attributes.put(att.getName(), att);
+        }
+        if (!"".equals(plan)) {
+            att = new Attribute("plan", value);
+            attributes.put(att.getName(), att);
         }
     }
 
-    public void HasOtherAttributes(Node nNode, Vertex vertex) {
+    public void HasOtherAttributes(Node nNode, Map<String, Attribute> attributes) {
         Attribute att;
+        
+        //TODO: Ignore known prov attributes
         if (nNode.hasAttributes()) {
             NamedNodeMap nodeMap = nNode.getAttributes();
 
@@ -182,9 +283,26 @@ public class PROVReader extends XMLReader {
 
                 Node node = nodeMap.item(i);
                 att = new Attribute(node.getNodeName(), node.getNodeValue());
-                vertex.AddAttribute(att);
+                attributes.put(att.getName(), att);
             }
         }
+    }
+    
+    private void HasOtherElements(Node nNode) {
+        throw new UnsupportedOperationException("Not yet implemented");
+        //TODO: Ignore known prov attributes
+    }
+    
+    public void ReadEntity() {
+        GetVertexValues("Entity", true, false);
+    }
+
+    private void ReadActivity() {
+        GetVertexValues("Activity", true, false);
+    }
+
+    private void ReadAgent() {
+        GetVertexValues("Agent", true, false);
     }
 }
 

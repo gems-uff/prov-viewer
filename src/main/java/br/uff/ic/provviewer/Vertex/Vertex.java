@@ -1,6 +1,7 @@
 package br.uff.ic.provviewer.Vertex;
 
 import br.uff.ic.provviewer.Attribute;
+import br.uff.ic.provviewer.GraphObject;
 import java.awt.BasicStroke;
 import java.awt.Paint;
 import java.awt.Stroke;
@@ -14,7 +15,7 @@ import java.util.Map;
  * Time format must be either a Number or DayNumber:DayName (for the weekend display mode)
  * @author Kohwalter
  */
-public abstract class Vertex extends Object {
+public abstract class Vertex extends GraphObject {
 
     private String id;                              // prov:id
     private String label;                           // prov:label
@@ -27,7 +28,7 @@ public abstract class Vertex extends Object {
 //    private String type;                            // prov:type
 //    private String endTime;                         // prov:endTime
     
-    private Map<String, Attribute> attributes;      // prov:value
+//    private Map<String, Attribute> attributes;      // prov:value
 
     /**
      * Constructor without attributes
@@ -159,61 +160,61 @@ public abstract class Vertex extends Object {
         }
     }
     
-    /**
-     * Get method to return one specific attribute
-     * @param attribute Desired attribute name
-     * @return the attribute, containing name and value
-     */
-    public Attribute getAttribute(String attribute)
-    {
-        return attributes.get(attribute);
-    }
-    
-    /**
-     * Get method for all attributes
-     * @return vertex attributes as collection
-     */
-    public Collection<Attribute> getAttributes()
-    {
-        return attributes.values();
-    }
-    
-    /**
-     * Method that generates a String with all attributes names and values
-     * @return String containing attribute names and values
-     */
-    public String PrintAttributes()
-    {
-        String attributeList = "";
-        for(Attribute att : getAttributes())
-        {
-            attributeList += att.printAttribute();
-        }
-        return attributeList;
-    }
-    
-    /**
-     * Method to add a new vertex attribute in the attribute map
-     * @param att New attribute to be added
-     */
-    public void AddAttribute(Attribute att)
-    {
-        attributes.put(att.getName(), att);
-    }
-
-    /**
-     * Method to check if it is possible to parse the value to float
-     * @param value desired to be parsed to float
-     * @return boolean
-     */
-    boolean tryParseFloat(String value) {
-        try {
-            Float.parseFloat(value);
-            return true;
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
-    }
+//    /**
+//     * Get method to return one specific attribute
+//     * @param attribute Desired attribute name
+//     * @return the attribute, containing name and value
+//     */
+//    public Attribute getAttribute(String attribute)
+//    {
+//        return attributes.get(attribute);
+//    }
+//    
+//    /**
+//     * Get method for all attributes
+//     * @return vertex attributes as collection
+//     */
+//    public Collection<Attribute> getAttributes()
+//    {
+//        return attributes.values();
+//    }
+//    
+//    /**
+//     * Method that generates a String with all attributes names and values
+//     * @return String containing attribute names and values
+//     */
+//    public String PrintAttributes()
+//    {
+//        String attributeList = "";
+//        for(Attribute att : getAttributes())
+//        {
+//            attributeList += att.printAttribute();
+//        }
+//        return attributeList;
+//    }
+//    
+//    /**
+//     * Method to add a new vertex attribute in the attribute map
+//     * @param att New attribute to be added
+//     */
+//    public void AddAttribute(Attribute att)
+//    {
+//        attributes.put(att.getName(), att);
+//    }
+//
+//    /**
+//     * Method to check if it is possible to parse the value to float
+//     * @param value desired to be parsed to float
+//     * @return boolean
+//     */
+//    private boolean tryParseFloat(String value) {
+//        try {
+//            Float.parseFloat(value);
+//            return true;
+//        } catch (NumberFormatException nfe) {
+//            return false;
+//        }
+//    }
     
     /**
      * Method for getting the vertex border size
