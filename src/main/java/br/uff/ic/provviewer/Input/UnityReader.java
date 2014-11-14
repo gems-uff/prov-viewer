@@ -40,7 +40,7 @@ public class UnityReader extends XMLReader{
                 Element eElement = (Element) nNode;
                 String id = eElement.getElementsByTagName("ID").item(0).getTextContent();
                 String type = eElement.getElementsByTagName("type").item(0).getTextContent();
-                String label = eElement.getElementsByTagName("label").item(0).getTextContent();
+                String label = eElement.getElementsByTagName("label").item(0).getTextContent();                
                 String date = eElement.getElementsByTagName("date").item(0).getTextContent();
                 
                 Vertex node;
@@ -84,8 +84,6 @@ public class UnityReader extends XMLReader{
                 String value = eElement.getElementsByTagName("value").item(0).getTextContent();
                 String source = eElement.getElementsByTagName("sourceID").item(0).getTextContent();
                 String target = eElement.getElementsByTagName("targetID").item(0).getTextContent();
-//                Edge edge = new Edge(id, type, label, value, nodes.get(target), nodes.get(source));
-//                edges.add(edge);
                 AddEdge(id, type, label, value, target, source);
             }
         }

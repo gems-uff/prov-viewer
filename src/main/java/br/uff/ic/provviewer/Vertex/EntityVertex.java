@@ -23,8 +23,8 @@ public class EntityVertex extends Vertex {
         super(id,"","","");
     }
     
-    public EntityVertex(String id, String label, String date, String details) {
-        super(id, label, date, details);
+    public EntityVertex(String id, String label, String time, String details) {
+        super(id, label, time, details);
     }
 
     public EntityVertex(String[] array) {

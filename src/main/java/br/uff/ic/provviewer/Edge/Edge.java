@@ -239,11 +239,11 @@ public class Edge {
     /**
      * Method to override JUNG's default toString method
      *
-     * @return edge influence (value + type)
+     * @return edge details
      */
     @Override
     public String toString() {
-        return this.type + "<br>" + this.label;
+        return this.type + "<br>" + this.label + "<br>" + PrintAttributes();
     }
 
     /**
