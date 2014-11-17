@@ -29,6 +29,15 @@ public class UnityReader extends XMLReader{
 
     @Override
     public void ReadXML() {
+        //Read all vertices
+        ReadVertex();
+
+        //Read all edges
+        ReadEdge();
+    }
+    
+    public void ReadVertex()
+    {
         NodeList nList;
 
         //Read all vertices
@@ -70,6 +79,11 @@ public class UnityReader extends XMLReader{
                 AddNode(node);
             }
         }
+    }
+    
+    public void ReadEdge()
+    {
+        NodeList nList;
 
         //Read all edges
         nList = doc.getElementsByTagName("edge");

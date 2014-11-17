@@ -35,33 +35,33 @@ public class PROVReader extends XMLReader {
         ReadEntity();
         ReadActivity();
         ReadAgent();
-//        ReadGeneration();
-//        ReadUsage();
-//        ReadCommunication();
-//        ReadStart();
-//        ReadEnd();
-//        ReadInvalidation();
+        ReadGeneration();
+        ReadUsage();
+        ReadCommunication();
+        ReadStart();
+        ReadEnd();
+        ReadInvalidation();
 //        ReadDerivation();
 //        ReadRevision();
 //        ReadQuotation();
 //        PrimarySource();
-//        ReadPerson();
-//        ReadOrganization();
-//        ReadSoftwareAgent();
-//        ReadAttribution();
-//        ReadAssociation();
+        ReadPerson();
+        ReadOrganization();
+        ReadSoftwareAgent();
+        ReadAttribution();
+        ReadAssociation();
 //        ReadDelegation();
-//        ReadInfluence();
+        ReadInfluence();
 //        ReadBundle();
-//        ReadSpecialization();
-//        ReadAlternate();
+        ReadSpecialization();
+        ReadAlternate();
 //        ReadCollection();
 //        ReadEmptyCollection();
 //        ReadMembership();
 //        ReadPlan();
     }
 
-    public void GetVertexValues(String elementType, Boolean isVertex, Boolean activityAsTarget) {
+    public void GetXMLValues(String elementType, Boolean isVertex, Boolean activityAsTarget) {
         NodeList nList;
 
         nList = doc.getElementsByTagName(elementType);
@@ -74,7 +74,6 @@ public class PROVReader extends XMLReader {
                 
                 Map<String, Attribute> attributes  = new HashMap<String, Attribute>();
 
-                Vertex vertex;
                 // Primary Attributes
                 String label = "";
                 String location = "";
@@ -95,19 +94,20 @@ public class PROVReader extends XMLReader {
                 GetProvSecondaryAttributes(eElement, time, endTime, primarySource, 
                         secondarySource, primaryTarget, secondaryTarget, plan, activityAsTarget);
                 // Prov attributes
-                GetProvAttributes(eElement, label, location, role, type, value, id);
+                GetProvPrimaryAttributes(eElement, label, location, role, type, value, id);
                 
                 // Add Prov Attributes
-                AddProvAttributes(attributes, label, location, role, type, value,
+                AddProvAttributes(attributes, location, role, type, value,
                         endTime, plan);
 
                 // Add ##other attributes
                 HasOtherAttributes(nNode, attributes);
                 
-                HasOtherElements(nNode);
+//                HasOtherElements(nNode);
                     
                 if(isVertex)
                 {
+                    Vertex vertex;
                 // Check vertex type
                     if (elementType.equalsIgnoreCase("Activity")) {
                         vertex = new ActivityVertex(id, label, time, "");
@@ -123,8 +123,7 @@ public class PROVReader extends XMLReader {
                 }
                 else
                 {   // is Edge
-                    
-                    
+                    AddEdge(id, "", type, value, label, attributes, primaryTarget, primarySource);
                 }
             }
         }
@@ -221,7 +220,7 @@ public class PROVReader extends XMLReader {
         
     }
 
-    public void GetProvAttributes(Element eElement, String label, String location, 
+    public void GetProvPrimaryAttributes(Element eElement, String label, String location, 
             String role, String type, String value, String id) {
         if (eElement.getElementsByTagName("label").item(0) != null) {
             label = eElement.getElementsByTagName("prov:label").item(0).getTextContent();
@@ -243,7 +242,7 @@ public class PROVReader extends XMLReader {
         }
     }
 
-    public void AddProvAttributes(Map<String, Attribute> attributes, String label, String location, 
+    public void AddProvAttributes(Map<String, Attribute> attributes, String location, 
             String role, String type, String value, String endTime, String plan) {
         Attribute att;
         if (!"".equals(endTime)) {
@@ -267,7 +266,7 @@ public class PROVReader extends XMLReader {
             attributes.put(att.getName(), att);
         }
         if (!"".equals(plan)) {
-            att = new Attribute("plan", value);
+            att = new Attribute("plan", plan);
             attributes.put(att.getName(), att);
         }
     }
@@ -275,15 +274,17 @@ public class PROVReader extends XMLReader {
     public void HasOtherAttributes(Node nNode, Map<String, Attribute> attributes) {
         Attribute att;
         
-        //TODO: Ignore known prov attributes
         if (nNode.hasAttributes()) {
             NamedNodeMap nodeMap = nNode.getAttributes();
 
             for (int i = 0; i < nodeMap.getLength(); i++) {
 
                 Node node = nodeMap.item(i);
-                att = new Attribute(node.getNodeName(), node.getNodeValue());
-                attributes.put(att.getName(), att);
+                if(!node.getNodeName().equalsIgnoreCase("prov:id"))
+                {
+                    att = new Attribute(node.getNodeName(), node.getNodeValue());
+                    attributes.put(att.getName(), att);
+                }
             }
         }
     }
@@ -294,16 +295,74 @@ public class PROVReader extends XMLReader {
     }
     
     public void ReadEntity() {
-        GetVertexValues("Entity", true, false);
+        GetXMLValues("Entity", true, false);
     }
 
     private void ReadActivity() {
-        GetVertexValues("Activity", true, false);
+        GetXMLValues("Activity", true, false);
     }
 
     private void ReadAgent() {
-        GetVertexValues("Agent", true, false);
+        GetXMLValues("Agent", true, false);
     }
+
+    private void ReadGeneration() {
+        GetXMLValues("Generation", false, true);
+    }
+
+    private void ReadUsage() {
+        GetXMLValues("Usage", false, false);
+    }
+
+    private void ReadCommunication() {
+        GetXMLValues("Communication", false, false);
+    }
+
+    private void ReadStart() {
+        GetXMLValues("Start", false, false);
+    }
+
+    private void ReadEnd() {
+        GetXMLValues("End", false, false);
+    }
+
+    private void ReadInvalidation() {
+        GetXMLValues("Invalidation", false, true);
+    }
+
+    private void ReadPerson() {
+        GetXMLValues("Person", true, false);
+    }
+
+    private void ReadOrganization() {
+        GetXMLValues("Organization", true, false);
+    }
+
+    private void ReadSoftwareAgent() {
+        GetXMLValues("SoftwareAgent", true, false);
+    }
+    
+    private void ReadAttribution() {
+        GetXMLValues("Attribution", false, false);
+    }
+
+    private void ReadAssociation() {
+        GetXMLValues("Association", false, false);
+    }
+
+    private void ReadInfluence() {
+        GetXMLValues("Influence", false, false);
+    }
+
+    private void ReadSpecialization() {
+        GetXMLValues("Specialization", false, false);
+    }
+
+    private void ReadAlternate() {
+        GetXMLValues("Alternate", false, false);
+    }
+
+    
 }
 
 //Generation

@@ -42,7 +42,8 @@ public class Edge extends GraphObject{
      * @param target
      * @param source 
      */
-    public Edge(String id, String influence, String type, String value, String label, Map<String, Attribute> attributes, Object target, Object source) {
+    public Edge(String id, String influence, String type, String value, 
+            String label, Map<String, Attribute> attributes, Object target, Object source) {
         this.id = id;
         this.source = source;
         this.target = target;
