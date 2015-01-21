@@ -126,13 +126,11 @@
                           <Component id="Reset" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="AttributeStatus" max="32767" attributes="0"/>
-                                  <Component id="StatusFilterBox" min="-2" pref="77" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="Layouts" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="AttributeStatus" min="-2" max="-2" attributes="0"/>
+                              <Component id="Layouts" max="32767" attributes="0"/>
                               <Component id="GraphLayout" min="-2" max="-2" attributes="0"/>
+                              <Component id="StatusFilterBox" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -381,13 +379,14 @@
         <Component class="javax.swing.JComboBox" name="Layouts">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="6">
+              <StringArray count="7">
                 <StringItem index="0" value="CircleLayout"/>
                 <StringItem index="1" value="FRLayout"/>
                 <StringItem index="2" value="FRLayout2"/>
                 <StringItem index="3" value="TemporalLayout"/>
-                <StringItem index="4" value="ISOMLayout"/>
-                <StringItem index="5" value="KKLayout"/>
+                <StringItem index="4" value="CoordinatesLayout"/>
+                <StringItem index="5" value="ISOMLayout"/>
+                <StringItem index="6" value="KKLayout"/>
               </StringArray>
             </Property>
           </Properties>

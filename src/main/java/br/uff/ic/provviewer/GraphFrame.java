@@ -8,6 +8,7 @@ import br.uff.ic.provviewer.Filter.PreFilters;
 import br.uff.ic.provviewer.Inference.PrologInference;
 import br.uff.ic.provviewer.Input.Config;
 import br.uff.ic.provviewer.Input.UnityReader;
+import br.uff.ic.provviewer.Layout.Coordinates_Layout;
 import br.uff.ic.provviewer.Layout.Temporal_Layout;
 import br.uff.ic.provviewer.Stroke.EdgeStroke;
 import br.uff.ic.provviewer.Stroke.VertexStroke;
@@ -58,7 +59,7 @@ import org.apache.commons.collections15.Transformer;
  */
 public class GraphFrame extends javax.swing.JFrame {
     final Set exclusions = new HashSet();
-    static String demo = "/2D_Provenance.xml";
+    static String demo = "/Car_Tutorial.xml";
     
 //    VisualizationViewer<Object, Edge> view;
 //    Layout<Object, Edge> layout;
@@ -134,6 +135,7 @@ public class GraphFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Prov Viewer");
+        getContentPane().setLayout(new java.awt.BorderLayout());
 
         ToolMenu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -229,7 +231,7 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         EdgeTypes.setViewportView(FilterList);
 
-        Layouts.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CircleLayout", "FRLayout", "FRLayout2", "TemporalLayout", "ISOMLayout", "KKLayout" }));
+        Layouts.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CircleLayout", "FRLayout", "FRLayout2", "TemporalLayout", "CoordinatesLayout", "ISOMLayout", "KKLayout" }));
         Layouts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LayoutsActionPerformed(evt);
@@ -279,12 +281,11 @@ public class GraphFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Reset))
                     .addGroup(ToolMenuLayout.createSequentialGroup()
-                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(AttributeStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(StatusFilterBox, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(Layouts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(GraphLayout))
+                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(AttributeStatus)
+                            .addComponent(Layouts, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(GraphLayout)
+                            .addComponent(StatusFilterBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(EdgeStyle)
@@ -375,8 +376,8 @@ public class GraphFrame extends javax.swing.JFrame {
 
         setJMenuBar(MenuBar);
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-672)/2, (screenSize.height-738)/2, 672, 738);
+        setSize(new java.awt.Dimension(672, 738));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     /**
      * ================================================
@@ -552,6 +553,9 @@ public class GraphFrame extends javax.swing.JFrame {
         }
         if (layout.equalsIgnoreCase("TemporalLayout")) {
             variables.layout = new Temporal_Layout<Object, Edge>(variables.layout.getGraph());
+        }
+        if (layout.equalsIgnoreCase("CoordinatesLayout")) {
+            variables.layout = new Coordinates_Layout<Object, Edge>(variables.layout.getGraph());
         }
         if (layout.equalsIgnoreCase("ISOMLayout")) {
             variables.layout = new ISOMLayout<Object, Edge>(variables.layout.getGraph());

@@ -5,10 +5,8 @@
 package br.uff.ic.provviewer.Vertex;
 
 import br.uff.ic.provviewer.Input.Config;
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Paint;
-import java.awt.Stroke;
 
 /**
  * Subclass for Vertex named after PROV nomenclature and type

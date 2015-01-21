@@ -26,16 +26,6 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
     @Override
     public Shape transform(V v) {
         if (v instanceof Graph) {
-//            String line = ((Graph) v).toString();
-//            if (line.contains("Entity")) {
-//                return new Ellipse2D.Float(-7, -7, 20, 20);
-//            } else if ((line.contains("Agent"))) {
-//                return factory.getRegularPolygon(v, 5);
-//            } else {
-//                return factory.getRegularPolygon(v, 4);
-//            }
-            
-            
             Object vertex;
             vertex = (((Graph) v).getVertices()).iterator().next();
             while (vertex instanceof Graph) {

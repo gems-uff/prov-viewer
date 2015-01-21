@@ -51,7 +51,7 @@ public class Config {
     public static List<Paint> actVerColor = new ArrayList<Paint>();
 
     public void Initialize() {
-        URL location = this.getClass().getResource("/2D_Provenance_config.xml");
+        URL location = this.getClass().getResource("/Car_Tutorial_config.xml");
         File fXmlFile = new File(location.getFile());
 //        File fXmlFile = new File("2D_Provenance_config.xml");
         System.out.println(fXmlFile.getPath());
