@@ -72,7 +72,8 @@ public class EdgeStroke {
         for (int i = 0; i < Config.edgetype.size(); i++) {
             if (edge.getInfluence().contains(Config.edgetype.get(i).type)) {
                 if(Config.edgetype.get(i).stroke.equalsIgnoreCase("MAX")){
-                    return defineStroke(edge.getValue(), Config.edgetype.get(i).max);
+                    float maxAbs = Math.max(Math.abs(Config.edgetype.get(i).max), Math.abs(Config.edgetype.get(i).min));
+                    return defineStroke(edge.getValue(), maxAbs);
                 }
                 else{
                     return defineStroke(edge.getValue(), (Config.edgetype.get(i).total / Config.edgetype.get(i).count));

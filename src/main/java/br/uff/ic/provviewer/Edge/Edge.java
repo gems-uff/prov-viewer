@@ -255,6 +255,28 @@ public class Edge extends GraphObject{
      */
     public Paint getColor() {
         float v = getValue();
+        
+        // Return black if neutral edge (value = 0)
+        if (v == 0) {
+            return new Color(0, 0, 0);
+        }
+        else
+        {
+            int j = 0;
+            for (int i = 0; i < Config.edgetype.size(); i++) {
+                if (this.getInfluence().contains(Config.edgetype.get(i).type)) {
+                    j = i;
+                }
+            }
+            
+            if (v > 0) {
+                return CompareValueGreen(v, 0, Config.edgetype.get(j).max);
+            }
+            else {
+                return CompareValueRed(v, Config.edgetype.get(j).min, 0);
+            }
+        }
+        /*
         //Green
         if (v > 0) {
             return new Color(34, 139, 34);
@@ -265,8 +287,18 @@ public class Edge extends GraphObject{
         else {
             return new Color(0, 0, 0);
         }
+        */
     }
 
+    public Paint CompareValueGreen(float value, double min, double max){
+        int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
+        return new Color(0, Math.min(255, proportion), 0);
+    }
+    public Paint CompareValueRed(float value, double min, double max){
+        int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
+        return new Color(Math.min(255, 510 - proportion), 0, 0);
+    }
+    
     /**
      * Method used during the collapse of edges. This method defines if the
      * collapsed edge influence value will be the sum of the edges values or
