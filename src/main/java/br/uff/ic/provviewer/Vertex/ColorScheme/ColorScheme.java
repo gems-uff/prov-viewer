@@ -64,12 +64,12 @@ public abstract class ColorScheme {
         Collection<Object> nodes = graph.getVertices();
         for (Object node : nodes) {
             if(node instanceof ActivityVertex) {
-                this.max = Math.max(this.max, Math.abs(((ActivityVertex) node).getAttributeValueFloat(this.attribute)));
-                this.min = Math.min(this.min, Math.abs(((ActivityVertex) node).getAttributeValueFloat(this.attribute)));
+                this.max = Math.max(this.max, ((ActivityVertex) node).getAttributeValueFloat(this.attribute));
+                this.min = Math.min(this.min, ((ActivityVertex) node).getAttributeValueFloat(this.attribute));
             }
             else if (node instanceof EntityVertex) {
-                this.max = Math.max(this.max, Math.abs(((EntityVertex) node).getAttributeValueFloat(this.attribute)));
-                this.min = Math.min(this.min, Math.abs(((EntityVertex) node).getAttributeValueFloat(this.attribute)));
+                this.max = Math.max(this.max, ((EntityVertex) node).getAttributeValueFloat(this.attribute));
+                this.min = Math.min(this.min, ((EntityVertex) node).getAttributeValueFloat(this.attribute));
             }
         }
 //        System.out.println("Attribute = " + this.attribute);
