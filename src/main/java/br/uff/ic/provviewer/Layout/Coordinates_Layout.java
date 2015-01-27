@@ -1,5 +1,6 @@
 package br.uff.ic.provviewer.Layout;
 
+import br.uff.ic.provviewer.Input.Config;
 import br.uff.ic.provviewer.Vertex.ActivityVertex;
 import br.uff.ic.provviewer.Vertex.EntityVertex;
 import br.uff.ic.provviewer.Vertex.Vertex;
@@ -76,10 +77,12 @@ public class Coordinates_Layout<V, E> extends AbstractLayout<V, E> implements It
             calcPositions(v2);
         }
         //Check if there are nodes at the same place, if so apply repulsion
-//        for(V v3 : layout_graph.getVertices()) 
-//        {
-//            calcRepulsion(v3);
-//        }
+        
+        for(V v3 : layout_graph.getVertices()) 
+        {
+            calcRepulsion(v3);
+        }
+        
     }
     
     /**
@@ -89,13 +92,13 @@ public class Coordinates_Layout<V, E> extends AbstractLayout<V, E> implements It
     protected synchronized void calcPositions(V v) {
         Point2D xyd = transform(v);
 
-        double newXPos = - ((Vertex)v).getAttributeValueFloat("ObjectPosition_X");
-        double newYPos = ((Vertex)v).getAttributeValueFloat("ObjectPosition_Z");
+        double newXPos = - ((Vertex)v).getAttributeValueFloat(Config.layoutAxis_X);
+        double newYPos = ((Vertex)v).getAttributeValueFloat(Config.layoutAxis_Y);
         
         xyd.setLocation(newXPos, newYPos);
     }
     
-    double variation = 20;
+    double variation = 1.0;
     
     //Check if 2 nodes are at the same position, if so add an offset
     /**
@@ -121,7 +124,7 @@ public class Coordinates_Layout<V, E> extends AbstractLayout<V, E> implements It
                         if(Equals(p1.getX(), p2.getX()) && Equals(p1.getY(), p2.getY()))
                         {
                             p1.setLocation(p1.getX(), p1.getY() - variation);
-                            p2.setLocation(p2.getX(), p2.getY() + variation);
+                            //p2.setLocation(p2.getX(), p2.getY() + variation);
                             //Need to check again in case another node is at the same new position
                             calcRepulsion(v1);
                         }
@@ -132,7 +135,7 @@ public class Coordinates_Layout<V, E> extends AbstractLayout<V, E> implements It
         }
     }
     
-    private double EPSILON = 10.0;
+    private double EPSILON = 1.0;
     
     /**
      * Check if a and b are equals

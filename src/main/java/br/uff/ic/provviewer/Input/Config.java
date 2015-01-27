@@ -38,8 +38,13 @@ public class Config {
 //    public static List<String> edgecollapse = new ArrayList<String>();
     //Modes
     public static Collection<ColorScheme> vertexModes = new ArrayList<ColorScheme>();
+    
     //Temporal Layout
     public static String layoutSpecialVertexType;
+    // Coordinates Layout
+    public static String layoutAxis_X;
+    public static String layoutAxis_Y;
+    
     public static double scale;
     public static boolean showEntityDate;
     //Vertex Stroke variables
@@ -80,6 +85,10 @@ public class Config {
             //Temporal Layout Backbone
             NodeList nList = doc.getElementsByTagName("layoutbackbone");
             layoutSpecialVertexType = nList.item(0).getTextContent();
+            nList = doc.getElementsByTagName("layoutAxis_X");
+            layoutAxis_X = nList.item(0).getTextContent();
+            nList = doc.getElementsByTagName("layoutAxis_Y");
+            layoutAxis_Y = nList.item(0).getTextContent();
             nList = doc.getElementsByTagName("layoutscale");
             scale = Double.parseDouble(nList.item(0).getTextContent());
             nList = doc.getElementsByTagName("showentitydate");

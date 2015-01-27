@@ -9,6 +9,8 @@ and open the template in the editor.
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
     xsi:noNamespaceSchemaLocation='config.xsd'>
     <layoutbackbone>Player</layoutbackbone>
+	<layoutAxis_X>ObjectPosition_X</layoutAxis_X>
+	<layoutAxis_Y>ObjectPosition_Z</layoutAxis_Y>
 	<layoutscale>0.5</layoutscale>
 	<showentitydate>false</showentitydate>
     <edgetype>
