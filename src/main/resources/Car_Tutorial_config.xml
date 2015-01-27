@@ -107,9 +107,27 @@ and open the template in the editor.
         <attribute>Label</attribute>
         <value>Flying</value>
         <vercolor>
-			<r>255</r>
-            <g>180</g>
-            <b>180</b>
+			<r>153</r>
+            <g>51</g>
+            <b>255</b>
+        </vercolor>
+    </activitycolor>
+	<activitycolor>
+        <attribute>Label</attribute>
+        <value>Landing</value>
+        <vercolor>
+			<r>153</r>
+            <g>76</g>
+            <b>0</b>
+        </vercolor>
+    </activitycolor>
+	<activitycolor>
+        <attribute>Label</attribute>
+        <value>Brake</value>
+        <vercolor>
+            <r>0</r>
+            <g>204</g>
+            <b>204</b>
         </vercolor>
     </activitycolor>
 	<activitycolor>
