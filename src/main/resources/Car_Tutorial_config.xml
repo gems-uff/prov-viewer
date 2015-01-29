@@ -90,6 +90,27 @@ and open the template in the editor.
         <goodvalue></goodvalue>
         <badvalue></badvalue>
     </colorscheme>
+	<colorscheme>
+        <attribute>VelocityVector</attribute>
+        <class>ActivityVectorScheme</class>
+        <values></values>
+        <goodvalue></goodvalue>
+        <badvalue></badvalue>
+    </colorscheme>
+	<colorscheme>
+        <attribute>AngularVelocity</attribute>
+        <class>ActivityVectorScheme</class>
+        <values></values>
+        <goodvalue></goodvalue>
+        <badvalue></badvalue>
+    </colorscheme>
+	<colorscheme>
+        <attribute>DragVector</attribute>
+        <class>ActivityVectorScheme</class>
+        <values></values>
+        <goodvalue></goodvalue>
+        <badvalue></badvalue>
+    </colorscheme>
     <vertexstroke>
         <attribute>CurrentGear</attribute>
         <values>0</values>
