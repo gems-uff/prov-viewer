@@ -22,7 +22,7 @@ public class ActivityScheme extends ColorScheme {
     @Override
     public Paint Execute(Object v, final Variables variables) {
         
-        ComputeValue(variables.graph);
+        ComputeValue(variables.graph, true);
         if (v instanceof ActivityVertex) {
             if(!limited) {
                 return this.CompareValue(((ActivityVertex) v).getAttributeValueFloat(this.attribute), this.min, this.max);

@@ -26,6 +26,7 @@ public abstract class ColorScheme {
     public String givenMax;
     public String givenMin;
     public boolean limited;
+    private boolean computedMinMax;
 
     /**
      * This constructor is used by the Default color scheme
@@ -49,6 +50,7 @@ public abstract class ColorScheme {
         this.givenMax = max;
         this.givenMin = min;
         this.limited = inverted;
+        this.computedMinMax = false;
     }
 
     public String GetName() {
@@ -60,17 +62,21 @@ public abstract class ColorScheme {
         return new Color(Math.min(255, 510 - proportion), Math.min(255, proportion), 0);
     }
 
-    public void ComputeValue(DirectedGraph<Object, Edge> graph) {
-        Collection<Object> nodes = graph.getVertices();
-        for (Object node : nodes) {
-            if(node instanceof ActivityVertex) {
-                this.max = Math.max(this.max, ((ActivityVertex) node).getAttributeValueFloat(this.attribute));
-                this.min = Math.min(this.min, ((ActivityVertex) node).getAttributeValueFloat(this.attribute));
+    public void ComputeValue(DirectedGraph<Object, Edge> graph, boolean isActivity) {
+        if(!computedMinMax)
+        {
+            Collection<Object> nodes = graph.getVertices();
+            for (Object node : nodes) {
+                if(node instanceof ActivityVertex && isActivity) {
+                    this.max = Math.max(this.max, ((ActivityVertex) node).getAttributeValueFloat(this.attribute));
+                    this.min = Math.min(this.min, ((ActivityVertex) node).getAttributeValueFloat(this.attribute));
+                }
+                else if (node instanceof EntityVertex && !isActivity) {
+                    this.max = Math.max(this.max, ((EntityVertex) node).getAttributeValueFloat(this.attribute));
+                    this.min = Math.min(this.min, ((EntityVertex) node).getAttributeValueFloat(this.attribute));
+                }
             }
-            else if (node instanceof EntityVertex) {
-                this.max = Math.max(this.max, ((EntityVertex) node).getAttributeValueFloat(this.attribute));
-                this.min = Math.min(this.min, ((EntityVertex) node).getAttributeValueFloat(this.attribute));
-            }
+            computedMinMax = true;
         }
 //        System.out.println("Attribute = " + this.attribute);
 //        System.out.println("Max = " + this.max);

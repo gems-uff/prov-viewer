@@ -30,6 +30,10 @@ import org.w3c.dom.NodeList;
  */
 public class Config {
     
+    //public String demoPath = "/Car_Tutorial_config.xml";
+    //public String demoPath = "/2D_Provenance_config.xml";
+    public String demoPath = "/Angry_Robots_config.xml";
+    
     //Filter List
     public static List<EdgeType> edgetype = new ArrayList<EdgeType>();
     //Edge Stroke
@@ -45,6 +49,7 @@ public class Config {
     public static String layoutAxis_X;
     public static String layoutAxis_Y;
     
+    public static double coordinatesScale;
     public static double scale;
     public static boolean showEntityDate;
     //Vertex Stroke variables
@@ -56,7 +61,7 @@ public class Config {
     public static List<Paint> actVerColor = new ArrayList<Paint>();
 
     public void Initialize() {
-        URL location = this.getClass().getResource("/Car_Tutorial_config.xml");
+        URL location = this.getClass().getResource(demoPath);
         File fXmlFile = new File(location.getFile());
 //        File fXmlFile = new File("2D_Provenance_config.xml");
         System.out.println(fXmlFile.getPath());
@@ -69,6 +74,7 @@ public class Config {
             vertexModes = new ArrayList<ColorScheme>();
             layoutSpecialVertexType = "";
             scale = 1.0;
+            coordinatesScale = 1.0;
             vertexStrokevariables = new ArrayList<String>();
             actVerAtt = new ArrayList<String>();
             actVerValue = new ArrayList<String>();
@@ -89,7 +95,9 @@ public class Config {
             layoutAxis_X = nList.item(0).getTextContent();
             nList = doc.getElementsByTagName("layoutAxis_Y");
             layoutAxis_Y = nList.item(0).getTextContent();
-            nList = doc.getElementsByTagName("layoutscale");
+            nList = doc.getElementsByTagName("coordinatesLayoutScale");
+            coordinatesScale = Double.parseDouble(nList.item(0).getTextContent());
+            nList = doc.getElementsByTagName("temporalLayoutscale");
             scale = Double.parseDouble(nList.item(0).getTextContent());
             nList = doc.getElementsByTagName("showentitydate");
             showEntityDate = Boolean.parseBoolean(nList.item(0).getTextContent());

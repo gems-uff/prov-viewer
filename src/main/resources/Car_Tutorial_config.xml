@@ -11,7 +11,8 @@ and open the template in the editor.
     <layoutbackbone>Player</layoutbackbone>
 	<layoutAxis_X>ObjectPosition_X</layoutAxis_X>
 	<layoutAxis_Y>ObjectPosition_Z</layoutAxis_Y>
-	<layoutscale>0.5</layoutscale>
+	<coordinatesLayoutScale>1</coordinatesLayoutScale>
+	<temporalLayoutscale>0.5</temporalLayoutscale>
 	<showentitydate>false</showentitydate>
     <edgetype>
         <edge>Neutral</edge>

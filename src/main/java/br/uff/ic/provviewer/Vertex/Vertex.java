@@ -148,6 +148,8 @@ public abstract class Vertex extends GraphObject {
      * @return 
      */
     public float getAttributeValueFloat(String attribute) {
+        if(attributes.get(attribute) == null)
+            return 0;
         if(tryParseFloat(attributes.get(attribute).getValue())) {
             return Float.parseFloat(attributes.get(attribute).getValue());
         }

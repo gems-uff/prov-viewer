@@ -11,7 +11,7 @@ and open the template in the editor.
     <layoutbackbone>Player</layoutbackbone>
 	<layoutAxis_X>ObjectPosition_X</layoutAxis_X>
 	<layoutAxis_Y>ObjectPosition_Z</layoutAxis_Y>
-	<coordinatesLayoutScale>10</coordinatesLayoutScale>
+	<coordinatesLayoutScale>25</coordinatesLayoutScale>
 	<temporalLayoutscale>0.5</temporalLayoutscale>
 	<showentitydate>false</showentitydate>
     <edgetype>
@@ -45,7 +45,17 @@ and open the template in the editor.
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
 	<edgetype>
-        <edge>Bomb</edge>
+        <edge>Unlocked</edge>
+        <edgestroke>MEAN</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+	<edgetype>
+        <edge>Interacted</edge>
+        <edgestroke>MEAN</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+	<edgetype>
+        <edge>Respawned</edge>
         <edgestroke>MEAN</edgestroke>
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
@@ -64,8 +74,8 @@ and open the template in the editor.
         <badvalue></badvalue>
     </colorscheme>
     <vertexstroke>
-        <attribute>Health</attribute>
-        <values>0</values>
+        <attribute>ObjectName</attribute>
+        <values>Player</values>
     </vertexstroke>
     <activitycolor>
         <attribute>Health</attribute>
@@ -74,6 +84,42 @@ and open the template in the editor.
             <r>255</r>
             <g>180</g>
             <b>180</b>
+        </vercolor>
+    </activitycolor>
+	<activitycolor>
+        <attribute>ObjectName</attribute>
+        <value>Player</value>
+        <vercolor>
+            <r>0</r>
+            <g>255</g>
+            <b>0</b>
+        </vercolor>
+    </activitycolor>
+	<activitycolor>
+        <attribute>ObjectName</attribute>
+        <value>KamikazeBuzzer</value>
+        <vercolor>
+            <r>255</r>
+            <g>155</g>
+            <b>0</b>
+        </vercolor>
+    </activitycolor>
+	<activitycolor>
+        <attribute>ObjectName</attribute>
+        <value>EnemySpider</value>
+        <vercolor>
+            <r>255</r>
+            <g>0</g>
+            <b>155</b>
+        </vercolor>
+    </activitycolor>
+	<activitycolor>
+        <attribute>ObjectName</attribute>
+        <value>EnemyMech</value>
+        <vercolor>
+            <r>255</r>
+            <g>0</g>
+            <b>0</b>
         </vercolor>
     </activitycolor>
 

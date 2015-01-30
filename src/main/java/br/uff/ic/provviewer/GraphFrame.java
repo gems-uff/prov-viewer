@@ -59,7 +59,9 @@ import org.apache.commons.collections15.Transformer;
  */
 public class GraphFrame extends javax.swing.JFrame {
     final Set exclusions = new HashSet();
-    static String demo = "/Car_Tutorial.xml";
+    //static String demo = "/Car_Tutorial.xml";
+    static String demo = "/Angry_Robots.xml";
+    //static String demo = "/2D_Provenance.xml";
     
 //    VisualizationViewer<Object, Edge> view;
 //    Layout<Object, Edge> layout;
@@ -659,7 +661,7 @@ public class GraphFrame extends javax.swing.JFrame {
             config.Initialize();
             variables.layout = new Temporal_Layout<Object, Edge>(graph);
             variables.view = new VisualizationViewer<Object, Edge>(variables.layout);
-            Layouts.setSelectedItem("TemporalLayout");
+            Layouts.setSelectedItem("CoordinatesLayout");
             initLayout = false;
         }
         

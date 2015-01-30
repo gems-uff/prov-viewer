@@ -22,7 +22,7 @@ public class EntityScheme extends ColorScheme {
     @Override
     public Paint Execute(Object v, final Variables variables) {
         
-        ComputeValue(variables.graph);
+        ComputeValue(variables.graph, false);
         if (v instanceof EntityVertex) {
             if(!limited) {
                 return this.CompareValue(((EntityVertex) v).getAttributeValueFloat(this.attribute), this.min, this.max);
