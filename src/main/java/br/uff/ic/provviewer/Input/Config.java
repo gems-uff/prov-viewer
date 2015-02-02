@@ -9,6 +9,7 @@ import br.uff.ic.provviewer.GraphFrame;
 import br.uff.ic.provviewer.Vertex.ColorScheme.ActivityRestrictedScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.ColorScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.DefaultScheme;
+import br.uff.ic.provviewer.Vertex.ColorScheme.ProvScheme;
 import java.awt.Color;
 import java.awt.Paint;
 import java.io.File;
@@ -134,8 +135,10 @@ public class Config {
 
             //Vertex Color Schemes
             //Default mode is always set, no matter the config.xml
-            DefaultScheme def = new DefaultScheme("Default");
-            vertexModes.add(def);
+            DefaultScheme defaultScheme = new DefaultScheme("Default");
+            vertexModes.add(defaultScheme);
+            ProvScheme provScheme = new ProvScheme("Prov");
+            vertexModes.add(provScheme);
 
             nList = doc.getElementsByTagName("colorscheme");
             for (int temp = 0; temp < nList.getLength(); temp++) {

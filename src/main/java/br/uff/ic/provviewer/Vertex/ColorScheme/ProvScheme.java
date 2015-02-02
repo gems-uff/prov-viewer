@@ -13,22 +13,18 @@ import java.awt.Paint;
  *
  * @author Kohwalter
  */
-public class DefaultScheme extends ColorScheme {
+public class ProvScheme extends ColorScheme {
 
-    public DefaultScheme(String attribute) {
+    public ProvScheme(String attribute) {
         super(attribute);
     }
 
-    public DefaultScheme(String attribute, String empty, String g, String y, boolean l) {
+    public ProvScheme(String attribute, String empty, String g, String y, boolean l) {
         super(attribute, empty, g, y, l);
     }
 
     @Override
     public Paint Execute(Object v, final Variables variables) {
-        if (v instanceof ActivityVertex) {
-            return ((ActivityVertex) v).getDefaultColor();
-        }
-        else
-            return ((Vertex) v).getColor();
+        return ((Vertex) v).getColor();
     }
 }

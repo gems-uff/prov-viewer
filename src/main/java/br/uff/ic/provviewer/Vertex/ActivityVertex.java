@@ -41,8 +41,16 @@ public class ActivityVertex extends Vertex {
 
     @Override
     public Paint getColor() {
+        return new Color(159, 177, 252);
+    }
+    
+    /**
+     * Color function used by Default Color Scheme
+     * (Activity vertex only)
+     * @return 
+     */
+    public Paint getDefaultColor() {
         for (int i = 0; i < Config.actVerAtt.size(); i++) {
-            //if (this.getAttributeValue(Config.actVerAtt.get(i)).contains(Config.actVerValue.get(i))) {
             if (this.getAttributeValue(Config.actVerAtt.get(i)).equalsIgnoreCase(Config.actVerValue.get(i))) {
                 return Config.actVerColor.get(i);
             }
