@@ -66,6 +66,15 @@ and open the template in the editor.
         <goodvalue></goodvalue>
         <badvalue></badvalue>
     </colorscheme>
+	<colorscheme>
+        <attribute>Health</attribute>
+        <class>ActivityRestrictedScheme</class>
+        <values></values>
+        <goodvalue>100</goodvalue>
+        <badvalue>0</badvalue>
+		<restrictedAttribute>ObjectName</restrictedAttribute>
+        <restrictedValue>Player</restrictedValue>
+    </colorscheme>
     <colorscheme>
         <attribute>Score</attribute>
         <class>ActivityScheme</class>
@@ -118,8 +127,8 @@ and open the template in the editor.
         <value>EnemyMech</value>
         <vercolor>
             <r>255</r>
-            <g>0</g>
-            <b>0</b>
+            <g>150</g>
+            <b>100</b>
         </vercolor>
     </activitycolor>
 

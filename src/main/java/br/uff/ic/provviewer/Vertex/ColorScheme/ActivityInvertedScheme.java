@@ -7,7 +7,6 @@ package br.uff.ic.provviewer.Vertex.ColorScheme;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.provviewer.Vertex.ActivityVertex;
 import br.uff.ic.provviewer.Vertex.Vertex;
-import java.awt.Color;
 import java.awt.Paint;
 
 /**

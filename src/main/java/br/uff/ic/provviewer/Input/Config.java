@@ -6,6 +6,7 @@ package br.uff.ic.provviewer.Input;
 
 import br.uff.ic.provviewer.EdgeType;
 import br.uff.ic.provviewer.GraphFrame;
+import br.uff.ic.provviewer.Vertex.ColorScheme.ActivityRestrictedScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.ColorScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.DefaultScheme;
 import java.awt.Color;
@@ -145,7 +146,10 @@ public class Config {
                     String values = "empty";
                     String maxvalue = null;
                     String minvalue = null;
+                    String restrictedAttribute = null;
+                    String restrictedValue = null;
                     boolean limited = false;
+                    boolean restricted = false;
                     if (!eElement.getElementsByTagName("values").item(0).getTextContent().isEmpty()) {
                         values = eElement.getElementsByTagName("values").item(0).getTextContent();
                     }
@@ -165,11 +169,37 @@ public class Config {
                             limited = true;
                         }
                     }
+                    NodeList restrictedAtt = eElement.getElementsByTagName("restrictedAttribute");
+                    if(restrictedAtt != null && restrictedAtt.getLength() > 0)
+                    {
+                        if (!eElement.getElementsByTagName("restrictedAttribute").item(0).getTextContent().isEmpty()) {
+                            restrictedAttribute = eElement.getElementsByTagName("restrictedAttribute").item(0).getTextContent();
+                            restricted = true;
+                        }
+                    }
+                    NodeList restrictedVal = eElement.getElementsByTagName("restrictedValue");
+                    if(restrictedVal != null && restrictedVal.getLength() > 0)
+                    {
+                        if (!eElement.getElementsByTagName("restrictedValue").item(0).getTextContent().isEmpty()) {
+                            restrictedValue = eElement.getElementsByTagName("restrictedValue").item(0).getTextContent();
+                            restricted = true;
+                        }
+                    }
 
                     Class cl = Class.forName("br.uff.ic.provviewer.Vertex.ColorScheme." + eElement.getElementsByTagName("class").item(0).getTextContent());
-                    Constructor con = cl.getConstructor(String.class, String.class, String.class, String.class, boolean.class);
-                    ColorScheme attMode = (ColorScheme) con.newInstance(attribute, values, maxvalue, minvalue, limited);
-                    vertexModes.add(attMode);
+                    if(restricted)
+                    {
+                        Constructor con = cl.getConstructor(String.class, String.class, String.class, String.class, boolean.class, String.class, String.class);
+                        ColorScheme attMode = (ColorScheme) con.newInstance(attribute, values, maxvalue, minvalue, limited, restrictedAttribute, restrictedValue);
+                        vertexModes.add(attMode);
+                    }
+                    else
+                    {
+                        Constructor con = cl.getConstructor(String.class, String.class, String.class, String.class, boolean.class);
+                        ColorScheme attMode = (ColorScheme) con.newInstance(attribute, values, maxvalue, minvalue, limited);
+                        vertexModes.add(attMode);
+                    }
+                    
                 }
             }
 
