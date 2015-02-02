@@ -13,9 +13,9 @@ import java.awt.Paint;
  *
  * @author Kohwalter
  */
-public class ActivityRestrictedScheme extends ColorScheme {
+public class ActivityInvertedRestrictedScheme extends ColorScheme {
 
-    public ActivityRestrictedScheme(String attribute, String empty, String g, String y, boolean l, String aR, String aV) {
+    public ActivityInvertedRestrictedScheme(String attribute, String empty, String g, String y, boolean l, String aR, String aV) {
         super(attribute, empty, g, y, l, aR, aV);
     }
     
@@ -23,13 +23,13 @@ public class ActivityRestrictedScheme extends ColorScheme {
     public String GetName() {
         return attribute + "(" + this.restrictedValue + ")";
     }
-
+    
     @Override
     public Paint Execute(Object v, final Variables variables) {
         
         ComputeRestrictedValue(variables.graph, true, this.restrictedAttribute, this.restrictedValue);
         if ((v instanceof ActivityVertex) && ((ActivityVertex) v).getAttributeValue(this.restrictedAttribute).equalsIgnoreCase(this.restrictedValue)) {
-            return this.GetMinMaxColor(v);
+            return this.GetInvertedMinMaxColor(v);
         }
         return ((Vertex) v).getColor();
     }

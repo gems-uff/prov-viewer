@@ -8,6 +8,7 @@ import br.uff.ic.provviewer.Edge.Edge;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.provviewer.Vertex.ActivityVertex;
 import br.uff.ic.provviewer.Vertex.EntityVertex;
+import br.uff.ic.provviewer.Vertex.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import java.awt.Color;
 import java.awt.Paint;
@@ -32,19 +33,21 @@ public abstract class ColorScheme {
 
     /**
      * This constructor is used by the Default color scheme
-     * @param attribute 
+     *
+     * @param attribute
      */
     public ColorScheme(String attribute) {
         this.attribute = attribute;
     }
 
     /**
-     * All new Vertex Paint Mode classes must use a constructor with 4 params, 
-     * in the following order and types: String, String, double, double
-     * So it can be recognized by  config.java
-     * Note that the second String actually goes to to a String[] variable and 
-     * is split with " " due to how XML list works
-     * @param attribute 
+     * All new Vertex Paint Mode classes must use a constructor with 4 params,
+     * in the following order and types: String, String, double, double So it
+     * can be recognized by config.java Note that the second String actually
+     * goes to to a String[] variable and is split with " " due to how XML list
+     * works
+     *
+     * @param attribute
      */
     public ColorScheme(String attribute, String value, String max, String min, boolean limited) {
         this.attribute = attribute;
@@ -52,16 +55,16 @@ public abstract class ColorScheme {
         this.givenMax = max;
         this.givenMin = min;
         this.limited = limited;
-        this.computedMinMax = limited;
+        this.computedMinMax = false;
     }
-    
+
     public ColorScheme(String attribute, String value, String max, String min, boolean limited, String rA, String rV) {
         this.attribute = attribute;
         this.value = value.split(" ");
         this.givenMax = max;
         this.givenMin = min;
         this.limited = limited;
-        this.computedMinMax = limited;
+        this.computedMinMax = false;
         this.restrictedAttribute = rA;
         this.restrictedValue = rV;
     }
@@ -70,21 +73,49 @@ public abstract class ColorScheme {
         return attribute;
     }
 
-    public Paint CompareValue(float value, double min, double max){
+    public Paint CompareValue(float value, double min, double max) {
         int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
         return new Color(Math.min(255, 510 - proportion), Math.min(255, proportion), 0);
     }
 
+    public Paint GetMinMaxColor(Object v) {
+        if (!limited) {
+            return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.min, this.max);
+        } else {
+            if (this.givenMax == null) {
+                return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMin), this.max);
+            }
+            if (this.givenMin == null) {
+                return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.min, Double.parseDouble(this.givenMax));
+            } else {
+                return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMin), Double.parseDouble(this.givenMax));
+            }
+        }
+    }
+
+    public Paint GetInvertedMinMaxColor(Object v) {
+        if (!limited) {
+            return this.CompareValue(((ActivityVertex) v).getAttributeValueFloat(this.attribute), this.max, this.min);
+        } else {
+            if (this.givenMax == null) {
+                return this.CompareValue(((ActivityVertex) v).getAttributeValueFloat(this.attribute), this.max, Double.parseDouble(this.givenMin));
+            }
+            if (this.givenMin == null) {
+                return this.CompareValue(((ActivityVertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMax), this.min);
+            } else {
+                return this.CompareValue(((ActivityVertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMax), Double.parseDouble(this.givenMin));
+            }
+        }
+    }
+
     public void ComputeValue(DirectedGraph<Object, Edge> graph, boolean isActivity) {
-        if(!computedMinMax)
-        {
+        if (!computedMinMax) {
             Collection<Object> nodes = graph.getVertices();
             for (Object node : nodes) {
-                if(node instanceof ActivityVertex && isActivity) {
+                if (node instanceof ActivityVertex && isActivity) {
                     this.max = Math.max(this.max, ((ActivityVertex) node).getAttributeValueFloat(this.attribute));
                     this.min = Math.min(this.min, ((ActivityVertex) node).getAttributeValueFloat(this.attribute));
-                }
-                else if (node instanceof EntityVertex && !isActivity) {
+                } else if (node instanceof EntityVertex && !isActivity) {
                     this.max = Math.max(this.max, ((EntityVertex) node).getAttributeValueFloat(this.attribute));
                     this.min = Math.min(this.min, ((EntityVertex) node).getAttributeValueFloat(this.attribute));
                 }
@@ -92,20 +123,17 @@ public abstract class ColorScheme {
             computedMinMax = true;
         }
     }
-    
+
     public void ComputeRestrictedValue(DirectedGraph<Object, Edge> graph, boolean isActivity, String aRestriction, String aValue) {
-        if(!computedMinMax)
-        {
+        if (!computedMinMax) {
             Collection<Object> nodes = graph.getVertices();
             for (Object node : nodes) {
-                if(node instanceof ActivityVertex && isActivity) {
-                    if(((ActivityVertex) node).getAttributeValue(aRestriction).equalsIgnoreCase(aValue))
-                    {
+                if (node instanceof ActivityVertex && isActivity) {
+                    if (((ActivityVertex) node).getAttributeValue(aRestriction).equalsIgnoreCase(aValue)) {
                         this.max = Math.max(this.max, ((ActivityVertex) node).getAttributeValueFloat(this.attribute));
                         this.min = Math.min(this.min, ((ActivityVertex) node).getAttributeValueFloat(this.attribute));
                     }
-                }
-                else if (node instanceof EntityVertex && !isActivity) {
+                } else if (node instanceof EntityVertex && !isActivity) {
                     this.max = Math.max(this.max, ((EntityVertex) node).getAttributeValueFloat(this.attribute));
                     this.min = Math.min(this.min, ((EntityVertex) node).getAttributeValueFloat(this.attribute));
                 }
@@ -113,7 +141,7 @@ public abstract class ColorScheme {
             computedMinMax = true;
         }
     }
-    
+
     public abstract Paint Execute(Object v, final Variables variables);
-    
+
 }

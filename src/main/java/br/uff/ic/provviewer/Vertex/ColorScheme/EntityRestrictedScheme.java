@@ -13,17 +13,17 @@ import java.awt.Paint;
  *
  * @author Kohwalter
  */
-public class EntityScheme extends ColorScheme {
+public class EntityRestrictedScheme extends ColorScheme {
     
-    public EntityScheme(String attribute, String empty, String g, String y, boolean l) {
+    public EntityRestrictedScheme(String attribute, String empty, String g, String y, boolean l) {
         super(attribute, empty, g, y, l);
     }
 
     @Override
     public Paint Execute(Object v, final Variables variables) {
         
-        ComputeValue(variables.graph, false);
-        if (v instanceof EntityVertex) {
+        ComputeRestrictedValue(variables.graph, true, this.restrictedAttribute, this.restrictedValue);
+        if ((v instanceof EntityVertex) && ((EntityVertex) v).getAttributeValue(this.restrictedAttribute).equalsIgnoreCase(this.restrictedValue)) {
             return this.GetMinMaxColor(v);
         }
         return ((Vertex) v).getColor();
