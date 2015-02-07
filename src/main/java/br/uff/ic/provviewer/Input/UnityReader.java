@@ -73,8 +73,8 @@ public class UnityReader extends XMLReader{
                     node.AddAttribute(att);
                 }
                 
-                String details = eElement.getElementsByTagName("details").item(0).getTextContent();
-                node.SetDetail(details);
+                //String details = eElement.getElementsByTagName("details").item(0).getTextContent();
+                //node.SetDetail(details);
                 
                 AddNode(node);
             }

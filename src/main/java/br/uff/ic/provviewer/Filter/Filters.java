@@ -110,6 +110,11 @@ public class Filters {
                         }
                     }
                 }
+                if (GraphFrame.FilterEdgeAgentButton.isSelected()) {
+                    if (filteredGraph.getDest(edge) instanceof AgentVertex) {
+                        return false;
+                    }
+                }
 
                 return returnValue;
             }

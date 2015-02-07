@@ -77,12 +77,12 @@ public class Coordinates_Layout<V, E> extends AbstractLayout<V, E> implements It
             calcPositions(v2);
         }
         //Check if there are nodes at the same place, if so apply repulsion
-        
+        /*
         for(V v3 : layout_graph.getVertices()) 
         {
             calcRepulsion(v3);
         }
-        
+        */
     }
     
     /**
@@ -92,8 +92,8 @@ public class Coordinates_Layout<V, E> extends AbstractLayout<V, E> implements It
     protected synchronized void calcPositions(V v) {
         Point2D xyd = transform(v);
 
-        double newXPos = - ((Vertex)v).getAttributeValueFloat(Config.layoutAxis_X);
-        double newYPos = ((Vertex)v).getAttributeValueFloat(Config.layoutAxis_Y);
+        double newXPos = - ((Vertex)v).getAttributeValueFloat(Config.layoutAxis_X) * Config.coordinatesScale;
+        double newYPos = ((Vertex)v).getAttributeValueFloat(Config.layoutAxis_Y) * Config.coordinatesScale;
         
         xyd.setLocation(newXPos, newYPos);
     }

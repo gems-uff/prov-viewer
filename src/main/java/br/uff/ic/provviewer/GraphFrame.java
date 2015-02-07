@@ -25,6 +25,7 @@ import edu.uci.ics.jung.algorithms.layout.KKLayout;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.uci.ics.jung.graph.Graph;
+import edu.uci.ics.jung.visualization.Layer;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.CrossoverScalingControl;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
@@ -37,8 +38,12 @@ import edu.uci.ics.jung.visualization.subLayout.GraphCollapser;
 import edu.uci.ics.jung.visualization.util.PredicatedParallelEdgeIndexFunction;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Paint;
+import java.awt.Rectangle;
 import java.awt.Stroke;
+import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -48,6 +53,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.UnsupportedLookAndFeelException;
 import org.apache.commons.collections15.Predicate;
@@ -126,6 +132,7 @@ public class GraphFrame extends javax.swing.JFrame {
         Layouts = new javax.swing.JComboBox();
         GraphLayout = new javax.swing.JLabel();
         prologInferenceButton = new javax.swing.JCheckBox();
+        FilterEdgeAgentButton = new javax.swing.JCheckBox();
         MenuBar = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
         OpenConfig = new javax.swing.JMenuItem();
@@ -137,7 +144,6 @@ public class GraphFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Prov Viewer");
-        getContentPane().setLayout(new java.awt.BorderLayout());
 
         ToolMenu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -249,6 +255,13 @@ public class GraphFrame extends javax.swing.JFrame {
             }
         });
 
+        FilterEdgeAgentButton.setText("Agent Edge");
+        FilterEdgeAgentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FilterEdgeAgentButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ToolMenuLayout = new javax.swing.GroupLayout(ToolMenu);
         ToolMenu.setLayout(ToolMenuLayout);
         ToolMenuLayout.setHorizontalGroup(
@@ -269,7 +282,8 @@ public class GraphFrame extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(prologInferenceButton)
-                            .addComponent(ShowEdgeTextButton))))
+                            .addComponent(ShowEdgeTextButton)
+                            .addComponent(FilterEdgeAgentButton))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(DisplayEdges)
@@ -320,12 +334,14 @@ public class GraphFrame extends javax.swing.JFrame {
                                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(FilterNodeLonelyButton)
                                     .addComponent(prologInferenceButton))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(FilterEdgeAgentButton)
                         .addContainerGap())
                     .addGroup(ToolMenuLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ToolMenuLayout.createSequentialGroup()
-                                .addGap(0, 1, Short.MAX_VALUE)
+                                .addGap(0, 7, Short.MAX_VALUE)
                                 .addComponent(EdgeTypes, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(ToolMenuLayout.createSequentialGroup()
                                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -565,6 +581,7 @@ public class GraphFrame extends javax.swing.JFrame {
         if (layout.equalsIgnoreCase("KKLayout")) {
             variables.layout = new KKLayout<Object, Edge>(variables.layout.getGraph());
         }
+        InitBackground();
         variables.view.setGraphLayout(variables.layout);
         variables.view.repaint();
     }//GEN-LAST:event_LayoutsActionPerformed
@@ -629,6 +646,10 @@ public class GraphFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_OpenGraphActionPerformed
+
+    private void FilterEdgeAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterEdgeAgentButtonActionPerformed
+        collapser.Filters(variables, filter);
+    }//GEN-LAST:event_FilterEdgeAgentButtonActionPerformed
 
     private static void ConvertXML(File file)
     {
@@ -830,6 +851,76 @@ public class GraphFrame extends javax.swing.JFrame {
         variables.view.getRenderContext().setVertexShapeTransformer(new VertexShape());
     }
     
+    private void InitBackground() {
+        final ImageIcon whiteIcon = new ImageIcon(getClass().getResource("/images/White.png"));
+        ImageIcon mapIcon = null;
+        //Config.imageLocation = "/images/AngrybotsMap.png";
+        try {
+            mapIcon
+                    = new ImageIcon(getClass().getResource(Config.imageLocation));
+        } catch (Exception ex) {
+            System.err.println("Can't load \"" + Config.imageLocation + "\"");
+        }
+        
+        final ImageIcon icon = mapIcon;
+        final int offsetX = (int) (-icon.getIconWidth() * Config.imageOffsetX);// 0.55);
+        final int offsetY = (int) (-icon.getIconHeight() * Config.imageOffsetY);//0.81);
+        
+        if (icon != null) {
+            if (Layouts.getSelectedItem().equals("CoordinatesLayout")) {
+                variables.view.addPreRenderPaintable(new VisualizationViewer.Paintable() {
+                    public void paint(Graphics g) {
+                        Graphics2D g2d = (Graphics2D) g;
+                        AffineTransform oldXform = g2d.getTransform();
+                        AffineTransform lat
+                                = variables.view.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.LAYOUT).getTransform();
+                        AffineTransform vat
+                                = variables.view.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.VIEW).getTransform();
+                        AffineTransform at = new AffineTransform();
+                        at.concatenate(g2d.getTransform());
+                        at.concatenate(vat);
+                        at.concatenate(lat);
+                        g2d.setTransform(at);
+                        
+                        g.drawImage(icon.getImage(), offsetX, offsetY,
+                                icon.getIconWidth(), icon.getIconHeight(), variables.view);
+                        g2d.setTransform(oldXform);
+                    }
+
+                    public boolean useTransform() {
+                        return false;
+                    }
+                });
+            }
+            else {                       
+                variables.view.addPreRenderPaintable(new VisualizationViewer.Paintable() {
+                    public void paint(Graphics g) {
+                        Graphics2D g2d = (Graphics2D) g;
+                        AffineTransform oldXform = g2d.getTransform();
+                        AffineTransform lat
+                                = variables.view.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.LAYOUT).getTransform();
+                        AffineTransform vat
+                                = variables.view.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.VIEW).getTransform();
+                        AffineTransform at = new AffineTransform();
+                        at.concatenate(g2d.getTransform());
+                        at.concatenate(vat);
+                        at.concatenate(lat);
+                        g2d.setTransform(at);
+                        int offsetX = (int) (-icon.getIconWidth() * Config.imageOffsetX);// 0.55);
+                        int offsetY = (int) (-icon.getIconHeight() * Config.imageOffsetY);//0.81);
+                        g.drawImage(whiteIcon.getImage(), offsetX, offsetY,
+                                icon.getIconWidth(), icon.getIconHeight(), variables.view);
+                        g2d.setTransform(oldXform);
+                    }
+
+                    public boolean useTransform() {
+                        return false;
+                    }
+                });
+            }
+        } 
+    }
+    
     private void InitFilters(DirectedGraph<Object, Edge> graph)
     {
         filter.filteredGraph = graph;
@@ -849,8 +940,9 @@ public class GraphFrame extends javax.swing.JFrame {
         initConfig = true;
         variables.graph = graph;
         variables.collapsedGraph = variables.graph;
-
+        
         SetView(variables.graph); 
+        InitBackground();
         MouseInteraction(); 
         Tooltip();
         VertexLabel();
@@ -942,6 +1034,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem Exit;
     private javax.swing.JButton Expand;
     private javax.swing.JMenu FileMenu;
+    public static javax.swing.JCheckBox FilterEdgeAgentButton;
     public static javax.swing.JList FilterList;
     public static javax.swing.JCheckBox FilterNodeAgentButton;
     public static javax.swing.JCheckBox FilterNodeLonelyButton;

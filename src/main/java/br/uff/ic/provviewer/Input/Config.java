@@ -50,6 +50,10 @@ public class Config {
     // Coordinates Layout
     public static String layoutAxis_X;
     public static String layoutAxis_Y;
+    //BackGround for Coordinates Layout
+    public static String imageLocation;
+    public static double imageOffsetX;
+    public static double imageOffsetY;
     
     public static double coordinatesScale;
     public static double scale;
@@ -97,6 +101,13 @@ public class Config {
             layoutAxis_X = nList.item(0).getTextContent();
             nList = doc.getElementsByTagName("layoutAxis_Y");
             layoutAxis_Y = nList.item(0).getTextContent();
+            nList = doc.getElementsByTagName("imageLocation");
+            imageLocation = nList.item(0).getTextContent();
+            nList = doc.getElementsByTagName("imageOffset_X");
+            imageOffsetX = Double.parseDouble(nList.item(0).getTextContent());
+            nList = doc.getElementsByTagName("imageOffset_Y");
+            imageOffsetY = Double.parseDouble(nList.item(0).getTextContent());    
+    
             nList = doc.getElementsByTagName("coordinatesLayoutScale");
             coordinatesScale = Double.parseDouble(nList.item(0).getTextContent());
             nList = doc.getElementsByTagName("temporalLayoutscale");
