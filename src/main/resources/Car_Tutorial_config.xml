@@ -11,9 +11,9 @@ and open the template in the editor.
     <layoutbackbone>Player</layoutbackbone>
 	<layoutAxis_X>ObjectPosition_X</layoutAxis_X>
 	<layoutAxis_Y>ObjectPosition_Z</layoutAxis_Y>
-	<imageLocation></imageLocation>
-	<imageOffset_X>0.55</imageOffset_X>
-	<imageOffset_Y>0.81</imageOffset_Y>
+	<imageLocation>/images/CarTutorialMap.png</imageLocation>
+	<imageOffset_X>0.5</imageOffset_X>
+	<imageOffset_Y>0.5</imageOffset_Y>
 	<coordinatesLayoutScale>1</coordinatesLayoutScale>
 	<temporalLayoutscale>0.5</temporalLayoutscale>
 	<showentitydate>false</showentitydate>
@@ -49,6 +49,21 @@ and open the template in the editor.
     </edgetype>
 	<edgetype>
         <edge>Landing</edge>
+        <edgestroke>MEAN</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+	<edgetype>
+        <edge>Flip</edge>
+        <edgestroke>MEAN</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+	<edgetype>
+        <edge>LostControl</edge>
+        <edgestroke>MEAN</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+	<edgetype>
+        <edge>Crash</edge>
         <edgestroke>MEAN</edgestroke>
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
@@ -130,6 +145,15 @@ and open the template in the editor.
     </activitycolor>
 	<activitycolor>
         <attribute>Label</attribute>
+        <value>Scraping</value>
+        <vercolor>
+            <r>255</r>
+            <g>150</g>
+            <b>150</b>
+        </vercolor>
+    </activitycolor>
+	<activitycolor>
+        <attribute>Label</attribute>
         <value>Flying</value>
         <vercolor>
 			<r>153</r>
@@ -171,6 +195,15 @@ and open the template in the editor.
             <r>255</r>
             <g>0</g>
             <b>0</b>
+        </vercolor>
+    </activitycolor>
+	<activitycolor>
+        <attribute>Label</attribute>
+        <value>LostControl</value>
+        <vercolor>
+            <r>255</r>
+            <g>0</g>
+            <b>255</b>
         </vercolor>
     </activitycolor>
 

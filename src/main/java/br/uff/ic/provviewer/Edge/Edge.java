@@ -258,7 +258,7 @@ public class Edge extends GraphObject{
         
         // Return black if neutral edge (value = 0)
         if (v == 0) {
-            return new Color(0, 0, 0);
+            return new Color(0, 255, 255);
         }
         else
         {
@@ -317,63 +317,4 @@ public class Edge extends GraphObject{
         }
         return true;
     }
-    
-//     /**
-//     * Get method to return one specific attribute
-//     * @param attribute Desired attribute name
-//     * @return the attribute, containing name and value
-//     */
-//    public Attribute getAttribute(String attribute)
-//    {
-//        return attributes.get(attribute);
-//    }
-//    
-//    /**
-//     * Get method for all attributes
-//     * @return vertex attributes as collection
-//     */
-//    public Collection<Attribute> getAttributes()
-//    {
-//        return attributes.values();
-//    }
-//    
-//    /**
-//     * Method that generates a String with all attributes names and values
-//     * @return String containing attribute names and values
-//     */
-//    public String PrintAttributes()
-//    {
-//        String attributeList = "";
-//        if(!attributes.values().isEmpty())
-//        {
-//            for(Attribute att : attributes.values())
-//            {
-//                attributeList += att.printAttribute();
-//            }
-//        }
-//        return attributeList;
-//    }
-//    
-//    /**
-//     * Method to add a new vertex attribute in the attribute map
-//     * @param att New attribute to be added
-//     */
-//    public void AddAttribute(Attribute att)
-//    {
-//        attributes.put(att.getName(), att);
-//    }
-//    
-//    /**
-//     * Method to check if it is possible to parse the value to float
-//     * @param value desired to be parsed to float
-//     * @return boolean
-//     */
-//    public boolean tryParseFloat(String value) {
-//        try {
-//            Float.parseFloat(value);
-//            return true;
-//        } catch (NumberFormatException nfe) {
-//            return false;
-//        }
-//    }
 }

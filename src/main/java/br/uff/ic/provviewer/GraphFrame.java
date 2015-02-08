@@ -65,8 +65,8 @@ import org.apache.commons.collections15.Transformer;
  */
 public class GraphFrame extends javax.swing.JFrame {
     final Set exclusions = new HashSet();
-    //static String demo = "/Car_Tutorial.xml";
-    static String demo = "/Angry_Robots.xml";
+    static String demo = "/Car_Tutorial.xml";
+    //static String demo = "/Angry_Robots.xml";
     //static String demo = "/2D_Provenance.xml";
     
 //    VisualizationViewer<Object, Edge> view;
@@ -270,9 +270,6 @@ public class GraphFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ToolMenuLayout.createSequentialGroup()
-                        .addGap(131, 131, 131)
-                        .addComponent(CollapseAgent))
-                    .addGroup(ToolMenuLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(VertexFilter))
                     .addGroup(ToolMenuLayout.createSequentialGroup()
@@ -283,12 +280,16 @@ public class GraphFrame extends javax.swing.JFrame {
                         .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(prologInferenceButton)
                             .addComponent(ShowEdgeTextButton)
-                            .addComponent(FilterEdgeAgentButton))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(DisplayEdges)
-                    .addComponent(EdgeTypes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                            .addComponent(FilterEdgeAgentButton)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ToolMenuLayout.createSequentialGroup()
+                        .addComponent(CollapseAgent)
+                        .addGap(30, 30, 30)))
+                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(ToolMenuLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(DisplayEdges, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE))
+                    .addComponent(EdgeTypes))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ToolMenuLayout.createSequentialGroup()
                         .addComponent(Collapse)
@@ -863,8 +864,8 @@ public class GraphFrame extends javax.swing.JFrame {
         }
         
         final ImageIcon icon = mapIcon;
-        final int offsetX = (int) (-icon.getIconWidth() * Config.imageOffsetX);// 0.55);
-        final int offsetY = (int) (-icon.getIconHeight() * Config.imageOffsetY);//0.81);
+        final int offsetX = (int) (-icon.getIconWidth() * Config.imageOffsetX);
+        final int offsetY = (int) (-icon.getIconHeight() *  Config.imageOffsetY);
         
         if (icon != null) {
             if (Layouts.getSelectedItem().equals("CoordinatesLayout")) {

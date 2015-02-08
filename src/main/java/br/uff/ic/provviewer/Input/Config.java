@@ -6,7 +6,6 @@ package br.uff.ic.provviewer.Input;
 
 import br.uff.ic.provviewer.EdgeType;
 import br.uff.ic.provviewer.GraphFrame;
-import br.uff.ic.provviewer.Vertex.ColorScheme.ActivityRestrictedScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.ColorScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.DefaultScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.ProvScheme;
@@ -32,9 +31,9 @@ import org.w3c.dom.NodeList;
  */
 public class Config {
     
-    //public String demoPath = "/Car_Tutorial_config.xml";
+    public String demoPath = "/Car_Tutorial_config.xml";
     //public String demoPath = "/2D_Provenance_config.xml";
-    public String demoPath = "/Angry_Robots_config.xml";
+    //public String demoPath = "/Angry_Robots_config.xml";
     
     //Filter List
     public static List<EdgeType> edgetype = new ArrayList<EdgeType>();
