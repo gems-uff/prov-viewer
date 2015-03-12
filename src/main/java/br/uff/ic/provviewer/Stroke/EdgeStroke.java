@@ -70,7 +70,7 @@ public class EdgeStroke {
      */
     public static Stroke StrokeByType(Edge edge, Variables variables) {
         for (int i = 0; i < Config.edgetype.size(); i++) {
-            if (edge.getInfluence().contains(Config.edgetype.get(i).type)) {
+            if (edge.getLabel().contains(Config.edgetype.get(i).type)) {
                 if(Config.edgetype.get(i).stroke.equalsIgnoreCase("MAX")){
                     float maxAbs = Math.max(Math.abs(Config.edgetype.get(i).max), Math.abs(Config.edgetype.get(i).min));
                     return defineStroke(edge.getValue(), maxAbs);

@@ -91,11 +91,14 @@ public class Coordinates_Layout<V, E> extends AbstractLayout<V, E> implements It
      */
     protected synchronized void calcPositions(V v) {
         Point2D xyd = transform(v);
-
-        double newXPos = - ((Vertex)v).getAttributeValueFloat(Config.layoutAxis_X) * Config.coordinatesScale;
-        double newYPos = ((Vertex)v).getAttributeValueFloat(Config.layoutAxis_Y) * Config.coordinatesScale;
-        
-        xyd.setLocation(newXPos, newYPos);
+        double newXPos = 0;
+        double newYPos = 0;
+        if(v instanceof Vertex)
+        {
+            newXPos = - ((Vertex)v).getAttributeValueFloat(Config.layoutAxis_X) * Config.coordinatesScale;
+            newYPos = ((Vertex)v).getAttributeValueFloat(Config.layoutAxis_Y) * Config.coordinatesScale;
+            xyd.setLocation(newXPos, newYPos);
+        }
     }
     
     double variation = 1.0;

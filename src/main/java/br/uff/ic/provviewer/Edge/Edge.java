@@ -1,6 +1,7 @@
 package br.uff.ic.provviewer.Edge;
 
 import br.uff.ic.provviewer.Attribute;
+import br.uff.ic.provviewer.EdgeType;
 import br.uff.ic.provviewer.GraphObject;
 import br.uff.ic.provviewer.Input.Config;
 import java.awt.Color;
@@ -19,7 +20,7 @@ public class Edge extends GraphObject{
     private String id;
     private Object source;
     private Object target;
-    private String influence;      // Influence type (i.e. Damage)
+    //private String influence;      // Influence type (i.e. Damage)
     private String value;          // Influence Value (i.e. 5.0)
     private String type;           // Edge type (prov edges)
     private String label;          // Human readable name
@@ -27,11 +28,7 @@ public class Edge extends GraphObject{
     private boolean hide;
     //used to say this edge is a temporary one
     private boolean collapsed;
-//    private String location;
-//    private String type;
-//    private String role;
     
-
     /**
      * Constructor
      * @param id
@@ -49,10 +46,10 @@ public class Edge extends GraphObject{
         this.target = target;
         this.type = type;
         if (influence.equalsIgnoreCase("") || (influence == null) || influence.equalsIgnoreCase("Neutral")) {
-            this.influence = "Neutral";
+            this.label = "Neutral";
             this.value = "0";
         } else {
-            this.influence = influence;
+            this.label = influence;
             this.value = value;
         }
         this.label = label;
@@ -67,19 +64,20 @@ public class Edge extends GraphObject{
      * @param influence
      * @param type
      * @param value
+     * @param label
      * @param target
      * @param source 
      */
-    public Edge(String id, String influence, String type, String value, String label, Object target, Object source) {
+    public Edge(String id, String type, String label, String value, Object target, Object source) {
         this.id = id;
         this.source = source;
         this.target = target;
         this.type = type;
-        if (influence.equalsIgnoreCase("") || (influence == null) || influence.equalsIgnoreCase("Neutral")) {
-            this.influence = "Neutral";
+        if (label.equalsIgnoreCase("") || (label == null) || label.equalsIgnoreCase("Neutral")) {
+            this.label = "Neutral";
             this.value = "0";
         } else {
-            this.influence = influence;
+            this.label = label;
             this.value = value;
         }
         this.label = label;
@@ -90,6 +88,7 @@ public class Edge extends GraphObject{
     
     /**
      * Constructor without influence value, label, type (type=influence) and no extra attribute
+     * @param id Edge's ID
      * @deprecated Used only on outdated TSVReader
      * @param target Vertex target
      * @param source Vertex source
@@ -100,13 +99,12 @@ public class Edge extends GraphObject{
         this.source = source;
         this.target = target;
         if (influence.equalsIgnoreCase("")) {
-            this.influence = "Neutral";
+            this.label = "Neutral";
         } else {
-            this.influence = influence;
+            this.label = influence;
         }
         this.value = "0";
-        this.type = this.influence;
-        this.label = "";
+        this.type = this.label;
         hide = false;
         collapsed = false;
         this.attributes  = new HashMap<String, Attribute>();
@@ -150,15 +148,6 @@ public class Edge extends GraphObject{
             return 0;
         }
     }
-
-    /**
-     * Method for returning the edge influence
-     *
-     * @return
-     */
-    public String getInfluence() {
-        return influence;
-    }
     
     /**
      * Method for returning the edge type
@@ -184,7 +173,7 @@ public class Edge extends GraphObject{
      * @return (String) influence
      */
     public String getEdgeInfluence() {
-        return value + " " + influence;
+        return this.value + " " + this.label;
     }
 
     /**
@@ -231,12 +220,9 @@ public class Edge extends GraphObject{
      * @return (boolean) is neutral or not
      */
     public boolean isNeutral() {
-        if ((this.influence.equalsIgnoreCase(""))
-                || (this.influence.isEmpty())
-                || (this.influence.equalsIgnoreCase("Neutral"))) {
-            return true;
-        }
-        return false;
+        return (this.label.equalsIgnoreCase(""))
+                || (this.label.isEmpty())
+                || (this.label.equalsIgnoreCase("Neutral"));
     }
 
     /**
@@ -246,7 +232,10 @@ public class Edge extends GraphObject{
      */
     @Override
     public String toString() {
-        return this.type + "<br>" + this.label + "<br>" + PrintAttributes();
+        if(this.label.isEmpty())
+            return this.type;
+        else
+            return this.type + " (" + this.label + ")";
     }
 
     /**
@@ -264,7 +253,7 @@ public class Edge extends GraphObject{
         {
             int j = 0;
             for (int i = 0; i < Config.edgetype.size(); i++) {
-                if (this.getInfluence().contains(Config.edgetype.get(i).type)) {
+                if (this.getLabel().contains(Config.edgetype.get(i).type)) {
                     j = i;
                 }
             }
@@ -276,18 +265,6 @@ public class Edge extends GraphObject{
                 return CompareValueRed(v, Config.edgetype.get(j).min, 0);
             }
         }
-        /*
-        //Green
-        if (v > 0) {
-            return new Color(34, 139, 34);
-        } //Red
-        else if (v < 0) {
-            return new Color(255, 0, 0);
-        } //Black
-        else {
-            return new Color(0, 0, 0);
-        }
-        */
     }
 
     public Paint CompareValueGreen(float value, double min, double max){
@@ -308,9 +285,9 @@ public class Edge extends GraphObject{
      * added. Return false if average
      */
     public boolean AddInfluence() {
-        for (int i = 0; i < Config.edgetype.size(); i++) {
-            if (this.getEdgeInfluence().contains(Config.edgetype.get(i).type)) {
-                if(Config.edgetype.get(i).collapse.equalsIgnoreCase("AVERAGE")) {
+        for (EdgeType edgetype : Config.edgetype) {
+            if (this.getEdgeInfluence().contains(edgetype.type)) {
+                if (edgetype.collapse.equalsIgnoreCase("AVERAGE")) {
                     return false;
                 }
             }
