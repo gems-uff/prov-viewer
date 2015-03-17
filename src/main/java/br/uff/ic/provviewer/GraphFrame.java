@@ -1,6 +1,5 @@
 package br.uff.ic.provviewer;
 
-import alice.tuprolog.NoMoreSolutionException;
 import br.uff.ic.XMLConverter.XMLConverter;
 import br.uff.ic.provviewer.Edge.Edge;
 import br.uff.ic.provviewer.Filter.Filters;
@@ -41,7 +40,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Paint;
-import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
 import java.io.File;
@@ -65,7 +63,7 @@ import org.apache.commons.collections15.Transformer;
  */
 public class GraphFrame extends javax.swing.JFrame {
     final Set exclusions = new HashSet();
-    static String demo = "/Car_Tutorial0.xml";
+    static String demo = "/Car_Tutorial.xml";
     //static String demo = "/Angry_Robots.xml";
     //static String demo = "/2D_Provenance.xml";
     
@@ -742,7 +740,6 @@ public class GraphFrame extends javax.swing.JFrame {
                             return ("<html>" + ((Graph)v).getVertices().toString() + "</html>");
                     }
                     return ("<html>" + v.toString() + "</html>");
-                    //return super.transform(v);
             }});
          /**
          * ================================================
@@ -864,11 +861,10 @@ public class GraphFrame extends javax.swing.JFrame {
         }
         
         final ImageIcon icon = mapIcon;
-        final int offsetX = (int) (-icon.getIconWidth() * Config.imageOffsetX);
-        final int offsetY = (int) (-icon.getIconHeight() *  Config.imageOffsetY);
+        final int offsetX = (int) ((-icon.getIconWidth() * 0.5) - (Config.imageOffsetX * Config.coordinatesScale));
+        final int offsetY = (int) ((-icon.getIconHeight() *  0.5) + (Config.imageOffsetY * Config.coordinatesScale));
         
         if (icon != null) {
-            if (Layouts.getSelectedItem().equals("CoordinatesLayout")) {
                 variables.view.addPreRenderPaintable(new VisualizationViewer.Paintable() {
                     public void paint(Graphics g) {
                         Graphics2D g2d = (Graphics2D) g;
@@ -882,9 +878,15 @@ public class GraphFrame extends javax.swing.JFrame {
                         at.concatenate(vat);
                         at.concatenate(lat);
                         g2d.setTransform(at);
-                        
-                        g.drawImage(icon.getImage(), offsetX, offsetY,
+                        if (Layouts.getSelectedItem().equals("CoordinatesLayout")) {
+                            g.drawImage(icon.getImage(), offsetX, offsetY,
                                 icon.getIconWidth(), icon.getIconHeight(), variables.view);
+                        }
+                        else
+                        {
+                            g.drawImage(whiteIcon.getImage(), offsetX, offsetY,
+                                icon.getIconWidth(), icon.getIconHeight(), variables.view);
+                        }
                         g2d.setTransform(oldXform);
                     }
 
@@ -892,33 +894,6 @@ public class GraphFrame extends javax.swing.JFrame {
                         return false;
                     }
                 });
-            }
-            else {                       
-                variables.view.addPreRenderPaintable(new VisualizationViewer.Paintable() {
-                    public void paint(Graphics g) {
-                        Graphics2D g2d = (Graphics2D) g;
-                        AffineTransform oldXform = g2d.getTransform();
-                        AffineTransform lat
-                                = variables.view.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.LAYOUT).getTransform();
-                        AffineTransform vat
-                                = variables.view.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.VIEW).getTransform();
-                        AffineTransform at = new AffineTransform();
-                        at.concatenate(g2d.getTransform());
-                        at.concatenate(vat);
-                        at.concatenate(lat);
-                        g2d.setTransform(at);
-                        int offsetX = (int) (-icon.getIconWidth() * Config.imageOffsetX);// 0.55);
-                        int offsetY = (int) (-icon.getIconHeight() * Config.imageOffsetY);//0.81);
-                        g.drawImage(whiteIcon.getImage(), offsetX, offsetY,
-                                icon.getIconWidth(), icon.getIconHeight(), variables.view);
-                        g2d.setTransform(oldXform);
-                    }
-
-                    public boolean useTransform() {
-                        return false;
-                    }
-                });
-            }
         } 
     }
     

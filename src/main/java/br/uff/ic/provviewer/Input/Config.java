@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
@@ -54,6 +55,7 @@ public class Config {
     public static double imageOffsetX;
     public static double imageOffsetY;
     
+    public static double coordinatesLayoutPosition;
     public static double coordinatesScale;
     public static double scale;
     public static boolean showEntityDate;
@@ -70,16 +72,26 @@ public class Config {
         File fXmlFile = new File(location.getFile());
 //        File fXmlFile = new File("2D_Provenance_config.xml");
         System.out.println(fXmlFile.getPath());
-        Initialize(fXmlFile);      
+        Initialize(fXmlFile);    
+        ComputeCoordScale();
+
     }
     
+    public static void ComputeCoordScale()
+    {
+        final ImageIcon icon = new ImageIcon(Config.class.getResource(imageLocation));
+        int width = icon.getIconWidth();
+        coordinatesScale = (width * 0.5);
+        coordinatesScale = coordinatesScale * 100;
+        coordinatesScale = coordinatesScale / coordinatesLayoutPosition;
+        coordinatesScale = coordinatesScale / 100;
+    }
     public static void Initialize(File fXmlFile) {
         try {
             edgetype = new ArrayList<EdgeType>();
             vertexModes = new ArrayList<ColorScheme>();
             layoutSpecialVertexType = "";
             scale = 1.0;
-            coordinatesScale = 1.0;
             vertexStrokevariables = new ArrayList<String>();
             actVerAtt = new ArrayList<String>();
             actVerValue = new ArrayList<String>();
@@ -106,9 +118,8 @@ public class Config {
             imageOffsetX = Double.parseDouble(nList.item(0).getTextContent());
             nList = doc.getElementsByTagName("imageOffset_Y");
             imageOffsetY = Double.parseDouble(nList.item(0).getTextContent());    
-    
-            nList = doc.getElementsByTagName("coordinatesLayoutScale");
-            coordinatesScale = Double.parseDouble(nList.item(0).getTextContent());
+            nList = doc.getElementsByTagName("coordinatesLayoutPosition");
+            coordinatesLayoutPosition = Double.parseDouble(nList.item(0).getTextContent());
             nList = doc.getElementsByTagName("temporalLayoutscale");
             scale = Double.parseDouble(nList.item(0).getTextContent());
             nList = doc.getElementsByTagName("showentitydate");
