@@ -14,7 +14,8 @@ and open the template in the editor.
 	<imageLocation></imageLocation>
 	<imageOffset_X>0.55</imageOffset_X>
 	<imageOffset_Y>0.81</imageOffset_Y>
-	<layoutscale>1.0</layoutscale>
+	<coordinatesLayoutPosition>0.0</coordinatesLayoutPosition>
+	<temporalLayoutscale>1.0</temporalLayoutscale>
 	<showentitydate>true</showentitydate>
     <edgetype>
         <edge>Neutral</edge>

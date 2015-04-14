@@ -1261,480 +1261,480 @@ and open the template in the editor.
     </vertex>
     <edge>
         <ID>e0</ID>
-        <type>Neutral</type>
-        <label>wasDerivedFrom</label>
+        <label>Neutral</label>
+        <type>wlabelerivedFrom</type>
         <value></value>
         <sourceID>ent1</sourceID>
         <targetID>ent0</targetID>
     </edge>
 	<edge>
         <ID>e1</ID>
-        <type>Neutral</type>
-        <label>wasDerivedFrom</label>
+        <label>Neutral</label>
+        <type>wlabelerivedFrom</type>
         <value></value>
         <sourceID>ent2</sourceID>
         <targetID>ent1</targetID>
     </edge>
 	<edge>
         <ID>e2</ID>
-        <type>Neutral</type>
-        <label>wasDerivedFrom</label>
+        <label>Neutral</label>
+        <type>wlabelerivedFrom</type>
         <value></value>
         <sourceID>ent3</sourceID>
         <targetID>ent2</targetID>
     </edge>
 	<edge>
         <ID>e3</ID>
-        <type>Neutral</type>
-        <label>wasDerivedFrom</label>
+        <label>Neutral</label>
+        <type>wlabelerivedFrom</type>
         <value></value>
         <sourceID>ent4</sourceID>
         <targetID>ent3</targetID>
     </edge>
 	<edge>
         <ID>e4</ID>
-        <type>Neutral</type>
-        <label>wasAssociatedWith</label>
+        <label>Neutral</label>
+        <type>wasAssociatedWith</type>
         <value></value>
         <sourceID>ac0</sourceID>
         <targetID>ag0</targetID>
     </edge>
 	<edge>
         <ID>e5</ID>
-        <type>Credits</type>
-        <label>used</label>
+        <label>Credits</label>
+        <type>used</type>
         <value>-251</value>
         <sourceID>ac0</sourceID>
         <targetID>ent1</targetID>
     </edge>
 	<edge>
         <ID>e6</ID>
-        <type>Neutral</type>
-        <label>wasAssociatedWith</label>
+        <label>Neutral</label>
+        <type>wasAssociatedWith</type>
         <value></value>
         <sourceID>ac1</sourceID>
         <targetID>ag0</targetID>
     </edge>
 	<edge>
         <ID>e7</ID>
-        <type>Credits</type>
-        <label>used</label>
+        <label>Credits</label>
+        <type>used</type>
         <value>-251</value>
         <sourceID>ac1</sourceID>
         <targetID>ent2</targetID>
     </edge>
 	<edge>
         <ID>e8</ID>
-        <type>Neutral</type>
-        <label>wasAssociatedWith</label>
+        <label>Neutral</label>
+        <type>wasAssociatedWith</type>
         <value></value>
         <sourceID>ac2</sourceID>
         <targetID>ag0</targetID>
     </edge>
 	<edge>
         <ID>e9</ID>
-        <type>Credits</type>
-        <label>used</label>
+        <label>Credits</label>
+        <type>used</type>
         <value>-251</value>
         <sourceID>ac2</sourceID>
         <targetID>ent3</targetID>
     </edge>
 	<edge>
         <ID>e10</ID>
-        <type>Neutral</type>
-        <label>wasAssociatedWith</label>
+        <label>Neutral</label>
+        <type>wasAssociatedWith</type>
         <value></value>
         <sourceID>ac3</sourceID>
         <targetID>ag0</targetID>
     </edge>
 	<edge>
         <ID>e11</ID>
-        <type>Credits</type>
-        <label>used</label>
+        <label>Credits</label>
+        <type>used</type>
         <value>-251</value>
         <sourceID>ac3</sourceID>
         <targetID>ent4</targetID>
     </edge>
 	<edge>
         <ID>e12</ID>
-        <type>Neutral</type>
-        <label>wasAssociatedWith</label>
+        <label>Neutral</label>
+        <type>wasAssociatedWith</type>
         <value></value>
         <sourceID>ac4</sourceID>
         <targetID>ag1</targetID>
     </edge>
 	<edge>
         <ID>e13</ID>
-        <type>Aid</type>
-        <label>wasInfluencedBy</label>
+        <label>Aid</label>
+        <type>wasInfluencedBy</type>
         <value>389 %</value>
         <sourceID>ac0</sourceID>
         <targetID>ac4</targetID>
     </edge>
 	<edge>
         <ID>e14</ID>
-        <type>Aid</type>
-        <label>wasInfluencedBy</label>
+        <label>Aid</label>
+        <type>wasInfluencedBy</type>
         <value>218 %</value>
         <sourceID>ac5</sourceID>
         <targetID>ac4</targetID>
     </edge>
 	<edge>
         <ID>e15</ID>
-        <type>Credits</type>
-        <label>used</label>
+        <label>Credits</label>
+        <type>used</type>
         <value>-176</value>
         <sourceID>ac4</sourceID>
         <targetID>ent1</targetID>
     </edge>
 	<edge>
         <ID>e16</ID>
-        <type>Neutral</type>
-        <label>wasAssociatedWith</label>
+        <label>Neutral</label>
+        <type>wasAssociatedWith</type>
         <value></value>
         <sourceID>ac6</sourceID>
         <targetID>ag1</targetID>
     </edge>
 	<edge>
         <ID>e17</ID>
-        <type>Aid</type>
-        <label>wasInfluencedBy</label>
+        <label>Aid</label>
+        <type>wasInfluencedBy</type>
         <value>419 %</value>
         <sourceID>ac1</sourceID>
         <targetID>ac6</targetID>
     </edge>
 	<edge>
         <ID>e18</ID>
-        <type>Aid</type>
-        <label>wasInfluencedBy</label>
+        <label>Aid</label>
+        <type>wasInfluencedBy</type>
         <value>96 %</value>
         <sourceID>ac7</sourceID>
         <targetID>ac6</targetID>
     </edge>
 	<edge>
         <ID>e19</ID>
-        <type>Credits</type>
-        <label>used</label>
+        <label>Credits</label>
+        <type>used</type>
         <value>-176</value>
         <sourceID>ac6</sourceID>
         <targetID>ent2</targetID>
     </edge>
 	<edge>
         <ID>e20</ID>
-        <type>Neutral</type>
-        <label>wasAssociatedWith</label>
+        <label>Neutral</label>
+        <type>wasAssociatedWith</type>
         <value></value>
         <sourceID>ac8</sourceID>
         <targetID>ag1</targetID>
     </edge>
 	<edge>
         <ID>e21</ID>
-        <type>Aid</type>
-        <label>wasInfluencedBy</label>
+        <label>Aid</label>
+        <type>wasInfluencedBy</type>
         <value>377 %</value>
         <sourceID>ac2</sourceID>
         <targetID>ac8</targetID>
     </edge>
 	<edge>
         <ID>e22</ID>
-        <type>Aid</type>
-        <label>wasInfluencedBy</label>
+        <label>Aid</label>
+        <type>wasInfluencedBy</type>
         <value>107 %</value>
         <sourceID>ac9</sourceID>
         <targetID>ac8</targetID>
     </edge>
 	<edge>
         <ID>e23</ID>
-        <type>Credits</type>
-        <label>used</label>
+        <label>Credits</label>
+        <type>used</type>
         <value>-176</value>
         <sourceID>ac8</sourceID>
         <targetID>ent3</targetID>
     </edge>
 	<edge>
         <ID>e24</ID>
-        <type>Neutral</type>
-        <label>wasAssociatedWith</label>
+        <label>Neutral</label>
+        <type>wasAssociatedWith</type>
         <value></value>
         <sourceID>ac10</sourceID>
         <targetID>ag1</targetID>
     </edge>
 	<edge>
         <ID>e25</ID>
-        <type>Aid</type>
-        <label>wasInfluencedBy</label>
+        <label>Aid</label>
+        <type>wasInfluencedBy</type>
         <value>363 %</value>
         <sourceID>ac3</sourceID>
         <targetID>ac10</targetID>
     </edge>
 	<edge>
         <ID>e26</ID>
-        <type>Aid</type>
-        <label>wasInfluencedBy</label>
+        <label>Aid</label>
+        <type>wasInfluencedBy</type>
         <value>149 %</value>
         <sourceID>ac11</sourceID>
         <targetID>ac10</targetID>
     </edge>
 	<edge>
         <ID>e27</ID>
-        <type>Credits</type>
-        <label>used</label>
+        <label>Credits</label>
+        <type>used</type>
         <value>-176</value>
         <sourceID>ac10</sourceID>
         <targetID>ent4</targetID>
     </edge>
 	<edge>
         <ID>e28</ID>
-        <type>Neutral</type>
-        <label>wasAssociatedWith</label>
+        <label>Neutral</label>
+        <type>wasAssociatedWith</type>
         <value></value>
         <sourceID>ac5</sourceID>
         <targetID>ag2</targetID>
     </edge>
 	<edge>
         <ID>e29</ID>
-        <type>Credits</type>
-        <label>used</label>
+        <label>Credits</label>
+        <type>used</type>
         <value>-236</value>
         <sourceID>ac5</sourceID>
         <targetID>ent1</targetID>
     </edge>
 	<edge>
         <ID>e30</ID>
-        <type>Credits</type>
-        <label>used</label>
+        <label>Credits</label>
+        <type>used</type>
         <value>705</value>
         <sourceID>ac5</sourceID>
         <targetID>ent1</targetID>
     </edge>
 	<edge>
         <ID>e31</ID>
-        <type>Neutral</type>
-        <label>wasAssociatedWith</label>
+        <label>Neutral</label>
+        <type>wasAssociatedWith</type>
         <value></value>
         <sourceID>ac7</sourceID>
         <targetID>ag2</targetID>
     </edge>
 	<edge>
         <ID>e32</ID>
-        <type>Credits</type>
-        <label>used</label>
+        <label>Credits</label>
+        <type>used</type>
         <value>-236</value>
         <sourceID>ac7</sourceID>
         <targetID>ent2</targetID>
     </edge>
 	<edge>
         <ID>e33</ID>
-        <type>Credits</type>
-        <label>used</label>
+        <label>Credits</label>
+        <type>used</type>
         <value>1134</value>
         <sourceID>ac7</sourceID>
         <targetID>ent2</targetID>
     </edge>
 	<edge>
         <ID>e34</ID>
-        <type>Neutral</type>
-        <label>wasAssociatedWith</label>
+        <label>Neutral</label>
+        <type>wasAssociatedWith</type>
         <value></value>
         <sourceID>ac9</sourceID>
         <targetID>ag2</targetID>
     </edge>
 	<edge>
         <ID>e35</ID>
-        <type>Credits</type>
-        <label>used</label>
+        <label>Credits</label>
+        <type>used</type>
         <value>-236</value>
         <sourceID>ac9</sourceID>
         <targetID>ent3</targetID>
     </edge>
 	<edge>
         <ID>e36</ID>
-        <type>Credits</type>
-        <label>used</label>
+        <label>Credits</label>
+        <type>used</type>
         <value>745</value>
         <sourceID>ac9</sourceID>
         <targetID>ent3</targetID>
     </edge>
 	<edge>
         <ID>e37</ID>
-        <type>Neutral</type>
-        <label>wasAssociatedWith</label>
+        <label>Neutral</label>
+        <type>wasAssociatedWith</type>
         <value></value>
         <sourceID>ac11</sourceID>
         <targetID>ag2</targetID>
     </edge>
 	<edge>
         <ID>e38</ID>
-        <type>Credits</type>
-        <label>used</label>
+        <label>Credits</label>
+        <type>used</type>
         <value>-236</value>
         <sourceID>ac11</sourceID>
         <targetID>ent4</targetID>
     </edge>
 	<edge>
         <ID>e39</ID>
-        <type>Credits</type>
-        <label>used</label>
+        <label>Credits</label>
+        <type>used</type>
         <value>316</value>
         <sourceID>ac11</sourceID>
         <targetID>ent4</targetID>
     </edge>
 	<edge>
         <ID>e40</ID>
-        <type>Neutral</type>
-        <label>wasAssociatedWith</label>
+        <label>Neutral</label>
+        <type>wasAssociatedWith</type>
         <value></value>
         <sourceID>ac12</sourceID>
         <targetID>ag3</targetID>
     </edge>
 	<edge>
         <ID>e41</ID>
-        <type>Credits</type>
-        <label>used</label>
+        <label>Credits</label>
+        <type>used</type>
         <value>-251</value>
         <sourceID>ac12</sourceID>
         <targetID>ent1</targetID>
     </edge>
 	<edge>
         <ID>e42</ID>
-        <type>Neutral</type>
-        <label>wasAssociatedWith</label>
+        <label>Neutral</label>
+        <type>wasAssociatedWith</type>
         <value></value>
         <sourceID>ac13</sourceID>
         <targetID>ag3</targetID>
     </edge>
 	<edge>
         <ID>e43</ID>
-        <type>Credits</type>
-        <label>used</label>
+        <label>Credits</label>
+        <type>used</type>
         <value>-251</value>
         <sourceID>ac13</sourceID>
         <targetID>ent2</targetID>
     </edge>
 	<edge>
         <ID>e44</ID>
-        <type>Neutral</type>
-        <label>wasAssociatedWith</label>
+        <label>Neutral</label>
+        <type>wasAssociatedWith</type>
         <value></value>
         <sourceID>ac14</sourceID>
         <targetID>ag3</targetID>
     </edge>
 	<edge>
         <ID>e45</ID>
-        <type>Credits</type>
-        <label>used</label>
+        <label>Credits</label>
+        <type>used</type>
         <value>-251</value>
         <sourceID>ac14</sourceID>
         <targetID>ent3</targetID>
     </edge>
 	<edge>
         <ID>e46</ID>
-        <type>Neutral</type>
-        <label>wasAssociatedWith</label>
+        <label>Neutral</label>
+        <type>wasAssociatedWith</type>
         <value></value>
         <sourceID>ac15</sourceID>
         <targetID>ag3</targetID>
     </edge>
 	<edge>
         <ID>e47</ID>
-        <type>Credits</type>
-        <label>used</label>
+        <label>Credits</label>
+        <type>used</type>
         <value>-251</value>
         <sourceID>ac15</sourceID>
         <targetID>ent4</targetID>
     </edge>
     <edge>
         <ID>e48</ID>
-        <type>Neutral</type>
-        <label>wasInfluencedBy</label>
+        <label>Neutral</label>
+        <type>wasInfluencedBy</type>
         <value></value>
         <sourceID>ac13</sourceID>
         <targetID>ac12</targetID>
     </edge>
     <edge>
         <ID>e49</ID>
-        <type>Neutral</type>
-        <label>wasInfluencedBy</label>
+        <label>Neutral</label>
+        <type>wasInfluencedBy</type>
         <value></value>
         <sourceID>ac14</sourceID>
         <targetID>ac13</targetID>
     </edge>
     <edge>
         <ID>e50</ID>
-        <type>Neutral</type>
-        <label>wasInfluencedBy</label>
+        <label>Neutral</label>
+        <type>wasInfluencedBy</type>
         <value></value>
         <sourceID>ac15</sourceID>
         <targetID>ac14</targetID>
     </edge>
     <edge>
         <ID>e51</ID>
-        <type>Neutral</type>
-        <label>wasInfluencedBy</label>
+        <label>Neutral</label>
+        <type>wasInfluencedBy</type>
         <value></value>
         <sourceID>ac7</sourceID>
         <targetID>ac5</targetID>
     </edge>
     <edge>
         <ID>e52</ID>
-        <type>Neutral</type>
-        <label>wasInfluencedBy</label>
+        <label>Neutral</label>
+        <type>wasInfluencedBy</type>
         <value></value>
         <sourceID>ac9</sourceID>
         <targetID>ac7</targetID>
     </edge>
     <edge>
         <ID>e53</ID>
-        <type>Neutral</type>
-        <label>wasInfluencedBy</label>
+        <label>Neutral</label>
+        <type>wasInfluencedBy</type>
         <value></value>
         <sourceID>ac11</sourceID>
         <targetID>ac9</targetID>
     </edge>
     <edge>
         <ID>e54</ID>
-        <type>Neutral</type>
-        <label>wasInfluencedBy</label>
+        <label>Neutral</label>
+        <type>wasInfluencedBy</type>
         <value></value>
         <sourceID>ac6</sourceID>
         <targetID>ac4</targetID>
     </edge>
     <edge>
         <ID>e55</ID>
-        <type>Neutral</type>
-        <label>wasInfluencedBy</label>
+        <label>Neutral</label>
+        <type>wasInfluencedBy</type>
         <value></value>
         <sourceID>ac8</sourceID>
         <targetID>ac6</targetID>
     </edge>
     <edge>
         <ID>e56</ID>
-        <type>Neutral</type>
-        <label>wasInfluencedBy</label>
+        <label>Neutral</label>
+        <type>wasInfluencedBy</type>
         <value></value>
         <sourceID>ac10</sourceID>
         <targetID>ac8</targetID>
     </edge>
     <edge>
         <ID>e57</ID>
-        <type>Neutral</type>
-        <label>wasInfluencedBy</label>
+        <label>Neutral</label>
+        <type>wasInfluencedBy</type>
         <value></value>
         <sourceID>ac1</sourceID>
         <targetID>ac0</targetID>
     </edge>
     <edge>
         <ID>e58</ID>
-        <type>Neutral</type>
-        <label>wasInfluencedBy</label>
+        <label>Neutral</label>
+        <type>wasInfluencedBy</type>
         <value></value>
         <sourceID>ac2</sourceID>
         <targetID>ac1</targetID>
     </edge>
     <edge>
         <ID>e59</ID>
-        <type>Neutral</type>
-        <label>wasInfluencedBy</label>
+        <label>Neutral</label>
+        <type>wasInfluencedBy</type>
         <value></value>
         <sourceID>ac3</sourceID>
         <targetID>ac2</targetID>
