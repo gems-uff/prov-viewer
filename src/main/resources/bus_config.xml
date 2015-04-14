@@ -11,7 +11,7 @@
 	<imageOffset_Y>-22.9072658</imageOffset_Y>
 	<coordinatesLayoutPosition>-0.0586224</coordinatesLayoutPosition>
 	
-	<temporalLayoutscale>-10000000.5</temporalLayoutscale>
+	<temporalLayoutscale>1</temporalLayoutscale>
 	<showentitydate>false</showentitydate>
     <edgetype>
         <edge>Cronological</edge>

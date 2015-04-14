@@ -32,16 +32,15 @@ import org.w3c.dom.NodeList;
  */
 public class Config {
     
-    public String demoPath = "/Car_Tutorial_config.xml";
+    //public String demoPath = "/Car_Tutorial_config.xml";
     //public String demoPath = "/2D_Provenance_config.xml";
     //public String demoPath = "/Angry_Robots_config.xml";
+    //public String demoPath = "/config.xml";
+    public String demoPath = "/bus_config.xml";
     
     //Filter List
     public static List<EdgeType> edgetype = new ArrayList<EdgeType>();
-    //Edge Stroke
-//    public static List<String> edgeStroke = new ArrayList<String>();
-//    //Edge
-//    public static List<String> edgecollapse = new ArrayList<String>();
+
     //Modes
     public static Collection<ColorScheme> vertexModes = new ArrayList<ColorScheme>();
     
@@ -77,14 +76,19 @@ public class Config {
 
     }
     
+    public static double width;
+    public static double height;
     public static void ComputeCoordScale()
     {
         final ImageIcon icon = new ImageIcon(Config.class.getResource(imageLocation));
-        int width = icon.getIconWidth();
+        width = icon.getIconWidth();
+        height = icon.getIconHeight();
         coordinatesScale = (width * 0.5);
         coordinatesScale = coordinatesScale * 100;
         coordinatesScale = coordinatesScale / coordinatesLayoutPosition;
         coordinatesScale = coordinatesScale / 100;
+        System.out.println(coordinatesLayoutPosition);
+        System.out.println(coordinatesScale);
     }
     public static void Initialize(File fXmlFile) {
         try {

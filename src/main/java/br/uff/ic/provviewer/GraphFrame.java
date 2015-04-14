@@ -42,6 +42,7 @@ import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -63,9 +64,11 @@ import org.apache.commons.collections15.Transformer;
  */
 public class GraphFrame extends javax.swing.JFrame {
     final Set exclusions = new HashSet();
-    static String demo = "/Car_Tutorial.xml";
+    //static String demo = "/Car_Tutorial.xml";
     //static String demo = "/Angry_Robots.xml";
     //static String demo = "/2D_Provenance.xml";
+    //static String demo = "/input.xml";
+    static String demo = "/bus.xml";
     
 //    VisualizationViewer<Object, Edge> view;
 //    Layout<Object, Edge> layout;
@@ -598,7 +601,7 @@ public class GraphFrame extends javax.swing.JFrame {
                 initialGraph = false;
             }
             ConvertXML(file);
-            testProlog.Init();
+            //testProlog.Init();
         }
     }//GEN-LAST:event_prologInferenceButtonActionPerformed
 
@@ -685,15 +688,9 @@ public class GraphFrame extends javax.swing.JFrame {
             initLayout = false;
         }
         
-        /**
-         * ================================================
-         * VisualizationViewer<Node, Edge> view = new VisualizationViewer<Node, Edge>(layout);
-         * ================================================
-         */
-        variables.view = new VisualizationViewer<Object, Edge>(variables.layout);
-        final ScalingControl scaler = new CrossoverScalingControl();
-        scaler.scale(variables.view, 1/2.1f, variables.view.getCenter());
-
+        ScaleView();
+        PanCameraToFirstVertex();
+        
         variables.gCollapser = new GraphCollapser(graph);
         
         final PredicatedParallelEdgeIndexFunction eif = PredicatedParallelEdgeIndexFunction.getInstance();
@@ -711,6 +708,31 @@ public class GraphFrame extends javax.swing.JFrame {
         
         variables.view.setBackground(Color.white);
         this.getContentPane().add(variables.view, BorderLayout.CENTER);
+    }
+    
+    /**
+     * Scale back the zoom in the camera
+     */
+    private void ScaleView()
+    {
+        variables.view = new VisualizationViewer<Object, Edge>(variables.layout);
+        final ScalingControl scaler = new CrossoverScalingControl();
+        scaler.scale(variables.view, 1/2.1f, variables.view.getCenter());
+    }
+    
+    /**
+     * Pan the camera to the first vertex in the graph
+     */
+    private void PanCameraToFirstVertex()
+    {
+        Vertex first = (Vertex) variables.graph.getVertices().iterator().next();    
+        variables.view.getGraphLayout();
+        Point2D q = variables.view.getGraphLayout().transform(first);
+        Point2D lvc = 
+            variables.view.getRenderContext().getMultiLayerTransformer().inverseTransform(variables.view.getCenter());
+        final double dx = (lvc.getX() - q.getX());
+        final double dy = (lvc.getY() - q.getY());
+        variables.view.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.LAYOUT).translate(dx, dy);
     }
     
     private void MouseInteraction()
