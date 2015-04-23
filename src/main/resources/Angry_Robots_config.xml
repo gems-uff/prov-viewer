@@ -14,9 +14,10 @@ and open the template in the editor.
 	<imageLocation>/images/AngrybotsMap.png</imageLocation>
 	<imageOffset_X>2.247497</imageOffset_X>
 	<imageOffset_Y>-48.11044</imageOffset_Y>
-	<coordinatesLayoutPosition>113.404</coordinatesLayoutPosition>
+	<spatialLayoutPosition>113.404</spatialLayoutPosition>
 	<temporalLayoutscale>0.5</temporalLayoutscale>
 	<showentitydate>false</showentitydate>
+	<showentitylabel>false</showentitylabel>
     <edgetype>
         <edge>Neutral</edge>
         <edgestroke>MAX</edgestroke>

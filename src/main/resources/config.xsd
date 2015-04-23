@@ -13,12 +13,26 @@ and open the template in the editor.
     <!-- Configuration Type -->
     <xs:complexType name="configuration">
         <xs:sequence>
+			<!-- Spatial Layout X axis name -->
+            <xs:element name="layoutAxis_X" type="xs:string"/>
+			<!-- Spatial Layout Y axis name -->
+            <xs:element name="layoutAxis_Y" type="xs:string"/>
+			<!-- Spatial Layout Background Image location -->
+            <xs:element name="imageLocation" type="xs:string"/>
+			<!-- Spatial Layout Camera X position -->
+            <xs:element name="imageOffset_X" type="xs:string"/>
+			<!-- Spatial Layout Camera Y position -->
+            <xs:element name="imageOffset_Y" type="xs:string"/>
+			<!-- Spatial Layout Camera's upper left corner of the screen position in relation to the camera -->
+            <xs:element name="spatialLayoutPosition" type="xs:string"/>
             <!-- Temporal Layout backbone vertex type -->
             <xs:element name="layoutbackbone" type="xs:string"/>
 			<!-- Temporal Layout scale -->
             <xs:element name="layoutscale" type="xs:string"/>
 			<!-- Show Date value on Entity Vertex -->
             <xs:element name="showentitydate" type="xs:string"/>
+			<!-- Show Label value on Entity Vertex -->
+            <xs:element name="showentitylabel" type="xs:string"/>
             <!-- List of all edges and their configuration values -->
             <xs:element name="edgetype" type="edgetype" minOccurs="0" maxOccurs="unbounded"/>
             <!-- List of all display modes -->

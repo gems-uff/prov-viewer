@@ -9,10 +9,11 @@
 	<imageLocation>/images/BusMap.png</imageLocation>
 	<imageOffset_X>-43.2206256</imageOffset_X>
 	<imageOffset_Y>-22.9072658</imageOffset_Y>
-	<coordinatesLayoutPosition>-0.0586224</coordinatesLayoutPosition>
+	<spatialLayoutPosition>-0.0586224</spatialLayoutPosition>
 	
 	<temporalLayoutscale>1</temporalLayoutscale>
 	<showentitydate>false</showentitydate>
+	<showentitylabel>false</showentitylabel>
     <edgetype>
         <edge>Cronological</edge>
         <edgestroke>MAX</edgestroke>

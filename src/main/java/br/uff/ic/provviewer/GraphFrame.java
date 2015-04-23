@@ -64,11 +64,12 @@ import org.apache.commons.collections15.Transformer;
  */
 public class GraphFrame extends javax.swing.JFrame {
     final Set exclusions = new HashSet();
-    //static String demo = "/Car_Tutorial.xml";
+    static String demo = "/Car_Tutorial.xml";
     //static String demo = "/Angry_Robots.xml";
     //static String demo = "/2D_Provenance.xml";
     //static String demo = "/input.xml";
-    static String demo = "/bus.xml";
+    //static String demo = "/bus.xml";
+    //static String demo = "/map.xml";
     
 //    VisualizationViewer<Object, Edge> view;
 //    Layout<Object, Edge> layout;
@@ -240,7 +241,7 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         EdgeTypes.setViewportView(FilterList);
 
-        Layouts.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CircleLayout", "FRLayout", "FRLayout2", "TemporalLayout", "CoordinatesLayout", "ISOMLayout", "KKLayout" }));
+        Layouts.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CircleLayout", "FRLayout", "FRLayout2", "TemporalLayout", "SpatialLayout", "ISOMLayout", "KKLayout" }));
         Layouts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LayoutsActionPerformed(evt);
@@ -574,7 +575,7 @@ public class GraphFrame extends javax.swing.JFrame {
         if (layout.equalsIgnoreCase("TemporalLayout")) {
             variables.layout = new Temporal_Layout<Object, Edge>(variables.layout.getGraph());
         }
-        if (layout.equalsIgnoreCase("CoordinatesLayout")) {
+        if (layout.equalsIgnoreCase("SpatialLayout")) {
             variables.layout = new Coordinates_Layout<Object, Edge>(variables.layout.getGraph());
         }
         if (layout.equalsIgnoreCase("ISOMLayout")) {
@@ -684,7 +685,7 @@ public class GraphFrame extends javax.swing.JFrame {
             config.Initialize();
             variables.layout = new Temporal_Layout<Object, Edge>(graph);
             variables.view = new VisualizationViewer<Object, Edge>(variables.layout);
-            Layouts.setSelectedItem("CoordinatesLayout");
+            Layouts.setSelectedItem("SpatialLayout");
             initLayout = false;
         }
         
@@ -800,9 +801,14 @@ public class GraphFrame extends javax.swing.JFrame {
                     if(v instanceof AgentVertex) {
                                 return "<html><font size=\"10\">" + ((Vertex)v).getLabel();
                             }
-                    
+                    else if((v instanceof EntityVertex) && Config.showEntityLabel && Config.showEntityDate) {
+                        return "<html><font size=\"10\">" + String.valueOf((int)((Vertex)v).getDate()) + " : " + ((Vertex)v).getLabel();
+                    }
                     else if((v instanceof EntityVertex) && Config.showEntityDate) {
                         return "<html><font size=\"10\">" + String.valueOf((int)((Vertex)v).getDate());
+                    }
+                    else if((v instanceof EntityVertex) && Config.showEntityLabel) {
+                        return "<html><font size=\"10\">" + ((Vertex)v).getLabel();
                     }
                     return "";
                 }
@@ -900,7 +906,7 @@ public class GraphFrame extends javax.swing.JFrame {
                         at.concatenate(vat);
                         at.concatenate(lat);
                         g2d.setTransform(at);
-                        if (Layouts.getSelectedItem().equals("CoordinatesLayout")) {
+                        if (Layouts.getSelectedItem().equals("SpatialLayout")) {
                             g.drawImage(icon.getImage(), offsetX, offsetY,
                                 icon.getIconWidth(), icon.getIconHeight(), variables.view);
                         }

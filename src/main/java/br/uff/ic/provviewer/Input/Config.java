@@ -32,11 +32,12 @@ import org.w3c.dom.NodeList;
  */
 public class Config {
     
-    //public String demoPath = "/Car_Tutorial_config.xml";
+    public String demoPath = "/Car_Tutorial_config.xml";
     //public String demoPath = "/2D_Provenance_config.xml";
     //public String demoPath = "/Angry_Robots_config.xml";
     //public String demoPath = "/config.xml";
-    public String demoPath = "/bus_config.xml";
+    //public String demoPath = "/map_config.xml";
+    //public String demoPath = "/bus_config.xml";
     
     //Filter List
     public static List<EdgeType> edgetype = new ArrayList<EdgeType>();
@@ -54,10 +55,11 @@ public class Config {
     public static double imageOffsetX;
     public static double imageOffsetY;
     
-    public static double coordinatesLayoutPosition;
+    public static double spatialLayoutPosition;
     public static double coordinatesScale;
     public static double scale;
     public static boolean showEntityDate;
+    public static boolean showEntityLabel;
     //Vertex Stroke variables
     public static List<String> vertexStrokevariables = new ArrayList<String>();
     //ActivityVertex
@@ -85,8 +87,8 @@ public class Config {
         height = icon.getIconHeight();
         coordinatesScale = (width * 0.5);
         coordinatesScale = coordinatesScale * 100;
-        if(coordinatesLayoutPosition != 0)
-            coordinatesScale = coordinatesScale / coordinatesLayoutPosition;
+        if(spatialLayoutPosition != 0)
+            coordinatesScale = coordinatesScale / spatialLayoutPosition;
         coordinatesScale = coordinatesScale / 100;
     }
     public static void Initialize(File fXmlFile) {
@@ -121,12 +123,14 @@ public class Config {
             imageOffsetX = Double.parseDouble(nList.item(0).getTextContent());
             nList = doc.getElementsByTagName("imageOffset_Y");
             imageOffsetY = Double.parseDouble(nList.item(0).getTextContent());    
-            nList = doc.getElementsByTagName("coordinatesLayoutPosition");
-            coordinatesLayoutPosition = Double.parseDouble(nList.item(0).getTextContent());
+            nList = doc.getElementsByTagName("spatialLayoutPosition");
+            spatialLayoutPosition = Double.parseDouble(nList.item(0).getTextContent());
             nList = doc.getElementsByTagName("temporalLayoutscale");
             scale = Double.parseDouble(nList.item(0).getTextContent());
             nList = doc.getElementsByTagName("showentitydate");
             showEntityDate = Boolean.parseBoolean(nList.item(0).getTextContent());
+            nList = doc.getElementsByTagName("showentitylabel");
+            showEntityLabel = Boolean.parseBoolean(nList.item(0).getTextContent());
 
             //Edge Types
             nList = doc.getElementsByTagName("edgetype");

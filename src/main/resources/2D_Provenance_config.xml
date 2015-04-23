@@ -14,9 +14,10 @@ and open the template in the editor.
 	<imageLocation></imageLocation>
 	<imageOffset_X>0.55</imageOffset_X>
 	<imageOffset_Y>0.81</imageOffset_Y>
-	<coordinatesLayoutPosition>10</coordinatesLayoutPosition>
+	<spatialLayoutPosition>10</spatialLayoutPosition>
 	<temporalLayoutscale>0.5</temporalLayoutscale>
 	<showentitydate>false</showentitydate>
+	<showentitylabel>false</showentitylabel>
     <edgetype>
         <edge>Neutral</edge>
         <edgestroke>MAX</edgestroke>

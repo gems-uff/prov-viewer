@@ -389,7 +389,7 @@
                 <StringItem index="1" value="FRLayout"/>
                 <StringItem index="2" value="FRLayout2"/>
                 <StringItem index="3" value="TemporalLayout"/>
-                <StringItem index="4" value="CoordinatesLayout"/>
+                <StringItem index="4" value="SpatialLayout"/>
                 <StringItem index="5" value="ISOMLayout"/>
                 <StringItem index="6" value="KKLayout"/>
               </StringArray>

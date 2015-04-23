@@ -10,14 +10,14 @@ and open the template in the editor.
     xsi:noNamespaceSchemaLocation='config.xsd'>
     <layoutbackbone>Project</layoutbackbone>
 	<layoutAxis_X>ObjectPosition_X</layoutAxis_X>
-	<layoutAxis_Y>ObjectPosition_Z</layoutAxis_Y>
+	<layoutAxis_Y>ObjectPosition_Y</layoutAxis_Y>
 	<imageLocation></imageLocation>
 	<imageOffset_X>0</imageOffset_X>
 	<imageOffset_Y>0</imageOffset_Y>
-	<spatialLayoutPosition>1.0</spatialLayoutPosition>
+	<spatialLayoutPosition>0.0</spatialLayoutPosition>
 	<temporalLayoutscale>1.0</temporalLayoutscale>
 	<showentitydate>true</showentitydate>
-	<showentitylabel>false</showentitylabel>
+	<showentitylabel>true</showentitylabel>
     <edgetype>
         <edge>Neutral</edge>
         <edgestroke>MAX</edgestroke>
