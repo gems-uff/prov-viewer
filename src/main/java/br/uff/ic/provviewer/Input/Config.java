@@ -85,10 +85,9 @@ public class Config {
         height = icon.getIconHeight();
         coordinatesScale = (width * 0.5);
         coordinatesScale = coordinatesScale * 100;
-        coordinatesScale = coordinatesScale / coordinatesLayoutPosition;
+        if(coordinatesLayoutPosition != 0)
+            coordinatesScale = coordinatesScale / coordinatesLayoutPosition;
         coordinatesScale = coordinatesScale / 100;
-        System.out.println(coordinatesLayoutPosition);
-        System.out.println(coordinatesScale);
     }
     public static void Initialize(File fXmlFile) {
         try {
