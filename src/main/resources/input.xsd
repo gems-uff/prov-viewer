@@ -13,13 +13,27 @@ and open the template in the editor.
     <!-- Configuration Type -->
     <xs:complexType name="provdata">
         <xs:sequence>
-            <!-- Temporal Layout backbone vertex type -->
-            <xs:element name="vertex" type="vertex" minOccurs="0" maxOccurs="unbounded"/>
+            <!-- List of all vertices and their configuration values -->
+            <xs:element name="vertices" type="vertices" minOccurs="1" maxOccurs="1"/>
             <!-- List of all edges and their configuration values -->
+            <xs:element name="edges" type="edges" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+	
+	<!-- Vertex List -->
+    <xs:complexType name="vertices">
+        <xs:sequence>
+            <xs:element name="vertex" type="vertex" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+	
+	<!-- Edges List -->
+	<xs:complexType name="edges">
+        <xs:sequence>
             <xs:element name="edge" type="edge" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
-    
+	
     <!-- Edge Type -->
     <xs:complexType name="edge">
         <xs:sequence>
@@ -50,12 +64,17 @@ and open the template in the editor.
             <!-- Vertex Date of Creation/Appearance -->
             <xs:element name="date" type="xs:string"/>
             <!-- Vertex Attributes -->
-            <xs:element name="attribute" type="vertexattribute" minOccurs="0" maxOccurs="unbounded"/>
-            <!-- Vertex additional information -->
-            <xs:element name="details" type="xs:string"/>
+            <xs:element name="attributes" type="attributes" minOccurs="1" maxOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
     
+	<!-- Attribute List -->
+    <xs:complexType name="attributes">
+        <xs:sequence>
+            <xs:element name="attribute" type="vertexattribute" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+	
     <!-- Special Vertex Stroke -->
     <xs:complexType name="vertexattribute">
         <xs:sequence>

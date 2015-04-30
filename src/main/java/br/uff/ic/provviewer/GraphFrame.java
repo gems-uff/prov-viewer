@@ -519,16 +519,16 @@ public class GraphFrame extends javax.swing.JFrame {
         VertexPainter.VertexPainter((String)StatusFilterBox.getSelectedItem(), variables.view, variables);
         variables.view.repaint();
         //Automatic Collapse
-        if(prologInferenceButton.isSelected())
-        {
-            String list;
-//            try {
-                list = testProlog.QueryCollapse((String)StatusFilterBox.getSelectedItem(), "Neutral");
-                collapser.CollapseIrrelevant(variables, filter, list, "Neutral");
-//            } catch (NoMoreSolutionException ex) {
-//                Logger.getLogger(GraphFrame.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-        }
+//        if(prologInferenceButton.isSelected())
+//        {
+//            String list;
+////            try {
+//                list = testProlog.QueryCollapse((String)StatusFilterBox.getSelectedItem(), "Neutral");
+//                collapser.CollapseIrrelevant(variables, filter, list, "Neutral");
+////            } catch (NoMoreSolutionException ex) {
+////                Logger.getLogger(GraphFrame.class.getName()).log(Level.SEVERE, null, ex);
+////            }
+//        }
     }//GEN-LAST:event_StatusFilterBoxActionPerformed
     /**
          * ================================================
@@ -603,6 +603,7 @@ public class GraphFrame extends javax.swing.JFrame {
             }
             ConvertXML(file);
             //testProlog.Init();
+            System.out.println("Finished Converting to Prolog");
         }
     }//GEN-LAST:event_prologInferenceButtonActionPerformed
 
