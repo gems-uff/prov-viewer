@@ -6,6 +6,7 @@ package br.uff.ic.provviewer.Inference;
 
 //import alice.tuprolog.*;
 import java.lang.reflect.Field;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Hashtable;
@@ -73,8 +74,14 @@ public static void addLibraryPath(String pathToAdd) throws Exception{
             Logger.getLogger(PrologInference.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        URL knowledge = PrologInference.class.getResource("/BaseRegras.pl");
-        URL fact = PrologInference.class.getResource("/PrologFacts.pl");
+        URL knowledge = PrologInference.class.getResource("/Prolog/BaseRegras.pl");
+        URL fact = PrologInference.class.getResource("/Prolog/PrologFacts_Angry.pl");
+//        URL fact = null;
+//        try {
+//            fact = new URL("PrologFacts.pl");
+//        } catch (MalformedURLException ex) {
+//            Logger.getLogger(PrologInference.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         Query qKnowledgeBase = new Query("consult", new Term[]{new Atom(knowledge.getPath())});
         Query qFactBase = new Query("consult", new Term[]{new Atom(fact.getPath())});
         //Query qFactBase = new Query("consult", new Term[]{new Atom("PrologFacts.pl")});
@@ -89,6 +96,7 @@ public static void addLibraryPath(String pathToAdd) throws Exception{
 //            } catch (FileNotFoundException ex) {
 //                Logger.getLogger(PrologInference.class.getName()).log(Level.SEVERE, null, ex);
 //            }
+        System.out.println("Prolog facts and rules Set!");
     }
     public String QueryCollapse(String attribute, String edgeType) {
 

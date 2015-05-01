@@ -32,12 +32,12 @@ import org.w3c.dom.NodeList;
  */
 public class Config {
     
-    public String demoPath = "/Car_Tutorial_config.xml";
-    //public String demoPath = "/2D_Provenance_config.xml";
-    //public String demoPath = "/Angry_Robots_config.xml";
-    //public String demoPath = "/config.xml";
-    //public String demoPath = "/map_config.xml";
-    //public String demoPath = "/bus_config.xml";
+    //public String demoPath = "/Config/Car_Tutorial_config.xml";
+    public String demoPath = "/Config/Angry_Robots_config.xml";
+    //public String demoPath = "/Config/2D_Provenance_config.xml";
+    //public String demoPath = "/Config/config.xml";
+    //public String demoPath = "/Config/map_config.xml";
+    //public String demoPath = "/Config/bus_config.xml";
     
     //Filter List
     public static List<EdgeType> edgetype = new ArrayList<EdgeType>();

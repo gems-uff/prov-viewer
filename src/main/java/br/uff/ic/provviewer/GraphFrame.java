@@ -64,12 +64,12 @@ import org.apache.commons.collections15.Transformer;
  */
 public class GraphFrame extends javax.swing.JFrame {
     final Set exclusions = new HashSet();
-    static String demo = "/Car_Tutorial.xml";
-    //static String demo = "/Angry_Robots.xml";
-    //static String demo = "/2D_Provenance.xml";
-    //static String demo = "/input.xml";
-    //static String demo = "/bus.xml";
-    //static String demo = "/map.xml";
+    //static String demo = "/Graph/Car_Tutorial.xml";
+    static String demo = "/Graph/Angry_Robots.xml";
+    //static String demo = "/Graph/2D_Provenance.xml";
+    //static String demo = "/Graph/input.xml";
+    //static String demo = "/Graph/bus.xml";
+    //static String demo = "/Graph/map.xml";
     
 //    VisualizationViewer<Object, Edge> view;
 //    Layout<Object, Edge> layout;
@@ -135,6 +135,9 @@ public class GraphFrame extends javax.swing.JFrame {
         GraphLayout = new javax.swing.JLabel();
         prologInferenceButton = new javax.swing.JCheckBox();
         FilterEdgeAgentButton = new javax.swing.JCheckBox();
+        InitPrologButton = new javax.swing.JToggleButton();
+        PrologGenerateFacts = new javax.swing.JButton();
+        PrologSimilarityInference = new javax.swing.JButton();
         MenuBar = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
         OpenConfig = new javax.swing.JMenuItem();
@@ -264,6 +267,27 @@ public class GraphFrame extends javax.swing.JFrame {
             }
         });
 
+        InitPrologButton.setText("Init Prolog");
+        InitPrologButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InitPrologButtonActionPerformed(evt);
+            }
+        });
+
+        PrologGenerateFacts.setText("Generate Facts");
+        PrologGenerateFacts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PrologGenerateFactsActionPerformed(evt);
+            }
+        });
+
+        PrologSimilarityInference.setText("Similarity Inference");
+        PrologSimilarityInference.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PrologSimilarityInferenceActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ToolMenuLayout = new javax.swing.GroupLayout(ToolMenu);
         ToolMenu.setLayout(ToolMenuLayout);
         ToolMenuLayout.setHorizontalGroup(
@@ -271,21 +295,23 @@ public class GraphFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ToolMenuLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ToolMenuLayout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(VertexFilter))
-                    .addGroup(ToolMenuLayout.createSequentialGroup()
-                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(FilterNodeAgentButton)
-                            .addComponent(FilterNodeLonelyButton))
-                        .addGap(18, 18, 18)
-                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(prologInferenceButton)
-                            .addComponent(ShowEdgeTextButton)
-                            .addComponent(FilterEdgeAgentButton)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ToolMenuLayout.createSequentialGroup()
                         .addComponent(CollapseAgent)
-                        .addGap(30, 30, 30)))
+                        .addGap(30, 30, 30))
+                    .addGroup(ToolMenuLayout.createSequentialGroup()
+                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(ToolMenuLayout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(VertexFilter))
+                            .addGroup(ToolMenuLayout.createSequentialGroup()
+                                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(FilterNodeAgentButton)
+                                    .addComponent(FilterNodeLonelyButton))
+                                .addGap(18, 18, 18)
+                                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ShowEdgeTextButton)
+                                    .addComponent(FilterEdgeAgentButton))))
+                        .addGap(24, 24, 24)))
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(ToolMenuLayout.createSequentialGroup()
                         .addGap(14, 14, 14)
@@ -298,7 +324,9 @@ public class GraphFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Expand)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Reset))
+                        .addComponent(Reset)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(InitPrologButton))
                     .addGroup(ToolMenuLayout.createSequentialGroup()
                         .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(AttributeStatus)
@@ -307,11 +335,20 @@ public class GraphFrame extends javax.swing.JFrame {
                             .addComponent(StatusFilterBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(EdgeStyle)
-                            .addComponent(MouseModeLabel)
-                            .addComponent(EdgeLineShapeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(MouseModes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(116, Short.MAX_VALUE))
+                            .addGroup(ToolMenuLayout.createSequentialGroup()
+                                .addComponent(MouseModes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(prologInferenceButton))
+                            .addGroup(ToolMenuLayout.createSequentialGroup()
+                                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(EdgeStyle)
+                                    .addComponent(EdgeLineShapeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(MouseModeLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(PrologGenerateFacts, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(PrologSimilarityInference, javax.swing.GroupLayout.Alignment.TRAILING))))))
+                .addContainerGap())
         );
         ToolMenuLayout.setVerticalGroup(
             ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -322,7 +359,8 @@ public class GraphFrame extends javax.swing.JFrame {
                     .addComponent(DisplayEdges)
                     .addComponent(Collapse)
                     .addComponent(Expand)
-                    .addComponent(Reset))
+                    .addComponent(Reset)
+                    .addComponent(InitPrologButton))
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ToolMenuLayout.createSequentialGroup()
                         .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -336,9 +374,7 @@ public class GraphFrame extends javax.swing.JFrame {
                                     .addComponent(ShowEdgeTextButton))
                                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(FilterNodeLonelyButton)
-                                    .addComponent(prologInferenceButton))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(FilterEdgeAgentButton)
+                                    .addComponent(FilterEdgeAgentButton))))
                         .addContainerGap())
                     .addGroup(ToolMenuLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -347,22 +383,29 @@ public class GraphFrame extends javax.swing.JFrame {
                                 .addGap(0, 7, Short.MAX_VALUE)
                                 .addComponent(EdgeTypes, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(ToolMenuLayout.createSequentialGroup()
-                                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(AttributeStatus)
-                                    .addComponent(EdgeStyle))
-                                .addGap(6, 6, 6)
-                                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(StatusFilterBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(EdgeLineShapeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(MouseModeLabel)
-                                    .addComponent(GraphLayout))
+                                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(ToolMenuLayout.createSequentialGroup()
+                                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(AttributeStatus)
+                                            .addComponent(EdgeStyle))
+                                        .addGap(6, 6, 6)
+                                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(StatusFilterBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(EdgeLineShapeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(MouseModeLabel)
+                                            .addComponent(GraphLayout)))
+                                    .addGroup(ToolMenuLayout.createSequentialGroup()
+                                        .addComponent(PrologGenerateFacts)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(PrologSimilarityInference)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(MouseModes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Layouts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))))))
+                                    .addComponent(Layouts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(prologInferenceButton))
+                                .addGap(0, 26, Short.MAX_VALUE))))))
         );
 
         getContentPane().add(ToolMenu, java.awt.BorderLayout.PAGE_END);
@@ -515,20 +558,9 @@ public class GraphFrame extends javax.swing.JFrame {
          * ================================================
          */
     private void StatusFilterBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StatusFilterBoxActionPerformed
-        collapser.ResetGraph(variables, filter);
+        //collapser.ResetGraph(variables, filter);
         VertexPainter.VertexPainter((String)StatusFilterBox.getSelectedItem(), variables.view, variables);
         variables.view.repaint();
-        //Automatic Collapse
-//        if(prologInferenceButton.isSelected())
-//        {
-//            String list;
-////            try {
-//                list = testProlog.QueryCollapse((String)StatusFilterBox.getSelectedItem(), "Neutral");
-//                collapser.CollapseIrrelevant(variables, filter, list, "Neutral");
-////            } catch (NoMoreSolutionException ex) {
-////                Logger.getLogger(GraphFrame.class.getName()).log(Level.SEVERE, null, ex);
-////            }
-//        }
     }//GEN-LAST:event_StatusFilterBoxActionPerformed
     /**
          * ================================================
@@ -592,19 +624,18 @@ public class GraphFrame extends javax.swing.JFrame {
     boolean initialGraph = true;
     private void prologInferenceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prologInferenceButtonActionPerformed
         // TODO add your handling code here:
-        if(prologInferenceButton.isSelected() && !prologIsInitialized)
-        {
-            prologIsInitialized = true;
-            if(initialGraph)
-            {
-                URL location = GraphFrame.class.getResource(demo);
-                file = new File(location.getFile());
-                initialGraph = false;
-            }
-            ConvertXML(file);
-            //testProlog.Init();
-            System.out.println("Finished Converting to Prolog");
-        }
+//        if(prologInferenceButton.isSelected() && !prologIsInitialized)
+//        {
+//            prologIsInitialized = true;
+//            if(initialGraph)
+//            {
+//                URL location = GraphFrame.class.getResource(demo);
+//                file = new File(location.getFile());
+//                initialGraph = false;
+//            }
+//            ConvertXML(file);
+//            System.out.println("Finished Converting to Prolog");
+//        }
     }//GEN-LAST:event_prologInferenceButtonActionPerformed
 
     private void OpenConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenConfigActionPerformed
@@ -632,19 +663,10 @@ public class GraphFrame extends javax.swing.JFrame {
             int returnVal = fileChooser.showOpenDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 file = fileChooser.getSelectedFile();
-                
-                //initGraphComponent(getGraph(file));
                 variables.graph = getGraph(file);
                 variables.collapsedGraph = variables.graph;
                 collapser.Filters(variables, filter);
-                //variables.layout.setGraph(variables.graph);
-
-                variables.view.repaint();
-                //Convert XML file to prolog
-                // Moved to prologInferenceButtonActionPerformed
-//                ConvertXML(file);
-//                
-
+                variables.view.repaint();           
             } else {
                 System.out.println("File access cancelled by user.");
             }
@@ -654,6 +676,41 @@ public class GraphFrame extends javax.swing.JFrame {
     private void FilterEdgeAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterEdgeAgentButtonActionPerformed
         collapser.Filters(variables, filter);
     }//GEN-LAST:event_FilterEdgeAgentButtonActionPerformed
+
+    private void InitPrologButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InitPrologButtonActionPerformed
+        // TODO add your handling code here:
+        if(InitPrologButton.isSelected() && !prologIsInitialized)
+        {
+            prologIsInitialized = true;
+            testProlog.Init();
+        }
+    }//GEN-LAST:event_InitPrologButtonActionPerformed
+
+    private void PrologGenerateFactsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrologGenerateFactsActionPerformed
+        // TODO add your handling code here:
+        if(initialGraph)
+        {
+            URL location = GraphFrame.class.getResource(demo);
+            file = new File(location.getFile());
+            initialGraph = false;
+        }
+        ConvertXML(file);
+        System.out.println("Finished Converting to Prolog");
+    }//GEN-LAST:event_PrologGenerateFactsActionPerformed
+
+    private void PrologSimilarityInferenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrologSimilarityInferenceActionPerformed
+        // TODO add your handling code here:
+        if(InitPrologButton.isSelected())
+        {
+            System.out.println("Starting Prolog Inference");
+            String list;
+//            list = testProlog.QueryCollapse((String)StatusFilterBox.getSelectedItem(), "Neutral");
+            list = testProlog.QueryCollapse("Health", "Neutral");
+            System.out.println("Collapsing...");
+            collapser.CollapseIrrelevant(variables, filter, list, "Neutral");
+            System.out.println("Finished Collapsing");
+        }
+    }//GEN-LAST:event_PrologSimilarityInferenceActionPerformed
 
     private static void ConvertXML(File file)
     {
@@ -1013,9 +1070,10 @@ public class GraphFrame extends javax.swing.JFrame {
         URL location = GraphFrame.class.getResource(demo);
         System.out.println(location.getFile());
         File graphFile = new File(location.getFile());
-        //URL location = GraphFrame.class.getClassLoader().getResourceAsStream("/2D_Provenance.xml");
-        //File graphFile = new File(location.getFile());
-        //File graphFile = new File(GraphFrame.class.getClassLoader().getResourceAsStream("/2D_Provenance.xml" ));
+//        File graphFile = new File(demo);
+//        URL location = GraphFrame.class.getClassLoader().getResourceAsStream("/2D_Provenance.xml");
+//        File graphFile = new File(location.getFile());
+//        File graphFile = new File(GraphFrame.class.getClassLoader().getResourceAsStream("/2D_Provenance.xml" ));
         final DirectedGraph<Object, Edge> graph = getGraph(graphFile);
 
         //ConvertXML(graphFile);
@@ -1044,12 +1102,15 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JCheckBox FilterNodeAgentButton;
     public static javax.swing.JCheckBox FilterNodeLonelyButton;
     private javax.swing.JLabel GraphLayout;
+    private javax.swing.JToggleButton InitPrologButton;
     private javax.swing.JComboBox Layouts;
     private javax.swing.JMenuBar MenuBar;
     private javax.swing.JLabel MouseModeLabel;
     private javax.swing.JComboBox MouseModes;
     private javax.swing.JMenuItem OpenConfig;
     private javax.swing.JMenuItem OpenGraph;
+    private javax.swing.JButton PrologGenerateFacts;
+    private javax.swing.JButton PrologSimilarityInference;
     private javax.swing.JButton Reset;
     private javax.swing.JCheckBox ShowEdgeTextButton;
     public static javax.swing.JComboBox StatusFilterBox;

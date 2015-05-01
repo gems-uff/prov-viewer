@@ -125,4 +125,16 @@ collapse_irrelevant(R, ATT, LABEL) :-
 	add(X,L,R).
 
 	
-collapse_vertices(L,ATT,LABEL) :- setof(X,collapse_irrelevant(X,ATT,LABEL),L).
+collapse_vertices(R,ATT,LABEL) :- 
+	setof(X,collapse_irrelevant(X,ATT,LABEL),L),
+	rem_super_sets(L, R).
+	
+	
+rem_super_sets([], []).
+rem_super_sets([L|Ls], R) :-
+    (   select(T, Ls, L1), % get any T in Ls
+        ord_subset(L, T)   % is T a superset of L ?
+    ->  rem_super_sets([T|L1], R) % discard T, keep L for further tests
+    ;   R = [L|L2],
+        rem_super_sets(Ls, L2)
+    ).
