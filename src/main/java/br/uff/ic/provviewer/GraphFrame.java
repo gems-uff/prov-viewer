@@ -64,18 +64,17 @@ import org.apache.commons.collections15.Transformer;
  */
 public class GraphFrame extends javax.swing.JFrame {
     final Set exclusions = new HashSet();
-    //static String demo = "/Graph/Car_Tutorial.xml";
-    static String demo = "/Graph/Angry_Robots.xml";
-    //static String demo = "/Graph/2D_Provenance.xml";
-    //static String demo = "/Graph/input.xml";
-    //static String demo = "/Graph/bus.xml";
-    //static String demo = "/Graph/map.xml";
     
-//    VisualizationViewer<Object, Edge> view;
-//    Layout<Object, Edge> layout;
-//    GraphCollapser gCollapser;
-//    static DirectedGraph<Object,Edge> graph;
-//    DirectedGraph<Object,Edge> collapsedGraph;
+//    static String demo = "/Graph/Car_Tutorial.xml";
+    static String demo = "/Graph/Car_Tutorial3.xml";
+//    static String demo = "/Graph/Angry_Robots.xml";
+//    static String demo = "/Graph/2D_Provenance.xml";
+//    static String demo = "/Graph/input.xml";
+//    static String demo = "/Graph/bus.xml";
+//    static String demo = "/Graph/map.xml";
+    
+    //This is a placeholder variable for the ifnerence prototype
+    final String collapseAttribute = "Speed";
     
     DefaultModalGraphMouse mouse = new DefaultModalGraphMouse();
     boolean filterCredits = false;
@@ -705,7 +704,7 @@ public class GraphFrame extends javax.swing.JFrame {
             System.out.println("Starting Prolog Inference");
             String list;
 //            list = testProlog.QueryCollapse((String)StatusFilterBox.getSelectedItem(), "Neutral");
-            list = testProlog.QueryCollapse("Health", "Neutral");
+            list = testProlog.QueryCollapse(collapseAttribute, "Neutral");
             System.out.println("Collapsing...");
             collapser.CollapseIrrelevant(variables, filter, list, "Neutral");
             System.out.println("Finished Collapsing");

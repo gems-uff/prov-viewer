@@ -13,8 +13,9 @@ import java.awt.geom.Ellipse2D;
  */
 public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
 
+    int defaultSize = 15;
     public VertexShape() {
-        setSizeTransformer(new VertexSize<V>(20));
+        setSizeTransformer(new VertexSize<V>(defaultSize));
     }
 
     /**
@@ -26,15 +27,21 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
     @Override
     public Shape transform(V v) {
         if (v instanceof Graph) {
+            int graphSize = ((Graph) v).getVertexCount();
             Object vertex;
             vertex = (((Graph) v).getVertices()).iterator().next();
             while (vertex instanceof Graph) {
                 vertex = (((Graph) vertex).getVertices()).iterator().next();
             }
             v = (V) vertex;
+            
+            setSizeTransformer(new VertexSize<V>(defaultSize + graphSize));
         }
+        else
+            setSizeTransformer(new VertexSize<V>(defaultSize));
+        
         if (v instanceof EntityVertex) {
-            return new Ellipse2D.Float(-7, -7, 20, 20);
+            return new Ellipse2D.Float(-7, -7, defaultSize, defaultSize);
         }
         if (v instanceof AgentVertex) {
             return factory.getRegularPolygon(v, 5);

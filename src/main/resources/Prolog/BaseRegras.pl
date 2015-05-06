@@ -82,7 +82,7 @@ filtergreater(X, Y, Z) :- vertex(_, _, X, _, _, _, IDATTRIBUTES), attributes(_, 
 %set_prolog_flag(toplevel_print_options, [quoted(true), portray(true), max_depth(100), priority(699)]).
 %CollapseFilter
 
-filter_vertex_first(Lant,ATT,LABEL,[X|Lresp]) :- 
+filter_vertex_first(Lant,ATT,LABEL,STD,[X|Lresp]) :- 
 	MIN is 999999 ,
 	MAX is -999999 ,
 	first(Lant,Y),
@@ -99,13 +99,13 @@ filter_vertex_first(Lant,ATT,LABEL,[X|Lresp]) :-
 	min(W1,MIN,MN1),
 	max(W2,MX1,MX2),
 	min(W2,MN1,MN2),
-	attstddev(STD, ATT),
 	threshold(MX2,MN2,STD),
 	not(IDATTRIBUTE1 = IDATTRIBUTE2),
-	filter_vertex_second([X|Lant],ATT,LABEL,MN2,MX2,Lresp).
+	filter_vertex_second([X|Lant],ATT,LABEL,MN2,MX2,STD,Lresp).
 
-filter_vertex_second(_,ATT,LABEL,MIN,MAX,[]).	
-filter_vertex_second(Lant,ATT,LABEL,MIN,MAX,[X|Lresp]) :- 
+	
+filter_vertex_second(_,ATT,LABEL,MIN,MAX,STD,[]).	
+filter_vertex_second(Lant,ATT,LABEL,MIN,MAX,STD,[X|Lresp]) :- 
 	first(Lant,Y),
 	neighbor(Y,X,LABEL), 
 	vertex(_, _, X, _, _, _, IDATTRIBUTES2), 
@@ -114,19 +114,18 @@ filter_vertex_second(Lant,ATT,LABEL,MIN,MAX,[X|Lresp]) :-
 	atom_number(VALUE2, W2),
 	max(W2,MAX,MX2),
 	min(W2,MIN,MN2),
-	attstddev(STD, ATT),
 	threshold(MX2,MN2,STD),
-	filter_vertex_second([X|Lant],ATT,LABEL,MN2,MX2,Lresp).
+	filter_vertex_second([X|Lant],ATT,LABEL,MN2,MX2,STD,Lresp).
 	
 
-	
-collapse_irrelevant(R, ATT, LABEL) :- 
-	filter_vertex_first([X],ATT,LABEL,L),
+collapse_irrelevant(R, ATT, LABEL, STD) :-
+	filter_vertex_first([X],ATT,LABEL,STD,L),
 	add(X,L,R).
 
 	
 collapse_vertices(R,ATT,LABEL) :- 
-	setof(X,collapse_irrelevant(X,ATT,LABEL),L),
+	attstddev(STD, ATT),
+	setof(X,collapse_irrelevant(X,ATT,LABEL, STD),L),
 	rem_super_sets(L, R).
 	
 	

@@ -75,7 +75,9 @@ public static void addLibraryPath(String pathToAdd) throws Exception{
         }
 
         URL knowledge = PrologInference.class.getResource("/Prolog/BaseRegras.pl");
-        URL fact = PrologInference.class.getResource("/Prolog/PrologFacts_Angry.pl");
+//        URL fact = PrologInference.class.getResource("/Prolog/PrologFacts_Car.pl");
+        URL fact = PrologInference.class.getResource("/Prolog/PrologFacts_Car_Lap3.pl");
+//        URL fact = PrologInference.class.getResource("/Prolog/PrologFacts_Angry.pl");
 //        URL fact = null;
 //        try {
 //            fact = new URL("PrologFacts.pl");

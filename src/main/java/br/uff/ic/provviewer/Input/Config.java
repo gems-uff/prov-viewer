@@ -32,8 +32,8 @@ import org.w3c.dom.NodeList;
  */
 public class Config {
     
-    //public String demoPath = "/Config/Car_Tutorial_config.xml";
-    public String demoPath = "/Config/Angry_Robots_config.xml";
+    public String demoPath = "/Config/Car_Tutorial_config.xml";
+    //public String demoPath = "/Config/Angry_Robots_config.xml";
     //public String demoPath = "/Config/2D_Provenance_config.xml";
     //public String demoPath = "/Config/config.xml";
     //public String demoPath = "/Config/map_config.xml";
