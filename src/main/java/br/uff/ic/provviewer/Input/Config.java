@@ -4,6 +4,7 @@
  */
 package br.uff.ic.provviewer.Input;
 
+import br.uff.ic.provviewer.BasePath;
 import br.uff.ic.provviewer.EdgeType;
 import br.uff.ic.provviewer.GraphFrame;
 import br.uff.ic.provviewer.Vertex.ColorScheme.ColorScheme;
@@ -33,11 +34,11 @@ import org.w3c.dom.NodeList;
 public class Config {
     
     public String demoPath = "/Config/Car_Tutorial_config.xml";
-    //public String demoPath = "/Config/Angry_Robots_config.xml";
-    //public String demoPath = "/Config/2D_Provenance_config.xml";
-    //public String demoPath = "/Config/config.xml";
-    //public String demoPath = "/Config/map_config.xml";
-    //public String demoPath = "/Config/bus_config.xml";
+//    public String demoPath = "Config/Angry_Robots_config.xml";
+//    public String demoPath = "Config/2D_Provenance_config.xml";
+//    public String demoPath = "Config/config.xml";
+//    public String demoPath = "Config/map_config.xml";
+//    public String demoPath = "Config/bus_config.xml";
     
     //Filter List
     public static List<EdgeType> edgetype = new ArrayList<EdgeType>();
@@ -69,10 +70,14 @@ public class Config {
     public static List<Paint> actVerColor = new ArrayList<Paint>();
 
     public void Initialize() {
-        URL location = this.getClass().getResource(demoPath);
-        File fXmlFile = new File(location.getFile());
-//        File fXmlFile = new File("2D_Provenance_config.xml");
-        System.out.println(fXmlFile.getPath());
+//        URL location = this.getClass().getResource(demoPath);
+//        URL location = Config.class.getProtectionDomain().getCodeSource().getLocation();
+//        System.out.println(location.getFile() + demoPath);
+//        File fXmlFile = new File(location.getFile() + demoPath);
+        System.out.println("Config: " + BasePath.getBasePathForClass(Config.class) + demoPath);
+        File fXmlFile = new File(BasePath.getBasePathForClass(Config.class) + demoPath);
+//        File fXmlFile = new File(demoPath);
+//        System.out.println(fXmlFile.getPath());
         Initialize(fXmlFile);    
         ComputeCoordScale();
 
@@ -82,7 +87,8 @@ public class Config {
     public static double height;
     public static void ComputeCoordScale()
     {
-        final ImageIcon icon = new ImageIcon(Config.class.getResource(imageLocation));
+//        final ImageIcon icon = new ImageIcon(Config.class.getResource(imageLocation));
+        final ImageIcon icon = new ImageIcon(BasePath.getBasePathForClass(Config.class) + imageLocation);
         width = icon.getIconWidth();
         height = icon.getIconHeight();
         coordinatesScale = (width * 0.5);

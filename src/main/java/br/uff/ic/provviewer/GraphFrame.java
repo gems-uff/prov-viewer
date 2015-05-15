@@ -65,13 +65,13 @@ import org.apache.commons.collections15.Transformer;
 public class GraphFrame extends javax.swing.JFrame {
     final Set exclusions = new HashSet();
     
-//    static String demo = "/Graph/Car_Tutorial.xml";
-    static String demo = "/Graph/Car_Tutorial3.xml";
-//    static String demo = "/Graph/Angry_Robots.xml";
-//    static String demo = "/Graph/2D_Provenance.xml";
-//    static String demo = "/Graph/input.xml";
-//    static String demo = "/Graph/bus.xml";
-//    static String demo = "/Graph/map.xml";
+    static String demo = "/Graph/Car_Tutorial.xml";
+//    static String demo = "Graph/Car_Tutorial3.xml";
+//    static String demo = "Graph/Angry_Robots.xml";
+//    static String demo = "Graph/2D_Provenance.xml";
+//    static String demo = "Graph/input.xml";
+//    static String demo = "Graph/bus.xml";
+//    static String demo = "Graph/map.xml";
     
     //This is a placeholder variable for the ifnerence prototype
     final String collapseAttribute = "Speed";
@@ -851,21 +851,21 @@ public class GraphFrame extends javax.swing.JFrame {
                         for(Object vertex : ((Graph)v).getVertices())
                         {
                             if(vertex instanceof AgentVertex) {
-                                return "<html><font size=\"10\">" + ((Vertex)vertex).getLabel();
+                                return "<html><font size=\"8\">" + ((Vertex)vertex).getLabel();
                             }
                         }    
                     }
                     if(v instanceof AgentVertex) {
-                                return "<html><font size=\"10\">" + ((Vertex)v).getLabel();
+                                return "<html><font size=\"8\">" + ((Vertex)v).getLabel();
                             }
                     else if((v instanceof EntityVertex) && Config.showEntityLabel && Config.showEntityDate) {
-                        return "<html><font size=\"10\">" + String.valueOf((int)((Vertex)v).getDate()) + " : " + ((Vertex)v).getLabel();
+                        return "<html><font size=\"8\">" + String.valueOf((int)((Vertex)v).getDate()) + " : " + ((Vertex)v).getLabel();
                     }
                     else if((v instanceof EntityVertex) && Config.showEntityDate) {
-                        return "<html><font size=\"10\">" + String.valueOf((int)((Vertex)v).getDate());
+                        return "<html><font size=\"8\">" + String.valueOf((int)((Vertex)v).getDate());
                     }
                     else if((v instanceof EntityVertex) && Config.showEntityLabel) {
-                        return "<html><font size=\"10\">" + ((Vertex)v).getLabel();
+                        return "<html><font size=\"8\">" + ((Vertex)v).getLabel();
                     }
                     return "";
                 }
@@ -935,12 +935,16 @@ public class GraphFrame extends javax.swing.JFrame {
     }
     
     private void InitBackground() {
-        final ImageIcon whiteIcon = new ImageIcon(getClass().getResource("/images/White.png"));
+//        final ImageIcon whiteIcon = new ImageIcon(getClass().getResource("/images/White.png"));
+//        System.out.println("ImageIcon: " + BasePath.getBasePathForClass(GraphFrame.class) + "/images/White.png");
+        final ImageIcon whiteIcon = new ImageIcon(BasePath.getBasePathForClass(GraphFrame.class) + "/images/White.png");
+
         ImageIcon mapIcon = null;
         //Config.imageLocation = "/images/AngrybotsMap.png";
         try {
             mapIcon
-                    = new ImageIcon(getClass().getResource(Config.imageLocation));
+//                    = new ImageIcon(getClass().getResource(Config.imageLocation));
+                    = new ImageIcon(BasePath.getBasePathForClass(GraphFrame.class) + Config.imageLocation);
         } catch (Exception ex) {
             System.err.println("Can't load \"" + Config.imageLocation + "\"");
         }
@@ -1066,9 +1070,12 @@ public class GraphFrame extends javax.swing.JFrame {
 //        }
         //</editor-fold>
         //Config.Initialize();
-        URL location = GraphFrame.class.getResource(demo);
-        System.out.println(location.getFile());
-        File graphFile = new File(location.getFile());
+//        URL location = GraphFrame.class.getResource(demo);
+//        URL location = Config.class.getProtectionDomain().getCodeSource().getLocation();
+//        System.out.println(location.getFile() + demo);
+//        File graphFile = new File(location.getFile() + demo);
+        System.out.println("Graph: " + BasePath.getBasePathForClass(GraphFrame.class) + demo);
+        File graphFile = new File(BasePath.getBasePathForClass(GraphFrame.class) + demo);
 //        File graphFile = new File(demo);
 //        URL location = GraphFrame.class.getClassLoader().getResourceAsStream("/2D_Provenance.xml");
 //        File graphFile = new File(location.getFile());
