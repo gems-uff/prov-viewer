@@ -68,8 +68,7 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
                 }
             };
             //Sort nodes by ID
-            // TODO: Fix the comparator, not working anymore after the changes
-//            Collections.sort(sorted, comparator);
+            Collections.sort(sorted, comparator);
             
         agentQnt = 0;
         for(int i = 0; i < sorted.size(); i++) 

@@ -7,7 +7,6 @@ package br.uff.ic.provviewer;
 import br.uff.ic.provviewer.Edge.Edge;
 import br.uff.ic.provviewer.Filter.Filters;
 import br.uff.ic.provviewer.Input.Config;
-import br.uff.ic.provviewer.Vertex.ActivityVertex;
 import br.uff.ic.provviewer.Vertex.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.Graph;
@@ -17,10 +16,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Class to Collapse/Expand selected vertices and edges
@@ -77,7 +74,7 @@ public class Collapser {
      * @param filter Filters type
      * @param picked Collection of selected vertices
      */
-    public void Collapse(Variables variables, Filters filter, Collection picked) {
+    public void Collapse(Variables variables, Filters filter, Collection picked, boolean refresh) {
         //add all filters to avoid losing information
         AddFilters(variables, filter);
         //If selected more than 1 vertex
@@ -103,13 +100,21 @@ public class Collapser {
             //set the collapsed vertex position
             variables.layout.setLocation(clusterGraph, cp);
             variables.view.getPickedVertexState().clear();
-            variables.view.repaint();
+            
+            if(refresh)
+                RefreshGraph(variables, filter);
         }
+
+    }
+    
+    public void RefreshGraph(Variables variables, Filters filter)
+    {
+        variables.view.repaint();
         CollapseEdges(variables);
         variables.ComputeEdgeTypeValues((DirectedGraph) Variables.graph);
         RemoveFilters(variables, filter);
+        System.out.println("#Vertices: " + variables.collapsedGraph.getVertexCount());
     }
-
     /**
      * Collapse edges from the same type and target Problem: Between Collapsed
      * Vertices
@@ -124,12 +129,10 @@ public class Collapser {
             //Only need to collapse if the node is a graph
             if (node instanceof Graph) {
                 List sorted = new ArrayList(variables.layout.getGraph().getOutEdges(node));//.getInEdges(node));
-//                sorted.addAll(layout.getGraph().getOutEdges(node));
                 //Type comparator
                 Comparator comparator = new Comparator<Edge>() {
                     @Override
                     public int compare(Edge s1, Edge s2) {
-                        //return (s1.getInfluence() + ((Object) s1.getSource()).toString()).compareTo((s2.getInfluence() + ((Object) s2.getSource()).toString()));
                         return (s1.getLabel() + ((Object) s1.getTarget()).toString()).compareTo((s2.getLabel() + ((Object) s2.getTarget()).toString()));
                     }
                 };
@@ -153,7 +156,6 @@ public class Collapser {
                         for (Object g : variables.layout.getGraph().getVertices()) {
                             if (g instanceof Graph) {
                                 //If the graph has the target vertex, then the graph is the target
-                                //if ((((Graph) g).containsVertex(((Edge) sorted.get(j)).getSource())) || (((Graph) g).containsVertex(((Edge) sorted.get(j + 1)).getSource()))) {
                                 if ((((Graph) g).containsVertex(((Edge) sorted.get(j)).getTarget())) || (((Graph) g).containsVertex(((Edge) sorted.get(j + 1)).getTarget()))) {
                                     sameGraph = true;
                                     target = g;
@@ -161,7 +163,6 @@ public class Collapser {
                             }
                         }
                         //If they have the same target or a graph has the target
-                        //if ((((Edge) sorted.get(j)).getSource().equals(((Edge) sorted.get(j + 1)).getSource())) || sameGraph) {
                         if ((((Edge) sorted.get(j)).getTarget().equals(((Edge) sorted.get(j + 1)).getTarget())) || sameGraph) {
                             //If the edge is a collapsed one, then remove it
                             //Deal only with the original edges
@@ -185,22 +186,14 @@ public class Collapser {
                             value = value / count;
                         }
                         String influence;
-                        //If it is neutral, dont add the 0.0 value
-//                        if (((Edge) sorted.get(j)).getInfluence().equalsIgnoreCase("Neutral")) {
-//                            influence = ((Edge) sorted.get(j)).getInfluence();
-//                        } else {
-//                            influence = value + " " + ((Edge) sorted.get(j)).getInfluence();
-//                        }
+                        
                         influence = ((Edge) sorted.get(j)).getLabel();
                         //Create collpased edge and add it in the graph                        
                         Edge edge;
                         if (target == null) {
-                            //source = ((Edge) sorted.get(j)).getSource();
-                            //edge = CollapsedEdgeType(node, target, influence);
                             target = ((Edge) sorted.get(j)).getTarget();
                             edge = CollapsedEdgeType(target, node, influence, Float.toString(value));
                         } else {
-                            //edge = CollapsedEdgeType(node, target, influence);
                             edge = CollapsedEdgeType(target, node, influence, Float.toString(value));
                         }
                         //======================================================
@@ -286,63 +279,6 @@ public class Collapser {
     }
 
     /**
-     * Example of mass collapse by Date, grouping vertices from the same week
-     * TODO: Correct the vertices position. Manually collapsing preserves
-     * position but not when using this function
-     *
-     * @param variables Variables type
-     * @param filter Filters type
-     * @param vertex Vertex used as pivot to collapse the neighbors. I.e. Agent
-     * vertex for collapsing all his activity vertices
-     * @param gran The granularity (int) used to collapse vertices. I.e. 7 by 7
-     */
-//    collapser.ResetGraph(variables, filter);
-//        //Collapse agent's nodes 7 by 7
-//        for(Object z : variables.layout.getGraph().getVertices())
-//        {
-//            if(z instanceof AgentVertex)
-//            {
-//                collapser.Granularity(variables, filter, z, 7);
-//            }
-//        }  
-    public void Granularity(Variables variables, Filters filter, Object vertex, int gran) {
-        //gran = 7;
-        if (vertex instanceof Vertex) {
-            //ResetGraph();
-            List sorted = new ArrayList(variables.layout.getGraph().getNeighbors(vertex));
-            //Date comparator
-            Comparator comparator = new Comparator<Vertex>() {
-                @Override
-                public int compare(Vertex c1, Vertex c2) {
-                    return (int)(c1.getDate() - c2.getDate());
-                }
-            };
-            //Sort nodes by date
-            Collections.sort(sorted, comparator);
-            Collection selected = new ArrayList();
-            //Collpase each week
-            int j = 0;
-            //run the list
-            while (j < sorted.size()) {
-                //collapse nodes in a factor of "gran" (ex: gran = 7, then collapse by 7 by 7 days
-                for (int i = 0; i < gran; i++) {
-                    //we want an organized collapse (not only 7 by 7, but by week).
-                    while ((j < sorted.size()) && (((ActivityVertex) sorted.get(j)).getDate() % gran) == i) {
-                        selected.add(sorted.get(j));
-                        j++;
-                    }
-                }
-                //Collection picked = new HashSet(a);
-                //Collapse selected vertices
-                if (!selected.isEmpty()) {
-                    Collapse(variables, filter, selected);
-                }
-                selected.clear();
-            }//end while(list)
-        }
-    }
-
-    /**
      * Method used to create the collapsed edge using the application's edge
      * type
      *
@@ -401,7 +337,7 @@ public class Collapser {
             }
             //Collapse selected vertices
             if (!selected.isEmpty() && (selected.size() > 1)) {
-                Collapse(variables, filter, selected);
+                Collapse(variables, filter, selected, false);
             } else {
                 //If there is only one vertex, then there is no collapse
                 Iterator itr = selected.iterator();
@@ -411,28 +347,7 @@ public class Collapser {
             }
             selected.clear();
         }
-
-        //Old collapse function
-        //For each elements
-//            for (int i = 0; i < elements.length; i++) {
-//                String[] vertexlist = elements[i].split(",");
-//                //For each vertex in the elements
-//                for (int j = 0; j < vertexlist.length; j++) {
-//                    nodes = (Variables.graph.getVertices()).toArray();
-//                    //Find the vertex
-//                    for(int w = 0; w < nodes.length; w++){
-//                        if(((Vertex)(nodes[w])).getID().equalsIgnoreCase(vertexlist[j])){
-//                            Vertex node = ((Vertex)nodes[w]);
-//                            selected.add(node);
-//                        }
-//                    }
-//                }
-//                //Collapse selected vertices
-//                if (!selected.isEmpty()) {
-//                    Collapse(variables, filter, selected);
-//                }
-//                selected.clear();
-//            }
+        RefreshGraph(variables, filter);
     }
 
     /**
@@ -458,3 +373,63 @@ public class Collapser {
         Filters(variables, filter);
     }
 }
+
+//Drafts
+    /**
+     * Example of mass collapse by Date, grouping vertices from the same week
+     * TODO: Correct the vertices position. Manually collapsing preserves
+     * position but not when using this function
+     *
+     * @param variables Variables type
+     * @param filter Filters type
+     * @param vertex Vertex used as pivot to collapse the neighbors. I.e. Agent
+     * vertex for collapsing all his activity vertices
+     * @param gran The granularity (int) used to collapse vertices. I.e. 7 by 7
+     */
+//    collapser.ResetGraph(variables, filter);
+//        //Collapse agent's nodes 7 by 7
+//        for(Object z : variables.layout.getGraph().getVertices())
+//        {
+//            if(z instanceof AgentVertex)
+//            {
+//                collapser.Granularity(variables, filter, z, 7);
+//            }
+//        }  
+    /*
+    public void Granularity(Variables variables, Filters filter, Object vertex, int gran) {
+        //gran = 7;
+        if (vertex instanceof Vertex) {
+            //ResetGraph();
+            List sorted = new ArrayList(variables.layout.getGraph().getNeighbors(vertex));
+            //Date comparator
+            Comparator comparator = new Comparator<Vertex>() {
+                @Override
+                public int compare(Vertex c1, Vertex c2) {
+                    return (int)(c1.getDate() - c2.getDate());
+                }
+            };
+            //Sort nodes by date
+            Collections.sort(sorted, comparator);
+            Collection selected = new ArrayList();
+            //Collpase each week
+            int j = 0;
+            //run the list
+            while (j < sorted.size()) {
+                //collapse nodes in a factor of "gran" (ex: gran = 7, then collapse by 7 by 7 days
+                for (int i = 0; i < gran; i++) {
+                    //we want an organized collapse (not only 7 by 7, but by week).
+                    while ((j < sorted.size()) && (((ActivityVertex) sorted.get(j)).getDate() % gran) == i) {
+                        selected.add(sorted.get(j));
+                        j++;
+                    }
+                }
+                //Collection picked = new HashSet(a);
+                //Collapse selected vertices
+                if (!selected.isEmpty()) {
+                    Collapse(variables, filter, selected);
+                }
+                selected.clear();
+            }//end while(list)
+        }
+    }
+    */

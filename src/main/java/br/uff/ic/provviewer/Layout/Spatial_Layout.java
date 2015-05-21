@@ -8,7 +8,11 @@ import edu.uci.ics.jung.algorithms.layout.AbstractLayout;
 import edu.uci.ics.jung.algorithms.util.IterativeContext;
 import edu.uci.ics.jung.graph.Graph;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.ConcurrentModificationException;
+import java.util.List;
 
 /**
  * Template for a temporal graph layout. Lines represent each agent and his
@@ -67,7 +71,24 @@ public class Spatial_Layout<V, E> extends AbstractLayout<V, E> implements Iterat
         // Use the middle vertex atribute for position
         if (v instanceof Graph) {
             int i = ((Graph) v).getVertexCount();
-            Vertex middle = (Vertex) (((Graph) v).getVertices().toArray())[(int) (i * 0.5)];
+            
+            //Sort vertices by ID
+            List sorted = new ArrayList(((Graph) v).getVertices());
+            Comparator comparator = new Comparator<Object>() {
+                @Override
+                public int compare(Object c1, Object c2) {
+                    if(!(c1 instanceof Graph) && !(c2 instanceof Graph))
+                        return ((Vertex)c1).getID().compareTo(((Vertex)c2).getID());
+                    else
+                        return 0;
+                }
+            };
+            Collections.sort(sorted, comparator);
+            // End sorting
+            
+            Vertex middle = (Vertex) sorted.toArray()[(int) (i * 0.5)];
+//            Vertex middle = (Vertex) (((Graph) v).getVertices().toArray())[(int) (i * 0.5)];
+            
             newXPos = -middle.getAttributeValueFloat(Config.layoutAxis_X) * Config.coordinatesScale;
             newYPos = middle.getAttributeValueFloat(Config.layoutAxis_Y) * Config.coordinatesScale;
             xyd.setLocation(newXPos, newYPos);

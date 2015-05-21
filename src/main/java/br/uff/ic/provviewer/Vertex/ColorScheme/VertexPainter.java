@@ -16,6 +16,10 @@ import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import java.awt.Color;
 import java.awt.Paint;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import org.apache.commons.collections15.Transformer;
 
 /**
@@ -66,11 +70,25 @@ public class VertexPainter {
                 for (ColorScheme vm : Config.vertexModes) {
                     if (mode.equalsIgnoreCase((String) GraphFrame.StatusFilterBox.getItemAt(j))) {
                         if (v instanceof Graph) {
-                            Object vertex;
-                            vertex = (((Graph) v).getVertices()).iterator().next();
+                            //Paint the vertex with the lowest value
+                            List sorted = new ArrayList(((Graph) v).getVertices());
+                            Object vertex = sorted.iterator().next();
                             while (vertex instanceof Graph) {
-                                vertex = (((Graph) vertex).getVertices()).iterator().next();
+                                vertex = sorted.iterator().next();
                             }
+                            for (Object vnext : sorted) {
+                                if (!(vnext instanceof Graph)) {
+                                    if (((Vertex) vnext).getAttributeValueFloat(mode) < ((Vertex) vertex).getAttributeValueFloat(mode)) {
+                                        vertex = vnext;
+                                    }
+                                }
+                            }
+                            // Paint the first vertex
+//                            Object vertex;
+//                            vertex = (((Graph) v).getVertices()).iterator().next();
+//                            while (vertex instanceof Graph) {
+//                                vertex = (((Graph) vertex).getVertices()).iterator().next();
+//                            }
                             return vm.Execute(((Vertex) vertex), variables);
                         } else {
                             return vm.Execute(v, variables);

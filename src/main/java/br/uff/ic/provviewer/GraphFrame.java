@@ -450,7 +450,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private void CollapseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CollapseActionPerformed
         //cannot use java generics type declarations with the graph collapser
         Collection picked = new HashSet(variables.view.getPickedVertexState().getPicked());
-        collapser.Collapse(variables, filter, picked);
+        collapser.Collapse(variables, filter, picked, true);
     }//GEN-LAST:event_CollapseActionPerformed
     /**
      * ================================================
@@ -502,7 +502,7 @@ public class GraphFrame extends javax.swing.JFrame {
             {
                 picked.removeAll(picked);
             }   
-            collapser.Collapse(variables, filter, picked);
+            collapser.Collapse(variables, filter, picked, true);
         }
     }//GEN-LAST:event_CollapseAgentActionPerformed
 
