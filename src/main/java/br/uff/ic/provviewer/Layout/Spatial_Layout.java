@@ -1,5 +1,6 @@
 package br.uff.ic.provviewer.Layout;
 
+import br.uff.ic.provviewer.GraphFrame;
 import br.uff.ic.provviewer.Input.Config;
 import br.uff.ic.provviewer.Vertex.ActivityVertex;
 import br.uff.ic.provviewer.Vertex.EntityVertex;
@@ -71,6 +72,23 @@ public class Spatial_Layout<V, E> extends AbstractLayout<V, E> implements Iterat
         // Use the middle vertex atribute for position
         if (v instanceof Graph) {
             int i = ((Graph) v).getVertexCount();
+            /*
+//             Position using the vertex with the lowest value
+            String mode = GraphFrame.StatusFilterBox.getSelectedItem().toString();
+            List sorted = new ArrayList(((Graph) v).getVertices());
+            Object vertex = sorted.iterator().next();
+            while (vertex instanceof Graph) {
+                vertex = sorted.iterator().next();
+            }
+            for (Object vnext : sorted) {
+                if (!(vnext instanceof Graph)) {
+                    if (((Vertex) vnext).getAttributeValueFloat(mode) < ((Vertex) vertex).getAttributeValueFloat(mode)) {
+                        vertex = vnext;
+                    }
+                }
+            }
+            Vertex middle = (Vertex) vertex;
+            */
             
             //Sort vertices by ID
             List sorted = new ArrayList(((Graph) v).getVertices());
@@ -84,10 +102,9 @@ public class Spatial_Layout<V, E> extends AbstractLayout<V, E> implements Iterat
                 }
             };
             Collections.sort(sorted, comparator);
-            // End sorting
+//             End sorting;
             
             Vertex middle = (Vertex) sorted.toArray()[(int) (i * 0.5)];
-//            Vertex middle = (Vertex) (((Graph) v).getVertices().toArray())[(int) (i * 0.5)];
             
             newXPos = -middle.getAttributeValueFloat(Config.layoutAxis_X) * Config.coordinatesScale;
             newYPos = middle.getAttributeValueFloat(Config.layoutAxis_Y) * Config.coordinatesScale;

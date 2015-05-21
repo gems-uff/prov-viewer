@@ -64,16 +64,13 @@ import org.apache.commons.collections15.Transformer;
 public class GraphFrame extends javax.swing.JFrame {
     final Set exclusions = new HashSet();
     
-    static String demo = File.separator + "Graph" + File.separator + "Car_Tutorial.xml";
+    static String demo = File.separator + "Graph" + File.separator + "Car_Tutorial.xml";    
 //    static String demo = File.separator + "Graph" + File.separator + "Car_Tutorial3.xml";
 //    static String demo = File.separator + "Graph" + File.separator + "Angry_Robots.xml";
 //    static String demo = File.separator + "Graph" + File.separator + "2D_Provenance.xml";
 //    static String demo = File.separator + "Graph" + File.separator + "input.xml";
 //    static String demo = File.separator + "Graph" + File.separator + "bus.xml";
 //    static String demo = File.separator + "Graph" + File.separator + "map.xml";
-    
-    //This is a placeholder variable for the ifnerence prototype
-    final String collapseAttribute = "Speed";
     
     DefaultModalGraphMouse mouse = new DefaultModalGraphMouse();
     boolean filterCredits = false;
