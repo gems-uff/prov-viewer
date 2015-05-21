@@ -7,7 +7,7 @@ import br.uff.ic.provviewer.Filter.PreFilters;
 import br.uff.ic.provviewer.Inference.PrologInference;
 import br.uff.ic.provviewer.Input.Config;
 import br.uff.ic.provviewer.Input.UnityReader;
-import br.uff.ic.provviewer.Layout.Coordinates_Layout;
+import br.uff.ic.provviewer.Layout.Spatial_Layout;
 import br.uff.ic.provviewer.Layout.Temporal_Layout;
 import br.uff.ic.provviewer.Stroke.EdgeStroke;
 import br.uff.ic.provviewer.Stroke.VertexStroke;
@@ -46,7 +46,6 @@ import java.awt.geom.Point2D;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -65,13 +64,13 @@ import org.apache.commons.collections15.Transformer;
 public class GraphFrame extends javax.swing.JFrame {
     final Set exclusions = new HashSet();
     
-    static String demo = "/Graph/Car_Tutorial.xml";
-//    static String demo = "Graph/Car_Tutorial3.xml";
-//    static String demo = "Graph/Angry_Robots.xml";
-//    static String demo = "Graph/2D_Provenance.xml";
-//    static String demo = "Graph/input.xml";
-//    static String demo = "Graph/bus.xml";
-//    static String demo = "Graph/map.xml";
+    static String demo = File.separator + "Graph" + File.separator + "Car_Tutorial.xml";
+//    static String demo = File.separator + "Graph" + File.separator + "Car_Tutorial3.xml";
+//    static String demo = File.separator + "Graph" + File.separator + "Angry_Robots.xml";
+//    static String demo = File.separator + "Graph" + File.separator + "2D_Provenance.xml";
+//    static String demo = File.separator + "Graph" + File.separator + "input.xml";
+//    static String demo = File.separator + "Graph" + File.separator + "bus.xml";
+//    static String demo = File.separator + "Graph" + File.separator + "map.xml";
     
     //This is a placeholder variable for the ifnerence prototype
     final String collapseAttribute = "Speed";
@@ -132,7 +131,6 @@ public class GraphFrame extends javax.swing.JFrame {
         FilterList = new javax.swing.JList();
         Layouts = new javax.swing.JComboBox();
         GraphLayout = new javax.swing.JLabel();
-        prologInferenceButton = new javax.swing.JCheckBox();
         FilterEdgeAgentButton = new javax.swing.JCheckBox();
         InitPrologButton = new javax.swing.JToggleButton();
         PrologGenerateFacts = new javax.swing.JButton();
@@ -148,6 +146,8 @@ public class GraphFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Prov Viewer");
+        setMinimumSize(new java.awt.Dimension(800, 0));
+        setPreferredSize(new java.awt.Dimension(800, 600));
 
         ToolMenu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -252,13 +252,6 @@ public class GraphFrame extends javax.swing.JFrame {
 
         GraphLayout.setText("Graph Layout");
 
-        prologInferenceButton.setText("Prolog Inference");
-        prologInferenceButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                prologInferenceButtonActionPerformed(evt);
-            }
-        });
-
         FilterEdgeAgentButton.setText("Agent Edge");
         FilterEdgeAgentButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -336,8 +329,7 @@ public class GraphFrame extends javax.swing.JFrame {
                         .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(ToolMenuLayout.createSequentialGroup()
                                 .addComponent(MouseModes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(prologInferenceButton))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(ToolMenuLayout.createSequentialGroup()
                                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(EdgeStyle)
@@ -402,9 +394,8 @@ public class GraphFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(MouseModes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Layouts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(prologInferenceButton))
-                                .addGap(0, 26, Short.MAX_VALUE))))))
+                                    .addComponent(Layouts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 28, Short.MAX_VALUE))))))
         );
 
         getContentPane().add(ToolMenu, java.awt.BorderLayout.PAGE_END);
@@ -607,7 +598,7 @@ public class GraphFrame extends javax.swing.JFrame {
             variables.layout = new Temporal_Layout<Object, Edge>(variables.layout.getGraph());
         }
         if (layout.equalsIgnoreCase("SpatialLayout")) {
-            variables.layout = new Coordinates_Layout<Object, Edge>(variables.layout.getGraph());
+            variables.layout = new Spatial_Layout<Object, Edge>(variables.layout.getGraph());
         }
         if (layout.equalsIgnoreCase("ISOMLayout")) {
             variables.layout = new ISOMLayout<Object, Edge>(variables.layout.getGraph());
@@ -621,22 +612,6 @@ public class GraphFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_LayoutsActionPerformed
 
     boolean initialGraph = true;
-    private void prologInferenceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prologInferenceButtonActionPerformed
-        // TODO add your handling code here:
-//        if(prologInferenceButton.isSelected() && !prologIsInitialized)
-//        {
-//            prologIsInitialized = true;
-//            if(initialGraph)
-//            {
-//                URL location = GraphFrame.class.getResource(demo);
-//                file = new File(location.getFile());
-//                initialGraph = false;
-//            }
-//            ConvertXML(file);
-//            System.out.println("Finished Converting to Prolog");
-//        }
-    }//GEN-LAST:event_prologInferenceButtonActionPerformed
-
     private void OpenConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenConfigActionPerformed
         // TODO add your handling code here:
         int returnVal = fileChooser.showOpenDialog(this);
@@ -665,7 +640,8 @@ public class GraphFrame extends javax.swing.JFrame {
                 variables.graph = getGraph(file);
                 variables.collapsedGraph = variables.graph;
                 collapser.Filters(variables, filter);
-                variables.view.repaint();           
+                variables.view.repaint(); 
+                initialGraph = false;
             } else {
                 System.out.println("File access cancelled by user.");
             }
@@ -689,8 +665,7 @@ public class GraphFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(initialGraph)
         {
-            URL location = GraphFrame.class.getResource(demo);
-            file = new File(location.getFile());
+            file = new File(BasePath.getBasePathForClass(GraphFrame.class) + demo);
             initialGraph = false;
         }
         ConvertXML(file);
@@ -704,7 +679,7 @@ public class GraphFrame extends javax.swing.JFrame {
             System.out.println("Starting Prolog Inference");
             String list;
 //            list = testProlog.QueryCollapse((String)StatusFilterBox.getSelectedItem(), "Neutral");
-            list = testProlog.QueryCollapse(collapseAttribute, "Neutral");
+            list = testProlog.QueryCollapse((String)StatusFilterBox.getSelectedItem(), "Neutral");
             System.out.println("Collapsing...");
             collapser.CollapseIrrelevant(variables, filter, list, "Neutral");
             System.out.println("Finished Collapsing");
@@ -1070,19 +1045,9 @@ public class GraphFrame extends javax.swing.JFrame {
 //        }
         //</editor-fold>
         //Config.Initialize();
-//        URL location = GraphFrame.class.getResource(demo);
-//        URL location = Config.class.getProtectionDomain().getCodeSource().getLocation();
-//        System.out.println(location.getFile() + demo);
-//        File graphFile = new File(location.getFile() + demo);
         System.out.println("Graph: " + BasePath.getBasePathForClass(GraphFrame.class) + demo);
         File graphFile = new File(BasePath.getBasePathForClass(GraphFrame.class) + demo);
-//        File graphFile = new File(demo);
-//        URL location = GraphFrame.class.getClassLoader().getResourceAsStream("/2D_Provenance.xml");
-//        File graphFile = new File(location.getFile());
-//        File graphFile = new File(GraphFrame.class.getClassLoader().getResourceAsStream("/2D_Provenance.xml" ));
         final DirectedGraph<Object, Edge> graph = getGraph(graphFile);
-
-        //ConvertXML(graphFile);
         
         java.awt.EventQueue.invokeLater(new Runnable() {
                 
@@ -1123,6 +1088,5 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JPanel ToolMenu;
     private javax.swing.JLabel VertexFilter;
     private javax.swing.JFileChooser fileChooser;
-    private javax.swing.JCheckBox prologInferenceButton;
     // End of variables declaration//GEN-END:variables
 }

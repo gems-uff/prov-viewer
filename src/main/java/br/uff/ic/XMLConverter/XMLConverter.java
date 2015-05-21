@@ -4,6 +4,8 @@
  */
 package br.uff.ic.XMLConverter;
 
+import br.uff.ic.provviewer.BasePath;
+import br.uff.ic.provviewer.Input.Config;
 import br.ufrj.ppgi.parser.XMLParser;
 import java.io.File;
 import java.util.HashMap;
@@ -27,7 +29,7 @@ public class XMLConverter {
         System.out.println("XML: " + fileName);
 
         try {
-            File file = new File("PrologFacts.pl");
+            File file = new File(BasePath.getBasePathForClass(Config.class) + File.separator + "Prolog" + File.separator + "PrologFacts.pl");
 
             if (file.delete()) {
                 System.out.println(file.getName() + " is deleted!");
@@ -37,7 +39,7 @@ public class XMLConverter {
 
             File afile = new File("BaseFatos.pl");
 
-            if (afile.renameTo(new File("PrologFacts.pl"))) {
+            if (afile.renameTo(new File(BasePath.getBasePathForClass(Config.class) + File.separator + "Prolog" + File.separator + "PrologFacts.pl"))) {
                 System.out.println("File is moved successful!");
             } else {
                 System.out.println("File is failed to move!");

@@ -11,6 +11,7 @@ import br.uff.ic.provviewer.Vertex.ActivityVertex;
 import br.uff.ic.provviewer.Vertex.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.Graph;
+import edu.uci.ics.jung.visualization.subLayout.GraphCollapser;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -41,6 +42,7 @@ public class Collapser {
         //Reset graph to the original version
         variables.layout.setGraph(variables.graph);
         variables.collapsedGraph = variables.graph;
+        variables.gCollapser = new GraphCollapser(variables.graph);
         //Remove collapsed edges, otherwise they will be invisible when Reset
         for (Object node : Variables.graph.getVertices()) {
             RemoveCollapsedEdges(variables, node);

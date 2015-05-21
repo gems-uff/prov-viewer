@@ -30,7 +30,7 @@ public class Variables extends Object {
      */
     public Layout<Object, Edge> layout;
     /**
-     * GraphCollapser Variable
+     * GraphCollapser auxiliary Variable
      */
     public GraphCollapser gCollapser;
     /**

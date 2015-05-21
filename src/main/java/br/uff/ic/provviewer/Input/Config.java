@@ -14,7 +14,6 @@ import java.awt.Color;
 import java.awt.Paint;
 import java.io.File;
 import java.lang.reflect.Constructor;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -32,37 +31,41 @@ import org.w3c.dom.NodeList;
  * @author Kohwalter
  */
 public class Config {
-    
-    public String demoPath = "/Config/Car_Tutorial_config.xml";
-//    public String demoPath = "Config/Angry_Robots_config.xml";
-//    public String demoPath = "Config/2D_Provenance_config.xml";
-//    public String demoPath = "Config/config.xml";
-//    public String demoPath = "Config/map_config.xml";
-//    public String demoPath = "Config/bus_config.xml";
-    
+
+    public String demoPath = File.separator + "Config" + File.separator + "Car_Tutorial_config.xml";
+//    public String demoPath = File.separator + "Config" + File.separator + "Angry_Robots_config.xml";
+//    public String demoPath = File.separator + "Config" + File.separator + "2D_Provenance_config.xml";
+//    public String demoPath = File.separator + "Config" + File.separator + "config.xml";
+//    public String demoPath = File.separator + "Config" + File.separator + "map_config.xml";
+//    public String demoPath = File.separator + "Config" + File.separator + "bus_config.xml";
+
     //Filter List
     public static List<EdgeType> edgetype = new ArrayList<EdgeType>();
 
     //Modes
     public static Collection<ColorScheme> vertexModes = new ArrayList<ColorScheme>();
-    
+
     //Temporal Layout
     public static String layoutSpecialVertexType;
+
     // Coordinates Layout
     public static String layoutAxis_X;
     public static String layoutAxis_Y;
+
     //BackGround for Coordinates Layout
     public static String imageLocation;
     public static double imageOffsetX;
     public static double imageOffsetY;
-    
+
     public static double spatialLayoutPosition;
     public static double coordinatesScale;
     public static double scale;
     public static boolean showEntityDate;
     public static boolean showEntityLabel;
+
     //Vertex Stroke variables
     public static List<String> vertexStrokevariables = new ArrayList<String>();
+
     //ActivityVertex
     //All 3 arrays must have the same size
     public static List<String> actVerAtt = new ArrayList<String>();
@@ -70,33 +73,28 @@ public class Config {
     public static List<Paint> actVerColor = new ArrayList<Paint>();
 
     public void Initialize() {
-//        URL location = this.getClass().getResource(demoPath);
-//        URL location = Config.class.getProtectionDomain().getCodeSource().getLocation();
-//        System.out.println(location.getFile() + demoPath);
-//        File fXmlFile = new File(location.getFile() + demoPath);
         System.out.println("Config: " + BasePath.getBasePathForClass(Config.class) + demoPath);
         File fXmlFile = new File(BasePath.getBasePathForClass(Config.class) + demoPath);
-//        File fXmlFile = new File(demoPath);
-//        System.out.println(fXmlFile.getPath());
-        Initialize(fXmlFile);    
+        Initialize(fXmlFile);
         ComputeCoordScale();
 
     }
-    
+
     public static double width;
     public static double height;
-    public static void ComputeCoordScale()
-    {
-//        final ImageIcon icon = new ImageIcon(Config.class.getResource(imageLocation));
+
+    public static void ComputeCoordScale() {
         final ImageIcon icon = new ImageIcon(BasePath.getBasePathForClass(Config.class) + imageLocation);
         width = icon.getIconWidth();
         height = icon.getIconHeight();
         coordinatesScale = (width * 0.5);
         coordinatesScale = coordinatesScale * 100;
-        if(spatialLayoutPosition != 0)
+        if (spatialLayoutPosition != 0) {
             coordinatesScale = coordinatesScale / spatialLayoutPosition;
+        }
         coordinatesScale = coordinatesScale / 100;
     }
+
     public static void Initialize(File fXmlFile) {
         try {
             edgetype = new ArrayList<EdgeType>();
@@ -107,9 +105,7 @@ public class Config {
             actVerAtt = new ArrayList<String>();
             actVerValue = new ArrayList<String>();
             actVerColor = new ArrayList<Paint>();
-//            URL location = Config.class.getResource("/config.xml");
-//
-//            File fXmlFile = new File(location.getFile());
+
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(fXmlFile);
@@ -128,7 +124,7 @@ public class Config {
             nList = doc.getElementsByTagName("imageOffset_X");
             imageOffsetX = Double.parseDouble(nList.item(0).getTextContent());
             nList = doc.getElementsByTagName("imageOffset_Y");
-            imageOffsetY = Double.parseDouble(nList.item(0).getTextContent());    
+            imageOffsetY = Double.parseDouble(nList.item(0).getTextContent());
             nList = doc.getElementsByTagName("spatialLayoutPosition");
             spatialLayoutPosition = Double.parseDouble(nList.item(0).getTextContent());
             nList = doc.getElementsByTagName("temporalLayoutscale");
@@ -191,32 +187,28 @@ public class Config {
                         values = eElement.getElementsByTagName("values").item(0).getTextContent();
                     }
                     NodeList goodattribute = eElement.getElementsByTagName("goodvalue");
-                    if(goodattribute != null && goodattribute.getLength() > 0)
-                    {
+                    if (goodattribute != null && goodattribute.getLength() > 0) {
                         if (!eElement.getElementsByTagName("goodvalue").item(0).getTextContent().isEmpty()) {
                             maxvalue = eElement.getElementsByTagName("goodvalue").item(0).getTextContent();
                             limited = true;
                         }
                     }
                     NodeList badattribute = eElement.getElementsByTagName("badvalue");
-                    if(badattribute != null && badattribute.getLength() > 0)
-                    {
+                    if (badattribute != null && badattribute.getLength() > 0) {
                         if (!eElement.getElementsByTagName("badvalue").item(0).getTextContent().isEmpty()) {
                             minvalue = eElement.getElementsByTagName("badvalue").item(0).getTextContent();
                             limited = true;
                         }
                     }
                     NodeList restrictedAtt = eElement.getElementsByTagName("restrictedAttribute");
-                    if(restrictedAtt != null && restrictedAtt.getLength() > 0)
-                    {
+                    if (restrictedAtt != null && restrictedAtt.getLength() > 0) {
                         if (!eElement.getElementsByTagName("restrictedAttribute").item(0).getTextContent().isEmpty()) {
                             restrictedAttribute = eElement.getElementsByTagName("restrictedAttribute").item(0).getTextContent();
                             restricted = true;
                         }
                     }
                     NodeList restrictedVal = eElement.getElementsByTagName("restrictedValue");
-                    if(restrictedVal != null && restrictedVal.getLength() > 0)
-                    {
+                    if (restrictedVal != null && restrictedVal.getLength() > 0) {
                         if (!eElement.getElementsByTagName("restrictedValue").item(0).getTextContent().isEmpty()) {
                             restrictedValue = eElement.getElementsByTagName("restrictedValue").item(0).getTextContent();
                             restricted = true;
@@ -224,19 +216,16 @@ public class Config {
                     }
 
                     Class cl = Class.forName("br.uff.ic.provviewer.Vertex.ColorScheme." + eElement.getElementsByTagName("class").item(0).getTextContent());
-                    if(restricted)
-                    {
+                    if (restricted) {
                         Constructor con = cl.getConstructor(String.class, String.class, String.class, String.class, boolean.class, String.class, String.class);
                         ColorScheme attMode = (ColorScheme) con.newInstance(attribute, values, maxvalue, minvalue, limited, restrictedAttribute, restrictedValue);
                         vertexModes.add(attMode);
-                    }
-                    else
-                    {
+                    } else {
                         Constructor con = cl.getConstructor(String.class, String.class, String.class, String.class, boolean.class);
                         ColorScheme attMode = (ColorScheme) con.newInstance(attribute, values, maxvalue, minvalue, limited);
                         vertexModes.add(attMode);
                     }
-                    
+
                 }
             }
 
@@ -261,8 +250,7 @@ public class Config {
 
         //Initialize Interface Filters
         String[] types = new String[edgetype.size()];
-        for(int x = 0; x < types.length; x++)
-        {
+        for (int x = 0; x < types.length; x++) {
             types[x] = edgetype.get(x).type;
         }
         GraphFrame.FilterList.setListData(types);

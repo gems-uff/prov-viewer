@@ -5,6 +5,8 @@
 package br.uff.ic.provviewer.Inference;
 
 //import alice.tuprolog.*;
+import br.uff.ic.provviewer.BasePath;
+import java.io.File;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -58,6 +60,7 @@ public static void addLibraryPath(String pathToAdd) throws Exception{
 }
     public void Init()
     {
+        try {
 //        try {
 //            System.loadLibrary("jpl");
 //        } catch (UnsatisfiedLinkError e) {
@@ -68,27 +71,23 @@ public static void addLibraryPath(String pathToAdd) throws Exception{
 //        } catch (UnsatisfiedLinkError e) {
 //            System.err.println("Native code library failed to load.\n" + e);
 //        }
-        try {
-            addLibraryPath("C:/Program Files/swipl/bin");
-        } catch (Exception ex) {
-            Logger.getLogger(PrologInference.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        URL knowledge = PrologInference.class.getResource("/Prolog/BaseRegras.pl");
+            try {
+                addLibraryPath("C:/Program Files/swipl/bin");
+            } catch (Exception ex) {
+                Logger.getLogger(PrologInference.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            URL knowledge = PrologInference.class.getResource("/Prolog/PrologRules.pl");
 //        URL fact = PrologInference.class.getResource("/Prolog/PrologFacts_Car.pl");
-        URL fact = PrologInference.class.getResource("/Prolog/PrologFacts_Car_Lap3.pl");
+            String path = "file:" + File.separator + File.separator + File.separator + BasePath.getBasePathForClass(PrologInference.class) + "Prolog" + File.separator + "PrologFacts.pl";
+            URL fact = new URL (path);
+//        URL fact = PrologInference.class.getResource("/Prolog/PrologFacts_Car_Lap3.pl");
 //        URL fact = PrologInference.class.getResource("/Prolog/PrologFacts_Angry.pl");
-//        URL fact = null;
-//        try {
-//            fact = new URL("PrologFacts.pl");
-//        } catch (MalformedURLException ex) {
-//            Logger.getLogger(PrologInference.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        Query qKnowledgeBase = new Query("consult", new Term[]{new Atom(knowledge.getPath())});
-        Query qFactBase = new Query("consult", new Term[]{new Atom(fact.getPath())});
-        //Query qFactBase = new Query("consult", new Term[]{new Atom("PrologFacts.pl")});
-        qKnowledgeBase.query();
-        qFactBase.query();
+            Query qKnowledgeBase = new Query("consult", new Term[]{new Atom(knowledge.getPath())});
+            Query qFactBase = new Query("consult", new Term[]{new Atom(fact.getPath())});
+            //Query qFactBase = new Query("consult", new Term[]{new Atom("PrologFacts.pl")});
+            qKnowledgeBase.query();
+            qFactBase.query();
 //            //TuProlog
 //            try {
 //                theory = new Theory(new FileInputStream(knowledge.getPath()));
@@ -98,7 +97,10 @@ public static void addLibraryPath(String pathToAdd) throws Exception{
 //            } catch (FileNotFoundException ex) {
 //                Logger.getLogger(PrologInference.class.getName()).log(Level.SEVERE, null, ex);
 //            }
-        System.out.println("Prolog facts and rules Set!");
+            System.out.println("Prolog facts and rules Set!");
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(PrologInference.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     public String QueryCollapse(String attribute, String edgeType) {
 

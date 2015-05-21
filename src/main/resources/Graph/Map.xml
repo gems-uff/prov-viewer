@@ -8,139 +8,203 @@ and open the template in the editor.
 <provenancedata
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
     xsi:noNamespaceSchemaLocation='input.xsd'>
-	<vertex>
+    <vertex>
         <ID>ent0</ID>
         <type>Entity</type>
         <label>Village</label>
         <date>0</date>
         <attributes>
-			<attribute>  
-				<name>ObjectPosition_X</name>
-				<value>0</value>
-			</attribute>
-			<attribute>
-				<name>ObjectPosition_Y</name>
-				<value>0</value>
-			</attribute>
-		</attributes>
+            <attribute>  
+                <name>ObjectPosition_X</name>
+                <value>0</value>
+            </attribute>
+            <attribute>
+                <name>ObjectPosition_Y</name>
+                <value>0</value>
+            </attribute>
+            <attribute>
+                <name>Health</name>
+                <value>100</value>
+            </attribute>
+        </attributes>
     </vertex>
-	<vertex>
+    <vertex>
         <ID>ent1</ID>
         <type>Entity</type>
         <label>Forest</label>
         <date>1</date>
         <attributes>
-			<attribute>  
-				<name>ObjectPosition_X</name>
-				<value>2</value>
-			</attribute>
-			<attribute>
-				<name>ObjectPosition_Y</name>
-				<value>3</value>
-			</attribute>
-		</attributes>
+            <attribute>  
+                <name>ObjectPosition_X</name>
+                <value>2</value>
+            </attribute>
+            <attribute>
+                <name>ObjectPosition_Y</name>
+                <value>3</value>
+            </attribute>
+            <attribute>
+                <name>Health</name>
+                <value>100</value>
+            </attribute>
+        </attributes>
     </vertex>
-	<vertex>
+    <vertex>
         <ID>ent2</ID>
         <type>Entity</type>
         <label>Village</label>
         <date>2</date>
         <attributes>
-			<attribute>  
-				<name>ObjectPosition_X</name>
-				<value>0</value>
-			</attribute>
-			<attribute>
-				<name>ObjectPosition_Y</name>
-				<value>0</value>
-			</attribute>
-		</attributes>
+            <attribute>  
+                <name>ObjectPosition_X</name>
+                <value>0</value>
+            </attribute>
+            <attribute>
+                <name>ObjectPosition_Y</name>
+                <value>0</value>
+            </attribute>
+            <attribute>
+                <name>Health</name>
+                <value>50</value>
+            </attribute>
+        </attributes>
     </vertex>
-	<vertex>
+    <vertex>
         <ID>ent3</ID>
         <type>Entity</type>
         <label>Dungeon</label>
         <date>3</date>
         <attributes>
-			<attribute>  
-				<name>ObjectPosition_X</name>
-				<value>3</value>
-			</attribute>
-			<attribute>
-				<name>ObjectPosition_Y</name>
-				<value>0</value>
-			</attribute>
-		</attributes>
+            <attribute>  
+                <name>ObjectPosition_X</name>
+                <value>3</value>
+            </attribute>
+            <attribute>
+                <name>ObjectPosition_Y</name>
+                <value>0</value>
+            </attribute>
+            <attribute>
+                <name>Health</name>
+                <value>100</value>
+            </attribute>
+        </attributes>
     </vertex>
-	<vertex>
+    <vertex>
         <ID>ent4</ID>
         <type>Entity</type>
         <label>Plains</label>
         <date>4</date>
         <attributes>
-			<attribute>  
-				<name>ObjectPosition_X</name>
-				<value>5</value>
-			</attribute>
-			<attribute>
-				<name>ObjectPosition_Y</name>
-				<value>1</value>
-			</attribute>
-		</attributes>
+            <attribute>  
+                <name>ObjectPosition_X</name>
+                <value>5</value>
+            </attribute>
+            <attribute>
+                <name>ObjectPosition_Y</name>
+                <value>1</value>
+            </attribute>
+            <attribute>
+                <name>Health</name>
+                <value>10</value>
+            </attribute>
+        </attributes>
     </vertex>
-	<vertex>
+    <vertex>
         <ID>ent5</ID>
         <type>Entity</type>
         <label>Town</label>
         <date>5</date>
         <attributes>
-			<attribute>  
-				<name>ObjectPosition_X</name>
-				<value>6</value>
-			</attribute>
-			<attribute>
-				<name>ObjectPosition_Y</name>
-				<value>-1</value>
-			</attribute>
-		</attributes>
+            <attribute>  
+                <name>ObjectPosition_X</name>
+                <value>6</value>
+            </attribute>
+            <attribute>
+                <name>ObjectPosition_Y</name>
+                <value>-1</value>
+            </attribute>
+            <attribute>
+                <name>Health</name>
+                <value>30</value>
+            </attribute>
+        </attributes>
     </vertex>
     <edge>
         <ID>e0</ID>
         <label>Neutral</label>
-        <type>wlabelerivedFrom</type>
+        <type>wasderivedFrom</type>
         <value></value>
         <sourceID>ent1</sourceID>
         <targetID>ent0</targetID>
     </edge>
-	<edge>
+    <edge>
         <ID>e1</ID>
         <label>Neutral</label>
-        <type>wlabelerivedFrom</type>
+        <type>wasderivedFrom</type>
         <value></value>
         <sourceID>ent2</sourceID>
         <targetID>ent1</targetID>
     </edge>
-	<edge>
+    <edge>
         <ID>e2</ID>
         <label>Neutral</label>
-        <type>wlabelerivedFrom</type>
+        <type>wasderivedFrom</type>
         <value></value>
         <sourceID>ent3</sourceID>
         <targetID>ent2</targetID>
     </edge>
-	<edge>
+    <edge>
         <ID>e3</ID>
         <label>Neutral</label>
-        <type>wlabelerivedFrom</type>
+        <type>wasderivedFrom</type>
         <value></value>
         <sourceID>ent4</sourceID>
         <targetID>ent3</targetID>
     </edge>
-	<edge>
+    <edge>
         <ID>e4</ID>
         <label>Neutral</label>
-        <type>wlabelerivedFrom</type>
+        <type>wasderivedFrom</type>
         <value></value>
+        <sourceID>ent5</sourceID>
+        <targetID>ent4</targetID>
+    </edge>
+    <edge>
+        <ID>e5</ID>
+        <label>Health</label>
+        <type>wasInfluencedBy</type>
+        <value>+0</value>
+        <sourceID>ent1</sourceID>
+        <targetID>ent0</targetID>
+    </edge>
+    <edge>
+        <ID>e6</ID>
+        <label>Health</label>
+        <type>wasInfluencedBy</type>
+        <value>-50</value>
+        <sourceID>ent2</sourceID>
+        <targetID>ent1</targetID>
+    </edge>
+    <edge>
+        <ID>e7</ID>
+        <label>Health</label>
+        <type>wasInfluencedBy</type>
+        <value>+50</value>
+        <sourceID>ent3</sourceID>
+        <targetID>ent2</targetID>
+    </edge>
+    <edge>
+        <ID>e8</ID>
+        <label>Health</label>
+        <type>wasInfluencedBy</type>
+        <value>-90</value>
+        <sourceID>ent4</sourceID>
+        <targetID>ent3</targetID>
+    </edge>
+    <edge>
+        <ID>e9</ID>
+        <label>Health</label>
+        <type>wasInfluencedBy</type>
+        <value>20</value>
         <sourceID>ent5</sourceID>
         <targetID>ent4</targetID>
     </edge>
