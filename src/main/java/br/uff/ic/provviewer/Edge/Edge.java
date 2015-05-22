@@ -245,7 +245,7 @@ public class Edge extends GraphObject{
     public Paint getColor() {
         float v = getValue();
         
-        // Return black if neutral edge (value = 0)
+        // Return blue if neutral edge (value = 0)
         if (v == 0) {
             return new Color(0, 255, 255);
         }
@@ -269,10 +269,12 @@ public class Edge extends GraphObject{
 
     public Paint CompareValueGreen(float value, double min, double max){
         int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
+        proportion = Math.max(proportion, 0);
         return new Color(0, Math.min(255, proportion), 0);
     }
     public Paint CompareValueRed(float value, double min, double max){
         int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
+        proportion = Math.min(proportion, 510);
         return new Color(Math.min(255, 510 - proportion), 0, 0);
     }
     
