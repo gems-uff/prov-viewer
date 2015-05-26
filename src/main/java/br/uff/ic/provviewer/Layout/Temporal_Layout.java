@@ -207,27 +207,28 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
         }
         else if (v instanceof Graph)
         {
-            newXPos = 0;
-            newYPos = 0;
-            List v_list = new ArrayList(((Graph) v).getVertices());
-            for (Object vnext : v_list) {
-                newXPos += Math.round(((Vertex)vnext).getDate()) * XDISTANCE;
-//                newYPos += transform((V)vnext).getY();
-            }
-            newXPos = newXPos / v_list.size();
+            newXPos = xyd.getX();
+            newYPos = xyd.getY();
+//            List v_list = new ArrayList(((Graph) v).getVertices());
+//            for (Object vnext : v_list) {
+//                if (!(v instanceof Graph))
+//                    newXPos += Math.round(((Vertex)vnext).getDate()) * XDISTANCE;
+////                newYPos += transform((V)vnext).getY();
+//            }
+//            newXPos = newXPos / v_list.size();
 //            newYPos = transform((V)v_list.get(0)).getY();
-            Collection<E> edges = graph.getOutEdges(v);
-                for (E edge : edges)
-                {
-                    //if the edge link to an Agent-node
-                    if(graph.getDest(edge) instanceof AgentVertex)
-                    {
-                        //Compute position according to the agent position
-                        Point2D agentPos = transform(graph.getDest(edge));
-                        //Adding an offset to not be in the same line
-                        newYPos = agentPos.getY() + 50;
-                    }
-                }
+//            Collection<E> edges = graph.getOutEdges(v);
+//            for (E edge : edges)
+//            {
+//                //if the edge link to an Agent-node
+//                if(graph.getDest(edge) instanceof AgentVertex)
+//                {
+//                    //Compute position according to the agent position
+//                    Point2D agentPos = transform(graph.getDest(edge));
+//                    //Adding an offset to not be in the same line
+//                    newYPos = agentPos.getY() + 50;
+//                }
+//            }
             xyd.setLocation(newXPos, newYPos);
         }
     }
