@@ -58,17 +58,17 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
         //Sort Agent vertices to avoid changing position during graph visualization
         List sorted = new ArrayList(graph.getVertices());
             //AgentID comparator
-            Comparator comparator = new Comparator<Object>() {
-                @Override
-                public int compare(Object c1, Object c2) {
-                    if(!(c1 instanceof Graph) && !(c2 instanceof Graph))
-                        return ((Vertex)c1).getID().compareTo(((Vertex)c2).getID());
-                    else
-                        return 0;
-                }
-            };
-            //Sort nodes by ID
-            Collections.sort(sorted, comparator);
+//            Comparator comparator = new Comparator<Object>() {
+//                @Override
+//                public int compare(Object c1, Object c2) {
+//                    if(!(c1 instanceof Graph) && !(c2 instanceof Graph))
+//                        return ((Vertex)c1).getID().compareTo(((Vertex)c2).getID());
+//                    else
+//                        return 0;
+//                }
+//            };
+//            //Sort nodes by ID
+//            Collections.sort(sorted, comparator);
             
         agentQnt = 0;
         for(int i = 0; i < sorted.size(); i++) 
@@ -204,6 +204,31 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
                     }
                 }
             }
+        }
+        else if (v instanceof Graph)
+        {
+            newXPos = 0;
+            newYPos = 0;
+            List v_list = new ArrayList(((Graph) v).getVertices());
+            for (Object vnext : v_list) {
+                newXPos += Math.round(((Vertex)vnext).getDate()) * XDISTANCE;
+//                newYPos += transform((V)vnext).getY();
+            }
+            newXPos = newXPos / v_list.size();
+//            newYPos = transform((V)v_list.get(0)).getY();
+            Collection<E> edges = graph.getOutEdges(v);
+                for (E edge : edges)
+                {
+                    //if the edge link to an Agent-node
+                    if(graph.getDest(edge) instanceof AgentVertex)
+                    {
+                        //Compute position according to the agent position
+                        Point2D agentPos = transform(graph.getDest(edge));
+                        //Adding an offset to not be in the same line
+                        newYPos = agentPos.getY() + 50;
+                    }
+                }
+            xyd.setLocation(newXPos, newYPos);
         }
     }
     

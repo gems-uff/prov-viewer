@@ -109,10 +109,11 @@ public class Collapser {
     
     public void RefreshGraph(Variables variables, Filters filter)
     {
-        variables.view.repaint();
+        
         CollapseEdges(variables);
-        variables.ComputeEdgeTypeValues((DirectedGraph) Variables.graph);
+        variables.ComputeEdgeTypeValues((DirectedGraph) variables.layout.getGraph());
         RemoveFilters(variables, filter);
+        variables.view.repaint();
         System.out.println("#Vertices: " + variables.collapsedGraph.getVertexCount());
     }
     /**
@@ -121,7 +122,9 @@ public class Collapser {
      *
      * @param variables Variables type
      */
-    public void CollapseEdges(Variables variables) {
+    // TODO: Change how edge collapse works
+    // probably it is better to override the original Collapse function from JUNG
+    public void CollapseEdges(final Variables variables) {
         Graph newGraph = variables.layout.getGraph();
         Collection<Edge> addEdges = new ArrayList<Edge>();
         Collection<Edge> removeEdges = new ArrayList<Edge>();
@@ -133,7 +136,19 @@ public class Collapser {
                 Comparator comparator = new Comparator<Edge>() {
                     @Override
                     public int compare(Edge s1, Edge s2) {
-                        return (s1.getLabel() + ((Object) s1.getTarget()).toString()).compareTo((s2.getLabel() + ((Object) s2.getTarget()).toString()));
+                        String targetS1 = ((Object) s1.getTarget()).toString();
+                        String targetS2 = ((Object) s2.getTarget()).toString();
+                        for (Object g : variables.layout.getGraph().getVertices()) {
+                            if (g instanceof Graph) {
+                                if (((Graph) g).containsVertex((s1).getTarget())){
+                                    targetS1 = Integer.toString(g.hashCode());
+                                }
+                                if (((Graph) g).containsVertex((s2).getTarget())){
+                                    targetS2 = Integer.toString(g.hashCode());
+                                }
+                            }
+                        }
+                        return (s1.getLabel() + targetS1).compareTo((s2.getLabel() + targetS2));
                     }
                 };
                 //Sort edges by type and target (alphabetical order)
@@ -150,25 +165,28 @@ public class Collapser {
                     float value = ((Edge) sorted.get(j)).getValue();
 
                     // while same type and target
-                    while ((j < (sorted.size() - 1)) && ((Edge) sorted.get(j)).getLabel().equals(((Edge) sorted.get(j + 1)).getLabel())) {
-                        boolean sameGraph = false;
+                    while ((j < (sorted.size() - 1)) && 
+                            ((Edge) sorted.get(j)).getLabel().equals(((Edge) sorted.get(j + 1)).getLabel())) {
+                        boolean targetSameGraph = false;
                         //check if there is any graph_vertex.
                         for (Object g : variables.layout.getGraph().getVertices()) {
                             if (g instanceof Graph) {
                                 //If the graph has the target vertex, then the graph is the target
-                                if ((((Graph) g).containsVertex(((Edge) sorted.get(j)).getTarget())) || (((Graph) g).containsVertex(((Edge) sorted.get(j + 1)).getTarget()))) {
-                                    sameGraph = true;
+                                if ((((Graph) g).containsVertex(((Edge) sorted.get(j)).getTarget())) 
+                                        && (((Graph) g).containsVertex(((Edge) sorted.get(j + 1)).getTarget()))) {
+                                    targetSameGraph = true;
                                     target = g;
                                 }
                             }
                         }
                         //If they have the same target or a graph has the target
-                        if ((((Edge) sorted.get(j)).getTarget().equals(((Edge) sorted.get(j + 1)).getTarget())) || sameGraph) {
+                        if ((((Edge) sorted.get(j)).getTarget().equals(((Edge) sorted.get(j + 1)).getTarget())) || targetSameGraph) {
                             //If the edge is a collapsed one, then remove it
                             //Deal only with the original edges
                             if (((Edge) sorted.get(j + 1)).isCollapased()) {
                                 removeEdges.add(((Edge) sorted.get(j + 1)));
-                            } else {
+                            }
+                            else {
                                 value += ((Edge) sorted.get(j + 1)).getValue();
                                 ((Edge) sorted.get(j)).SetHide(true);
                                 ((Edge) sorted.get(j + 1)).SetHide(true);
@@ -215,7 +233,7 @@ public class Collapser {
             newGraph.removeEdge(edge);
         }
         variables.layout.setGraph(newGraph);
-        variables.view.repaint();
+//        variables.view.repaint();
     }
 
     /**
@@ -432,4 +450,49 @@ public class Collapser {
             }//end while(list)
         }
     }
+
+ public Graph collapse(Graph inGraph, Graph clusterGraph) {
+         
+         if(clusterGraph.getVertexCount() < 2) return inGraph;
+ 
+         Graph graph = inGraph;
+         try {
+             graph = createGraph();
+         } catch(Exception ex) {
+             ex.printStackTrace();
+         }
+         Collection cluster = clusterGraph.getVertices();
+         
+         // add all vertices in the delegate, unless the vertex is in the
+         // cluster.
+         for(Object v : inGraph.getVertices()) {
+             if(cluster.contains(v) == false) {
+                 graph.addVertex(v);
+             }
+         }
+         // add the clusterGraph as a vertex
+         graph.addVertex(clusterGraph);
+         
+         //add all edges from the inGraph, unless both endpoints of
+         // the edge are in the cluster
+         for(Object e : (Collection<?>)inGraph.getEdges()) {
+             Pair endpoints = inGraph.getEndpoints(e);
+             // don't add edges whose endpoints are both in the cluster
+             if(cluster.containsAll(endpoints) == false) {
+ 
+                 if(cluster.contains(endpoints.getFirst())) {
+                        //Target = endpoints.getSecond()
+                        //Need to keep track of processed targets and edge
+                 	graph.addEdge(e, clusterGraph, endpoints.getSecond(), inGraph.getEdgeType(e));
+ 
+                 } else if(cluster.contains(endpoints.getSecond())) {
+                 	graph.addEdge(e, endpoints.getFirst(), clusterGraph, inGraph.getEdgeType(e));
+ 
+                 } else {
+                 	graph.addEdge(e,endpoints.getFirst(), endpoints.getSecond(), inGraph.getEdgeType(e));
+                 }
+             }
+         }
+         return graph;
+     }
     */

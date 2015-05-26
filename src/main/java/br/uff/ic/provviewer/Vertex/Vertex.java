@@ -21,7 +21,7 @@ public abstract class Vertex extends GraphObject {
     private String time;                            // prov:startTime
                                                     // Refactor for datetime type
     private String details;                         // Other text information
-
+    
     /**
      * Constructor without attributes
      * Using this constructor, attributes must be added later
