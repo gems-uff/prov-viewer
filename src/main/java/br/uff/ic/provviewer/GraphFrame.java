@@ -1,53 +1,18 @@
 package br.uff.ic.provviewer;
 
-import br.uff.ic.XMLConverter.XMLConverter;
 import br.uff.ic.provviewer.Edge.Edge;
-import br.uff.ic.provviewer.Filter.Filters;
-import br.uff.ic.provviewer.Filter.PreFilters;
 import br.uff.ic.provviewer.GUI.GuiButtons;
+import br.uff.ic.provviewer.GUI.GuiFunctions;
 import br.uff.ic.provviewer.GUI.GuiProlog;
-import br.uff.ic.provviewer.Inference.PrologInference;
+import br.uff.ic.provviewer.GUI.GuiReadFile;
+import br.uff.ic.provviewer.GUI.GuiRun;
 import br.uff.ic.provviewer.Input.Config;
-import br.uff.ic.provviewer.Input.UnityReader;
-import br.uff.ic.provviewer.Layout.Temporal_Layout;
-import br.uff.ic.provviewer.Stroke.EdgeStroke;
-import br.uff.ic.provviewer.Stroke.VertexStroke;
-import br.uff.ic.provviewer.Vertex.AgentVertex;
-import br.uff.ic.provviewer.Vertex.ColorScheme.VertexPainter;
-import br.uff.ic.provviewer.Vertex.EntityVertex;
-import br.uff.ic.provviewer.Vertex.Vertex;
-import br.uff.ic.provviewer.Vertex.VertexShape;
 import edu.uci.ics.jung.graph.DirectedGraph;
-import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
-import edu.uci.ics.jung.graph.Graph;
-import edu.uci.ics.jung.visualization.Layer;
-import edu.uci.ics.jung.visualization.VisualizationViewer;
-import edu.uci.ics.jung.visualization.control.CrossoverScalingControl;
-import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
-import edu.uci.ics.jung.visualization.control.ScalingControl;
-import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
-import edu.uci.ics.jung.visualization.subLayout.GraphCollapser;
-import edu.uci.ics.jung.visualization.util.PredicatedParallelEdgeIndexFunction;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Stroke;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Point2D;
 import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.UnsupportedLookAndFeelException;
-import org.apache.commons.collections15.Predicate;
-import org.apache.commons.collections15.Transformer;
 
 /**
  * Prov Viewer GUI. Can be used as a Template.
@@ -63,9 +28,7 @@ public class GraphFrame extends javax.swing.JFrame {
      */
     public GraphFrame(DirectedGraph<Object, Edge> graph) {
         initComponents();
-        initGraphComponent(graph);
-        //TODO: Initialize with a default config and graph
-        
+        GuiFunctions.initGraphComponent(variables, graph, this, Layouts);       
     }
 
     /** This method is called from within the constructor to
@@ -518,7 +481,7 @@ public class GraphFrame extends javax.swing.JFrame {
             int returnVal = fileChooser.showOpenDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 variables.file = fileChooser.getSelectedFile();
-                variables.graph = getGraph(variables.file);
+                variables.graph = GuiReadFile.getGraph(variables.file);
                 variables.collapsedGraph = variables.graph;
                 variables.collapser.Filters(variables, variables.filter);
                 variables.view.repaint(); 
@@ -545,327 +508,6 @@ public class GraphFrame extends javax.swing.JFrame {
         GuiProlog.SimilarityInference(InitPrologButton.isSelected(), variables.testProlog, variables.collapser, variables, variables.filter);
     }//GEN-LAST:event_PrologSimilarityInferenceActionPerformed
    
-    private void InitVariables()
-    {
-        variables.mouse = new DefaultModalGraphMouse();
-        variables.filterCredits = false;
-        variables = new Variables();
-        variables.collapser = new Collapser();
-        variables.filter = new Filters();
-        variables.testProlog = new PrologInference();
-        variables.prologIsInitialized = false;
-        variables.initLayout = true;
-        variables.initConfig = false;
-    }
-    
-    private void SetView(DirectedGraph<Object, Edge> graph)
-    {
-        /**
-         * ================================================
-         * Choosing layout
-         * ================================================
-         */
-        if(variables.initLayout)
-        {
-            variables.config.Initialize();
-            variables.layout = new Temporal_Layout<Object, Edge>(graph);
-            variables.view = new VisualizationViewer<Object, Edge>(variables.layout);
-            Layouts.setSelectedItem("SpatialLayout");
-            variables.initLayout = false;
-        }
-        
-        ScaleView();
-        PanCameraToFirstVertex();
-        
-        variables.gCollapser = new GraphCollapser(graph);
-        
-        final PredicatedParallelEdgeIndexFunction eif = PredicatedParallelEdgeIndexFunction.getInstance();
-        // ================================================
-        //        final Set exclusions = new HashSet();
-        //testing for edge collapse
-        eif.setPredicate(new Predicate() {
-            @Override
-            public boolean evaluate(Object e) {
-
-                    return variables.exclusions.contains(e);
-            }});
-        // ================================================
-        variables.view.getRenderContext().setParallelEdgeIndexFunction(eif);
-        
-        variables.view.setBackground(Color.white);
-        this.getContentPane().add(variables.view, BorderLayout.CENTER);
-    }
-    
-    /**
-     * Scale back the zoom in the camera
-     */
-    private void ScaleView()
-    {
-        variables.view = new VisualizationViewer<Object, Edge>(variables.layout);
-        final ScalingControl scaler = new CrossoverScalingControl();
-        scaler.scale(variables.view, 1/2.1f, variables.view.getCenter());
-    }
-    
-    /**
-     * Pan the camera to the first vertex in the graph
-     */
-    private void PanCameraToFirstVertex()
-    {
-        Vertex first = (Vertex) variables.graph.getVertices().iterator().next();    
-        variables.view.getGraphLayout();
-        Point2D q = variables.view.getGraphLayout().transform(first);
-        Point2D lvc = 
-            variables.view.getRenderContext().getMultiLayerTransformer().inverseTransform(variables.view.getCenter());
-        final double dx = (lvc.getX() - q.getX());
-        final double dy = (lvc.getY() - q.getY());
-        variables.view.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.LAYOUT).translate(dx, dy);
-    }
-    
-    private void MouseInteraction()
-    {
-        /**
-         * ================================================
-         * Adding interaction via mouse
-         * Commands: t for translate, p for picking
-         * ================================================
-         */
-//        DefaultModalGraphMouse mouse = new DefaultModalGraphMouse();
-        variables.view.setGraphMouse(variables.mouse);
-        variables.view.addKeyListener(variables.mouse.getModeKeyListener());
-    }
-    
-    private void Tooltip()
-    {
-        /**
-         * ================================================
-         * Add a listener for ToolTips
-         * ================================================
-         */
-        variables.view.setVertexToolTipTransformer(new ToStringLabeller() {
-            @Override
-            public String transform(Object v) {
-                    if(v instanceof Graph) {
-                            return ("<html>" + ((Graph)v).getVertices().toString() + "</html>");
-                    }
-                    return ("<html>" + v.toString() + "</html>");
-            }});
-         /**
-         * ================================================
-         * Edge Tooltip
-         * ================================================
-         */
-        variables.view.setEdgeToolTipTransformer(new Transformer<Edge,String>(){
-        @Override
-            public String transform(Edge n) 
-            {
-                return n.getEdgeInfluence();
-            }
-        });
-    }
-    
-    private void VertexLabel()
-    {
-        /**
-         * ================================================
-         * Labeling Vertex
-         * ================================================
-         */
-//        view.getRenderContext().setVertexLabelTransformer(new ToStringLabeller<Node>());
-        variables.view.getRenderContext().setVertexLabelTransformer(new Transformer<Object, String>() {
-
-                @Override
-                public String transform(Object v) {
-                    if(v instanceof Graph) {
-                        for(Object vertex : ((Graph)v).getVertices())
-                        {
-                            if(vertex instanceof AgentVertex) {
-                                return "<html><font size=\"8\">" + ((Vertex)vertex).getLabel();
-                            }
-                        }    
-                    }
-                    if(v instanceof AgentVertex) {
-                                return "<html><font size=\"8\">" + ((Vertex)v).getLabel();
-                            }
-                    else if((v instanceof EntityVertex) && Config.showEntityLabel && Config.showEntityDate) {
-                        return "<html><font size=\"8\">" + String.valueOf((int)((Vertex)v).getDate()) + " : " + ((Vertex)v).getLabel();
-                    }
-                    else if((v instanceof EntityVertex) && Config.showEntityDate) {
-                        return "<html><font size=\"8\">" + String.valueOf((int)((Vertex)v).getDate());
-                    }
-                    else if((v instanceof EntityVertex) && Config.showEntityLabel) {
-                        return "<html><font size=\"8\">" + ((Vertex)v).getLabel();
-                    }
-                    return "";
-                }
-            });
-    }
-    
-    private void Stroke(DirectedGraph<Object, Edge> graph)
-    {
-        /**
-         * ================================================
-         * Vertex Stroke
-         * ================================================
-         */
-        Transformer<Object, Stroke> nodeStrokeTransformer =  new Transformer<Object, Stroke>() {
-            @Override
-            public Stroke transform(Object v) {
-                return VertexStroke.VertexStroke(v, variables.view, variables.layout);
-        }};
-        variables.view.getRenderContext().setVertexStrokeTransformer(nodeStrokeTransformer);
-        /**
-         * ================================================
-         * Edge Stroke
-         * ================================================
-         */
-        variables.ComputeEdgeTypeValues(graph);
-        Transformer<Edge, Stroke> edgeStrokeTransformer =  new Transformer<Edge, Stroke>() {
-            @Override
-            public Stroke transform(Edge e) {
-                return EdgeStroke.StrokeByType(e, variables);
-            }
-        };
-        variables.view.getRenderContext().setEdgeStrokeTransformer(edgeStrokeTransformer);
-    }
-    
-    private void GraphPaint()
-    {
-        /**
-         * ================================================
-         * Vertex Paint
-         * ================================================
-         */
-        VertexPainter.VertexPainter("Default", variables.view, variables);
-        /**
-         * ================================================
-         * Edge Paint
-         * ================================================
-         */
-        Transformer edgePainter = new Transformer<Edge,Paint>() {
-            @Override
-            public Paint transform(Edge edge) {
-                return edge.getColor();
-            }
-        };  
-        variables.view.getRenderContext().setEdgeDrawPaintTransformer(edgePainter);
-        variables.view.getRenderContext().setArrowDrawPaintTransformer(edgePainter);
-        variables.view.getRenderContext().setArrowFillPaintTransformer(edgePainter);
-    }
-    
-    private void VertexShape()
-    {
-        /**
-         * ================================================
-         * Vertex Shape
-         * ================================================
-         */
-        variables.view.getRenderContext().setVertexShapeTransformer(new VertexShape());
-    }
-    
-    private void InitBackground() {
-//        final ImageIcon whiteIcon = new ImageIcon(getClass().getResource("/images/White.png"));
-//        System.out.println("ImageIcon: " + BasePath.getBasePathForClass(GraphFrame.class) + "/images/White.png");
-        final ImageIcon whiteIcon = new ImageIcon(BasePath.getBasePathForClass(GraphFrame.class) + "/images/White.png");
-
-        ImageIcon mapIcon = null;
-        //Config.imageLocation = "/images/AngrybotsMap.png";
-        try {
-            mapIcon
-//                    = new ImageIcon(getClass().getResource(Config.imageLocation));
-                    = new ImageIcon(BasePath.getBasePathForClass(GraphFrame.class) + Config.imageLocation);
-        } catch (Exception ex) {
-            System.err.println("Can't load \"" + Config.imageLocation + "\"");
-        }
-        
-        final ImageIcon icon = mapIcon;
-        final int offsetX = (int) ((-icon.getIconWidth() * 0.5) - (Config.imageOffsetX * Config.coordinatesScale));
-        final int offsetY = (int) ((-icon.getIconHeight() *  0.5) + (Config.imageOffsetY * Config.coordinatesScale));
-        
-        if (icon != null) {
-                variables.view.addPreRenderPaintable(new VisualizationViewer.Paintable() {
-                    public void paint(Graphics g) {
-                        Graphics2D g2d = (Graphics2D) g;
-                        AffineTransform oldXform = g2d.getTransform();
-                        AffineTransform lat
-                                = variables.view.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.LAYOUT).getTransform();
-                        AffineTransform vat
-                                = variables.view.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.VIEW).getTransform();
-                        AffineTransform at = new AffineTransform();
-                        at.concatenate(g2d.getTransform());
-                        at.concatenate(vat);
-                        at.concatenate(lat);
-                        g2d.setTransform(at);
-                        if (Layouts.getSelectedItem().equals("SpatialLayout")) {
-                            g.drawImage(icon.getImage(), offsetX, offsetY,
-                                icon.getIconWidth(), icon.getIconHeight(), variables.view);
-                        }
-                        else
-                        {
-                            g.drawImage(whiteIcon.getImage(), offsetX, offsetY,
-                                icon.getIconWidth(), icon.getIconHeight(), variables.view);
-                        }
-                        g2d.setTransform(oldXform);
-                    }
-
-                    public boolean useTransform() {
-                        return false;
-                    }
-                });
-        } 
-    }
-    
-    private void InitFilters(DirectedGraph<Object, Edge> graph)
-    {
-        variables.filter.filteredGraph = graph;
-        variables.filter.FilterInit();
-        
-        PreFilters.PreFilter();
-        //Initialize selected filters from the GUI
-        variables.collapser.Filters(variables, variables.filter);
-    }
-    /**
-     * ================================================
-     * Init Graph Component
-     * ================================================
-     */
-    
-    private void initGraphComponent(DirectedGraph<Object, Edge> graph) {
-        variables.initConfig = true;
-        variables.graph = graph;
-        variables.collapsedGraph = variables.graph;
-        
-        SetView(variables.graph); 
-        InitBackground();
-        MouseInteraction(); 
-        Tooltip();
-        VertexLabel();
-        Stroke(variables.graph); 
-        GraphPaint();
-        VertexShape();
-        InitFilters(variables.graph);
-    }
-    
-    /**
-     * Get Graph from TSVReader
-     * @param path
-     * @return 
-     */
-    public static DirectedGraph<Object,Edge> getGraph(File xmlGraph) {
-        DirectedGraph<Object,Edge> g = new DirectedSparseMultigraph<Object,Edge>();
-        try {
-                UnityReader xmlReader = new UnityReader(xmlGraph);
-                xmlReader.ReadXML();
-                for (Edge edge : xmlReader.getEdges()) {
-                    g.addEdge(edge, edge.getSource(), edge.getTarget());
-                }
-            
-        } catch (URISyntaxException ex) {
-            Logger.getLogger(GraphFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(GraphFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return g;
-}
     /**
      * Main
      * @param args the command line arguments
@@ -897,18 +539,8 @@ public class GraphFrame extends javax.swing.JFrame {
 //            java.util.logging.Logger.getLogger(GraphFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
         //</editor-fold>
-        //Config.Initialize();
-        System.out.println("Graph: " + BasePath.getBasePathForClass(GraphFrame.class) + Variables.demo);
-        File graphFile = new File(BasePath.getBasePathForClass(GraphFrame.class) + Variables.demo);
-        final DirectedGraph<Object, Edge> graph = getGraph(graphFile);
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-                
-            @Override
-                public void run() {
-                    new GraphFrame(graph).setVisible(true);
-                }
-            });
+
+        GuiRun.Run();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel AttributeStatus;

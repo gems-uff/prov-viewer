@@ -25,31 +25,31 @@ import java.util.Set;
  * @author Kohwalter
  */
 public class Variables extends Object {
-    static String demo = File.separator + "Graph" + File.separator + "Car_Tutorial.xml";
-    //    static String demo = File.separator + "Graph" + File.separator + "Car_Tutorial3.xml";
-    //    static String demo = File.separator + "Graph" + File.separator + "Angry_Robots.xml";
-    //    static String demo = File.separator + "Graph" + File.separator + "2D_Provenance.xml";
-    //    static String demo = File.separator + "Graph" + File.separator + "input.xml";
-    //    static String demo = File.separator + "Graph" + File.separator + "bus.xml";
-    //    static String demo = File.separator + "Graph" + File.separator + "map.xml";
+    public static String demo = File.separator + "Graph" + File.separator + "Car_Tutorial.xml";
+    //    public static String demo = File.separator + "Graph" + File.separator + "Car_Tutorial3.xml";
+    //    public static String demo = File.separator + "Graph" + File.separator + "Angry_Robots.xml";
+    //    public static String demo = File.separator + "Graph" + File.separator + "2D_Provenance.xml";
+    //    public static String demo = File.separator + "Graph" + File.separator + "input.xml";
+    //    public static String demo = File.separator + "Graph" + File.separator + "bus.xml";
+    //    public static String demo = File.separator + "Graph" + File.separator + "map.xml";
 
     public VisualizationViewer<Object, Edge> view;
     public Layout<Object, Edge> layout;
     public GraphCollapser gCollapser;
     public static DirectedGraph<Object, Edge> graph;
     public DirectedGraph<Object, Edge> collapsedGraph;
-    Config config = new Config();
-    boolean filterCredits = false;
-    boolean initConfig = false;
-    final Set exclusions = new HashSet();
-    boolean initLayout = true;
-    Filters filter = new Filters();
-    PrologInference testProlog = new PrologInference();
-    boolean prologIsInitialized = false;
-    File file;
-    DefaultModalGraphMouse mouse = new DefaultModalGraphMouse();
-    Collapser collapser = new Collapser();
-    boolean initialGraph = true;
+    public Config config = new Config();
+    public boolean filterCredits = false;
+    public boolean initConfig = false;
+    public final Set exclusions = new HashSet();
+    public boolean initLayout = true;
+    public Filters filter = new Filters();
+    public PrologInference testProlog = new PrologInference();
+    public boolean prologIsInitialized = false;
+    public File file;
+    public DefaultModalGraphMouse mouse = new DefaultModalGraphMouse();
+    public Collapser collapser = new Collapser();
+    public boolean initialGraph = true;
 
     /**
      * Return the max value between 2 values
