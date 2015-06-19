@@ -6,7 +6,6 @@ package br.uff.ic.provviewer;
 
 import br.uff.ic.provviewer.Edge.Edge;
 import br.uff.ic.provviewer.Filter.Filters;
-import br.uff.ic.provviewer.Input.Config;
 import br.uff.ic.provviewer.Vertex.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.Graph;
@@ -44,7 +43,7 @@ public class Collapser {
         for (Object node : Variables.graph.getVertices()) {
             RemoveCollapsedEdges(variables, node);
         }
-        variables.ComputeEdgeTypeValues((DirectedGraph) Variables.graph);
+        variables.ComputeEdgeTypeValues(variables, (DirectedGraph) Variables.graph);
         RemoveFilters(variables, filter);
     }
 
@@ -111,7 +110,7 @@ public class Collapser {
     {
         
         CollapseEdges(variables);
-        variables.ComputeEdgeTypeValues((DirectedGraph) variables.layout.getGraph());
+        variables.ComputeEdgeTypeValues(variables, (DirectedGraph) variables.layout.getGraph());
         RemoveFilters(variables, filter);
         variables.view.repaint();
         System.out.println("#Vertices: " + variables.collapsedGraph.getVertexCount());
@@ -200,7 +199,7 @@ public class Collapser {
                     }//end-while
                     //If collapased any edge, create it in the graph
                     if (collapse) {
-                        if (!((Edge) sorted.get(j)).AddInfluence()) {
+                        if (!((Edge) sorted.get(j)).AddInfluence(variables)) {
                             value = value / count;
                         }
                         String influence;
@@ -265,7 +264,7 @@ public class Collapser {
             }
         }
         variables.view.getPickedVertexState().clear();
-        variables.ComputeEdgeTypeValues((DirectedGraph) Variables.graph);
+        variables.ComputeEdgeTypeValues(variables, variables.graph);
         variables.view.repaint();
         CollapseEdges(variables);
     }
@@ -375,7 +374,7 @@ public class Collapser {
      * @param filter
      */
     public void AddFilters(Variables variables, br.uff.ic.provviewer.Filter.Filters filter) {
-        GraphFrame.FilterList.setSelectionInterval(0, Config.edgetype.size() - 1);
+        GraphFrame.FilterList.setSelectionInterval(0, variables.config.edgetype.size() - 1);
         Filters(variables, filter, false);
     }
 

@@ -6,7 +6,6 @@ package br.uff.ic.provviewer.Vertex.ColorScheme;
 
 import br.uff.ic.provviewer.Edge.Edge;
 import br.uff.ic.provviewer.GraphFrame;
-import br.uff.ic.provviewer.Input.Config;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.provviewer.Vertex.ActivityVertex;
 import br.uff.ic.provviewer.Vertex.AgentVertex;
@@ -65,7 +64,7 @@ public class VertexPainter {
             @Override
             public Paint transform(Object v) {
                 int j = 0;
-                for (ColorScheme vm : Config.vertexModes) {
+                for (ColorScheme vm : variables.config.vertexModes) {
                     if (mode.equalsIgnoreCase((String) GraphFrame.StatusFilterBox.getItemAt(j))) {
                         if (v instanceof Graph) {
                             //Paint the vertex with the lowest value

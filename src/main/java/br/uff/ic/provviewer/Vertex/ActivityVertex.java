@@ -4,7 +4,7 @@
  */
 package br.uff.ic.provviewer.Vertex;
 
-import br.uff.ic.provviewer.Input.Config;
+import br.uff.ic.provviewer.Variables;
 import java.awt.Color;
 import java.awt.Paint;
 
@@ -49,10 +49,10 @@ public class ActivityVertex extends Vertex {
      * (Activity vertex only)
      * @return 
      */
-    public Paint getDefaultColor() {
-        for (int i = 0; i < Config.actVerAtt.size(); i++) {
-            if (this.getAttributeValue(Config.actVerAtt.get(i)).equalsIgnoreCase(Config.actVerValue.get(i))) {
-                return Config.actVerColor.get(i);
+    public Paint getDefaultColor(Variables variables) {
+        for (int i = 0; i < variables.config.actVerAtt.size(); i++) {
+            if (this.getAttributeValue(variables.config.actVerAtt.get(i)).equalsIgnoreCase(variables.config.actVerValue.get(i))) {
+                return variables.config.actVerColor.get(i);
             }
         }
         return new Color(159, 177, 252);

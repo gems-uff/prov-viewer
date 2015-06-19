@@ -2,16 +2,13 @@ package br.uff.ic.provviewer;
 
 import br.uff.ic.provviewer.Edge.Edge;
 import br.uff.ic.provviewer.GUI.GuiButtons;
-import br.uff.ic.provviewer.GUI.GuiFunctions;
+import br.uff.ic.provviewer.GUI.GuiInitialization;
 import br.uff.ic.provviewer.GUI.GuiProlog;
 import br.uff.ic.provviewer.GUI.GuiReadFile;
 import br.uff.ic.provviewer.GUI.GuiRun;
-import br.uff.ic.provviewer.Input.Config;
 import edu.uci.ics.jung.graph.DirectedGraph;
-import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFileChooser;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
@@ -28,7 +25,7 @@ public class GraphFrame extends javax.swing.JFrame {
      */
     public GraphFrame(DirectedGraph<Object, Edge> graph) {
         initComponents();
-        GuiFunctions.initGraphComponent(variables, graph, this, Layouts);       
+        GuiInitialization.initGraphComponent(variables, graph, this, Layouts);       
     }
 
     /** This method is called from within the constructor to
@@ -458,16 +455,7 @@ public class GraphFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_LayoutsActionPerformed
 
     private void OpenConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenConfigActionPerformed
-        // TODO add your handling code here:
-        int returnVal = fileChooser.showOpenDialog(this);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = fileChooser.getSelectedFile();
-            Config.Initialize(file);
-            variables.initConfig = true;
-            
-        } else {
-            System.out.println("File access cancelled by user.");
-        }
+        GuiReadFile.openConfigFile(variables, fileChooser, this);
     }//GEN-LAST:event_OpenConfigActionPerformed
 
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
@@ -475,21 +463,7 @@ public class GraphFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ExitActionPerformed
 
     private void OpenGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenGraphActionPerformed
-        // TODO add your handling code here:
-        if(variables.initConfig)
-        {
-            int returnVal = fileChooser.showOpenDialog(this);
-            if (returnVal == JFileChooser.APPROVE_OPTION) {
-                variables.file = fileChooser.getSelectedFile();
-                variables.graph = GuiReadFile.getGraph(variables.file);
-                variables.collapsedGraph = variables.graph;
-                variables.collapser.Filters(variables, variables.filter);
-                variables.view.repaint(); 
-                variables.initialGraph = false;
-            } else {
-                System.out.println("File access cancelled by user.");
-            }
-        }
+        GuiReadFile.openGraphFile(variables, fileChooser, this);
     }//GEN-LAST:event_OpenGraphActionPerformed
 
     private void FilterEdgeAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterEdgeAgentButtonActionPerformed

@@ -3,7 +3,7 @@ package br.uff.ic.provviewer.Edge;
 import br.uff.ic.provviewer.Attribute;
 import br.uff.ic.provviewer.EdgeType;
 import br.uff.ic.provviewer.GraphObject;
-import br.uff.ic.provviewer.Input.Config;
+import br.uff.ic.provviewer.Variables;
 import java.awt.Color;
 import java.awt.Paint;
 import java.util.HashMap;
@@ -240,7 +240,7 @@ public class Edge extends GraphObject{
      * Method to get the edge color (red, black, or green), defined by value
      * @return
      */
-    public Paint getColor() {
+    public Paint getColor(Variables variables) {
         float v = getValue();
         
 //        if(this.label.equalsIgnoreCase("Neutral"))
@@ -259,17 +259,17 @@ public class Edge extends GraphObject{
         else
         {
             int j = 0;
-            for (int i = 0; i < Config.edgetype.size(); i++) {
-                if (this.getLabel().contains(Config.edgetype.get(i).type)) {
+            for (int i = 0; i < variables.config.edgetype.size(); i++) {
+                if (this.getLabel().contains(variables.config.edgetype.get(i).type)) {
                     j = i;
                 }
             }
             
             if (v > 0) {
-                return CompareValueGreen(v, 0, Config.edgetype.get(j).max);
+                return CompareValueGreen(v, 0, variables.config.edgetype.get(j).max);
             }
             else {
-                return CompareValueRed(v, Config.edgetype.get(j).min, 0);
+                return CompareValueRed(v, variables.config.edgetype.get(j).min, 0);
             }
         }
     }
@@ -293,8 +293,8 @@ public class Edge extends GraphObject{
      * @return (boolean) Return true if influence from collapsed edges are
      * added. Return false if average
      */
-    public boolean AddInfluence() {
-        for (EdgeType edgetype : Config.edgetype) {
+    public boolean AddInfluence(Variables variables) {
+        for (EdgeType edgetype : variables.config.edgetype) {
             if (this.getEdgeInfluence().contains(edgetype.type)) {
                 if (edgetype.collapse.equalsIgnoreCase("AVERAGE")) {
                     return false;

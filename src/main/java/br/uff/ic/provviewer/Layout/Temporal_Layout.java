@@ -1,18 +1,14 @@
 package br.uff.ic.provviewer.Layout;
 
-import br.uff.ic.provviewer.Input.Config;
+import br.uff.ic.provviewer.Variables;
 import br.uff.ic.provviewer.Vertex.ActivityVertex;
 import br.uff.ic.provviewer.Vertex.AgentVertex;
 import br.uff.ic.provviewer.Vertex.EntityVertex;
 import br.uff.ic.provviewer.Vertex.Vertex;
-import edu.uci.ics.jung.algorithms.layout.AbstractLayout;
-import edu.uci.ics.jung.algorithms.util.IterativeContext;
 import edu.uci.ics.jung.graph.Graph;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 
@@ -22,14 +18,14 @@ import java.util.List;
  * @param <V>
  * @param <E> 
  */
-public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements IterativeContext {
+public class Temporal_Layout<V, E> extends ProvViewerLayout<V, E> {
 
     /**
      * Creates an instance for the specified graph.
      * @param g 
      */
-    public Temporal_Layout(Graph<V, E> g) {
-        super(g);
+    public Temporal_Layout(Graph<V, E> g, Variables variables) {
+        super(g, variables);
 //        initialize();
     }
 
@@ -42,7 +38,7 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
     	doInit();
     }
 
-    private double XDISTANCE = 200.0 * Config.scale;
+    private double XDISTANCE = 200.0 * this.variables.config.scale;
     private double YDISTANCE = -100.0;
     private int agentQnt = 0;
     private Graph<V,E> graph;
@@ -82,7 +78,7 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
         for(int i = 0; i < sorted.size(); i++) 
         {
             // If the backbone happens to be an agent, then we need to set it to y = 0 to correctly position all his activities
-            if((sorted.get(i) instanceof AgentVertex) && ((Vertex)sorted.get(i)).getLabel().contains(Config.layoutSpecialVertexType))
+            if((sorted.get(i) instanceof AgentVertex) && ((Vertex)sorted.get(i)).getLabel().contains(this.variables.config.layoutSpecialVertexType))
             {
                     //I want the Project-type node to always be on Y = 0
                     calcAgentPositions((V)sorted.get(i), 0, xOffset);
@@ -169,7 +165,7 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
             //Node's X position is defined by the day it was created
             newXPos = Math.round(((Vertex)v).getDate()) * XDISTANCE;
             //If node is from the backbone type
-            if((v instanceof Vertex) && ((Vertex)v).getLabel().contains(Config.layoutSpecialVertexType))
+            if((v instanceof Vertex) && ((Vertex)v).getLabel().contains(this.variables.config.layoutSpecialVertexType))
             {
                     //I want the backbone-type node to always be on Y = 0
                     xyd.setLocation(newXPos + XDISTANCE * 0.2, 0);
@@ -241,12 +237,12 @@ public class Temporal_Layout<V, E> extends AbstractLayout<V, E> implements Itera
      */
     protected synchronized void calcRepulsion(V v1) {
         //Only Process and Artifact types can have the same position, so lets check
-        if((v1 instanceof ActivityVertex) || ((v1 instanceof EntityVertex) && !((Vertex)v1).getLabel().contains(Config.layoutSpecialVertexType)))
+        if((v1 instanceof ActivityVertex) || ((v1 instanceof EntityVertex) && !((Vertex)v1).getLabel().contains(this.variables.config.layoutSpecialVertexType)))
         {
             try {
                 for(V v2 : graph.getVertices()) 
                 {
-                    if((v2 instanceof ActivityVertex)||((v2 instanceof EntityVertex) && !((Vertex)v2).getLabel().contains(Config.layoutSpecialVertexType)))
+                    if((v2 instanceof ActivityVertex)||((v2 instanceof EntityVertex) && !((Vertex)v2).getLabel().contains(this.variables.config.layoutSpecialVertexType)))
                     {
                         //A check to see if we are not comparing him with himself
                         if(v1 != v2)

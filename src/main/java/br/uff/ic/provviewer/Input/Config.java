@@ -40,37 +40,40 @@ public class Config {
 //    public String demoPath = File.separator + "Config" + File.separator + "bus_config.xml";
 
     //Filter List
-    public static List<EdgeType> edgetype = new ArrayList<EdgeType>();
+    public List<EdgeType> edgetype = new ArrayList<EdgeType>();
 
     //Modes
-    public static Collection<ColorScheme> vertexModes = new ArrayList<ColorScheme>();
+    public Collection<ColorScheme> vertexModes = new ArrayList<ColorScheme>();
 
     //Temporal Layout
-    public static String layoutSpecialVertexType;
+    public String layoutSpecialVertexType;
 
     // Coordinates Layout
-    public static String layoutAxis_X;
-    public static String layoutAxis_Y;
+    public String layoutAxis_X;
+    public String layoutAxis_Y;
 
     //BackGround for Coordinates Layout
-    public static String imageLocation;
-    public static double imageOffsetX;
-    public static double imageOffsetY;
+    public String imageLocation;
+    public double imageOffsetX;
+    public double imageOffsetY;
 
-    public static double spatialLayoutPosition;
-    public static double coordinatesScale;
-    public static double scale;
-    public static boolean showEntityDate;
-    public static boolean showEntityLabel;
+    public double spatialLayoutPosition;
+    public double coordinatesScale;
+    public double scale;
+    public boolean showEntityDate;
+    public boolean showEntityLabel;
+    
+    public double width;
+    public double height;
 
     //Vertex Stroke variables
-    public static List<String> vertexStrokevariables = new ArrayList<String>();
+    public List<String> vertexStrokevariables = new ArrayList<String>();
 
     //ActivityVertex
     //All 3 arrays must have the same size
-    public static List<String> actVerAtt = new ArrayList<String>();
-    public static List<String> actVerValue = new ArrayList<String>();
-    public static List<Paint> actVerColor = new ArrayList<Paint>();
+    public List<String> actVerAtt = new ArrayList<String>();
+    public List<String> actVerValue = new ArrayList<String>();
+    public List<Paint> actVerColor = new ArrayList<Paint>();
 
     public void Initialize() {
         System.out.println("Config: " + BasePath.getBasePathForClass(Config.class) + demoPath);
@@ -79,11 +82,8 @@ public class Config {
         ComputeCoordScale();
 
     }
-
-    public static double width;
-    public static double height;
-
-    public static void ComputeCoordScale() {
+    
+    public void ComputeCoordScale() {
         final ImageIcon icon = new ImageIcon(BasePath.getBasePathForClass(Config.class) + imageLocation);
         width = icon.getIconWidth();
         height = icon.getIconHeight();
@@ -95,7 +95,7 @@ public class Config {
         coordinatesScale = coordinatesScale / 100;
     }
 
-    public static void Initialize(File fXmlFile) {
+    public void Initialize(File fXmlFile) {
         try {
             edgetype = new ArrayList<EdgeType>();
             vertexModes = new ArrayList<ColorScheme>();

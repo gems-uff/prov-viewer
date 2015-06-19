@@ -25,6 +25,7 @@ import java.util.Set;
  * @author Kohwalter
  */
 public class Variables extends Object {
+
     public static String demo = File.separator + "Graph" + File.separator + "Car_Tutorial.xml";
     //    public static String demo = File.separator + "Graph" + File.separator + "Car_Tutorial3.xml";
     //    public static String demo = File.separator + "Graph" + File.separator + "Angry_Robots.xml";
@@ -66,7 +67,7 @@ public class Variables extends Object {
         }
         return value;
     }
-    
+
     /**
      * Return the min value between 2 values
      *
@@ -140,12 +141,12 @@ public class Variables extends Object {
      *
      * @param graph Graph
      */
-    public void ComputeEdgeTypeValues(DirectedGraph<Object, Edge> graph) {
+    public void ComputeEdgeTypeValues(Variables variables, DirectedGraph<Object, Edge> graph) {
         Collection<Edge> edges = graph.getEdges();
         for (Edge edge : edges) {
-            for (int i = 0; i < Config.edgetype.size(); i++) {
+            for (int i = 0; i < variables.config.edgetype.size(); i++) {
                 GraphFrame.FilterList.setSelectedIndex(i);
-                Config.edgetype.set(i, ComputeValue(Config.edgetype.get(i), GraphFrame.FilterList.getSelectedValue().toString(), edge, Config.edgetype.get(i).stroke));
+                variables.config.edgetype.set(i, ComputeValue(variables.config.edgetype.get(i), GraphFrame.FilterList.getSelectedValue().toString(), edge, variables.config.edgetype.get(i).stroke));
             }
         }
         GraphFrame.FilterList.setSelectedIndex(0);

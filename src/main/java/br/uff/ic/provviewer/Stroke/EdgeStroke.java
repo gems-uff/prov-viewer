@@ -5,7 +5,6 @@
 package br.uff.ic.provviewer.Stroke;
 
 import br.uff.ic.provviewer.Edge.Edge;
-import br.uff.ic.provviewer.Input.Config;
 import br.uff.ic.provviewer.Variables;
 import java.awt.BasicStroke;
 import java.awt.Stroke;
@@ -69,14 +68,14 @@ public class EdgeStroke {
      * @return Stroke
      */
     public static Stroke StrokeByType(Edge edge, Variables variables) {
-        for (int i = 0; i < Config.edgetype.size(); i++) {
-            if (edge.getLabel().contains(Config.edgetype.get(i).type)) {
-                if(Config.edgetype.get(i).stroke.equalsIgnoreCase("MAX")){
-                    float maxAbs = Math.max(Math.abs(Config.edgetype.get(i).max), Math.abs(Config.edgetype.get(i).min));
+        for (int i = 0; i < variables.config.edgetype.size(); i++) {
+            if (edge.getLabel().contains(variables.config.edgetype.get(i).type)) {
+                if(variables.config.edgetype.get(i).stroke.equalsIgnoreCase("MAX")){
+                    float maxAbs = Math.max(Math.abs(variables.config.edgetype.get(i).max), Math.abs(variables.config.edgetype.get(i).min));
                     return defineStroke(edge.getValue(), maxAbs);
                 }
                 else{
-                    return defineStroke(edge.getValue(), (Config.edgetype.get(i).total / Config.edgetype.get(i).count));
+                    return defineStroke(edge.getValue(), (variables.config.edgetype.get(i).total / variables.config.edgetype.get(i).count));
                 }
             }
         }

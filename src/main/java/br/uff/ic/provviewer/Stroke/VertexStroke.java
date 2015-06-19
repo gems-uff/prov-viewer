@@ -1,7 +1,7 @@
 package br.uff.ic.provviewer.Stroke;
 
 import br.uff.ic.provviewer.Edge.Edge;
-import br.uff.ic.provviewer.Input.Config;
+import br.uff.ic.provviewer.Variables;
 import br.uff.ic.provviewer.Vertex.Vertex;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
@@ -49,16 +49,16 @@ public class VertexStroke {
      * @param layout
      * @return
      */
-    public static Stroke VertexStroke(Object v, VisualizationViewer<Object, Edge> view, Layout<Object, Edge> layout) {
+    public static Stroke VertexStroke(Object v, VisualizationViewer<Object, Edge> view, Layout<Object, Edge> layout, Variables variables) {
         float[] dash = null;
         if (v instanceof Graph) {
             return new BasicStroke(0);
         }
 
         if (v instanceof Vertex) {
-            if (!Config.vertexStrokevariables.isEmpty()) {
-                for (int i = 0; i < Config.vertexStrokevariables.size(); i++) {
-                    String[] list = Config.vertexStrokevariables.get(i).split(" ");
+            if (!variables.config.vertexStrokevariables.isEmpty()) {
+                for (int i = 0; i < variables.config.vertexStrokevariables.size(); i++) {
+                    String[] list = variables.config.vertexStrokevariables.get(i).split(" ");
                     String att = ((Vertex) v).getAttributeValue(list[0]);
                     if (!"".equals(att)) {
                         for (int j = 1; j < list.length; j++) {

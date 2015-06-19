@@ -1,12 +1,9 @@
 package br.uff.ic.provviewer.Layout;
 
-import br.uff.ic.provviewer.GraphFrame;
-import br.uff.ic.provviewer.Input.Config;
+import br.uff.ic.provviewer.Variables;
 import br.uff.ic.provviewer.Vertex.ActivityVertex;
 import br.uff.ic.provviewer.Vertex.EntityVertex;
 import br.uff.ic.provviewer.Vertex.Vertex;
-import edu.uci.ics.jung.algorithms.layout.AbstractLayout;
-import edu.uci.ics.jung.algorithms.util.IterativeContext;
 import edu.uci.ics.jung.graph.Graph;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -23,10 +20,10 @@ import java.util.List;
  * @param <V> JUNG's V (Vertex) type
  * @param <E> JUNG's E (Edge) type
  */
-public class Spatial_Layout<V, E> extends AbstractLayout<V, E> implements IterativeContext {
+public class Spatial_Layout<V, E> extends ProvViewerLayout<V, E> {
 
-    public Spatial_Layout(Graph<V, E> g) {
-        super(g);
+    public Spatial_Layout(Graph<V, E> g, Variables variables) {
+        super(g, variables);
     }
 
     @Override
@@ -106,15 +103,15 @@ public class Spatial_Layout<V, E> extends AbstractLayout<V, E> implements Iterat
             
             Vertex middle = (Vertex) sorted.toArray()[(int) (i * 0.5)];
             
-            newXPos = -middle.getAttributeValueFloat(Config.layoutAxis_X) * Config.coordinatesScale;
-            newYPos = middle.getAttributeValueFloat(Config.layoutAxis_Y) * Config.coordinatesScale;
+            newXPos = -middle.getAttributeValueFloat(variables.config.layoutAxis_X) * variables.config.coordinatesScale;
+            newYPos = middle.getAttributeValueFloat(variables.config.layoutAxis_Y) * variables.config.coordinatesScale;
             xyd.setLocation(newXPos, newYPos);
         }
 
         // Use vertex atribute for position
         if (v instanceof Vertex) {
-            newXPos = -((Vertex) v).getAttributeValueFloat(Config.layoutAxis_X) * Config.coordinatesScale;
-            newYPos = ((Vertex) v).getAttributeValueFloat(Config.layoutAxis_Y) * Config.coordinatesScale;
+            newXPos = -((Vertex) v).getAttributeValueFloat(variables.config.layoutAxis_X) * variables.config.coordinatesScale;
+            newYPos = ((Vertex) v).getAttributeValueFloat(variables.config.layoutAxis_Y) * variables.config.coordinatesScale;
             xyd.setLocation(newXPos, newYPos);
         }
 
