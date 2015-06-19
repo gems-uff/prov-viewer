@@ -12,9 +12,9 @@ and open the template in the editor.
 	<layoutAxis_X>ObjectPosition_X</layoutAxis_X>
 	<layoutAxis_Y>ObjectPosition_Z</layoutAxis_Y>
 	<imageLocation>/images/CarTutorialMap.png</imageLocation>
-	<imageOffset_X>0</imageOffset_X>
-	<imageOffset_Y>0</imageOffset_Y>
-	<spatialLayoutPosition>1033.977</spatialLayoutPosition>
+	<imageOffset_X>-133</imageOffset_X>
+	<imageOffset_Y>-136</imageOffset_Y>
+	<spatialLayoutPosition>599.9999</spatialLayoutPosition>
 	<temporalLayoutscale>0.5</temporalLayoutscale>
 	<showentitydate>false</showentitydate>
 	<showentitylabel>false</showentitylabel>
@@ -131,10 +131,6 @@ and open the template in the editor.
         <goodvalue></goodvalue>
         <badvalue></badvalue>
     </colorscheme>
-    <vertexstroke>
-        <attribute>CurrentGear</attribute>
-        <values>0</values>
-    </vertexstroke>
 	<activitycolor>
         <attribute>Label</attribute>
         <value>Crash</value>

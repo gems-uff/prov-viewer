@@ -6,7 +6,6 @@ import br.uff.ic.provviewer.GraphObject;
 import br.uff.ic.provviewer.Input.Config;
 import java.awt.Color;
 import java.awt.Paint;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,7 +60,6 @@ public class Edge extends GraphObject{
     /**
      * Constructor without extra attributes
      * @param id
-     * @param influence
      * @param type
      * @param value
      * @param label
@@ -245,6 +243,15 @@ public class Edge extends GraphObject{
     public Paint getColor() {
         float v = getValue();
         
+//        if(this.label.equalsIgnoreCase("Neutral"))
+//        {
+//            if(((Vertex)this.source).getDate() < 85)
+//                return new Color(255, 0, 0);
+//            if(((Vertex)this.source).getDate() < 150)
+//                return new Color(0, 255, 0);
+//            if(((Vertex)this.source).getDate() < 300)
+//                return new Color(0, 0, 255);
+//        }     
         // Return blue if neutral edge (value = 0)
         if (v == 0) {
             return new Color(0, 255, 255);

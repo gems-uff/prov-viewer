@@ -4,10 +4,11 @@ import br.uff.ic.XMLConverter.XMLConverter;
 import br.uff.ic.provviewer.Edge.Edge;
 import br.uff.ic.provviewer.Filter.Filters;
 import br.uff.ic.provviewer.Filter.PreFilters;
+import br.uff.ic.provviewer.GUI.GuiButtons;
+import br.uff.ic.provviewer.GUI.GuiProlog;
 import br.uff.ic.provviewer.Inference.PrologInference;
 import br.uff.ic.provviewer.Input.Config;
 import br.uff.ic.provviewer.Input.UnityReader;
-import br.uff.ic.provviewer.Layout.Spatial_Layout;
 import br.uff.ic.provviewer.Layout.Temporal_Layout;
 import br.uff.ic.provviewer.Stroke.EdgeStroke;
 import br.uff.ic.provviewer.Stroke.VertexStroke;
@@ -16,11 +17,6 @@ import br.uff.ic.provviewer.Vertex.ColorScheme.VertexPainter;
 import br.uff.ic.provviewer.Vertex.EntityVertex;
 import br.uff.ic.provviewer.Vertex.Vertex;
 import br.uff.ic.provviewer.Vertex.VertexShape;
-import edu.uci.ics.jung.algorithms.layout.CircleLayout;
-import edu.uci.ics.jung.algorithms.layout.FRLayout;
-import edu.uci.ics.jung.algorithms.layout.FRLayout2;
-import edu.uci.ics.jung.algorithms.layout.ISOMLayout;
-import edu.uci.ics.jung.algorithms.layout.KKLayout;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.uci.ics.jung.graph.Graph;
@@ -28,11 +24,8 @@ import edu.uci.ics.jung.visualization.Layer;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.CrossoverScalingControl;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
-import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
 import edu.uci.ics.jung.visualization.control.ScalingControl;
-import edu.uci.ics.jung.visualization.decorators.EdgeShape;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
-import edu.uci.ics.jung.visualization.picking.PickedInfo;
 import edu.uci.ics.jung.visualization.subLayout.GraphCollapser;
 import edu.uci.ics.jung.visualization.util.PredicatedParallelEdgeIndexFunction;
 import java.awt.BorderLayout;
@@ -46,7 +39,6 @@ import java.awt.geom.Point2D;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
@@ -84,8 +76,6 @@ public class GraphFrame extends javax.swing.JFrame {
     boolean prologIsInitialized = false;
     boolean initLayout = true;
     boolean initConfig = false;
-    
-//    DirectedGraph<Object, Edge> graph;
 
     /**
      * Creates new form GraphFrame
@@ -436,8 +426,7 @@ public class GraphFrame extends javax.swing.JFrame {
      * ================================================
      */
     private void ExpandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExpandActionPerformed
-        Collection picked = new HashSet(variables.view.getPickedVertexState().getPicked());
-        collapser.Expander(variables, filter, picked);
+        GuiButtons.Expand(collapser, variables, filter);
     }//GEN-LAST:event_ExpandActionPerformed
     /**
      * ================================================
@@ -445,9 +434,7 @@ public class GraphFrame extends javax.swing.JFrame {
      * ================================================
      */
     private void CollapseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CollapseActionPerformed
-        //cannot use java generics type declarations with the graph collapser
-        Collection picked = new HashSet(variables.view.getPickedVertexState().getPicked());
-        collapser.Collapse(variables, filter, picked, true);
+        GuiButtons.Collapse(collapser, variables, filter);
     }//GEN-LAST:event_CollapseActionPerformed
     /**
      * ================================================
@@ -455,7 +442,7 @@ public class GraphFrame extends javax.swing.JFrame {
      * ================================================
      */
     private void ResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetActionPerformed
-        collapser.ResetGraph(variables, filter);
+        GuiButtons.Reset(collapser, variables, filter);
     }//GEN-LAST:event_ResetActionPerformed
     /**
      * ================================================
@@ -463,15 +450,7 @@ public class GraphFrame extends javax.swing.JFrame {
      * ================================================
      */
     private void MouseModesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MouseModesActionPerformed
-        String mode = (String)MouseModes.getSelectedItem();
-        if(mode.equalsIgnoreCase("Picking"))
-        {
-             mouse.setMode(ModalGraphMouse.Mode.PICKING);
-        }
-        if(mode.equalsIgnoreCase("Transforming"))
-        {
-             mouse.setMode(ModalGraphMouse.Mode.TRANSFORMING);
-        }
+        GuiButtons.MouseModes(mouse, MouseModes);
     }//GEN-LAST:event_MouseModesActionPerformed
     /**
      * ================================================
@@ -479,28 +458,7 @@ public class GraphFrame extends javax.swing.JFrame {
      * ================================================
      */
     private void CollapseAgentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CollapseAgentActionPerformed
-        PickedInfo<Object> picked_state;
-        picked_state = variables.view.getPickedVertexState();
-        Object node = null;
-        //Get the selected node
-        for(Object z : variables.layout.getGraph().getVertices())
-        {
-            if (picked_state.isPicked(z))
-            {
-                node = z;
-            }
-        }
-        //Select the node and its neighbors to be collapsed
-        if(variables.layout.getGraph().getNeighbors(node) != null)
-        {
-            Collection picked = new HashSet(variables.layout.getGraph().getNeighbors(node));
-            picked.add(node);
-            if(!(node instanceof AgentVertex)) 
-            {
-                picked.removeAll(picked);
-            }   
-            collapser.Collapse(variables, filter, picked, true);
-        }
+        GuiButtons.CollapseAgent(collapser, variables, filter);
     }//GEN-LAST:event_CollapseAgentActionPerformed
 
    /**
@@ -509,7 +467,7 @@ public class GraphFrame extends javax.swing.JFrame {
          * ================================================
          */
     private void FilterNodeAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterNodeAgentButtonActionPerformed
-        collapser.Filters(variables, filter);
+        GuiButtons.Filter(collapser, variables, filter);
     }//GEN-LAST:event_FilterNodeAgentButtonActionPerformed
 
    /**
@@ -518,7 +476,7 @@ public class GraphFrame extends javax.swing.JFrame {
          * ================================================
          */
     private void FilterNodeLonelyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterNodeLonelyButtonActionPerformed
-        collapser.Filters(variables, filter);
+        GuiButtons.Filter(collapser, variables, filter);
     }//GEN-LAST:event_FilterNodeLonelyButtonActionPerformed
 
    /**
@@ -527,16 +485,7 @@ public class GraphFrame extends javax.swing.JFrame {
          * ================================================
          */
     private void EdgeLineShapeSelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EdgeLineShapeSelectionActionPerformed
-        String mode = (String)EdgeLineShapeSelection.getSelectedItem();
-        if(mode.equalsIgnoreCase("QuadCurve"))
-        {
-             variables.view.getRenderContext().setEdgeShapeTransformer(new EdgeShape.QuadCurve<Object,Edge>());
-        }
-        if(mode.equalsIgnoreCase("Line"))
-        {
-             variables.view.getRenderContext().setEdgeShapeTransformer(new EdgeShape.Line<Object,Edge>());
-        }
-        variables.view.repaint();
+        GuiButtons.EdgeLineMode(EdgeLineShapeSelection, variables);
     }//GEN-LAST:event_EdgeLineShapeSelectionActionPerformed
 
     /**
@@ -545,9 +494,7 @@ public class GraphFrame extends javax.swing.JFrame {
          * ================================================
          */
     private void StatusFilterBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StatusFilterBoxActionPerformed
-        //collapser.ResetGraph(variables, filter);
-        VertexPainter.VertexPainter((String)StatusFilterBox.getSelectedItem(), variables.view, variables);
-        variables.view.repaint();
+        GuiButtons.StatusFilter(variables);
     }//GEN-LAST:event_StatusFilterBoxActionPerformed
     /**
          * ================================================
@@ -555,57 +502,16 @@ public class GraphFrame extends javax.swing.JFrame {
          * ================================================
          */
     private void ShowEdgeTextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowEdgeTextButtonActionPerformed
-        if(ShowEdgeTextButton.isSelected())
-        {
-           variables.view.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller<Edge>()); 
-        }
-        else
-        {
-            //Show nothing
-            variables.view.getRenderContext().setEdgeLabelTransformer(new Transformer<Edge, String>() {
-
-                @Override
-                public String transform(Edge i) {
-                    return "";
-                }
-            });
-        }
-        variables.view.repaint();
+        GuiButtons.EdgeTextDisplay(variables, ShowEdgeTextButton.isSelected());        
     }//GEN-LAST:event_ShowEdgeTextButtonActionPerformed
 
    
     private void FilterListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_FilterListValueChanged
-        // TODO add your handling code here:
-        collapser.Filters(variables, filter);
+        GuiButtons.Filter(collapser, variables, filter);
     }//GEN-LAST:event_FilterListValueChanged
 
     private void LayoutsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LayoutsActionPerformed
-        // TODO add your handling code here:
-        String layout = (String) Layouts.getSelectedItem();
-        if (layout.equalsIgnoreCase("CircleLayout")) {
-            variables.layout = new CircleLayout<Object, Edge>(variables.layout.getGraph());
-        }
-        if (layout.equalsIgnoreCase("FRLayout")) {
-            variables.layout = new FRLayout<Object, Edge>(variables.layout.getGraph());
-        }
-        if (layout.equalsIgnoreCase("FRLayout2")) {
-            variables.layout = new FRLayout2<Object, Edge>(variables.layout.getGraph());
-        }
-        if (layout.equalsIgnoreCase("TemporalLayout")) {
-            variables.layout = new Temporal_Layout<Object, Edge>(variables.layout.getGraph());
-        }
-        if (layout.equalsIgnoreCase("SpatialLayout")) {
-            variables.layout = new Spatial_Layout<Object, Edge>(variables.layout.getGraph());
-        }
-        if (layout.equalsIgnoreCase("ISOMLayout")) {
-            variables.layout = new ISOMLayout<Object, Edge>(variables.layout.getGraph());
-        }
-        if (layout.equalsIgnoreCase("KKLayout")) {
-            variables.layout = new KKLayout<Object, Edge>(variables.layout.getGraph());
-        }
-        InitBackground();
-        variables.view.setGraphLayout(variables.layout);
-        variables.view.repaint();
+        GuiButtons.LayoutSelection(variables, Layouts);
     }//GEN-LAST:event_LayoutsActionPerformed
 
     boolean initialGraph = true;
@@ -623,8 +529,7 @@ public class GraphFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_OpenConfigActionPerformed
 
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
-        // TODO add your handling code here:
-        System.exit(0);
+        GuiButtons.Exit();
     }//GEN-LAST:event_ExitActionPerformed
 
     private void OpenGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenGraphActionPerformed
@@ -646,49 +551,21 @@ public class GraphFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_OpenGraphActionPerformed
 
     private void FilterEdgeAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterEdgeAgentButtonActionPerformed
-        collapser.Filters(variables, filter);
+        GuiButtons.Filter(collapser, variables, filter);
     }//GEN-LAST:event_FilterEdgeAgentButtonActionPerformed
 
     private void InitPrologButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InitPrologButtonActionPerformed
-        // TODO add your handling code here:
-        if(InitPrologButton.isSelected() && !prologIsInitialized)
-        {
-            prologIsInitialized = true;
-            testProlog.Init();
-        }
+        GuiProlog.InitializeProlog(testProlog, prologIsInitialized, InitPrologButton);
     }//GEN-LAST:event_InitPrologButtonActionPerformed
 
     private void PrologGenerateFactsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrologGenerateFactsActionPerformed
-        // TODO add your handling code here:
-        if(initialGraph)
-        {
-            file = new File(BasePath.getBasePathForClass(GraphFrame.class) + demo);
-            initialGraph = false;
-        }
-        ConvertXML(file);
-        System.out.println("Finished Converting to Prolog");
+        GuiProlog.GeneratePrologFacts(initialGraph, file, demo);
     }//GEN-LAST:event_PrologGenerateFactsActionPerformed
 
     private void PrologSimilarityInferenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrologSimilarityInferenceActionPerformed
-        // TODO add your handling code here:
-        if(InitPrologButton.isSelected())
-        {
-            System.out.println("Starting Prolog Inference");
-            String list;
-//            list = testProlog.QueryCollapse((String)StatusFilterBox.getSelectedItem(), "Neutral");
-            list = testProlog.QueryCollapse((String)StatusFilterBox.getSelectedItem(), "Neutral");
-            System.out.println("Collapsing...");
-            collapser.CollapseIrrelevant(variables, filter, list, "Neutral");
-            System.out.println("Finished Collapsing");
-        }
+        GuiProlog.SimilarityInference(InitPrologButton.isSelected(), testProlog, collapser, variables, filter);
     }//GEN-LAST:event_PrologSimilarityInferenceActionPerformed
-
-    private static void ConvertXML(File file)
-    {
-        XMLConverter xmlConv = new XMLConverter();
-        xmlConv.ConvertXMLtoProlog(file);
-    }
-    
+   
     private void InitVariables()
     {
         mouse = new DefaultModalGraphMouse();
