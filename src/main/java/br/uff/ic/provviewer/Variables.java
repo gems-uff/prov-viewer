@@ -5,12 +5,18 @@
 package br.uff.ic.provviewer;
 
 import br.uff.ic.provviewer.Edge.Edge;
+import br.uff.ic.provviewer.Filter.Filters;
+import br.uff.ic.provviewer.Inference.PrologInference;
 import br.uff.ic.provviewer.Input.Config;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
+import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
 import edu.uci.ics.jung.visualization.subLayout.GraphCollapser;
+import java.io.File;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Class containing graph related variables (View, Layout, GraphCollapser,
@@ -19,28 +25,31 @@ import java.util.Collection;
  * @author Kohwalter
  */
 public class Variables extends Object {
-    //Vertex filters mode
+    static String demo = File.separator + "Graph" + File.separator + "Car_Tutorial.xml";
+    //    static String demo = File.separator + "Graph" + File.separator + "Car_Tutorial3.xml";
+    //    static String demo = File.separator + "Graph" + File.separator + "Angry_Robots.xml";
+    //    static String demo = File.separator + "Graph" + File.separator + "2D_Provenance.xml";
+    //    static String demo = File.separator + "Graph" + File.separator + "input.xml";
+    //    static String demo = File.separator + "Graph" + File.separator + "bus.xml";
+    //    static String demo = File.separator + "Graph" + File.separator + "map.xml";
 
-    /**
-     * View Variable
-     */
     public VisualizationViewer<Object, Edge> view;
-    /**
-     * Layout Variable
-     */
     public Layout<Object, Edge> layout;
-    /**
-     * GraphCollapser auxiliary Variable
-     */
     public GraphCollapser gCollapser;
-    /**
-     * Graph Variable (Static because of the GUI)
-     */
     public static DirectedGraph<Object, Edge> graph;
-    /**
-     * CollapsedGraph Variable
-     */
     public DirectedGraph<Object, Edge> collapsedGraph;
+    Config config = new Config();
+    boolean filterCredits = false;
+    boolean initConfig = false;
+    final Set exclusions = new HashSet();
+    boolean initLayout = true;
+    Filters filter = new Filters();
+    PrologInference testProlog = new PrologInference();
+    boolean prologIsInitialized = false;
+    File file;
+    DefaultModalGraphMouse mouse = new DefaultModalGraphMouse();
+    Collapser collapser = new Collapser();
+    boolean initialGraph = true;
 
     /**
      * Return the max value between 2 values

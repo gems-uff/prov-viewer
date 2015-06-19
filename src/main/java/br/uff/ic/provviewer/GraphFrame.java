@@ -54,28 +54,8 @@ import org.apache.commons.collections15.Transformer;
  * @author kohwalter
  */
 public class GraphFrame extends javax.swing.JFrame {
-    final Set exclusions = new HashSet();
-    
-    static String demo = File.separator + "Graph" + File.separator + "Car_Tutorial.xml";    
-//    static String demo = File.separator + "Graph" + File.separator + "Car_Tutorial3.xml";
-//    static String demo = File.separator + "Graph" + File.separator + "Angry_Robots.xml";
-//    static String demo = File.separator + "Graph" + File.separator + "2D_Provenance.xml";
-//    static String demo = File.separator + "Graph" + File.separator + "input.xml";
-//    static String demo = File.separator + "Graph" + File.separator + "bus.xml";
-//    static String demo = File.separator + "Graph" + File.separator + "map.xml";
-    
-    DefaultModalGraphMouse mouse = new DefaultModalGraphMouse();
-    boolean filterCredits = false;
-    File file;
 
     Variables variables = new Variables();
-    Collapser collapser = new Collapser();
-    Filters filter = new Filters();
-    Config config = new Config();
-    PrologInference testProlog = new PrologInference();
-    boolean prologIsInitialized = false;
-    boolean initLayout = true;
-    boolean initConfig = false;
 
     /**
      * Creates new form GraphFrame
@@ -426,7 +406,7 @@ public class GraphFrame extends javax.swing.JFrame {
      * ================================================
      */
     private void ExpandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExpandActionPerformed
-        GuiButtons.Expand(collapser, variables, filter);
+        GuiButtons.Expand(variables.collapser, variables, variables.filter);
     }//GEN-LAST:event_ExpandActionPerformed
     /**
      * ================================================
@@ -434,7 +414,7 @@ public class GraphFrame extends javax.swing.JFrame {
      * ================================================
      */
     private void CollapseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CollapseActionPerformed
-        GuiButtons.Collapse(collapser, variables, filter);
+        GuiButtons.Collapse(variables.collapser, variables, variables.filter);
     }//GEN-LAST:event_CollapseActionPerformed
     /**
      * ================================================
@@ -442,7 +422,7 @@ public class GraphFrame extends javax.swing.JFrame {
      * ================================================
      */
     private void ResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetActionPerformed
-        GuiButtons.Reset(collapser, variables, filter);
+        GuiButtons.Reset(variables.collapser, variables, variables.filter);
     }//GEN-LAST:event_ResetActionPerformed
     /**
      * ================================================
@@ -450,7 +430,7 @@ public class GraphFrame extends javax.swing.JFrame {
      * ================================================
      */
     private void MouseModesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MouseModesActionPerformed
-        GuiButtons.MouseModes(mouse, MouseModes);
+        GuiButtons.MouseModes(variables.mouse, MouseModes);
     }//GEN-LAST:event_MouseModesActionPerformed
     /**
      * ================================================
@@ -458,7 +438,7 @@ public class GraphFrame extends javax.swing.JFrame {
      * ================================================
      */
     private void CollapseAgentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CollapseAgentActionPerformed
-        GuiButtons.CollapseAgent(collapser, variables, filter);
+        GuiButtons.CollapseAgent(variables.collapser, variables, variables.filter);
     }//GEN-LAST:event_CollapseAgentActionPerformed
 
    /**
@@ -467,7 +447,7 @@ public class GraphFrame extends javax.swing.JFrame {
          * ================================================
          */
     private void FilterNodeAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterNodeAgentButtonActionPerformed
-        GuiButtons.Filter(collapser, variables, filter);
+        GuiButtons.Filter(variables.collapser, variables, variables.filter);
     }//GEN-LAST:event_FilterNodeAgentButtonActionPerformed
 
    /**
@@ -476,7 +456,7 @@ public class GraphFrame extends javax.swing.JFrame {
          * ================================================
          */
     private void FilterNodeLonelyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterNodeLonelyButtonActionPerformed
-        GuiButtons.Filter(collapser, variables, filter);
+        GuiButtons.Filter(variables.collapser, variables, variables.filter);
     }//GEN-LAST:event_FilterNodeLonelyButtonActionPerformed
 
    /**
@@ -507,21 +487,20 @@ public class GraphFrame extends javax.swing.JFrame {
 
    
     private void FilterListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_FilterListValueChanged
-        GuiButtons.Filter(collapser, variables, filter);
+        GuiButtons.Filter(variables.collapser, variables, variables.filter);
     }//GEN-LAST:event_FilterListValueChanged
 
     private void LayoutsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LayoutsActionPerformed
         GuiButtons.LayoutSelection(variables, Layouts);
     }//GEN-LAST:event_LayoutsActionPerformed
 
-    boolean initialGraph = true;
     private void OpenConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenConfigActionPerformed
         // TODO add your handling code here:
         int returnVal = fileChooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
             Config.Initialize(file);
-            initConfig = true;
+            variables.initConfig = true;
             
         } else {
             System.out.println("File access cancelled by user.");
@@ -534,16 +513,16 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private void OpenGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenGraphActionPerformed
         // TODO add your handling code here:
-        if(initConfig)
+        if(variables.initConfig)
         {
             int returnVal = fileChooser.showOpenDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-                file = fileChooser.getSelectedFile();
-                variables.graph = getGraph(file);
+                variables.file = fileChooser.getSelectedFile();
+                variables.graph = getGraph(variables.file);
                 variables.collapsedGraph = variables.graph;
-                collapser.Filters(variables, filter);
+                variables.collapser.Filters(variables, variables.filter);
                 variables.view.repaint(); 
-                initialGraph = false;
+                variables.initialGraph = false;
             } else {
                 System.out.println("File access cancelled by user.");
             }
@@ -551,32 +530,32 @@ public class GraphFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_OpenGraphActionPerformed
 
     private void FilterEdgeAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterEdgeAgentButtonActionPerformed
-        GuiButtons.Filter(collapser, variables, filter);
+        GuiButtons.Filter(variables.collapser, variables, variables.filter);
     }//GEN-LAST:event_FilterEdgeAgentButtonActionPerformed
 
     private void InitPrologButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InitPrologButtonActionPerformed
-        GuiProlog.InitializeProlog(testProlog, prologIsInitialized, InitPrologButton);
+        GuiProlog.InitializeProlog(variables.testProlog, variables.prologIsInitialized, InitPrologButton);
     }//GEN-LAST:event_InitPrologButtonActionPerformed
 
     private void PrologGenerateFactsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrologGenerateFactsActionPerformed
-        GuiProlog.GeneratePrologFacts(initialGraph, file, demo);
+        GuiProlog.GeneratePrologFacts(variables.initialGraph, variables.file, Variables.demo);
     }//GEN-LAST:event_PrologGenerateFactsActionPerformed
 
     private void PrologSimilarityInferenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrologSimilarityInferenceActionPerformed
-        GuiProlog.SimilarityInference(InitPrologButton.isSelected(), testProlog, collapser, variables, filter);
+        GuiProlog.SimilarityInference(InitPrologButton.isSelected(), variables.testProlog, variables.collapser, variables, variables.filter);
     }//GEN-LAST:event_PrologSimilarityInferenceActionPerformed
    
     private void InitVariables()
     {
-        mouse = new DefaultModalGraphMouse();
-        filterCredits = false;
+        variables.mouse = new DefaultModalGraphMouse();
+        variables.filterCredits = false;
         variables = new Variables();
-        collapser = new Collapser();
-        filter = new Filters();
-        testProlog = new PrologInference();
-        prologIsInitialized = false;
-        initLayout = true;
-        initConfig = false;
+        variables.collapser = new Collapser();
+        variables.filter = new Filters();
+        variables.testProlog = new PrologInference();
+        variables.prologIsInitialized = false;
+        variables.initLayout = true;
+        variables.initConfig = false;
     }
     
     private void SetView(DirectedGraph<Object, Edge> graph)
@@ -586,13 +565,13 @@ public class GraphFrame extends javax.swing.JFrame {
          * Choosing layout
          * ================================================
          */
-        if(initLayout)
+        if(variables.initLayout)
         {
-            config.Initialize();
+            variables.config.Initialize();
             variables.layout = new Temporal_Layout<Object, Edge>(graph);
             variables.view = new VisualizationViewer<Object, Edge>(variables.layout);
             Layouts.setSelectedItem("SpatialLayout");
-            initLayout = false;
+            variables.initLayout = false;
         }
         
         ScaleView();
@@ -608,7 +587,7 @@ public class GraphFrame extends javax.swing.JFrame {
             @Override
             public boolean evaluate(Object e) {
 
-                    return exclusions.contains(e);
+                    return variables.exclusions.contains(e);
             }});
         // ================================================
         variables.view.getRenderContext().setParallelEdgeIndexFunction(eif);
@@ -651,8 +630,8 @@ public class GraphFrame extends javax.swing.JFrame {
          * ================================================
          */
 //        DefaultModalGraphMouse mouse = new DefaultModalGraphMouse();
-        variables.view.setGraphMouse(mouse);
-        variables.view.addKeyListener(mouse.getModeKeyListener());
+        variables.view.setGraphMouse(variables.mouse);
+        variables.view.addKeyListener(variables.mouse.getModeKeyListener());
     }
     
     private void Tooltip()
@@ -837,12 +816,12 @@ public class GraphFrame extends javax.swing.JFrame {
     
     private void InitFilters(DirectedGraph<Object, Edge> graph)
     {
-        filter.filteredGraph = graph;
-        filter.FilterInit();
+        variables.filter.filteredGraph = graph;
+        variables.filter.FilterInit();
         
         PreFilters.PreFilter();
         //Initialize selected filters from the GUI
-        collapser.Filters(variables, filter);
+        variables.collapser.Filters(variables, variables.filter);
     }
     /**
      * ================================================
@@ -851,7 +830,7 @@ public class GraphFrame extends javax.swing.JFrame {
      */
     
     private void initGraphComponent(DirectedGraph<Object, Edge> graph) {
-        initConfig = true;
+        variables.initConfig = true;
         variables.graph = graph;
         variables.collapsedGraph = variables.graph;
         
@@ -919,8 +898,8 @@ public class GraphFrame extends javax.swing.JFrame {
 //        }
         //</editor-fold>
         //Config.Initialize();
-        System.out.println("Graph: " + BasePath.getBasePathForClass(GraphFrame.class) + demo);
-        File graphFile = new File(BasePath.getBasePathForClass(GraphFrame.class) + demo);
+        System.out.println("Graph: " + BasePath.getBasePathForClass(GraphFrame.class) + Variables.demo);
+        File graphFile = new File(BasePath.getBasePathForClass(GraphFrame.class) + Variables.demo);
         final DirectedGraph<Object, Edge> graph = getGraph(graphFile);
         
         java.awt.EventQueue.invokeLater(new Runnable() {
