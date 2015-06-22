@@ -100,9 +100,12 @@ public class Spatial_Layout<V, E> extends ProvViewerLayout<V, E> {
             };
             Collections.sort(sorted, comparator);
 //             End sorting;
-            
-            Vertex middle = (Vertex) sorted.toArray()[(int) (i * 0.5)];
-            
+            Vertex middle;
+            Object middleVertex = sorted.toArray()[(int) (i * 0.5)];
+            while (middleVertex instanceof Graph) {
+                middleVertex = ((Graph)middleVertex).getVertices().toArray()[0];
+            }
+            middle = (Vertex) middleVertex;
             newXPos = -middle.getAttributeValueFloat(variables.config.layoutAxis_X) * variables.config.coordinatesScale;
             newYPos = middle.getAttributeValueFloat(variables.config.layoutAxis_Y) * variables.config.coordinatesScale;
             xyd.setLocation(newXPos, newYPos);
