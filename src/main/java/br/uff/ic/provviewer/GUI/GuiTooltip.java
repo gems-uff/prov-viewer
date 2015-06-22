@@ -21,24 +21,33 @@ import java.util.Map;
 import org.apache.commons.collections15.Transformer;
 
 /**
- *
+ * Class responsible for managing the tooltip system from Prov Viewer
  * @author Kohwalter
  */
 public class GuiTooltip {
-
+    static int agents = 0;
+    static int activities = 0;
+    static int entities = 0;
     Map<String, GraphAttribute> attributes;
 
+    /**
+     * Method to generate vertex tooltips in the interface
+     * Called when initializing the application's components (GuiInitialization)
+     * @param variables is the global variables from Prov Viewer
+     */
     public static void Tooltip(Variables variables) {
+        // Vertex Tooltips
         variables.view.setVertexToolTipTransformer(new ToStringLabeller() {
             @Override
             public String transform(Object v) {
                 if (v instanceof Graph) {
-//                    return "<html>" + ((Graph) v).getVertices().toString() + "</html>";
                     return "<html>" + GraphTooltip(v) + "</html>";
                 }
                 return "<html>" + v.toString() + "</html>";
             }
         });
+        
+        // Edges Tooltips
         variables.view.setEdgeToolTipTransformer(new Transformer<Edge, String>() {
             @Override
             public String transform(Edge n) {
@@ -47,19 +56,21 @@ public class GuiTooltip {
         });
     }
 
-    static int agents = 0;
-    static int activities = 0;
-    static int entities = 0;
+    /**
+     * Tooltip generator for collapsed vertices, also known as Graph vertices or Composite vertices
+     * @param v represents the targeted vertex for the tooltip 
+     * @return a string that is the tooltip
+     */
     public static String GraphTooltip(Object v) {
         String nodeTypes = "";
-        
-        agents = 0;
-        activities = 0;
-        entities = 0;
         Map<String, String> ids = new HashMap<String, String>();
         Map<String, String> labels = new HashMap<String, String>();
         Map<String, String> times = new HashMap<String, String>();
         Map<String, GraphAttribute> attributes = new HashMap<String, GraphAttribute>(); 
+        
+        agents = 0;
+        activities = 0;
+        entities = 0;
         
         GraphTooltip(v, ids, labels, times, attributes);
 
@@ -80,6 +91,15 @@ public class GuiTooltip {
                 + " <br>" + PrintAttributes(attributes);
     }
 
+    /**
+     * Recursive method to generate the tooltip. 
+     * It considers Graph vertices inside the collapsed vertex.
+     * @param v is the current vertex for the tooltip
+     * @param ids is all computed ids for the tooltip
+     * @param labels is all computed labels for the tooltip
+     * @param times is all computed times for the tooltip
+     * @param attributes is the attribute list for the tooltip
+     */
     public static void GraphTooltip(Object v, 
             Map<String, String> ids,
             Map<String, String> labels,
@@ -118,6 +138,12 @@ public class GuiTooltip {
             }
         }
     }
+    
+    /**
+     * Prints the tooltip attributes
+     * @param attributes is the list of all attributes
+     * @return a string that represents all attributes and their respective values
+     */
     public static String PrintAttributes(Map<String, GraphAttribute> attributes) {
         String attributeList = "";
         if (!attributes.values().isEmpty()) {
