@@ -82,7 +82,14 @@ public abstract class Vertex extends GraphObject {
      */
     public float getTime() {    
         String[] day = this.time.split(":");
-        return (Float.parseFloat(day[0]));
+        if(Utils.tryParseFloat(day[0]))
+            return (Float.parseFloat(day[0]));
+        else
+            return 0;
+    }
+    
+    public String getTimeString() {    
+        return this.time;
     }
     
     public void SetLabel(String t){
