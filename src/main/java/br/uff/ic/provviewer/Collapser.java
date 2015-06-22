@@ -40,10 +40,10 @@ public class Collapser {
         variables.collapsedGraph = variables.graph;
         variables.gCollapser = new GraphCollapser(variables.graph);
         //Remove collapsed edges, otherwise they will be invisible when Reset
-        for (Object node : Variables.graph.getVertices()) {
+        for (Object node : variables.graph.getVertices()) {
             RemoveCollapsedEdges(variables, node);
         }
-        variables.ComputeEdgeTypeValues(variables, (DirectedGraph) Variables.graph);
+        variables.ComputeEdgeTypeValues(variables, (DirectedGraph) variables.graph);
         RemoveFilters(variables, filter);
     }
 
@@ -331,8 +331,8 @@ public class Collapser {
         };
         Collections.sort(collapsegroup, comparator);
 
-        Object[] nodes = new Object[Variables.graph.getVertexCount()];
-        nodes = (Variables.graph.getVertices()).toArray();
+        Object[] nodes = new Object[variables.graph.getVertexCount()];
+        nodes = (variables.graph.getVertices()).toArray();
 
         //For each elements of collapses
         for (int i = 0; i < collapsegroup.size(); i++) {

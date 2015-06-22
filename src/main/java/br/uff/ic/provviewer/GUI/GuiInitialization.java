@@ -23,8 +23,12 @@ import javax.swing.JFrame;
 public class GuiInitialization {
 
     /**
-     * ================================================ Init Graph Component
-     * ================================================
+     *  Init Graph Component
+     * 
+     * @param variables
+     * @param graph
+     * @param graphFrame
+     * @param Layouts
      */
     public static void initGraphComponent(Variables variables, DirectedGraph<Object, Edge> graph, JFrame graphFrame, JComboBox Layouts) {
         variables.initConfig = true;
@@ -33,7 +37,7 @@ public class GuiInitialization {
         GuiFunctions.SetView(variables, Layouts, graphFrame);
         GuiBackground.InitBackground(variables, Layouts);
         GuiFunctions.MouseInteraction(variables);
-        GuiFunctions.Tooltip(variables);
+        GuiTooltip.Tooltip(variables);
         GuiFunctions.VertexLabel(variables);
         GuiFunctions.Stroke(variables);
         GuiFunctions.GraphPaint(variables);

@@ -44,10 +44,7 @@ public class GuiFunctions {
     }
 
     public static void Stroke(final Variables variables) {
-        /**
-         * ================================================ Vertex Stroke
-         * ================================================
-         */
+        // Vertex Stroke
         Transformer<Object, Stroke> nodeStrokeTransformer = new Transformer<Object, Stroke>() {
             @Override
             public Stroke transform(Object v) {
@@ -55,10 +52,8 @@ public class GuiFunctions {
             }
         };
         variables.view.getRenderContext().setVertexStrokeTransformer(nodeStrokeTransformer);
-        /**
-         * ================================================ Edge Stroke
-         * ================================================
-         */
+        
+        // Edge Stroke
         variables.ComputeEdgeTypeValues(variables, variables.graph);
         Transformer<Edge, Stroke> edgeStrokeTransformer = new Transformer<Edge, Stroke>() {
             @Override
@@ -84,9 +79,9 @@ public class GuiFunctions {
                 if (v instanceof AgentVertex) {
                     return "<html><font size=\"8\">" + ((Vertex) v).getLabel();
                 } else if ((v instanceof EntityVertex) && variables.config.showEntityLabel && variables.config.showEntityDate) {
-                    return "<html><font size=\"8\">" + String.valueOf((int) ((Vertex) v).getDate()) + " : " + ((Vertex) v).getLabel();
+                    return "<html><font size=\"8\">" + String.valueOf((int) ((Vertex) v).getTime()) + " : " + ((Vertex) v).getLabel();
                 } else if ((v instanceof EntityVertex) && variables.config.showEntityDate) {
-                    return "<html><font size=\"8\">" + String.valueOf((int) ((Vertex) v).getDate());
+                    return "<html><font size=\"8\">" + String.valueOf((int) ((Vertex) v).getTime());
                 } else if ((v instanceof EntityVertex) && variables.config.showEntityLabel) {
                     return "<html><font size=\"8\">" + ((Vertex) v).getLabel();
                 }
@@ -95,38 +90,8 @@ public class GuiFunctions {
         });
     }
 
-    public static void Tooltip(Variables variables) {
-        /**
-         * ================================================ Add a listener for
-         * ToolTips ================================================
-         */
-        variables.view.setVertexToolTipTransformer(new ToStringLabeller() {
-            @Override
-            public String transform(Object v) {
-                if (v instanceof Graph) {
-                    return ("<html>" + ((Graph) v).getVertices().toString() + "</html>");
-                }
-                return ("<html>" + v.toString() + "</html>");
-            }
-        });
-        /**
-         * ================================================ Edge Tooltip
-         * ================================================
-         */
-        variables.view.setEdgeToolTipTransformer(new Transformer<Edge, String>() {
-            @Override
-            public String transform(Edge n) {
-                return n.getEdgeInfluence();
-            }
-        });
-    }
-
     public static void MouseInteraction(Variables variables) {
-        /**
-         * ================================================ Adding interaction
-         * via mouse Commands: t for translate, p for picking
-         * ================================================
-         */
+        // via mouse Commands: t for translate, p for picking
         variables.view.setGraphMouse(variables.mouse);
         variables.view.addKeyListener(variables.mouse.getModeKeyListener());
     }
@@ -155,10 +120,7 @@ public class GuiFunctions {
     }
 
     public static void SetView(final Variables variables, JComboBox Layouts, JFrame graphFrame) {
-        /**
-         * ================================================ Choosing layout
-         * ================================================
-         */
+        // Choosing layout
         if (variables.initLayout) {
             variables.config.Initialize();
             variables.layout = new Temporal_Layout<Object, Edge>(variables.graph, variables);
@@ -173,9 +135,6 @@ public class GuiFunctions {
         variables.gCollapser = new GraphCollapser(variables.graph);
 
         final PredicatedParallelEdgeIndexFunction eif = PredicatedParallelEdgeIndexFunction.getInstance();
-        // ================================================
-        //        final Set exclusions = new HashSet();
-        //testing for edge collapse
         eif.setPredicate(new Predicate() {
             @Override
             public boolean evaluate(Object e) {
@@ -183,7 +142,6 @@ public class GuiFunctions {
                 return variables.exclusions.contains(e);
             }
         });
-        // ================================================
         variables.view.getRenderContext().setParallelEdgeIndexFunction(eif);
 
         variables.view.setBackground(Color.white);
@@ -191,15 +149,11 @@ public class GuiFunctions {
     }
 
     public static void GraphPaint(final Variables variables) {
-        /**
-         * ================================================ Vertex Paint
-         * ================================================
-         */
+
+        // Vertex Paint
         VertexPainter.VertexPainter("Default", variables.view, variables);
-        /**
-         * ================================================ Edge Paint
-         * ================================================
-         */
+        
+         // Edge Paint
         Transformer edgePainter = new Transformer<Edge, Paint>() {
             @Override
             public Paint transform(Edge edge) {

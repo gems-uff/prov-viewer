@@ -37,7 +37,7 @@ public class Variables extends Object {
     public VisualizationViewer<Object, Edge> view;
     public Layout<Object, Edge> layout;
     public GraphCollapser gCollapser;
-    public static DirectedGraph<Object, Edge> graph;
+    public DirectedGraph<Object, Edge> graph;
     public DirectedGraph<Object, Edge> collapsedGraph;
     public Config config = new Config();
     public boolean filterCredits = false;

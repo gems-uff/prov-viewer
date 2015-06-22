@@ -52,7 +52,7 @@ public class AgentVertex extends Vertex {
     }
 
     @Override
-    public float getDate() {
+    public float getTime() {
         return 0;
     }
 

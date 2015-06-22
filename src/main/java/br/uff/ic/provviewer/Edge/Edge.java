@@ -3,6 +3,7 @@ package br.uff.ic.provviewer.Edge;
 import br.uff.ic.provviewer.Attribute;
 import br.uff.ic.provviewer.EdgeType;
 import br.uff.ic.provviewer.GraphObject;
+import br.uff.ic.provviewer.Utils;
 import br.uff.ic.provviewer.Variables;
 import java.awt.Color;
 import java.awt.Paint;
@@ -139,7 +140,7 @@ public class Edge extends GraphObject{
      * @return (float) edge influence value
      */
     public float getValue() {
-        if(tryParseFloat(this.value)) {
+        if(Utils.tryParseFloat(this.value)) {
             return Float.parseFloat(this.value);
         }
         else {

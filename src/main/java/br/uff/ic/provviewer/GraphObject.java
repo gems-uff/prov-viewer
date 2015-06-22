@@ -68,20 +68,4 @@ public class GraphObject extends Object{
     {
         this.attributes.putAll(atts);
     }
-    
-    
-    /**
-     * Method to check if it is possible to parse the value to float
-     * @param value desired to be parsed to float
-     * @return boolean
-     */
-    public boolean tryParseFloat(String value) {
-        try {
-            Float.parseFloat(value);
-            return true;
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
-    }
-    
 }

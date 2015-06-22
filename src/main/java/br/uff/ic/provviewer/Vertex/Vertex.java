@@ -2,6 +2,7 @@ package br.uff.ic.provviewer.Vertex;
 
 import br.uff.ic.provviewer.Attribute;
 import br.uff.ic.provviewer.GraphObject;
+import br.uff.ic.provviewer.Utils;
 import java.awt.BasicStroke;
 import java.awt.Paint;
 import java.awt.Stroke;
@@ -79,7 +80,7 @@ public abstract class Vertex extends GraphObject {
      *
      * @return (int) date
      */
-    public float getDate() {    
+    public float getTime() {    
         String[] day = this.time.split(":");
         return (Float.parseFloat(day[0]));
     }
@@ -150,7 +151,7 @@ public abstract class Vertex extends GraphObject {
     public float getAttributeValueFloat(String attribute) {
         if(attributes.get(attribute) == null)
             return 0;
-        if(tryParseFloat(attributes.get(attribute).getValue())) {
+        if(Utils.tryParseFloat(attributes.get(attribute).getValue())) {
             return Float.parseFloat(attributes.get(attribute).getValue());
         }
         else {

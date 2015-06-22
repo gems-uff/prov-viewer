@@ -163,7 +163,7 @@ public class Temporal_Layout<V, E> extends ProvViewerLayout<V, E> {
         if(v instanceof Vertex)
         {
             //Node's X position is defined by the day it was created
-            newXPos = Math.round(((Vertex)v).getDate()) * XDISTANCE;
+            newXPos = Math.round(((Vertex)v).getTime()) * XDISTANCE;
             //If node is from the backbone type
             if((v instanceof Vertex) && ((Vertex)v).getLabel().contains(this.variables.config.layoutSpecialVertexType))
             {
