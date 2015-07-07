@@ -79,7 +79,6 @@ public class Config {
         System.out.println("Config: " + BasePath.getBasePathForClass(Config.class) + demoPath);
         File fXmlFile = new File(BasePath.getBasePathForClass(Config.class) + demoPath);
         Initialize(fXmlFile);
-        ComputeCoordScale();
 
     }
     
@@ -134,6 +133,7 @@ public class Config {
             nList = doc.getElementsByTagName("showentitylabel");
             showEntityLabel = Boolean.parseBoolean(nList.item(0).getTextContent());
 
+            ComputeCoordScale();
             //Edge Types
             nList = doc.getElementsByTagName("edgetype");
 

@@ -6,6 +6,7 @@
 package br.uff.ic.provviewer.GUI;
 
 import br.uff.ic.provviewer.Edge.Edge;
+import static br.uff.ic.provviewer.GUI.GuiFunctions.PanCameraToFirstVertex;
 import br.uff.ic.provviewer.GraphFrame;
 import br.uff.ic.provviewer.Input.UnityReader;
 import br.uff.ic.provviewer.Variables;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
@@ -54,7 +56,7 @@ public class GuiReadFile {
         }
     }
 
-    public static void openGraphFile(Variables variables, JFileChooser fileChooser, JFrame graphFrame) {
+    public static void openGraphFile(Variables variables, JFileChooser fileChooser, JFrame graphFrame, JComboBox Layouts) {
         if (variables.initConfig) {
             int returnVal = fileChooser.showOpenDialog(graphFrame);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -67,6 +69,9 @@ public class GuiReadFile {
             } else {
                 System.out.println("File access cancelled by user.");
             }
+            GuiBackground.InitBackground(variables, Layouts);
+            GraphFrame.FilterList.setSelectedIndex(0);
+            PanCameraToFirstVertex(variables);
         }
     }
 }

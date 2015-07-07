@@ -39,25 +39,8 @@ public class GuiBackground {
             final int offsetY = (int) ((-icon.getIconHeight() * 0.5) + (variables.config.imageOffsetY * variables.config.coordinatesScale));
             variables.view.addPreRenderPaintable(new VisualizationViewer.Paintable() {
                 public void paint(Graphics g) {
-                    Graphics2D g2d = (Graphics2D) g;
-                    AffineTransform oldXform = g2d.getTransform();
-                    AffineTransform lat
-                            = variables.view.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.LAYOUT).getTransform();
-                    AffineTransform vat
-                            = variables.view.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.VIEW).getTransform();
-                    AffineTransform at = new AffineTransform();
-                    at.concatenate(g2d.getTransform());
-                    at.concatenate(vat);
-                    at.concatenate(lat);
-                    g2d.setTransform(at);
-                    if (Layouts.getSelectedItem().equals("SpatialLayout")) {
-                        g.drawImage(icon.getImage(), offsetX, offsetY,
-                                icon.getIconWidth(), icon.getIconHeight(), variables.view);
-                    } else {
-                        g.drawImage(whiteIcon.getImage(), offsetX, offsetY,
-                                icon.getIconWidth(), icon.getIconHeight(), variables.view);
-                    }
-                    g2d.setTransform(oldXform);
+                    ResetBackground(g, variables, whiteIcon);
+                    Background(g, variables, Layouts, icon, offsetX, offsetY, whiteIcon);
                 }
 
                 public boolean useTransform() {
@@ -65,5 +48,45 @@ public class GuiBackground {
                 }
             });
         }
+    }
+
+    public static void Background(Graphics g, Variables variables, final JComboBox Layouts,
+            final ImageIcon icon, final int offsetX, final int offsetY, final ImageIcon whiteIcon) {
+        Graphics2D g2d = (Graphics2D) g;
+        AffineTransform oldXform = g2d.getTransform();
+        SetTransform(g2d, variables);
+        if (Layouts.getSelectedItem().equals("SpatialLayout")) {
+            DrawImage(g, variables, icon, offsetX, offsetY);
+        } else {
+            DrawImage(g, variables, whiteIcon, offsetX, offsetY);
+        }
+        g2d.setTransform(oldXform);
+    }
+
+    public static void ResetBackground(Graphics g, Variables variables, final ImageIcon whiteIcon) {
+        Graphics2D g2d = (Graphics2D) g;
+        AffineTransform oldXform = g2d.getTransform();
+        SetTransform(g2d, variables);
+        g.drawImage(whiteIcon.getImage(), -100000, -100000,
+                10000000, 10000000, variables.view);
+        g2d.setTransform(oldXform);
+    }
+    
+    public static void SetTransform(Graphics2D g2d, Variables variables) {
+        AffineTransform lat
+                = variables.view.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.LAYOUT).getTransform();
+        AffineTransform vat
+                = variables.view.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.VIEW).getTransform();
+        AffineTransform at = new AffineTransform();
+        at.concatenate(g2d.getTransform());
+        at.concatenate(vat);
+        at.concatenate(lat);
+        g2d.setTransform(at);
+    }
+
+    public static void DrawImage(Graphics g, Variables variables,
+            final ImageIcon icon, final int offsetX, final int offsetY) {
+        g.drawImage(icon.getImage(), offsetX, offsetY,
+                icon.getIconWidth(), icon.getIconHeight(), variables.view);
     }
 }

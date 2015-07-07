@@ -471,7 +471,7 @@ public class GraphFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ExitActionPerformed
 
     private void OpenGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenGraphActionPerformed
-        GuiReadFile.openGraphFile(variables, fileChooser, this);
+        GuiReadFile.openGraphFile(variables, fileChooser, this, Layouts);
     }//GEN-LAST:event_OpenGraphActionPerformed
 
     private void FilterEdgeAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterEdgeAgentButtonActionPerformed
