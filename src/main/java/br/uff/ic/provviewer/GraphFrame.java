@@ -201,7 +201,7 @@ public class GraphFrame extends javax.swing.JFrame {
             }
         });
 
-        PrologSimilarityInference.setText("Similarity Inference");
+        PrologSimilarityInference.setText("Similarity Collapse");
         PrologSimilarityInference.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PrologSimilarityInferenceActionPerformed(evt);

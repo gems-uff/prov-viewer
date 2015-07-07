@@ -461,7 +461,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="PrologSimilarityInference">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Similarity Inference"/>
+            <Property name="text" type="java.lang.String" value="Similarity Collapse"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PrologSimilarityInferenceActionPerformed"/>
