@@ -9,11 +9,16 @@ import java.io.File;
 import java.net.URISyntaxException;
 
 /**
- *
+ * Class responsible for correcting all file paths
  * @author Kohwalter
  */
 public class BasePath {
 
+    /**
+     * Function to return the correct path for the file. Always use this function instead of manual path input
+     * @param clazz is the class path
+     * @return 
+     */
     public static final String getBasePathForClass(Class<?> clazz) {
         File file;
         try {
