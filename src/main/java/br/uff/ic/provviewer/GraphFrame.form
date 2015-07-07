@@ -149,22 +149,16 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="MouseModes" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="EdgeStyle" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="EdgeLineShapeSelection" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="MouseModeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace pref="8" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="PrologGenerateFacts" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="PrologSimilarityInference" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
+                              <Component id="EdgeStyle" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="EdgeLineShapeSelection" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="MouseModeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="MouseModes" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="PrologGenerateFacts" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="PrologSimilarityInference" alignment="1" max="32767" attributes="0"/>
+                              <Component id="edgeTypeField" alignment="1" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -212,7 +206,7 @@
                                   <EmptySpace min="0" pref="7" max="32767" attributes="0"/>
                                   <Component id="EdgeTypes" min="-2" pref="107" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
+                              <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="3" attributes="0">
@@ -229,19 +223,21 @@
                                               <Component id="MouseModeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="GraphLayout" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="MouseModes" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="Layouts" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="PrologGenerateFacts" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="PrologSimilarityInference" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="edgeTypeField" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="MouseModes" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="Layouts" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="0" pref="28" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -470,6 +466,18 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PrologSimilarityInferenceActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="edgeTypeField">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Neutral"/>
+            <Property name="toolTipText" type="java.lang.String" value="Edge type for collapse"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edgeTypeFieldActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

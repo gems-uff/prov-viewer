@@ -43,15 +43,16 @@ public class GuiProlog {
         XMLConverter xmlConv = new XMLConverter();
         xmlConv.ConvertXMLtoProlog(file);
     }
-    public static void SimilarityInference(boolean InitPrologButton, PrologInference testProlog, Collapser collapser, Variables variables, Filters filter)
+    public static void SimilarityInference(boolean InitPrologButton, PrologInference testProlog, Variables variables, String edgeType)
     {
         if(InitPrologButton)
         {
-            System.out.println("Starting Prolog Inference");
+            System.out.println("Starting Prolog Inference: " + edgeType);
+            GuiButtons.Reset(variables);
             String list;
-            list = testProlog.QueryCollapse((String)StatusFilterBox.getSelectedItem(), "Neutral");
+            list = testProlog.QueryCollapse((String)StatusFilterBox.getSelectedItem(), edgeType);
             System.out.println("Collapsing...");
-            collapser.CollapseIrrelevant(variables, filter, list, "Neutral");
+            variables.collapser.CollapseIrrelevant(variables, list, edgeType);
             System.out.println("Finished Collapsing");
         }
     }

@@ -62,6 +62,7 @@ public class GraphFrame extends javax.swing.JFrame {
         InitPrologButton = new javax.swing.JToggleButton();
         PrologGenerateFacts = new javax.swing.JButton();
         PrologSimilarityInference = new javax.swing.JButton();
+        edgeTypeField = new javax.swing.JTextField();
         MenuBar = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
         OpenConfig = new javax.swing.JMenuItem();
@@ -207,6 +208,14 @@ public class GraphFrame extends javax.swing.JFrame {
             }
         });
 
+        edgeTypeField.setText("Neutral");
+        edgeTypeField.setToolTipText("Edge type for collapse");
+        edgeTypeField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edgeTypeFieldActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ToolMenuLayout = new javax.swing.GroupLayout(ToolMenu);
         ToolMenu.setLayout(ToolMenuLayout);
         ToolMenuLayout.setHorizontalGroup(
@@ -254,18 +263,15 @@ public class GraphFrame extends javax.swing.JFrame {
                             .addComponent(StatusFilterBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(ToolMenuLayout.createSequentialGroup()
-                                .addComponent(MouseModes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(ToolMenuLayout.createSequentialGroup()
-                                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(EdgeStyle)
-                                    .addComponent(EdgeLineShapeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(MouseModeLabel))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(PrologGenerateFacts, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(PrologSimilarityInference, javax.swing.GroupLayout.Alignment.TRAILING))))))
+                            .addComponent(EdgeStyle)
+                            .addComponent(EdgeLineShapeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(MouseModeLabel)
+                            .addComponent(MouseModes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(PrologGenerateFacts, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(PrologSimilarityInference, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(edgeTypeField, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
         );
         ToolMenuLayout.setVerticalGroup(
@@ -313,16 +319,18 @@ public class GraphFrame extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(MouseModeLabel)
-                                            .addComponent(GraphLayout)))
+                                            .addComponent(GraphLayout))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(MouseModes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(Layouts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(ToolMenuLayout.createSequentialGroup()
                                         .addComponent(PrologGenerateFacts)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(PrologSimilarityInference)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(MouseModes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Layouts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 28, Short.MAX_VALUE))))))
+                                        .addComponent(PrologSimilarityInference)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(edgeTypeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE))))))
         );
 
         getContentPane().add(ToolMenu, java.awt.BorderLayout.PAGE_END);
@@ -366,7 +374,7 @@ public class GraphFrame extends javax.swing.JFrame {
      * ================================================
      */
     private void ExpandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExpandActionPerformed
-        GuiButtons.Expand(variables.collapser, variables, variables.filter);
+        GuiButtons.Expand(variables);
     }//GEN-LAST:event_ExpandActionPerformed
     /**
      * ================================================
@@ -374,7 +382,7 @@ public class GraphFrame extends javax.swing.JFrame {
      * ================================================
      */
     private void CollapseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CollapseActionPerformed
-        GuiButtons.Collapse(variables.collapser, variables, variables.filter);
+        GuiButtons.Collapse(variables);
     }//GEN-LAST:event_CollapseActionPerformed
     /**
      * ================================================
@@ -382,7 +390,7 @@ public class GraphFrame extends javax.swing.JFrame {
      * ================================================
      */
     private void ResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetActionPerformed
-        GuiButtons.Reset(variables.collapser, variables, variables.filter);
+        GuiButtons.Reset(variables);
     }//GEN-LAST:event_ResetActionPerformed
     /**
      * ================================================
@@ -398,7 +406,7 @@ public class GraphFrame extends javax.swing.JFrame {
      * ================================================
      */
     private void CollapseAgentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CollapseAgentActionPerformed
-        GuiButtons.CollapseAgent(variables.collapser, variables, variables.filter);
+        GuiButtons.CollapseAgent(variables);
     }//GEN-LAST:event_CollapseAgentActionPerformed
 
    /**
@@ -407,7 +415,7 @@ public class GraphFrame extends javax.swing.JFrame {
          * ================================================
          */
     private void FilterNodeAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterNodeAgentButtonActionPerformed
-        GuiButtons.Filter(variables.collapser, variables, variables.filter);
+        GuiButtons.Filter(variables);
     }//GEN-LAST:event_FilterNodeAgentButtonActionPerformed
 
    /**
@@ -416,7 +424,7 @@ public class GraphFrame extends javax.swing.JFrame {
          * ================================================
          */
     private void FilterNodeLonelyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterNodeLonelyButtonActionPerformed
-        GuiButtons.Filter(variables.collapser, variables, variables.filter);
+        GuiButtons.Filter(variables);
     }//GEN-LAST:event_FilterNodeLonelyButtonActionPerformed
 
    /**
@@ -447,7 +455,7 @@ public class GraphFrame extends javax.swing.JFrame {
 
    
     private void FilterListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_FilterListValueChanged
-        GuiButtons.Filter(variables.collapser, variables, variables.filter);
+        GuiButtons.Filter(variables);
     }//GEN-LAST:event_FilterListValueChanged
 
     private void LayoutsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LayoutsActionPerformed
@@ -467,7 +475,7 @@ public class GraphFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_OpenGraphActionPerformed
 
     private void FilterEdgeAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterEdgeAgentButtonActionPerformed
-        GuiButtons.Filter(variables.collapser, variables, variables.filter);
+        GuiButtons.Filter(variables);
     }//GEN-LAST:event_FilterEdgeAgentButtonActionPerformed
 
     private void InitPrologButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InitPrologButtonActionPerformed
@@ -479,8 +487,12 @@ public class GraphFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_PrologGenerateFactsActionPerformed
 
     private void PrologSimilarityInferenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrologSimilarityInferenceActionPerformed
-        GuiProlog.SimilarityInference(InitPrologButton.isSelected(), variables.testProlog, variables.collapser, variables, variables.filter);
+        GuiProlog.SimilarityInference(InitPrologButton.isSelected(), variables.testProlog, variables, edgeTypeField.getText());
     }//GEN-LAST:event_PrologSimilarityInferenceActionPerformed
+
+    private void edgeTypeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edgeTypeFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edgeTypeFieldActionPerformed
    
     /**
      * Main
@@ -546,6 +558,7 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JComboBox StatusFilterBox;
     private javax.swing.JPanel ToolMenu;
     private javax.swing.JLabel VertexFilter;
+    public javax.swing.JTextField edgeTypeField;
     private javax.swing.JFileChooser fileChooser;
     // End of variables declaration//GEN-END:variables
 }

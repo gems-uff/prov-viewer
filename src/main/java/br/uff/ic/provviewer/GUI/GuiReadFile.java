@@ -61,7 +61,7 @@ public class GuiReadFile {
                 variables.file = fileChooser.getSelectedFile();
                 variables.graph = GuiReadFile.getGraph(variables.file);
                 variables.collapsedGraph = variables.graph;
-                variables.collapser.Filters(variables, variables.filter);
+                variables.collapser.Filters(variables);
                 variables.view.repaint();
                 variables.initialGraph = false;
             } else {

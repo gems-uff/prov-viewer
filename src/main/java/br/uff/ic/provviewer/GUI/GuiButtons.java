@@ -39,18 +39,18 @@ public class GuiButtons {
         System.exit(0);
     }
 
-    public static void Expand(Collapser collapser, Variables variables, Filters filter) {
+    public static void Expand(Variables variables) {
         Collection picked = new HashSet(variables.view.getPickedVertexState().getPicked());
-        collapser.Expander(variables, filter, picked);
+        variables.collapser.Expander(variables, picked);
     }
 
-    public static void Collapse(Collapser collapser, Variables variables, Filters filter) {
+    public static void Collapse(Variables variables) {
         Collection picked = new HashSet(variables.view.getPickedVertexState().getPicked());
-        collapser.Collapse(variables, filter, picked, true);
+        variables.collapser.Collapse(variables, picked, true);
     }
 
-    public static void Reset(Collapser collapser, Variables variables, Filters filter) {
-        collapser.ResetGraph(variables, filter);
+    public static void Reset(Variables variables) {
+        variables.collapser.ResetGraph(variables);
     }
 
     public static void MouseModes(DefaultModalGraphMouse mouse, JComboBox MouseModes) {
@@ -63,7 +63,7 @@ public class GuiButtons {
         }
     }
 
-    public static void CollapseAgent(Collapser collapser, Variables variables, Filters filter) {
+    public static void CollapseAgent(Variables variables) {
         PickedInfo<Object> picked_state;
         picked_state = variables.view.getPickedVertexState();
         Object node = null;
@@ -80,12 +80,12 @@ public class GuiButtons {
             if (!(node instanceof AgentVertex)) {
                 picked.removeAll(picked);
             }
-            collapser.Collapse(variables, filter, picked, true);
+            variables.collapser.Collapse(variables, picked, true);
         }
     }
 
-    public static void Filter(Collapser collapser, Variables variables, Filters filter) {
-        collapser.Filters(variables, filter);
+    public static void Filter(Variables variables) {
+        variables.collapser.Filters(variables);
     }
 
     public static void EdgeLineMode(JComboBox EdgeLineShapeSelection, Variables variables) {

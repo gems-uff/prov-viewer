@@ -34,7 +34,7 @@ public class Collapser {
      * @param variables Variables type
      * @param filter Filters type
      */
-    public void ResetGraph(Variables variables, Filters filter) {
+    public void ResetGraph(Variables variables) {
         //Reset graph to the original version
         variables.layout.setGraph(variables.graph);
         variables.collapsedGraph = variables.graph;
@@ -44,7 +44,7 @@ public class Collapser {
             RemoveCollapsedEdges(variables, node);
         }
         variables.ComputeEdgeTypeValues(variables, (DirectedGraph) variables.graph);
-        RemoveFilters(variables, filter);
+        RemoveFilters(variables);
     }
 
     //
@@ -73,9 +73,9 @@ public class Collapser {
      * @param filter Filters type
      * @param picked Collection of selected vertices
      */
-    public void Collapse(Variables variables, Filters filter, Collection picked, boolean refresh) {
+    public void Collapse(Variables variables, Collection picked, boolean refresh) {
         //add all filters to avoid losing information
-        AddFilters(variables, filter);
+        AddFilters(variables);
         //If selected more than 1 vertex
         if (picked.size() > 1) {
             //Graph inGraph = layout.getGraph();
@@ -101,17 +101,17 @@ public class Collapser {
             variables.view.getPickedVertexState().clear();
             
             if(refresh)
-                RefreshGraph(variables, filter);
+                RefreshGraph(variables);
         }
 
     }
     
-    public void RefreshGraph(Variables variables, Filters filter)
+    public void RefreshGraph(Variables variables)
     {
         
         CollapseEdges(variables);
         variables.ComputeEdgeTypeValues(variables, (DirectedGraph) variables.layout.getGraph());
-        RemoveFilters(variables, filter);
+        RemoveFilters(variables);
         variables.view.repaint();
         System.out.println("#Vertices: " + variables.collapsedGraph.getVertexCount());
     }
@@ -243,14 +243,14 @@ public class Collapser {
      * @param filter Filters type
      * @param picked Collection of selected vertices
      */
-    public void Expander(Variables variables, Filters filter, Collection picked) {
+    public void Expander(Variables variables, Collection picked) {
         //for each selected vertex
         for (Object v : picked) {
             //if vertex is a collapsed graph (multiple vertices)
             if (v instanceof Graph) {
                 //TODO: Save current filters state
                 //Add all filters to not lose edges/information
-                AddFilters(variables, filter);
+                AddFilters(variables);
                 RemoveCollapsedEdges(variables, v);
                 //Expand the vertex
                 variables.collapsedGraph = (DirectedGraph<Object, Edge>) variables.gCollapser.expand(variables.layout.getGraph(), (Graph) v);
@@ -258,8 +258,8 @@ public class Collapser {
                 variables.layout.setGraph(variables.collapsedGraph);
                 //TODO: Load filters state
                 //Remove filters to clean the visualization
-                RemoveFilters(variables, filter);
-                Filters(variables, filter);
+                RemoveFilters(variables);
+                Filters(variables);
 
             }
         }
@@ -277,8 +277,8 @@ public class Collapser {
      * @param hiddenEdges Boolean used to decide if hidden (original edges that
      * composes the collapsed edge) edges will be filtered
      */
-    public void Filters(Variables variables, Filters filter, boolean hiddenEdges) {
-        filter.Filter(variables.view,
+    public void Filters(Variables variables, boolean hiddenEdges) {
+        variables.filter.Filter(variables.view,
                 variables.layout,
                 variables.collapsedGraph,
                 hiddenEdges);
@@ -291,8 +291,8 @@ public class Collapser {
      * @param variables Variables type
      * @param filter Filters type
      */
-    public void Filters(Variables variables, Filters filter) {
-        Filters(variables, filter, true);
+    public void Filters(Variables variables) {
+        Filters(variables, true);
     }
 
     /**
@@ -310,7 +310,7 @@ public class Collapser {
         return new Edge("C", "Collapsed", label, value, target, source);
     }
 
-    public void CollapseIrrelevant(Variables variables, Filters filter, String list, String edgetype) {
+    public void CollapseIrrelevant(Variables variables, String list, String edgetype) {
 
         Collection selected = new ArrayList();
         //System.out.println( "L = " + list);
@@ -354,7 +354,7 @@ public class Collapser {
             }
             //Collapse selected vertices
             if (!selected.isEmpty() && (selected.size() > 1)) {
-                Collapse(variables, filter, selected, false);
+                Collapse(variables, selected, false);
             } else {
                 //If there is only one vertex, then there is no collapse
                 Iterator itr = selected.iterator();
@@ -364,7 +364,7 @@ public class Collapser {
             }
             selected.clear();
         }
-        RefreshGraph(variables, filter);
+        RefreshGraph(variables);
     }
 
     /**
@@ -373,9 +373,9 @@ public class Collapser {
      * @param variables
      * @param filter
      */
-    public void AddFilters(Variables variables, br.uff.ic.provviewer.Filter.Filters filter) {
+    public void AddFilters(Variables variables) {
         GraphFrame.FilterList.setSelectionInterval(0, variables.config.edgetype.size() - 1);
-        Filters(variables, filter, false);
+        Filters(variables, false);
     }
 
     /**
@@ -385,9 +385,9 @@ public class Collapser {
      * @param variables
      * @param filter
      */
-    public void RemoveFilters(Variables variables, br.uff.ic.provviewer.Filter.Filters filter) {
+    public void RemoveFilters(Variables variables) {
         GraphFrame.FilterList.setSelectedIndex(0);
-        Filters(variables, filter);
+        Filters(variables);
     }
 }
 

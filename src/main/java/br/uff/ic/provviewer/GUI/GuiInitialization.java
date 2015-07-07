@@ -61,7 +61,7 @@ public class GuiInitialization {
         variables.filter.filteredGraph = variables.graph;
         variables.filter.FilterInit();
         PreFilters.PreFilter();
-        variables.collapser.Filters(variables, variables.filter);
+        variables.collapser.Filters(variables);
     }
     
 }
