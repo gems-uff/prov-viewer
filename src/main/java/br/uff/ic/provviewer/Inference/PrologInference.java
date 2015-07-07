@@ -25,6 +25,7 @@ import jpl.Variable;
  * @author Kohwalter
  */
 public class PrologInference {
+
     private Hashtable solution;
 //    private Variable X = new Variable();
 //    
@@ -34,32 +35,35 @@ public class PrologInference {
 //    Theory theory2;
 
     /**
-* Adds the specified path to the java library path
-*
-* @param pathToAdd the path to add
-* @throws Exception
-*/
-public static void addLibraryPath(String pathToAdd) throws Exception{
-    final Field usrPathsField = ClassLoader.class.getDeclaredField("usr_paths");
-    usrPathsField.setAccessible(true);
- 
-    //get array of paths
-    final String[] paths = (String[])usrPathsField.get(null);
- 
-    //check if the path to add is already present
-    for(String path : paths) {
-        if(path.equals(pathToAdd)) {
-            return;
+     * Adds the specified path to the java library path
+     *     
+     * @param pathToAdd the path to add
+     * @throws Exception
+     */
+    public static void addLibraryPath(String pathToAdd) throws Exception {
+        final Field usrPathsField = ClassLoader.class.getDeclaredField("usr_paths");
+        usrPathsField.setAccessible(true);
+
+        //get array of paths
+        final String[] paths = (String[]) usrPathsField.get(null);
+
+        //check if the path to add is already present
+        for (String path : paths) {
+            if (path.equals(pathToAdd)) {
+                return;
+            }
         }
+
+        //add the new path
+        final String[] newPaths = Arrays.copyOf(paths, paths.length + 1);
+        newPaths[newPaths.length - 1] = pathToAdd;
+        usrPathsField.set(null, newPaths);
     }
- 
-    //add the new path
-    final String[] newPaths = Arrays.copyOf(paths, paths.length + 1);
-    newPaths[newPaths.length-1] = pathToAdd;
-    usrPathsField.set(null, newPaths);
-}
-    public void Init()
-    {
+
+    /**
+     * Method to initialize the prolog facts and rules
+     */
+    public void Init() {
         try {
 //        try {
 //            System.loadLibrary("jpl");
@@ -76,11 +80,11 @@ public static void addLibraryPath(String pathToAdd) throws Exception{
             } catch (Exception ex) {
                 Logger.getLogger(PrologInference.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
             URL knowledge = PrologInference.class.getResource("/Prolog/PrologRules.pl");
 //        URL fact = PrologInference.class.getResource("/Prolog/PrologFacts_Car.pl");
             String path = "file:" + File.separator + File.separator + File.separator + BasePath.getBasePathForClass(PrologInference.class) + "Prolog" + File.separator + "PrologFacts.pl";
-            URL fact = new URL (path);
+            URL fact = new URL(path);
 //        URL fact = PrologInference.class.getResource("/Prolog/PrologFacts_Car_Lap3.pl");
 //        URL fact = PrologInference.class.getResource("/Prolog/PrologFacts_Angry.pl");
             Query qKnowledgeBase = new Query("consult", new Term[]{new Atom(knowledge.getPath())});
@@ -102,10 +106,15 @@ public static void addLibraryPath(String pathToAdd) throws Exception{
             Logger.getLogger(PrologInference.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    /**
+     * Method to execute the prolog query for SimilarityCollapse
+     * @param attribute is the desired attribute for the collapse
+     * @param edgeType is the edge type for the collapse
+     * @return the prolog answer for the collapse in the form of collapse sets
+     */
     public String QueryCollapse(String attribute, String edgeType) {
 
-        
-       
         //TuProlog
 //        SolveInfo info;
 //        try {
@@ -132,20 +141,18 @@ public static void addLibraryPath(String pathToAdd) throws Exception{
 //        } catch (MalformedGoalException ex) {
 //            Logger.getLogger(PrologInference.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-               
         //SWI Prolog
-        Query q1 = new Query(new Compound("collapse_vertices", new Term[] { new Variable("L"), new Atom(attribute), new Atom(edgeType)}));
+        Query q1 = new Query(new Compound("collapse_vertices", new Term[]{new Variable("L"), new Atom(attribute), new Atom(edgeType)}));
 
         q1.query();
         solution = q1.oneSolution();
-        System.out.println( "S = " + solution);
+        System.out.println("S = " + solution);
         //Clean the solution to a readable string
-        if(solution != null)
-        {
+        if (solution != null) {
             String aux = (solution.get("L")).toString();
             aux = aux.replace("'.'", "");
             aux = aux.replace("[]", "");
-            
+
             aux = aux.replace("(", " ");
             aux = aux.replace(")", " ");
             aux = aux.replace(",  ", ",");
@@ -154,7 +161,7 @@ public static void addLibraryPath(String pathToAdd) throws Exception{
             aux = aux.replace(",  ,", " ");
 
             //Print Solution
-            System.out.println( "L = " + aux);
+            System.out.println("L = " + aux);
             return aux;
         }
         return "";

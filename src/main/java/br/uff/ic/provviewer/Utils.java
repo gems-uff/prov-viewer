@@ -6,7 +6,7 @@
 package br.uff.ic.provviewer;
 
 /**
- *
+ * Class that contains utility functions
  * @author Kohwalter
  */
 public class Utils {
