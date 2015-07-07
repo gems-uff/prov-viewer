@@ -5,13 +5,13 @@
 package br.uff.ic.provviewer;
 
 import br.uff.ic.provviewer.Edge.Edge;
-import br.uff.ic.provviewer.Filter.Filters;
 import br.uff.ic.provviewer.Vertex.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.subLayout.GraphCollapser;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -32,7 +32,6 @@ public class Collapser {
      * Method for resetting the Graph to the original state
      *
      * @param variables Variables type
-     * @param filter Filters type
      */
     public void ResetGraph(Variables variables) {
         //Reset graph to the original version
@@ -70,8 +69,8 @@ public class Collapser {
      * Method used to collapse vertices
      *
      * @param variables Variables type
-     * @param filter Filters type
      * @param picked Collection of selected vertices
+     * @param refresh
      */
     public void Collapse(Variables variables, Collection picked, boolean refresh) {
         //add all filters to avoid losing information
@@ -240,7 +239,6 @@ public class Collapser {
      * vertices
      *
      * @param variables Variables type
-     * @param filter Filters type
      * @param picked Collection of selected vertices
      */
     public void Expander(Variables variables, Collection picked) {
@@ -273,7 +271,6 @@ public class Collapser {
      * Method for filtering the Graph
      *
      * @param variables Variables type
-     * @param filter Filters type
      * @param hiddenEdges Boolean used to decide if hidden (original edges that
      * composes the collapsed edge) edges will be filtered
      */
@@ -289,7 +286,6 @@ public class Collapser {
      * filtering the edges that composes the collapsed one
      *
      * @param variables Variables type
-     * @param filter Filters type
      */
     public void Filters(Variables variables) {
         Filters(variables, true);
@@ -300,13 +296,12 @@ public class Collapser {
      * type
      *
      * @param target (Vertex) Target of the edge
-     * @param target (Vertex) Source of the edge
-     * @param influence (String) Edge's influence value and type (i.e. "+9
-     * damage")
+     * @param source (Vertex) source of the edge
+     * @param label the label for the edge
+     * @param value the value for the edge
      * @return
      */
     public Edge CollapsedEdgeType(Object target, Object source, String label, String value) {
-//        return new Edge("C", target, source, influence);
         return new Edge("C", "Collapsed", label, value, target, source);
     }
 
@@ -319,9 +314,7 @@ public class Collapser {
 
         String[] elements = list.split(" ");
 
-        for (int i = 0; i < elements.length; i++) {
-            collapsegroup.add(elements[i]);
-        }
+        collapsegroup.addAll(Arrays.asList(elements));
         //Sort list by decreasing order of string.length
         Comparator comparator = new Comparator<String>() {
             @Override
@@ -335,18 +328,18 @@ public class Collapser {
         nodes = (variables.graph.getVertices()).toArray();
 
         //For each elements of collapses
-        for (int i = 0; i < collapsegroup.size(); i++) {
+        for (String collapsegroup1 : collapsegroup) {
             //System.out.println("Current Group = " + collapsegroup.get(i));
-            String[] vertexlist = collapsegroup.get(i).split(",");
+            String[] vertexlist = collapsegroup1.split(",");
             //For each vertex in the elements
-            for (int j = 0; j < vertexlist.length; j++) {
+            for (String vertexlist1 : vertexlist) {
                 //If vertex was not processed yet
-                if (!used.contains(vertexlist[j])) {
-                    used.add(vertexlist[j]);
+                if (!used.contains(vertexlist1)) {
+                    used.add(vertexlist1);
                     //Find the vertex in the graph by its ID
-                    for (int w = 0; w < nodes.length; w++) {
-                        if (((Vertex) (nodes[w])).getID().equalsIgnoreCase(vertexlist[j])) {
-                            Vertex node = ((Vertex) nodes[w]);
+                    for (Object node1 : nodes) {
+                        if (((Vertex) (node1)).getID().equalsIgnoreCase(vertexlist1)) {
+                            Vertex node = (Vertex) node1;
                             selected.add(node);
                         }
                     }
@@ -371,7 +364,6 @@ public class Collapser {
      * Method to apply filters after an operation
      *
      * @param variables
-     * @param filter
      */
     public void AddFilters(Variables variables) {
         GraphFrame.FilterList.setSelectionInterval(0, variables.config.edgetype.size() - 1);
@@ -383,7 +375,6 @@ public class Collapser {
      * information
      *
      * @param variables
-     * @param filter
      */
     public void RemoveFilters(Variables variables) {
         GraphFrame.FilterList.setSelectedIndex(0);
