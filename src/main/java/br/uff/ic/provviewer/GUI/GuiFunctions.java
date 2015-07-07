@@ -33,15 +33,23 @@ import org.apache.commons.collections15.Predicate;
 import org.apache.commons.collections15.Transformer;
 
 /**
- *
+ * Class responsible for main (GUI) graph functions
  * @author Kohwalter
  */
 public class GuiFunctions {
 
+    /**
+     * Method to define the vertex shape
+     * @param variables
+     */
     public static void VertexShape(Variables variables) {
         variables.view.getRenderContext().setVertexShapeTransformer(new VertexShape());
     }
 
+    /**
+     * Method to define the vertex and edge borders/stroke
+     * @param variables 
+     */
     public static void Stroke(final Variables variables) {
         // Vertex Stroke
         Transformer<Object, Stroke> nodeStrokeTransformer = new Transformer<Object, Stroke>() {
@@ -63,6 +71,10 @@ public class GuiFunctions {
         variables.view.getRenderContext().setEdgeStrokeTransformer(edgeStrokeTransformer);
     }
 
+    /**
+     * Method to display labels for vertices
+     * @param variables 
+     */
     public static void VertexLabel(final Variables variables) {
         variables.view.getRenderContext().setVertexLabelTransformer(new Transformer<Object, String>() {
 
@@ -89,6 +101,10 @@ public class GuiFunctions {
         });
     }
 
+    /**
+     * Method to enable mouse interactions
+     * @param variables 
+     */
     public static void MouseInteraction(Variables variables) {
         // via mouse Commands: t for translate, p for picking
         variables.view.setGraphMouse(variables.mouse);
@@ -96,7 +112,8 @@ public class GuiFunctions {
     }
 
     /**
-     * Pan the camera to the first vertex in the graph
+     * Method to pan the camera to the first vertex in the graph
+     * @param variables 
      */
     public static void PanCameraToFirstVertex(Variables variables) {
         Vertex first = (Vertex) variables.graph.getVertices().iterator().next();
@@ -110,7 +127,8 @@ public class GuiFunctions {
     }
 
     /**
-     * Scale back the zoom in the camera
+     * Method to scale back the camera zoom
+     * @param variables 
      */
     public static void ScaleView(Variables variables) {
         variables.view = new VisualizationViewer<Object, Edge>(variables.layout);
@@ -118,6 +136,12 @@ public class GuiFunctions {
         scaler.scale(variables.view, 1 / 2.1f, variables.view.getCenter());
     }
 
+    /**
+     * Method to initialize the View
+     * @param variables
+     * @param Layouts is the GUI layout chooser
+     * @param graphFrame is the tool's main frame
+     */
     public static void SetView(final Variables variables, JComboBox Layouts, JFrame graphFrame) {
         // Choosing layout
         if (variables.initLayout) {
@@ -147,6 +171,10 @@ public class GuiFunctions {
         graphFrame.getContentPane().add(variables.view, BorderLayout.CENTER);
     }
 
+    /**
+     * Method to paint vertices and edges according to their values
+     * @param variables 
+     */
     public static void GraphPaint(final Variables variables) {
 
         // Vertex Paint

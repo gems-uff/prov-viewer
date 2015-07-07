@@ -22,11 +22,16 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
 /**
- *
+ * Class to read the graph and config files from the GUI button (File open)
  * @author Kohwalter
  */
 public class GuiReadFile {
 
+    /**
+     * Method to read the graph from the XML file
+     * @param xmlGraph is the XML file with the graph information
+     * @return 
+     */
     public static DirectedGraph<Object, Edge> getGraph(File xmlGraph) {
         DirectedGraph<Object, Edge> g = new DirectedSparseMultigraph<Object, Edge>();
         try {
@@ -44,6 +49,12 @@ public class GuiReadFile {
         return g;
     }
 
+    /**
+     * Method to read the XML configuration file
+     * @param variables
+     * @param fileChooser is the file chooser from the interface
+     * @param graphFrame is the tool's main frame
+     */
     public static void openConfigFile(Variables variables, JFileChooser fileChooser, JFrame graphFrame) {
         int returnVal = fileChooser.showOpenDialog(graphFrame);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -56,6 +67,13 @@ public class GuiReadFile {
         }
     }
 
+    /**
+     * Method to open the XML graph file
+     * @param variables
+     * @param fileChooser is the file chooser from the interface
+     * @param graphFrame is the tool's main frame
+     * @param Layouts is the tool's layout selection field
+     */
     public static void openGraphFile(Variables variables, JFileChooser fileChooser, JFrame graphFrame, JComboBox Layouts) {
         if (variables.initConfig) {
             int returnVal = fileChooser.showOpenDialog(graphFrame);

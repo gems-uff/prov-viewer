@@ -17,13 +17,13 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 
 /**
- *
+ * Class to initialize the interface operations
  * @author Kohwalter
  */
 public class GuiInitialization {
 
     /**
-     *  Init Graph Component
+     *  Method to initialize the tool components
      * 
      * @param variables
      * @param graph
@@ -45,6 +45,10 @@ public class GuiInitialization {
         InitFilters(variables);
     }
 
+    /**
+     * Method to initialize the tool's variables
+     * @param variables 
+     */
     public static void InitVariables(Variables variables) {
         variables.mouse = new DefaultModalGraphMouse();
         variables.filterCredits = false;
@@ -57,6 +61,10 @@ public class GuiInitialization {
         variables.initConfig = false;
     }
 
+    /**
+     * Method to initialize the tool's filters
+     * @param variables 
+     */
     public static void InitFilters(Variables variables) {
         variables.filter.filteredGraph = variables.graph;
         variables.filter.FilterInit();

@@ -487,7 +487,7 @@ public class GraphFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_PrologGenerateFactsActionPerformed
 
     private void PrologSimilarityInferenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrologSimilarityInferenceActionPerformed
-        GuiProlog.SimilarityInference(InitPrologButton.isSelected(), variables.testProlog, variables, edgeTypeField.getText());
+        GuiProlog.SimilarityCollapse(InitPrologButton.isSelected(), variables.testProlog, variables, edgeTypeField.getText());
     }//GEN-LAST:event_PrologSimilarityInferenceActionPerformed
 
     private void edgeTypeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edgeTypeFieldActionPerformed

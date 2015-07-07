@@ -13,11 +13,14 @@ import edu.uci.ics.jung.graph.DirectedGraph;
 import java.io.File;
 
 /**
- *
+ * Class to run the application
  * @author Kohwalter
  */
 public class GuiRun {
     
+    /**
+     * Main loop of the program
+     */
     public static void Run()
     {
         System.out.println("Graph: " + BasePath.getBasePathForClass(GuiRun.class) + Variables.demo);

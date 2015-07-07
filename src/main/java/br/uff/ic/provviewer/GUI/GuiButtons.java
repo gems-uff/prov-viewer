@@ -30,29 +30,49 @@ import javax.swing.JComboBox;
 import org.apache.commons.collections15.Transformer;
 
 /**
- *
+ * Class responsible for implementing each GUI button
  * @author Kohwalter
  */
 public class GuiButtons {
 
+    /**
+     * Method to exit the application
+     */
     public static void Exit() {
         System.exit(0);
     }
 
+    /**
+     * Method to expand a previously collapsed vertex
+     * @param variables 
+     */
     public static void Expand(Variables variables) {
         Collection picked = new HashSet(variables.view.getPickedVertexState().getPicked());
         variables.collapser.Expander(variables, picked);
     }
 
+    /**
+     * Method to collapse a set of selected vertices
+     * @param variables 
+     */
     public static void Collapse(Variables variables) {
         Collection picked = new HashSet(variables.view.getPickedVertexState().getPicked());
         variables.collapser.Collapse(variables, picked, true);
     }
 
+    /**
+     * Method to rollback to the original graph
+     * @param variables 
+     */
     public static void Reset(Variables variables) {
         variables.collapser.ResetGraph(variables);
     }
 
+    /**
+     * Method to select the mouse modes (Picking or Transforming)
+     * @param mouse
+     * @param MouseModes 
+     */
     public static void MouseModes(DefaultModalGraphMouse mouse, JComboBox MouseModes) {
         String mode = (String) MouseModes.getSelectedItem();
         if (mode.equalsIgnoreCase("Picking")) {
@@ -63,6 +83,10 @@ public class GuiButtons {
         }
     }
 
+    /**
+     * Method to collapse all vertices from each agent
+     * @param variables 
+     */
     public static void CollapseAgent(Variables variables) {
         PickedInfo<Object> picked_state;
         picked_state = variables.view.getPickedVertexState();
@@ -84,10 +108,19 @@ public class GuiButtons {
         }
     }
 
+    /**
+     * Method to apply edge filters
+     * @param variables 
+     */
     public static void Filter(Variables variables) {
         variables.collapser.Filters(variables);
     }
 
+    /**
+     * Method to define the overall edge arrow format
+     * @param EdgeLineShapeSelection
+     * @param variables 
+     */
     public static void EdgeLineMode(JComboBox EdgeLineShapeSelection, Variables variables) {
         String mode = (String) EdgeLineShapeSelection.getSelectedItem();
         if (mode.equalsIgnoreCase("QuadCurve")) {
@@ -99,11 +132,20 @@ public class GuiButtons {
         variables.view.repaint();
     }
 
+    /**
+     * Method to change the vertex coloring according to the selected attribute
+     * @param variables 
+     */
     public static void StatusFilter(Variables variables) {
         VertexPainter.VertexPainter((String) StatusFilterBox.getSelectedItem(), variables.view, variables);
         variables.view.repaint();
     }
 
+    /**
+     * method to display edge label
+     * @param variables
+     * @param ShowEdgeTextButton 
+     */
     public static void EdgeTextDisplay(Variables variables, Boolean ShowEdgeTextButton) {
         if (ShowEdgeTextButton) {
             variables.view.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller<Edge>());
@@ -120,6 +162,11 @@ public class GuiButtons {
         variables.view.repaint();
     }
 
+    /**
+     * Method to change the graph layout
+     * @param variables
+     * @param Layouts 
+     */
     public static void LayoutSelection(Variables variables, JComboBox Layouts) {
         String layout = (String) Layouts.getSelectedItem();
         if (layout.equalsIgnoreCase("CircleLayout")) {

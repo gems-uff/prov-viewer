@@ -27,7 +27,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- *
+ * Class responsible for configuring the tool to a specific domain
  * @author Kohwalter
  */
 public class Config {
@@ -75,6 +75,9 @@ public class Config {
     public List<String> actVerValue = new ArrayList<String>();
     public List<Paint> actVerColor = new ArrayList<Paint>();
 
+    /**
+     * Method to configure the tool for the first time using the default graph and configuration
+     */
     public void Initialize() {
         System.out.println("Config: " + BasePath.getBasePathForClass(Config.class) + demoPath);
         File fXmlFile = new File(BasePath.getBasePathForClass(Config.class) + demoPath);
@@ -82,6 +85,9 @@ public class Config {
 
     }
     
+    /**
+     * Method to compute the graph scale for the Spatial Layout
+     */
     public void ComputeCoordScale() {
         final ImageIcon icon = new ImageIcon(BasePath.getBasePathForClass(Config.class) + imageLocation);
         width = icon.getIconWidth();
@@ -94,6 +100,10 @@ public class Config {
         coordinatesScale = coordinatesScale / 100;
     }
 
+    /**
+     * Method to configure the tool
+     * @param fXmlFile is the xml file that contains the configuration for the tool
+     */
     public void Initialize(File fXmlFile) {
         try {
             edgetype = new ArrayList<EdgeType>();
