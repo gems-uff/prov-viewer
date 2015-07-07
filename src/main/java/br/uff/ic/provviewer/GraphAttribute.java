@@ -5,10 +5,8 @@
  */
 package br.uff.ic.provviewer;
 
-import java.util.Map;
-
 /**
- *
+ * Class to define a vertex-graph attribute (collapsed vertices)
  * @author Kohwalter
  */
 public class GraphAttribute {
@@ -19,6 +17,11 @@ public class GraphAttribute {
     private float maxValue;
     private int quantity;
 
+    /**
+     * Default constructor
+     * @param name is the attribute name
+     * @param value is the attribute value
+     */
     public GraphAttribute(String name, String value) {
         this.name = name;
         this.value = value;
@@ -33,6 +36,10 @@ public class GraphAttribute {
         }
     }
 
+    /**
+     * Method to update the attribute when computing the collapsed set
+     * @param value is the attribute value
+     */
     public void updateAttribute(String value) {
         this.quantity++;
         if (Utils.tryParseFloat(value)) {
@@ -44,10 +51,18 @@ public class GraphAttribute {
         }
     }
 
+    /**
+     * Method to return the attribute name
+     * @return name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * method to return the attribute value
+     * @return value
+     */
     public String getValue() {
         return value;
     }
@@ -56,22 +71,42 @@ public class GraphAttribute {
         return Float.toString(minValue);
     }
 
+    /**
+     * Method to return the maximum value for this attribute in the verter-graph
+     * @return max value
+     */
     public String getMax() {
         return Float.toString(maxValue);
     }
 
+    /**
+     * Method to set the attribute name
+     * @param t is the new attribute name
+     */
     public void setName(String t) {
         this.name = t;
     }
 
+    /**
+     * Method to set the attribute value
+     * @param t is the new value
+     */
     public void setValue(String t) {
         this.value = t;
     }
 
+    /**
+     * Function to print the attribute
+     * @return string with the attribute
+     */
     public String printAttribute() {
         return this.getName() + ": " + printValue();
     }
 
+    /**
+     * Function to print the attribute parameters
+     * @return a string with the attribute characteristics
+     */
     public String printValue() {
         if (Utils.tryParseFloat(this.value)) {
             return (Float.parseFloat(this.value) / this.quantity)

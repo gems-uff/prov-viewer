@@ -5,7 +5,7 @@
 package br.uff.ic.provviewer;
 
 /**
- *
+ * Class to define the parameters for each edge type
  * @author Kohwalter
  */
 public class EdgeType {
@@ -17,6 +17,9 @@ public class EdgeType {
     public int count;
     public float total;
     
+    /**
+     * Empty constructor
+     */
     public EdgeType(){
         this.type = "";
         this.stroke = "";
@@ -26,6 +29,13 @@ public class EdgeType {
         this.count = 0;
         this.total = 0;
     }
+    
+    /**
+     * Default constructor
+     * @param type is the edge type
+     * @param stroke is the stroke
+     * @param collapse is the collapse
+     */
     public EdgeType(String type, String stroke, String collapse){
         this.type = type;
         this.stroke = stroke;

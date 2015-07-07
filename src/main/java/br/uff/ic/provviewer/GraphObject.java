@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.Map;
 
 /**
- *
+ * Class to define the graph objects (Vertex)
  * @author Kohwalter
  */
 public class GraphObject extends Object{
@@ -62,7 +62,7 @@ public class GraphObject extends Object{
     
     /**
      * Method to add a new attribute in the attribute map
-     * @param att New attribute to be added
+     * @param atts
      */
     public void AddAllAttributes(Map<String, Attribute> atts)
     {
