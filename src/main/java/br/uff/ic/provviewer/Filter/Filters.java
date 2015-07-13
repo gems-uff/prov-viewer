@@ -7,6 +7,7 @@ package br.uff.ic.provviewer.Filter;
 import br.uff.ic.provviewer.Edge.Edge;
 import br.uff.ic.provviewer.GraphFrame;
 import br.uff.ic.provviewer.Vertex.AgentVertex;
+import br.uff.ic.provviewer.Vertex.EntityVertex;
 import edu.uci.ics.jung.algorithms.filters.EdgePredicateFilter;
 import edu.uci.ics.jung.algorithms.filters.Filter;
 import edu.uci.ics.jung.algorithms.filters.VertexPredicateFilter;
@@ -134,6 +135,11 @@ public class Filters {
                 final Graph test = filteredGraph;
                 if (GraphFrame.FilterNodeAgentButton.isSelected()) {
                     if (vertex instanceof AgentVertex) {
+                        return false;
+                    }
+                }
+                if (GraphFrame.FilterNodeEntityButton.isSelected()) {
+                    if (vertex instanceof EntityVertex) {
                         return false;
                     }
                 }
