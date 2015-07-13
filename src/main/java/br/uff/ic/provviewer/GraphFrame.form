@@ -182,7 +182,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="MouseModes" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="EdgeStyle" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="MouseModeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -195,8 +195,8 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="Expand" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="PrologSimilarityInference" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="MouseModeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="EdgeLineShapeSelection" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="EdgeStyle" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -214,6 +214,7 @@
         <Component class="javax.swing.JButton" name="CollapseAgent">
           <Properties>
             <Property name="text" type="java.lang.String" value="CollapseAgent"/>
+            <Property name="toolTipText" type="java.lang.String" value="Collapse all vertices from each agent"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CollapseAgentActionPerformed"/>
@@ -222,6 +223,7 @@
         <Component class="javax.swing.JButton" name="Reset">
           <Properties>
             <Property name="text" type="java.lang.String" value="Reset"/>
+            <Property name="toolTipText" type="java.lang.String" value="Reset the graph to the original format"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ResetActionPerformed"/>
@@ -230,6 +232,7 @@
         <Component class="javax.swing.JButton" name="Expand">
           <Properties>
             <Property name="text" type="java.lang.String" value="Expand"/>
+            <Property name="toolTipText" type="java.lang.String" value="Remove the collapse from the selected vertex"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ExpandActionPerformed"/>
@@ -238,6 +241,7 @@
         <Component class="javax.swing.JButton" name="Collapse">
           <Properties>
             <Property name="text" type="java.lang.String" value="Collapse"/>
+            <Property name="toolTipText" type="java.lang.String" value="Collapse selected vertices"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CollapseActionPerformed"/>
@@ -251,6 +255,7 @@
                 <StringItem index="1" value="Picking"/>
               </StringArray>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Change the mouse function to select (Picking) or moving (Transforming)"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MouseModesActionPerformed"/>
@@ -259,6 +264,7 @@
         <Component class="javax.swing.JCheckBox" name="FilterNodeAgentButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Agents Vertices"/>
+            <Property name="toolTipText" type="java.lang.String" value="Filter all agent vertices"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FilterNodeAgentButtonActionPerformed"/>
@@ -270,6 +276,7 @@
         <Component class="javax.swing.JCheckBox" name="FilterNodeLonelyButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Lonely Vertices"/>
+            <Property name="toolTipText" type="java.lang.String" value="Filter all vertices without neighbors"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FilterNodeLonelyButtonActionPerformed"/>
@@ -291,6 +298,7 @@
                 <StringItem index="1" value="Line"/>
               </StringArray>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Change the edge&apos;s line format"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EdgeLineShapeSelectionActionPerformed"/>
@@ -309,6 +317,7 @@
                 <StringItem index="6" value="Role"/>
               </StringArray>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Change vertex coloring to evaluate the selected attribute"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="StatusFilterBoxActionPerformed"/>
@@ -320,6 +329,7 @@
         <Component class="javax.swing.JCheckBox" name="ShowEdgeTextButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Edge Text"/>
+            <Property name="toolTipText" type="java.lang.String" value="Display the Edge&apos;s type"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ShowEdgeTextButtonActionPerformed"/>
@@ -358,6 +368,7 @@
                     <StringItem index="4" value="Item 5"/>
                   </StringArray>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Edge filter: Display only the edges with selected labels"/>
               </Properties>
               <Events>
                 <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="FilterListValueChanged"/>
@@ -381,6 +392,7 @@
                 <StringItem index="6" value="KKLayout"/>
               </StringArray>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Change the graph layout"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="LayoutsActionPerformed"/>
@@ -395,6 +407,7 @@
           <Properties>
             <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Agent Edge"/>
+            <Property name="toolTipText" type="java.lang.String" value="Filter all edges that connect to an agent"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FilterEdgeAgentButtonActionPerformed"/>
@@ -406,6 +419,7 @@
         <Component class="javax.swing.JToggleButton" name="InitPrologButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Init Prolog"/>
+            <Property name="toolTipText" type="java.lang.String" value="Initialzie the prolog knownledge and facts bases"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="InitPrologButtonActionPerformed"/>
@@ -414,6 +428,7 @@
         <Component class="javax.swing.JButton" name="PrologGenerateFacts">
           <Properties>
             <Property name="text" type="java.lang.String" value="Generate Facts"/>
+            <Property name="toolTipText" type="java.lang.String" value="Generate the prolog facts from the XML (graph) file"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PrologGenerateFactsActionPerformed"/>
@@ -422,6 +437,7 @@
         <Component class="javax.swing.JButton" name="PrologSimilarityInference">
           <Properties>
             <Property name="text" type="java.lang.String" value="Similarity Collapse"/>
+            <Property name="toolTipText" type="java.lang.String" value="Collapse vertices by the Similarity Algorithm using the marked Edge Type below"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PrologSimilarityInferenceActionPerformed"/>
@@ -442,6 +458,7 @@
         <Component class="javax.swing.JCheckBox" name="FilterNodeEntityButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Entity Vertices"/>
+            <Property name="toolTipText" type="java.lang.String" value="Filter all entity vertices"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>

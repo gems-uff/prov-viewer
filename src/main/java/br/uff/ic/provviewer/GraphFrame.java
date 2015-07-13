@@ -82,6 +82,7 @@ public class GraphFrame extends javax.swing.JFrame {
         ToolMenu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         CollapseAgent.setText("CollapseAgent");
+        CollapseAgent.setToolTipText("Collapse all vertices from each agent");
         CollapseAgent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CollapseAgentActionPerformed(evt);
@@ -89,6 +90,7 @@ public class GraphFrame extends javax.swing.JFrame {
         });
 
         Reset.setText("Reset");
+        Reset.setToolTipText("Reset the graph to the original format");
         Reset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ResetActionPerformed(evt);
@@ -96,6 +98,7 @@ public class GraphFrame extends javax.swing.JFrame {
         });
 
         Expand.setText("Expand");
+        Expand.setToolTipText("Remove the collapse from the selected vertex");
         Expand.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ExpandActionPerformed(evt);
@@ -103,6 +106,7 @@ public class GraphFrame extends javax.swing.JFrame {
         });
 
         Collapse.setText("Collapse");
+        Collapse.setToolTipText("Collapse selected vertices");
         Collapse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CollapseActionPerformed(evt);
@@ -110,6 +114,7 @@ public class GraphFrame extends javax.swing.JFrame {
         });
 
         MouseModes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Transforming", "Picking" }));
+        MouseModes.setToolTipText("Change the mouse function to select (Picking) or moving (Transforming)");
         MouseModes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MouseModesActionPerformed(evt);
@@ -117,6 +122,7 @@ public class GraphFrame extends javax.swing.JFrame {
         });
 
         FilterNodeAgentButton.setText("Agents Vertices");
+        FilterNodeAgentButton.setToolTipText("Filter all agent vertices");
         FilterNodeAgentButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FilterNodeAgentButtonActionPerformed(evt);
@@ -124,6 +130,7 @@ public class GraphFrame extends javax.swing.JFrame {
         });
 
         FilterNodeLonelyButton.setText("Lonely Vertices");
+        FilterNodeLonelyButton.setToolTipText("Filter all vertices without neighbors");
         FilterNodeLonelyButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FilterNodeLonelyButtonActionPerformed(evt);
@@ -133,6 +140,7 @@ public class GraphFrame extends javax.swing.JFrame {
         DisplayEdges.setText("Display Edge");
 
         EdgeLineShapeSelection.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "QuadCurve", "Line" }));
+        EdgeLineShapeSelection.setToolTipText("Change the edge's line format");
         EdgeLineShapeSelection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EdgeLineShapeSelectionActionPerformed(evt);
@@ -140,6 +148,7 @@ public class GraphFrame extends javax.swing.JFrame {
         });
 
         StatusFilterBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Default", "Morale", "Stamina", "Hours", "Weekend", "Credits", "Role" }));
+        StatusFilterBox.setToolTipText("Change vertex coloring to evaluate the selected attribute");
         StatusFilterBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 StatusFilterBoxActionPerformed(evt);
@@ -147,6 +156,7 @@ public class GraphFrame extends javax.swing.JFrame {
         });
 
         ShowEdgeTextButton.setText("Edge Text");
+        ShowEdgeTextButton.setToolTipText("Display the Edge's type");
         ShowEdgeTextButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ShowEdgeTextButtonActionPerformed(evt);
@@ -164,6 +174,7 @@ public class GraphFrame extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        FilterList.setToolTipText("Edge filter: Display only the edges with selected labels");
         FilterList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 FilterListValueChanged(evt);
@@ -172,6 +183,7 @@ public class GraphFrame extends javax.swing.JFrame {
         EdgeTypes.setViewportView(FilterList);
 
         Layouts.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CircleLayout", "FRLayout", "FRLayout2", "TemporalLayout", "SpatialLayout", "ISOMLayout", "KKLayout" }));
+        Layouts.setToolTipText("Change the graph layout");
         Layouts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LayoutsActionPerformed(evt);
@@ -182,6 +194,7 @@ public class GraphFrame extends javax.swing.JFrame {
 
         FilterEdgeAgentButton.setSelected(true);
         FilterEdgeAgentButton.setText("Agent Edge");
+        FilterEdgeAgentButton.setToolTipText("Filter all edges that connect to an agent");
         FilterEdgeAgentButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FilterEdgeAgentButtonActionPerformed(evt);
@@ -189,6 +202,7 @@ public class GraphFrame extends javax.swing.JFrame {
         });
 
         InitPrologButton.setText("Init Prolog");
+        InitPrologButton.setToolTipText("Initialzie the prolog knownledge and facts bases");
         InitPrologButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 InitPrologButtonActionPerformed(evt);
@@ -196,6 +210,7 @@ public class GraphFrame extends javax.swing.JFrame {
         });
 
         PrologGenerateFacts.setText("Generate Facts");
+        PrologGenerateFacts.setToolTipText("Generate the prolog facts from the XML (graph) file");
         PrologGenerateFacts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PrologGenerateFactsActionPerformed(evt);
@@ -203,6 +218,7 @@ public class GraphFrame extends javax.swing.JFrame {
         });
 
         PrologSimilarityInference.setText("Similarity Collapse");
+        PrologSimilarityInference.setToolTipText("Collapse vertices by the Similarity Algorithm using the marked Edge Type below");
         PrologSimilarityInference.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PrologSimilarityInferenceActionPerformed(evt);
@@ -218,6 +234,7 @@ public class GraphFrame extends javax.swing.JFrame {
         });
 
         FilterNodeEntityButton.setText("Entity Vertices");
+        FilterNodeEntityButton.setToolTipText("Filter all entity vertices");
 
         FilterVertexMinValue.setText("0");
         FilterVertexMinValue.setToolTipText("Filter vertices by time (min value)");
@@ -311,7 +328,7 @@ public class GraphFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(MouseModes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(EdgeStyle))
+                    .addComponent(MouseModeLabel))
                 .addGap(3, 3, 3)
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Collapse)
@@ -322,8 +339,8 @@ public class GraphFrame extends javax.swing.JFrame {
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Expand)
                     .addComponent(PrologSimilarityInference)
-                    .addComponent(MouseModeLabel)
-                    .addComponent(EdgeLineShapeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(EdgeLineShapeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(EdgeStyle))
                 .addGap(8, 8, 8)
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Reset)
