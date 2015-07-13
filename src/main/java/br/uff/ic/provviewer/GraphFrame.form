@@ -128,38 +128,27 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="AttributeStatus" min="-2" pref="102" max="-2" attributes="0"/>
-                          <EmptySpace pref="28" max="32767" attributes="0"/>
-                          <Component id="EdgeStyle" min="-2" pref="65" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="MouseModes" min="-2" pref="102" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  <Component id="MouseModeLabel" min="-2" pref="65" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="FilterVertexMinValue" min="-2" pref="44" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="FilterVertexMaxValue" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Component id="StatusFilterBox" min="-2" pref="102" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="GraphLayout" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="FilterVertexMinValue" min="-2" pref="44" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="FilterVertexMaxValue" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="Layouts" min="-2" max="-2" attributes="0"/>
-                              <Component id="EdgeLineShapeSelection" min="-2" pref="102" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="StatusFilterBox" min="-2" pref="102" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="AttributeStatus" alignment="0" min="-2" pref="102" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="28" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="EdgeStyle" max="32767" attributes="0"/>
+                      <Component id="GraphLayout" alignment="0" max="32767" attributes="0"/>
+                      <Component id="MouseModeLabel" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="MouseModes" max="32767" attributes="0"/>
+                      <Component id="Layouts" max="32767" attributes="0"/>
+                      <Component id="EdgeLineShapeSelection" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -461,6 +450,7 @@
         <Component class="javax.swing.JTextField" name="FilterVertexMinValue">
           <Properties>
             <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Filter vertices by time (min value)"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FilterVertexMinValueActionPerformed"/>
@@ -472,6 +462,7 @@
         <Component class="javax.swing.JTextField" name="FilterVertexMaxValue">
           <Properties>
             <Property name="text" type="java.lang.String" value="100"/>
+            <Property name="toolTipText" type="java.lang.String" value="Filter vertices by time (max value)"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FilterVertexMaxValueActionPerformed"/>
