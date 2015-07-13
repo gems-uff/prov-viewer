@@ -141,8 +141,15 @@
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   <Component id="MouseModeLabel" min="-2" pref="65" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="StatusFilterBox" min="-2" pref="102" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="FilterVertexMinValue" min="-2" pref="44" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="FilterVertexMaxValue" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Component id="StatusFilterBox" min="-2" pref="102" max="-2" attributes="0"/>
+                                  </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="GraphLayout" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -206,6 +213,8 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="Reset" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="edgeTypeField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="FilterVertexMinValue" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="FilterVertexMaxValue" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="20" max="32767" attributes="0"/>
               </Group>
@@ -395,6 +404,7 @@
         </Component>
         <Component class="javax.swing.JCheckBox" name="FilterEdgeAgentButton">
           <Properties>
+            <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Agent Edge"/>
           </Properties>
           <Events>
@@ -444,6 +454,28 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Entity Vertices"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JTextField" name="FilterVertexMinValue">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FilterVertexMinValueActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JTextField" name="FilterVertexMaxValue">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="100"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FilterVertexMaxValueActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>

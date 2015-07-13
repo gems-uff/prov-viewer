@@ -6,8 +6,10 @@ package br.uff.ic.provviewer.Filter;
 
 import br.uff.ic.provviewer.Edge.Edge;
 import br.uff.ic.provviewer.GraphFrame;
+import br.uff.ic.provviewer.Utils;
 import br.uff.ic.provviewer.Vertex.AgentVertex;
 import br.uff.ic.provviewer.Vertex.EntityVertex;
+import br.uff.ic.provviewer.Vertex.Vertex;
 import edu.uci.ics.jung.algorithms.filters.EdgePredicateFilter;
 import edu.uci.ics.jung.algorithms.filters.Filter;
 import edu.uci.ics.jung.algorithms.filters.VertexPredicateFilter;
@@ -147,6 +149,14 @@ public class Filters {
                     if (test.getNeighborCount(vertex) == 0) {
                         return false;
                     }
+                }
+                if(Utils.tryParseFloat(GraphFrame.FilterVertexMinValue.getText())) {
+                    if (((Vertex)vertex).getTime() < Float.parseFloat(GraphFrame.FilterVertexMinValue.getText()))
+                        return false;
+                }
+                if(Utils.tryParseFloat(GraphFrame.FilterVertexMaxValue.getText())) {
+                    if (((Vertex)vertex).getTime() > Float.parseFloat(GraphFrame.FilterVertexMaxValue.getText()))
+                        return false;
                 }
                 return true;
             }

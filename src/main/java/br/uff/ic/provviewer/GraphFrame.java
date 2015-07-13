@@ -63,6 +63,8 @@ public class GraphFrame extends javax.swing.JFrame {
         PrologSimilarityInference = new javax.swing.JButton();
         edgeTypeField = new javax.swing.JTextField();
         FilterNodeEntityButton = new javax.swing.JCheckBox();
+        FilterVertexMinValue = new javax.swing.JTextField();
+        FilterVertexMaxValue = new javax.swing.JTextField();
         MenuBar = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
         OpenConfig = new javax.swing.JMenuItem();
@@ -178,6 +180,7 @@ public class GraphFrame extends javax.swing.JFrame {
 
         GraphLayout.setText("Graph Layout");
 
+        FilterEdgeAgentButton.setSelected(true);
         FilterEdgeAgentButton.setText("Agent Edge");
         FilterEdgeAgentButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -215,6 +218,20 @@ public class GraphFrame extends javax.swing.JFrame {
         });
 
         FilterNodeEntityButton.setText("Entity Vertices");
+
+        FilterVertexMinValue.setText("0");
+        FilterVertexMinValue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FilterVertexMinValueActionPerformed(evt);
+            }
+        });
+
+        FilterVertexMaxValue.setText("100");
+        FilterVertexMaxValue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FilterVertexMaxValueActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout ToolMenuLayout = new javax.swing.GroupLayout(ToolMenu);
         ToolMenu.setLayout(ToolMenuLayout);
@@ -259,8 +276,13 @@ public class GraphFrame extends javax.swing.JFrame {
                             .addGroup(ToolMenuLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(MouseModeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(ToolMenuLayout.createSequentialGroup()
-                                .addComponent(StatusFilterBox, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ToolMenuLayout.createSequentialGroup()
+                                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ToolMenuLayout.createSequentialGroup()
+                                        .addComponent(FilterVertexMinValue, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(FilterVertexMaxValue))
+                                    .addComponent(StatusFilterBox, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(GraphLayout)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -310,7 +332,9 @@ public class GraphFrame extends javax.swing.JFrame {
                 .addGap(8, 8, 8)
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Reset)
-                    .addComponent(edgeTypeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(edgeTypeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FilterVertexMinValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FilterVertexMaxValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -474,6 +498,16 @@ public class GraphFrame extends javax.swing.JFrame {
     private void edgeTypeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edgeTypeFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_edgeTypeFieldActionPerformed
+
+    private void FilterVertexMaxValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterVertexMaxValueActionPerformed
+        // TODO add your handling code here:
+        GuiButtons.Filter(variables);
+    }//GEN-LAST:event_FilterVertexMaxValueActionPerformed
+
+    private void FilterVertexMinValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterVertexMinValueActionPerformed
+        // TODO add your handling code here:
+        GuiButtons.Filter(variables);
+    }//GEN-LAST:event_FilterVertexMinValueActionPerformed
    
     /**
      * Main
@@ -525,6 +559,8 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JCheckBox FilterNodeAgentButton;
     public static javax.swing.JCheckBox FilterNodeEntityButton;
     public static javax.swing.JCheckBox FilterNodeLonelyButton;
+    public static javax.swing.JTextField FilterVertexMaxValue;
+    public static javax.swing.JTextField FilterVertexMinValue;
     private javax.swing.JLabel GraphLayout;
     private javax.swing.JToggleButton InitPrologButton;
     private javax.swing.JComboBox Layouts;
