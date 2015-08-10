@@ -85,9 +85,9 @@ public class GuiTooltip {
         }
 
         return "<b>Collapsed Vertex" + "</b>" + "<br>" + nodeTypes
-                + "<br>IDs: " + labels.values().toString() + "<br>"
+                + "<br>IDs: " + ids.values().toString() + "<br>"
                 + "<b>Labels: " + labels.values().toString() + "</b>"
-                + " <br>" + "Times: " + labels.values().toString()
+                + " <br>" + "Times: " + times.values().toString()
                 + " <br>" + PrintAttributes(attributes);
     }
 

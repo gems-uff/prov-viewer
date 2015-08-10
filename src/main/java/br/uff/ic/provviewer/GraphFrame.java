@@ -65,7 +65,7 @@ public class GraphFrame extends javax.swing.JFrame {
         FilterNodeEntityButton = new javax.swing.JCheckBox();
         FilterVertexMinValue = new javax.swing.JTextField();
         FilterVertexMaxValue = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        TemporalFilterToggle = new javax.swing.JToggleButton();
         MenuBar = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
         OpenConfig = new javax.swing.JMenuItem();
@@ -78,7 +78,6 @@ public class GraphFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Prov Viewer");
         setMinimumSize(new java.awt.Dimension(850, 0));
-        setPreferredSize(new java.awt.Dimension(800, 600));
 
         ToolMenu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -253,7 +252,12 @@ public class GraphFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Temporal Filter");
+        TemporalFilterToggle.setText("Temporal Filter");
+        TemporalFilterToggle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TemporalFilterToggleActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout ToolMenuLayout = new javax.swing.GroupLayout(ToolMenu);
         ToolMenu.setLayout(ToolMenuLayout);
@@ -265,9 +269,8 @@ public class GraphFrame extends javax.swing.JFrame {
                     .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(FilterNodeAgentButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(ShowEdgeTextButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(FilterNodeLonelyButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(FilterNodeEntityButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(FilterNodeLonelyButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(FilterNodeEntityButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(FilterEdgeAgentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -293,7 +296,7 @@ public class GraphFrame extends javax.swing.JFrame {
                         .addComponent(FilterVertexMaxValue, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))
                     .addComponent(StatusFilterBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(AttributeStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(TemporalFilterToggle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(EdgeStyle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -344,7 +347,7 @@ public class GraphFrame extends javax.swing.JFrame {
                     .addComponent(PrologSimilarityInference)
                     .addComponent(EdgeLineShapeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(EdgeStyle)
-                    .addComponent(jLabel1))
+                    .addComponent(TemporalFilterToggle))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Reset)
@@ -517,13 +520,20 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private void FilterVertexMaxValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterVertexMaxValueActionPerformed
         // TODO add your handling code here:
-        GuiButtons.Filter(variables);
+        if(TemporalFilterToggle.isSelected())
+            GuiButtons.Filter(variables);
     }//GEN-LAST:event_FilterVertexMaxValueActionPerformed
 
     private void FilterVertexMinValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterVertexMinValueActionPerformed
         // TODO add your handling code here:
-        GuiButtons.Filter(variables);
+        if(TemporalFilterToggle.isSelected())
+            GuiButtons.Filter(variables);
     }//GEN-LAST:event_FilterVertexMinValueActionPerformed
+
+    private void TemporalFilterToggleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TemporalFilterToggleActionPerformed
+        // TODO add your handling code here:
+        GuiButtons.Filter(variables);
+    }//GEN-LAST:event_TemporalFilterToggleActionPerformed
    
     /**
      * Main
@@ -590,9 +600,9 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JButton Reset;
     private javax.swing.JCheckBox ShowEdgeTextButton;
     public static javax.swing.JComboBox StatusFilterBox;
+    public static javax.swing.JToggleButton TemporalFilterToggle;
     private javax.swing.JPanel ToolMenu;
     public javax.swing.JTextField edgeTypeField;
     private javax.swing.JFileChooser fileChooser;
-    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

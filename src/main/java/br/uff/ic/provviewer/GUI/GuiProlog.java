@@ -7,8 +7,6 @@ package br.uff.ic.provviewer.GUI;
 
 import br.uff.ic.XMLConverter.XMLConverter;
 import br.uff.ic.provviewer.BasePath;
-import br.uff.ic.provviewer.Collapser;
-import br.uff.ic.provviewer.Filter.Filters;
 import static br.uff.ic.provviewer.GraphFrame.StatusFilterBox;
 import br.uff.ic.provviewer.Inference.PrologInference;
 import br.uff.ic.provviewer.Variables;

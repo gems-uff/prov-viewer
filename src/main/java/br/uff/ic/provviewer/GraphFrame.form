@@ -52,9 +52,6 @@
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[850, 0]"/>
     </Property>
-    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[800, 600]"/>
-    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="MenuBar"/>
@@ -100,10 +97,8 @@
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="FilterNodeAgentButton" max="32767" attributes="0"/>
                           <Component id="ShowEdgeTextButton" alignment="0" max="32767" attributes="0"/>
-                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="FilterNodeLonelyButton" alignment="0" max="32767" attributes="0"/>
-                              <Component id="FilterNodeEntityButton" alignment="0" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="FilterNodeLonelyButton" alignment="0" max="32767" attributes="0"/>
+                          <Component id="FilterNodeEntityButton" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <Component id="FilterEdgeAgentButton" alignment="0" min="-2" pref="95" max="-2" attributes="0"/>
                   </Group>
@@ -135,7 +130,7 @@
                       </Group>
                       <Component id="StatusFilterBox" alignment="0" max="32767" attributes="0"/>
                       <Component id="AttributeStatus" max="32767" attributes="0"/>
-                      <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="TemporalFilterToggle" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="7" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -196,7 +191,7 @@
                       <Component id="PrologSimilarityInference" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="EdgeLineShapeSelection" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="EdgeStyle" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="TemporalFilterToggle" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -488,10 +483,16 @@
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JToggleButton" name="TemporalFilterToggle">
           <Properties>
             <Property name="text" type="java.lang.String" value="Temporal Filter"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TemporalFilterToggleActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

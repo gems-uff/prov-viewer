@@ -76,7 +76,8 @@ public class PrologInference {
 //            System.err.println("Native code library failed to load.\n" + e);
 //        }
             try {
-                addLibraryPath("C:/Program Files/swipl/bin");
+                System.setProperty("java.library.path", "C:/Program Files/swipl/bin");
+//                addLibraryPath("C:/Program Files/swipl/bin");
             } catch (Exception ex) {
                 Logger.getLogger(PrologInference.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -150,13 +150,20 @@ public class Filters {
                         return false;
                     }
                 }
-                if(Utils.tryParseFloat(GraphFrame.FilterVertexMinValue.getText())) {
-                    if (((Vertex)vertex).getTime() < Float.parseFloat(GraphFrame.FilterVertexMinValue.getText()))
-                        return false;
-                }
-                if(Utils.tryParseFloat(GraphFrame.FilterVertexMaxValue.getText())) {
-                    if (((Vertex)vertex).getTime() > Float.parseFloat(GraphFrame.FilterVertexMaxValue.getText()))
-                        return false;
+                if(GraphFrame.TemporalFilterToggle.isSelected())
+                {
+                    while (vertex instanceof Graph)
+                    {
+                        vertex = ((Graph)vertex).getVertices().toArray()[0];
+                    }
+                    if(Utils.tryParseFloat(GraphFrame.FilterVertexMinValue.getText())) {
+                        if (((Vertex)vertex).getTime() < Float.parseFloat(GraphFrame.FilterVertexMinValue.getText()))
+                            return false;
+                    }
+                    if(Utils.tryParseFloat(GraphFrame.FilterVertexMaxValue.getText())) {
+                        if (((Vertex)vertex).getTime() > Float.parseFloat(GraphFrame.FilterVertexMaxValue.getText()))
+                            return false;
+                    }
                 }
                 return true;
             }

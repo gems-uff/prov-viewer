@@ -107,7 +107,6 @@ public class Collapser {
     
     public void RefreshGraph(Variables variables)
     {
-        
         CollapseEdges(variables);
         variables.ComputeEdgeTypeValues(variables, (DirectedGraph) variables.layout.getGraph());
         RemoveFilters(variables);
@@ -257,8 +256,7 @@ public class Collapser {
                 //TODO: Load filters state
                 //Remove filters to clean the visualization
                 RemoveFilters(variables);
-                Filters(variables);
-
+//                Filters(variables);
             }
         }
         variables.view.getPickedVertexState().clear();
@@ -378,6 +376,11 @@ public class Collapser {
      */
     public void RemoveFilters(Variables variables) {
         GraphFrame.FilterList.setSelectedIndex(0);
+        GraphFrame.FilterEdgeAgentButton.setSelected(false);
+        GraphFrame.FilterNodeAgentButton.setSelected(false);
+        GraphFrame.FilterNodeEntityButton.setSelected(false);
+        GraphFrame.FilterNodeLonelyButton.setSelected(false);
+        GraphFrame.TemporalFilterToggle.setSelected(false);
         Filters(variables);
     }
 }
