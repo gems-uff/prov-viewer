@@ -22,11 +22,11 @@ public class ActivityVertex extends Vertex {
      * @param id This param is used by JUNG for collapsed vertices and tooltips.
      */
     public ActivityVertex(String id) {
-        super(id, "", "", "");
+        super(id, "", "");
     }
     
-    public ActivityVertex(String id, String label, String date, String details) {
-        super(id, label, date, details);
+    public ActivityVertex(String id, String label, String date) {
+        super(id, label, date);
     }
 
     /**
@@ -35,7 +35,7 @@ public class ActivityVertex extends Vertex {
      * @param array for TSV Reader
      */
     public ActivityVertex(String[] array) {
-        super(array[0], array[1], array[2], array[3]);
+        super(array[0], array[1], array[2]);
     }
 
 

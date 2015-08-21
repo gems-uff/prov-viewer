@@ -55,15 +55,15 @@ public class UnityReader extends XMLReader{
                 Vertex node;
                 if(type.equalsIgnoreCase("Activity"))
                 {
-                    node = new ActivityVertex(id, label, date, "");
+                    node = new ActivityVertex(id, label, date);
                 }
                 else if(type.equalsIgnoreCase("Entity"))
                 {
-                    node = new EntityVertex(id, label, date, "");
+                    node = new EntityVertex(id, label, date);
                 }
                 else //Agent
                 {
-                    node = new AgentVertex(id, label, date, "");
+                    node = new AgentVertex(id, label, date);
                 }
                 
                 NodeList aList = eElement.getElementsByTagName("attribute");

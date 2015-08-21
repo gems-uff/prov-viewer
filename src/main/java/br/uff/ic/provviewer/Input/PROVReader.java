@@ -110,11 +110,11 @@ public class PROVReader extends XMLReader {
                     Vertex vertex;
                 // Check vertex type
                     if (elementType.equalsIgnoreCase("Activity")) {
-                        vertex = new ActivityVertex(id, label, time, "");
+                        vertex = new ActivityVertex(id, label, time);
                     } else if (elementType.equalsIgnoreCase("Entity")) {
-                        vertex = new EntityVertex(id, label, time, "");
+                        vertex = new EntityVertex(id, label, time);
                     } else { //Agent
-                        vertex = new AgentVertex(id, label, time, "");
+                        vertex = new AgentVertex(id, label, time);
                     }
                     // Add attributes to vertex
                     vertex.AddAllAttributes(attributes);

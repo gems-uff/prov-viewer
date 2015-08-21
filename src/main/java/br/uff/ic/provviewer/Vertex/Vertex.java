@@ -21,7 +21,6 @@ public abstract class Vertex extends GraphObject {
     private String label;                           // prov:label
     private String time;                            // prov:startTime
                                                     // Refactor for datetime type
-    private String details;                         // Other text information
     
     /**
      * Constructor without attributes
@@ -32,11 +31,10 @@ public abstract class Vertex extends GraphObject {
      * @param time Time-related value. Used for temporal layouts
      * @param details Other textual information for the vertex
      */
-    public Vertex(String id, String label, String time, String details) {
+    public Vertex(String id, String label, String time) {
         this.id = id;
         this.label = label;
         this.time = time;
-        this.details = details;
         this.attributes  = new HashMap<String, Attribute>();
     }
     
@@ -48,11 +46,10 @@ public abstract class Vertex extends GraphObject {
      * @param attributes
      * @param details 
      */
-    public Vertex(String id, String label, String time, Map<String, Attribute> attributes, String details) {
+    public Vertex(String id, String label, String time, Map<String, Attribute> attributes) {
         this.id = id;
         this.label = label;
         this.time = time;
-        this.details = details;
         this.attributes.putAll(attributes);
     }
 
@@ -99,10 +96,7 @@ public abstract class Vertex extends GraphObject {
     public void SetTime(String t){
         this.time = t;
     }
-    
-    public void SetDetail(String t){
-        this.details = t;
-    }
+
 
     /**
      * (Optional) Method for returning the day of the week instead of the day's
@@ -126,8 +120,7 @@ public abstract class Vertex extends GraphObject {
                 + "<br>ID: " + this.id + "<br>"
                 + "<b>Label: " + this.label + "</b>"
                 + " <br>" + "Time: " + this.time
-                + " <br>" + PrintAttributes()
-                + " <br>" + this.details;
+                + " <br>" + PrintAttributes();
     }
 
     /**

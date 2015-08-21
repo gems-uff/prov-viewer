@@ -20,15 +20,15 @@ public class EntityVertex extends Vertex {
      * @param id This param is used by JUNG for collapsed vertices and tooltips.
      */
     public EntityVertex(String id) {
-        super(id,"","","");
+        super(id,"","");
     }
     
-    public EntityVertex(String id, String label, String time, String details) {
-        super(id, label, time, details);
+    public EntityVertex(String id, String label, String time) {
+        super(id, label, time);
     }
 
     public EntityVertex(String[] array) {
-        super(array[0], array[1], array[2], array[3]);
+        super(array[0], array[1], array[2]);
     }
 
     @Override
