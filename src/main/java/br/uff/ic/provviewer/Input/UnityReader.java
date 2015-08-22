@@ -28,15 +28,15 @@ public class UnityReader extends XMLReader{
 
 
     @Override
-    public void ReadXML() {
+    public void readFile() {
         //Read all vertices
-        ReadVertex();
+        readVertex();
 
         //Read all edges
-        ReadEdge();
+        readEdge();
     }
     
-    public void ReadVertex()
+    public void readVertex()
     {
         NodeList nList;
 
@@ -76,12 +76,12 @@ public class UnityReader extends XMLReader{
                 //String details = eElement.getElementsByTagName("details").item(0).getTextContent();
                 //node.SetDetail(details);
                 
-                AddNode(node);
+                addNode(node);
             }
         }
     }
     
-    public void ReadEdge()
+    public void readEdge()
     {
         NodeList nList;
 
@@ -98,7 +98,7 @@ public class UnityReader extends XMLReader{
                 String value = eElement.getElementsByTagName("value").item(0).getTextContent();
                 String source = eElement.getElementsByTagName("sourceID").item(0).getTextContent();
                 String target = eElement.getElementsByTagName("targetID").item(0).getTextContent();
-                AddEdge(id, type, label, value, target, source);
+                addEdge(id, type, label, value, target, source);
             }
         }
     }

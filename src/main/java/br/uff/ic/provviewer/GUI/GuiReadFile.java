@@ -36,7 +36,7 @@ public class GuiReadFile {
         DirectedGraph<Object, Edge> g = new DirectedSparseMultigraph<Object, Edge>();
         try {
             UnityReader xmlReader = new UnityReader(xmlGraph);
-            xmlReader.ReadXML();
+            xmlReader.readFile();
             for (Edge edge : xmlReader.getEdges()) {
                 g.addEdge(edge, edge.getSource(), edge.getTarget());
             }
