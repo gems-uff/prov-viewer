@@ -12,7 +12,7 @@ import java.util.Map;
  * @author Kohwalter
  */
 public class GraphObject extends Object{
-    
+    private String label;                           // prov:label
     public Map<String, Attribute> attributes;
     
     /**
@@ -34,11 +34,19 @@ public class GraphObject extends Object{
         return attributes.values();
     }
     
+    public String getLabel(){
+        return this.label;
+    }
+    
+    public void setLabel(String t){
+        this.label = t;
+    }
+    
     /**
      * Method that generates a String with all attributes names and values
      * @return String containing attribute names and values
      */
-    public String PrintAttributes()
+    public String printAttributes()
     {
         String attributeList = "";
         if(!this.attributes.values().isEmpty())
@@ -55,7 +63,7 @@ public class GraphObject extends Object{
      * Method to add a new attribute in the attribute map
      * @param att New attribute to be added
      */
-    public void AddAttribute(Attribute att)
+    public void addAttribute(Attribute att)
     {
         this.attributes.put(att.getName(), att);
     }
@@ -64,7 +72,7 @@ public class GraphObject extends Object{
      * Method to add a new attribute in the attribute map
      * @param atts
      */
-    public void AddAllAttributes(Map<String, Attribute> atts)
+    public void addAllAttributes(Map<String, Attribute> atts)
     {
         this.attributes.putAll(atts);
     }

@@ -25,4 +25,21 @@ public class Utils {
         }
     }
     
+    public float convertFloat(String token) {
+        return Float.parseFloat(token);
+    }
+    
+    public static boolean tryParseInt(String value) {
+        try {
+            Integer.valueOf(value);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
+    
+    public int convertInt(String token) {
+        return Integer.valueOf(token);
+    }
+    
 }

@@ -18,7 +18,7 @@ import java.util.Map;
 public abstract class Vertex extends GraphObject {
 
     private String id;                              // prov:id
-    private String label;                           // prov:label
+    
     private String time;                            // prov:startTime
                                                     // Refactor for datetime type
     
@@ -33,7 +33,7 @@ public abstract class Vertex extends GraphObject {
      */
     public Vertex(String id, String label, String time) {
         this.id = id;
-        this.label = label;
+        setLabel(label);
         this.time = time;
         this.attributes  = new HashMap<String, Attribute>();
     }
@@ -48,7 +48,7 @@ public abstract class Vertex extends GraphObject {
      */
     public Vertex(String id, String label, String time, Map<String, Attribute> attributes) {
         this.id = id;
-        this.label = label;
+        setLabel(label);
         this.time = time;
         this.attributes.putAll(attributes);
     }
@@ -68,9 +68,6 @@ public abstract class Vertex extends GraphObject {
      *
      * @return (String) name
      */
-    public String getLabel(){
-        return this.label;
-    }
     
     /**
      * Method for returning the vertex day (if any)
@@ -89,11 +86,7 @@ public abstract class Vertex extends GraphObject {
         return this.time;
     }
     
-    public void SetLabel(String t){
-        this.label = t;
-    }
-    
-    public void SetTime(String t){
+    public void setTime(String t){
         this.time = t;
     }
 
@@ -118,9 +111,9 @@ public abstract class Vertex extends GraphObject {
     public String toString() {
         return this.getNodeType() + "<br> "
                 + "<br>ID: " + this.id + "<br>"
-                + "<b>Label: " + this.label + "</b>"
+                + "<b>Label: " + getLabel() + "</b>"
                 + " <br>" + "Time: " + this.time
-                + " <br>" + PrintAttributes();
+                + " <br>" + printAttributes();
     }
 
     /**
@@ -132,7 +125,7 @@ public abstract class Vertex extends GraphObject {
     public String getAttributeValue(String attribute) {
         if(attribute.equalsIgnoreCase("Label"))
         {
-            return label;
+            return getLabel();
         }
         Attribute aux = attributes.get(attribute);
         if(aux != null) {

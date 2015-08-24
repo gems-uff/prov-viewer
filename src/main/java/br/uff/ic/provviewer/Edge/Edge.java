@@ -23,7 +23,6 @@ public class Edge extends GraphObject{
     //private String influence;      // Influence type (i.e. Damage)
     private String value;          // Influence Value (i.e. 5.0)
     private String type;           // Edge type (prov edges)
-    private String label;          // Human readable name
     //used to hide this edge when collapsing a group of edges
     private boolean hide;
     //used to say this edge is a temporary one
@@ -46,13 +45,13 @@ public class Edge extends GraphObject{
         this.target = target;
         this.type = type;
         if (influence.equalsIgnoreCase("") || (influence == null) || influence.equalsIgnoreCase("Neutral")) {
-            this.label = "Neutral";
+            setLabel("Neutral");
             this.value = "0";
         } else {
-            this.label = influence;
+            setLabel(influence);
             this.value = value;
         }
-        this.label = label;
+        setLabel(label);
         hide = false;
         collapsed = false;
         this.attributes.putAll(attributes);
@@ -72,14 +71,13 @@ public class Edge extends GraphObject{
         this.source = source;
         this.target = target;
         this.type = type;
-        if (label.equalsIgnoreCase("") || (label == null) || label.equalsIgnoreCase("Neutral")) {
-            this.label = "Neutral";
+        if (label.equalsIgnoreCase("") || label == null || label == "-" || label.equalsIgnoreCase("Neutral")) {
+            setLabel("Neutral");
             this.value = "0";
         } else {
-            this.label = label;
             this.value = value;
         }
-        this.label = label;
+        setLabel(label);
         hide = false;
         collapsed = false;
         this.attributes  = new HashMap<String, Attribute>();
@@ -98,12 +96,12 @@ public class Edge extends GraphObject{
         this.source = source;
         this.target = target;
         if (influence.equalsIgnoreCase("")) {
-            this.label = "Neutral";
+            setLabel("Neutral");
         } else {
-            this.label = influence;
+            setLabel(influence);
         }
         this.value = "0";
-        this.type = this.label;
+        this.type = getLabel();
         hide = false;
         collapsed = false;
         this.attributes  = new HashMap<String, Attribute>();
@@ -148,6 +146,10 @@ public class Edge extends GraphObject{
         }
     }
     
+    public void setValue(String t)
+    {
+        this.value = t;
+    }
     /**
      * Method for returning the edge type
      *
@@ -156,15 +158,6 @@ public class Edge extends GraphObject{
     public String getType() {
         return this.type;
     }
-    
-    /**
-     * Method for returning the edge label
-     *
-     * @return
-     */
-    public String getLabel() {
-        return this.label;
-    }
 
     /**
      * Method to get the edge influence + value
@@ -172,7 +165,7 @@ public class Edge extends GraphObject{
      * @return (String) influence
      */
     public String getEdgeInfluence() {
-        return this.value + " " + this.label;
+        return this.value + " " + getLabel();
     }
 
     /**
@@ -199,7 +192,7 @@ public class Edge extends GraphObject{
      *
      * @param t (boolean) Hide = t
      */
-    public void SetHide(boolean t) {
+    public void setHide(boolean t) {
         hide = t;
     }
 
@@ -208,7 +201,7 @@ public class Edge extends GraphObject{
      *
      * @param t (boolean) collapsed = t
      */
-    public void SetCollapse(boolean t) {
+    public void setCollapse(boolean t) {
         collapsed = t;
     }
 
@@ -219,9 +212,9 @@ public class Edge extends GraphObject{
      * @return (boolean) is neutral or not
      */
     public boolean isNeutral() {
-        return (this.label.equalsIgnoreCase(""))
-                || (this.label.isEmpty())
-                || (this.label.equalsIgnoreCase("Neutral"));
+        return (getLabel().equalsIgnoreCase(""))
+                || (getLabel().isEmpty())
+                || (getLabel().equalsIgnoreCase("Neutral"));
     }
 
     /**
@@ -231,10 +224,10 @@ public class Edge extends GraphObject{
      */
     @Override
     public String toString() {
-        if(this.label.isEmpty())
+        if(getLabel().isEmpty())
             return this.type;
         else
-            return this.type + " (" + this.label + ")";
+            return this.type + " (" + getLabel() + ")";
     }
 
     /**
@@ -267,20 +260,20 @@ public class Edge extends GraphObject{
             }
             
             if (v > 0) {
-                return CompareValueGreen(v, 0, variables.config.edgetype.get(j).max);
+                return compareValueGreen(v, 0, variables.config.edgetype.get(j).max);
             }
             else {
-                return CompareValueRed(v, variables.config.edgetype.get(j).min, 0);
+                return compareValueRed(v, variables.config.edgetype.get(j).min, 0);
             }
         }
     }
 
-    public Paint CompareValueGreen(float value, double min, double max){
+    public Paint compareValueGreen(float value, double min, double max){
         int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
         proportion = Math.max(proportion, 0);
         return new Color(0, Math.min(255, proportion), 0);
     }
-    public Paint CompareValueRed(float value, double min, double max){
+    public Paint compareValueRed(float value, double min, double max){
         int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
         proportion = Math.min(proportion, 510);
         return new Color(Math.min(255, 510 - proportion), 0, 0);
@@ -294,7 +287,7 @@ public class Edge extends GraphObject{
      * @return (boolean) Return true if influence from collapsed edges are
      * added. Return false if average
      */
-    public boolean AddInfluence(Variables variables) {
+    public boolean addInfluence(Variables variables) {
         for (EdgeType edgetype : variables.config.edgetype) {
             if (this.getEdgeInfluence().contains(edgetype.type)) {
                 if (edgetype.collapse.equalsIgnoreCase("AVERAGE")) {

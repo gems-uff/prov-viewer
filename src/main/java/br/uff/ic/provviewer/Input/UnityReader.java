@@ -70,7 +70,7 @@ public class UnityReader extends XMLReader{
                 for(int i = 0; i < aList.getLength(); i++){
                     Attribute att = new Attribute(eElement.getElementsByTagName("name").item(i).getTextContent(),
                     eElement.getElementsByTagName("value").item(i).getTextContent());
-                    node.AddAttribute(att);
+                    node.addAttribute(att);
                 }
                 
                 //String details = eElement.getElementsByTagName("details").item(0).getTextContent();

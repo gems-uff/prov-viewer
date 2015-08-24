@@ -56,10 +56,10 @@ public abstract class InputReader {
 //    }
     
     /**
-     *  Overload method from AddEdge without Label
+     *  Method to create and add an edge
      * @param id
-     * @param influence
      * @param type
+     * @param label
      * @param value
      * @param target
      * @param source 
@@ -68,6 +68,14 @@ public abstract class InputReader {
     {
         //AddEdge(id, type, label, value, target, source);
         Edge edge = new Edge(id, type, label, value, nodes.get(target), nodes.get(source));
+        edges.add(edge);
+    }
+    /**
+     * Method to add an edge
+     * @param edge: the edge to be added
+     */
+    public void addEdge(Edge edge)
+    {
         edges.add(edge);
     }
     

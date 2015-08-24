@@ -57,7 +57,7 @@ public class Collapser {
         Graph newGraph = variables.layout.getGraph();
         List edges = new ArrayList(variables.layout.getGraph().getIncidentEdges(vertex));
         for (Object edge : edges) {
-            ((Edge) edge).SetHide(false);
+            ((Edge) edge).setHide(false);
             if (((Edge) edge).isCollapased()) {
                 //remove edge
                 newGraph.removeEdge(edge);
@@ -185,8 +185,8 @@ public class Collapser {
                             }
                             else {
                                 value += ((Edge) sorted.get(j + 1)).getValue();
-                                ((Edge) sorted.get(j)).SetHide(true);
-                                ((Edge) sorted.get(j + 1)).SetHide(true);
+                                ((Edge) sorted.get(j)).setHide(true);
+                                ((Edge) sorted.get(j + 1)).setHide(true);
                                 collapse = true;
                                 count++;
                             }
@@ -197,7 +197,7 @@ public class Collapser {
                     }//end-while
                     //If collapased any edge, create it in the graph
                     if (collapse) {
-                        if (!((Edge) sorted.get(j)).AddInfluence(variables)) {
+                        if (!((Edge) sorted.get(j)).addInfluence(variables)) {
                             value = value / count;
                         }
                         String influence;
@@ -213,7 +213,7 @@ public class Collapser {
                         }
                         //======================================================
 
-                        edge.SetCollapse(true);
+                        edge.setCollapse(true);
                         addEdges.add(edge);
                     }
                     j++;
