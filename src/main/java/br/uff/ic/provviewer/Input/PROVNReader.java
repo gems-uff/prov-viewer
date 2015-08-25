@@ -259,29 +259,29 @@ public class PROVNReader extends InputReader {
             time = "";
         }
         
-        if(trigger == null) {
-            edge = new Edge(id, type, "-", "-", nodes.get(starterOrEnder), nodes.get(activity));
-            Attribute optAtt = new Attribute("time", time);
-            edge.addAttribute(optAtt);
+//        if(trigger == null) {
+        edge = new Edge(id, type, "-", "-", nodes.get(starterOrEnder), nodes.get(activity));
+        Attribute optAtt = new Attribute("time", time);
+        edge.addAttribute(optAtt);
 
-            readAttributes(edge, optionalAttributes);
-            addEdge(edge);
-        }
-        else {
-            edge = new Edge(id + "_trigger", type, "-", "-", nodes.get(trigger), nodes.get(activity));
-            Attribute optAtt = new Attribute("time", time);
-            edge.addAttribute(optAtt);
-
-            readAttributes(edge, optionalAttributes);
-            addEdge(edge);
-            
-            edge = new Edge(id + "_generated", type, "-", "-", nodes.get(starterOrEnder), nodes.get(trigger));
-            optAtt = new Attribute("time", time);
-            edge.addAttribute(optAtt);
-
-            readAttributes(edge, optionalAttributes);
-            addEdge(edge);
-        }
+        readAttributes(edge, optionalAttributes);
+        addEdge(edge);
+//        }
+//        else {
+//            edge = new Edge(id + "_trigger", type, "-", "-", nodes.get(trigger), nodes.get(activity));
+//            Attribute optAtt = new Attribute("time", time);
+//            edge.addAttribute(optAtt);
+//
+//            readAttributes(edge, optionalAttributes);
+//            addEdge(edge);
+//            
+//            edge = new Edge(id + "_generated", type, "-", "-", nodes.get(starterOrEnder), nodes.get(trigger));
+//            optAtt = new Attribute("time", time);
+//            edge.addAttribute(optAtt);
+//
+//            readAttributes(edge, optionalAttributes);
+//            addEdge(edge);
+//        }
     }
     
     public void readInvalidation(String[] attributes, String[] optionalAttributes){
@@ -330,15 +330,15 @@ public class PROVNReader extends InputReader {
         readAttributes(edge, optionalAttributes);
         addEdge(edge);
         
-        if (generation != null && !generation.matches("-") && activity != null && !activity.matches("-")) {
-            edge = new Edge(generation, "wasGeneratedBy", "-", "-", nodes.get(activity), nodes.get(generatedEntity));
-            readAttributes(edge, optionalAttributes);
-            addEdge(edge);
-
-            edge = new Edge(usage, "used", "-", "-", nodes.get(usedEntity), nodes.get(activity));
-            readAttributes(edge, optionalAttributes);
-            addEdge(edge);
-        }
+//        if (generation != null && !generation.matches("-") && activity != null && !activity.matches("-")) {
+//            edge = new Edge(generation, "wasGeneratedBy", "-", "-", nodes.get(activity), nodes.get(generatedEntity));
+//            readAttributes(edge, optionalAttributes);
+//            addEdge(edge);
+//
+//            edge = new Edge(usage, "used", "-", "-", nodes.get(usedEntity), nodes.get(activity));
+//            readAttributes(edge, optionalAttributes);
+//            addEdge(edge);
+//        }
     }
     
     public void readRevision(String[] attributes, String[] optionalAttributes){
