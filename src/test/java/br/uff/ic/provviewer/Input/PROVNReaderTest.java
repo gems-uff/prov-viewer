@@ -60,6 +60,7 @@ public class PROVNReaderTest {
         testFiles("w3c-publication1.prov-asn");
         testFiles("w3c-publication2.prov-asn");
         testFiles("w3c-publication3.prov-asn");
+        testFiles("ProvViewer.provn");
     }
     
     public void testFiles(String file) throws Exception {
