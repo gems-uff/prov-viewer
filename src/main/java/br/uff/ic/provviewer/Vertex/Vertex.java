@@ -112,8 +112,17 @@ public abstract class Vertex extends GraphObject {
         return this.getNodeType() + "<br> "
                 + "<br>ID: " + this.id + "<br>"
                 + "<b>Label: " + getLabel() + "</b>"
-                + " <br>" + "Time: " + this.time
+                + " <br>" + printTime()
                 + " <br>" + printAttributes();
+    }
+    
+    public String printTime()
+    {
+        if(this.time.isEmpty())
+        {
+            return "";
+        }
+        return "Time: " + this.time;
     }
 
     /**

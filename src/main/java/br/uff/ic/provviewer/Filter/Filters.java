@@ -112,6 +112,10 @@ public class Filters {
                             returnValue = true;
                         }
                     }
+                    if(filter.equalsIgnoreCase("All Edges"))
+                    {
+                        return true;
+                    }
                 }
                 if (GraphFrame.FilterEdgeAgentButton.isSelected()) {
                     if (filteredGraph.getDest(edge) instanceof AgentVertex) {

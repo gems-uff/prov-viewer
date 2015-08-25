@@ -114,6 +114,12 @@ public class Config {
             actVerAtt = new ArrayList<String>();
             actVerValue = new ArrayList<String>();
             actVerColor = new ArrayList<Paint>();
+            
+            EdgeType allEdges = new EdgeType();
+            allEdges.type = "All Edges";
+            allEdges.stroke = "MAX";
+            allEdges.collapse = "SUM";
+            edgetype.add(allEdges);
 
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
