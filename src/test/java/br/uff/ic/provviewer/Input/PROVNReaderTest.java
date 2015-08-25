@@ -6,8 +6,10 @@
 package br.uff.ic.provviewer.Input;
 
 import br.uff.ic.provviewer.BasePath;
+import br.uff.ic.provviewer.Edge.Edge;
 import br.uff.ic.provviewer.GUI.GuiRun;
-import br.uff.ic.provviewer.GraphObject;
+import edu.uci.ics.jung.graph.DirectedGraph;
+import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import java.io.File;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -67,6 +69,15 @@ public class PROVNReaderTest {
         System.out.println("Path: " + path);
         PROVNReader instance = new PROVNReader(f);
         instance.readFile();
+        DirectedGraph<Object, Edge> g = new DirectedSparseMultigraph<Object, Edge>();
+        for (Edge edge : instance.getEdges()) {
+            System.out.println("ID> " + edge.getID());
+            System.out.println("Type> " + edge.getType());
+            System.out.println("Source> " + edge.getSource());
+            System.out.println("Target> " + edge.getTarget());
+            System.out.println("Path: " + path);
+                g.addEdge(edge, edge.getSource(), edge.getTarget());
+            }
     }
 
     /**

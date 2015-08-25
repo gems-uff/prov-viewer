@@ -62,11 +62,8 @@ public class PROVNReader extends InputReader {
         if(elements.length > 1)
         {
             statement = elements[1].split("\\[");
-//            if(optionalAttributes.length > 1)
-//            {
-//                optionalAttributes[1] = optionalAttributes[1].replace("]", "");
-//            }
             attributes = statement[0].split(",");
+            
             if(statement.length > 1)
                 optionalAttributes = statement[1].split(",");
 
@@ -162,7 +159,7 @@ public class PROVNReader extends InputReader {
         Edge edge;
         String id = null;
         String entity = "-";
-        String activity;
+        String activity = "-";;
         String time;
 
         if (attributes.length == 3) {
@@ -174,9 +171,11 @@ public class PROVNReader extends InputReader {
         else  {
             id = getEdgeID(attributes[0], id);
             entity = getEdge1stAttribute(attributes[0], entity);
-            activity = "Unknown";
             time = "";
         }
+        activity = testPointer(activity, "Activity");
+        entity = testPointer(entity, "Entity");
+        
         edge = new Edge(id, "wasGeneratedBy", "-", "-", nodes.get(activity), nodes.get(entity));
         Attribute optAtt = new Attribute("time", time);
         edge.addAttribute(optAtt);
@@ -190,7 +189,7 @@ public class PROVNReader extends InputReader {
         Edge edge;
         String id = null;
         String activity = "-";
-        String entity;
+        String entity = "-";
         String time;
 
         if (attributes.length == 3) {
@@ -202,9 +201,11 @@ public class PROVNReader extends InputReader {
         else  {
             id = getEdgeID(attributes[0], id);
             activity = getEdge1stAttribute(attributes[0], activity);
-            entity = "Unknown";
             time = "-";
         }
+        
+        activity = testPointer(activity, "Activity");
+        entity = testPointer(entity, "Entity");
         
         edge = new Edge(id, "used", "-", "-", nodes.get(entity), nodes.get(activity));
         Attribute optAtt = new Attribute("time", time);
@@ -218,11 +219,14 @@ public class PROVNReader extends InputReader {
         Edge edge;
         String id = null;
         String informed = "-";
-        String informant;
+        String informant= "-";
 
         id = getEdgeID(attributes[0], id);
         informed = getEdge1stAttribute(attributes[0], informed);
         informant = attributes[1];      
+        
+        informed = testPointer(informed, "Activity");
+        informant = testPointer(informant, "Activity");
         
         edge = new Edge(id, "wasInformedBy", "-", "-", nodes.get(informant), nodes.get(informed));
         
@@ -259,7 +263,9 @@ public class PROVNReader extends InputReader {
             time = "";
         }
         
-//        if(trigger == null) {
+        starterOrEnder = testPointer(starterOrEnder, "Activity");
+        activity = testPointer(activity, "Activity");
+        
         edge = new Edge(id, type, "-", "-", nodes.get(starterOrEnder), nodes.get(activity));
         
         Attribute optAtt = new Attribute("trigger", trigger);
@@ -295,13 +301,16 @@ public class PROVNReader extends InputReader {
         Edge edge;
         String id = null;
         String entity = "-";
-        String activity;
+        String activity= "-";
         String time;
 
         id = getEdgeID(attributes[0], id);
         entity = getEdge1stAttribute(attributes[0], entity);
         activity = attributes[1];  
         time = attributes[2];  
+        
+        entity = testPointer(entity, "Entity");
+        activity = testPointer(activity, "Activity");
         
         edge = new Edge(id, "wasInvalidatedBy", "-", "-", nodes.get(activity), nodes.get(entity));
         Attribute optAtt = new Attribute("time", time);
@@ -332,6 +341,9 @@ public class PROVNReader extends InputReader {
             generatedEntity = getEdge1stAttribute(attributes[0], generatedEntity);
             usedEntity = attributes[1];
         }
+        
+        usedEntity = testPointer(usedEntity, "Entity");
+        generatedEntity = testPointer(generatedEntity, "Entity");
         
         edge = new Edge(id, "wasDerivedFrom", "-", "-", nodes.get(usedEntity), nodes.get(generatedEntity));
         
@@ -378,7 +390,10 @@ public class PROVNReader extends InputReader {
 
         id = getEdgeID(attributes[0], id);
         entity = getEdge1stAttribute(attributes[0], entity);
-        agent = attributes[1];   
+        agent = attributes[1];
+        
+        entity = testPointer(entity, "Entity");
+        agent = testPointer(agent, "Agent");
         
         edge = new Edge(id, "wasAttributedTo", "-", "-", nodes.get(agent), nodes.get(entity));
             
@@ -392,12 +407,21 @@ public class PROVNReader extends InputReader {
         String activity = "-";
         String agent;
         String plan = "-";
+        boolean hasPlan = false;
 
         id = getEdgeID(attributes[0], id);
         activity = getEdge1stAttribute(attributes[0], activity);
         agent = attributes[1];
-        if (attributes.length == 3)
+        
+        if (attributes.length == 3) {
             plan = attributes[2]; 
+            if(!plan.contentEquals("-"))
+                hasPlan = true;
+        }
+        
+        activity = testPointer(activity, "Activity");
+        agent = testPointer(agent, "Agent");
+        plan = testPointer(plan, "Entity");
         
         edge = new Edge(id, "wasAssociatedWith", "-", "-", nodes.get(agent), nodes.get(activity)); 
         
@@ -407,7 +431,7 @@ public class PROVNReader extends InputReader {
         readAttributes(edge, optionalAttributes);
         addEdge(edge);
         
-        if(plan != null && !plan.matches("-"))
+        if(hasPlan)
         {
 //            Vertex node = new EntityVertex(plan, plan, "");
 //            Attribute optAtt = new Attribute("prov:type", "prov:Plan");
@@ -428,8 +452,12 @@ public class PROVNReader extends InputReader {
         id = getEdgeID(attributes[0], id);
         delegate = getEdge1stAttribute(attributes[0], delegate);
         responsible = attributes[1]; 
+        
         if (attributes.length == 3)
             activity = attributes[2]; 
+        
+        delegate = testPointer(delegate, "Agent");
+        responsible = testPointer(responsible, "Agent");
         
         edge = new Edge(id, "actedOnBehalfOf", "-", "-", nodes.get(delegate), nodes.get(responsible));
         
@@ -455,7 +483,10 @@ public class PROVNReader extends InputReader {
 
         id = getEdgeID(attributes[0], id);
         influencee = getEdge1stAttribute(attributes[0], influencee);
-        influencer = attributes[1];   
+        influencer = attributes[1]; 
+        
+        influencee = testPointer(influencee, "Entity");
+        influencer = testPointer(influencer, "Entity");
         
         edge = new Edge(id, "wasInfluencedBy", "-", "-", nodes.get(influencer), nodes.get(influencee));
             
@@ -485,6 +516,9 @@ public class PROVNReader extends InputReader {
         edgeOptionalID++;
         alternate2 = attributes[1];   
         
+        alternate1 = testPointer(alternate1, "Entity");
+        alternate2 = testPointer(alternate2, "Entity");
+        
         edge = new Edge(id, type, "-", "-", nodes.get(alternate2), nodes.get(alternate1));
             
         readAttributes(edge, optionalAttributes);
@@ -492,15 +526,9 @@ public class PROVNReader extends InputReader {
     }
     
     public void readAttributes(GraphObject obj, String[] attributes) {
-        //ex:  [prov:type='prov:Revision', ex:comment="a righteous derivation"]
-        //ex: agent(ex:ag4, [ prov:type='prov:Person', ex:name="David" ])
-//        attributes = attributes.replace("'", "");
-//        attributes = attributes.replace("\"", "");
-//        String[] attList = attributes.split(",");
         if(attributes != null)
         {
             for (String attList1 : attributes) {
-                System.out.println("attList1: " + attList1);
                 String[] att = attList1.split("=");
                 if(att.length > 1)
                 {
@@ -525,6 +553,11 @@ public class PROVNReader extends InputReader {
     public String getEdgeID(String attribute, String id) {
         String[] att = attribute.split(";");
         if(att.length == 2) {
+            if(att[0].equalsIgnoreCase("-")) {
+                id = "Edge_" + edgeOptionalID;
+                edgeOptionalID++;
+            }
+            else    
                 id = att[0];
         }
         else {
@@ -542,5 +575,39 @@ public class PROVNReader extends InputReader {
             attr = att[0];
         }
         return attr;
+    }
+    
+    /**
+     * Function to verify if the pointers were initialized or informed
+     * @param pointer: Is the edge's source or target
+     * @param type: Is the type of the vertex we are trying to verify. This is used to create the correct vertex type when the pointer was not initialized
+     * @return the pointer
+     */
+    public String testPointer(String pointer, String type) {
+        if(nodes.get(pointer) == null) {
+            if(pointer.contentEquals("-"))
+                pointer = "Unknown";
+            else if(pointer == null)
+                pointer = "Unknown";
+            else if(pointer.isEmpty())
+                pointer = "Unknown";
+            else if(!pointer.isEmpty()) {
+                if(type.equals("Agent")) {
+                    Vertex node = new AgentVertex(pointer, "Not Initialized", "");
+                    addNode(node);
+                }
+                else if(type.equals("Activity")) {
+                    Vertex node = new ActivityVertex(pointer, "Not Initialized", "");
+                    addNode(node);
+                }
+                else {
+                    Vertex node = new EntityVertex(pointer, "Not Initialized", "");
+                    addNode(node);
+                }
+            }
+            else
+                pointer = "Unknown";
+        }
+        return pointer;
     }
 }
