@@ -57,7 +57,7 @@ public class PROVNReader extends InputReader {
         line = line.replace(" ", "");
         line = line.replace("\t", "");
         line = line.replace("]", "");
-        line = line.replace("'", "");
+//        line = line.replace("'", "");
         elements = line.split("\\(");
         if(elements.length > 1)
         {
@@ -161,7 +161,7 @@ public class PROVNReader extends InputReader {
     public void readGeneration(String[] attributes, String[] optionalAttributes){
         Edge edge;
         String id = null;
-        String entity = null;
+        String entity = "-";
         String activity;
         String time;
 
@@ -174,7 +174,7 @@ public class PROVNReader extends InputReader {
         else  {
             id = getEdgeID(attributes[0], id);
             entity = getEdge1stAttribute(attributes[0], entity);
-            activity = null;
+            activity = "Unknown";
             time = "";
         }
         edge = new Edge(id, "wasGeneratedBy", "-", "-", nodes.get(activity), nodes.get(entity));
@@ -189,7 +189,7 @@ public class PROVNReader extends InputReader {
     public void readUsage(String[] attributes, String[] optionalAttributes){
         Edge edge;
         String id = null;
-        String activity = null;
+        String activity = "-";
         String entity;
         String time;
 
@@ -202,8 +202,8 @@ public class PROVNReader extends InputReader {
         else  {
             id = getEdgeID(attributes[0], id);
             activity = getEdge1stAttribute(attributes[0], activity);
-            entity = null;
-            time = "";
+            entity = "Unknown";
+            time = "-";
         }
         
         edge = new Edge(id, "used", "-", "-", nodes.get(entity), nodes.get(activity));
@@ -217,7 +217,7 @@ public class PROVNReader extends InputReader {
     public void readCommunication(String[] attributes, String[] optionalAttributes){
         Edge edge;
         String id = null;
-        String informed = null;
+        String informed = "-";
         String informant;
 
         id = getEdgeID(attributes[0], id);
@@ -241,9 +241,9 @@ public class PROVNReader extends InputReader {
     public void starterOrEnder(String[] attributes, String[] optionalAttributes, String type) {
         Edge edge;
         String id = null;
-        String activity = null;
-        String trigger = null;
-        String starterOrEnder = null;
+        String activity = "-";
+        String trigger = "-";
+        String starterOrEnder = "-";
         String time;
 
         if (attributes.length == 4) {
@@ -261,7 +261,14 @@ public class PROVNReader extends InputReader {
         
 //        if(trigger == null) {
         edge = new Edge(id, type, "-", "-", nodes.get(starterOrEnder), nodes.get(activity));
-        Attribute optAtt = new Attribute("time", time);
+        
+        Attribute optAtt = new Attribute("trigger", trigger);
+        edge.addAttribute(optAtt);
+        
+        optAtt = new Attribute(type, starterOrEnder);
+        edge.addAttribute(optAtt);
+        
+        optAtt = new Attribute("time", time);
         edge.addAttribute(optAtt);
 
         readAttributes(edge, optionalAttributes);
@@ -287,7 +294,7 @@ public class PROVNReader extends InputReader {
     public void readInvalidation(String[] attributes, String[] optionalAttributes){
         Edge edge;
         String id = null;
-        String entity = null;
+        String entity = "-";
         String activity;
         String time;
 
@@ -309,9 +316,9 @@ public class PROVNReader extends InputReader {
         String id = null;
         String generatedEntity = null;
         String usedEntity;
-        String activity = null;
-        String generation = null;
-        String usage = null;
+        String activity = "-";
+        String generation = "-";
+        String usage = "-";
         if (attributes.length == 5) {
             id = getEdgeID(attributes[0], id);
             generatedEntity = getEdge1stAttribute(attributes[0], generatedEntity);
@@ -327,6 +334,16 @@ public class PROVNReader extends InputReader {
         }
         
         edge = new Edge(id, "wasDerivedFrom", "-", "-", nodes.get(usedEntity), nodes.get(generatedEntity));
+        
+        Attribute optAtt = new Attribute("activity", activity);
+        edge.addAttribute(optAtt);
+        
+        optAtt = new Attribute("generation", generation);
+        edge.addAttribute(optAtt);
+        
+        optAtt = new Attribute("usage", usage);
+        edge.addAttribute(optAtt);
+        
         readAttributes(edge, optionalAttributes);
         addEdge(edge);
         
@@ -356,7 +373,7 @@ public class PROVNReader extends InputReader {
     public void readAttribution(String[] attributes, String[] optionalAttributes){
         Edge edge;
         String id = null;
-        String entity = null;
+        String entity = "-";
         String agent;
 
         id = getEdgeID(attributes[0], id);
@@ -372,9 +389,9 @@ public class PROVNReader extends InputReader {
     public void readAssociation(String[] attributes, String[] optionalAttributes){
         Edge edge;
         String id = null;
-        String activity = null;
+        String activity = "-";
         String agent;
-        String plan = null;
+        String plan = "-";
 
         id = getEdgeID(attributes[0], id);
         activity = getEdge1stAttribute(attributes[0], activity);
@@ -383,6 +400,10 @@ public class PROVNReader extends InputReader {
             plan = attributes[2]; 
         
         edge = new Edge(id, "wasAssociatedWith", "-", "-", nodes.get(agent), nodes.get(activity)); 
+        
+        Attribute optAtt = new Attribute("plan", plan);
+        edge.addAttribute(optAtt);
+        
         readAttributes(edge, optionalAttributes);
         addEdge(edge);
         
@@ -400,9 +421,9 @@ public class PROVNReader extends InputReader {
     public void readDelegation(String[] attributes, String[] optionalAttributes){
         Edge edge;
         String id = null;
-        String delegate = null;
+        String delegate = "-";
         String responsible;
-        String activity = null;
+        String activity = "-";
 
         id = getEdgeID(attributes[0], id);
         delegate = getEdge1stAttribute(attributes[0], delegate);
@@ -411,10 +432,14 @@ public class PROVNReader extends InputReader {
             activity = attributes[2]; 
         
         edge = new Edge(id, "actedOnBehalfOf", "-", "-", nodes.get(delegate), nodes.get(responsible));
+        
+        Attribute optAtt = new Attribute("activity", activity);
+        edge.addAttribute(optAtt);
+        
         readAttributes(edge, optionalAttributes);
         addEdge(edge);
         
-        if(activity != null)
+        if(activity != null && !activity.matches("-"))
         {
             edge = new Edge(id, "actedOnBehalfOf(Activity)", "-", "-", nodes.get(activity), nodes.get(responsible));
             readAttributes(edge, optionalAttributes);
@@ -425,7 +450,7 @@ public class PROVNReader extends InputReader {
     public void readInfluence(String[] attributes, String[] optionalAttributes){
         Edge edge;
         String id = null;
-        String influencee = null;
+        String influencee = "-";
         String influencer;
 
         id = getEdgeID(attributes[0], id);
@@ -453,7 +478,7 @@ public class PROVNReader extends InputReader {
     public void alternateOrSpecializationOrMembership(String[] attributes, String[] optionalAttributes, String type) {
         Edge edge;
         String id = null;
-        String alternate1 = null;
+        String alternate1 = "-";
         String alternate2;
 
         id = "Edge_" + edgeOptionalID;
@@ -465,6 +490,7 @@ public class PROVNReader extends InputReader {
         readAttributes(edge, optionalAttributes);
         addEdge(edge);
     }
+    
     public void readAttributes(GraphObject obj, String[] attributes) {
         //ex:  [prov:type='prov:Revision', ex:comment="a righteous derivation"]
         //ex: agent(ex:ag4, [ prov:type='prov:Person', ex:name="David" ])
