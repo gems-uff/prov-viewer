@@ -1,8 +1,10 @@
-package br.uff.ic.provviewer.Vertex;
+package br.uff.ic.utility.graph;
 
-import br.uff.ic.provviewer.Attribute;
-import br.uff.ic.provviewer.GraphObject;
-import br.uff.ic.provviewer.Utils;
+import br.uff.ic.utility.Attribute;
+import br.uff.ic.utility.Attribute;
+import br.uff.ic.utility.graph.GraphObject;
+import br.uff.ic.utility.Utils;
+import br.uff.ic.utility.Utils;
 import java.awt.BasicStroke;
 import java.awt.Paint;
 import java.awt.Stroke;

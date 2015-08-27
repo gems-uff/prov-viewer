@@ -4,7 +4,7 @@
  */
 package br.uff.ic.provviewer;
 
-import br.uff.ic.provviewer.Edge.Edge;
+import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.Filter.Filters;
 import br.uff.ic.provviewer.Inference.PrologInference;
 import br.uff.ic.provviewer.Input.Config;

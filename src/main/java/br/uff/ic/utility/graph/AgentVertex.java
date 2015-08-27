@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.uff.ic.provviewer.Vertex;
+package br.uff.ic.utility.graph;
 
 import java.awt.Color;
 import java.awt.Paint;

@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.uff.ic.provviewer.Input;
+package br.uff.ic.utility.IO;
 
-import br.uff.ic.provviewer.Attribute;
-import br.uff.ic.provviewer.Edge.Edge;
-import br.uff.ic.provviewer.GraphObject;
-import br.uff.ic.provviewer.Vertex.ActivityVertex;
-import br.uff.ic.provviewer.Vertex.AgentVertex;
-import br.uff.ic.provviewer.Vertex.EntityVertex;
-import br.uff.ic.provviewer.Vertex.Vertex;
+import br.uff.ic.utility.graph.ActivityVertex;
+import br.uff.ic.utility.graph.AgentVertex;
+import br.uff.ic.utility.Attribute;
+import br.uff.ic.utility.graph.Edge;
+import br.uff.ic.utility.graph.EntityVertex;
+import br.uff.ic.utility.graph.GraphObject;
+import br.uff.ic.utility.graph.Vertex;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;

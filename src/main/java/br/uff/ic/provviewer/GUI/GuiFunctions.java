@@ -5,15 +5,15 @@
  */
 package br.uff.ic.provviewer.GUI;
 
-import br.uff.ic.provviewer.Edge.Edge;
+import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.Layout.Temporal_Layout;
 import br.uff.ic.provviewer.Stroke.EdgeStroke;
 import br.uff.ic.provviewer.Stroke.VertexStroke;
 import br.uff.ic.provviewer.Variables;
-import br.uff.ic.provviewer.Vertex.AgentVertex;
+import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.provviewer.Vertex.ColorScheme.VertexPainter;
-import br.uff.ic.provviewer.Vertex.EntityVertex;
-import br.uff.ic.provviewer.Vertex.Vertex;
+import br.uff.ic.utility.graph.EntityVertex;
+import br.uff.ic.utility.graph.Vertex;
 import br.uff.ic.provviewer.Vertex.VertexShape;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.Layer;

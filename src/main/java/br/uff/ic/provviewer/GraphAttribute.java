@@ -5,6 +5,8 @@
  */
 package br.uff.ic.provviewer;
 
+import br.uff.ic.utility.Utils;
+
 /**
  * Class to define a vertex-graph attribute (collapsed vertices)
  * @author Kohwalter

@@ -5,7 +5,7 @@
 package br.uff.ic.provviewer.Vertex.ColorScheme;
 
 import br.uff.ic.provviewer.Variables;
-import br.uff.ic.provviewer.Vertex.Vertex;
+import br.uff.ic.utility.graph.Vertex;
 import java.awt.Color;
 import java.awt.Paint;
 

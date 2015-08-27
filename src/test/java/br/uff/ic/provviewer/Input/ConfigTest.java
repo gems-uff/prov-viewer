@@ -5,8 +5,8 @@
  */
 package br.uff.ic.provviewer.Input;
 
-import br.uff.ic.provviewer.BasePath;
-import br.uff.ic.provviewer.Edge.Edge;
+import br.uff.ic.utility.IO.BasePath;
+import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.GUI.GuiReadFile;
 import br.uff.ic.provviewer.GUI.GuiRun;
 import br.uff.ic.provviewer.GraphFrame;

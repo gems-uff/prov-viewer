@@ -1,9 +1,9 @@
 package br.uff.ic.provviewer.Layout;
 
 import br.uff.ic.provviewer.Variables;
-import br.uff.ic.provviewer.Vertex.ActivityVertex;
-import br.uff.ic.provviewer.Vertex.EntityVertex;
-import br.uff.ic.provviewer.Vertex.Vertex;
+import br.uff.ic.utility.graph.ActivityVertex;
+import br.uff.ic.utility.graph.EntityVertex;
+import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.Graph;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;

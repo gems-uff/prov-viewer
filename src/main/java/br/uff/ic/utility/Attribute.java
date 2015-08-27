@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package br.uff.ic.provviewer;
+package br.uff.ic.utility;
 
 /**
  * Class for the attribute tuples that contain the attribute name and the attribute value

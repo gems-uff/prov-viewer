@@ -4,7 +4,7 @@
  */
 package br.uff.ic.XMLConverter;
 
-import br.uff.ic.provviewer.BasePath;
+import br.uff.ic.utility.IO.BasePath;
 import br.uff.ic.provviewer.Input.Config;
 import br.ufrj.ppgi.parser.XMLParser;
 import java.io.File;

@@ -1,5 +1,7 @@
 package br.uff.ic.provviewer.Vertex;
 
+import br.uff.ic.utility.graph.AgentVertex;
+import br.uff.ic.utility.graph.EntityVertex;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.decorators.EllipseVertexShapeTransformer;
 import java.awt.Shape;

@@ -4,7 +4,7 @@
  */
 package br.uff.ic.provviewer.Input;
 
-import br.uff.ic.provviewer.BasePath;
+import br.uff.ic.utility.IO.BasePath;
 import br.uff.ic.provviewer.EdgeType;
 import br.uff.ic.provviewer.GraphFrame;
 import br.uff.ic.provviewer.Vertex.ColorScheme.ColorScheme;

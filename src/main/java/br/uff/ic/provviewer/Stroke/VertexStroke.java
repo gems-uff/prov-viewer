@@ -1,8 +1,8 @@
 package br.uff.ic.provviewer.Stroke;
 
-import br.uff.ic.provviewer.Edge.Edge;
+import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.Variables;
-import br.uff.ic.provviewer.Vertex.Vertex;
+import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.VisualizationViewer;

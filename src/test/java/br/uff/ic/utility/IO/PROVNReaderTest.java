@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.uff.ic.provviewer.Input;
+package br.uff.ic.utility.IO;
 
-import br.uff.ic.provviewer.BasePath;
-import br.uff.ic.provviewer.Edge.Edge;
+import br.uff.ic.utility.IO.PROVNReader;
+import br.uff.ic.utility.IO.BasePath;
+import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.GUI.GuiRun;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.uff.ic.provviewer;
+package br.uff.ic.utility;
 
 /**
  * Class that contains utility functions
@@ -17,6 +17,8 @@ public class Utils {
      * @return boolean
      */
     public static boolean tryParseFloat(String value) {
+        value = value.replace(" ", "");
+        value = value.replace(",", ".");
         try {
             Float.parseFloat(value);
             return true;
@@ -25,11 +27,13 @@ public class Utils {
         }
     }
     
-    public float convertFloat(String token) {
-        return Float.parseFloat(token);
+    public float convertFloat(String value) {
+        value = value.replace(" ", "");
+        return Float.parseFloat(value);
     }
     
     public static boolean tryParseInt(String value) {
+        value = value.replace(" ", "");
         try {
             Integer.valueOf(value);
             return true;
@@ -38,8 +42,14 @@ public class Utils {
         }
     }
     
-    public int convertInt(String token) {
-        return Integer.valueOf(token);
+    public int convertInt(String value) {
+        value = value.replace(" ", "");
+        return Integer.valueOf(value);
+    }
+    
+    public float roundToInt(String value) {
+        value = value.replace(" ", "");
+        return Math.round(Float.parseFloat(value));
     }
     
 }

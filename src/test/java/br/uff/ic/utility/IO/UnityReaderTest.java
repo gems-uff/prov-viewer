@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.uff.ic.provviewer.Input;
+package br.uff.ic.utility.IO;
 
-import br.uff.ic.provviewer.BasePath;
+import br.uff.ic.utility.IO.UnityReader;
+import br.uff.ic.utility.IO.BasePath;
 import br.uff.ic.provviewer.GUI.GuiRun;
 import br.uff.ic.provviewer.Variables;
 import java.io.File;

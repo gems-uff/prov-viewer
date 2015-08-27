@@ -5,10 +5,10 @@
  */
 package br.uff.ic.provviewer.GUI;
 
-import br.uff.ic.provviewer.Edge.Edge;
+import br.uff.ic.utility.graph.Edge;
 import static br.uff.ic.provviewer.GUI.GuiFunctions.PanCameraToFirstVertex;
 import br.uff.ic.provviewer.GraphFrame;
-import br.uff.ic.provviewer.Input.UnityReader;
+import br.uff.ic.utility.IO.UnityReader;
 import br.uff.ic.provviewer.Variables;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;

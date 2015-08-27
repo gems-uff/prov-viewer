@@ -4,7 +4,7 @@
  */
 package br.uff.ic.provviewer.Stroke;
 
-import br.uff.ic.provviewer.Edge.Edge;
+import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.Variables;
 import java.awt.BasicStroke;
 import java.awt.Stroke;

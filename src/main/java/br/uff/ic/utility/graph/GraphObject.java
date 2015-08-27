@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.uff.ic.provviewer;
+package br.uff.ic.utility.graph;
 
+import br.uff.ic.utility.Attribute;
 import java.util.Collection;
 import java.util.Map;
 

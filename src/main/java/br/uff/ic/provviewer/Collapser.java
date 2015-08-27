@@ -4,8 +4,8 @@
  */
 package br.uff.ic.provviewer;
 
-import br.uff.ic.provviewer.Edge.Edge;
-import br.uff.ic.provviewer.Vertex.Vertex;
+import br.uff.ic.utility.graph.Edge;
+import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.subLayout.GraphCollapser;

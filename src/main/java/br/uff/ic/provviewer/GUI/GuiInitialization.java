@@ -6,7 +6,7 @@
 package br.uff.ic.provviewer.GUI;
 
 import br.uff.ic.provviewer.Collapser;
-import br.uff.ic.provviewer.Edge.Edge;
+import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.Filter.Filters;
 import br.uff.ic.provviewer.Filter.PreFilters;
 import br.uff.ic.provviewer.Inference.PrologInference;

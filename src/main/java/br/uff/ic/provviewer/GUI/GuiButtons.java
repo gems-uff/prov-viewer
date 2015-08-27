@@ -5,14 +5,12 @@
  */
 package br.uff.ic.provviewer.GUI;
 
-import br.uff.ic.provviewer.Collapser;
 import br.uff.ic.provviewer.Variables;
-import br.uff.ic.provviewer.Edge.Edge;
-import br.uff.ic.provviewer.Filter.Filters;
+import br.uff.ic.utility.graph.Edge;
 import static br.uff.ic.provviewer.GraphFrame.StatusFilterBox;
 import br.uff.ic.provviewer.Layout.Spatial_Layout;
 import br.uff.ic.provviewer.Layout.Temporal_Layout;
-import br.uff.ic.provviewer.Vertex.AgentVertex;
+import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.provviewer.Vertex.ColorScheme.VertexPainter;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.FRLayout;

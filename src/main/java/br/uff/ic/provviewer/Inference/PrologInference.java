@@ -5,7 +5,7 @@
 package br.uff.ic.provviewer.Inference;
 
 //import alice.tuprolog.*;
-import br.uff.ic.provviewer.BasePath;
+import br.uff.ic.utility.IO.BasePath;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;

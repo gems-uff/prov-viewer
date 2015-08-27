@@ -1,6 +1,6 @@
 package br.uff.ic.provviewer;
 
-import br.uff.ic.provviewer.Edge.Edge;
+import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.GUI.GuiButtons;
 import br.uff.ic.provviewer.GUI.GuiInitialization;
 import br.uff.ic.provviewer.GUI.GuiProlog;
