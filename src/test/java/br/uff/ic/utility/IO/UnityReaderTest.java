@@ -45,7 +45,6 @@ public class UnityReaderTest {
     }
     
     public void testFiles(String path) throws Exception {
-        System.out.println("File: " + path);
         File f = new File(BasePath.getBasePathForClass(GuiRun.class) + path);
         UnityReader instance = new UnityReader(f);
         instance.readFile();

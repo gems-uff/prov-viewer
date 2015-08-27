@@ -65,7 +65,6 @@ public class PROVNReaderTest {
     public void testFiles(String file) throws Exception {
         String path = File.separator + "Graph" + File.separator + "Test" + File.separator + file;
         File f = new File(BasePath.getBasePathForClass(GuiRun.class) + path);
-        System.out.println("Path: " + path);
         PROVNReader instance = new PROVNReader(f);
         instance.readFile();
         DirectedGraph<Object, Edge> g = new DirectedSparseMultigraph<Object, Edge>();

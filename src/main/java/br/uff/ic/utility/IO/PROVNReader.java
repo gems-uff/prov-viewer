@@ -52,7 +52,6 @@ public class PROVNReader extends InputReader {
         String[] attributes;
         String[] optionalAttributes = null;
         
-        System.out.println(line);
         line = line.replace(")", "");
         line = line.replace(" ", "");
         line = line.replace("\t", "");
