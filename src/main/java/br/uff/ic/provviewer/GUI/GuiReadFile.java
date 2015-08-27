@@ -40,7 +40,7 @@ public class GuiReadFile {
             for (Edge edge : xmlReader.getEdges()) {
                 g.addEdge(edge, edge.getSource(), edge.getTarget());
             }
-
+            
         } catch (URISyntaxException ex) {
             Logger.getLogger(GraphFrame.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

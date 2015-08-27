@@ -5,8 +5,6 @@
  */
 package br.uff.ic.utility.IO;
 
-import br.uff.ic.utility.IO.UnityReader;
-import br.uff.ic.utility.IO.BasePath;
 import br.uff.ic.provviewer.GUI.GuiRun;
 import br.uff.ic.provviewer.Variables;
 import java.io.File;
@@ -48,7 +46,7 @@ public class UnityReaderTest {
     
     public void testFiles(String path) throws Exception {
         System.out.println("File: " + path);
-        File f = new File(BasePath.getBasePathForClass(GuiRun.class) + Variables.demo);
+        File f = new File(BasePath.getBasePathForClass(GuiRun.class) + path);
         UnityReader instance = new UnityReader(f);
         instance.readFile();
     }
