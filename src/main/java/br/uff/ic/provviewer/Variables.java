@@ -27,6 +27,7 @@ import java.util.Set;
 public class Variables extends Object {
 
     public static String demo = File.separator + "Graph" + File.separator + "Car_Tutorial.xml";
+//    public static String demo = File.separator + "Graph" + File.separator + "test" + File.separator + "example-blog1.provn";
     //    public static String demo = File.separator + "Graph" + File.separator + "Car_Tutorial3.xml";
     //    public static String demo = File.separator + "Graph" + File.separator + "Angry_Robots.xml";
     //    public static String demo = File.separator + "Graph" + File.separator + "2D_Provenance.xml";

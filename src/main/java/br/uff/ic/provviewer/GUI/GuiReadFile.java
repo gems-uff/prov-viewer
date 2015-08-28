@@ -10,6 +10,8 @@ import static br.uff.ic.provviewer.GUI.GuiFunctions.PanCameraToFirstVertex;
 import br.uff.ic.provviewer.GraphFrame;
 import br.uff.ic.utility.IO.UnityReader;
 import br.uff.ic.provviewer.Variables;
+import br.uff.ic.utility.IO.InputReader;
+import br.uff.ic.utility.IO.PROVNReader;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import java.io.File;
@@ -20,6 +22,7 @@ import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import org.apache.commons.io.FilenameUtils;
 
 /**
  * Class to read the graph and config files from the GUI button (File open)
@@ -29,15 +32,22 @@ public class GuiReadFile {
 
     /**
      * Method to read the graph from the XML file
-     * @param xmlGraph is the XML file with the graph information
+     * @param graphFile is the XML file with the graph information
      * @return 
      */
-    public static DirectedGraph<Object, Edge> getGraph(File xmlGraph) {
+    public static DirectedGraph<Object, Edge> getGraph(File graphFile) {
         DirectedGraph<Object, Edge> g = new DirectedSparseMultigraph<Object, Edge>();
         try {
-            UnityReader xmlReader = new UnityReader(xmlGraph);
-            xmlReader.readFile();
-            for (Edge edge : xmlReader.getEdges()) {
+            String extension = FilenameUtils.getExtension(graphFile.toPath().toString());
+            InputReader fileReader;
+            if(extension.equalsIgnoreCase("xml"))
+                fileReader = new UnityReader(graphFile);
+            else
+                fileReader = new PROVNReader(graphFile);
+                
+            fileReader.readFile();
+            
+            for (Edge edge : fileReader.getEdges()) {
                 g.addEdge(edge, edge.getSource(), edge.getTarget());
             }
             
