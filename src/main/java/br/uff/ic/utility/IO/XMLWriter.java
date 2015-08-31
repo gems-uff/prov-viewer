@@ -18,7 +18,11 @@ import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  *
@@ -26,7 +30,7 @@ import java.util.Collection;
  */
 
 //    @XmlArray("provenancedata")
-public class XMLWriter {
+public final class XMLWriter {
 //    @XmlArray("vertices")
 //    @XmlArrayItem("vertex")
 
@@ -42,6 +46,32 @@ public class XMLWriter {
     public XMLWriter(Collection<Object> vertices, Collection<Edge> edges) {
         vertexList = vertices;
         edgeList = edges;
+        
+        sortLists();
+    }
+    
+    public void sortLists() {
+        //Sort vertexList by name
+        List<Object> vList = new ArrayList<Object>( vertexList );
+        Comparator<Object> comparator = new Comparator<Object>() {
+            public int compare(Object c1, Object c2) {
+                return ((Vertex)c1).getID().compareTo(((Vertex)c2).getID());
+            }
+        };
+
+        Collections.sort(vList, comparator);
+        vertexList = vList;
+        
+        //Sort edgeList by name
+        List<Edge> eList = new ArrayList<Edge>( edgeList );
+        Comparator<Edge> comparator2 = new Comparator<Edge>() {
+            public int compare(Edge c1, Edge c2) {
+                return ((Edge)c1).getType().compareTo(((Edge)c2).getType());
+            }
+        };
+
+        Collections.sort(eList, comparator2);
+        edgeList = eList;
     }
 
     public void saveToXML(String fileName) throws FileNotFoundException {

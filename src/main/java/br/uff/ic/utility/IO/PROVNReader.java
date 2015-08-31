@@ -136,6 +136,7 @@ public class PROVNReader extends InputReader {
             
             Attribute optAtt = new Attribute("startTime", startTime);
             node.addAttribute(optAtt);
+            node.setTime(startTime);
         }
         if (attributes.length > 2) {
             String endTime = attributes[2];
