@@ -89,6 +89,6 @@ public class Attribute {
     }
 
     public String toNotationString() {
-        return this.getName() + "= " + "\"" + this.getValue() + "\"";
+        return this.getName() + "=" + this.getValue();
     }
 }

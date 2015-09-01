@@ -6,20 +6,15 @@
 package br.uff.ic.utility.IO;
 
 import br.uff.ic.provviewer.GUI.GuiRun;
-import br.uff.ic.provviewer.Variables;
-import br.uff.ic.utility.Attribute;
 import br.uff.ic.utility.graph.Edge;
-import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.Collection;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -60,12 +55,13 @@ public class PROVNWriterTest {
         testFiles("paolo-test.pn");
         testFiles("primer.pn");
         testFiles("container3.prov");
-        testFiles("prov-dm-example1.prov-asn");
         testFiles("sculpture.prov-asn");
         testFiles("w3c-publication1.prov-asn");
         testFiles("w3c-publication2.prov-asn");
         testFiles("w3c-publication3.prov-asn");
         testFiles("ProvViewer.provn");
+        testFiles("prov-dm-example1.prov-asn");
+
     }
     
     public void testFiles(String file) throws Exception {
@@ -92,15 +88,15 @@ public class PROVNWriterTest {
     }
 
 //    /**
-//     * Test of timeOrMarker method, of class PROVNWriter.
+//     * Test of attOrMarker method, of class PROVNWriter.
 //     */
 //    @Test
 //    public void testTimeOrMarker() {
-//        System.out.println("timeOrMarker");
+//        System.out.println("attOrMarker");
 //        String time = "";
 //        PROVNWriter instance = null;
 //        String expResult = "";
-//        String result = instance.timeOrMarker(time);
+//        String result = instance.attOrMarker(time);
 //        assertEquals(expResult, result);
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");

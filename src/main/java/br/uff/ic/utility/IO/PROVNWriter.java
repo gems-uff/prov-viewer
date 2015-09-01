@@ -88,7 +88,6 @@ public final class PROVNWriter {
     }
 
     public void writeEdges() throws IOException {
-        System.out.println("Edges");
         for (Edge edge : edgeList) {
             if(edge.getType().equalsIgnoreCase("wasGeneratedBy")){
                 writeGeneration(edge);
@@ -129,7 +128,7 @@ public final class PROVNWriter {
 
     public void newActivity(Vertex vertex) throws IOException {
         String s = keyword("activity") + "(" + vertex.getID() + ","
-                + timeOrMarker(vertex.getAttribute("startTime")) + "," + timeOrMarker(vertex.getAttribute("endTime"))
+                + attOrMarker(vertex.getAttribute("startTime")) + "," + attOrMarker(vertex.getAttribute("endTime"))
                 + optionalAttributes(vertex.getAttributes()) + ")";
         writeln(s);
     }
@@ -149,7 +148,7 @@ public final class PROVNWriter {
 
     public void writeDelegation(Edge edge) throws IOException {
         String s = keyword("actedOnBehalfOf") + "(" + optionalId(edge.getID())
-                + getID(edge.getSource()) + "," + getID(edge.getTarget()) + "," + edge.getAttribute("activity").getValue()
+                + getID(edge.getSource()) + "," + getID(edge.getTarget()) + "," + attOrMarker(edge.getAttribute("activity"))
                 + optionalAttributes(edge.getAttributes()) + ")";
         writeln(s);
     }
@@ -172,13 +171,13 @@ public final class PROVNWriter {
     public void writeUsage(Edge edge) throws IOException {
         String s = keyword("used") + "(" + optionalId(edge.getID())
                 + getID(edge.getSource()) + "," + getID(edge.getTarget()) + ","
-                + edge.getAttribute("time").getValue() + optionalAttributes(edge.getAttributes()) + ")";
+                + attOrMarker(edge.getAttribute("time")) + optionalAttributes(edge.getAttributes()) + ")";
         writeln(s);
     }
 
     public void writeAssociation(Edge edge) throws IOException {
         String s = keyword("wasAssociatedWith") + "(" + optionalId(edge.getID())
-                + getID(edge.getSource()) + "," + getID(edge.getTarget()) + "," + edge.getAttribute("plan").getValue()
+                + getID(edge.getSource()) + "," + getID(edge.getTarget()) + "," + attOrMarker(edge.getAttribute("plan"))
                 + optionalAttributes(edge.getAttributes()) + ")";
         writeln(s);
     }
@@ -194,31 +193,31 @@ public final class PROVNWriter {
         String s = keyword("wasDerivedFrom")
                 + "(" + optionalId(edge.getID()) + getID(edge.getSource()) + "," + getID(edge.getTarget())
                 + ((edge.getAttribute("activity") == null && edge.getAttribute("generation") == null && edge.getAttribute("usage") == null) ? ""
-                        : ", " + edge.getAttribute("activity").getValue() + ", "
-                        + edge.getAttribute("generation").getValue() + ", "
-                        + edge.getAttribute("usage").getValue())
+                        : ", " + attOrMarker(edge.getAttribute("activity")) + ", "
+                        + attOrMarker(edge.getAttribute("generation")) + ", "
+                        + attOrMarker(edge.getAttribute("usage")))
                 + optionalAttributes(edge.getAttributes()) + ")";
         writeln(s);
     }
 
     public void writeEnd(Edge edge) throws IOException {
         String s = "wasEndedBy(" + optionalId(edge.getID()) + getID(edge.getSource()) + ","
-                + edge.getAttribute("trigger").getValue() + "," + getID(edge.getTarget()) + ","
-                + edge.getAttribute("time").getValue() + optionalAttributes(edge.getAttributes()) + ")";
+                + attOrMarker(edge.getAttribute("trigger")) + "," + getID(edge.getTarget()) + ","
+                + attOrMarker(edge.getAttribute("time")) + optionalAttributes(edge.getAttributes()) + ")";
         writeln(s);
     }
 
     public void writeStart(Edge edge) throws IOException {
         String s = "wasStartedBy(" + optionalId(edge.getID()) + getID(edge.getSource())
-                + "," + edge.getAttribute("trigger").getValue() + "," + getID(edge.getTarget()) + ","
-                + edge.getAttribute("time").getValue() + optionalAttributes(edge.getAttributes()) + ")";
+                + "," + attOrMarker(edge.getAttribute("trigger")) + "," + getID(edge.getTarget()) + ","
+                + attOrMarker(edge.getAttribute("time")) + optionalAttributes(edge.getAttributes()) + ")";
         writeln(s);
     }
 
     public void writeGeneration(Edge edge) throws IOException {
         String s = keyword("wasGeneratedBy") + "(" + optionalId(edge.getID())
                 + getID(edge.getSource()) + "," + getID(edge.getTarget()) + ","
-                + edge.getAttribute("time").getValue() + optionalAttributes(edge.getAttributes()) + ")";
+                + attOrMarker(edge.getAttribute("time")) + optionalAttributes(edge.getAttributes()) + ")";
         writeln(s);
     }
 
@@ -237,12 +236,12 @@ public final class PROVNWriter {
     public void writeInvalidation(Edge edge) throws IOException {
         String s = keyword("wasInvalidatedBy") + "(" + optionalId(edge.getID())
                 + getID(edge.getSource()) + "," + getID(edge.getTarget()) + ","
-                + edge.getAttribute("time").getValue() + optionalAttributes(edge.getAttributes()) + ")";
+                + attOrMarker(edge.getAttribute("time")) + optionalAttributes(edge.getAttributes()) + ")";
         writeln(s);
     }
 
-    public String timeOrMarker(Attribute time) {
-        return ((time == null) ? MARKER : time.getValue());
+    public String attOrMarker(Attribute att) {
+        return ((att == null) ? MARKER : att.getValue());
     }
 
     public String keyword(String s) {
