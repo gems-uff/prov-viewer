@@ -149,5 +149,37 @@ public class UtilsTest {
         result = instance.roundToInt("- 1.6");
         assertEquals(-2, result, 0.0);
     }
+
+    /**
+     * Test of FloatEqualTo method, of class Utils.
+     */
+    @Test
+    public void testFloatEqualTo() {
+        System.out.println("FloatEqualTo");
+        float left = 0.0F;
+        float right = 0.0F;
+        float epsilon = 0.0F;
+        assertEquals(true, Utils.FloatEqualTo(left, right, epsilon));
+        
+        left = 1.0F;
+        right = 0.0F;
+        epsilon = 0.0F;
+        assertEquals(false, Utils.FloatEqualTo(left, right, epsilon));
+        
+        left = 0.0F;
+        right = 1.0F;
+        epsilon = 0.0F;
+        assertEquals(false, Utils.FloatEqualTo(left, right, epsilon));
+        
+        left = 1.0F;
+        right = 0.0F;
+        epsilon = 1.0F;
+        assertEquals(true, Utils.FloatEqualTo(left, right, epsilon));
+        
+        left = 1.0F;
+        right = 0.0F;
+        epsilon = 2.0F;
+        assertEquals(true, Utils.FloatEqualTo(left, right, epsilon));
+    }
     
 }

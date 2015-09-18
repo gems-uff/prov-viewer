@@ -27,7 +27,7 @@ public class Utils {
         }
     }
     
-    public float convertFloat(String value) {
+    public static float convertFloat(String value) {
         value = value.replace(" ", "");
         return Float.parseFloat(value);
     }
@@ -42,14 +42,17 @@ public class Utils {
         }
     }
     
-    public int convertInt(String value) {
+    public static int convertInt(String value) {
         value = value.replace(" ", "");
         return Integer.valueOf(value);
     }
     
-    public float roundToInt(String value) {
+    public static float roundToInt(String value) {
         value = value.replace(" ", "");
         return Math.round(Float.parseFloat(value));
     }
     
+    public static boolean FloatEqualTo(float left, float right, float epsilon) {
+        return Math.abs(left - right) <= epsilon;
+    }
 }

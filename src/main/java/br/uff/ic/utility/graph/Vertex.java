@@ -1,9 +1,6 @@
 package br.uff.ic.utility.graph;
 
 import br.uff.ic.utility.Attribute;
-import br.uff.ic.utility.Attribute;
-import br.uff.ic.utility.graph.GraphObject;
-import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.Utils;
 import java.awt.BasicStroke;
 import java.awt.Paint;
@@ -31,7 +28,6 @@ public abstract class Vertex extends GraphObject {
      * @param id vertex unique ID
      * @param label HUman readable name
      * @param time Time-related value. Used for temporal layouts
-     * @param details Other textual information for the vertex
      */
     public Vertex(String id, String label, String time) {
         this.id = id;
