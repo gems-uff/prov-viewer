@@ -12,6 +12,8 @@ import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -53,37 +55,39 @@ public class GraphMatchingTest {
         notEquals(0.10, false);
         
         differentTypes(1.00, false);
+        differentAttributes(0.5, true);
+        differentAttributes(0.51, false);
     }
     
     public void Comparing(double threshold, boolean expResult, String a1, String a2, String e1, String e2, String e3, String e4) {
         Vertex v1 = new ActivityVertex("v1", "test", "0");
         Vertex v2 = new ActivityVertex("v2", "test", "0");
-        Collection<Attribute> restrictionList = new ArrayList<Attribute>();
+        Map<String, Attribute> restrictionList = new HashMap<String, Attribute>();
         Attribute av1 = new Attribute("a1", a1);
         Attribute av2 = new Attribute("a1", a2);
         Attribute epsilon = new Attribute("a1", e1);
-        restrictionList.add(epsilon);
+        restrictionList.put("a1", epsilon);
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         
         av1 = new Attribute("a2", "1.5");
         av2 = new Attribute("a2", "2");
         epsilon = new Attribute("a2", e2);
-        restrictionList.add(epsilon);
+        restrictionList.put("a2", epsilon);
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         
         av1 = new Attribute("a3", "3");
         av2 = new Attribute("a3", "1.5");
         epsilon = new Attribute("a3", e3);
-        restrictionList.add(epsilon);
+        restrictionList.put("a3", epsilon);
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         
         av1 = new Attribute("a4", "1");
         av2 = new Attribute("a4", "-2");
         epsilon = new Attribute("a4", e4);
-        restrictionList.add(epsilon);
+        restrictionList.put("a4", epsilon);
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         
@@ -118,14 +122,42 @@ public class GraphMatchingTest {
     }
     
     public void differentTypes(double threshold, boolean expResult) {
-        System.out.println("Equal");
+        System.out.println("Different Types");
         Vertex v1 = new ActivityVertex("v1", "test", "0");
         Vertex v2 = new EntityVertex("v2", "test", "0");
-        Collection<Attribute> restrictionList = new ArrayList<Attribute>();
+        Map<String, Attribute> restrictionList = new HashMap<String, Attribute>();
         Attribute av1 = new Attribute("a1", "0");
         Attribute av2 = new Attribute("a1", "0");
         Attribute epsilon = new Attribute("a1", "0");
-        restrictionList.add(epsilon);
+        restrictionList.put("a1", epsilon);
+        v1.addAttribute(av1);
+        v2.addAttribute(av2);
+        
+        GraphMatching instance = new GraphMatching(restrictionList, threshold);
+        boolean result = instance.isSimilar(v1, v2);
+        assertEquals(expResult, result);
+    }
+    
+    public void differentAttributes(double threshold, boolean expResult) {
+        System.out.println("Different Types");
+        Vertex v1 = new ActivityVertex("v1", "test", "0");
+        Vertex v2 = new ActivityVertex("v2", "test", "0");
+        Map<String, Attribute> restrictionList = new HashMap<String, Attribute>();
+        Attribute av1 = new Attribute("a1", "0");
+        Attribute av2 = new Attribute("a1", "0");
+        Attribute epsilon = new Attribute("a1", "0");
+        restrictionList.put("a1", epsilon);
+        v1.addAttribute(av1);
+        v2.addAttribute(av2);
+        
+        av1 = new Attribute("a2", "1.5");
+        v1.addAttribute(av1);
+        
+        av2 = new Attribute("a3", "1.5");
+        v2.addAttribute(av2);
+        
+        av1 = new Attribute("a4", "1");
+        av2 = new Attribute("a4", "1");
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         

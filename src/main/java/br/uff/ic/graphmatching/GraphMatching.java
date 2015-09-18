@@ -11,6 +11,8 @@ import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -21,20 +23,34 @@ public class GraphMatching {
     private double threshold;
     private Collection<Object> vertexList;
     private Collection<Edge> edgeList;
-    private Collection<Attribute> attributeList;    // Attribute.name = the atribute 
+    private Map<String, Attribute> attributeList;    // Attribute.name = the atribute 
     // Attribute.value = error margin
 
     /**
      * Constructor
      *
      * @param restrictionList is the list of attributes, and their error margin,
-     * that is used to compare vertices
+ that is used to compareAttributes vertices
+     * @param similarityThreshold is the percentage used to define when two vertices are considered similar. Varies from 0 to 1.0
      */
-    public GraphMatching(Collection<Attribute> restrictionList, double similarityThreshold) {
+    public GraphMatching(Map<String, Attribute> restrictionList, double similarityThreshold) {
         vertexList = new ArrayList<Object>();
         edgeList = new ArrayList<Edge>();
         attributeList = restrictionList;
         threshold = similarityThreshold;
+        threshold = Utils.clamp(0.0, 1.0, similarityThreshold);
+    }
+    
+    /**
+     * Constructor without a list of attributes with their error margins
+     * @param similarityThreshold is the percentage used to define when two vertices are considered similar. Varies from 0 to 1.0
+     */
+    public GraphMatching(double similarityThreshold) {
+        vertexList = new ArrayList<Object>();
+        edgeList = new ArrayList<Edge>();
+        attributeList = new HashMap<String, Attribute>();
+        threshold = similarityThreshold;
+        threshold = Utils.clamp(0.0, 1.0, similarityThreshold);
     }
 
     /**
@@ -72,26 +88,25 @@ public class GraphMatching {
         if (!v1.getNodeType().equalsIgnoreCase(v2.getNodeType())) {
             return false;
         }
-
-        for (Attribute attribute : attributeList) {
-            String av1 = v1.getAttribute(attribute.getName()).getValue();
-            String av2 = v2.getAttribute(attribute.getName()).getValue();
-            String errorMargin = attribute.getValue();
-
-            // Dealing only with numeric values
-            if (Utils.tryParseFloat(av1) && Utils.tryParseFloat(av2) && Utils.tryParseFloat(errorMargin)) {
-                if (Utils.FloatEqualTo(Utils.convertFloat(av1), Utils.convertFloat(av2), Utils.convertFloat(errorMargin))) {
-                    similarity += (double) (1.0 / attributeList.size());
-                }
-            } // Dealing with string values: Only accepting complete string match
-            else if (av1.equalsIgnoreCase(av2)) {
-                similarity += (double) (1.0 / attributeList.size());
-            }
-
-            // TODO: Deal with time/date
-            // Need to read from vertex.getTimeString()
+        
+        Map<String, Attribute> attributes = new HashMap<String, Attribute>();
+        
+        // Check all v1 attributes
+        for (Attribute attribute : v1.getAttributes()) {
+            similarity = compareAttributes(attributes, attribute, v2, similarity);
         }
-
+        
+        // Now check all v2 attributes
+        for (Attribute attribute : v2.getAttributes()) {
+            // Do not check the same attributes already verified when checking v1
+            if(!attributes.containsKey(attribute.getName())) {
+                similarity = compareAttributes(attributes, attribute,v1, similarity);
+            }
+        }
+        System.out.println("Similarity " + similarity);
+        System.out.println("Size " + attributes.size());
+        similarity = similarity / attributes.size();
+        
         System.out.println("Match Similarity between " + v1.getID() + " and " + v2.getID() + ": " + similarity);
         if (similarity >= threshold) {
             isSimilar = true;
@@ -100,6 +115,39 @@ public class GraphMatching {
         return isSimilar;
     }
 
+    /**
+     * Function to compare all attributes from 2 verties
+     * @param attributes is the list of processed attributes
+     * @param attribute is the current attribute from v1
+     * @param v2 is the second vertex
+     * @param similarity is the similarity variable used to discern if vertices are similar
+     * @return 
+     */
+    public double compareAttributes(Map<String, Attribute> attributes, Attribute attribute, Vertex v2, double similarity) {
+        attributes.put(attribute.getName(), attribute);
+        if(v2.getAttribute(attribute.getName()) != null)
+        {
+            String av1 = attribute.getValue();
+            String av2 = v2.getAttribute(attribute.getName()).getValue();
+            String errorMargin = "0";
+            if(attributeList.get(attribute.getName()) != null)
+                errorMargin = attributeList.get(attribute.getName()).getValue();
+
+            if (Utils.tryParseFloat(av1) && Utils.tryParseFloat(av2) && Utils.tryParseFloat(errorMargin)) {
+                if (Utils.FloatEqualTo(Utils.convertFloat(av1), Utils.convertFloat(av2), Utils.convertFloat(errorMargin))) {
+                    similarity ++;
+                }
+            } // Dealing with string values: Only accepting complete string match
+            else if (av1.equalsIgnoreCase(av2)) {
+                similarity ++;
+            }
+
+            // TODO: Deal with time/date
+            // Need to read from vertex.getTimeString()
+        }
+        
+        return similarity;
+    }
     /**
      * Function to combine two vertices
      *
