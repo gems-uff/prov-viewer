@@ -23,6 +23,7 @@ public class GraphMatching {
     private double threshold;
     private Collection<Object> vertexList;
     private Collection<Edge> edgeList;
+    private Map<String, Vertex> combinedVertexList;
     private Map<String, Attribute> attributeList;    // Attribute.name = the atribute 
     // Attribute.value = error margin
 
@@ -39,6 +40,7 @@ public class GraphMatching {
         attributeList = restrictionList;
         threshold = similarityThreshold;
         threshold = Utils.clamp(0.0, 1.0, similarityThreshold);
+        combinedVertexList = new HashMap<String, Vertex>();
     }
     
     /**
@@ -51,6 +53,7 @@ public class GraphMatching {
         attributeList = new HashMap<String, Attribute>();
         threshold = similarityThreshold;
         threshold = Utils.clamp(0.0, 1.0, similarityThreshold);
+        combinedVertexList = new HashMap<String, Vertex>();
     }
 
     /**
@@ -157,8 +160,19 @@ public class GraphMatching {
      */
     public Vertex combineVertices(Vertex v1, Vertex v2) {
         Vertex combinedVertex = null;
-
+        combinedVertexList.put(v1.getID(), v1);
+        combinedVertexList.put(v2.getID(), v2);
+        
         // Code here
+        
+        // Create new ID
+        
+        // Create Label
+        
+        // Set Vertex Time
+        
+        // Generate the attributes for the combined vertex from both vertices
+        
         throw new UnsupportedOperationException("Not supported yet.");
 
 //        return combinedVertex;
@@ -179,9 +193,12 @@ public class GraphMatching {
      * @param vertices is the graph that contains the vertices to be added
      */
     public void addVertices(Collection<Object> vertices) {
-        // Code to add vertices in vertexList
-        // Do not add vertices that were used to create a combined vertex
-        throw new UnsupportedOperationException("Not supported yet.");
+        for(Object vertex : vertices) {
+            // Add only the vertices that were not used to generate a combined vertex
+            if(combinedVertexList.get(((Vertex)vertex).getID()) == null) {
+                addVertex((Vertex)vertex);
+            }
+        }
     }
 
     /**
