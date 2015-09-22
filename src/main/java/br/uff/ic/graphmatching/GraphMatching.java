@@ -5,7 +5,7 @@
  */
 package br.uff.ic.graphmatching;
 
-import br.uff.ic.utility.Attribute;
+import br.uff.ic.utility.GraphAttribute;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
@@ -24,8 +24,8 @@ public class GraphMatching {
     private Collection<Object> vertexList;
     private Collection<Edge> edgeList;
     private Map<String, Vertex> combinedVertexList;
-    private Map<String, Attribute> attributeList;    // Attribute.name = the atribute 
-    // Attribute.value = error margin
+    private Map<String, GraphAttribute> attributeList;    // GraphAttribute.name = the atribute 
+    // GraphAttribute.value = error margin
 
     /**
      * Constructor
@@ -34,7 +34,7 @@ public class GraphMatching {
  that is used to compareAttributes vertices
      * @param similarityThreshold is the percentage used to define when two vertices are considered similar. Varies from 0 to 1.0
      */
-    public GraphMatching(Map<String, Attribute> restrictionList, double similarityThreshold) {
+    public GraphMatching(Map<String, GraphAttribute> restrictionList, double similarityThreshold) {
         vertexList = new ArrayList<Object>();
         edgeList = new ArrayList<Edge>();
         attributeList = restrictionList;
@@ -50,7 +50,7 @@ public class GraphMatching {
     public GraphMatching(double similarityThreshold) {
         vertexList = new ArrayList<Object>();
         edgeList = new ArrayList<Edge>();
-        attributeList = new HashMap<String, Attribute>();
+        attributeList = new HashMap<String, GraphAttribute>();
         threshold = similarityThreshold;
         threshold = Utils.clamp(0.0, 1.0, similarityThreshold);
         combinedVertexList = new HashMap<String, Vertex>();
@@ -92,15 +92,15 @@ public class GraphMatching {
             return false;
         }
         
-        Map<String, Attribute> attributes = new HashMap<String, Attribute>();
+        Map<String, GraphAttribute> attributes = new HashMap<String, GraphAttribute>();
         
         // Check all v1 attributes
-        for (Attribute attribute : v1.getAttributes()) {
+        for (GraphAttribute attribute : v1.getAttributes()) {
             similarity = compareAttributes(attributes, attribute, v2, similarity);
         }
         
         // Now check all v2 attributes
-        for (Attribute attribute : v2.getAttributes()) {
+        for (GraphAttribute attribute : v2.getAttributes()) {
             // Do not check the same attributes already verified when checking v1
             if(!attributes.containsKey(attribute.getName())) {
                 similarity = compareAttributes(attributes, attribute,v1, similarity);
@@ -126,7 +126,7 @@ public class GraphMatching {
      * @param similarity is the similarity variable used to discern if vertices are similar
      * @return 
      */
-    public double compareAttributes(Map<String, Attribute> attributes, Attribute attribute, Vertex v2, double similarity) {
+    public double compareAttributes(Map<String, GraphAttribute> attributes, GraphAttribute attribute, Vertex v2, double similarity) {
         attributes.put(attribute.getName(), attribute);
         if(v2.getAttribute(attribute.getName()) != null)
         {
@@ -162,6 +162,16 @@ public class GraphMatching {
         Vertex combinedVertex = null;
         combinedVertexList.put(v1.getID(), v1);
         combinedVertexList.put(v2.getID(), v2);
+        combinedVertex.addAllAttributes(v1.attributes);
+        for (GraphAttribute att : v2.getAttributes()) {
+            if (combinedVertex.attributes.containsKey(att.getName())) {
+                GraphAttribute temporary = combinedVertex.attributes.get(att.getName());
+                temporary.updateAttribute(att.getValue());
+                combinedVertex.attributes.put(att.getName(), temporary);
+            } else {
+                combinedVertex.attributes.put(att.getName(), new GraphAttribute(att.getName(), att.getValue()));
+            }
+        }
         
         // Code here
         

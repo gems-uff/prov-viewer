@@ -5,7 +5,7 @@
  */
 package br.uff.ic.graphmatching;
 
-import br.uff.ic.utility.Attribute;
+import br.uff.ic.utility.GraphAttribute;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.EntityVertex;
@@ -62,31 +62,31 @@ public class GraphMatchingTest {
     public void Comparing(double threshold, boolean expResult, String a1, String a2, String e1, String e2, String e3, String e4) {
         Vertex v1 = new ActivityVertex("v1", "test", "0");
         Vertex v2 = new ActivityVertex("v2", "test", "0");
-        Map<String, Attribute> restrictionList = new HashMap<String, Attribute>();
-        Attribute av1 = new Attribute("a1", a1);
-        Attribute av2 = new Attribute("a1", a2);
-        Attribute epsilon = new Attribute("a1", e1);
+        Map<String, GraphAttribute> restrictionList = new HashMap<String, GraphAttribute>();
+        GraphAttribute av1 = new GraphAttribute("a1", a1);
+        GraphAttribute av2 = new GraphAttribute("a1", a2);
+        GraphAttribute epsilon = new GraphAttribute("a1", e1);
         restrictionList.put("a1", epsilon);
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         
-        av1 = new Attribute("a2", "1.5");
-        av2 = new Attribute("a2", "2");
-        epsilon = new Attribute("a2", e2);
+        av1 = new GraphAttribute("a2", "1.5");
+        av2 = new GraphAttribute("a2", "2");
+        epsilon = new GraphAttribute("a2", e2);
         restrictionList.put("a2", epsilon);
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         
-        av1 = new Attribute("a3", "3");
-        av2 = new Attribute("a3", "1.5");
-        epsilon = new Attribute("a3", e3);
+        av1 = new GraphAttribute("a3", "3");
+        av2 = new GraphAttribute("a3", "1.5");
+        epsilon = new GraphAttribute("a3", e3);
         restrictionList.put("a3", epsilon);
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         
-        av1 = new Attribute("a4", "1");
-        av2 = new Attribute("a4", "-2");
-        epsilon = new Attribute("a4", e4);
+        av1 = new GraphAttribute("a4", "1");
+        av2 = new GraphAttribute("a4", "-2");
+        epsilon = new GraphAttribute("a4", e4);
         restrictionList.put("a4", epsilon);
         v1.addAttribute(av1);
         v2.addAttribute(av2);
@@ -125,10 +125,10 @@ public class GraphMatchingTest {
         System.out.println("Different Types");
         Vertex v1 = new ActivityVertex("v1", "test", "0");
         Vertex v2 = new EntityVertex("v2", "test", "0");
-        Map<String, Attribute> restrictionList = new HashMap<String, Attribute>();
-        Attribute av1 = new Attribute("a1", "0");
-        Attribute av2 = new Attribute("a1", "0");
-        Attribute epsilon = new Attribute("a1", "0");
+        Map<String, GraphAttribute> restrictionList = new HashMap<String, GraphAttribute>();
+        GraphAttribute av1 = new GraphAttribute("a1", "0");
+        GraphAttribute av2 = new GraphAttribute("a1", "0");
+        GraphAttribute epsilon = new GraphAttribute("a1", "0");
         restrictionList.put("a1", epsilon);
         v1.addAttribute(av1);
         v2.addAttribute(av2);
@@ -142,22 +142,22 @@ public class GraphMatchingTest {
         System.out.println("Different Types");
         Vertex v1 = new ActivityVertex("v1", "test", "0");
         Vertex v2 = new ActivityVertex("v2", "test", "0");
-        Map<String, Attribute> restrictionList = new HashMap<String, Attribute>();
-        Attribute av1 = new Attribute("a1", "0");
-        Attribute av2 = new Attribute("a1", "0");
-        Attribute epsilon = new Attribute("a1", "0");
+        Map<String, GraphAttribute> restrictionList = new HashMap<String, GraphAttribute>();
+        GraphAttribute av1 = new GraphAttribute("a1", "0");
+        GraphAttribute av2 = new GraphAttribute("a1", "0");
+        GraphAttribute epsilon = new GraphAttribute("a1", "0");
         restrictionList.put("a1", epsilon);
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         
-        av1 = new Attribute("a2", "1.5");
+        av1 = new GraphAttribute("a2", "1.5");
         v1.addAttribute(av1);
         
-        av2 = new Attribute("a3", "1.5");
+        av2 = new GraphAttribute("a3", "1.5");
         v2.addAttribute(av2);
         
-        av1 = new Attribute("a4", "1");
-        av2 = new Attribute("a4", "1");
+        av1 = new GraphAttribute("a4", "1");
+        av2 = new GraphAttribute("a4", "1");
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         

@@ -1,6 +1,6 @@
 package br.uff.ic.utility.graph;
 
-import br.uff.ic.utility.Attribute;
+import br.uff.ic.utility.GraphAttribute;
 import br.uff.ic.utility.Utils;
 import java.awt.BasicStroke;
 import java.awt.Paint;
@@ -33,7 +33,7 @@ public abstract class Vertex extends GraphObject {
         this.id = id;
         setLabel(label);
         this.time = time;
-        this.attributes  = new HashMap<String, Attribute>();
+        this.attributes  = new HashMap<String, GraphAttribute>();
     }
     
     /**
@@ -44,7 +44,7 @@ public abstract class Vertex extends GraphObject {
      * @param attributes
      * @param details 
      */
-    public Vertex(String id, String label, String time, Map<String, Attribute> attributes) {
+    public Vertex(String id, String label, String time, Map<String, GraphAttribute> attributes) {
         this.id = id;
         setLabel(label);
         this.time = time;
@@ -134,7 +134,7 @@ public abstract class Vertex extends GraphObject {
         {
             return getLabel();
         }
-        Attribute aux = attributes.get(attribute);
+        GraphAttribute aux = attributes.get(attribute);
         if(aux != null) {
             return aux.getValue();
         }

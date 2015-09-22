@@ -1,11 +1,8 @@
 package br.uff.ic.utility.graph;
 
-import br.uff.ic.utility.Attribute;
+import br.uff.ic.utility.GraphAttribute;
 import br.uff.ic.provviewer.EdgeType;
-import br.uff.ic.utility.graph.GraphObject;
-import br.uff.ic.utility.Utils;
 import br.uff.ic.provviewer.Variables;
-import br.uff.ic.utility.Attribute;
 import br.uff.ic.utility.Utils;
 import java.awt.Color;
 import java.awt.Paint;
@@ -41,7 +38,7 @@ public class Edge extends GraphObject{
      * @param source 
      */
     public Edge(String id, String influence, String type, String value, 
-            String label, Map<String, Attribute> attributes, Object target, Object source) {
+            String label, Map<String, GraphAttribute> attributes, Object target, Object source) {
         this.id = id;
         this.source = source;
         this.target = target;
@@ -82,7 +79,7 @@ public class Edge extends GraphObject{
         setLabel(label);
         hide = false;
         collapsed = false;
-        this.attributes  = new HashMap<String, Attribute>();
+        this.attributes  = new HashMap<String, GraphAttribute>();
     }
     
     /**
@@ -106,7 +103,7 @@ public class Edge extends GraphObject{
         this.type = getLabel();
         hide = false;
         collapsed = false;
-        this.attributes  = new HashMap<String, Attribute>();
+        this.attributes  = new HashMap<String, GraphAttribute>();
     }
 
     /**

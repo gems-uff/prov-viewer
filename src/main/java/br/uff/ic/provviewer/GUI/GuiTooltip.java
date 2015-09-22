@@ -5,9 +5,8 @@
  */
 package br.uff.ic.provviewer.GUI;
 
-import br.uff.ic.utility.Attribute;
 import br.uff.ic.utility.graph.Edge;
-import br.uff.ic.provviewer.GraphAttribute;
+import br.uff.ic.utility.GraphAttribute;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
@@ -122,7 +121,7 @@ public class GuiTooltip {
                     entities++;
                 }
                 
-                for (Attribute att : ((Vertex) vertex).getAttributes()) {
+                for (GraphAttribute att : ((Vertex) vertex).getAttributes()) {
                     if (attributes.containsKey(att.getName())) {
                         GraphAttribute temporary = attributes.get(att.getName());
                         temporary.updateAttribute(att.getValue());

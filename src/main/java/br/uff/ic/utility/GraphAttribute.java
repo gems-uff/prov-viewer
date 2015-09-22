@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.uff.ic.provviewer;
+package br.uff.ic.utility;
 
 import br.uff.ic.utility.Utils;
 
@@ -102,7 +102,10 @@ public class GraphAttribute {
      * @return string with the attribute
      */
     public String printAttribute() {
-        return this.getName() + ": " + printValue();
+        if(quantity == 1)
+            return this.getName() + ": " + this.getValue() + " <br>";
+        else
+            return this.getName() + ": " + printValue();
     }
 
     /**
@@ -117,5 +120,9 @@ public class GraphAttribute {
         } else {
             return this.value + "<br>";
         }
+    }
+    
+    public String toNotationString() {
+        return this.getName() + "=" + this.getValue();
     }
 }

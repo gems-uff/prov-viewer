@@ -5,7 +5,7 @@
  */
 package br.uff.ic.utility.IO;
 
-import br.uff.ic.utility.Attribute;
+import br.uff.ic.utility.GraphAttribute;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
 import javax.xml.transform.*;
@@ -124,10 +124,10 @@ public final class XMLWriter {
                     atts.appendChild(att);
                     
                     Element name = doc.createElement("name");
-                    name.setTextContent(((Attribute) attributes[j]).getName());
+                    name.setTextContent(((GraphAttribute) attributes[j]).getName());
                     att.appendChild(name);
                     Element value = doc.createElement("value");
-                    value.setTextContent(((Attribute) attributes[j]).getValue());
+                    value.setTextContent(((GraphAttribute) attributes[j]).getValue());
                     att.appendChild(value);
                 }
 

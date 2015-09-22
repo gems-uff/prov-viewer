@@ -6,7 +6,7 @@ package br.uff.ic.utility.IO;
 
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
-import br.uff.ic.utility.Attribute;
+import br.uff.ic.utility.GraphAttribute;
 import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
 import java.io.File;
@@ -68,7 +68,7 @@ public class UnityReader extends XMLReader{
                 
                 NodeList aList = eElement.getElementsByTagName("attribute");
                 for(int i = 0; i < aList.getLength(); i++){
-                    Attribute att = new Attribute(eElement.getElementsByTagName("name").item(i).getTextContent(),
+                    GraphAttribute att = new GraphAttribute(eElement.getElementsByTagName("name").item(i).getTextContent(),
                     eElement.getElementsByTagName("value").item(i).getTextContent());
                     node.addAttribute(att);
                 }

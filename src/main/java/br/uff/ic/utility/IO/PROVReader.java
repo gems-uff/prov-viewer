@@ -7,7 +7,7 @@ package br.uff.ic.utility.IO;
 
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
-import br.uff.ic.utility.Attribute;
+import br.uff.ic.utility.GraphAttribute;
 import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
 import java.io.File;
@@ -48,7 +48,7 @@ public class PROVReader extends XMLReader {
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) nNode;
 
-                Map<String, Attribute> attributes = new HashMap<String, Attribute>();
+                Map<String, GraphAttribute> attributes = new HashMap<String, GraphAttribute>();
                 // Primary Attributes
                 String label = "";
                 String location = "";
@@ -164,7 +164,7 @@ public class PROVReader extends XMLReader {
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) nNode;
                 
-                Map<String, Attribute> attributes  = new HashMap<String, Attribute>();
+                Map<String, GraphAttribute> attributes  = new HashMap<String, GraphAttribute>();
                 // Primary Attributes
                 String label = "";
                 String location = "";
@@ -364,37 +364,37 @@ public class PROVReader extends XMLReader {
         }
     }
 
-    public void AddProvAttributes(Map<String, Attribute> attributes, String location, 
+    public void AddProvAttributes(Map<String, GraphAttribute> attributes, String location, 
             String role, String type, String value, String endTime, String plan) {
-        Attribute att;
+        GraphAttribute att;
         if (!"".equals(endTime)) {
-            att = new Attribute("prov:endTime", endTime);
+            att = new GraphAttribute("prov:endTime", endTime);
             attributes.put(att.getName(), att);
         }
         if (!"".equals(location)) {
-            att = new Attribute("prov:location", location);
+            att = new GraphAttribute("prov:location", location);
             attributes.put(att.getName(), att);
         }
         if (!"".equals(role)) {
-            att = new Attribute("prov:role", role);
+            att = new GraphAttribute("prov:role", role);
             attributes.put(att.getName(), att);
         }
         if (!"".equals(type)) {
-            att = new Attribute("prov:type", type);
+            att = new GraphAttribute("prov:type", type);
             attributes.put(att.getName(), att);
         }
         if (!"".equals(value)) {
-            att = new Attribute("prov:value", value);
+            att = new GraphAttribute("prov:value", value);
             attributes.put(att.getName(), att);
         }
         if (!"".equals(plan)) {
-            att = new Attribute("prov:plan", plan);
+            att = new GraphAttribute("prov:plan", plan);
             attributes.put(att.getName(), att);
         }
     }
 
-    public void HasOtherAttributes(Node nNode, Map<String, Attribute> attributes) {
-        Attribute att;
+    public void HasOtherAttributes(Node nNode, Map<String, GraphAttribute> attributes) {
+        GraphAttribute att;
         
         if (nNode.hasAttributes()) {
             NamedNodeMap nodeMap = nNode.getAttributes();
@@ -404,7 +404,7 @@ public class PROVReader extends XMLReader {
                 Node node = nodeMap.item(i);
                 if(!node.getNodeName().equalsIgnoreCase("prov:id"))
                 {
-                    att = new Attribute(node.getNodeName(), node.getNodeValue());
+                    att = new GraphAttribute(node.getNodeName(), node.getNodeValue());
                     attributes.put(att.getName(), att);
                 }
             }

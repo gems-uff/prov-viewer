@@ -5,7 +5,7 @@
  */
 package br.uff.ic.utility.IO;
 
-import br.uff.ic.utility.Attribute;
+import br.uff.ic.utility.GraphAttribute;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.graph.Edge;
@@ -240,7 +240,7 @@ public final class PROVNWriter {
         writeln(s);
     }
 
-    public String attOrMarker(Attribute att) {
+    public String attOrMarker(GraphAttribute att) {
         return ((att == null) ? MARKER : att.getValue());
     }
 
@@ -268,13 +268,13 @@ public final class PROVNWriter {
         return s;
     }
 
-    public String optionalAttributes(Collection<Attribute> attrs) {
+    public String optionalAttributes(Collection<GraphAttribute> attrs) {
         if ((attrs == null) || (attrs.isEmpty())) {
             return "";
         }
         StringBuffer sb = new StringBuffer();
         boolean first = true;
-        for (Attribute attr : attrs) {
+        for (GraphAttribute attr : attrs) {
             if (attr.getName().equalsIgnoreCase("activity"))
                 ; else if (attr.getName().equalsIgnoreCase("time"))
                 ; else if (attr.getName().equalsIgnoreCase("plan"))

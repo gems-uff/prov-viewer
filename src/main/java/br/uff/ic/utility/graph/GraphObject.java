@@ -4,7 +4,7 @@
  */
 package br.uff.ic.utility.graph;
 
-import br.uff.ic.utility.Attribute;
+import br.uff.ic.utility.GraphAttribute;
 import java.util.Collection;
 import java.util.Map;
 
@@ -14,14 +14,14 @@ import java.util.Map;
  */
 public class GraphObject extends Object{
     private String label;                           // prov:label
-    public Map<String, Attribute> attributes;
+    public Map<String, GraphAttribute> attributes;
     
     /**
      * Get method to return one specific attribute
      * @param attribute Desired attribute name
      * @return the attribute, containing name and value
      */
-    public Attribute getAttribute(String attribute)
+    public GraphAttribute getAttribute(String attribute)
     {
         return attributes.get(attribute);
     }
@@ -30,7 +30,7 @@ public class GraphObject extends Object{
      * Get method for all attributes
      * @return vertex attributes as collection
      */
-    public Collection<Attribute> getAttributes()
+    public Collection<GraphAttribute> getAttributes()
     {
         return attributes.values();
     }
@@ -52,7 +52,7 @@ public class GraphObject extends Object{
         String attributeList = "";
         if(!this.attributes.values().isEmpty())
         {
-            for(Attribute att : this.attributes.values())
+            for(GraphAttribute att : this.attributes.values())
             {
                 attributeList += att.printAttribute();
             }
@@ -64,7 +64,7 @@ public class GraphObject extends Object{
      * Method to add a new attribute in the attribute map
      * @param att New attribute to be added
      */
-    public void addAttribute(Attribute att)
+    public void addAttribute(GraphAttribute att)
     {
         this.attributes.put(att.getName(), att);
     }
@@ -73,7 +73,7 @@ public class GraphObject extends Object{
      * Method to add a new attribute in the attribute map
      * @param atts
      */
-    public void addAllAttributes(Map<String, Attribute> atts)
+    public void addAllAttributes(Map<String, GraphAttribute> atts)
     {
         this.attributes.putAll(atts);
     }

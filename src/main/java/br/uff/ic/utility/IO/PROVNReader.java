@@ -7,7 +7,7 @@ package br.uff.ic.utility.IO;
 
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
-import br.uff.ic.utility.Attribute;
+import br.uff.ic.utility.GraphAttribute;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.GraphObject;
@@ -137,13 +137,13 @@ public class PROVNReader extends InputReader {
         if (attributes.length > 1) {
             String startTime = attributes[1];
 
-            Attribute optAtt = new Attribute("startTime", startTime);
+            GraphAttribute optAtt = new GraphAttribute("startTime", startTime);
             node.addAttribute(optAtt);
             node.setTime(startTime);
         }
         if (attributes.length > 2) {
             String endTime = attributes[2];
-            Attribute optAtt = new Attribute("endTime", endTime);
+            GraphAttribute optAtt = new GraphAttribute("endTime", endTime);
             node.addAttribute(optAtt);
         }
         readAttributes(node, optionalAttributes);
@@ -179,7 +179,7 @@ public class PROVNReader extends InputReader {
         entity = testPointer(entity, "Entity");
 
         edge = new Edge(id, "wasGeneratedBy", "-", "-", nodes.get(activity), nodes.get(entity));
-        Attribute optAtt = new Attribute("time", time);
+        GraphAttribute optAtt = new GraphAttribute("time", time);
         edge.addAttribute(optAtt);
 
         readAttributes(edge, optionalAttributes);
@@ -209,7 +209,7 @@ public class PROVNReader extends InputReader {
         entity = testPointer(entity, "Entity");
 
         edge = new Edge(id, "used", "-", "-", nodes.get(entity), nodes.get(activity));
-        Attribute optAtt = new Attribute("time", time);
+        GraphAttribute optAtt = new GraphAttribute("time", time);
         edge.addAttribute(optAtt);
 
         readAttributes(edge, optionalAttributes);
@@ -268,13 +268,13 @@ public class PROVNReader extends InputReader {
 
         edge = new Edge(id, type, "-", "-", nodes.get(starterOrEnder), nodes.get(activity));
 
-        Attribute optAtt = new Attribute("trigger", trigger);
+        GraphAttribute optAtt = new GraphAttribute("trigger", trigger);
         edge.addAttribute(optAtt);
 
-        optAtt = new Attribute(type, starterOrEnder);
+        optAtt = new GraphAttribute(type, starterOrEnder);
         edge.addAttribute(optAtt);
 
-        optAtt = new Attribute("time", time);
+        optAtt = new GraphAttribute("time", time);
         edge.addAttribute(optAtt);
 
         readAttributes(edge, optionalAttributes);
@@ -282,14 +282,14 @@ public class PROVNReader extends InputReader {
 //        }
 //        else {
 //            edge = new Edge(id + "_trigger", type, "-", "-", nodes.get(trigger), nodes.get(activity));
-//            Attribute optAtt = new Attribute("time", time);
+//            GraphAttribute optAtt = new GraphAttribute("time", time);
 //            edge.addAttribute(optAtt);
 //
 //            readAttributes(edge, optionalAttributes);
 //            addEdge(edge);
 //            
 //            edge = new Edge(id + "_generated", type, "-", "-", nodes.get(starterOrEnder), nodes.get(trigger));
-//            optAtt = new Attribute("time", time);
+//            optAtt = new GraphAttribute("time", time);
 //            edge.addAttribute(optAtt);
 //
 //            readAttributes(edge, optionalAttributes);
@@ -313,7 +313,7 @@ public class PROVNReader extends InputReader {
         activity = testPointer(activity, "Activity");
 
         edge = new Edge(id, "wasInvalidatedBy", "-", "-", nodes.get(activity), nodes.get(entity));
-        Attribute optAtt = new Attribute("time", time);
+        GraphAttribute optAtt = new GraphAttribute("time", time);
         edge.addAttribute(optAtt);
 
         readAttributes(edge, optionalAttributes);
@@ -346,13 +346,13 @@ public class PROVNReader extends InputReader {
 
         edge = new Edge(id, "wasDerivedFrom", "-", "-", nodes.get(usedEntity), nodes.get(generatedEntity));
 
-        Attribute optAtt = new Attribute("activity", activity);
+        GraphAttribute optAtt = new GraphAttribute("activity", activity);
         edge.addAttribute(optAtt);
 
-        optAtt = new Attribute("generation", generation);
+        optAtt = new GraphAttribute("generation", generation);
         edge.addAttribute(optAtt);
 
-        optAtt = new Attribute("usage", usage);
+        optAtt = new GraphAttribute("usage", usage);
         edge.addAttribute(optAtt);
 
         readAttributes(edge, optionalAttributes);
@@ -425,7 +425,7 @@ public class PROVNReader extends InputReader {
 
         edge = new Edge(id, "wasAssociatedWith", "-", "-", nodes.get(agent), nodes.get(activity));
 
-        Attribute optAtt = new Attribute("plan", plan);
+        GraphAttribute optAtt = new GraphAttribute("plan", plan);
         edge.addAttribute(optAtt);
 
         readAttributes(edge, optionalAttributes);
@@ -433,7 +433,7 @@ public class PROVNReader extends InputReader {
 
         if (hasPlan) {
 //            Vertex node = new EntityVertex(plan, plan, "");
-//            Attribute optAtt = new Attribute("prov:type", "prov:Plan");
+//            GraphAttribute optAtt = new GraphAttribute("prov:type", "prov:Plan");
 //            addNode(node);
             edge = new Edge(id, "wasAssociatedWith(Plan)", "-", "-", nodes.get(plan), nodes.get(agent));
             readAttributes(edge, optionalAttributes);
@@ -461,7 +461,7 @@ public class PROVNReader extends InputReader {
 
         edge = new Edge(id, "actedOnBehalfOf", "-", "-", nodes.get(delegate), nodes.get(responsible));
 
-        Attribute optAtt = new Attribute("activity", activity);
+        GraphAttribute optAtt = new GraphAttribute("activity", activity);
         edge.addAttribute(optAtt);
 
         readAttributes(edge, optionalAttributes);
@@ -534,7 +534,7 @@ public class PROVNReader extends InputReader {
                     } else if ((obj instanceof Edge) && (att[0].contains("value"))) {
                         ((Edge) obj).setValue(att[1]);
                     }
-                    Attribute optAtt = new Attribute(att[0], att[1]);
+                    GraphAttribute optAtt = new GraphAttribute(att[0], att[1]);
                     obj.addAttribute(optAtt);
                 }
             }
