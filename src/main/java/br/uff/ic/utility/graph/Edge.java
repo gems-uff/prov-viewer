@@ -17,11 +17,11 @@ import java.util.Map;
 public class Edge extends GraphObject{
 
     private String id;
-    private Object source;
-    private Object target;
+    private Vertex source;
+    private Vertex target;
     //private String influence;      // Influence type (i.e. Damage)
     private String value;          // Influence Value (i.e. 5.0)
-    private String type;           // Edge type (prov edges)
+    private final String type;           // Edge type (prov edges)
     //used to hide this edge when collapsing a group of edges
     private boolean hide;
     //used to say this edge is a temporary one
@@ -34,14 +34,15 @@ public class Edge extends GraphObject{
      * @param type
      * @param value
      * @param label
+     * @param attributes
      * @param target
      * @param source 
      */
     public Edge(String id, String influence, String type, String value, 
             String label, Map<String, GraphAttribute> attributes, Object target, Object source) {
         this.id = id;
-        this.source = source;
-        this.target = target;
+        this.source = (Vertex) source;
+        this.target = (Vertex) target;
         this.type = type;
         if (influence.equalsIgnoreCase("") || (influence == null) || influence.equalsIgnoreCase("Neutral")) {
             setLabel("Neutral");
@@ -67,8 +68,8 @@ public class Edge extends GraphObject{
      */
     public Edge(String id, String type, String label, String value, Object target, Object source) {
         this.id = id;
-        this.source = source;
-        this.target = target;
+        this.source = (Vertex) source;
+        this.target = (Vertex) target;
         this.type = type;
         if (label.equalsIgnoreCase("") || label == null || label == "-" || label.equalsIgnoreCase("Neutral")) {
             setLabel("Neutral");
@@ -92,8 +93,8 @@ public class Edge extends GraphObject{
      */
     public Edge(String id, Object target, Object source, String influence) {
         this.id = id;
-        this.source = source;
-        this.target = target;
+        this.source = (Vertex) source;
+        this.target = (Vertex) target;
         if (influence.equalsIgnoreCase("")) {
             setLabel("Neutral");
         } else {
@@ -113,22 +114,35 @@ public class Edge extends GraphObject{
     public String getID() {
         return id;
     }
+    
+    public void setID(String t) {
+        id = t;
+    }
+    
     /**
      * Method to get the edge source
      *
      * @return vertex source
      */
-    public Object getSource() {
+    public Vertex getSource() {
         return source;
     }
 
+    public void setSource(Vertex t) {
+        source = t;
+    }
+    
     /**
      * Method to get the edge target
      *
      * @return vertex target
      */
-    public Object getTarget() {
+    public Vertex getTarget() {
         return target;
+    }
+    
+    public void setTarget(Vertex t) {
+        target = t;
     }
     
     /**
@@ -231,6 +245,7 @@ public class Edge extends GraphObject{
 
     /**
      * Method to get the edge color (red, black, or green), defined by value
+     * @param variables
      * @return
      */
     public Paint getColor(Variables variables) {
@@ -283,6 +298,7 @@ public class Edge extends GraphObject{
      * collapsed edge influence value will be the sum of the edges values or
      * the average
      *
+     * @param variables
      * @return (boolean) Return true if influence from collapsed edges are
      * added. Return false if average
      */

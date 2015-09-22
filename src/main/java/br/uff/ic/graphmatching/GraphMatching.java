@@ -12,7 +12,6 @@ import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,37 +21,42 @@ import java.util.Map;
  * @author Kohwalter
  */
 public class GraphMatching {
-
+    
+    private int edgeID = 0;
+    private int vertexID = 0;
     private double threshold;
-    private Collection<Object> vertexList;
-    private Collection<Edge> edgeList;
+    private Map<String, Vertex> vertexList;
+    private Map<String, Edge> edgeList;
     private Map<String, Vertex> combinedVertexList;
-    private Map<String, GraphAttribute> attributeList;    // GraphAttribute.name = the atribute 
+    private final Map<String, GraphAttribute> attributeList;    // GraphAttribute.name = the atribute 
     // GraphAttribute.value = error margin
 
     /**
      * Constructor
      *
      * @param restrictionList is the list of attributes, and their error margin,
- that is used to compareAttributes vertices
-     * @param similarityThreshold is the percentage used to define when two vertices are considered similar. Varies from 0 to 1.0
+     * that is used to compareAttributes vertices
+     * @param similarityThreshold is the percentage used to define when two
+     * vertices are considered similar. Varies from 0 to 1.0
      */
     public GraphMatching(Map<String, GraphAttribute> restrictionList, double similarityThreshold) {
-        vertexList = new ArrayList<Object>();
-        edgeList = new ArrayList<Edge>();
+        vertexList = new HashMap<String, Vertex>();
+        edgeList = new HashMap<String, Edge>();
         attributeList = restrictionList;
         threshold = similarityThreshold;
         threshold = Utils.clamp(0.0, 1.0, similarityThreshold);
         combinedVertexList = new HashMap<String, Vertex>();
     }
-    
+
     /**
      * Constructor without a list of attributes with their error margins
-     * @param similarityThreshold is the percentage used to define when two vertices are considered similar. Varies from 0 to 1.0
+     *
+     * @param similarityThreshold is the percentage used to define when two
+     * vertices are considered similar. Varies from 0 to 1.0
      */
     public GraphMatching(double similarityThreshold) {
-        vertexList = new ArrayList<Object>();
-        edgeList = new ArrayList<Edge>();
+        vertexList = new HashMap<String, Vertex>();
+        edgeList = new HashMap<String, Edge>();
         attributeList = new HashMap<String, GraphAttribute>();
         threshold = similarityThreshold;
         threshold = Utils.clamp(0.0, 1.0, similarityThreshold);
@@ -64,8 +68,8 @@ public class GraphMatching {
      *
      * @return
      */
-    public Collection<Object> getVertexList() {
-        return vertexList;
+    public Collection<Vertex> getVertexList() {
+        return vertexList.values();
     }
 
     /**
@@ -74,7 +78,7 @@ public class GraphMatching {
      * @return
      */
     public Collection<Edge> getEdgeList() {
-        return edgeList;
+        return edgeList.values();
     }
 
     /**
@@ -96,17 +100,17 @@ public class GraphMatching {
         }
         
         Map<String, GraphAttribute> attributes = new HashMap<String, GraphAttribute>();
-        
+
         // Check all v1 attributes
         for (GraphAttribute attribute : v1.getAttributes()) {
             similarity = compareAttributes(attributes, attribute, v2, similarity);
         }
-        
+
         // Now check all v2 attributes
         for (GraphAttribute attribute : v2.getAttributes()) {
             // Do not check the same attributes already verified when checking v1
-            if(!attributes.containsKey(attribute.getName())) {
-                similarity = compareAttributes(attributes, attribute,v1, similarity);
+            if (!attributes.containsKey(attribute.getName())) {
+                similarity = compareAttributes(attributes, attribute, v1, similarity);
             }
         }
         System.out.println("Similarity " + similarity);
@@ -117,35 +121,37 @@ public class GraphMatching {
         if (similarity >= threshold) {
             isSimilar = true;
         }
-
+        
         return isSimilar;
     }
 
     /**
      * Function to compare all attributes from 2 verties
+     *
      * @param attributes is the list of processed attributes
      * @param attribute is the current attribute from v1
      * @param v2 is the second vertex
-     * @param similarity is the similarity variable used to discern if vertices are similar
-     * @return 
+     * @param similarity is the similarity variable used to discern if vertices
+     * are similar
+     * @return
      */
     public double compareAttributes(Map<String, GraphAttribute> attributes, GraphAttribute attribute, Vertex v2, double similarity) {
         attributes.put(attribute.getName(), attribute);
-        if(v2.getAttribute(attribute.getName()) != null)
-        {
+        if (v2.getAttribute(attribute.getName()) != null) {
             String av1 = attribute.getValue();
             String av2 = v2.getAttribute(attribute.getName()).getValue();
             String errorMargin = "0";
-            if(attributeList.get(attribute.getName()) != null)
+            if (attributeList.get(attribute.getName()) != null) {
                 errorMargin = attributeList.get(attribute.getName()).getValue();
-
+            }
+            
             if (Utils.tryParseFloat(av1) && Utils.tryParseFloat(av2) && Utils.tryParseFloat(errorMargin)) {
                 if (Utils.FloatEqualTo(Utils.convertFloat(av1), Utils.convertFloat(av2), Utils.convertFloat(errorMargin))) {
-                    similarity ++;
+                    similarity++;
                 }
             } // Dealing with string values: Only accepting complete string match
             else if (av1.equalsIgnoreCase(av2)) {
-                similarity ++;
+                similarity++;
             }
 
             // TODO: Deal with time/date
@@ -154,6 +160,7 @@ public class GraphMatching {
         
         return similarity;
     }
+
     /**
      * Function to combine two vertices
      *
@@ -164,19 +171,17 @@ public class GraphMatching {
     public Vertex combineVertices(Vertex v1, Vertex v2) {
         Vertex combinedVertex = null;
         
-        if(v1 instanceof ActivityVertex)
+        if (v1 instanceof ActivityVertex) {
             combinedVertex = new ActivityVertex(v1.getID(), v1.getLabel(), v1.getTimeString());
-        else if (v1 instanceof EntityVertex)
+        } else if (v1 instanceof EntityVertex) {
             combinedVertex = new EntityVertex(v1.getID(), v1.getLabel(), v1.getTimeString());
-        else
+        } else {
             combinedVertex = new AgentVertex(v1.getID(), v1.getLabel(), v1.getTimeString());
-        
-        combinedVertexList.put(v1.getID(), v1);
-        combinedVertexList.put(v2.getID(), v2);
-        
+        }
+
         // Add all attributes from v1
         combinedVertex.addAllAttributes(v1.attributes);
-        
+
         // Now add/update all attributes from v1 to combinedVertex
         for (GraphAttribute att : v2.getAttributes()) {
             if (combinedVertex.attributes.containsKey(att.getName())) {
@@ -187,13 +192,16 @@ public class GraphMatching {
                 combinedVertex.attributes.put(att.getName(), new GraphAttribute(att.getName(), att.getValue()));
             }
         }
-        
+
         // Update ID and Label
         combinedVertex.setID(combinedVertex.getID() + "," + v2.getID());
         combinedVertex.setLabel(combinedVertex.getLabel() + "," + v2.getLabel());
-        
-        // TODO: Update time
 
+        // TODO: Update time
+//        combinedVertex.setTime(null);
+        combinedVertexList.put(v1.getID(), combinedVertex);
+        combinedVertexList.put(v2.getID(), combinedVertex);
+        
         return combinedVertex;
     }
 
@@ -203,7 +211,12 @@ public class GraphMatching {
      * @param vertex is the vertex to be added
      */
     public void addVertex(Vertex vertex) {
-        vertexList.add(vertex);
+        if (!vertexList.containsKey(vertex.getID())) {
+            vertexList.put(vertex.getID(), vertex);
+        } else {
+            vertex.setID(vertex.getID() + "_" + vertexID++);
+            vertexList.put(vertex.getID(), vertex);
+        }
     }
 
     /**
@@ -212,10 +225,10 @@ public class GraphMatching {
      * @param vertices is the graph that contains the vertices to be added
      */
     public void addVertices(Collection<Object> vertices) {
-        for(Object vertex : vertices) {
+        for (Object vertex : vertices) {
             // Add only the vertices that were not used to generate a combined vertex
-            if(combinedVertexList.get(((Vertex)vertex).getID()) == null) {
-                addVertex((Vertex)vertex);
+            if (!combinedVertexList.containsKey(((Vertex) vertex).getID())) {
+                addVertex((Vertex) vertex);
             }
         }
     }
@@ -228,12 +241,35 @@ public class GraphMatching {
      * @return a new list of updated edges
      */
     public Collection<Edge> updateEdges(Collection<Edge> edges) {
-        Collection<Edge> updatedEdges = new ArrayList<Edge>();
+        Map<String, Edge> newEdges = new HashMap<String, Edge>();
+        
+        for (Edge edge : edges) {
+            Edge updatedEdge = edge;
+            if (combinedVertexList.containsKey(edge.getSource().getID())) {
+                updatedEdge.setSource(combinedVertexList.get(edge.getSource().getID()));
+            }
+            if (combinedVertexList.containsKey(edge.getTarget().getID())) {
+                updatedEdge.setSource(combinedVertexList.get(edge.getTarget().getID()));
+            }
+            // Add the edge
+            newEdges.put(updatedEdge.getID(), updatedEdge);
+        }
+        
+        return newEdges.values();
+    }
 
-        // Code to insert edges in updatedEdges and update those that has a combined vertex as source or target 
-        throw new UnsupportedOperationException("Not supported yet.");
-
-//        return updatedEdges;
+    /**
+     * Method to add an edge in the combined graph
+     *
+     * @param edge is the edge to be added
+     */
+    public void addEdge(Edge edge) {
+        if (!edgeList.containsKey(edge.getID())) {
+            edgeList.put(edge.getID(), edge);
+        } else { // Conflict ID, need to change the edge ID
+            edge.setID(edge.getID() + "_" + edgeID++);
+            edgeList.put(edge.getID(), edge);
+        }
     }
 
     /**
@@ -242,7 +278,9 @@ public class GraphMatching {
      * @param edges
      */
     public void addEdges(Collection<Edge> edges) {
-        edgeList.addAll(edges);
+        for (Edge edge : edges) {
+            addEdge(edge);
+        }
     }
 
     /**
@@ -251,6 +289,6 @@ public class GraphMatching {
     public void combineEdges() {
         // Code to combine similar edges from edgeList
         throw new UnsupportedOperationException("Not supported yet.");
-
+        
     }
 }
