@@ -5,8 +5,6 @@
  */
 package br.uff.ic.utility;
 
-import br.uff.ic.utility.Utils;
-
 /**
  * Class to define a vertex-graph attribute (collapsed vertices)
  * @author Kohwalter
@@ -49,16 +47,16 @@ public class GraphAttribute {
             this.minValue = Math.min(this.minValue, Float.parseFloat(value));
             this.maxValue = Math.max(this.maxValue, Float.parseFloat(value));
         } else {
-            this.value += " " + value;
+            this.value += ", " + value;
         }
     }
-
+    
     /**
      * Method to return the attribute name
      * @return name
      */
     public String getName() {
-        return name;
+        return this.name;
     }
 
     /**
@@ -66,11 +64,15 @@ public class GraphAttribute {
      * @return value
      */
     public String getValue() {
-        return value;
+        // Return the average number
+        if ((this.quantity > 1) && Utils.tryParseFloat(this.value))
+            return Float.toString((Float.parseFloat(this.value) / this.quantity)); 
+        else
+            return this.value;
     }
 
     public String getMin() {
-        return Float.toString(minValue);
+        return Float.toString(this.minValue);
     }
 
     /**
@@ -78,7 +80,7 @@ public class GraphAttribute {
      * @return max value
      */
     public String getMax() {
-        return Float.toString(maxValue);
+        return Float.toString(this.maxValue);
     }
 
     /**
@@ -102,7 +104,7 @@ public class GraphAttribute {
      * @return string with the attribute
      */
     public String printAttribute() {
-        if(quantity == 1)
+        if(this.quantity == 1)
             return this.getName() + ": " + this.getValue() + " <br>";
         else
             return this.getName() + ": " + printValue();
@@ -124,5 +126,18 @@ public class GraphAttribute {
     
     public String toNotationString() {
         return this.getName() + "=" + this.getValue();
+    }
+    
+     // These method are only used for tests cases
+    public void incrementQuantity() {
+        quantity++;
+    }
+    
+    public void setMax(float t) {
+        this.maxValue = t;
+    }
+    
+    public void setMin(float t) {
+        this.minValue = t;
     }
 }

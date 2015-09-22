@@ -166,21 +166,81 @@ public class GraphMatchingTest {
         assertEquals(expResult, result);
     }
 
-//    /**
-//     * Test of combineVertices method, of class GraphMatching.
-//     */
-//    @Test
-//    public void testCombineVertices() {
-//        System.out.println("combineVertices");
-//        Vertex v1 = null;
-//        Vertex v2 = null;
-//        GraphMatching instance = new GraphMatching();
-//        Vertex expResult = null;
-//        Vertex result = instance.combineVertices(v1, v2);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    /**
+     * Test of combineVertices method, of class GraphMatching.
+     */
+    @Test
+    public void testCombineVertices() {
+        System.out.println("combineVertices");
+        
+        Vertex v1 = new ActivityVertex("v1", "test01", "0");
+        Vertex v2 = new ActivityVertex("v2", "test02", "0");
+        
+        GraphAttribute av1;
+        GraphAttribute av2;
+        
+        av1 = new GraphAttribute("a1", "Asd");
+        av2 = new GraphAttribute("a1", "edf");
+        v1.addAttribute(av1);
+        v2.addAttribute(av2);
+        
+        av1 = new GraphAttribute("a2", "4");
+        av2 = new GraphAttribute("a2", "2");
+        v1.addAttribute(av1);
+        v2.addAttribute(av2);
+        
+        av1 = new GraphAttribute("a3", "3");
+        av2 = new GraphAttribute("a3", "1");
+        v1.addAttribute(av1);
+        v2.addAttribute(av2);
+        
+        av1 = new GraphAttribute("a4", "2");
+        av2 = new GraphAttribute("a4", "-2");
+        v1.addAttribute(av1);
+        v2.addAttribute(av2);
+        
+        av1 = new GraphAttribute("a5", "5");
+        v1.addAttribute(av1);
+        
+        av2 = new GraphAttribute("a6", "6");
+        v2.addAttribute(av2);
+        
+        GraphMatching instance = new GraphMatching(null, 0.0);
+        
+        Vertex expResult = new ActivityVertex(v1.getID() + ", " + v2.getID(), v1.getLabel() + ", " + v2.getLabel(), v1.getTimeString());
+        GraphAttribute aResult;
+        
+        aResult = new GraphAttribute("a1", "Asd, edf");
+        aResult.incrementQuantity();
+        expResult.addAttribute(aResult);
+        
+        aResult = new GraphAttribute("a2", "6");
+        aResult.incrementQuantity();
+        aResult.setMin(2);
+        aResult.setMax(4);
+        expResult.addAttribute(aResult);
+        
+        aResult = new GraphAttribute("a3", "4");
+        aResult.incrementQuantity();
+        aResult.setMin(1);
+        aResult.setMax(3);
+        expResult.addAttribute(aResult);
+        
+        aResult = new GraphAttribute("a4", "0");
+        aResult.incrementQuantity();
+        aResult.setMin(-2);
+        aResult.setMax(2);
+        expResult.addAttribute(aResult);
+        
+        aResult = new GraphAttribute("a5", "5");
+        expResult.addAttribute(aResult);
+        
+        aResult = new GraphAttribute("a6", "6");
+        expResult.addAttribute(aResult);
+        
+        Vertex result = instance.combineVertices(v1, v2);
+        assertEquals(expResult.toString(), result.toString());
+    }
 //
 //    /**
 //     * Test of addVertex method, of class GraphMatching.

@@ -61,6 +61,14 @@ public abstract class Vertex extends GraphObject {
     }
     
     /**
+     * Set vertex ID
+     * @param t is the new ID
+     */
+    public void setID(String t) {
+        id = t;
+    }
+    
+    /**
      * Method for returning the vertex name (not type) from the sub-classes.
      * i.e. Agent Vertex name = Kohwalter
      *

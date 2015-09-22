@@ -7,7 +7,10 @@ package br.uff.ic.graphmatching;
 
 import br.uff.ic.utility.GraphAttribute;
 import br.uff.ic.utility.Utils;
+import br.uff.ic.utility.graph.ActivityVertex;
+import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.graph.Edge;
+import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -160,9 +163,21 @@ public class GraphMatching {
      */
     public Vertex combineVertices(Vertex v1, Vertex v2) {
         Vertex combinedVertex = null;
+        
+        if(v1 instanceof ActivityVertex)
+            combinedVertex = new ActivityVertex(v1.getID(), v1.getLabel(), v1.getTimeString());
+        else if (v1 instanceof EntityVertex)
+            combinedVertex = new EntityVertex(v1.getID(), v1.getLabel(), v1.getTimeString());
+        else
+            combinedVertex = new AgentVertex(v1.getID(), v1.getLabel(), v1.getTimeString());
+        
         combinedVertexList.put(v1.getID(), v1);
         combinedVertexList.put(v2.getID(), v2);
+        
+        // Add all attributes from v1
         combinedVertex.addAllAttributes(v1.attributes);
+        
+        // Now add/update all attributes from v1 to combinedVertex
         for (GraphAttribute att : v2.getAttributes()) {
             if (combinedVertex.attributes.containsKey(att.getName())) {
                 GraphAttribute temporary = combinedVertex.attributes.get(att.getName());
@@ -173,19 +188,13 @@ public class GraphMatching {
             }
         }
         
-        // Code here
+        // Update ID and Label
+        combinedVertex.setID(combinedVertex.getID() + "," + v2.getID());
+        combinedVertex.setLabel(combinedVertex.getLabel() + "," + v2.getLabel());
         
-        // Create new ID
-        
-        // Create Label
-        
-        // Set Vertex Time
-        
-        // Generate the attributes for the combined vertex from both vertices
-        
-        throw new UnsupportedOperationException("Not supported yet.");
+        // TODO: Update time
 
-//        return combinedVertex;
+        return combinedVertex;
     }
 
     /**
