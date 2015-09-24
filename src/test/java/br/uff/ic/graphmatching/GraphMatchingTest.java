@@ -207,7 +207,7 @@ public class GraphMatchingTest {
         
         GraphMatching instance = new GraphMatching(null, 0.0);
         
-        Vertex expResult = new ActivityVertex(v1.getID() + ", " + v2.getID(), v1.getLabel() + ", " + v2.getLabel(), v1.getTimeString());
+        Vertex expResult = new ActivityVertex(v1.getID() + "," + v2.getID(), v1.getLabel() + "," + v2.getLabel(), v1.getTimeString());
         GraphAttribute aResult;
         
         aResult = new GraphAttribute("a1", "Asd, edf");
@@ -268,20 +268,74 @@ public class GraphMatchingTest {
 //        fail("The test case is a prototype.");
 //    }
 //
-//    /**
-//     * Test of updateEdges method, of class GraphMatching.
-//     */
-//    @Test
-//    public void testUpdateEdges() {
-//        System.out.println("updateEdges");
-//        Collection<Edge> edges = null;
-//        GraphMatching instance = new GraphMatching();
-//        Collection<Edge> expResult = null;
-//        Collection<Edge> result = instance.updateEdges(edges);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    /**
+     * Test of updateEdges method, of class GraphMatching.
+     */
+    @Test
+    public void testUpdateEdges() {
+        System.out.println("updateEdges");
+        Collection<Edge> edges = new ArrayList<Edge>();
+        GraphMatching instance = new GraphMatching(null, 0.0);
+        
+        Vertex v1 = new ActivityVertex("v1", "test01", "0");
+        Vertex v2 = new ActivityVertex("v2", "test02", "0");
+        Vertex source = new ActivityVertex("v3", "test03", "0");
+        Vertex target = new ActivityVertex("v4", "test04", "0");
+        
+        Edge edge = new Edge("edge01", "Test", "Testing", "0", v1, source);
+        edges.add(edge);
+        edge = new Edge("edge02", "Test", "Testing", "0", target, v2);
+        edges.add(edge);
+        
+        GraphAttribute av1;
+        GraphAttribute av2;
+        
+        av1 = new GraphAttribute("a1", "0");
+        av2 = new GraphAttribute("a1", "0");
+        v1.addAttribute(av1);
+        v2.addAttribute(av2);
+        
+        Vertex updatedVertex = instance.combineVertices(v1, v2);
+        
+        Map<String, Edge> expResult = new HashMap<String, Edge>();
+        Edge updatedEdge = new Edge("edge01", "Test", "Testing", "0", updatedVertex, source);
+        expResult.put(updatedEdge.getID(), updatedEdge);
+        
+        updatedEdge = new Edge("edge02", "Test", "Testing", "0", target, updatedVertex);
+        expResult.put(updatedEdge.getID(), updatedEdge);
+        
+        Collection<Edge> result = instance.updateEdges(edges);
+        
+        Edge result01 = ((Edge) result.toArray()[0]);
+        Edge expResult01 = ((Edge) expResult.values().toArray()[0]);
+        Edge result02 = ((Edge) result.toArray()[1]);
+        Edge expResult02 = ((Edge) expResult.values().toArray()[1]);
+        
+        String result01Target = result01.getTarget().getID();
+        String expResult01Target = expResult01.getTarget().getID();
+        String result01Source = result01.getSource().getID();
+        String expResult01Source = expResult01.getSource().getID();
+        
+        String result02Target = result02.getTarget().getID();
+        String expResult02Target = expResult02.getTarget().getID();
+        String result02Source = result02.getSource().getID();
+        String expResult02Source = expResult02.getSource().getID();
+        
+//        System.out.println("Target: " + result01Target);
+//        System.out.println("Exp Target: " + expResult01Target);
+//        System.out.println("Source: " + result01Source);
+//        System.out.println("Exp Source: " + expResult01Source);
+//        System.out.println("Target: " + result02Target);
+//        System.out.println("Exp Target: " + expResult02Target);
+//        System.out.println("Source: " + result02Source);
+//        System.out.println("Exp Source: " + expResult02Source);
+        
+        
+        assertEquals(result01Target, expResult01Target);
+        assertEquals(result01Source, expResult01Source);
+        assertEquals(result02Target, expResult02Target);
+        assertEquals(result02Source, expResult02Source);
+    }
 //
 //    /**
 //     * Test of addEdges method, of class GraphMatching.

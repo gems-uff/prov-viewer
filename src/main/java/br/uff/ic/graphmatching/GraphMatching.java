@@ -249,7 +249,7 @@ public class GraphMatching {
                 updatedEdge.setSource(combinedVertexList.get(edge.getSource().getID()));
             }
             if (combinedVertexList.containsKey(edge.getTarget().getID())) {
-                updatedEdge.setSource(combinedVertexList.get(edge.getTarget().getID()));
+                updatedEdge.setTarget(combinedVertexList.get(edge.getTarget().getID()));
             }
             // Add the edge
             newEdges.put(updatedEdge.getID(), updatedEdge);
