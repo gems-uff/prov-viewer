@@ -24,10 +24,11 @@ import java.util.Map;
  * @author Kohwalter
  */
 public class GraphMatching {
-    
+
     private int edgeID = 0;
     private int vertexID = 0;
     private double threshold;
+    Map<String, Edge> duplicateEdges;
     private final Map<String, Vertex> vertexList;
     private final Map<String, Edge> edgeList;
     private final Map<String, Vertex> combinedVertexList;
@@ -49,6 +50,7 @@ public class GraphMatching {
         threshold = similarityThreshold;
         threshold = Utils.clamp(0.0, 1.0, similarityThreshold);
         combinedVertexList = new HashMap<String, Vertex>();
+        duplicateEdges = new HashMap<String, Edge>();
     }
 
     /**
@@ -64,6 +66,7 @@ public class GraphMatching {
         threshold = similarityThreshold;
         threshold = Utils.clamp(0.0, 1.0, similarityThreshold);
         combinedVertexList = new HashMap<String, Vertex>();
+        duplicateEdges = new HashMap<String, Edge>();
     }
 
     /**
@@ -101,7 +104,7 @@ public class GraphMatching {
         if (!v1.getNodeType().equalsIgnoreCase(v2.getNodeType())) {
             return false;
         }
-        
+
         Map<String, GraphAttribute> attributes = new HashMap<String, GraphAttribute>();
 
         // Check all v1 attributes
@@ -116,15 +119,15 @@ public class GraphMatching {
                 similarity = compareAttributes(attributes, attribute, v1, similarity);
             }
         }
-        System.out.println("Similarity " + similarity);
-        System.out.println("Size " + attributes.size());
+//        System.out.println("Similarity " + similarity);
+//        System.out.println("Size " + attributes.size());
         similarity = similarity / attributes.size();
-        
-        System.out.println("Match Similarity between " + v1.getID() + " and " + v2.getID() + ": " + similarity);
+
+//        System.out.println("Match Similarity between " + v1.getID() + " and " + v2.getID() + ": " + similarity);
         if (similarity >= threshold) {
             isSimilar = true;
         }
-        
+
         return isSimilar;
     }
 
@@ -147,7 +150,7 @@ public class GraphMatching {
             if (attributeList.get(attribute.getName()) != null) {
                 errorMargin = attributeList.get(attribute.getName()).getValue();
             }
-            
+
             if (Utils.tryParseFloat(av1) && Utils.tryParseFloat(av2) && Utils.tryParseFloat(errorMargin)) {
                 if (Utils.FloatEqualTo(Utils.convertFloat(av1), Utils.convertFloat(av2), Utils.convertFloat(errorMargin))) {
                     similarity++;
@@ -160,7 +163,7 @@ public class GraphMatching {
             // TODO: Deal with time/date
             // Need to read from vertex.getTimeString()
         }
-        
+
         return similarity;
     }
 
@@ -173,7 +176,7 @@ public class GraphMatching {
      */
     public Vertex combineVertices(Vertex v1, Vertex v2) {
         Vertex combinedVertex = null;
-        
+
         if (v1 instanceof ActivityVertex) {
             combinedVertex = new ActivityVertex(v1.getID(), v1.getLabel(), v1.getTimeString());
         } else if (v1 instanceof EntityVertex) {
@@ -204,7 +207,7 @@ public class GraphMatching {
 //        combinedVertex.setTime(null);
         combinedVertexList.put(v1.getID(), combinedVertex);
         combinedVertexList.put(v2.getID(), combinedVertex);
-        
+
         return combinedVertex;
     }
 
@@ -245,19 +248,29 @@ public class GraphMatching {
      */
     public Collection<Edge> updateEdges(Collection<Edge> edges) {
         Collection<Edge> newEdges = new ArrayList<Edge>();
-        
+
         for (Edge edge : edges) {
             Edge updatedEdge = edge;
+            boolean source = false;
+            boolean target = false;
             if (combinedVertexList.containsKey(edge.getSource().getID())) {
                 updatedEdge.setSource(combinedVertexList.get(edge.getSource().getID()));
+                source = true;
             }
             if (combinedVertexList.containsKey(edge.getTarget().getID())) {
                 updatedEdge.setTarget(combinedVertexList.get(edge.getTarget().getID()));
+                target = true;
             }
             // Add the edge
             newEdges.add(updatedEdge);
+
+            // If both the source and target of an edge were modified, than it will generate duplicates when updating both graphs
+            // because both extremes were updated
+            if (source && target) {
+                duplicateEdges.put(updatedEdge.getType() + updatedEdge.getSource().getID() + updatedEdge.getTarget().getID(), updatedEdge);
+            }
         }
-        
+
         return newEdges;
     }
 
@@ -287,33 +300,41 @@ public class GraphMatching {
     }
 
     /**
-     * Method to combine duplicate or similar edges from the combined graph
+     * Method to remove duplicate or similar edges from the combined graph
      */
-    public void combineEdges() {
+    public void removeDuplicateEdges() {
         // Code to combine similar edges from edgeList
-        throw new UnsupportedOperationException("Not supported yet.");
-        
+        for (Edge e : duplicateEdges.values()) {
+            if (edgeList.containsKey(e.getID())) {
+                edgeList.remove(e.getID());
+            }
+        }
     }
-    
+
     /**
      * Method to return the combined graph's edge collection
+     *
      * @return edges from the combined graph
      */
     public Collection<Edge> getEdges() {
+        removeDuplicateEdges();
         return edgeList.values();
-    } 
-    
+    }
+
     /**
      * Method to return the combined graph
+     *
      * @return the combined graph
      */
     public DirectedGraph<Vertex, Edge> getCombinedGraph() {
         DirectedGraph<Vertex, Edge> combinedGraph = new DirectedSparseMultigraph<Vertex, Edge>();
-        
+
+        removeDuplicateEdges();
+
         for (Edge edge : this.getEdges()) {
             combinedGraph.addEdge(edge, edge.getSource(), edge.getTarget());
-        } 
-        
+        }
+
         return combinedGraph;
-    } 
+    }
 }
