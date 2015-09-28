@@ -14,6 +14,7 @@ import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,9 +28,9 @@ public class GraphMatching {
     private int edgeID = 0;
     private int vertexID = 0;
     private double threshold;
-    private Map<String, Vertex> vertexList;
-    private Map<String, Edge> edgeList;
-    private Map<String, Vertex> combinedVertexList;
+    private final Map<String, Vertex> vertexList;
+    private final Map<String, Edge> edgeList;
+    private final Map<String, Vertex> combinedVertexList;
     private final Map<String, GraphAttribute> attributeList;    // GraphAttribute.name = the atribute 
     // GraphAttribute.value = error margin
 
@@ -243,7 +244,7 @@ public class GraphMatching {
      * @return a new list of updated edges
      */
     public Collection<Edge> updateEdges(Collection<Edge> edges) {
-        Map<String, Edge> newEdges = new HashMap<String, Edge>();
+        Collection<Edge> newEdges = new ArrayList<Edge>();
         
         for (Edge edge : edges) {
             Edge updatedEdge = edge;
@@ -254,10 +255,10 @@ public class GraphMatching {
                 updatedEdge.setTarget(combinedVertexList.get(edge.getTarget().getID()));
             }
             // Add the edge
-            newEdges.put(updatedEdge.getID(), updatedEdge);
+            newEdges.add(updatedEdge);
         }
         
-        return newEdges.values();
+        return newEdges;
     }
 
     /**
