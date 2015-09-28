@@ -12,6 +12,8 @@ import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
+import edu.uci.ics.jung.graph.DirectedGraph;
+import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -224,8 +226,8 @@ public class GraphMatching {
      *
      * @param vertices is the graph that contains the vertices to be added
      */
-    public void addVertices(Collection<Object> vertices) {
-        for (Object vertex : vertices) {
+    public void addVertices(Collection<Vertex> vertices) {
+        for (Vertex vertex : vertices) {
             // Add only the vertices that were not used to generate a combined vertex
             if (!combinedVertexList.containsKey(((Vertex) vertex).getID())) {
                 addVertex((Vertex) vertex);
@@ -291,4 +293,26 @@ public class GraphMatching {
         throw new UnsupportedOperationException("Not supported yet.");
         
     }
+    
+    /**
+     * Method to return the combined graph's edge collection
+     * @return edges from the combined graph
+     */
+    public Collection<Edge> getEdges() {
+        return edgeList.values();
+    } 
+    
+    /**
+     * Method to return the combined graph
+     * @return the combined graph
+     */
+    public DirectedGraph<Vertex, Edge> getCombinedGraph() {
+        DirectedGraph<Vertex, Edge> combinedGraph = new DirectedSparseMultigraph<Vertex, Edge>();
+        
+        for (Edge edge : this.getEdges()) {
+            combinedGraph.addEdge(edge, edge.getSource(), edge.getTarget());
+        } 
+        
+        return combinedGraph;
+    } 
 }
