@@ -145,7 +145,7 @@ public class GuiFunctions {
     public static void SetView(final Variables variables, JComboBox Layouts, JFrame graphFrame) {
         // Choosing layout
         if (variables.initLayout) {
-            variables.config.Initialize();
+            variables.config.Initialize(variables);
             variables.layout = new Temporal_Layout<Object, Edge>(variables.graph, variables);
             variables.view = new VisualizationViewer<Object, Edge>(variables.layout);
             Layouts.setSelectedItem("SpatialLayout");

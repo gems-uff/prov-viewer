@@ -8,6 +8,7 @@ package br.uff.ic.utility.IO;
 import br.uff.ic.provviewer.GUI.GuiRun;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.graph.Edge;
+import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import java.io.File;
@@ -43,7 +44,7 @@ public class XMLWriterTest {
         File f = new File(BasePath.getBasePathForClass(GuiRun.class) + Variables.demo);
         UnityReader file = new UnityReader(f);
         file.readFile();
-        DirectedGraph<Object, Edge> g = new DirectedSparseMultigraph<Object, Edge>();
+        DirectedGraph<Vertex, Edge> g = new DirectedSparseMultigraph<Vertex, Edge>();
         
         for (Edge edge : file.getEdges()) {
                 g.addEdge(edge, edge.getSource(), edge.getTarget());

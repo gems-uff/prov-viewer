@@ -307,9 +307,9 @@ public class GraphMatchingTest {
         Collection<Edge> result = instance.updateEdges(edges);
         
         Edge result01 = ((Edge) result.toArray()[0]);
-        Edge expResult01 = ((Edge) expResult.values().toArray()[0]);
+        Edge expResult01 = ((Edge) expResult.values().toArray()[1]);
         Edge result02 = ((Edge) result.toArray()[1]);
-        Edge expResult02 = ((Edge) expResult.values().toArray()[1]);
+        Edge expResult02 = ((Edge) expResult.values().toArray()[0]);
         
         String result01Target = result01.getTarget().getID();
         String expResult01Target = expResult01.getTarget().getID();

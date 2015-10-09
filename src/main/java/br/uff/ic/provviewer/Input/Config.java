@@ -7,6 +7,7 @@ package br.uff.ic.provviewer.Input;
 import br.uff.ic.utility.IO.BasePath;
 import br.uff.ic.provviewer.EdgeType;
 import br.uff.ic.provviewer.GraphFrame;
+import br.uff.ic.provviewer.Variables;
 import br.uff.ic.provviewer.Vertex.ColorScheme.ColorScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.DefaultScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.ProvScheme;
@@ -32,12 +33,6 @@ import org.w3c.dom.NodeList;
  */
 public class Config {
 
-    public String demoPath = File.separator + "Config" + File.separator + "Car_Tutorial_config.xml";
-//    public String demoPath = File.separator + "Config" + File.separator + "Angry_Robots_config.xml";
-//    public String demoPath = File.separator + "Config" + File.separator + "2D_Provenance_config.xml";
-//    public String demoPath = File.separator + "Config" + File.separator + "config.xml";
-//    public String demoPath = File.separator + "Config" + File.separator + "map_config.xml";
-//    public String demoPath = File.separator + "Config" + File.separator + "bus_config.xml";
 
     //Filter List
     public List<EdgeType> edgetype = new ArrayList<EdgeType>();
@@ -78,9 +73,9 @@ public class Config {
     /**
      * Method to configure the tool for the first time using the default graph and configuration
      */
-    public void Initialize() {
-        System.out.println("Config: " + BasePath.getBasePathForClass(Config.class) + demoPath);
-        File fXmlFile = new File(BasePath.getBasePathForClass(Config.class) + demoPath);
+    public void Initialize(Variables variables) {
+        System.out.println("Config: " + BasePath.getBasePathForClass(Config.class) + variables.configDemo);
+        File fXmlFile = new File(BasePath.getBasePathForClass(Config.class) + variables.configDemo);
         Initialize(fXmlFile);
 
     }

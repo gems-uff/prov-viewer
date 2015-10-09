@@ -5,12 +5,22 @@
  */
 package br.uff.ic.graphmatching;
 
+import br.uff.ic.provviewer.GUI.GuiRun;
+import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.GraphAttribute;
+import br.uff.ic.utility.IO.BasePath;
+import br.uff.ic.utility.IO.UnityReader;
+import br.uff.ic.utility.IO.XMLWriter;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
+import static cern.clhep.Units.g;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -39,16 +49,17 @@ public class MatcherTest {
 
     /**
      * Test of Matching method, of class Matcher.
+     * @throws java.io.FileNotFoundException
      */
     @Test
-    public void testMatching() {
+    public void testMatching() throws FileNotFoundException, URISyntaxException, IOException {
         System.out.println("Matching");
-        DirectedGraph<Vertex, Edge> graph_01 = graph01();
-        DirectedGraph<Vertex, Edge> graph_02 = graph02();
+        DirectedGraph<Vertex, Edge> graph_01 = graphFile("Angry_Robots_Merge_01.xml");
+        DirectedGraph<Vertex, Edge> graph_02 = graphFile("Angry_Robots_Merge_01.xml");
         Map<String, GraphAttribute> restrictionList = restriction();
-        double similarityThreshold = 0.5;
+        double similarityThreshold = 0.9;
         Matcher instance = new Matcher();
-        DirectedGraph<Vertex, Edge> expResult = null;
+//        DirectedGraph<Vertex, Edge> expResult = null;
         DirectedGraph<Vertex, Edge> result = instance.Matching(graph_01, graph_02, restrictionList, similarityThreshold);
         
         String resultEdges = "";
@@ -66,6 +77,21 @@ public class MatcherTest {
 //        assertEquals(expResult, result);
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
+        
+        XMLWriter xmlWriter = new XMLWriter(result.getVertices(), result.getEdges());
+        xmlWriter.saveToXML("XML_Writer_Test");
+    }
+    
+    private DirectedGraph<Vertex, Edge> graphFile(String path) throws URISyntaxException, IOException {
+        File f = new File(BasePath.getBasePathForClass(GuiRun.class) + File.separator + "Graph" + File.separator + path);
+        UnityReader file = new UnityReader(f);
+        file.readFile();
+        DirectedGraph<Vertex, Edge> g = new DirectedSparseMultigraph<Vertex, Edge>();
+        
+        for (Edge edge : file.getEdges()) {
+                g.addEdge(edge, edge.getSource(), edge.getTarget());
+            }
+        return g;
     }
     
     private DirectedGraph<Vertex, Edge> graph01() {

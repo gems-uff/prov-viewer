@@ -45,7 +45,7 @@ public class ConfigTest {
     public void testInitialize_0args() {
         System.out.println("Initialize");
         Config instance = new Config();
-        instance.Initialize();
+        instance.Initialize(new Variables());
     }
 
     /**
