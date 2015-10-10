@@ -86,6 +86,20 @@ and open the template in the editor.
         <goodvalue></goodvalue>
         <badvalue></badvalue>
     </colorscheme>
+	<colorscheme>
+        <attribute>Graph_01</attribute>
+        <class>GraphVisualizationScheme</class>
+        <values></values>
+        <goodvalue></goodvalue>
+        <badvalue></badvalue>
+    </colorscheme>
+	<colorscheme>
+        <attribute>Graph_02</attribute>
+        <class>GraphVisualizationScheme</class>
+        <values></values>
+        <goodvalue></goodvalue>
+        <badvalue></badvalue>
+    </colorscheme>
     <vertexstroke>
         <attribute>ObjectName</attribute>
         <values>Player</values>
