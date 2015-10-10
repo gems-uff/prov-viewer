@@ -201,7 +201,8 @@ public class GraphMatching {
 
         // Update ID and Label
         combinedVertex.setID(combinedVertex.getID() + "," + v2.getID());
-        combinedVertex.setLabel(combinedVertex.getLabel() + "," + v2.getLabel());
+        if(!combinedVertex.getLabel().equalsIgnoreCase(v2.getLabel()))
+            combinedVertex.setLabel(combinedVertex.getLabel() + "," + v2.getLabel());        
 
         // TODO: Update time
 //        combinedVertex.setTime(null);
