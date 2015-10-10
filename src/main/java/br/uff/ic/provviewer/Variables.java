@@ -26,7 +26,9 @@ import java.util.Set;
  */
 public class Variables extends Object {
 
-    public static String demo = File.separator + "Graph" + File.separator + "Merge_Test.xml";
+
+    public static String demo = File.separator + "Graph" + File.separator + "Car_Tutorial.xml";
+    //    public static String demo = File.separator + "Graph" + File.separator + "Merge_Test.xml";
 //    public static String demo = File.separator + "Graph" + File.separator + "test" + File.separator + "example-blog1.provn";
     //    public static String demo = File.separator + "Graph" + File.separator + "Car_Tutorial3.xml";
     //    public static String demo = File.separator + "Graph" + File.separator + "Angry_Robots.xml";
@@ -35,8 +37,8 @@ public class Variables extends Object {
     //    public static String demo = File.separator + "Graph" + File.separator + "bus.xml";
     //    public static String demo = File.separator + "Graph" + File.separator + "map.xml";
     
-//    public String configDemo = File.separator + "Config" + File.separator + "Car_Tutorial_config.xml";
-    public String configDemo = File.separator + "Config" + File.separator + "Angry_Robots_config.xml";
+    public String configDemo = File.separator + "Config" + File.separator + "Car_Tutorial_config.xml";
+//    public String configDemo = File.separator + "Config" + File.separator + "Angry_Robots_config.xml";
 //    public String configDemo = File.separator + "Config" + File.separator + "2D_Provenance_config.xml";
 //    public String configDemo = File.separator + "Config" + File.separator + "config.xml";
 //    public String configDemo = File.separator + "Config" + File.separator + "map_config.xml";

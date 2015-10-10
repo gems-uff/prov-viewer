@@ -266,9 +266,9 @@ public class GraphMatching {
 
             // If both the source and target of an edge were modified, than it will generate duplicates when updating both graphs
             // because both extremes were updated
-            if (source && target) {
-                duplicateEdges.put(updatedEdge.getType() + updatedEdge.getSource().getID() + updatedEdge.getTarget().getID(), updatedEdge);
-            }
+//            if (source && target) {
+//                duplicateEdges.put(updatedEdge.getType() + updatedEdge.getSource().getID() + updatedEdge.getTarget().getID(), updatedEdge);
+//            }
         }
 
         return newEdges;
@@ -304,9 +304,25 @@ public class GraphMatching {
      */
     public void removeDuplicateEdges() {
         // Code to combine similar edges from edgeList
-        for (Edge e : duplicateEdges.values()) {
-            if (edgeList.containsKey(e.getID())) {
-                edgeList.remove(e.getID());
+        Collection<Edge> values = new ArrayList<Edge>();
+        values.addAll(edgeList.values());
+        duplicateEdges = new HashMap<String, Edge>();
+        
+        for (Edge e1 : values) {
+            for (Edge e2 : values) {
+                if (!(duplicateEdges.containsKey(e1.getID()) && duplicateEdges.containsKey(e2.getID()))) {
+                    if(!e1.getID().equalsIgnoreCase(e2.getID())) {
+                        if(e1.getType().equalsIgnoreCase(e2.getType())) {
+                            if(e1.getSource().getID().equalsIgnoreCase(e2.getSource().getID())) {
+                                if(e1.getTarget().getID().equalsIgnoreCase(e2.getTarget().getID())) {
+                                    edgeList.remove(e2.getID());
+                                    duplicateEdges.put(e1.getID(), e1);
+                                    duplicateEdges.put(e2.getID(), e2);
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -317,7 +333,6 @@ public class GraphMatching {
      * @return edges from the combined graph
      */
     public Collection<Edge> getEdges() {
-        removeDuplicateEdges();
         return edgeList.values();
     }
 

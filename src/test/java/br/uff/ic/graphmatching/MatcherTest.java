@@ -54,8 +54,8 @@ public class MatcherTest {
     @Test
     public void testMatching() throws FileNotFoundException, URISyntaxException, IOException {
         System.out.println("Matching");
-        DirectedGraph<Vertex, Edge> graph_01 = graphFile("Angry_Robots_Merge_01.xml");
-        DirectedGraph<Vertex, Edge> graph_02 = graphFile("Angry_Robots_Merge_01.xml");
+        DirectedGraph<Vertex, Edge> graph_01 = graphFile("Graph_to_Merge_01.xml");
+        DirectedGraph<Vertex, Edge> graph_02 = graphFile("Graph_to_Merge_02.xml");
         Map<String, GraphAttribute> restrictionList = restriction();
         double similarityThreshold = 0.9;
         Matcher instance = new Matcher();
@@ -79,7 +79,7 @@ public class MatcherTest {
 //        fail("The test case is a prototype.");
         
         XMLWriter xmlWriter = new XMLWriter(result.getVertices(), result.getEdges());
-        xmlWriter.saveToXML("XML_Writer_Test");
+        xmlWriter.saveToXML("Merge_Test");
     }
     
     private DirectedGraph<Vertex, Edge> graphFile(String path) throws URISyntaxException, IOException {
@@ -183,6 +183,15 @@ public class MatcherTest {
         Map<String, GraphAttribute> restrictionList = new HashMap<String, GraphAttribute>();
         GraphAttribute epsilon = new GraphAttribute("a1", "0");
         restrictionList.put("a1", epsilon);
+        
+        epsilon = new GraphAttribute("ObjectPosition_X", "4");
+        restrictionList.put("ObjectPosition_X", epsilon);
+        
+        epsilon = new GraphAttribute("ObjectPosition_Y", "1");
+        restrictionList.put("ObjectPosition_Y", epsilon);
+        
+        epsilon = new GraphAttribute("ObjectPosition_Z", "4");
+        restrictionList.put("ObjectPosition_Z", epsilon);
         return restrictionList;
     }
 }

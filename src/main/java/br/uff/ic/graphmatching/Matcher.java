@@ -26,7 +26,13 @@ public class Matcher {
             double similarityThreshold) {
         
         GraphMatching combiner = new GraphMatching(restrictionList, similarityThreshold);
-
+        
+        // Correct IDs
+        updateVertexIDs(graph_01, "Graph_01");
+        updateVertexIDs(graph_02, "Graph_02");
+        updateEdgeIDs(graph_01, "Graph_01");
+        updateEdgeIDs(graph_02, "Graph_02");
+        
         // Matching Heuristic
         MatchingHeuristic heuristic = new SimpleHeuristic();
         heuristic.MatchGraphs(graph_01, graph_02, combiner);
@@ -40,5 +46,17 @@ public class Matcher {
         combiner.addEdges(updatedG2edges);
         
         return combiner.getCombinedGraph();
+    }
+    
+    public void updateVertexIDs(DirectedGraph<Vertex, Edge> graph, String ID) {
+        for (Vertex v : graph.getVertices()) {
+            v.setID(ID + "_" + v.getID());
+        }
+    }
+    
+    public void updateEdgeIDs(DirectedGraph<Vertex, Edge> graph, String ID) {
+        for (Edge e : graph.getEdges()) {
+            e.setID(ID + "_" + e.getID());
+        }
     }
 }
