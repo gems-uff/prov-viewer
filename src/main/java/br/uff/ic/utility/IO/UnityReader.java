@@ -68,8 +68,16 @@ public class UnityReader extends XMLReader{
                 
                 NodeList aList = eElement.getElementsByTagName("attribute");
                 for(int i = 0; i < aList.getLength(); i++){
-                    GraphAttribute att = new GraphAttribute(eElement.getElementsByTagName("name").item(i).getTextContent(),
-                    eElement.getElementsByTagName("value").item(i).getTextContent());
+                    GraphAttribute att;
+                    if(eElement.getElementsByTagName("min").item(i) != null && eElement.getElementsByTagName("max").item(i) != null && eElement.getElementsByTagName("quantity").item(i) != null)
+                        att = new GraphAttribute(eElement.getElementsByTagName("name").item(i).getTextContent(),
+                        eElement.getElementsByTagName("value").item(i).getTextContent(),
+                        eElement.getElementsByTagName("min").item(i).getTextContent(),
+                        eElement.getElementsByTagName("max").item(i).getTextContent(),
+                        eElement.getElementsByTagName("quantity").item(i).getTextContent());
+                    else
+                        att = new GraphAttribute(eElement.getElementsByTagName("name").item(i).getTextContent(),
+                        eElement.getElementsByTagName("value").item(i).getTextContent());
                     node.addAttribute(att);
                 }
                 

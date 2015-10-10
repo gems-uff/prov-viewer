@@ -124,10 +124,10 @@ public class GuiTooltip {
                 for (GraphAttribute att : ((Vertex) vertex).getAttributes()) {
                     if (attributes.containsKey(att.getName())) {
                         GraphAttribute temporary = attributes.get(att.getName());
-                        temporary.updateAttribute(att.getValue());
+                        temporary.updateAttribute(att.getAverageValue());
                         attributes.put(att.getName(), temporary);
                     } else {
-                        attributes.put(att.getName(), new GraphAttribute(att.getName(), att.getValue()));
+                        attributes.put(att.getName(), new GraphAttribute(att.getName(), att.getAverageValue()));
                     }
                 }
             }

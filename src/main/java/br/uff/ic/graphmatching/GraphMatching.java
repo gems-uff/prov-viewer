@@ -144,11 +144,11 @@ public class GraphMatching {
     public double compareAttributes(Map<String, GraphAttribute> attributes, GraphAttribute attribute, Vertex v2, double similarity) {
         attributes.put(attribute.getName(), attribute);
         if (v2.getAttribute(attribute.getName()) != null) {
-            String av1 = attribute.getValue();
-            String av2 = v2.getAttribute(attribute.getName()).getValue();
+            String av1 = attribute.getAverageValue();
+            String av2 = v2.getAttribute(attribute.getName()).getAverageValue();
             String errorMargin = "0";
             if (attributeList.get(attribute.getName()) != null) {
-                errorMargin = attributeList.get(attribute.getName()).getValue();
+                errorMargin = attributeList.get(attribute.getName()).getAverageValue();
             }
 
             if (Utils.tryParseFloat(av1) && Utils.tryParseFloat(av2) && Utils.tryParseFloat(errorMargin)) {
@@ -192,10 +192,10 @@ public class GraphMatching {
         for (GraphAttribute att : v2.getAttributes()) {
             if (combinedVertex.attributes.containsKey(att.getName())) {
                 GraphAttribute temporary = combinedVertex.attributes.get(att.getName());
-                temporary.updateAttribute(att.getValue());
+                temporary.updateAttribute(att.getAverageValue());
                 combinedVertex.attributes.put(att.getName(), temporary);
             } else {
-                combinedVertex.attributes.put(att.getName(), new GraphAttribute(att.getName(), att.getValue()));
+                combinedVertex.attributes.put(att.getName(), new GraphAttribute(att.getName(), att.getAverageValue()));
             }
         }
 

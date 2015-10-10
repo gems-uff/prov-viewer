@@ -35,6 +35,15 @@ public class GraphAttribute {
             this.maxValue = 0;
         }
     }
+    
+    public GraphAttribute(String name, String value, String min, String max, String quantity) {
+        this.name = name;
+        this.value = value;
+        this.quantity = Integer.valueOf(quantity);
+        this.minValue = Float.parseFloat(min);
+        this.maxValue = Float.parseFloat(max);
+
+    }
 
     /**
      * Method to update the attribute when computing the collapsed set
@@ -46,8 +55,10 @@ public class GraphAttribute {
             this.value = Float.toString(Float.parseFloat(this.value) + Float.parseFloat(value));
             this.minValue = Math.min(this.minValue, Float.parseFloat(value));
             this.maxValue = Math.max(this.maxValue, Float.parseFloat(value));
+                
         } else {
-            this.value += ", " + value;
+            if(!this.value.equalsIgnoreCase(value))
+                this.value += ", " + value;
         }
     }
     
@@ -63,26 +74,42 @@ public class GraphAttribute {
      * method to return the attribute value
      * @return value
      */
-    public String getValue() {
+    public String getAverageValue() {
         // Return the average number
-        if ((this.quantity > 1) && Utils.tryParseFloat(this.value))
-            return Float.toString((Float.parseFloat(this.value) / this.quantity)); 
+        if ((this.quantity != 1) && Utils.tryParseFloat(this.value))
+            return Float.toString(Float.parseFloat(this.value) / this.quantity); 
         else
             return this.value;
     }
+    
+    public String getValue() {
+        return this.value;
+    }
 
+    /**
+     * Method to return the minimum value for this attribute in the vertex-graph
+     * @return 
+     */
     public String getMin() {
         return Float.toString(this.minValue);
     }
 
     /**
-     * Method to return the maximum value for this attribute in the verter-graph
+     * Method to return the maximum value for this attribute in the vertex-graph
      * @return max value
      */
     public String getMax() {
         return Float.toString(this.maxValue);
     }
 
+    /**
+     * Method to return the quantity of vertices that has this attribute in the vertex-graph
+     * @return 
+     */
+    public String getQuantity() {
+        return Integer.toString(this.quantity);
+    }
+    
     /**
      * Method to set the attribute name
      * @param t is the new attribute name
@@ -105,7 +132,7 @@ public class GraphAttribute {
      */
     public String printAttribute() {
         if(this.quantity == 1)
-            return this.getName() + ": " + this.getValue() + " <br>";
+            return this.getName() + ": " + this.getAverageValue() + " <br>";
         else
             return this.getName() + ": " + printValue();
     }
@@ -125,7 +152,7 @@ public class GraphAttribute {
     }
     
     public String toNotationString() {
-        return this.getName() + "=" + this.getValue();
+        return this.getName() + "=" + this.getAverageValue();
     }
     
      // These method are only used for tests cases

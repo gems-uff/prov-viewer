@@ -126,9 +126,22 @@ public final class XMLWriter {
                     Element name = doc.createElement("name");
                     name.setTextContent(((GraphAttribute) attributes[j]).getName());
                     att.appendChild(name);
+                    
                     Element value = doc.createElement("value");
                     value.setTextContent(((GraphAttribute) attributes[j]).getValue());
                     att.appendChild(value);
+                    
+                    Element min = doc.createElement("min");
+                    min.setTextContent(((GraphAttribute) attributes[j]).getMin());
+                    att.appendChild(min);
+                    
+                    Element max = doc.createElement("max");
+                    max.setTextContent(((GraphAttribute) attributes[j]).getMax());
+                    att.appendChild(max);
+                    
+                    Element quantity = doc.createElement("quantity");
+                    quantity.setTextContent(((GraphAttribute) attributes[j]).getQuantity());
+                    att.appendChild(quantity);
                 }
 
             }

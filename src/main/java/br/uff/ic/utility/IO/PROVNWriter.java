@@ -241,7 +241,7 @@ public final class PROVNWriter {
     }
 
     public String attOrMarker(GraphAttribute att) {
-        return ((att == null) ? MARKER : att.getValue());
+        return ((att == null) ? MARKER : att.getAverageValue());
     }
 
     public String keyword(String s) {
