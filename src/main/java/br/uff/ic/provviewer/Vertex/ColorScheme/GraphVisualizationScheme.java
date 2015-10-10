@@ -26,7 +26,9 @@ public class GraphVisualizationScheme extends ColorScheme {
 
     @Override
     public Paint Execute(Object v, final Variables variables) {
-        if ((v instanceof ActivityVertex) && (((Vertex)v).getID().contains(this.attribute)))
+        if ((v instanceof ActivityVertex) && (((Vertex)v).getID().contains(this.attribute))&& (((Vertex)v).getID().contains(",")))
+            return new Color(127, 0, 255);
+        else if ((v instanceof ActivityVertex) && (((Vertex)v).getID().contains(this.attribute)))
             return new Color(255, 128, 0);
         else
             return ((Vertex) v).getColor();
