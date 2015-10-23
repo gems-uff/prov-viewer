@@ -6,7 +6,7 @@
 package br.uff.ic.graphmatching;
 
 import br.uff.ic.provviewer.GUI.GuiRun;
-import br.uff.ic.provviewer.Variables;
+import br.uff.ic.utility.AttributeErrorMargin;
 import br.uff.ic.utility.GraphAttribute;
 import br.uff.ic.utility.IO.BasePath;
 import br.uff.ic.utility.IO.UnityReader;
@@ -14,7 +14,6 @@ import br.uff.ic.utility.IO.XMLWriter;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
-import static cern.clhep.Units.g;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import java.io.File;
@@ -28,7 +27,6 @@ import java.util.Map;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -56,7 +54,7 @@ public class MatcherTest {
         System.out.println("Matching");
         DirectedGraph<Vertex, Edge> graph_01 = graphFile("Graph_to_Merge_01.xml");
         DirectedGraph<Vertex, Edge> graph_02 = graphFile("Graph_to_Merge_02.xml");
-        Map<String, GraphAttribute> restrictionList = restriction();
+        Map<String, AttributeErrorMargin> restrictionList = restriction();
         double similarityThreshold = 0.9;
         Matcher instance = new Matcher();
 //        DirectedGraph<Vertex, Edge> expResult = null;
@@ -179,18 +177,18 @@ public class MatcherTest {
         return graph;
     }
     
-    private Map<String, GraphAttribute> restriction(){
-        Map<String, GraphAttribute> restrictionList = new HashMap<String, GraphAttribute>();
-        GraphAttribute epsilon = new GraphAttribute("a1", "0");
+    private Map<String, AttributeErrorMargin> restriction(){
+        Map<String, AttributeErrorMargin> restrictionList = new HashMap<String, AttributeErrorMargin>();
+        AttributeErrorMargin epsilon = new AttributeErrorMargin("a1", "0");
         restrictionList.put("a1", epsilon);
         
-        epsilon = new GraphAttribute("ObjectPosition_X", "4");
+        epsilon = new AttributeErrorMargin("ObjectPosition_X", "4");
         restrictionList.put("ObjectPosition_X", epsilon);
         
-        epsilon = new GraphAttribute("ObjectPosition_Y", "1");
+        epsilon = new AttributeErrorMargin("ObjectPosition_Y", "1");
         restrictionList.put("ObjectPosition_Y", epsilon);
         
-        epsilon = new GraphAttribute("ObjectPosition_Z", "4");
+        epsilon = new AttributeErrorMargin("ObjectPosition_Z", "4");
         restrictionList.put("ObjectPosition_Z", epsilon);
         return restrictionList;
     }

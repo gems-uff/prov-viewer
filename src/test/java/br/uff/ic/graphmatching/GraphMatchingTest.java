@@ -5,7 +5,9 @@
  */
 package br.uff.ic.graphmatching;
 
+import br.uff.ic.utility.AttributeErrorMargin;
 import br.uff.ic.utility.GraphAttribute;
+import br.uff.ic.utility.Vocabulary;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.EntityVertex;
@@ -59,76 +61,82 @@ public class GraphMatchingTest {
         differentAttributes(0.51, false);
     }
     
-    public void Comparing(double threshold, boolean expResult, String a1, String a2, String e1, String e2, String e3, String e4) {
+    public void Comparing(double threshold, boolean expResult, 
+            String a11, String a12, 
+            String a21, String a22, 
+            String e1, String e2, String e3, String e4) {
         Vertex v1 = new ActivityVertex("v1", "test", "0");
         Vertex v2 = new ActivityVertex("v2", "test", "0");
-        Map<String, GraphAttribute> restrictionList = new HashMap<String, GraphAttribute>();
-        GraphAttribute av1 = new GraphAttribute("a1", a1);
-        GraphAttribute av2 = new GraphAttribute("a1", a2);
-        GraphAttribute epsilon = new GraphAttribute("a1", e1);
+        Map<String, AttributeErrorMargin> restrictionList = new HashMap<String, AttributeErrorMargin>();
+        Vocabulary vocabulary = new Vocabulary("asd, bvF");
+        vocabulary.addVocabulary("qwe, rty, asd");
+        
+        GraphAttribute av1 = new GraphAttribute("a1", a11);
+        GraphAttribute av2 = new GraphAttribute("a1", a12);
+        AttributeErrorMargin epsilon = new AttributeErrorMargin("a1", e1);
         restrictionList.put("a1", epsilon);
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         
-        av1 = new GraphAttribute("a2", "1.5");
-        av2 = new GraphAttribute("a2", "2");
-        epsilon = new GraphAttribute("a2", e2);
+        av1 = new GraphAttribute("a2", a21);
+        av2 = new GraphAttribute("a2", a22);
+        epsilon = new AttributeErrorMargin("a2", e2);
         restrictionList.put("a2", epsilon);
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         
         av1 = new GraphAttribute("a3", "3");
         av2 = new GraphAttribute("a3", "1.5");
-        epsilon = new GraphAttribute("a3", e3);
+        epsilon = new AttributeErrorMargin("a3", e3);
         restrictionList.put("a3", epsilon);
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         
         av1 = new GraphAttribute("a4", "1");
         av2 = new GraphAttribute("a4", "-2");
-        epsilon = new GraphAttribute("a4", e4);
+        epsilon = new AttributeErrorMargin("a4", e4);
         restrictionList.put("a4", epsilon);
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         
-        GraphMatching instance = new GraphMatching(restrictionList, threshold);
+        GraphMatching instance = new GraphMatching(restrictionList, vocabulary.getVocabulary(), threshold);
         boolean result = instance.isSimilar(v1, v2);
         assertEquals(expResult, result);
     }
     
     public void equals(double threshold, boolean expResult) {
         System.out.println("Equal");
-        Comparing(threshold, expResult, "asd", "AsD", "0", "0.5", "2", "3");
+        Comparing(threshold, expResult, "asd", "bvF", "2012-05-24T10:00:02", "2012-05-24T10:00:01", "asd, bvf", "2000", "2", "3");
     }
     
     public void almostEquals(double threshold, boolean expResult) {
         System.out.println("AlmostEqual");
-        Comparing(threshold, expResult, "asd", "AsD", "0", "0.5", "2", "0");
+        Comparing(threshold, expResult, "asd", "AsD", "2012-05-24T10:00:01", "2012-05-24T10:00:02", "0", "2000", "2", "0");
     }
     
     public void halfEquals(double threshold, boolean expResult) {
         System.out.println("HalfEqual");
-        Comparing(threshold, expResult, "asd", "AsD", "0", "0.5", "0", "0");
+        Comparing(threshold, expResult, "asd", "AsD", "2012-05-24T10:00:01", "2012-05-24T10:00:02", "0", "2000", "0", "0");
     }
     
     public void quarterEquals(double threshold, boolean expResult) {
         System.out.println("notEqual");
-        Comparing(threshold, expResult, "asd", "AsD", "0", "0", "0", "0");
+        Comparing(threshold, expResult, "asd", "AsD", "2012-05-24T10:00:01", "2012-05-24T10:00:02", "0", "0", "0", "0");
     }
     
     public void notEquals(double threshold, boolean expResult) {
         System.out.println("notEqual");
-        Comparing(threshold, expResult, "asd", "AsDD", "0", "0", "0", "0");
+        Comparing(threshold, expResult, "asd", "AsDD", "2012-05-24T10:00:01", "2012-05-24T10:00:02", "0", "0", "0", "0");
     }
     
     public void differentTypes(double threshold, boolean expResult) {
         System.out.println("Different Types");
         Vertex v1 = new ActivityVertex("v1", "test", "0");
         Vertex v2 = new EntityVertex("v2", "test", "0");
-        Map<String, GraphAttribute> restrictionList = new HashMap<String, GraphAttribute>();
+        Map<String, AttributeErrorMargin> restrictionList = new HashMap<String, AttributeErrorMargin>();
         GraphAttribute av1 = new GraphAttribute("a1", "0");
         GraphAttribute av2 = new GraphAttribute("a1", "0");
-        GraphAttribute epsilon = new GraphAttribute("a1", "0");
+        AttributeErrorMargin epsilon = new AttributeErrorMargin("a1", "0");
         restrictionList.put("a1", epsilon);
         v1.addAttribute(av1);
         v2.addAttribute(av2);
@@ -142,10 +150,10 @@ public class GraphMatchingTest {
         System.out.println("Different Types");
         Vertex v1 = new ActivityVertex("v1", "test", "0");
         Vertex v2 = new ActivityVertex("v2", "test", "0");
-        Map<String, GraphAttribute> restrictionList = new HashMap<String, GraphAttribute>();
+        Map<String, AttributeErrorMargin> restrictionList = new HashMap<String, AttributeErrorMargin>();
         GraphAttribute av1 = new GraphAttribute("a1", "0");
         GraphAttribute av2 = new GraphAttribute("a1", "0");
-        GraphAttribute epsilon = new GraphAttribute("a1", "0");
+        AttributeErrorMargin epsilon = new AttributeErrorMargin("a1", "0");
         restrictionList.put("a1", epsilon);
         v1.addAttribute(av1);
         v2.addAttribute(av2);

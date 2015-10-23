@@ -5,6 +5,9 @@
  */
 package br.uff.ic.utility;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 /**
  * Class to define a vertex-graph attribute (collapsed vertices)
  * @author Kohwalter
@@ -16,6 +19,7 @@ public class GraphAttribute {
     private float minValue;
     private float maxValue;
     private int quantity;
+    private Collection<String> originalValues;
 
     /**
      * Default constructor
@@ -34,6 +38,8 @@ public class GraphAttribute {
             this.minValue = 0;
             this.maxValue = 0;
         }
+        this.originalValues = new ArrayList<String>();
+        this.originalValues.add(value);
     }
     
     public GraphAttribute(String name, String value, String min, String max, String quantity) {
@@ -42,6 +48,8 @@ public class GraphAttribute {
         this.quantity = Integer.valueOf(quantity);
         this.minValue = Float.parseFloat(min);
         this.maxValue = Float.parseFloat(max);
+        this.originalValues = new ArrayList<String>();
+        this.originalValues.add(value);
 
     }
 
@@ -60,6 +68,7 @@ public class GraphAttribute {
             if(!this.value.equalsIgnoreCase(value))
                 this.value += ", " + value;
         }
+        originalValues.add(value);
     }
     
     /**

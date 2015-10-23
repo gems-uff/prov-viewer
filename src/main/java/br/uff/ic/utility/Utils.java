@@ -5,6 +5,16 @@
  */
 package br.uff.ic.utility;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+
 /**
  * Class that contains utility functions
  * @author Kohwalter
@@ -35,6 +45,16 @@ public class Utils {
     public static float convertFloat(String value) {
         value = value.replace(" ", "");
         return Float.parseFloat(value);
+    }
+    
+    /**
+     * Function that verifies if it is possible to convert the String to a float
+     * @param value is the String to be verified
+     * @return true if it is possible to convert to a float
+     */
+    public static double convertDouble(String value) {
+        value = value.replace(" ", "");
+        return Double.parseDouble(value);
     }
     
     /**
@@ -79,7 +99,7 @@ public class Utils {
      * @param epsilon is the margin of error for the comparison
      * @return true if floats are equals within the epsilon error margin
      */
-    public static boolean FloatEqualTo(float f1, float f2, float epsilon) {
+    public static boolean FloatEqualTo(double f1, double f2, double epsilon) {
         return Math.abs(f1 - f2) <= epsilon;
     }
     
@@ -93,4 +113,70 @@ public class Utils {
     public static double clamp(double min, double max, double value) {
         return Math.max(min, Math.min(max, value));
     }
+    
+    /**
+     *  Method to convert a string to XMLGregorianCalendar
+     * @param time is the desired date in the "yyyy-MM-dd'T'HH:mm:ss"
+     * @return the converted XMLGregorian Date
+     */
+    public static XMLGregorianCalendar stringToXMLGregorianCalendar(String time) {
+        try {
+            XMLGregorianCalendar result = null;
+            Date date;
+            SimpleDateFormat simpleDateFormat;
+            GregorianCalendar gregorianCalendar;
+            
+            simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+            date = simpleDateFormat.parse(time);
+            gregorianCalendar
+                    = (GregorianCalendar) GregorianCalendar.getInstance();
+            gregorianCalendar.setTime(date);
+            result = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregorianCalendar);
+            System.out.println("Date: " + result.toString());
+            return result;
+        } catch (ParseException ex) {
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DatatypeConfigurationException ex) {
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
+    }
+    
+    /**
+     * Function that verifies if it is possible to convert the String to Date
+     * @param value is the String to be verified
+     * @return true if it is possible to convert to Date
+     */
+    public static boolean tryParseDate(String value) {
+        try {
+            SimpleDateFormat simpleDateFormat;
+            simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+            simpleDateFormat.parse(value);
+            return true;
+        } catch (ParseException ex) {
+            
+        }
+        return false;
+    }
+    
+    /**
+     * Convert a Date in the format of a string to double
+     * @param d1 is the string to be converted
+     * @return the value in Double for the date
+     */
+    public static double convertStringDateToDouble(String d1) {
+        // Try to convert to date format and return the diff in milliseconds
+        try {
+            Date date;
+            SimpleDateFormat simpleDateFormat;
+            simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+            date = simpleDateFormat.parse(d1);
+            return (double) date.getTime();
+        } catch (ParseException ex) {
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+    
 }

@@ -6,7 +6,7 @@
 package br.uff.ic.graphmatching;
 
 import br.uff.ic.graphmatching.Heuristics.SimpleHeuristic;
-import br.uff.ic.utility.GraphAttribute;
+import br.uff.ic.utility.AttributeErrorMargin;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
@@ -22,7 +22,7 @@ public class Matcher {
     public DirectedGraph<Vertex, Edge> Matching(
             DirectedGraph<Vertex, Edge> graph_01, 
             DirectedGraph<Vertex, Edge> graph_02, 
-            Map<String, GraphAttribute> restrictionList, 
+            Map<String, AttributeErrorMargin> restrictionList, 
             double similarityThreshold) {
         
         GraphMatching combiner = new GraphMatching(restrictionList, similarityThreshold);

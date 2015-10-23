@@ -41,8 +41,7 @@ public abstract class Vertex extends GraphObject {
      * @param id
      * @param label
      * @param time
-     * @param attributes
-     * @param details 
+     * @param attributes 
      */
     public Vertex(String id, String label, String time, Map<String, GraphAttribute> attributes) {
         this.id = id;
@@ -96,7 +95,7 @@ public abstract class Vertex extends GraphObject {
         this.time = t;
     }
 
-
+    
     /**
      * (Optional) Method for returning the day of the week instead of the day's
      * number.

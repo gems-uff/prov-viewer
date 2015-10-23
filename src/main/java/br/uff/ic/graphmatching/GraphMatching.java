@@ -5,6 +5,7 @@
  */
 package br.uff.ic.graphmatching;
 
+import br.uff.ic.utility.AttributeErrorMargin;
 import br.uff.ic.utility.GraphAttribute;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.ActivityVertex;
@@ -32,9 +33,33 @@ public class GraphMatching {
     private final Map<String, Vertex> vertexList;
     private final Map<String, Edge> edgeList;
     private final Map<String, Vertex> combinedVertexList;
-    private final Map<String, GraphAttribute> attributeList;    // GraphAttribute.name = the atribute 
-    // GraphAttribute.value = error margin
+    private final Map<String, AttributeErrorMargin> attributeList;  
+    private final Map<String, String> vocabulary; 
+    // AttributeErrorMargin.name = the atribute 
+    // AttributeErrorMargin.value = error margin
+    // AttributeErrorMargin.value for timeDate in milliseconds for the error margin
+    // AttributeErrorMargin.value for Strings is a Vocabularity (accepted strings)
 
+    /**
+     * Constructor
+     *
+     * @param restrictionList is the list of attributes, and their error margin,
+     * that is used to compareAttributes vertices
+     * @param vocabulary is the vocabulary of synonymous words
+     * @param similarityThreshold is the percentage used to define when two
+     * vertices are considered similar. Varies from 0 to 1.0
+     */
+    public GraphMatching(Map<String, AttributeErrorMargin> restrictionList, Map<String, String> vocabulary, double similarityThreshold) {
+        vertexList = new HashMap<String, Vertex>();
+        edgeList = new HashMap<String, Edge>();
+        attributeList = restrictionList;
+        this.vocabulary = vocabulary;
+        threshold = similarityThreshold;
+        threshold = Utils.clamp(0.0, 1.0, similarityThreshold);
+        combinedVertexList = new HashMap<String, Vertex>();
+        duplicateEdges = new HashMap<String, Edge>();
+    }
+    
     /**
      * Constructor
      *
@@ -43,10 +68,11 @@ public class GraphMatching {
      * @param similarityThreshold is the percentage used to define when two
      * vertices are considered similar. Varies from 0 to 1.0
      */
-    public GraphMatching(Map<String, GraphAttribute> restrictionList, double similarityThreshold) {
+    public GraphMatching(Map<String, AttributeErrorMargin> restrictionList, double similarityThreshold) {
         vertexList = new HashMap<String, Vertex>();
         edgeList = new HashMap<String, Edge>();
         attributeList = restrictionList;
+        this.vocabulary = new HashMap<String, String>();
         threshold = similarityThreshold;
         threshold = Utils.clamp(0.0, 1.0, similarityThreshold);
         combinedVertexList = new HashMap<String, Vertex>();
@@ -62,7 +88,8 @@ public class GraphMatching {
     public GraphMatching(double similarityThreshold) {
         vertexList = new HashMap<String, Vertex>();
         edgeList = new HashMap<String, Edge>();
-        attributeList = new HashMap<String, GraphAttribute>();
+        attributeList = new HashMap<String, AttributeErrorMargin>();
+        vocabulary = new HashMap<String, String>(); 
         threshold = similarityThreshold;
         threshold = Utils.clamp(0.0, 1.0, similarityThreshold);
         combinedVertexList = new HashMap<String, Vertex>();
@@ -119,9 +146,19 @@ public class GraphMatching {
                 similarity = compareAttributes(attributes, attribute, v1, similarity);
             }
         }
-//        System.out.println("Similarity " + similarity);
-//        System.out.println("Size " + attributes.size());
-        similarity = similarity / attributes.size();
+
+        // Compute the number of attributes, considering their weights, for the similarity check
+        float size = 0;
+        for (GraphAttribute att : attributes.values()) {
+            float weight = 1;
+            if (attributeList.get(att.getName()) != null) {
+                weight = attributeList.get(att.getName()).getWeight();
+            }
+            size = size + (1 * weight);
+        }
+        
+        
+        similarity = similarity / size;
 
 //        System.out.println("Match Similarity between " + v1.getID() + " and " + v2.getID() + ": " + similarity);
         if (similarity >= threshold) {
@@ -147,21 +184,31 @@ public class GraphMatching {
             String av1 = attribute.getAverageValue();
             String av2 = v2.getAttribute(attribute.getName()).getAverageValue();
             String errorMargin = "0";
+            float weight = 1;
             if (attributeList.get(attribute.getName()) != null) {
-                errorMargin = attributeList.get(attribute.getName()).getAverageValue();
+                errorMargin = attributeList.get(attribute.getName()).getValue();
+                weight = attributeList.get(attribute.getName()).getWeight();
             }
-
+            
+            // Dealing with numeric values
             if (Utils.tryParseFloat(av1) && Utils.tryParseFloat(av2) && Utils.tryParseFloat(errorMargin)) {
                 if (Utils.FloatEqualTo(Utils.convertFloat(av1), Utils.convertFloat(av2), Utils.convertFloat(errorMargin))) {
-                    similarity++;
+                    similarity = similarity + (1 * weight);
                 }
-            } // Dealing with string values: Only accepting complete string match
-            else if (av1.equalsIgnoreCase(av2)) {
-                similarity++;
+            } // Dealing with a timeDate values
+            else if(Utils.tryParseDate(av1) && Utils.tryParseDate(av2)) {
+                if(Utils.FloatEqualTo(Utils.convertStringDateToDouble(av1),Utils.convertStringDateToDouble(av2),Utils.convertDouble(errorMargin))) {
+                    similarity = similarity + (1 * weight);
+                }
             }
-
-            // TODO: Deal with time/date
-            // Need to read from vertex.getTimeString()
+            // Dealing with string values: Checking if they are equals
+            else if (av1.equalsIgnoreCase(av2)) {
+                similarity = similarity + (1 * weight);
+            } // Dealing with String values: Checking if they are in the Vocabulary and thus synonymous
+            else if(vocabulary.containsKey(av1.toLowerCase()))
+                if(vocabulary.get(av1.toLowerCase()).contains(av2.toLowerCase() + " ")){
+                    similarity = similarity + (1 * weight);
+            } 
         }
 
         return similarity;
