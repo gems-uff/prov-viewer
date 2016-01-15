@@ -9,56 +9,56 @@ and open the template in the editor.
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
     xsi:noNamespaceSchemaLocation='config.xsd'>
     <layoutbackbone>Player</layoutbackbone>
-	<layoutAxis_X>ObjectPosition_X</layoutAxis_X>
-	<layoutAxis_Y>ObjectPosition_Z</layoutAxis_Y>
-	<imageLocation>/images/AngrybotsMap.png</imageLocation>
-	<imageOffset_X>2.247497</imageOffset_X>
-	<imageOffset_Y>-48.11044</imageOffset_Y>
-	<spatialLayoutPosition>113.404</spatialLayoutPosition>
-	<temporalLayoutscale>0.1</temporalLayoutscale>
-	<showentitydate>false</showentitydate>
-	<showentitylabel>false</showentitylabel>
+    <layoutAxis_X>ObjectPosition_X</layoutAxis_X>
+    <layoutAxis_Y>ObjectPosition_Z</layoutAxis_Y>
+    <imageLocation>/images/AngrybotsMap.png</imageLocation>
+    <imageOffset_X>2.247497</imageOffset_X>
+    <imageOffset_Y>-48.11044</imageOffset_Y>
+    <spatialLayoutPosition>113.404</spatialLayoutPosition>
+    <temporalLayoutscale>0.1</temporalLayoutscale>
+    <showentitydate>false</showentitydate>
+    <showentitylabel>false</showentitylabel>
     <edgetype>
         <edge>Neutral</edge>
         <edgestroke>MAX</edgestroke>
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
-	<edgetype>
+    <edgetype>
         <edge>None</edge>
         <edgestroke>MAX</edgestroke>
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
-	<edgetype>
+    <edgetype>
         <edge>Health (Player)</edge>
         <edgestroke>MEAN</edgestroke>
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
-	<edgetype>
+    <edgetype>
         <edge>Health (Enemy)</edge>
         <edgestroke>MEAN</edgestroke>
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
-	<edgetype>
+    <edgetype>
         <edge>Score</edge>
         <edgestroke>MEAN</edgestroke>
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
-	<edgetype>
+    <edgetype>
         <edge>Health</edge>
         <edgestroke>MEAN</edgestroke>
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
-	<edgetype>
+    <edgetype>
         <edge>Unlocked</edge>
         <edgestroke>MEAN</edgestroke>
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
-	<edgetype>
+    <edgetype>
         <edge>Interacted</edge>
         <edgestroke>MEAN</edgestroke>
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
-	<edgetype>
+    <edgetype>
         <edge>Respawned</edge>
         <edgestroke>MEAN</edgestroke>
         <collapsefunction>SUM</collapsefunction>
@@ -70,13 +70,13 @@ and open the template in the editor.
         <goodvalue></goodvalue>
         <badvalue></badvalue>
     </colorscheme>
-	<colorscheme>
+    <colorscheme>
         <attribute>Health</attribute>
         <class>ActivityRestrictedScheme</class>
         <values></values>
         <goodvalue>100</goodvalue>
         <badvalue>0</badvalue>
-		<restrictedAttribute>ObjectName</restrictedAttribute>
+        <restrictedAttribute>ObjectName</restrictedAttribute>
         <restrictedValue>Player</restrictedValue>
     </colorscheme>
     <colorscheme>
@@ -86,14 +86,14 @@ and open the template in the editor.
         <goodvalue></goodvalue>
         <badvalue></badvalue>
     </colorscheme>
-	<colorscheme>
+    <colorscheme>
         <attribute>Graph_01</attribute>
         <class>GraphVisualizationScheme</class>
         <values></values>
         <goodvalue></goodvalue>
         <badvalue></badvalue>
     </colorscheme>
-	<colorscheme>
+    <colorscheme>
         <attribute>Graph_02</attribute>
         <class>GraphVisualizationScheme</class>
         <values></values>
@@ -113,7 +113,7 @@ and open the template in the editor.
             <b>180</b>
         </vercolor>
     </activitycolor>
-	<activitycolor>
+    <activitycolor>
         <attribute>ObjectName</attribute>
         <value>Player</value>
         <vercolor>
@@ -122,7 +122,7 @@ and open the template in the editor.
             <b>0</b>
         </vercolor>
     </activitycolor>
-	<activitycolor>
+    <activitycolor>
         <attribute>ObjectName</attribute>
         <value>KamikazeBuzzer</value>
         <vercolor>
@@ -131,16 +131,16 @@ and open the template in the editor.
             <b>0</b>
         </vercolor>
     </activitycolor>
-	<activitycolor>
+    <activitycolor>
         <attribute>ObjectName</attribute>
         <value>EnemySpider</value>
         <vercolor>
             <r>255</r>
-            <g>0</g>
-            <b>155</b>
+            <g>128</g>
+            <b>0</b>
         </vercolor>
     </activitycolor>
-	<activitycolor>
+    <activitycolor>
         <attribute>ObjectName</attribute>
         <value>EnemyMech</value>
         <vercolor>

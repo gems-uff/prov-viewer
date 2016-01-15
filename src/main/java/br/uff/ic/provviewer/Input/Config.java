@@ -11,13 +11,17 @@ import br.uff.ic.provviewer.Variables;
 import br.uff.ic.provviewer.Vertex.ColorScheme.ColorScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.DefaultScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.ProvScheme;
+import br.uff.ic.utility.graph.Edge;
+import edu.uci.ics.jung.graph.Graph;
 import java.awt.Color;
 import java.awt.Paint;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.xml.parsers.DocumentBuilder;
@@ -94,7 +98,37 @@ public class Config {
         }
         coordinatesScale = coordinatesScale / 100;
     }
+    
+    public void DetectEdges(Collection<Edge> edges) {
+        Map<String, EdgeType> newEdges = new HashMap<String, EdgeType>();
+        for (Edge edge : edges) {
+            for (EdgeType e : edgetype)
+            {
+                if(!edge.getType().equalsIgnoreCase(e.type)) {
+                    EdgeType newEdge = new EdgeType();
+                    newEdge.type = edge.getType();
+                    newEdge.stroke = "MAX";
+                    newEdge.collapse = "SUM";
+                    newEdges.put(newEdge.type, newEdge);
+                }
+            }
+        }
+        edgetype.addAll(newEdges.values());
+        InterfaceEdgeFilters();
+        GraphFrame.FilterList.setSelectedIndex(0);
+    }
 
+    /**
+     * Function to update the edge list in the GraphFrame interface
+     */
+    public void InterfaceEdgeFilters() {
+        //Initialize Interface Filters
+        String[] types = new String[edgetype.size()];
+        for (int x = 0; x < types.length; x++) {
+            types[x] = edgetype.get(x).type;
+        }
+        GraphFrame.FilterList.setListData(types);
+    }
     /**
      * Method to configure the tool
      * @param fXmlFile is the xml file that contains the configuration for the tool
@@ -260,11 +294,12 @@ public class Config {
         }
 
         //Initialize Interface Filters
-        String[] types = new String[edgetype.size()];
-        for (int x = 0; x < types.length; x++) {
-            types[x] = edgetype.get(x).type;
-        }
-        GraphFrame.FilterList.setListData(types);
+//        String[] types = new String[edgetype.size()];
+//        for (int x = 0; x < types.length; x++) {
+//            types[x] = edgetype.get(x).type;
+//        }
+//        GraphFrame.FilterList.setListData(types);
+        InterfaceEdgeFilters();
 
         String[] items = new String[vertexModes.size()];
         int j = 0;

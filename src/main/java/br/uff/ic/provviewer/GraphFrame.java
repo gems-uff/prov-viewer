@@ -71,6 +71,8 @@ public class GraphFrame extends javax.swing.JFrame {
         OpenConfig = new javax.swing.JMenuItem();
         OpenGraph = new javax.swing.JMenuItem();
         Exit = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        autoDetectEdgesCheckBox = new javax.swing.JCheckBoxMenuItem();
 
         fileChooser.setCurrentDirectory(new java.io.File("D:\\SVN\\Prov_Viewer\\prov-viewer\\src\\main\\resources"));
         fileChooser.setDialogTitle("This is my open dialog");
@@ -387,6 +389,18 @@ public class GraphFrame extends javax.swing.JFrame {
 
         MenuBar.add(FileMenu);
 
+        jMenu1.setText("Options");
+
+        autoDetectEdgesCheckBox.setText("Auto Detect Edges");
+        autoDetectEdgesCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                autoDetectEdgesCheckBoxActionPerformed(evt);
+            }
+        });
+        jMenu1.add(autoDetectEdgesCheckBox);
+
+        MenuBar.add(jMenu1);
+
         setJMenuBar(MenuBar);
 
         setSize(new java.awt.Dimension(744, 743));
@@ -534,6 +548,11 @@ public class GraphFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         GuiButtons.Filter(variables);
     }//GEN-LAST:event_TemporalFilterToggleActionPerformed
+
+    private void autoDetectEdgesCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoDetectEdgesCheckBoxActionPerformed
+        // TODO add your handling code here:
+        GuiButtons.AutoDetectEdge(variables, autoDetectEdgesCheckBox.getState());
+    }//GEN-LAST:event_autoDetectEdgesCheckBoxActionPerformed
    
     /**
      * Main
@@ -602,7 +621,9 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JComboBox StatusFilterBox;
     public static javax.swing.JToggleButton TemporalFilterToggle;
     private javax.swing.JPanel ToolMenu;
+    private javax.swing.JCheckBoxMenuItem autoDetectEdgesCheckBox;
     public javax.swing.JTextField edgeTypeField;
     private javax.swing.JFileChooser fileChooser;
+    private javax.swing.JMenu jMenu1;
     // End of variables declaration//GEN-END:variables
 }

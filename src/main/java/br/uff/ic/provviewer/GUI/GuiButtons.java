@@ -192,4 +192,9 @@ public class GuiButtons {
         variables.view.setGraphLayout(variables.layout);
         variables.view.repaint();
     }
+
+    public static void AutoDetectEdge(Variables variables, boolean selected) {
+        if(selected)
+            variables.config.DetectEdges(variables.graph.getEdges());
+    }
 }
