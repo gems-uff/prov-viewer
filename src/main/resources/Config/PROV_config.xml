@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<config
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:noNamespaceSchemaLocation='config.xsd'>
+    <layoutbackbone></layoutbackbone>
+    <default_layout>FRLayout</default_layout>
+    <layoutAxis_X>ObjectPosition_X</layoutAxis_X>
+    <layoutAxis_Y>ObjectPosition_Y</layoutAxis_Y>
+    <imageLocation></imageLocation>
+    <imageOffset_X>0</imageOffset_X>
+    <imageOffset_Y>0</imageOffset_Y>
+    <spatialLayoutPosition>0.0</spatialLayoutPosition>
+    <temporalLayoutscale>1.0</temporalLayoutscale>
+    <showentitydate>true</showentitydate>
+    <showentitylabel>true</showentitylabel>
+    <edgetype>
+        <edge>wasDerivedFrom</edge>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+    <edgetype>
+        <edge>used</edge>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+    <edgetype>
+        <edge>wasGeneratedBy</edge>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+    <edgetype>
+        <edge>wasInformedBy</edge>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+    <edgetype>
+        <edge>wasAttributedTo</edge>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+    <edgetype>
+        <edge>wasAssociatedWith</edge>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+    <edgetype>
+        <edge>actedOnBehalfOf</edge>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+</config>

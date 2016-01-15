@@ -66,9 +66,9 @@ public class ConfigTest {
         System.out.println("Initialize");
         testFiles("Angry_Robots_config.xml");
         testFiles("bus_config.xml");
-        testFiles("config.xml");
-        testFiles("map_config.xml");
-        testFiles("2D_Provenance_config.xml");
+        testFiles("SDM_config.xml");
+        testFiles("PROV_config.xml");
+        testFiles("2D_Tower_Defense_config.xml");
         
     }
     

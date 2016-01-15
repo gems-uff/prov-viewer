@@ -7,6 +7,7 @@ import java.awt.Paint;
 import java.awt.Stroke;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Abstract (Generic) vertex type for the provenance graph
@@ -83,6 +84,16 @@ public abstract class Vertex extends GraphObject {
         String[] day = this.time.split(":");
         if(Utils.tryParseFloat(day[0]))
             return (Float.parseFloat(day[0]));
+        else if(Utils.tryParseDate(this.time))
+        {
+            System.out.println("Time Milliseconds: " + (float) Utils.convertStringDateToDouble(this.time));
+            double milliseconds =  Utils.convertStringDateToDouble(this.time);
+            int weeks = (int) (milliseconds / (1000*60*60*24*7));
+            long days = TimeUnit.MILLISECONDS.toDays((long) milliseconds);
+            System.out.println("Time Weeks: " + weeks);
+            System.out.println("Time Days: " + days);
+            return (float) days;
+        }
         else
             return 0;
     }

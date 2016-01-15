@@ -166,7 +166,7 @@ public class Utils {
      * @return the value in Double for the date
      */
     public static double convertStringDateToDouble(String d1) {
-        // Try to convert to date format and return the diff in milliseconds
+        // Try to convert to date format and return how many milliseconds have passed since January 1, 1970, 00:00:00 GMT
         try {
             Date date;
             SimpleDateFormat simpleDateFormat;
