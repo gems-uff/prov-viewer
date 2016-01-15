@@ -38,7 +38,7 @@ public class Temporal_Layout<V, E> extends ProvViewerLayout<V, E> {
     	doInit();
     }
 
-    private double XDISTANCE = 200.0 * this.variables.config.scale;
+    private double XDISTANCE = 5.0 * this.variables.config.scale;
     private double YDISTANCE = -100.0;
     private int agentQnt = 0;
     private Graph<V,E> graph;
@@ -80,7 +80,7 @@ public class Temporal_Layout<V, E> extends ProvViewerLayout<V, E> {
             // If the backbone happens to be an agent, then we need to set it to y = 0 to correctly position all his activities
             if((sorted.get(i) instanceof AgentVertex) && ((Vertex)sorted.get(i)).getLabel().contains(this.variables.config.layoutSpecialVertexType))
             {
-                    //I want the Project-type node to always be on Y = 0
+                    //I want the Backbone to always be on Y = 0
                     calcAgentPositions((V)sorted.get(i), 0, xOffset);
             }
             else if(sorted.get(i) instanceof Graph) {

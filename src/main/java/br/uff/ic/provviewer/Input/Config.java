@@ -196,6 +196,10 @@ public class Config {
             NodeList nList = doc.getElementsByTagName("layoutbackbone");
             layoutSpecialVertexType = nList.item(0).getTextContent();
             
+            // To avoid empty backbone
+            if(layoutSpecialVertexType.equalsIgnoreCase(""))
+                layoutSpecialVertexType = "Default";
+            
             nList = doc.getElementsByTagName("default_layout");
             if(nList.item(0) != null) {
                 defaultLayout = nList.item(0).getTextContent();
