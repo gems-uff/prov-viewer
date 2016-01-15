@@ -119,17 +119,6 @@ public class Config {
     }
 
     /**
-     * Function to update the edge list in the GraphFrame interface
-     */
-    public void InterfaceEdgeFilters() {
-        //Initialize Interface Filters
-        String[] types = new String[edgetype.size()];
-        for (int x = 0; x < types.length; x++) {
-            types[x] = edgetype.get(x).type;
-        }
-        GraphFrame.FilterList.setListData(types);
-    }
-    /**
      * Method to configure the tool
      * @param fXmlFile is the xml file that contains the configuration for the tool
      */
@@ -294,13 +283,26 @@ public class Config {
         }
 
         //Initialize Interface Filters
-//        String[] types = new String[edgetype.size()];
-//        for (int x = 0; x < types.length; x++) {
-//            types[x] = edgetype.get(x).type;
-//        }
-//        GraphFrame.FilterList.setListData(types);
         InterfaceEdgeFilters();
+        InterfaceStatusFilters();
+    }
 
+    /**
+     * Function to update the edge list in the GraphFrame interface
+     */
+    private void InterfaceEdgeFilters() {
+        //Initialize Interface Filters
+        String[] types = new String[edgetype.size()];
+        for (int x = 0; x < types.length; x++) {
+            types[x] = edgetype.get(x).type;
+        }
+        GraphFrame.FilterList.setListData(types);
+    }
+    
+    /**
+     * Function to update the status filter list in the GraphFrame interface
+     */
+    private void InterfaceStatusFilters() {
         String[] items = new String[vertexModes.size()];
         int j = 0;
         for (ColorScheme mode : vertexModes) {
@@ -310,6 +312,5 @@ public class Config {
 
         GraphFrame.StatusFilterBox.setModel(
                 new DefaultComboBoxModel(items));
-
     }
 }
