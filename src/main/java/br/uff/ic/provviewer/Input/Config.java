@@ -10,8 +10,10 @@ import br.uff.ic.provviewer.GraphFrame;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.provviewer.Vertex.ColorScheme.ColorScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.DefaultScheme;
+import br.uff.ic.provviewer.Vertex.ColorScheme.DefaultVertexColorScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.ProvScheme;
 import br.uff.ic.utility.graph.Edge;
+import br.uff.ic.utility.graph.Vertex;
 import java.awt.Color;
 import java.awt.Paint;
 import java.io.File;
@@ -76,6 +78,7 @@ public class Config {
     /**
      * Method to configure the tool for the first time using the default graph
      * and configuration
+     *
      * @param variables
      */
     public void Initialize(Variables variables) {
@@ -103,19 +106,47 @@ public class Config {
     public void DetectEdges(Collection<Edge> edges) {
         Map<String, EdgeType> newEdges = new HashMap<String, EdgeType>();
         for (Edge edge : edges) {
+            boolean isNew = true;
             for (EdgeType e : edgetype) {
-                if (!edge.getType().equalsIgnoreCase(e.type)) {
-                    EdgeType newEdge = new EdgeType();
-                    newEdge.type = edge.getType();
-                    newEdge.stroke = "MAX";
-                    newEdge.collapse = "SUM";
-                    newEdges.put(newEdge.type, newEdge);
+                if (edge.getType().equalsIgnoreCase(e.type)) {
+                    isNew = false;
                 }
+            }
+            if (isNew) {
+                EdgeType newEdge = new EdgeType();
+                newEdge.type = edge.getType();
+                newEdge.stroke = "MAX";
+                newEdge.collapse = "SUM";
+                newEdges.put(newEdge.type, newEdge);
             }
         }
         edgetype.addAll(newEdges.values());
         InterfaceEdgeFilters();
         GraphFrame.FilterList.setSelectedIndex(0);
+
+    }
+
+    public void DetectVertexModes(Collection<Object> vertices) {
+        Map<String, String> attributeList = new HashMap<String, String>();
+        Map<String, ColorScheme> newAttributes = new HashMap<String, ColorScheme>();
+        for (Object v : vertices) {
+            attributeList.putAll(((Vertex) v).attributeList());
+        }
+        for (String att : attributeList.values()) {
+            boolean isNew = true;
+            for (ColorScheme color : vertexModes) {
+                if (att.equalsIgnoreCase(color.attribute) && color.restrictedAttribute == null) {
+                    isNew = false;
+                }
+            }
+            if (isNew) {
+                DefaultVertexColorScheme attMode = new DefaultVertexColorScheme(att);
+                newAttributes.put(att, attMode);
+            }
+        }
+
+        vertexModes.addAll(newAttributes.values());
+        InterfaceStatusFilters();
     }
 
     /**

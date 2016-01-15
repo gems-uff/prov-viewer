@@ -38,6 +38,11 @@ public abstract class ColorScheme {
      */
     public ColorScheme(String attribute) {
         this.attribute = attribute;
+        this.value = null;
+        this.givenMax = null;
+        this.givenMin = null;
+        this.limited = false;
+        this.computedMinMax = false;
     }
 
     /**

@@ -197,4 +197,9 @@ public class GuiButtons {
         if(selected)
             variables.config.DetectEdges(variables.graph.getEdges());
     }
+    
+    public static void AutoDetectVertexModes(Variables variables, boolean selected) {
+        if(selected)
+            variables.config.DetectVertexModes(variables.graph.getVertices());
+    }
 }

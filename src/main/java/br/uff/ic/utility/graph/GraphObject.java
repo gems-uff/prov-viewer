@@ -6,6 +6,7 @@ package br.uff.ic.utility.graph;
 
 import br.uff.ic.utility.GraphAttribute;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -76,5 +77,18 @@ public class GraphObject extends Object{
     public void addAllAttributes(Map<String, GraphAttribute> atts)
     {
         this.attributes.putAll(atts);
+    }
+    
+    public Map<String, String> attributeList()
+    {
+        Map<String, String> attributeList = new HashMap<String, String>();
+        if(!this.attributes.values().isEmpty())
+        {
+            for(GraphAttribute att : this.attributes.values())
+            {
+                attributeList.put(att.getName(), att.getName());
+            }
+        }
+        return attributeList;
     }
 }

@@ -73,6 +73,7 @@ public class GraphFrame extends javax.swing.JFrame {
         Exit = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         autoDetectEdgesCheckBox = new javax.swing.JCheckBoxMenuItem();
+        autoDetectAttributeCheckBox = new javax.swing.JCheckBoxMenuItem();
 
         fileChooser.setCurrentDirectory(new java.io.File("D:\\SVN\\Prov_Viewer\\prov-viewer\\src\\main\\resources"));
         fileChooser.setDialogTitle("This is my open dialog");
@@ -399,6 +400,14 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu1.add(autoDetectEdgesCheckBox);
 
+        autoDetectAttributeCheckBox.setText("Auto Detect Attributes");
+        autoDetectAttributeCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                autoDetectAttributeCheckBoxActionPerformed(evt);
+            }
+        });
+        jMenu1.add(autoDetectAttributeCheckBox);
+
         MenuBar.add(jMenu1);
 
         setJMenuBar(MenuBar);
@@ -553,6 +562,11 @@ public class GraphFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         GuiButtons.AutoDetectEdge(variables, autoDetectEdgesCheckBox.getState());
     }//GEN-LAST:event_autoDetectEdgesCheckBoxActionPerformed
+
+    private void autoDetectAttributeCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoDetectAttributeCheckBoxActionPerformed
+        // TODO add your handling code here:
+        GuiButtons.AutoDetectVertexModes(variables, autoDetectAttributeCheckBox.getState());
+    }//GEN-LAST:event_autoDetectAttributeCheckBoxActionPerformed
    
     /**
      * Main
@@ -621,6 +635,7 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JComboBox StatusFilterBox;
     public static javax.swing.JToggleButton TemporalFilterToggle;
     private javax.swing.JPanel ToolMenu;
+    private javax.swing.JCheckBoxMenuItem autoDetectAttributeCheckBox;
     private javax.swing.JCheckBoxMenuItem autoDetectEdgesCheckBox;
     public javax.swing.JTextField edgeTypeField;
     private javax.swing.JFileChooser fileChooser;
