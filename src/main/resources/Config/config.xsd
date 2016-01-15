@@ -13,6 +13,7 @@ and open the template in the editor.
     <!-- Configuration Type -->
     <xs:complexType name="configuration">
         <xs:sequence>
+            <xs:element name="default_layout" type="xs:string"/>
 			<!-- Spatial Layout X axis name -->
             <xs:element name="layoutAxis_X" type="xs:string"/>
 			<!-- Spatial Layout Y axis name -->

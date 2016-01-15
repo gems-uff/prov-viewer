@@ -47,6 +47,9 @@ public class Config {
 
     //Temporal Layout
     public String layoutSpecialVertexType;
+    
+    // Default Layout
+    public String defaultLayout = "SpatialLayout";
 
     // Coordinates Layout
     public String layoutAxis_X;
@@ -106,15 +109,26 @@ public class Config {
     public void DetectEdges(Collection<Edge> edges) {
         Map<String, EdgeType> newEdges = new HashMap<String, EdgeType>();
         for (Edge edge : edges) {
-            boolean isNew = true;
+            boolean isNewType = true;
+            boolean isNewLabel = true;
             for (EdgeType e : edgetype) {
                 if (edge.getType().equalsIgnoreCase(e.type)) {
-                    isNew = false;
+                    isNewType = false;
+                }
+                if (edge.getLabel().equalsIgnoreCase(e.type)) {
+                    isNewLabel = false;
                 }
             }
-            if (isNew) {
+            if (isNewType) {
                 EdgeType newEdge = new EdgeType();
                 newEdge.type = edge.getType();
+                newEdge.stroke = "MAX";
+                newEdge.collapse = "SUM";
+                newEdges.put(newEdge.type, newEdge);
+            }
+            if (isNewLabel) {
+                EdgeType newEdge = new EdgeType();
+                newEdge.type = edge.getLabel();
                 newEdge.stroke = "MAX";
                 newEdge.collapse = "SUM";
                 newEdges.put(newEdge.type, newEdge);
@@ -181,6 +195,12 @@ public class Config {
             //Temporal Layout Backbone
             NodeList nList = doc.getElementsByTagName("layoutbackbone");
             layoutSpecialVertexType = nList.item(0).getTextContent();
+            
+            nList = doc.getElementsByTagName("default_layout");
+            if(nList.item(0) != null) {
+                defaultLayout = nList.item(0).getTextContent();
+            }
+            
             nList = doc.getElementsByTagName("layoutAxis_X");
             layoutAxis_X = nList.item(0).getTextContent();
             nList = doc.getElementsByTagName("layoutAxis_Y");

@@ -148,7 +148,7 @@ public class GuiFunctions {
             variables.config.Initialize(variables);
             variables.layout = new Temporal_Layout<Object, Edge>(variables.graph, variables);
             variables.view = new VisualizationViewer<Object, Edge>(variables.layout);
-            Layouts.setSelectedItem("SpatialLayout");
+            Layouts.setSelectedItem(variables.config.defaultLayout);
             variables.initLayout = false;
         }
 
