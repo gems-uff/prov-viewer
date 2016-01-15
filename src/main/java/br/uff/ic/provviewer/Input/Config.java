@@ -12,7 +12,6 @@ import br.uff.ic.provviewer.Vertex.ColorScheme.ColorScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.DefaultScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.ProvScheme;
 import br.uff.ic.utility.graph.Edge;
-import edu.uci.ics.jung.graph.Graph;
 import java.awt.Color;
 import java.awt.Paint;
 import java.io.File;
@@ -33,10 +32,10 @@ import org.w3c.dom.NodeList;
 
 /**
  * Class responsible for configuring the tool to a specific domain
+ *
  * @author Kohwalter
  */
 public class Config {
-
 
     //Filter List
     public List<EdgeType> edgetype = new ArrayList<EdgeType>();
@@ -61,7 +60,7 @@ public class Config {
     public double scale;
     public boolean showEntityDate;
     public boolean showEntityLabel;
-    
+
     public double width;
     public double height;
 
@@ -75,7 +74,9 @@ public class Config {
     public List<Paint> actVerColor = new ArrayList<Paint>();
 
     /**
-     * Method to configure the tool for the first time using the default graph and configuration
+     * Method to configure the tool for the first time using the default graph
+     * and configuration
+     * @param variables
      */
     public void Initialize(Variables variables) {
         System.out.println("Config: " + BasePath.getBasePathForClass(Config.class) + variables.configDemo);
@@ -83,7 +84,7 @@ public class Config {
         Initialize(fXmlFile);
 
     }
-    
+
     /**
      * Method to compute the graph scale for the Spatial Layout
      */
@@ -98,13 +99,12 @@ public class Config {
         }
         coordinatesScale = coordinatesScale / 100;
     }
-    
+
     public void DetectEdges(Collection<Edge> edges) {
         Map<String, EdgeType> newEdges = new HashMap<String, EdgeType>();
         for (Edge edge : edges) {
-            for (EdgeType e : edgetype)
-            {
-                if(!edge.getType().equalsIgnoreCase(e.type)) {
+            for (EdgeType e : edgetype) {
+                if (!edge.getType().equalsIgnoreCase(e.type)) {
                     EdgeType newEdge = new EdgeType();
                     newEdge.type = edge.getType();
                     newEdge.stroke = "MAX";
@@ -120,7 +120,9 @@ public class Config {
 
     /**
      * Method to configure the tool
-     * @param fXmlFile is the xml file that contains the configuration for the tool
+     *
+     * @param fXmlFile is the xml file that contains the configuration for the
+     * tool
      */
     public void Initialize(File fXmlFile) {
         try {
@@ -132,7 +134,7 @@ public class Config {
             actVerAtt = new ArrayList<String>();
             actVerValue = new ArrayList<String>();
             actVerColor = new ArrayList<Paint>();
-            
+
             EdgeType allEdges = new EdgeType();
             allEdges.type = "All Edges";
             allEdges.stroke = "MAX";
@@ -298,7 +300,7 @@ public class Config {
         }
         GraphFrame.FilterList.setListData(types);
     }
-    
+
     /**
      * Function to update the status filter list in the GraphFrame interface
      */
