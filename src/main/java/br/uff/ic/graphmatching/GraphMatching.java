@@ -364,6 +364,8 @@ public class GraphMatching {
                             if(e1.getSource().getID().equalsIgnoreCase(e2.getSource().getID())) {
                                 if(e1.getTarget().getID().equalsIgnoreCase(e2.getTarget().getID())) {
                                     edgeList.remove(e2.getID());
+                                    // TO DO: Merge E1 with E2
+                                    
                                     duplicateEdges.put(e1.getID(), e1);
                                     duplicateEdges.put(e2.getID(), e2);
                                 }
