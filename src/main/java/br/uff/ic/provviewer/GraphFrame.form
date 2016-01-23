@@ -510,6 +510,9 @@
             <Property name="text" type="java.lang.String" value="Entity Vertices"/>
             <Property name="toolTipText" type="java.lang.String" value="Filter all entity vertices"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FilterNodeEntityButtonActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>

@@ -246,6 +246,11 @@ public class GraphFrame extends javax.swing.JFrame {
 
         FilterNodeEntityButton.setText("Entity Vertices");
         FilterNodeEntityButton.setToolTipText("Filter all entity vertices");
+        FilterNodeEntityButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FilterNodeEntityButtonActionPerformed(evt);
+            }
+        });
 
         FilterVertexMinValue.setText("0");
         FilterVertexMinValue.setToolTipText("Filter vertices by time (min value)");
@@ -627,6 +632,11 @@ public class GraphFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         GuiButtons.VertexLabel(variables, displayAgentLabelButton.getState(), displayActivityLabelButton.getState(), displayEntityLabelButton.getState(), displayTimeLabel.getState());
     }//GEN-LAST:event_displayTimeLabelActionPerformed
+
+    private void FilterNodeEntityButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterNodeEntityButtonActionPerformed
+        // TODO add your handling code here:
+        GuiButtons.Filter(variables);
+    }//GEN-LAST:event_FilterNodeEntityButtonActionPerformed
    
     /**
      * Main
