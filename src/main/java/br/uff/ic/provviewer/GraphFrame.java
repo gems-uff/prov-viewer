@@ -206,7 +206,6 @@ public class GraphFrame extends javax.swing.JFrame {
 
         GraphLayout.setText("Graph Layout");
 
-        FilterEdgeAgentButton.setSelected(true);
         FilterEdgeAgentButton.setText("Agent Edge");
         FilterEdgeAgentButton.setToolTipText("Filter all edges that connect to an agent");
         FilterEdgeAgentButton.addActionListener(new java.awt.event.ActionListener() {

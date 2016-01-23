@@ -478,7 +478,6 @@
         </Component>
         <Component class="javax.swing.JCheckBox" name="FilterEdgeAgentButton">
           <Properties>
-            <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Agent Edge"/>
             <Property name="toolTipText" type="java.lang.String" value="Filter all edges that connect to an agent"/>
           </Properties>
