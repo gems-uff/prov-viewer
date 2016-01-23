@@ -178,7 +178,7 @@ public class Edge extends GraphObject{
      * @return (String) influence
      */
     public String getEdgeInfluence() {
-        return this.value + " " + getLabel();
+        return this.value + " " + getLabel() + " (" + this.type + ")";
     }
 
     /**
@@ -237,10 +237,11 @@ public class Edge extends GraphObject{
      */
     @Override
     public String toString() {
+        String font = "<html><font size=\"6\", font color=\"blue\">";
         if(getLabel().isEmpty())
-            return this.type;
+            return font + this.type;
         else
-            return this.type + " (" + getLabel() + ")";
+            return font + this.type + " (" + getLabel() + ")";
     }
 
     /**
