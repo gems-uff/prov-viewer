@@ -12,6 +12,9 @@ import br.uff.ic.provviewer.Layout.Spatial_Layout;
 import br.uff.ic.provviewer.Layout.Temporal_Layout;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.provviewer.Vertex.ColorScheme.VertexPainter;
+import br.uff.ic.utility.IO.PROVNWriter;
+import br.uff.ic.utility.IO.XMLWriter;
+import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
 import edu.uci.ics.jung.algorithms.layout.FRLayout2;
@@ -22,8 +25,12 @@ import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
 import edu.uci.ics.jung.visualization.decorators.EdgeShape;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.picking.PickedInfo;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import org.apache.commons.collections15.Transformer;
 
@@ -207,5 +214,21 @@ public class GuiButtons {
     public static void VertexLabel(Variables variables, boolean agentLabel, boolean activityLabel, boolean entityLabel, boolean timeLabel) {
         GuiFunctions.VertexLabel(variables, agentLabel, activityLabel, entityLabel, timeLabel);
         variables.view.repaint();
+    }
+
+    public static void ExportPROVN(Variables variables) {
+        Collection<Vertex> vertices = new ArrayList<Vertex>();
+        for(Object v : variables.graph.getVertices()) {
+            vertices.add((Vertex)v);
+        }
+        
+        PROVNWriter provnWriter = new PROVNWriter(variables.graph.getVertices(), variables.graph.getEdges());
+        XMLWriter xmlWriter = new XMLWriter(vertices, variables.graph.getEdges());
+        try {
+            provnWriter.saveToProvn("PROVN_Export_Test");
+            xmlWriter.saveToXML("XML_Export_Test");
+        } catch (IOException ex) {
+            Logger.getLogger(GuiButtons.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

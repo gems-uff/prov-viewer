@@ -82,6 +82,9 @@ public class GraphFrame extends javax.swing.JFrame {
         displayActivityLabelButton = new javax.swing.JCheckBoxMenuItem();
         displayEntityLabelButton = new javax.swing.JCheckBoxMenuItem();
         displayTimeLabel = new javax.swing.JCheckBoxMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        mergeGraphButtom = new javax.swing.JMenuItem();
+        exportGraphButton = new javax.swing.JMenuItem();
 
         fileChooser.setCurrentDirectory(new java.io.File("D:\\SVN\\Prov_Viewer\\prov-viewer\\src\\main\\resources"));
         fileChooser.setDialogTitle("This is my open dialog");
@@ -455,6 +458,26 @@ public class GraphFrame extends javax.swing.JFrame {
 
         MenuBar.add(jMenu1);
 
+        jMenu2.setText("Merge");
+
+        mergeGraphButtom.setText("Merge Graph With...");
+        mergeGraphButtom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mergeGraphButtomActionPerformed(evt);
+            }
+        });
+        jMenu2.add(mergeGraphButtom);
+
+        exportGraphButton.setText("Export Graph");
+        exportGraphButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportGraphButtonActionPerformed(evt);
+            }
+        });
+        jMenu2.add(exportGraphButton);
+
+        MenuBar.add(jMenu2);
+
         setJMenuBar(MenuBar);
 
         setSize(new java.awt.Dimension(744, 743));
@@ -637,6 +660,15 @@ public class GraphFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         GuiButtons.Filter(variables);
     }//GEN-LAST:event_FilterNodeEntityButtonActionPerformed
+
+    private void mergeGraphButtomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mergeGraphButtomActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mergeGraphButtomActionPerformed
+
+    private void exportGraphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportGraphButtonActionPerformed
+        // TODO add your handling code here:
+        GuiButtons.ExportPROVN(variables);
+    }//GEN-LAST:event_exportGraphButtonActionPerformed
    
     /**
      * Main
@@ -712,7 +744,10 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem displayEntityLabelButton;
     private javax.swing.JCheckBoxMenuItem displayTimeLabel;
     public javax.swing.JTextField edgeTypeField;
+    private javax.swing.JMenuItem exportGraphButton;
     private javax.swing.JFileChooser fileChooser;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuItem mergeGraphButtom;
     // End of variables declaration//GEN-END:variables
 }
