@@ -301,12 +301,12 @@ public class GraphMatching {
             Edge updatedEdge = edge;
             boolean source = false;
             boolean target = false;
-            if (combinedVertexList.containsKey(edge.getSource().getID())) {
-                updatedEdge.setSource(combinedVertexList.get(edge.getSource().getID()));
+            if (combinedVertexList.containsKey(((Vertex)edge.getSource()).getID())) {
+                updatedEdge.setSource(combinedVertexList.get(((Vertex)edge.getSource()).getID()));
                 source = true;
             }
-            if (combinedVertexList.containsKey(edge.getTarget().getID())) {
-                updatedEdge.setTarget(combinedVertexList.get(edge.getTarget().getID()));
+            if (combinedVertexList.containsKey(((Vertex)edge.getTarget()).getID())) {
+                updatedEdge.setTarget(combinedVertexList.get(((Vertex)edge.getTarget()).getID()));
                 target = true;
             }
             // Add the edge
@@ -361,8 +361,8 @@ public class GraphMatching {
                 if (!(duplicateEdges.containsKey(e1.getID()) && duplicateEdges.containsKey(e2.getID()))) {
                     if(!e1.getID().equalsIgnoreCase(e2.getID())) {
                         if(e1.getType().equalsIgnoreCase(e2.getType())) {
-                            if(e1.getSource().getID().equalsIgnoreCase(e2.getSource().getID())) {
-                                if(e1.getTarget().getID().equalsIgnoreCase(e2.getTarget().getID())) {
+                            if(((Vertex)e1.getSource()).getID().equalsIgnoreCase(((Vertex)e2.getSource()).getID())) {
+                                if(((Vertex)e1.getTarget()).getID().equalsIgnoreCase(((Vertex)e2.getTarget()).getID())) {
                                     edgeList.remove(e2.getID());
                                     // TO DO: Merge E1 with E2
                                     
@@ -397,7 +397,7 @@ public class GraphMatching {
         removeDuplicateEdges();
 
         for (Edge edge : this.getEdges()) {
-            combinedGraph.addEdge(edge, edge.getSource(), edge.getTarget());
+            combinedGraph.addEdge(edge, (Vertex) edge.getSource(), (Vertex) edge.getTarget());
         }
 
         return combinedGraph;

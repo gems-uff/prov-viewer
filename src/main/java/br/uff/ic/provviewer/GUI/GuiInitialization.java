@@ -30,7 +30,8 @@ public class GuiInitialization {
      * @param graphFrame
      * @param Layouts
      */
-    public static void initGraphComponent(Variables variables, DirectedGraph<Object, Edge> graph, JFrame graphFrame, JComboBox Layouts) {
+    public static void initGraphComponent(Variables variables, DirectedGraph<Object, Edge> graph, 
+            JFrame graphFrame, JComboBox Layouts, boolean agentLabel, boolean activityLabel, boolean entityLabel, boolean timeLabel) {
         variables.initConfig = true;
         variables.graph = graph;
         variables.collapsedGraph = variables.graph;
@@ -38,7 +39,7 @@ public class GuiInitialization {
         GuiBackground.InitBackground(variables, Layouts);
         GuiFunctions.MouseInteraction(variables);
         GuiTooltip.Tooltip(variables);
-        GuiFunctions.VertexLabel(variables);
+        GuiFunctions.VertexLabel(variables, agentLabel, activityLabel, entityLabel, timeLabel);
         GuiFunctions.Stroke(variables);
         GuiFunctions.GraphPaint(variables);
         GuiFunctions.VertexShape(variables);

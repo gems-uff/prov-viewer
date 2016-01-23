@@ -62,7 +62,7 @@ public class MatcherTest {
         
         String resultEdges = "";
         for (Edge e : result.getEdges()) {
-            resultEdges += "(" + e.getID() + ") " + e.getTarget().getID() + "->" + e.getSource().getID() + " || ";
+            resultEdges += "(" + e.getID() + ") " + ((Vertex)e.getTarget()).getID() + "->" + ((Vertex)e.getSource()).getID() + " || ";
         };
         
         String resultVertices = "";
@@ -87,7 +87,7 @@ public class MatcherTest {
         DirectedGraph<Vertex, Edge> g = new DirectedSparseMultigraph<Vertex, Edge>();
         
         for (Edge edge : file.getEdges()) {
-                g.addEdge(edge, edge.getSource(), edge.getTarget());
+                g.addEdge(edge, (Vertex) edge.getSource(), (Vertex) edge.getTarget());
             }
         return g;
     }
@@ -129,7 +129,7 @@ public class MatcherTest {
         
         DirectedGraph<Vertex, Edge> graph = new DirectedSparseMultigraph<Vertex, Edge>();
         for (Edge e : edges) {
-            graph.addEdge(e, e.getSource(), e.getTarget());
+            graph.addEdge(e, (Vertex) e.getSource(), (Vertex) e.getTarget());
         } 
         
         return graph;
@@ -171,7 +171,7 @@ public class MatcherTest {
         
         DirectedGraph<Vertex, Edge> graph = new DirectedSparseMultigraph<Vertex, Edge>();
         for (Edge e : edges) {
-            graph.addEdge(e, e.getSource(), e.getTarget());
+            graph.addEdge(e, (Vertex) e.getSource(), (Vertex) e.getTarget());
         } 
         
         return graph;

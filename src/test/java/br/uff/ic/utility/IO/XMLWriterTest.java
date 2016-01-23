@@ -47,7 +47,7 @@ public class XMLWriterTest {
         DirectedGraph<Vertex, Edge> g = new DirectedSparseMultigraph<Vertex, Edge>();
         
         for (Edge edge : file.getEdges()) {
-                g.addEdge(edge, edge.getSource(), edge.getTarget());
+                g.addEdge(edge, (Vertex) edge.getSource(), (Vertex) edge.getTarget());
             }
             
         XMLWriter xmlWriter = new XMLWriter(g.getVertices(), g.getEdges());

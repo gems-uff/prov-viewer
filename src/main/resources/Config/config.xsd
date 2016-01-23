@@ -30,10 +30,6 @@ and open the template in the editor.
             <xs:element name="layoutbackbone" type="xs:string"/>
 			<!-- Temporal Layout scale -->
             <xs:element name="layoutscale" type="xs:string"/>
-			<!-- Show Date value on Entity Vertex -->
-            <xs:element name="showentitydate" type="xs:string"/>
-			<!-- Show Label value on Entity Vertex -->
-            <xs:element name="showentitylabel" type="xs:string"/>
             <!-- List of all edges and their configuration values -->
             <xs:element name="edgetype" type="edgetype" minOccurs="0" maxOccurs="unbounded"/>
             <!-- List of all display modes -->

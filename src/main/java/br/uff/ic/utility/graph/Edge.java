@@ -17,8 +17,8 @@ import java.util.Map;
 public class Edge extends GraphObject{
 
     private String id;
-    private Vertex source;
-    private Vertex target;
+    private Object source;
+    private Object target;
     //private String influence;      // Influence type (i.e. Damage)
     private String value;          // Influence Value (i.e. 5.0)
     private final String type;           // Edge type (prov edges)
@@ -41,8 +41,8 @@ public class Edge extends GraphObject{
     public Edge(String id, String influence, String type, String value, 
             String label, Map<String, GraphAttribute> attributes, Object target, Object source) {
         this.id = id;
-        this.source = (Vertex) source;
-        this.target = (Vertex) target;
+        this.source = source;
+        this.target = target;
         this.type = type;
         if (influence.equalsIgnoreCase("") || (influence == null) || influence.equalsIgnoreCase("Neutral")) {
             setLabel("Neutral");
@@ -68,8 +68,8 @@ public class Edge extends GraphObject{
      */
     public Edge(String id, String type, String label, String value, Object target, Object source) {
         this.id = id;
-        this.source = (Vertex) source;
-        this.target = (Vertex) target;
+        this.source = source;
+        this.target = target;
         this.type = type;
         if (label.equalsIgnoreCase("") || label == null || label == "-" || label.equalsIgnoreCase("Neutral")) {
             setLabel("Neutral");
@@ -93,8 +93,8 @@ public class Edge extends GraphObject{
      */
     public Edge(String id, Object target, Object source, String influence) {
         this.id = id;
-        this.source = (Vertex) source;
-        this.target = (Vertex) target;
+        this.source = source;
+        this.target = target;
         if (influence.equalsIgnoreCase("")) {
             setLabel("Neutral");
         } else {
@@ -124,11 +124,11 @@ public class Edge extends GraphObject{
      *
      * @return vertex source
      */
-    public Vertex getSource() {
+    public Object getSource() {
         return source;
     }
 
-    public void setSource(Vertex t) {
+    public void setSource(Object t) {
         source = t;
     }
     
@@ -137,11 +137,11 @@ public class Edge extends GraphObject{
      *
      * @return vertex target
      */
-    public Vertex getTarget() {
+    public Object getTarget() {
         return target;
     }
     
-    public void setTarget(Vertex t) {
+    public void setTarget(Object t) {
         target = t;
     }
     

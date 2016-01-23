@@ -319,15 +319,15 @@ public class GraphMatchingTest {
         Edge result02 = ((Edge) result.toArray()[1]);
         Edge expResult02 = ((Edge) expResult.values().toArray()[0]);
         
-        String result01Target = result01.getTarget().getID();
-        String expResult01Target = expResult01.getTarget().getID();
-        String result01Source = result01.getSource().getID();
-        String expResult01Source = expResult01.getSource().getID();
+        String result01Target = ((Vertex)result01.getTarget()).getID();
+        String expResult01Target = ((Vertex)expResult01.getTarget()).getID();
+        String result01Source = ((Vertex)result01.getSource()).getID();
+        String expResult01Source = ((Vertex)expResult01.getSource()).getID();
         
-        String result02Target = result02.getTarget().getID();
-        String expResult02Target = expResult02.getTarget().getID();
-        String result02Source = result02.getSource().getID();
-        String expResult02Source = expResult02.getSource().getID();
+        String result02Target = ((Vertex)result02.getTarget()).getID();
+        String expResult02Target = ((Vertex)expResult02.getTarget()).getID();
+        String result02Source = ((Vertex)result02.getSource()).getID();
+        String expResult02Source = ((Vertex)expResult02.getSource()).getID();
         
 //        System.out.println("Target: " + result01Target);
 //        System.out.println("Exp Target: " + expResult01Target);

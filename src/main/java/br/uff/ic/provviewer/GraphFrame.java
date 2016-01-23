@@ -25,7 +25,11 @@ public class GraphFrame extends javax.swing.JFrame {
      */
     public GraphFrame(DirectedGraph<Object, Edge> graph) {
         initComponents();
-        GuiInitialization.initGraphComponent(variables, graph, this, Layouts);       
+        GuiInitialization.initGraphComponent(variables, graph, this, Layouts, 
+                displayAgentLabelButton.getState(), 
+                displayActivityLabelButton.getState(), 
+                displayEntityLabelButton.getState(), 
+                displayTimeLabel.getState());       
     }
 
     /** This method is called from within the constructor to
@@ -74,6 +78,10 @@ public class GraphFrame extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         autoDetectEdgesCheckBox = new javax.swing.JCheckBoxMenuItem();
         autoDetectAttributeCheckBox = new javax.swing.JCheckBoxMenuItem();
+        displayAgentLabelButton = new javax.swing.JCheckBoxMenuItem();
+        displayActivityLabelButton = new javax.swing.JCheckBoxMenuItem();
+        displayEntityLabelButton = new javax.swing.JCheckBoxMenuItem();
+        displayTimeLabel = new javax.swing.JCheckBoxMenuItem();
 
         fileChooser.setCurrentDirectory(new java.io.File("D:\\SVN\\Prov_Viewer\\prov-viewer\\src\\main\\resources"));
         fileChooser.setDialogTitle("This is my open dialog");
@@ -408,6 +416,38 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu1.add(autoDetectAttributeCheckBox);
 
+        displayAgentLabelButton.setText("Display Agent Vertex Label");
+        displayAgentLabelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                displayAgentLabelButtonActionPerformed(evt);
+            }
+        });
+        jMenu1.add(displayAgentLabelButton);
+
+        displayActivityLabelButton.setText("Display Activity Vertex Label");
+        displayActivityLabelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                displayActivityLabelButtonActionPerformed(evt);
+            }
+        });
+        jMenu1.add(displayActivityLabelButton);
+
+        displayEntityLabelButton.setText("Display Entity Vertex Label");
+        displayEntityLabelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                displayEntityLabelButtonActionPerformed(evt);
+            }
+        });
+        jMenu1.add(displayEntityLabelButton);
+
+        displayTimeLabel.setText("Display Time");
+        displayTimeLabel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                displayTimeLabelActionPerformed(evt);
+            }
+        });
+        jMenu1.add(displayTimeLabel);
+
         MenuBar.add(jMenu1);
 
         setJMenuBar(MenuBar);
@@ -567,6 +607,26 @@ public class GraphFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         GuiButtons.AutoDetectVertexModes(variables, autoDetectAttributeCheckBox.getState());
     }//GEN-LAST:event_autoDetectAttributeCheckBoxActionPerformed
+
+    private void displayEntityLabelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayEntityLabelButtonActionPerformed
+        // TODO add your handling code here:
+        GuiButtons.VertexLabel(variables, displayAgentLabelButton.getState(), displayActivityLabelButton.getState(), displayEntityLabelButton.getState(), displayTimeLabel.getState());
+    }//GEN-LAST:event_displayEntityLabelButtonActionPerformed
+
+    private void displayActivityLabelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayActivityLabelButtonActionPerformed
+        // TODO add your handling code here:
+        GuiButtons.VertexLabel(variables, displayAgentLabelButton.getState(), displayActivityLabelButton.getState(), displayEntityLabelButton.getState(), displayTimeLabel.getState());
+    }//GEN-LAST:event_displayActivityLabelButtonActionPerformed
+
+    private void displayAgentLabelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayAgentLabelButtonActionPerformed
+        // TODO add your handling code here:
+        GuiButtons.VertexLabel(variables, displayAgentLabelButton.getState(), displayActivityLabelButton.getState(), displayEntityLabelButton.getState(), displayTimeLabel.getState());
+    }//GEN-LAST:event_displayAgentLabelButtonActionPerformed
+
+    private void displayTimeLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayTimeLabelActionPerformed
+        // TODO add your handling code here:
+        GuiButtons.VertexLabel(variables, displayAgentLabelButton.getState(), displayActivityLabelButton.getState(), displayEntityLabelButton.getState(), displayTimeLabel.getState());
+    }//GEN-LAST:event_displayTimeLabelActionPerformed
    
     /**
      * Main
@@ -637,6 +697,10 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JPanel ToolMenu;
     private javax.swing.JCheckBoxMenuItem autoDetectAttributeCheckBox;
     private javax.swing.JCheckBoxMenuItem autoDetectEdgesCheckBox;
+    private javax.swing.JCheckBoxMenuItem displayActivityLabelButton;
+    private javax.swing.JCheckBoxMenuItem displayAgentLabelButton;
+    private javax.swing.JCheckBoxMenuItem displayEntityLabelButton;
+    private javax.swing.JCheckBoxMenuItem displayTimeLabel;
     public javax.swing.JTextField edgeTypeField;
     private javax.swing.JFileChooser fileChooser;
     private javax.swing.JMenu jMenu1;

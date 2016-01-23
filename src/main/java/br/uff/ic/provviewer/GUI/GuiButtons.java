@@ -203,4 +203,9 @@ public class GuiButtons {
         if(selected)
             variables.config.DetectVertexModes(variables.graph.getVertices());
     }
+
+    public static void VertexLabel(Variables variables, boolean agentLabel, boolean activityLabel, boolean entityLabel, boolean timeLabel) {
+        GuiFunctions.VertexLabel(variables, agentLabel, activityLabel, entityLabel, timeLabel);
+        variables.view.repaint();
+    }
 }

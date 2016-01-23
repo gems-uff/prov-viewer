@@ -63,8 +63,8 @@ public class Config {
     public double spatialLayoutPosition;
     public double coordinatesScale;
     public double scale;
-    public boolean showEntityDate;
-    public boolean showEntityLabel;
+//    public boolean showEntityDate;
+//    public boolean showEntityLabel;
 
     public double width;
     public double height;
@@ -219,10 +219,10 @@ public class Config {
             spatialLayoutPosition = Double.parseDouble(nList.item(0).getTextContent());
             nList = doc.getElementsByTagName("temporalLayoutscale");
             scale = Double.parseDouble(nList.item(0).getTextContent());
-            nList = doc.getElementsByTagName("showentitydate");
-            showEntityDate = Boolean.parseBoolean(nList.item(0).getTextContent());
-            nList = doc.getElementsByTagName("showentitylabel");
-            showEntityLabel = Boolean.parseBoolean(nList.item(0).getTextContent());
+//            nList = doc.getElementsByTagName("showentitydate");
+//            showEntityDate = Boolean.parseBoolean(nList.item(0).getTextContent());
+//            nList = doc.getElementsByTagName("showentitylabel");
+//            showEntityLabel = Boolean.parseBoolean(nList.item(0).getTextContent());
 
             ComputeCoordScale();
             //Edge Types

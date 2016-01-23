@@ -15,6 +15,7 @@ import br.uff.ic.provviewer.Vertex.ColorScheme.VertexPainter;
 import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
 import br.uff.ic.provviewer.Vertex.VertexShape;
+import br.uff.ic.utility.graph.ActivityVertex;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.Layer;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
@@ -75,27 +76,60 @@ public class GuiFunctions {
      * Method to display labels for vertices
      * @param variables 
      */
-    public static void VertexLabel(final Variables variables) {
+    public static void VertexLabel(final Variables variables, final boolean agentLabel, final boolean activityLabel, final boolean entityLabel, final boolean timeLabel) {
         variables.view.getRenderContext().setVertexLabelTransformer(new Transformer<Object, String>() {
 
             @Override
             public String transform(Object v) {
+                String font = "<html><font size=\"8\", font color=\"blue\">";
                 if (v instanceof Graph) {
+                    boolean hasActivity = false;
+//                    boolean hasEntity = false;
                     for (Object vertex : ((Graph) v).getVertices()) {
-                        if (vertex instanceof AgentVertex) {
-                            return "<html><font size=\"8\">" + ((Vertex) vertex).getLabel();
+                        if (vertex instanceof AgentVertex && agentLabel) {
+                            return font + ((Vertex) vertex).getLabel();
                         }
+                        if (vertex instanceof ActivityVertex) {
+                            hasActivity = true;
+                        }
+//                        if (vertex instanceof EntityVertex) {
+//                            hasEntity = true;
+//                        }
                     }
+                    if(hasActivity && activityLabel)
+                        return font + "Collapsed Vertex";
                 }
-                if (v instanceof AgentVertex) {
-                    return "<html><font size=\"8\">" + ((Vertex) v).getLabel();
-                } else if ((v instanceof EntityVertex) && variables.config.showEntityLabel && variables.config.showEntityDate) {
-                    return "<html><font size=\"8\">" + String.valueOf((int) ((Vertex) v).getTime()) + " : " + ((Vertex) v).getLabel();
-                } else if ((v instanceof EntityVertex) && variables.config.showEntityDate) {
-                    return "<html><font size=\"8\">" + String.valueOf((int) ((Vertex) v).getTime());
-                } else if ((v instanceof EntityVertex) && variables.config.showEntityLabel) {
-                    return "<html><font size=\"8\">" + ((Vertex) v).getLabel();
+                // Agent
+                if (v instanceof AgentVertex && agentLabel) {
+                    return font + ((Vertex) v).getLabel();
+                } 
+                // Entity
+                // Label + Time
+                else if ((v instanceof EntityVertex) && entityLabel && timeLabel) {
+                    return font + String.valueOf((int) ((Vertex) v).getTime()) + " : " + ((Vertex) v).getLabel();
                 }
+                // Time
+                else if ((v instanceof EntityVertex) && timeLabel) {
+                    return font + String.valueOf((int) ((Vertex) v).getTime());
+                } 
+                // Label
+                else if ((v instanceof EntityVertex) && entityLabel) {
+                    return font + ((Vertex) v).getLabel();
+                }
+                // Activity
+                // Label + Time
+                else if ((v instanceof ActivityVertex) && activityLabel && timeLabel) {
+                    return font + String.valueOf((int) ((Vertex) v).getTime()) + " : " + ((Vertex) v).getLabel();
+                }
+                // Time
+                else if ((v instanceof ActivityVertex) && timeLabel) {
+                    return font + String.valueOf((int) ((Vertex) v).getTime());
+                } 
+                // Label
+                else if ((v instanceof ActivityVertex) && activityLabel) {
+                    return font + ((Vertex) v).getLabel();
+                }
+                
                 return "";
             }
         });
