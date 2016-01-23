@@ -215,7 +215,7 @@ public class GraphMatchingTest {
         
         GraphMatching instance = new GraphMatching(null, 0.0);
         
-        Vertex expResult = new ActivityVertex(v1.getID() + "," + v2.getID(), v1.getLabel() + "," + v2.getLabel(), v1.getTimeString());
+        Vertex expResult = new ActivityVertex(v1.getID() + "_" + v2.getID(), v1.getLabel() + "_" + v2.getLabel(), v1.getTimeString());
         GraphAttribute aResult;
         
         aResult = new GraphAttribute("a1", "Asd, edf");
