@@ -7,6 +7,7 @@ package br.uff.ic.graphmatching;
 
 import br.uff.ic.graphmatching.Heuristics.SimpleHeuristic;
 import br.uff.ic.utility.AttributeErrorMargin;
+import br.uff.ic.utility.Vocabulary;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
@@ -19,6 +20,42 @@ import java.util.Map;
  */
 public class Matcher {
     
+    // List + Vocabulary + Threshold
+    public DirectedGraph<Object, Edge> Matching(
+            DirectedGraph<Object, Edge> graph_01, 
+            DirectedGraph<Object, Edge> graph_02, 
+            Map<String, AttributeErrorMargin> restrictionList,
+            Vocabulary vocabulary,
+            double similarityThreshold) {
+        
+        GraphMatching combiner = new GraphMatching(restrictionList, vocabulary.getVocabulary(), similarityThreshold);
+        return MergeGraphs(graph_01, graph_02, combiner);
+    }
+    
+    // List + Vocabulary + Threshold + default
+    public DirectedGraph<Object, Edge> Matching(
+            DirectedGraph<Object, Edge> graph_01, 
+            DirectedGraph<Object, Edge> graph_02, 
+            Map<String, AttributeErrorMargin> restrictionList,
+            Vocabulary vocabulary,
+            double similarityThreshold, double defaultError) {
+        
+        GraphMatching combiner = new GraphMatching(restrictionList, vocabulary.getVocabulary(), similarityThreshold, defaultError);
+        return MergeGraphs(graph_01, graph_02, combiner);
+    }
+    
+    // List + Threshold + default
+    public DirectedGraph<Object, Edge> Matching(
+            DirectedGraph<Object, Edge> graph_01, 
+            DirectedGraph<Object, Edge> graph_02, 
+            Map<String, AttributeErrorMargin> restrictionList, 
+            double similarityThreshold, double defaultError) {
+        
+        GraphMatching combiner = new GraphMatching(restrictionList, similarityThreshold, defaultError);
+        return MergeGraphs(graph_01, graph_02, combiner);
+    }
+    
+    // List + Threshold
     public DirectedGraph<Object, Edge> Matching(
             DirectedGraph<Object, Edge> graph_01, 
             DirectedGraph<Object, Edge> graph_02, 
@@ -26,7 +63,13 @@ public class Matcher {
             double similarityThreshold) {
         
         GraphMatching combiner = new GraphMatching(restrictionList, similarityThreshold);
-        
+        return MergeGraphs(graph_01, graph_02, combiner);
+    }
+    
+    private DirectedGraph<Object, Edge> MergeGraphs(
+            DirectedGraph<Object, Edge> graph_01, 
+            DirectedGraph<Object, Edge> graph_02, 
+            GraphMatching combiner) {
         // Correct IDs
         updateVertexIDs(graph_01, "Graph_01");
         updateVertexIDs(graph_02, "Graph_02");

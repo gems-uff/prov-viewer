@@ -103,6 +103,13 @@ public class Utils {
         return Math.abs(f1 - f2) <= epsilon;
     }
     
+    public static boolean FloatSimilar(double f1, double f2, double epsilon) {
+        double max = Math.max(f1, f2);
+        double min = Math.min(f1, f2);
+        
+        return min + Math.abs(max * epsilon) >= max;
+    }
+    
     /**
      * Clamp function to clamp the value between min and max
      * @param min is the minimal accepted value

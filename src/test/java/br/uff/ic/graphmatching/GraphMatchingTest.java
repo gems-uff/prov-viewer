@@ -104,19 +104,61 @@ public class GraphMatchingTest {
         assertEquals(expResult, result);
     }
     
+    public void ComparingDefault(double threshold, boolean expResult, 
+            String a11, String a12, 
+            String a21, String a22, 
+            String e3, String e4) {
+        Vertex v1 = new ActivityVertex("v1", "test", "0");
+        Vertex v2 = new ActivityVertex("v2", "test", "0");
+        Map<String, AttributeErrorMargin> restrictionList = new HashMap<String, AttributeErrorMargin>();
+        
+        GraphAttribute av1 = new GraphAttribute("a1", a11);
+        GraphAttribute av2 = new GraphAttribute("a1", a12);
+        v1.addAttribute(av1);
+        v2.addAttribute(av2);
+        
+        av1 = new GraphAttribute("a2", a21);
+        av2 = new GraphAttribute("a2", a22);
+        v1.addAttribute(av1);
+        v2.addAttribute(av2);
+        
+        av1 = new GraphAttribute("a3", "3");
+        av2 = new GraphAttribute("a3", "1.5");
+        AttributeErrorMargin epsilon = new AttributeErrorMargin("a3", e3);
+        restrictionList.put("a3", epsilon);
+        v1.addAttribute(av1);
+        v2.addAttribute(av2);
+        
+        av1 = new GraphAttribute("a4", "1");
+        av2 = new GraphAttribute("a4", "-2");
+        epsilon = new AttributeErrorMargin("a4", e4);
+        restrictionList.put("a4", epsilon);
+        v1.addAttribute(av1);
+        v2.addAttribute(av2);
+        
+        GraphMatching instance = new GraphMatching(restrictionList, threshold, 0.25);
+        boolean result = instance.isSimilar(v1, v2);
+        assertEquals(expResult, result);
+    }
+    
     public void equals(double threshold, boolean expResult) {
         System.out.println("Equal");
-        Comparing(threshold, expResult, "asd", "bvF", "2012-05-24T10:00:02", "2012-05-24T10:00:01", "asd, bvf", "2000", "2", "3");
+        Comparing(threshold, expResult, "asd", "bvF", "2012-05-24T10:00:02", "2012-05-24T10:00:01", "asd, bvf", "2000", "0.5", "3");
+        Comparing(threshold, expResult, "8", "10", "2012-05-24T10:00:02", "2012-05-24T10:00:01", "0.2", "2000", "0.5", "3");
+        Comparing(threshold, expResult, "10", "8", "10", "7", "0.2", "0.3", "0.5", "3");
+        ComparingDefault(threshold, expResult, "8", "10", "-10", "-10", "0.5", "3");
     }
     
     public void almostEquals(double threshold, boolean expResult) {
         System.out.println("AlmostEqual");
-        Comparing(threshold, expResult, "asd", "AsD", "2012-05-24T10:00:01", "2012-05-24T10:00:02", "0", "2000", "2", "0");
+        Comparing(threshold, expResult, "asd", "AsD", "2012-05-24T10:00:01", "2012-05-24T10:00:02", "0", "2000", "0.5", "0");
+        ComparingDefault(threshold, expResult, "8", "10", "7", "10", "0.5", "3");
     }
     
     public void halfEquals(double threshold, boolean expResult) {
         System.out.println("HalfEqual");
         Comparing(threshold, expResult, "asd", "AsD", "2012-05-24T10:00:01", "2012-05-24T10:00:02", "0", "2000", "0", "0");
+        ComparingDefault(threshold, expResult, "8", "10", "7", "10", "0.5", "0");
     }
     
     public void quarterEquals(double threshold, boolean expResult) {
@@ -215,7 +257,7 @@ public class GraphMatchingTest {
         
         GraphMatching instance = new GraphMatching(null, 0.0);
         
-        Vertex expResult = new ActivityVertex(v1.getID() + "_" + v2.getID(), v1.getLabel() + "_" + v2.getLabel(), v1.getTimeString());
+        Vertex expResult = new ActivityVertex(v1.getID() + "_" + v2.getID() + " (Merged)", v1.getLabel() + "_" + v2.getLabel(), v1.getTimeString());
         GraphAttribute aResult;
         
         aResult = new GraphAttribute("a1", "Asd, edf");

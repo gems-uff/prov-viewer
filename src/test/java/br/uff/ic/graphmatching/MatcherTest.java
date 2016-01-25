@@ -58,7 +58,7 @@ public class MatcherTest {
         double similarityThreshold = 0.9;
         Matcher instance = new Matcher();
 //        DirectedGraph<Vertex, Edge> expResult = null;
-        DirectedGraph<Object, Edge> result = instance.Matching(graph_01, graph_02, restrictionList, similarityThreshold);
+        DirectedGraph<Object, Edge> result = instance.Matching(graph_01, graph_02, restrictionList, similarityThreshold, 0.9);
         
         String resultEdges = "";
         for (Edge e : result.getEdges()) {
@@ -182,13 +182,13 @@ public class MatcherTest {
         AttributeErrorMargin epsilon = new AttributeErrorMargin("a1", "0");
         restrictionList.put("a1", epsilon);
         
-        epsilon = new AttributeErrorMargin("ObjectPosition_X", "4");
+        epsilon = new AttributeErrorMargin("ObjectPosition_X", "0.5");
         restrictionList.put("ObjectPosition_X", epsilon);
         
-        epsilon = new AttributeErrorMargin("ObjectPosition_Y", "1");
+        epsilon = new AttributeErrorMargin("ObjectPosition_Y", "0.25");
         restrictionList.put("ObjectPosition_Y", epsilon);
         
-        epsilon = new AttributeErrorMargin("ObjectPosition_Z", "4");
+        epsilon = new AttributeErrorMargin("ObjectPosition_Z", "0.5");
         restrictionList.put("ObjectPosition_Z", epsilon);
         return restrictionList;
     }

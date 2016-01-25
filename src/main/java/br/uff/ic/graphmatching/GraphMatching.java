@@ -29,6 +29,7 @@ public class GraphMatching {
     private int edgeID = 0;
     private int vertexID = 0;
     private double threshold;
+    private double defaultError;
     Map<String, Edge> duplicateEdges;
     private final Map<String, Object> vertexList;
     private final Map<String, Edge> edgeList;
@@ -58,6 +59,19 @@ public class GraphMatching {
         threshold = Utils.clamp(0.0, 1.0, similarityThreshold);
         combinedVertexList = new HashMap<String, Object>();
         duplicateEdges = new HashMap<String, Edge>();
+        defaultError = 0;
+    }
+    
+    public GraphMatching(Map<String, AttributeErrorMargin> restrictionList, Map<String, String> vocabulary, double similarityThreshold, double errorMargin) {
+        vertexList = new HashMap<String, Object>();
+        edgeList = new HashMap<String, Edge>();
+        attributeList = restrictionList;
+        this.vocabulary = vocabulary;
+        threshold = similarityThreshold;
+        threshold = Utils.clamp(0.0, 1.0, similarityThreshold);
+        combinedVertexList = new HashMap<String, Object>();
+        duplicateEdges = new HashMap<String, Edge>();
+        defaultError = errorMargin;
     }
     
     /**
@@ -77,6 +91,19 @@ public class GraphMatching {
         threshold = Utils.clamp(0.0, 1.0, similarityThreshold);
         combinedVertexList = new HashMap<String, Object>();
         duplicateEdges = new HashMap<String, Edge>();
+        defaultError = 0;
+    }
+    
+    public GraphMatching(Map<String, AttributeErrorMargin> restrictionList, double similarityThreshold, double errorMargin) {
+        vertexList = new HashMap<String, Object>();
+        edgeList = new HashMap<String, Edge>();
+        attributeList = restrictionList;
+        this.vocabulary = new HashMap<String, String>();
+        threshold = similarityThreshold;
+        threshold = Utils.clamp(0.0, 1.0, similarityThreshold);
+        combinedVertexList = new HashMap<String, Object>();
+        duplicateEdges = new HashMap<String, Edge>();
+        defaultError = errorMargin;
     }
 
     /**
@@ -94,6 +121,7 @@ public class GraphMatching {
         threshold = Utils.clamp(0.0, 1.0, similarityThreshold);
         combinedVertexList = new HashMap<String, Object>();
         duplicateEdges = new HashMap<String, Edge>();
+        defaultError = 0;
     }
 
     /**
@@ -183,16 +211,16 @@ public class GraphMatching {
         if (v2.getAttribute(attribute.getName()) != null) {
             String av1 = attribute.getAverageValue();
             String av2 = v2.getAttribute(attribute.getName()).getAverageValue();
-            String errorMargin = "0";
+            String errorMargin = String.valueOf(defaultError);
             float weight = 1;
             if (attributeList.get(attribute.getName()) != null) {
                 errorMargin = attributeList.get(attribute.getName()).getValue();
                 weight = attributeList.get(attribute.getName()).getWeight();
             }
-            
+
             // Dealing with numeric values
             if (Utils.tryParseFloat(av1) && Utils.tryParseFloat(av2) && Utils.tryParseFloat(errorMargin)) {
-                if (Utils.FloatEqualTo(Utils.convertFloat(av1), Utils.convertFloat(av2), Utils.convertFloat(errorMargin))) {
+                if (Utils.FloatSimilar(Utils.convertFloat(av1), Utils.convertFloat(av2), Utils.convertFloat(errorMargin))) {
                     similarity = similarity + (1 * weight);
                 }
             } // Dealing with a timeDate values
@@ -247,7 +275,8 @@ public class GraphMatching {
         }
 
         // Update ID and Label
-        combinedVertex.setID(combinedVertex.getID() + "_" + v2.getID());
+        combinedVertex.setID(combinedVertex.getID().replace(" (Merged)", ""));
+        combinedVertex.setID(combinedVertex.getID() + "_" + v2.getID() + " (Merged)");
         if(!combinedVertex.getLabel().equalsIgnoreCase(v2.getLabel()))
             combinedVertex.setLabel(combinedVertex.getLabel() + "_" + v2.getLabel());        
 
