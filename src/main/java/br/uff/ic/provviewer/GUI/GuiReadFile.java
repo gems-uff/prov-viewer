@@ -34,6 +34,9 @@ import org.apache.commons.io.FilenameUtils;
  * @author Kohwalter
  */
 public class GuiReadFile {
+    
+    static double similarityThreshold = 0.9;
+    static double defaultErrorMargin = 0.9;
 
     /**
      * Method to read the graph from the XML file
@@ -123,9 +126,7 @@ public class GuiReadFile {
         int returnVal = fileChooser.showOpenDialog(graphFrame);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             DirectedGraph<Object, Edge> fileGraph = GuiReadFile.getGraph(fileChooser.getSelectedFile());
-            Map<String, AttributeErrorMargin> restrictionList = defaultRestriction();
-            double similarityThreshold = 0.9;
-            double defaultErrorMargin = 0.9;
+            Map<String, AttributeErrorMargin> restrictionList = defaultRestriction(); 
             Matcher merger = new Matcher();
             DirectedGraph<Object, Edge> mergedGraph = merger.Matching(variables.graph, fileGraph, restrictionList, similarityThreshold, defaultErrorMargin);
             
