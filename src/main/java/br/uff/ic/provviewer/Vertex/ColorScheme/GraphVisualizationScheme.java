@@ -26,7 +26,7 @@ public class GraphVisualizationScheme extends ColorScheme {
 
     @Override
     public Paint Execute(Object v, final Variables variables) {
-        if ((v instanceof ActivityVertex) && (((Vertex)v).getID().contains(this.attribute))&& (((Vertex)v).getID().contains(",")))
+        if (((Vertex)v).getID().contains("(Merged)"))
             return new Color(200, 200, 200);
         else if ((v instanceof ActivityVertex) && (((Vertex)v).getID().contains(this.attribute)))
             return new Color(0, 255, 0);
