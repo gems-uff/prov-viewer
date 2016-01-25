@@ -52,13 +52,13 @@ public class MatcherTest {
     @Test
     public void testMatching() throws FileNotFoundException, URISyntaxException, IOException {
         System.out.println("Matching");
-        DirectedGraph<Vertex, Edge> graph_01 = graphFile("Graph_to_Merge_01.xml");
-        DirectedGraph<Vertex, Edge> graph_02 = graphFile("Graph_to_Merge_02.xml");
+        DirectedGraph<Object, Edge> graph_01 = graphFile("Graph_to_Merge_01.xml");
+        DirectedGraph<Object, Edge> graph_02 = graphFile("Graph_to_Merge_02.xml");
         Map<String, AttributeErrorMargin> restrictionList = restriction();
         double similarityThreshold = 0.9;
         Matcher instance = new Matcher();
 //        DirectedGraph<Vertex, Edge> expResult = null;
-        DirectedGraph<Vertex, Edge> result = instance.Matching(graph_01, graph_02, restrictionList, similarityThreshold);
+        DirectedGraph<Object, Edge> result = instance.Matching(graph_01, graph_02, restrictionList, similarityThreshold);
         
         String resultEdges = "";
         for (Edge e : result.getEdges()) {
@@ -66,8 +66,8 @@ public class MatcherTest {
         };
         
         String resultVertices = "";
-        for (Vertex v : result.getVertices()) {
-            resultVertices += v.getID() + " || ";
+        for (Object v : result.getVertices()) {
+            resultVertices += ((Vertex)v).getID() + " || ";
         };
         
         System.out.println("Edges: " + resultEdges);
@@ -80,11 +80,11 @@ public class MatcherTest {
         xmlWriter.saveToXML("Merge_Test");
     }
     
-    private DirectedGraph<Vertex, Edge> graphFile(String path) throws URISyntaxException, IOException {
+    private DirectedGraph<Object, Edge> graphFile(String path) throws URISyntaxException, IOException {
         File f = new File(BasePath.getBasePathForClass(GuiRun.class) + File.separator + "Graph" + File.separator + path);
         UnityReader file = new UnityReader(f);
         file.readFile();
-        DirectedGraph<Vertex, Edge> g = new DirectedSparseMultigraph<Vertex, Edge>();
+        DirectedGraph<Object, Edge> g = new DirectedSparseMultigraph<Object, Edge>();
         
         for (Edge edge : file.getEdges()) {
                 g.addEdge(edge, (Vertex) edge.getSource(), (Vertex) edge.getTarget());

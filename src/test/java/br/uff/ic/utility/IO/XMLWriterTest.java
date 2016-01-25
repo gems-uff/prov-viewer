@@ -44,7 +44,7 @@ public class XMLWriterTest {
         File f = new File(BasePath.getBasePathForClass(GuiRun.class) + Variables.demo);
         UnityReader file = new UnityReader(f);
         file.readFile();
-        DirectedGraph<Vertex, Edge> g = new DirectedSparseMultigraph<Vertex, Edge>();
+        DirectedGraph<Object, Edge> g = new DirectedSparseMultigraph<Object, Edge>();
         
         for (Edge edge : file.getEdges()) {
                 g.addEdge(edge, (Vertex) edge.getSource(), (Vertex) edge.getTarget());

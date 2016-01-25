@@ -662,6 +662,7 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private void mergeGraphButtomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mergeGraphButtomActionPerformed
         // TODO add your handling code here:
+        GuiReadFile.MergeGraph(variables, fileChooser, this, Layouts);
     }//GEN-LAST:event_mergeGraphButtomActionPerformed
 
     private void exportGraphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportGraphButtonActionPerformed

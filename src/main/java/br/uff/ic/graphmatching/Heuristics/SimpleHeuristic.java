@@ -20,20 +20,20 @@ import java.util.Map;
  */
 public class SimpleHeuristic implements MatchingHeuristic{
 
-    public void MatchGraphs(DirectedGraph<Vertex, Edge> graph_01, DirectedGraph<Vertex, Edge> graph_02, GraphMatching combiner) {
-        Collection<Vertex> g1_vertices = graph_01.getVertices();
-        Collection<Vertex> g2_vertices = graph_02.getVertices();
-        Map<String, Vertex> v1List = new HashMap<String, Vertex>();
-        Map<String, Vertex> v2List = new HashMap<String, Vertex>();
+    public void MatchGraphs(DirectedGraph<Object, Edge> graph_01, DirectedGraph<Object, Edge> graph_02, GraphMatching combiner) {
+        Collection<Object> g1_vertices = graph_01.getVertices();
+        Collection<Object> g2_vertices = graph_02.getVertices();
+        Map<String, Object> v1List = new HashMap<String, Object>();
+        Map<String, Object> v2List = new HashMap<String, Object>();
         
-        for (Vertex v1 : g1_vertices) {
-            for (Vertex v2 : g2_vertices) {
-                if(combiner.isSimilar(v1, v2)) {
-                    if(!(v1List.containsKey(v1.getID())) && !(v2List.containsKey(v2.getID()))) {
-                        Vertex cv = combiner.combineVertices (v1, v2);
-                        combiner.addVertex(cv);
-                        v1List.put(v1.getID(), v1);
-                        v2List.put(v2.getID(), v2);
+        for (Object v1 : g1_vertices) {
+            for (Object v2 : g2_vertices) {
+                if(combiner.isSimilar((Vertex)v1, (Vertex)v2)) {
+                    if(!(v1List.containsKey(((Vertex)v1).getID())) && !(v2List.containsKey(((Vertex)v2).getID()))) {
+                        Object cv = combiner.combineVertices ((Vertex)v1, (Vertex)v2);
+                        combiner.addVertex((Vertex)cv);
+                        v1List.put(((Vertex)v1).getID(), v1);
+                        v2List.put(((Vertex)v2).getID(), v2);
                     }
                 }
             }

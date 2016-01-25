@@ -19,9 +19,9 @@ import java.util.Map;
  */
 public class Matcher {
     
-    public DirectedGraph<Vertex, Edge> Matching(
-            DirectedGraph<Vertex, Edge> graph_01, 
-            DirectedGraph<Vertex, Edge> graph_02, 
+    public DirectedGraph<Object, Edge> Matching(
+            DirectedGraph<Object, Edge> graph_01, 
+            DirectedGraph<Object, Edge> graph_02, 
             Map<String, AttributeErrorMargin> restrictionList, 
             double similarityThreshold) {
         
@@ -48,13 +48,13 @@ public class Matcher {
         return combiner.getCombinedGraph();
     }
     
-    public void updateVertexIDs(DirectedGraph<Vertex, Edge> graph, String ID) {
-        for (Vertex v : graph.getVertices()) {
-            v.setID(ID + "_" + v.getID());
+    public void updateVertexIDs(DirectedGraph<Object, Edge> graph, String ID) {
+        for (Object v : graph.getVertices()) {
+            ((Vertex)v).setID(ID + "_" + ((Vertex)v).getID());
         }
     }
     
-    public void updateEdgeIDs(DirectedGraph<Vertex, Edge> graph, String ID) {
+    public void updateEdgeIDs(DirectedGraph<Object, Edge> graph, String ID) {
         for (Edge e : graph.getEdges()) {
             e.setID(ID + "_" + e.getID());
         }

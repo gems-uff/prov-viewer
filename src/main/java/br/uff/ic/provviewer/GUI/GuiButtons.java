@@ -217,13 +217,13 @@ public class GuiButtons {
     }
 
     public static void ExportPROVN(Variables variables) {
-        Collection<Vertex> vertices = new ArrayList<Vertex>();
-        for(Object v : variables.graph.getVertices()) {
-            vertices.add((Vertex)v);
-        }
-        
+//        Collection<Vertex> vertices = new ArrayList<Vertex>();
+//        for(Object v : variables.graph.getVertices()) {
+//            vertices.add((Vertex)v);
+//        }
+//        
         PROVNWriter provnWriter = new PROVNWriter(variables.graph.getVertices(), variables.graph.getEdges());
-        XMLWriter xmlWriter = new XMLWriter(vertices, variables.graph.getEdges());
+        XMLWriter xmlWriter = new XMLWriter(variables.graph.getVertices(), variables.graph.getEdges());
         try {
             provnWriter.saveToProvn("PROVN_Export_Test");
             xmlWriter.saveToXML("XML_Export_Test");

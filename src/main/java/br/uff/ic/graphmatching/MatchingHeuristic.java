@@ -15,8 +15,8 @@ import edu.uci.ics.jung.graph.DirectedGraph;
  */
 public interface MatchingHeuristic {
     
-    public void MatchGraphs(DirectedGraph<Vertex, Edge> graph_01, 
-            DirectedGraph<Vertex, Edge> graph_02, 
+    public void MatchGraphs(DirectedGraph<Object, Edge> graph_01, 
+            DirectedGraph<Object, Edge> graph_02, 
             GraphMatching combiner);
     
 }

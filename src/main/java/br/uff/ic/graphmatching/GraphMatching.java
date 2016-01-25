@@ -30,9 +30,9 @@ public class GraphMatching {
     private int vertexID = 0;
     private double threshold;
     Map<String, Edge> duplicateEdges;
-    private final Map<String, Vertex> vertexList;
+    private final Map<String, Object> vertexList;
     private final Map<String, Edge> edgeList;
-    private final Map<String, Vertex> combinedVertexList;
+    private final Map<String, Object> combinedVertexList;
     private final Map<String, AttributeErrorMargin> attributeList;  
     private final Map<String, String> vocabulary; 
     // AttributeErrorMargin.name = the atribute 
@@ -50,13 +50,13 @@ public class GraphMatching {
      * vertices are considered similar. Varies from 0 to 1.0
      */
     public GraphMatching(Map<String, AttributeErrorMargin> restrictionList, Map<String, String> vocabulary, double similarityThreshold) {
-        vertexList = new HashMap<String, Vertex>();
+        vertexList = new HashMap<String, Object>();
         edgeList = new HashMap<String, Edge>();
         attributeList = restrictionList;
         this.vocabulary = vocabulary;
         threshold = similarityThreshold;
         threshold = Utils.clamp(0.0, 1.0, similarityThreshold);
-        combinedVertexList = new HashMap<String, Vertex>();
+        combinedVertexList = new HashMap<String, Object>();
         duplicateEdges = new HashMap<String, Edge>();
     }
     
@@ -69,13 +69,13 @@ public class GraphMatching {
      * vertices are considered similar. Varies from 0 to 1.0
      */
     public GraphMatching(Map<String, AttributeErrorMargin> restrictionList, double similarityThreshold) {
-        vertexList = new HashMap<String, Vertex>();
+        vertexList = new HashMap<String, Object>();
         edgeList = new HashMap<String, Edge>();
         attributeList = restrictionList;
         this.vocabulary = new HashMap<String, String>();
         threshold = similarityThreshold;
         threshold = Utils.clamp(0.0, 1.0, similarityThreshold);
-        combinedVertexList = new HashMap<String, Vertex>();
+        combinedVertexList = new HashMap<String, Object>();
         duplicateEdges = new HashMap<String, Edge>();
     }
 
@@ -86,13 +86,13 @@ public class GraphMatching {
      * vertices are considered similar. Varies from 0 to 1.0
      */
     public GraphMatching(double similarityThreshold) {
-        vertexList = new HashMap<String, Vertex>();
+        vertexList = new HashMap<String, Object>();
         edgeList = new HashMap<String, Edge>();
         attributeList = new HashMap<String, AttributeErrorMargin>();
         vocabulary = new HashMap<String, String>(); 
         threshold = similarityThreshold;
         threshold = Utils.clamp(0.0, 1.0, similarityThreshold);
-        combinedVertexList = new HashMap<String, Vertex>();
+        combinedVertexList = new HashMap<String, Object>();
         duplicateEdges = new HashMap<String, Edge>();
     }
 
@@ -101,7 +101,7 @@ public class GraphMatching {
      *
      * @return
      */
-    public Collection<Vertex> getVertexList() {
+    public Collection<Object> getVertexList() {
         return vertexList.values();
     }
 
@@ -278,8 +278,8 @@ public class GraphMatching {
      *
      * @param vertices is the graph that contains the vertices to be added
      */
-    public void addVertices(Collection<Vertex> vertices) {
-        for (Vertex vertex : vertices) {
+    public void addVertices(Collection<Object> vertices) {
+        for (Object vertex : vertices) {
             // Add only the vertices that were not used to generate a combined vertex
             if (!combinedVertexList.containsKey(((Vertex) vertex).getID())) {
                 addVertex((Vertex) vertex);
@@ -391,8 +391,8 @@ public class GraphMatching {
      *
      * @return the combined graph
      */
-    public DirectedGraph<Vertex, Edge> getCombinedGraph() {
-        DirectedGraph<Vertex, Edge> combinedGraph = new DirectedSparseMultigraph<Vertex, Edge>();
+    public DirectedGraph<Object, Edge> getCombinedGraph() {
+        DirectedGraph<Object, Edge> combinedGraph = new DirectedSparseMultigraph<Object, Edge>();
 
         removeDuplicateEdges();
 

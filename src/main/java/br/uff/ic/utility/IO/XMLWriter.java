@@ -34,7 +34,7 @@ public final class XMLWriter {
 //    @XmlArray("vertices")
 //    @XmlArrayItem("vertex")
 
-    public Collection<Vertex> vertexList;
+    public Collection<Object> vertexList;
 
 //    @XmlArray("edges")
 //    @XmlArrayItem("edge")   			
@@ -43,16 +43,16 @@ public final class XMLWriter {
     //==========================================================================
     // Constructor
     //==========================================================================
-    public XMLWriter(Collection<Vertex> vertices, Collection<Edge> edges) {
+    public XMLWriter(Collection<Object> vertices, Collection<Edge> edges) {
         vertexList = vertices;
         edgeList = edges;
         
         sortLists();
     }
-    
+       
     public void sortLists() {
         //Sort vertexList by name
-        List<Vertex> vList = new ArrayList<Vertex>( vertexList );
+        List<Object> vList = new ArrayList<Object>( vertexList );
         Comparator<Object> comparator = new Comparator<Object>() {
             public int compare(Object c1, Object c2) {
                 return ((Vertex)c1).getID().compareTo(((Vertex)c2).getID());
