@@ -5,18 +5,23 @@
  */
 package br.uff.ic.provviewer.GUI;
 
+import br.uff.ic.graphmatching.Matcher;
 import br.uff.ic.utility.graph.Edge;
 import static br.uff.ic.provviewer.GUI.GuiFunctions.PanCameraToFirstVertex;
 import br.uff.ic.provviewer.GraphFrame;
 import br.uff.ic.utility.IO.UnityReader;
 import br.uff.ic.provviewer.Variables;
+import br.uff.ic.utility.AttributeErrorMargin;
 import br.uff.ic.utility.IO.InputReader;
 import br.uff.ic.utility.IO.PROVNReader;
+import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
@@ -76,6 +81,14 @@ public class GuiReadFile {
             System.out.println("File access cancelled by user.");
         }
     }
+    
+    private static void loadGraph(Variables variables, DirectedGraph<Object, Edge> openGraph) {
+        variables.graph = openGraph;
+        variables.collapsedGraph = variables.graph;
+        variables.collapser.Filters(variables);
+        variables.view.repaint();
+        variables.initialGraph = false;
+    }
 
     /**
      * Method to open the XML graph file
@@ -88,12 +101,13 @@ public class GuiReadFile {
         if (variables.initConfig) {
             int returnVal = fileChooser.showOpenDialog(graphFrame);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-                variables.file = fileChooser.getSelectedFile();
-                variables.graph = GuiReadFile.getGraph(variables.file);
-                variables.collapsedGraph = variables.graph;
-                variables.collapser.Filters(variables);
-                variables.view.repaint();
-                variables.initialGraph = false;
+                loadGraph(variables, GuiReadFile.getGraph(fileChooser.getSelectedFile()));
+//                variables.file = fileChooser.getSelectedFile();
+//                variables.graph = GuiReadFile.getGraph(variables.file);
+//                variables.collapsedGraph = variables.graph;
+//                variables.collapser.Filters(variables);
+//                variables.view.repaint();
+//                variables.initialGraph = false;
             } else {
                 System.out.println("File access cancelled by user.");
             }
@@ -101,5 +115,40 @@ public class GuiReadFile {
             GraphFrame.FilterList.setSelectedIndex(0);
             PanCameraToFirstVertex(variables);
         }
+    }
+    
+    
+    public static void MergeGraph(Variables variables, JFileChooser fileChooser, JFrame graphFrame, JComboBox Layouts) {
+        int returnVal = fileChooser.showOpenDialog(graphFrame);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            DirectedGraph<Object, Edge> fileGraph = GuiReadFile.getGraph(fileChooser.getSelectedFile());
+            Map<String, AttributeErrorMargin> restrictionList = defaultRestriction();
+            double similarityThreshold = 0.9;
+            double defaultErrorMargin = 0.9;
+            Matcher merger = new Matcher();
+            DirectedGraph<Object, Edge> mergedGraph = merger.Matching(variables.graph, fileGraph, restrictionList, similarityThreshold, defaultErrorMargin);
+            
+            loadGraph(variables, mergedGraph);
+        } else {
+            System.out.println("File access cancelled by user.");
+        }
+        GuiBackground.InitBackground(variables, Layouts);
+        GraphFrame.FilterList.setSelectedIndex(0);
+        PanCameraToFirstVertex(variables);
+    }
+    
+    private static Map<String, AttributeErrorMargin> defaultRestriction(){
+        Map<String, AttributeErrorMargin> restrictionList = new HashMap<String, AttributeErrorMargin>();
+        AttributeErrorMargin epsilon;
+        
+        epsilon = new AttributeErrorMargin("ObjectPosition_X", "0.5");
+        restrictionList.put("ObjectPosition_X", epsilon);
+        
+        epsilon = new AttributeErrorMargin("ObjectPosition_Y", "0.25");
+        restrictionList.put("ObjectPosition_Y", epsilon);
+        
+        epsilon = new AttributeErrorMargin("ObjectPosition_Z", "0.5");
+        restrictionList.put("ObjectPosition_Z", epsilon);
+        return restrictionList;
     }
 }
