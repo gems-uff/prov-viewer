@@ -14,7 +14,6 @@ import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.AttributeErrorMargin;
 import br.uff.ic.utility.IO.InputReader;
 import br.uff.ic.utility.IO.PROVNReader;
-import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import java.io.File;
