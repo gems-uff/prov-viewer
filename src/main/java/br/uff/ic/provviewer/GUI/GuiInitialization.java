@@ -20,19 +20,20 @@ import javax.swing.JFrame;
 
 /**
  * Class to initialize the interface operations
+ *
  * @author Kohwalter
  */
 public class GuiInitialization {
 
     /**
-     *  Method to initialize the tool components
-     * 
+     * Method to initialize the tool components
+     *
      * @param variables
      * @param graph
      * @param graphFrame
      * @param Layouts
      */
-    public static void initGraphComponent(Variables variables, DirectedGraph<Object, Edge> graph, 
+    public static void initGraphComponent(Variables variables, DirectedGraph<Object, Edge> graph,
             JFrame graphFrame, JComboBox Layouts, boolean agentLabel, boolean activityLabel, boolean entityLabel, boolean timeLabel) {
         variables.initConfig = true;
         variables.graph = graph;
@@ -51,7 +52,8 @@ public class GuiInitialization {
 
     /**
      * Method to initialize the tool's variables
-     * @param variables 
+     *
+     * @param variables
      */
     public static void InitVariables(Variables variables) {
         variables.mouse = new DefaultModalGraphMouse();
@@ -67,7 +69,8 @@ public class GuiInitialization {
 
     /**
      * Method to initialize the tool's filters
-     * @param variables 
+     *
+     * @param variables
      */
     public static void InitFilters(Variables variables) {
         variables.filter.filteredGraph = variables.graph;
@@ -76,27 +79,27 @@ public class GuiInitialization {
         variables.collapser.Filters(variables);
     }
 
+    /**
+     * Method to normalize vertex's timestamps to start from 0
+     * @param variables 
+     */
     public static void NormalizeTime(Variables variables) {
         Collection<Object> vertices = variables.graph.getVertices();
         double minTime = Double.POSITIVE_INFINITY;
         for (Object v : vertices) {
-            if(((Vertex)v).getTime() != -1) {
-                minTime = Math.min(minTime, ((Vertex)v).getTime());
-                System.out.println("Calculating:  " + ((Vertex)v).getID() + " " + ((Vertex)v).getTime());
+            if (((Vertex) v).getTime() != -1) {
+                minTime = Math.min(minTime, ((Vertex) v).getTime());
             }
         }
-        
-        System.out.println("MinTime> " + minTime);
-        
+
         // Normalize time
         for (Object v : vertices) {
-            if(((Vertex)v).getTime() != -1) {
-                ((Vertex)v).setNormalizedTime((((Vertex)v).getTime() - minTime) + 1);
-                System.out.println(((Vertex)v).getID() + " " + ((Vertex)v).getNormalizedTime());
+            if (((Vertex) v).getTime() != -1) {
+                ((Vertex) v).setNormalizedTime((((Vertex) v).getTime() - minTime) + 1);
+            } else {
+                ((Vertex) v).setNormalizedTime(-1);
             }
-            else
-                ((Vertex)v).setNormalizedTime(-1);
         }
     }
-    
+
 }
