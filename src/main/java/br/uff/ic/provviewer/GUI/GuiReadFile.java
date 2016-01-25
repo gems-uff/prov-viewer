@@ -102,6 +102,7 @@ public class GuiReadFile {
             int returnVal = fileChooser.showOpenDialog(graphFrame);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 loadGraph(variables, GuiReadFile.getGraph(fileChooser.getSelectedFile()));
+                GuiInitialization.NormalizeTime(variables);
 //                variables.file = fileChooser.getSelectedFile();
 //                variables.graph = GuiReadFile.getGraph(variables.file);
 //                variables.collapsedGraph = variables.graph;

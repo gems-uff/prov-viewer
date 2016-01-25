@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 public abstract class Vertex extends GraphObject {
 
     private String id;                              // prov:id
-    
+    private double normalizedTime;
     private String time;                            // prov:startTime
                                                     // Refactor for datetime type
     
@@ -68,6 +68,14 @@ public abstract class Vertex extends GraphObject {
         id = t;
     }
     
+    public void setNormalizedTime(double t) {
+        this.normalizedTime = t;
+    }
+    
+    public double getNormalizedTime() {
+        return this.normalizedTime;
+    }
+    
     /**
      * Method for returning the vertex name (not type) from the sub-classes.
      * i.e. Agent Vertex name = Kohwalter
@@ -81,21 +89,21 @@ public abstract class Vertex extends GraphObject {
      * @return (int) date
      */
     public float getTime() {    
-        String[] day = this.time.split(":");
-        if(Utils.tryParseFloat(day[0]))
-            return (Float.parseFloat(day[0]));
+//        String[] day = this.time.split(":");
+        if(Utils.tryParseFloat(this.time))
+            return (Float.parseFloat(this.time));
         else if(Utils.tryParseDate(this.time))
         {
-            System.out.println("Time Milliseconds: " + (float) Utils.convertStringDateToDouble(this.time));
+//            System.out.println("Time Milliseconds: " + (float) Utils.convertStringDateToDouble(this.time));
             double milliseconds =  Utils.convertStringDateToDouble(this.time);
             int weeks = (int) (milliseconds / (1000*60*60*24*7));
             long days = TimeUnit.MILLISECONDS.toDays((long) milliseconds);
-            System.out.println("Time Weeks: " + weeks);
-            System.out.println("Time Days: " + days);
+//            System.out.println("Time Weeks: " + weeks);
+//            System.out.println("Time Days: " + days);
             return (float) days;
         }
         else
-            return 0;
+            return -1;
     }
     
     public String getTimeString() {    

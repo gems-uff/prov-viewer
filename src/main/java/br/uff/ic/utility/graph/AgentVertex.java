@@ -46,14 +46,14 @@ public class AgentVertex extends Vertex {
         return "Agent";
     }
 
-    @Override
-    public String getDayName() {
-        return " ";
-    }
-
-    @Override
-    public float getTime() {
-        return 0;
-    }
+//    @Override
+//    public String getDayName() {
+//        return " ";
+//    }
+//
+//    @Override
+//    public float getTime() {
+//        return 0;
+//    }
 
 }

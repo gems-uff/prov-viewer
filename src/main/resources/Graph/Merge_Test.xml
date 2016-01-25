@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><provenancedata>
   <vertices>
     <vertex>
-      <ID>Graph_01_vertex_0_Graph_02_vertex_0</ID>
+      <ID>Graph_01_vertex_0_Graph_02_vertex_0 (Merged)</ID>
       <type>Agent</type>
       <label>EnemyMech</label>
       <date>0</date>
@@ -172,16 +172,16 @@
       </attributes>
     </vertex>
     <vertex>
-      <ID>Graph_01_vertex_12_Graph_02_vertex_10</ID>
+      <ID>Graph_01_vertex_12_Graph_02_vertex_9 (Merged)</ID>
       <type>Activity</type>
       <label>Walking</label>
       <date>10</date>
       <attributes>
         <attribute>
           <name>ObjectPosition_Z</name>
-          <value>7.108078</value>
+          <value>4.4818296</value>
           <min>1.789604</min>
-          <max>5.318474</max>
+          <max>2.692226</max>
           <quantity>2</quantity>
         </attribute>
         <attribute>
@@ -193,8 +193,8 @@
         </attribute>
         <attribute>
           <name>ObjectPosition_X</name>
-          <value>-40.281967</value>
-          <min>-20.31536</min>
+          <value>-40.46736</value>
+          <min>-20.50075</min>
           <max>-19.96661</max>
           <quantity>2</quantity>
         </attribute>
@@ -229,59 +229,59 @@
       </attributes>
     </vertex>
     <vertex>
-      <ID>Graph_01_vertex_13</ID>
+      <ID>Graph_01_vertex_13_Graph_02_vertex_10 (Merged)</ID>
       <type>Activity</type>
       <label>Walking</label>
       <date>12</date>
       <attributes>
         <attribute>
           <name>ObjectPosition_Z</name>
-          <value>6.334522</value>
-          <min>6.334522</min>
+          <value>11.652996</value>
+          <min>5.318474</min>
           <max>6.334522</max>
-          <quantity>1</quantity>
+          <quantity>2</quantity>
         </attribute>
         <attribute>
           <name>ObjectPosition_Y</name>
-          <value>1.202545</value>
+          <value>2.40509</value>
           <min>1.202545</min>
           <max>1.202545</max>
-          <quantity>1</quantity>
+          <quantity>2</quantity>
         </attribute>
         <attribute>
           <name>ObjectPosition_X</name>
-          <value>-14.52159</value>
-          <min>-14.52159</min>
+          <value>-34.83695</value>
+          <min>-20.31536</min>
           <max>-14.52159</max>
-          <quantity>1</quantity>
+          <quantity>2</quantity>
         </attribute>
         <attribute>
           <name>ObjectID</name>
-          <value>93980</value>
+          <value>187960.0</value>
           <min>93980.0</min>
           <max>93980.0</max>
-          <quantity>1</quantity>
+          <quantity>2</quantity>
         </attribute>
         <attribute>
           <name>Health</name>
-          <value>100</value>
+          <value>200.0</value>
           <min>100.0</min>
           <max>100.0</max>
-          <quantity>1</quantity>
+          <quantity>2</quantity>
         </attribute>
         <attribute>
           <name>ObjectName</name>
           <value>Player</value>
           <min>0.0</min>
           <max>0.0</max>
-          <quantity>1</quantity>
+          <quantity>2</quantity>
         </attribute>
         <attribute>
           <name>ObjectTag</name>
           <value>Player</value>
           <min>0.0</min>
           <max>0.0</max>
-          <quantity>1</quantity>
+          <quantity>2</quantity>
         </attribute>
       </attributes>
     </vertex>
@@ -343,16 +343,16 @@
       </attributes>
     </vertex>
     <vertex>
-      <ID>Graph_01_vertex_15_Graph_02_vertex_14</ID>
+      <ID>Graph_01_vertex_15_Graph_02_vertex_13 (Merged)</ID>
       <type>Activity</type>
       <label>Walking</label>
       <date>16</date>
       <attributes>
         <attribute>
           <name>ObjectPosition_Z</name>
-          <value>15.114365</value>
-          <min>7.238449</min>
-          <max>7.875916</max>
+          <value>16.623589</value>
+          <min>7.875916</min>
+          <max>8.747673</max>
           <quantity>2</quantity>
         </attribute>
         <attribute>
@@ -364,9 +364,9 @@
         </attribute>
         <attribute>
           <name>ObjectPosition_X</name>
-          <value>15.706659</value>
-          <min>6.861709</min>
-          <max>8.84495</max>
+          <value>23.42485</value>
+          <min>8.84495</min>
+          <max>14.5799</max>
           <quantity>2</quantity>
         </attribute>
         <attribute>
@@ -400,30 +400,87 @@
       </attributes>
     </vertex>
     <vertex>
-      <ID>Graph_01_vertex_16</ID>
+      <ID>Graph_01_vertex_16_Graph_02_vertex_14 (Merged)</ID>
       <type>Activity</type>
       <label>Walking</label>
       <date>18</date>
       <attributes>
         <attribute>
           <name>ObjectPosition_Z</name>
-          <value>4.488323</value>
+          <value>11.726772</value>
           <min>4.488323</min>
-          <max>4.488323</max>
+          <max>7.238449</max>
+          <quantity>2</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectPosition_Y</name>
+          <value>2.40509</value>
+          <min>1.202545</min>
+          <max>1.202545</max>
+          <quantity>2</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectPosition_X</name>
+          <value>12.087987</value>
+          <min>5.226278</min>
+          <max>6.861709</max>
+          <quantity>2</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectID</name>
+          <value>187960.0</value>
+          <min>93980.0</min>
+          <max>93980.0</max>
+          <quantity>2</quantity>
+        </attribute>
+        <attribute>
+          <name>Health</name>
+          <value>200.0</value>
+          <min>100.0</min>
+          <max>100.0</max>
+          <quantity>2</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectName</name>
+          <value>Player</value>
+          <min>0.0</min>
+          <max>0.0</max>
+          <quantity>2</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectTag</name>
+          <value>Player</value>
+          <min>0.0</min>
+          <max>0.0</max>
+          <quantity>2</quantity>
+        </attribute>
+      </attributes>
+    </vertex>
+    <vertex>
+      <ID>Graph_01_vertex_17</ID>
+      <type>Activity</type>
+      <label>Walking</label>
+      <date>20</date>
+      <attributes>
+        <attribute>
+          <name>ObjectPosition_Z</name>
+          <value>-2.217628</value>
+          <min>-2.217628</min>
+          <max>-2.217628</max>
           <quantity>1</quantity>
         </attribute>
         <attribute>
           <name>ObjectPosition_Y</name>
-          <value>1.202545</value>
-          <min>1.202545</min>
-          <max>1.202545</max>
+          <value>1.11377</value>
+          <min>1.11377</min>
+          <max>1.11377</max>
           <quantity>1</quantity>
         </attribute>
         <attribute>
           <name>ObjectPosition_X</name>
-          <value>5.226278</value>
-          <min>5.226278</min>
-          <max>5.226278</max>
+          <value>3.729884</value>
+          <min>3.729884</min>
+          <max>3.729884</max>
           <quantity>1</quantity>
         </attribute>
         <attribute>
@@ -457,64 +514,7 @@
       </attributes>
     </vertex>
     <vertex>
-      <ID>Graph_01_vertex_17_Graph_02_vertex_15</ID>
-      <type>Activity</type>
-      <label>Walking</label>
-      <date>20</date>
-      <attributes>
-        <attribute>
-          <name>ObjectPosition_Z</name>
-          <value>-0.822029</value>
-          <min>-2.217628</min>
-          <max>1.395599</max>
-          <quantity>2</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectPosition_Y</name>
-          <value>2.3163152</value>
-          <min>1.11377</min>
-          <max>1.202545</max>
-          <quantity>2</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectPosition_X</name>
-          <value>8.068375</value>
-          <min>3.729884</min>
-          <max>4.338491</max>
-          <quantity>2</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectID</name>
-          <value>187960.0</value>
-          <min>93980.0</min>
-          <max>93980.0</max>
-          <quantity>2</quantity>
-        </attribute>
-        <attribute>
-          <name>Health</name>
-          <value>200.0</value>
-          <min>100.0</min>
-          <max>100.0</max>
-          <quantity>2</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectName</name>
-          <value>Player</value>
-          <min>0.0</min>
-          <max>0.0</max>
-          <quantity>2</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectTag</name>
-          <value>Player</value>
-          <min>0.0</min>
-          <max>0.0</max>
-          <quantity>2</quantity>
-        </attribute>
-      </attributes>
-    </vertex>
-    <vertex>
-      <ID>Graph_01_vertex_18_Graph_02_vertex_16</ID>
+      <ID>Graph_01_vertex_18_Graph_02_vertex_16 (Merged)</ID>
       <type>Agent</type>
       <label>EnemySpider</label>
       <date>20.16</date>
@@ -571,9 +571,9 @@
       </attributes>
     </vertex>
     <vertex>
-      <ID>Graph_01_vertex_19_Graph_02_vertex_21</ID>
+      <ID>Graph_01_vertex_19_Graph_02_vertex_17 (Merged)</ID>
       <type>Activity</type>
-      <label>Idle_Spotted</label>
+      <label>Idle</label>
       <date>20.16</date>
       <attributes>
         <attribute>
@@ -585,8 +585,8 @@
         </attribute>
         <attribute>
           <name>ObjectPosition_Y</name>
-          <value>-1.802948</value>
-          <min>-0.9183044</min>
+          <value>-1.7692872</value>
+          <min>-0.8846436</min>
           <max>-0.8846436</max>
           <quantity>2</quantity>
         </attribute>
@@ -628,7 +628,7 @@
       </attributes>
     </vertex>
     <vertex>
-      <ID>Graph_01_vertex_1_Graph_02_vertex_1</ID>
+      <ID>Graph_01_vertex_1_Graph_02_vertex_1 (Merged)</ID>
       <type>Activity</type>
       <label>Idle</label>
       <date>0</date>
@@ -685,7 +685,7 @@
       </attributes>
     </vertex>
     <vertex>
-      <ID>Graph_01_vertex_20_Graph_02_vertex_18</ID>
+      <ID>Graph_01_vertex_20_Graph_02_vertex_18 (Merged)</ID>
       <type>Activity</type>
       <label>Walking</label>
       <date>22</date>
@@ -799,43 +799,43 @@
       </attributes>
     </vertex>
     <vertex>
-      <ID>Graph_01_vertex_22_Graph_02_vertex_17</ID>
+      <ID>Graph_01_vertex_22_Graph_02_vertex_46 (Merged)</ID>
       <type>Activity</type>
-      <label>Spotted_Idle</label>
+      <label>Spotted_Taking Hit</label>
       <date>25.12</date>
       <attributes>
         <attribute>
           <name>ObjectPosition_Z</name>
-          <value>-41.86296</value>
+          <value>-35.84034</value>
           <min>-20.93148</min>
-          <max>-20.93148</max>
+          <max>-14.90886</max>
           <quantity>2</quantity>
         </attribute>
         <attribute>
           <name>ObjectPosition_Y</name>
-          <value>-1.802948</value>
+          <value>-1.8366088</value>
           <min>-0.9183044</min>
-          <max>-0.8846436</max>
+          <max>-0.9183044</max>
           <quantity>2</quantity>
         </attribute>
         <attribute>
           <name>ObjectPosition_X</name>
-          <value>27.30858</value>
-          <min>13.65429</min>
+          <value>21.78394</value>
+          <min>8.12965</min>
           <max>13.65429</max>
           <quantity>2</quantity>
         </attribute>
         <attribute>
           <name>ObjectID</name>
-          <value>180592.0</value>
+          <value>218366.0</value>
           <min>90296.0</min>
-          <max>90296.0</max>
+          <max>128070.0</max>
           <quantity>2</quantity>
         </attribute>
         <attribute>
           <name>Health</name>
-          <value>80.0</value>
-          <min>40.0</min>
+          <value>56.0</value>
+          <min>16.0</min>
           <max>40.0</max>
           <quantity>2</quantity>
         </attribute>
@@ -856,59 +856,59 @@
       </attributes>
     </vertex>
     <vertex>
-      <ID>Graph_01_vertex_23_Graph_02_vertex_54</ID>
+      <ID>Graph_01_vertex_23</ID>
       <type>Activity</type>
       <label>Walking</label>
       <date>26</date>
       <attributes>
         <attribute>
           <name>ObjectPosition_Z</name>
-          <value>-29.149551</value>
+          <value>-14.93021</value>
           <min>-14.93021</min>
-          <max>-14.21934</max>
-          <quantity>2</quantity>
+          <max>-14.93021</max>
+          <quantity>1</quantity>
         </attribute>
         <attribute>
           <name>ObjectPosition_Y</name>
-          <value>2.5708616</value>
+          <value>0.9722595</value>
           <min>0.9722595</min>
-          <max>1.598602</max>
-          <quantity>2</quantity>
+          <max>0.9722595</max>
+          <quantity>1</quantity>
         </attribute>
         <attribute>
           <name>ObjectPosition_X</name>
-          <value>36.53434</value>
+          <value>17.54381</value>
           <min>17.54381</min>
-          <max>18.99053</max>
-          <quantity>2</quantity>
+          <max>17.54381</max>
+          <quantity>1</quantity>
         </attribute>
         <attribute>
           <name>ObjectID</name>
-          <value>187960.0</value>
+          <value>93980</value>
           <min>93980.0</min>
           <max>93980.0</max>
-          <quantity>2</quantity>
+          <quantity>1</quantity>
         </attribute>
         <attribute>
           <name>Health</name>
-          <value>200.0</value>
+          <value>100</value>
           <min>100.0</min>
           <max>100.0</max>
-          <quantity>2</quantity>
+          <quantity>1</quantity>
         </attribute>
         <attribute>
           <name>ObjectName</name>
           <value>Player</value>
           <min>0.0</min>
           <max>0.0</max>
-          <quantity>2</quantity>
+          <quantity>1</quantity>
         </attribute>
         <attribute>
           <name>ObjectTag</name>
           <value>Player</value>
           <min>0.0</min>
           <max>0.0</max>
-          <quantity>2</quantity>
+          <quantity>1</quantity>
         </attribute>
       </attributes>
     </vertex>
@@ -1255,7 +1255,7 @@
       </attributes>
     </vertex>
     <vertex>
-      <ID>Graph_01_vertex_2_Graph_02_vertex_2</ID>
+      <ID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</ID>
       <type>Agent</type>
       <label>Player</label>
       <date>0</date>
@@ -1369,59 +1369,59 @@
       </attributes>
     </vertex>
     <vertex>
-      <ID>Graph_01_vertex_31</ID>
+      <ID>Graph_01_vertex_31_Graph_02_vertex_55 (Merged)</ID>
       <type>Activity</type>
-      <label>Shooting</label>
+      <label>Shooting_Walking</label>
       <date>28.32678</date>
       <attributes>
         <attribute>
           <name>ObjectPosition_Z</name>
-          <value>-12.25359</value>
-          <min>-12.25359</min>
+          <value>-29.87777</value>
+          <min>-17.62418</min>
           <max>-12.25359</max>
-          <quantity>1</quantity>
+          <quantity>2</quantity>
         </attribute>
         <attribute>
           <name>ObjectPosition_Y</name>
-          <value>1.007568</value>
+          <value>2.015136</value>
           <min>1.007568</min>
           <max>1.007568</max>
-          <quantity>1</quantity>
+          <quantity>2</quantity>
         </attribute>
         <attribute>
           <name>ObjectPosition_X</name>
-          <value>20.17102</value>
+          <value>49.45765</value>
           <min>20.17102</min>
-          <max>20.17102</max>
-          <quantity>1</quantity>
+          <max>29.28663</max>
+          <quantity>2</quantity>
         </attribute>
         <attribute>
           <name>ObjectID</name>
-          <value>93980</value>
+          <value>187960.0</value>
           <min>93980.0</min>
           <max>93980.0</max>
-          <quantity>1</quantity>
+          <quantity>2</quantity>
         </attribute>
         <attribute>
           <name>Health</name>
-          <value>100</value>
+          <value>200.0</value>
           <min>100.0</min>
           <max>100.0</max>
-          <quantity>1</quantity>
+          <quantity>2</quantity>
         </attribute>
         <attribute>
           <name>ObjectName</name>
           <value>Player</value>
           <min>0.0</min>
           <max>0.0</max>
-          <quantity>1</quantity>
+          <quantity>2</quantity>
         </attribute>
         <attribute>
           <name>ObjectTag</name>
           <value>Player</value>
           <min>0.0</min>
           <max>0.0</max>
-          <quantity>1</quantity>
+          <quantity>2</quantity>
         </attribute>
       </attributes>
     </vertex>
@@ -1882,7 +1882,7 @@
       </attributes>
     </vertex>
     <vertex>
-      <ID>Graph_01_vertex_3_Graph_02_vertex_3</ID>
+      <ID>Graph_01_vertex_3_Graph_02_vertex_3 (Merged)</ID>
       <type>Agent</type>
       <label>Enviroment</label>
       <date>0</date>
@@ -1989,73 +1989,16 @@
       </attributes>
     </vertex>
     <vertex>
-      <ID>Graph_01_vertex_41</ID>
+      <ID>Graph_01_vertex_41_Graph_02_vertex_61 (Merged)</ID>
       <type>Activity</type>
       <label>Walking</label>
       <date>32</date>
       <attributes>
         <attribute>
           <name>ObjectPosition_Z</name>
-          <value>-16.38868</value>
-          <min>-16.38868</min>
+          <value>-39.75634</value>
+          <min>-23.36766</min>
           <max>-16.38868</max>
-          <quantity>1</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectPosition_Y</name>
-          <value>1.007568</value>
-          <min>1.007568</min>
-          <max>1.007568</max>
-          <quantity>1</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectPosition_X</name>
-          <value>20.87433</value>
-          <min>20.87433</min>
-          <max>20.87433</max>
-          <quantity>1</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectID</name>
-          <value>93980</value>
-          <min>93980.0</min>
-          <max>93980.0</max>
-          <quantity>1</quantity>
-        </attribute>
-        <attribute>
-          <name>Health</name>
-          <value>100</value>
-          <min>100.0</min>
-          <max>100.0</max>
-          <quantity>1</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectName</name>
-          <value>Player</value>
-          <min>0.0</min>
-          <max>0.0</max>
-          <quantity>1</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectTag</name>
-          <value>Player</value>
-          <min>0.0</min>
-          <max>0.0</max>
-          <quantity>1</quantity>
-        </attribute>
-      </attributes>
-    </vertex>
-    <vertex>
-      <ID>Graph_01_vertex_42_Graph_02_vertex_55</ID>
-      <type>Activity</type>
-      <label>Walking</label>
-      <date>34</date>
-      <attributes>
-        <attribute>
-          <name>ObjectPosition_Z</name>
-          <value>-37.82315</value>
-          <min>-20.19897</min>
-          <max>-17.62418</max>
           <quantity>2</quantity>
         </attribute>
         <attribute>
@@ -2067,8 +2010,65 @@
         </attribute>
         <attribute>
           <name>ObjectPosition_X</name>
-          <value>59.64457</value>
-          <min>29.28663</min>
+          <value>54.98649</value>
+          <min>20.87433</min>
+          <max>34.11216</max>
+          <quantity>2</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectID</name>
+          <value>187960.0</value>
+          <min>93980.0</min>
+          <max>93980.0</max>
+          <quantity>2</quantity>
+        </attribute>
+        <attribute>
+          <name>Health</name>
+          <value>200.0</value>
+          <min>100.0</min>
+          <max>100.0</max>
+          <quantity>2</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectName</name>
+          <value>Player</value>
+          <min>0.0</min>
+          <max>0.0</max>
+          <quantity>2</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectTag</name>
+          <value>Player</value>
+          <min>0.0</min>
+          <max>0.0</max>
+          <quantity>2</quantity>
+        </attribute>
+      </attributes>
+    </vertex>
+    <vertex>
+      <ID>Graph_01_vertex_42_Graph_02_vertex_60 (Merged)</ID>
+      <type>Activity</type>
+      <label>Walking</label>
+      <date>34</date>
+      <attributes>
+        <attribute>
+          <name>ObjectPosition_Z</name>
+          <value>-48.27645</value>
+          <min>-28.07748</min>
+          <max>-20.19897</max>
+          <quantity>2</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectPosition_Y</name>
+          <value>2.015136</value>
+          <min>1.007568</min>
+          <max>1.007568</max>
+          <quantity>2</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectPosition_X</name>
+          <value>54.31863</value>
+          <min>23.96069</min>
           <max>30.35794</max>
           <quantity>2</quantity>
         </attribute>
@@ -2103,73 +2103,16 @@
       </attributes>
     </vertex>
     <vertex>
-      <ID>Graph_01_vertex_43_Graph_02_vertex_57</ID>
+      <ID>Graph_01_vertex_43</ID>
       <type>Activity</type>
       <label>Walking</label>
       <date>36</date>
       <attributes>
         <attribute>
           <name>ObjectPosition_Z</name>
-          <value>-62.237503</value>
-          <min>-32.97</min>
+          <value>-29.2675</value>
+          <min>-29.2675</min>
           <max>-29.2675</max>
-          <quantity>2</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectPosition_Y</name>
-          <value>2.015136</value>
-          <min>1.007568</min>
-          <max>1.007568</max>
-          <quantity>2</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectPosition_X</name>
-          <value>46.18245</value>
-          <min>22.90121</min>
-          <max>23.28124</max>
-          <quantity>2</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectID</name>
-          <value>187960.0</value>
-          <min>93980.0</min>
-          <max>93980.0</max>
-          <quantity>2</quantity>
-        </attribute>
-        <attribute>
-          <name>Health</name>
-          <value>200.0</value>
-          <min>100.0</min>
-          <max>100.0</max>
-          <quantity>2</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectName</name>
-          <value>Player</value>
-          <min>0.0</min>
-          <max>0.0</max>
-          <quantity>2</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectTag</name>
-          <value>Player</value>
-          <min>0.0</min>
-          <max>0.0</max>
-          <quantity>2</quantity>
-        </attribute>
-      </attributes>
-    </vertex>
-    <vertex>
-      <ID>Graph_01_vertex_44</ID>
-      <type>Activity</type>
-      <label>Walking</label>
-      <date>38</date>
-      <attributes>
-        <attribute>
-          <name>ObjectPosition_Z</name>
-          <value>-32.97</value>
-          <min>-32.97</min>
-          <max>-32.97</max>
           <quantity>1</quantity>
         </attribute>
         <attribute>
@@ -2181,9 +2124,9 @@
         </attribute>
         <attribute>
           <name>ObjectPosition_X</name>
-          <value>23.82758</value>
-          <min>23.82758</min>
-          <max>23.82758</max>
+          <value>22.90121</value>
+          <min>22.90121</min>
+          <max>22.90121</max>
           <quantity>1</quantity>
         </attribute>
         <attribute>
@@ -2217,60 +2160,10 @@
       </attributes>
     </vertex>
     <vertex>
-      <ID>Graph_01_vertex_45_Graph_02_vertex_58</ID>
-      <type>Entity</type>
-      <label>Terminal</label>
-      <date>38.51943</date>
-      <attributes>
-        <attribute>
-          <name>ObjectPosition_Z</name>
-          <value>-70.0</value>
-          <min>-35.0</min>
-          <max>-35.0</max>
-          <quantity>2</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectPosition_Y</name>
-          <value>0.0</value>
-          <min>0.0</min>
-          <max>0.0</max>
-          <quantity>2</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectPosition_X</name>
-          <value>42.0</value>
-          <min>21.0</min>
-          <max>21.0</max>
-          <quantity>2</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectID</name>
-          <value>183940.0</value>
-          <min>91970.0</min>
-          <max>91970.0</max>
-          <quantity>2</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectName</name>
-          <value>TerminalForDoorFromHell_1</value>
-          <min>0.0</min>
-          <max>0.0</max>
-          <quantity>2</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectTag</name>
-          <value>Untagged</value>
-          <min>0.0</min>
-          <max>0.0</max>
-          <quantity>2</quantity>
-        </attribute>
-      </attributes>
-    </vertex>
-    <vertex>
-      <ID>Graph_01_vertex_46_Graph_02_vertex_59</ID>
+      <ID>Graph_01_vertex_44_Graph_02_vertex_57 (Merged)</ID>
       <type>Activity</type>
-      <label>Interacted</label>
-      <date>38.51943</date>
+      <label>Walking</label>
+      <date>38</date>
       <attributes>
         <attribute>
           <name>ObjectPosition_Z</name>
@@ -2324,56 +2217,49 @@
       </attributes>
     </vertex>
     <vertex>
-      <ID>Graph_01_vertex_47_Graph_02_vertex_56</ID>
-      <type>Activity</type>
-      <label>Walking</label>
-      <date>40</date>
+      <ID>Graph_01_vertex_45_Graph_02_vertex_58 (Merged)</ID>
+      <type>Entity</type>
+      <label>Terminal</label>
+      <date>38.51943</date>
       <attributes>
         <attribute>
           <name>ObjectPosition_Z</name>
-          <value>-54.72133</value>
-          <min>-27.52824</min>
-          <max>-27.19309</max>
+          <value>-70.0</value>
+          <min>-35.0</min>
+          <max>-35.0</max>
           <quantity>2</quantity>
         </attribute>
         <attribute>
           <name>ObjectPosition_Y</name>
-          <value>2.021728</value>
-          <min>1.007568</min>
-          <max>1.01416</max>
+          <value>0.0</value>
+          <min>0.0</min>
+          <max>0.0</max>
           <quantity>2</quantity>
         </attribute>
         <attribute>
           <name>ObjectPosition_X</name>
-          <value>50.03962</value>
-          <min>24.68196</min>
-          <max>25.35766</max>
+          <value>42.0</value>
+          <min>21.0</min>
+          <max>21.0</max>
           <quantity>2</quantity>
         </attribute>
         <attribute>
           <name>ObjectID</name>
-          <value>187960.0</value>
-          <min>93980.0</min>
-          <max>93980.0</max>
-          <quantity>2</quantity>
-        </attribute>
-        <attribute>
-          <name>Health</name>
-          <value>200.0</value>
-          <min>100.0</min>
-          <max>100.0</max>
+          <value>183940.0</value>
+          <min>91970.0</min>
+          <max>91970.0</max>
           <quantity>2</quantity>
         </attribute>
         <attribute>
           <name>ObjectName</name>
-          <value>Player</value>
+          <value>TerminalForDoorFromHell_1</value>
           <min>0.0</min>
           <max>0.0</max>
           <quantity>2</quantity>
         </attribute>
         <attribute>
           <name>ObjectTag</name>
-          <value>Player</value>
+          <value>Untagged</value>
           <min>0.0</min>
           <max>0.0</max>
           <quantity>2</quantity>
@@ -2381,16 +2267,130 @@
       </attributes>
     </vertex>
     <vertex>
-      <ID>Graph_01_vertex_48_Graph_02_vertex_61</ID>
+      <ID>Graph_01_vertex_46</ID>
+      <type>Activity</type>
+      <label>Interacted</label>
+      <date>38.51943</date>
+      <attributes>
+        <attribute>
+          <name>ObjectPosition_Z</name>
+          <value>-32.97</value>
+          <min>-32.97</min>
+          <max>-32.97</max>
+          <quantity>1</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectPosition_Y</name>
+          <value>1.007568</value>
+          <min>1.007568</min>
+          <max>1.007568</max>
+          <quantity>1</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectPosition_X</name>
+          <value>23.82758</value>
+          <min>23.82758</min>
+          <max>23.82758</max>
+          <quantity>1</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectID</name>
+          <value>93980</value>
+          <min>93980.0</min>
+          <max>93980.0</max>
+          <quantity>1</quantity>
+        </attribute>
+        <attribute>
+          <name>Health</name>
+          <value>100</value>
+          <min>100.0</min>
+          <max>100.0</max>
+          <quantity>1</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectName</name>
+          <value>Player</value>
+          <min>0.0</min>
+          <max>0.0</max>
+          <quantity>1</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectTag</name>
+          <value>Player</value>
+          <min>0.0</min>
+          <max>0.0</max>
+          <quantity>1</quantity>
+        </attribute>
+      </attributes>
+    </vertex>
+    <vertex>
+      <ID>Graph_01_vertex_47</ID>
       <type>Activity</type>
       <label>Walking</label>
+      <date>40</date>
+      <attributes>
+        <attribute>
+          <name>ObjectPosition_Z</name>
+          <value>-27.19309</value>
+          <min>-27.19309</min>
+          <max>-27.19309</max>
+          <quantity>1</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectPosition_Y</name>
+          <value>1.007568</value>
+          <min>1.007568</min>
+          <max>1.007568</max>
+          <quantity>1</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectPosition_X</name>
+          <value>25.35766</value>
+          <min>25.35766</min>
+          <max>25.35766</max>
+          <quantity>1</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectID</name>
+          <value>93980</value>
+          <min>93980.0</min>
+          <max>93980.0</max>
+          <quantity>1</quantity>
+        </attribute>
+        <attribute>
+          <name>Health</name>
+          <value>100</value>
+          <min>100.0</min>
+          <max>100.0</max>
+          <quantity>1</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectName</name>
+          <value>Player</value>
+          <min>0.0</min>
+          <max>0.0</max>
+          <quantity>1</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectTag</name>
+          <value>Player</value>
+          <min>0.0</min>
+          <max>0.0</max>
+          <quantity>1</quantity>
+        </attribute>
+      </attributes>
+    </vertex>
+    <vertex>
+      <ID>Graph_01_vertex_48_Graph_02_vertex_59 (Merged)</ID>
+      <type>Activity</type>
+      <label>Walking_Interacted</label>
       <date>42</date>
       <attributes>
         <attribute>
           <name>ObjectPosition_Z</name>
-          <value>-48.45633</value>
-          <min>-25.08867</min>
-          <max>-23.36766</max>
+          <value>-58.05867</value>
+          <min>-32.97</min>
+          <max>-25.08867</max>
           <quantity>2</quantity>
         </attribute>
         <attribute>
@@ -2402,8 +2402,8 @@
         </attribute>
         <attribute>
           <name>ObjectPosition_X</name>
-          <value>70.70546</value>
-          <min>34.11216</min>
+          <value>59.874542</value>
+          <min>23.28124</min>
           <max>36.5933</max>
           <quantity>2</quantity>
         </attribute>
@@ -2438,29 +2438,29 @@
       </attributes>
     </vertex>
     <vertex>
-      <ID>Graph_01_vertex_49_Graph_02_vertex_62</ID>
+      <ID>Graph_01_vertex_49_Graph_02_vertex_56 (Merged)</ID>
       <type>Activity</type>
       <label>Walking</label>
       <date>44</date>
       <attributes>
         <attribute>
           <name>ObjectPosition_Z</name>
-          <value>-50.58461</value>
-          <min>-26.81544</min>
-          <max>-23.76917</max>
+          <value>-54.34368</value>
+          <min>-27.52824</min>
+          <max>-26.81544</max>
           <quantity>2</quantity>
         </attribute>
         <attribute>
           <name>ObjectPosition_Y</name>
-          <value>2.015136</value>
+          <value>2.021728</value>
           <min>1.007568</min>
-          <max>1.007568</max>
+          <max>1.01416</max>
           <quantity>2</quantity>
         </attribute>
         <attribute>
           <name>ObjectPosition_X</name>
-          <value>91.41051</value>
-          <min>44.60079</min>
+          <value>71.49168</value>
+          <min>24.68196</min>
           <max>46.80972</max>
           <quantity>2</quantity>
         </attribute>
@@ -2495,7 +2495,7 @@
       </attributes>
     </vertex>
     <vertex>
-      <ID>Graph_01_vertex_4_Graph_02_vertex_4</ID>
+      <ID>Graph_01_vertex_4_Graph_02_vertex_4 (Merged)</ID>
       <type>Agent</type>
       <label>EnemySpider</label>
       <date>0</date>
@@ -2552,7 +2552,7 @@
       </attributes>
     </vertex>
     <vertex>
-      <ID>Graph_01_vertex_50_Graph_02_vertex_64</ID>
+      <ID>Graph_01_vertex_50_Graph_02_vertex_64 (Merged)</ID>
       <type>Entity</type>
       <label>LockedDoor</label>
       <date>45.54369</date>
@@ -2602,15 +2602,72 @@
       </attributes>
     </vertex>
     <vertex>
-      <ID>Graph_01_vertex_51_Graph_02_vertex_65</ID>
+      <ID>Graph_01_vertex_51_Graph_02_vertex_62 (Merged)</ID>
       <type>Activity</type>
       <label>Walking</label>
       <date>46</date>
       <attributes>
         <attribute>
           <name>ObjectPosition_Z</name>
-          <value>-65.90143</value>
+          <value>-56.75096</value>
           <min>-32.98179</min>
+          <max>-23.76917</max>
+          <quantity>2</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectPosition_Y</name>
+          <value>2.015136</value>
+          <min>1.007568</min>
+          <max>1.007568</max>
+          <quantity>2</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectPosition_X</name>
+          <value>98.31799</value>
+          <min>44.60079</min>
+          <max>53.7172</max>
+          <quantity>2</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectID</name>
+          <value>187960.0</value>
+          <min>93980.0</min>
+          <max>93980.0</max>
+          <quantity>2</quantity>
+        </attribute>
+        <attribute>
+          <name>Health</name>
+          <value>200.0</value>
+          <min>100.0</min>
+          <max>100.0</max>
+          <quantity>2</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectName</name>
+          <value>Player</value>
+          <min>0.0</min>
+          <max>0.0</max>
+          <quantity>2</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectTag</name>
+          <value>Player</value>
+          <min>0.0</min>
+          <max>0.0</max>
+          <quantity>2</quantity>
+        </attribute>
+      </attributes>
+    </vertex>
+    <vertex>
+      <ID>Graph_01_vertex_52_Graph_02_vertex_65 (Merged)</ID>
+      <type>Activity</type>
+      <label>Walking</label>
+      <date>48</date>
+      <attributes>
+        <attribute>
+          <name>ObjectPosition_Z</name>
+          <value>-65.839294</value>
+          <min>-32.91965</min>
           <max>-32.91964</max>
           <quantity>2</quantity>
         </attribute>
@@ -2659,66 +2716,9 @@
       </attributes>
     </vertex>
     <vertex>
-      <ID>Graph_01_vertex_52</ID>
+      <ID>Graph_01_vertex_5_Graph_02_vertex_5 (Merged)</ID>
       <type>Activity</type>
-      <label>Walking</label>
-      <date>48</date>
-      <attributes>
-        <attribute>
-          <name>ObjectPosition_Z</name>
-          <value>-32.91965</value>
-          <min>-32.91965</min>
-          <max>-32.91965</max>
-          <quantity>1</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectPosition_Y</name>
-          <value>1.007568</value>
-          <min>1.007568</min>
-          <max>1.007568</max>
-          <quantity>1</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectPosition_X</name>
-          <value>53.7172</value>
-          <min>53.7172</min>
-          <max>53.7172</max>
-          <quantity>1</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectID</name>
-          <value>93980</value>
-          <min>93980.0</min>
-          <max>93980.0</max>
-          <quantity>1</quantity>
-        </attribute>
-        <attribute>
-          <name>Health</name>
-          <value>100</value>
-          <min>100.0</min>
-          <max>100.0</max>
-          <quantity>1</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectName</name>
-          <value>Player</value>
-          <min>0.0</min>
-          <max>0.0</max>
-          <quantity>1</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectTag</name>
-          <value>Player</value>
-          <min>0.0</min>
-          <max>0.0</max>
-          <quantity>1</quantity>
-        </attribute>
-      </attributes>
-    </vertex>
-    <vertex>
-      <ID>Graph_01_vertex_5_Graph_02_vertex_20</ID>
-      <type>Activity</type>
-      <label>Idle_Spotted</label>
+      <label>Idle</label>
       <date>0</date>
       <attributes>
         <attribute>
@@ -2730,8 +2730,8 @@
         </attribute>
         <attribute>
           <name>ObjectPosition_Y</name>
-          <value>0.03512573</value>
-          <min>0.007568359</min>
+          <value>0.05511474</value>
+          <min>0.02755737</min>
           <max>0.02755737</max>
           <quantity>2</quantity>
         </attribute>
@@ -2773,15 +2773,15 @@
       </attributes>
     </vertex>
     <vertex>
-      <ID>Graph_01_vertex_8_Graph_02_vertex_8</ID>
+      <ID>Graph_01_vertex_8_Graph_02_vertex_11 (Merged)</ID>
       <type>Activity</type>
       <label>Walking</label>
       <date>2</date>
       <attributes>
         <attribute>
           <name>ObjectPosition_Z</name>
-          <value>19.33604</value>
-          <min>8.057091</min>
+          <value>17.445942</value>
+          <min>6.166992</min>
           <max>11.27895</max>
           <quantity>2</quantity>
         </attribute>
@@ -2794,8 +2794,8 @@
         </attribute>
         <attribute>
           <name>ObjectPosition_X</name>
-          <value>-17.211582</value>
-          <min>-10.57055</min>
+          <value>-15.201389</value>
+          <min>-8.560357</min>
           <max>-6.641032</max>
           <quantity>2</quantity>
         </attribute>
@@ -2887,63 +2887,6 @@
       </attributes>
     </vertex>
     <vertex>
-      <ID>Graph_02_vertex_11</ID>
-      <type>Activity</type>
-      <label>Walking</label>
-      <date>8</date>
-      <attributes>
-        <attribute>
-          <name>ObjectPosition_Z</name>
-          <value>6.166992</value>
-          <min>6.166992</min>
-          <max>6.166992</max>
-          <quantity>1</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectPosition_Y</name>
-          <value>1.202545</value>
-          <min>1.202545</min>
-          <max>1.202545</max>
-          <quantity>1</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectPosition_X</name>
-          <value>-8.560357</value>
-          <min>-8.560357</min>
-          <max>-8.560357</max>
-          <quantity>1</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectID</name>
-          <value>93980</value>
-          <min>93980.0</min>
-          <max>93980.0</max>
-          <quantity>1</quantity>
-        </attribute>
-        <attribute>
-          <name>Health</name>
-          <value>100</value>
-          <min>100.0</min>
-          <max>100.0</max>
-          <quantity>1</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectName</name>
-          <value>Player</value>
-          <min>0.0</min>
-          <max>0.0</max>
-          <quantity>1</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectTag</name>
-          <value>Player</value>
-          <min>0.0</min>
-          <max>0.0</max>
-          <quantity>1</quantity>
-        </attribute>
-      </attributes>
-    </vertex>
-    <vertex>
       <ID>Graph_02_vertex_12</ID>
       <type>Activity</type>
       <label>Walking</label>
@@ -3001,16 +2944,16 @@
       </attributes>
     </vertex>
     <vertex>
-      <ID>Graph_02_vertex_13</ID>
+      <ID>Graph_02_vertex_15</ID>
       <type>Activity</type>
       <label>Walking</label>
-      <date>12</date>
+      <date>16</date>
       <attributes>
         <attribute>
           <name>ObjectPosition_Z</name>
-          <value>8.747673</value>
-          <min>8.747673</min>
-          <max>8.747673</max>
+          <value>1.395599</value>
+          <min>1.395599</min>
+          <max>1.395599</max>
           <quantity>1</quantity>
         </attribute>
         <attribute>
@@ -3022,9 +2965,9 @@
         </attribute>
         <attribute>
           <name>ObjectPosition_X</name>
-          <value>14.5799</value>
-          <min>14.5799</min>
-          <max>14.5799</max>
+          <value>4.338491</value>
+          <min>4.338491</min>
+          <max>4.338491</max>
           <quantity>1</quantity>
         </attribute>
         <attribute>
@@ -3108,6 +3051,120 @@
         <attribute>
           <name>ObjectTag</name>
           <value>Player</value>
+          <min>0.0</min>
+          <max>0.0</max>
+          <quantity>1</quantity>
+        </attribute>
+      </attributes>
+    </vertex>
+    <vertex>
+      <ID>Graph_02_vertex_20</ID>
+      <type>Activity</type>
+      <label>Spotted</label>
+      <date>20.34</date>
+      <attributes>
+        <attribute>
+          <name>ObjectPosition_Z</name>
+          <value>-22.65712</value>
+          <min>-22.65712</min>
+          <max>-22.65712</max>
+          <quantity>1</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectPosition_Y</name>
+          <value>0.007568359</value>
+          <min>0.007568359</min>
+          <max>0.007568359</max>
+          <quantity>1</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectPosition_X</name>
+          <value>-2.970786</value>
+          <min>-2.970786</min>
+          <max>-2.970786</max>
+          <quantity>1</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectID</name>
+          <value>128070</value>
+          <min>128070.0</min>
+          <max>128070.0</max>
+          <quantity>1</quantity>
+        </attribute>
+        <attribute>
+          <name>Health</name>
+          <value>40</value>
+          <min>40.0</min>
+          <max>40.0</max>
+          <quantity>1</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectName</name>
+          <value>EnemySpider</value>
+          <min>0.0</min>
+          <max>0.0</max>
+          <quantity>1</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectTag</name>
+          <value>Enemy</value>
+          <min>0.0</min>
+          <max>0.0</max>
+          <quantity>1</quantity>
+        </attribute>
+      </attributes>
+    </vertex>
+    <vertex>
+      <ID>Graph_02_vertex_21</ID>
+      <type>Activity</type>
+      <label>Spotted</label>
+      <date>21.32</date>
+      <attributes>
+        <attribute>
+          <name>ObjectPosition_Z</name>
+          <value>-20.93148</value>
+          <min>-20.93148</min>
+          <max>-20.93148</max>
+          <quantity>1</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectPosition_Y</name>
+          <value>-0.9183044</value>
+          <min>-0.9183044</min>
+          <max>-0.9183044</max>
+          <quantity>1</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectPosition_X</name>
+          <value>13.65429</value>
+          <min>13.65429</min>
+          <max>13.65429</max>
+          <quantity>1</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectID</name>
+          <value>90296</value>
+          <min>90296.0</min>
+          <max>90296.0</max>
+          <quantity>1</quantity>
+        </attribute>
+        <attribute>
+          <name>Health</name>
+          <value>40</value>
+          <min>40.0</min>
+          <max>40.0</max>
+          <quantity>1</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectName</name>
+          <value>EnemySpider</value>
+          <min>0.0</min>
+          <max>0.0</max>
+          <quantity>1</quantity>
+        </attribute>
+        <attribute>
+          <name>ObjectTag</name>
+          <value>Enemy</value>
           <min>0.0</min>
           <max>0.0</max>
           <quantity>1</quantity>
@@ -4483,63 +4540,6 @@
       </attributes>
     </vertex>
     <vertex>
-      <ID>Graph_02_vertex_46</ID>
-      <type>Activity</type>
-      <label>Taking Hit</label>
-      <date>24.30409</date>
-      <attributes>
-        <attribute>
-          <name>ObjectPosition_Z</name>
-          <value>-14.90886</value>
-          <min>-14.90886</min>
-          <max>-14.90886</max>
-          <quantity>1</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectPosition_Y</name>
-          <value>-0.9183044</value>
-          <min>-0.9183044</min>
-          <max>-0.9183044</max>
-          <quantity>1</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectPosition_X</name>
-          <value>8.12965</value>
-          <min>8.12965</min>
-          <max>8.12965</max>
-          <quantity>1</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectID</name>
-          <value>128070</value>
-          <min>128070.0</min>
-          <max>128070.0</max>
-          <quantity>1</quantity>
-        </attribute>
-        <attribute>
-          <name>Health</name>
-          <value>16</value>
-          <min>16.0</min>
-          <max>16.0</max>
-          <quantity>1</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectName</name>
-          <value>EnemySpider</value>
-          <min>0.0</min>
-          <max>0.0</max>
-          <quantity>1</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectTag</name>
-          <value>Enemy</value>
-          <min>0.0</min>
-          <max>0.0</max>
-          <quantity>1</quantity>
-        </attribute>
-      </attributes>
-    </vertex>
-    <vertex>
       <ID>Graph_02_vertex_47</ID>
       <type>Activity</type>
       <label>Shooting</label>
@@ -4704,63 +4704,6 @@
         <attribute>
           <name>ObjectTag</name>
           <value>Player</value>
-          <min>0.0</min>
-          <max>0.0</max>
-          <quantity>1</quantity>
-        </attribute>
-      </attributes>
-    </vertex>
-    <vertex>
-      <ID>Graph_02_vertex_5</ID>
-      <type>Activity</type>
-      <label>Idle</label>
-      <date>0</date>
-      <attributes>
-        <attribute>
-          <name>ObjectPosition_Z</name>
-          <value>-22.65712</value>
-          <min>-22.65712</min>
-          <max>-22.65712</max>
-          <quantity>1</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectPosition_Y</name>
-          <value>0.02755737</value>
-          <min>0.02755737</min>
-          <max>0.02755737</max>
-          <quantity>1</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectPosition_X</name>
-          <value>-2.970786</value>
-          <min>-2.970786</min>
-          <max>-2.970786</max>
-          <quantity>1</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectID</name>
-          <value>128070</value>
-          <min>128070.0</min>
-          <max>128070.0</max>
-          <quantity>1</quantity>
-        </attribute>
-        <attribute>
-          <name>Health</name>
-          <value>40</value>
-          <min>40.0</min>
-          <max>40.0</max>
-          <quantity>1</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectName</name>
-          <value>EnemySpider</value>
-          <min>0.0</min>
-          <max>0.0</max>
-          <quantity>1</quantity>
-        </attribute>
-        <attribute>
-          <name>ObjectTag</name>
-          <value>Enemy</value>
           <min>0.0</min>
           <max>0.0</max>
           <quantity>1</quantity>
@@ -4996,30 +4939,30 @@
       </attributes>
     </vertex>
     <vertex>
-      <ID>Graph_02_vertex_60</ID>
+      <ID>Graph_02_vertex_54</ID>
       <type>Activity</type>
       <label>Walking</label>
-      <date>34</date>
+      <date>26</date>
       <attributes>
         <attribute>
           <name>ObjectPosition_Z</name>
-          <value>-28.07748</value>
-          <min>-28.07748</min>
-          <max>-28.07748</max>
+          <value>-14.21934</value>
+          <min>-14.21934</min>
+          <max>-14.21934</max>
           <quantity>1</quantity>
         </attribute>
         <attribute>
           <name>ObjectPosition_Y</name>
-          <value>1.007568</value>
-          <min>1.007568</min>
-          <max>1.007568</max>
+          <value>1.598602</value>
+          <min>1.598602</min>
+          <max>1.598602</max>
           <quantity>1</quantity>
         </attribute>
         <attribute>
           <name>ObjectPosition_X</name>
-          <value>23.96069</value>
-          <min>23.96069</min>
-          <max>23.96069</max>
+          <value>18.99053</value>
+          <min>18.99053</min>
+          <max>18.99053</max>
           <quantity>1</quantity>
         </attribute>
         <attribute>
@@ -5110,16 +5053,16 @@
       </attributes>
     </vertex>
     <vertex>
-      <ID>Graph_02_vertex_9</ID>
+      <ID>Graph_02_vertex_8</ID>
       <type>Activity</type>
       <label>Walking</label>
-      <date>4</date>
+      <date>2</date>
       <attributes>
         <attribute>
           <name>ObjectPosition_Z</name>
-          <value>2.692226</value>
-          <min>2.692226</min>
-          <max>2.692226</max>
+          <value>8.057091</value>
+          <min>8.057091</min>
+          <max>8.057091</max>
           <quantity>1</quantity>
         </attribute>
         <attribute>
@@ -5131,9 +5074,9 @@
         </attribute>
         <attribute>
           <name>ObjectPosition_X</name>
-          <value>-20.50075</value>
-          <min>-20.50075</min>
-          <max>-20.50075</max>
+          <value>-10.57055</value>
+          <min>-10.57055</min>
+          <max>-10.57055</max>
           <quantity>1</quantity>
         </attribute>
         <attribute>
@@ -5169,164 +5112,12 @@
   </vertices>
   <edges>
     <edge>
-      <ID>Graph_01_edge_66</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_38</sourceID>
-      <targetID>Graph_01_vertex_18_Graph_02_vertex_16</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_31</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_23</sourceID>
-      <targetID>Graph_01_vertex_18_Graph_02_vertex_16</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_71</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_40</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
       <ID>Graph_02_edge_108</ID>
       <type>WasAssociatedWith</type>
       <label>Neutral</label>
       <value>0.0</value>
-      <sourceID>Graph_01_vertex_23_Graph_02_vertex_54</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_106</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_53</sourceID>
-      <targetID>Graph_01_vertex_4_Graph_02_vertex_4</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_96</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_52</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_66</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_37</sourceID>
-      <targetID>Graph_01_vertex_18_Graph_02_vertex_16</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_90</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_49_Graph_02_vertex_62</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_80</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_44</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_25</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_19_Graph_02_vertex_21</sourceID>
-      <targetID>Graph_01_vertex_18_Graph_02_vertex_16</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_96</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_49</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_91</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_47</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_46</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_30</sourceID>
-      <targetID>Graph_01_vertex_18_Graph_02_vertex_16</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_56</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_34</sourceID>
-      <targetID>Graph_01_vertex_18_Graph_02_vertex_16</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_101</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_51</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_6</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_12_Graph_02_vertex_10</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_44</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_29</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_83</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_46_Graph_02_vertex_59</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_34</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_25</sourceID>
-      <targetID>Graph_01_vertex_18_Graph_02_vertex_16</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_6</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_10</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
+      <sourceID>Graph_02_vertex_54</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
     </edge>
     <edge>
       <ID>Graph_02_edge_43</ID>
@@ -5334,263 +5125,15 @@
       <label>Neutral</label>
       <value>0.0</value>
       <sourceID>Graph_02_vertex_28</sourceID>
-      <targetID>Graph_01_vertex_18_Graph_02_vertex_16</targetID>
+      <targetID>Graph_01_vertex_18_Graph_02_vertex_16 (Merged)</targetID>
     </edge>
     <edge>
-      <ID>Graph_01_edge_74</ID>
+      <ID>Graph_01_edge_44</ID>
       <type>WasAssociatedWith</type>
       <label>Neutral</label>
       <value>0.0</value>
-      <sourceID>Graph_01_vertex_41</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_53</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_32</sourceID>
-      <targetID>Graph_01_vertex_18_Graph_02_vertex_16</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_46</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_29</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_0</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_1_Graph_02_vertex_1</sourceID>
-      <targetID>Graph_01_vertex_0_Graph_02_vertex_0</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_79</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_42</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_86</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_47_Graph_02_vertex_56</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_81</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_43</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_64</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_37</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_56</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_33</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_69</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_39</sourceID>
-      <targetID>Graph_01_vertex_18_Graph_02_vertex_16</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_41</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_27</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_68</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_38</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_39</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_27</sourceID>
-      <targetID>Graph_01_vertex_18_Graph_02_vertex_16</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_1</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_5</sourceID>
-      <targetID>Graph_01_vertex_4_Graph_02_vertex_4</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_8</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_11</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_38</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_26</sourceID>
-      <targetID>Graph_01_vertex_18_Graph_02_vertex_16</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_14</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_14</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_34</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_24</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_12</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_13</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_86</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_45</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_83</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_44</sourceID>
-      <targetID>Graph_01_vertex_4_Graph_02_vertex_4</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_51</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_31</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_61</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_36</sourceID>
-      <targetID>Graph_01_vertex_18_Graph_02_vertex_16</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_8</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_11</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_63</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_36</sourceID>
-      <targetID>Graph_01_vertex_18_Graph_02_vertex_16</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_61</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_35</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_2</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_8_Graph_02_vertex_8</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_42</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_28</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_32</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_24</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_18</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_16</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_71</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_39</sourceID>
-      <targetID>Graph_01_vertex_4_Graph_02_vertex_4</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_121</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_60</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
+      <sourceID>Graph_01_vertex_29</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
     </edge>
     <edge>
       <ID>Graph_02_edge_10</ID>
@@ -5598,239 +5141,15 @@
       <label>Neutral</label>
       <value>0.0</value>
       <sourceID>Graph_02_vertex_12</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_58</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_34</sourceID>
-      <targetID>Graph_01_vertex_18_Graph_02_vertex_16</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_54</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_33</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_4</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_9</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_4</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_9</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_36</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_25</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_12</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_13</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_25</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_21</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_51</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_32</sourceID>
-      <targetID>Graph_01_vertex_18_Graph_02_vertex_16</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_14</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_15_Graph_02_vertex_14</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_88</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_48_Graph_02_vertex_61</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_78</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_43_Graph_02_vertex_57</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_49</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_31</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_103</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_52</sourceID>
-      <targetID>Graph_01_vertex_4_Graph_02_vertex_4</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_94</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_51_Graph_02_vertex_65</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_74</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_40</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_59</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_35</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_93</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_48</sourceID>
-      <targetID>Graph_01_vertex_4_Graph_02_vertex_4</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_76</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_41</sourceID>
-      <targetID>Graph_01_vertex_4_Graph_02_vertex_4</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_88</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_46</sourceID>
-      <targetID>Graph_01_vertex_4_Graph_02_vertex_4</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_20</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_17_Graph_02_vertex_15</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_48</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_30</sourceID>
-      <targetID>Graph_01_vertex_18_Graph_02_vertex_16</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_37</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_26</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_21</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_19</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_27</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_22_Graph_02_vertex_17</sourceID>
-      <targetID>Graph_01_vertex_18_Graph_02_vertex_16</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_27</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_22</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_1</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_5_Graph_02_vertex_20</sourceID>
-      <targetID>Graph_01_vertex_4_Graph_02_vertex_4</targetID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
     </edge>
     <edge>
       <ID>Graph_01_edge_76</ID>
       <type>WasAssociatedWith</type>
       <label>Neutral</label>
       <value>0.0</value>
-      <sourceID>Graph_01_vertex_42_Graph_02_vertex_55</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_23</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_20_Graph_02_vertex_18</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_98</ID>
-      <type>WasAssociatedWith</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_50</sourceID>
-      <targetID>Graph_01_vertex_4_Graph_02_vertex_4</targetID>
+      <sourceID>Graph_01_vertex_42_Graph_02_vertex_60 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
     </edge>
     <edge>
       <ID>Graph_02_edge_127</ID>
@@ -5838,127 +5157,647 @@
       <label>Neutral</label>
       <value>0.0</value>
       <sourceID>Graph_02_vertex_63</sourceID>
-      <targetID>Graph_01_vertex_2_Graph_02_vertex_2</targetID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_6</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_13_Graph_02_vertex_10 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_91</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_47</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_2</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_8</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_12</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_15_Graph_02_vertex_13 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_38</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_26</sourceID>
+      <targetID>Graph_01_vertex_18_Graph_02_vertex_16 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_8</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_11</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_71</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_40</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_69</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_39</sourceID>
+      <targetID>Graph_01_vertex_18_Graph_02_vertex_16 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_34</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_25</sourceID>
+      <targetID>Graph_01_vertex_18_Graph_02_vertex_16 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_86</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_47</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_88</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_22_Graph_02_vertex_46 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_4_Graph_02_vertex_4 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_1</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_5_Graph_02_vertex_5 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_4_Graph_02_vertex_4 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_21</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_19</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_14</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_14</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_96</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_49</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_36</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_25</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_4</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_9</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_93</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_48</sourceID>
+      <targetID>Graph_01_vertex_4_Graph_02_vertex_4 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_42</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_28</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_23</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_20_Graph_02_vertex_18 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_64</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_37</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_71</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_39</sourceID>
+      <targetID>Graph_01_vertex_4_Graph_02_vertex_4 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_46</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_30</sourceID>
+      <targetID>Graph_01_vertex_18_Graph_02_vertex_16 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_74</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_40</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_59</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_35</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_61</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_35</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_83</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_44</sourceID>
+      <targetID>Graph_01_vertex_4_Graph_02_vertex_4 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_78</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_43</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_103</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_52</sourceID>
+      <targetID>Graph_01_vertex_4_Graph_02_vertex_4 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_14</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_16_Graph_02_vertex_14 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_27</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_22</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_39</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_27</sourceID>
+      <targetID>Graph_01_vertex_18_Graph_02_vertex_16 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_63</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_36</sourceID>
+      <targetID>Graph_01_vertex_18_Graph_02_vertex_16 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_88</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_48_Graph_02_vertex_59 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_80</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_44_Graph_02_vertex_57 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_25</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_21</sourceID>
+      <targetID>Graph_01_vertex_18_Graph_02_vertex_16 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_68</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_38</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_41</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_27</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_20</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_17</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_101</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_51</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_96</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_52_Graph_02_vertex_65 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_90</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_49_Graph_02_vertex_56 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_51</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_31</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_34</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_24</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_56</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_33</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_32</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_24</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_21</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_19_Graph_02_vertex_17 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_18_Graph_02_vertex_16 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_16</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_15</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_86</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_45</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_0</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_1_Graph_02_vertex_1 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_0_Graph_02_vertex_0 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_29</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_23</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_94</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_51_Graph_02_vertex_62 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_76</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_41</sourceID>
+      <targetID>Graph_01_vertex_4_Graph_02_vertex_4 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_98</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_50</sourceID>
+      <targetID>Graph_01_vertex_4_Graph_02_vertex_4 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_56</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_34</sourceID>
+      <targetID>Graph_01_vertex_18_Graph_02_vertex_16 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_27</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_22_Graph_02_vertex_46 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_18_Graph_02_vertex_16 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_23</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_20</sourceID>
+      <targetID>Graph_01_vertex_4_Graph_02_vertex_4 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_31</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_23</sourceID>
+      <targetID>Graph_01_vertex_18_Graph_02_vertex_16 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_74</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_41_Graph_02_vertex_61 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_48</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_30</sourceID>
+      <targetID>Graph_01_vertex_18_Graph_02_vertex_16 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_37</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_26</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_25</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_21</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_51</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_32</sourceID>
+      <targetID>Graph_01_vertex_18_Graph_02_vertex_16 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_106</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_53</sourceID>
+      <targetID>Graph_01_vertex_4_Graph_02_vertex_4 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_6</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_10</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_4</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_12_Graph_02_vertex_9 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_111</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_31_Graph_02_vertex_55 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_79</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_42</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_53</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_32</sourceID>
+      <targetID>Graph_01_vertex_18_Graph_02_vertex_16 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_81</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_43</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_8</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_8_Graph_02_vertex_11 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_66</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_38</sourceID>
+      <targetID>Graph_01_vertex_18_Graph_02_vertex_16 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_54</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_33</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_61</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_36</sourceID>
+      <targetID>Graph_01_vertex_18_Graph_02_vertex_16 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_58</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_34</sourceID>
+      <targetID>Graph_01_vertex_18_Graph_02_vertex_16 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_66</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_37</sourceID>
+      <targetID>Graph_01_vertex_18_Graph_02_vertex_16 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_46</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_29</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_83</ID>
+      <type>WasAssociatedWith</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_46</sourceID>
+      <targetID>Graph_01_vertex_2_Graph_02_vertex_2 (Merged)</targetID>
     </edge>
     <edge>
       <ID>Graph_01_edge_81</ID>
       <type>WasAttributedTo</type>
       <label>Neutral</label>
       <value>0.0</value>
-      <sourceID>Graph_01_vertex_45_Graph_02_vertex_58</sourceID>
-      <targetID>Graph_01_vertex_3_Graph_02_vertex_3</targetID>
+      <sourceID>Graph_01_vertex_45_Graph_02_vertex_58 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_3_Graph_02_vertex_3 (Merged)</targetID>
     </edge>
     <edge>
       <ID>Graph_01_edge_91</ID>
       <type>WasDerivedFrom</type>
       <label>Neutral</label>
       <value>0.0</value>
-      <sourceID>Graph_01_vertex_50_Graph_02_vertex_64</sourceID>
-      <targetID>Graph_01_vertex_45_Graph_02_vertex_58</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_44</ID>
-      <type>WasInfluencedBy</type>
-      <label>Health (Enemy)</label>
-      <value>-6.0</value>
-      <sourceID>Graph_02_vertex_28</sourceID>
-      <targetID>Graph_02_vertex_27</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_77</ID>
-      <type>WasInfluencedBy</type>
-      <label>Health (Enemy)</label>
-      <value>-6.0</value>
-      <sourceID>Graph_02_vertex_41</sourceID>
-      <targetID>Graph_02_vertex_40</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_32</ID>
-      <type>WasInfluencedBy</type>
-      <label>Health (Enemy)</label>
-      <value>-6.0</value>
-      <sourceID>Graph_02_vertex_23</sourceID>
-      <targetID>Graph_02_vertex_22</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_39</ID>
-      <type>WasInfluencedBy</type>
-      <label>Health (Enemy)</label>
-      <value>-6.0</value>
-      <sourceID>Graph_02_vertex_26</sourceID>
-      <targetID>Graph_02_vertex_25</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_35</ID>
-      <type>WasInfluencedBy</type>
-      <label>Health (Enemy)</label>
-      <value>-6.0</value>
-      <sourceID>Graph_01_vertex_25</sourceID>
-      <targetID>Graph_01_vertex_24</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_62</ID>
-      <type>WasInfluencedBy</type>
-      <label>Health (Enemy)</label>
-      <value>-6.0</value>
-      <sourceID>Graph_01_vertex_36</sourceID>
-      <targetID>Graph_01_vertex_35</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_59</ID>
-      <type>WasInfluencedBy</type>
-      <label>Health (Enemy)</label>
-      <value>-6.0</value>
-      <sourceID>Graph_02_vertex_34</sourceID>
-      <targetID>Graph_02_vertex_33</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_54</ID>
-      <type>WasInfluencedBy</type>
-      <label>Health (Enemy)</label>
-      <value>-6.0</value>
-      <sourceID>Graph_02_vertex_32</sourceID>
-      <targetID>Graph_02_vertex_31</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_84</ID>
-      <type>WasInfluencedBy</type>
-      <label>Health (Enemy)</label>
-      <value>-6.0</value>
-      <sourceID>Graph_02_vertex_44</sourceID>
-      <targetID>Graph_02_vertex_43</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_30</ID>
-      <type>WasInfluencedBy</type>
-      <label>Spotted</label>
-      <value>1.0</value>
-      <sourceID>Graph_01_vertex_23_Graph_02_vertex_54</sourceID>
-      <targetID>Graph_01_vertex_22_Graph_02_vertex_17</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_109</ID>
-      <type>WasInfluencedBy</type>
-      <label>Score</label>
-      <value>1.0</value>
-      <sourceID>Graph_01_vertex_23_Graph_02_vertex_54</sourceID>
-      <targetID>Graph_02_vertex_53</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_92</ID>
-      <type>WasInfluencedBy</type>
-      <label>Unlocked</label>
-      <value>1.0</value>
-      <sourceID>Graph_01_vertex_50_Graph_02_vertex_64</sourceID>
-      <targetID>Graph_01_vertex_45_Graph_02_vertex_58</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_64</ID>
-      <type>WasInfluencedBy</type>
-      <label>Health (Enemy)</label>
-      <value>-6.0</value>
-      <sourceID>Graph_02_vertex_36</sourceID>
-      <targetID>Graph_02_vertex_35</targetID>
+      <sourceID>Graph_01_vertex_50_Graph_02_vertex_64 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_45_Graph_02_vertex_58 (Merged)</targetID>
     </edge>
     <edge>
       <ID>Graph_02_edge_104</ID>
@@ -5969,44 +5808,12 @@
       <targetID>Graph_02_vertex_51</targetID>
     </edge>
     <edge>
-      <ID>Graph_02_edge_29</ID>
-      <type>WasInfluencedBy</type>
-      <label>Spotted</label>
-      <value>1.0</value>
-      <sourceID>Graph_02_vertex_22</sourceID>
-      <targetID>Graph_01_vertex_19_Graph_02_vertex_21</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_72</ID>
-      <type>WasInfluencedBy</type>
-      <label>Health (Enemy)</label>
-      <value>-6.0</value>
-      <sourceID>Graph_02_vertex_39</sourceID>
-      <targetID>Graph_02_vertex_38</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_94</ID>
-      <type>WasInfluencedBy</type>
-      <label>Health (Enemy)</label>
-      <value>-6.0</value>
-      <sourceID>Graph_02_vertex_48</sourceID>
-      <targetID>Graph_02_vertex_47</targetID>
-    </edge>
-    <edge>
       <ID>Graph_01_edge_52</ID>
       <type>WasInfluencedBy</type>
       <label>Health (Enemy)</label>
       <value>-6.0</value>
       <sourceID>Graph_01_vertex_32</sourceID>
-      <targetID>Graph_01_vertex_31</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_49</ID>
-      <type>WasInfluencedBy</type>
-      <label>Health (Enemy)</label>
-      <value>-6.0</value>
-      <sourceID>Graph_02_vertex_30</sourceID>
-      <targetID>Graph_02_vertex_29</targetID>
+      <targetID>Graph_01_vertex_31_Graph_02_vertex_55 (Merged)</targetID>
     </edge>
     <edge>
       <ID>Graph_01_edge_40</ID>
@@ -6017,20 +5824,28 @@
       <targetID>Graph_01_vertex_26</targetID>
     </edge>
     <edge>
-      <ID>Graph_02_edge_28</ID>
-      <type>WasInfluencedBy</type>
-      <label>Spotted</label>
-      <value>1.0</value>
-      <sourceID>Graph_02_vertex_22</sourceID>
-      <targetID>Graph_01_vertex_5_Graph_02_vertex_20</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_89</ID>
+      <ID>Graph_02_edge_32</ID>
       <type>WasInfluencedBy</type>
       <label>Health (Enemy)</label>
       <value>-6.0</value>
-      <sourceID>Graph_02_vertex_46</sourceID>
-      <targetID>Graph_02_vertex_45</targetID>
+      <sourceID>Graph_02_vertex_23</sourceID>
+      <targetID>Graph_02_vertex_22</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_109</ID>
+      <type>WasInfluencedBy</type>
+      <label>Score</label>
+      <value>1.0</value>
+      <sourceID>Graph_02_vertex_54</sourceID>
+      <targetID>Graph_02_vertex_53</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_44</ID>
+      <type>WasInfluencedBy</type>
+      <label>Health (Enemy)</label>
+      <value>-6.0</value>
+      <sourceID>Graph_02_vertex_28</sourceID>
+      <targetID>Graph_02_vertex_27</targetID>
     </edge>
     <edge>
       <ID>Graph_01_edge_47</ID>
@@ -6041,28 +5856,44 @@
       <targetID>Graph_01_vertex_29</targetID>
     </edge>
     <edge>
-      <ID>Graph_01_edge_84</ID>
-      <type>WasInfluencedBy</type>
-      <label>Interacted</label>
-      <value>1.0</value>
-      <sourceID>Graph_01_vertex_46_Graph_02_vertex_59</sourceID>
-      <targetID>Graph_01_vertex_45_Graph_02_vertex_58</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_99</ID>
-      <type>WasInfluencedBy</type>
-      <label>Health (Enemy)</label>
-      <value>-6.0</value>
-      <sourceID>Graph_02_vertex_50</sourceID>
-      <targetID>Graph_02_vertex_49</targetID>
-    </edge>
-    <edge>
       <ID>Graph_01_edge_72</ID>
       <type>WasInfluencedBy</type>
       <label>Score</label>
       <value>1.0</value>
       <sourceID>Graph_01_vertex_40</sourceID>
       <targetID>Graph_01_vertex_39</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_54</ID>
+      <type>WasInfluencedBy</type>
+      <label>Health (Enemy)</label>
+      <value>-6.0</value>
+      <sourceID>Graph_02_vertex_32</sourceID>
+      <targetID>Graph_02_vertex_31</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_59</ID>
+      <type>WasInfluencedBy</type>
+      <label>Health (Enemy)</label>
+      <value>-6.0</value>
+      <sourceID>Graph_02_vertex_34</sourceID>
+      <targetID>Graph_02_vertex_33</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_30</ID>
+      <type>WasInfluencedBy</type>
+      <label>Spotted</label>
+      <value>1.0</value>
+      <sourceID>Graph_01_vertex_23</sourceID>
+      <targetID>Graph_01_vertex_22_Graph_02_vertex_46 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_92</ID>
+      <type>WasInfluencedBy</type>
+      <label>Unlocked</label>
+      <value>1.0</value>
+      <sourceID>Graph_01_vertex_50_Graph_02_vertex_64 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_45_Graph_02_vertex_58 (Merged)</targetID>
     </edge>
     <edge>
       <ID>Graph_01_edge_67</ID>
@@ -6073,12 +5904,68 @@
       <targetID>Graph_01_vertex_37</targetID>
     </edge>
     <edge>
-      <ID>Graph_02_edge_69</ID>
+      <ID>Graph_02_edge_94</ID>
       <type>WasInfluencedBy</type>
-      <label>Score</label>
+      <label>Health (Enemy)</label>
+      <value>-6.0</value>
+      <sourceID>Graph_02_vertex_48</sourceID>
+      <targetID>Graph_02_vertex_47</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_89</ID>
+      <type>WasInfluencedBy</type>
+      <label>Health (Enemy)</label>
+      <value>-6.0</value>
+      <sourceID>Graph_01_vertex_22_Graph_02_vertex_46 (Merged)</sourceID>
+      <targetID>Graph_02_vertex_45</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_84</ID>
+      <type>WasInfluencedBy</type>
+      <label>Health (Enemy)</label>
+      <value>-6.0</value>
+      <sourceID>Graph_02_vertex_44</sourceID>
+      <targetID>Graph_02_vertex_43</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_39</ID>
+      <type>WasInfluencedBy</type>
+      <label>Health (Enemy)</label>
+      <value>-6.0</value>
+      <sourceID>Graph_02_vertex_26</sourceID>
+      <targetID>Graph_02_vertex_25</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_119</ID>
+      <type>WasInfluencedBy</type>
+      <label>Interacted</label>
       <value>1.0</value>
-      <sourceID>Graph_02_vertex_38</sourceID>
-      <targetID>Graph_02_vertex_37</targetID>
+      <sourceID>Graph_01_vertex_48_Graph_02_vertex_59 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_45_Graph_02_vertex_58 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_84</ID>
+      <type>WasInfluencedBy</type>
+      <label>Interacted</label>
+      <value>1.0</value>
+      <sourceID>Graph_01_vertex_46</sourceID>
+      <targetID>Graph_01_vertex_45_Graph_02_vertex_58 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_29</ID>
+      <type>WasInfluencedBy</type>
+      <label>Spotted</label>
+      <value>1.0</value>
+      <sourceID>Graph_02_vertex_22</sourceID>
+      <targetID>Graph_02_vertex_21</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_28</ID>
+      <type>WasInfluencedBy</type>
+      <label>Spotted</label>
+      <value>1.0</value>
+      <sourceID>Graph_02_vertex_22</sourceID>
+      <targetID>Graph_02_vertex_20</targetID>
     </edge>
     <edge>
       <ID>Graph_01_edge_57</ID>
@@ -6089,356 +5976,84 @@
       <targetID>Graph_01_vertex_33</targetID>
     </edge>
     <edge>
-      <ID>Graph_02_edge_65</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_37</sourceID>
-      <targetID>Graph_02_vertex_36</targetID>
+      <ID>Graph_02_edge_69</ID>
+      <type>WasInfluencedBy</type>
+      <label>Score</label>
+      <value>1.0</value>
+      <sourceID>Graph_02_vertex_38</sourceID>
+      <targetID>Graph_02_vertex_37</targetID>
     </edge>
     <edge>
-      <ID>Graph_02_edge_33</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_24</sourceID>
-      <targetID>Graph_02_vertex_22</targetID>
+      <ID>Graph_02_edge_49</ID>
+      <type>WasInfluencedBy</type>
+      <label>Health (Enemy)</label>
+      <value>-6.0</value>
+      <sourceID>Graph_02_vertex_30</sourceID>
+      <targetID>Graph_02_vertex_29</targetID>
     </edge>
     <edge>
-      <ID>Graph_02_edge_30</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_23</sourceID>
-      <targetID>Graph_01_vertex_19_Graph_02_vertex_21</targetID>
+      <ID>Graph_02_edge_64</ID>
+      <type>WasInfluencedBy</type>
+      <label>Health (Enemy)</label>
+      <value>-6.0</value>
+      <sourceID>Graph_02_vertex_36</sourceID>
+      <targetID>Graph_02_vertex_35</targetID>
     </edge>
     <edge>
-      <ID>Graph_01_edge_60</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
+      <ID>Graph_02_edge_72</ID>
+      <type>WasInfluencedBy</type>
+      <label>Health (Enemy)</label>
+      <value>-6.0</value>
+      <sourceID>Graph_02_vertex_39</sourceID>
+      <targetID>Graph_02_vertex_38</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_77</ID>
+      <type>WasInfluencedBy</type>
+      <label>Health (Enemy)</label>
+      <value>-6.0</value>
+      <sourceID>Graph_02_vertex_41</sourceID>
+      <targetID>Graph_02_vertex_40</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_62</ID>
+      <type>WasInfluencedBy</type>
+      <label>Health (Enemy)</label>
+      <value>-6.0</value>
       <sourceID>Graph_01_vertex_36</sourceID>
-      <targetID>Graph_01_vertex_34</targetID>
+      <targetID>Graph_01_vertex_35</targetID>
     </edge>
     <edge>
-      <ID>Graph_01_edge_9</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_12_Graph_02_vertex_10</sourceID>
-      <targetID>Graph_01_vertex_11</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_20</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_19</sourceID>
-      <targetID>Graph_01_vertex_20_Graph_02_vertex_18</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_95</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_49</sourceID>
-      <targetID>Graph_02_vertex_47</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_93</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_51_Graph_02_vertex_65</sourceID>
-      <targetID>Graph_01_vertex_49_Graph_02_vertex_62</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_60</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_35</sourceID>
-      <targetID>Graph_02_vertex_33</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_5</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_10</sourceID>
-      <targetID>Graph_01_vertex_9</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_15</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_17_Graph_02_vertex_15</sourceID>
-      <targetID>Graph_01_vertex_15_Graph_02_vertex_14</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_28</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_23_Graph_02_vertex_54</sourceID>
-      <targetID>Graph_01_vertex_21</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_82</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_44</sourceID>
-      <targetID>Graph_02_vertex_41</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_36</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_26</sourceID>
+      <ID>Graph_01_edge_35</ID>
+      <type>WasInfluencedBy</type>
+      <label>Health (Enemy)</label>
+      <value>-6.0</value>
+      <sourceID>Graph_01_vertex_25</sourceID>
       <targetID>Graph_01_vertex_24</targetID>
     </edge>
     <edge>
-      <ID>Graph_02_edge_130</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_51_Graph_02_vertex_65</sourceID>
-      <targetID>Graph_02_vertex_63</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_110</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_42_Graph_02_vertex_55</sourceID>
-      <targetID>Graph_01_vertex_23_Graph_02_vertex_54</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_57</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_34</sourceID>
-      <targetID>Graph_02_vertex_32</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_120</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_60</sourceID>
-      <targetID>Graph_01_vertex_46_Graph_02_vertex_59</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_24</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_19_Graph_02_vertex_21</sourceID>
-      <targetID>Graph_01_vertex_22_Graph_02_vertex_17</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_97</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
+      <ID>Graph_02_edge_99</ID>
+      <type>WasInfluencedBy</type>
+      <label>Health (Enemy)</label>
+      <value>-6.0</value>
       <sourceID>Graph_02_vertex_50</sourceID>
-      <targetID>Graph_02_vertex_48</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_100</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_51</sourceID>
       <targetID>Graph_02_vertex_49</targetID>
     </edge>
     <edge>
-      <ID>Graph_01_edge_65</ID>
+      <ID>Graph_02_edge_13</ID>
       <type>WasInformedBy</type>
       <label>Neutral</label>
       <value>0.0</value>
-      <sourceID>Graph_01_vertex_38</sourceID>
-      <targetID>Graph_01_vertex_36</targetID>
+      <sourceID>Graph_01_vertex_16_Graph_02_vertex_14 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_15_Graph_02_vertex_13 (Merged)</targetID>
     </edge>
     <edge>
       <ID>Graph_02_edge_87</ID>
       <type>WasInformedBy</type>
       <label>Neutral</label>
       <value>0.0</value>
-      <sourceID>Graph_02_vertex_46</sourceID>
+      <sourceID>Graph_01_vertex_22_Graph_02_vertex_46 (Merged)</sourceID>
       <targetID>Graph_02_vertex_44</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_3</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_9</sourceID>
-      <targetID>Graph_01_vertex_8_Graph_02_vertex_8</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_112</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_47_Graph_02_vertex_56</sourceID>
-      <targetID>Graph_01_vertex_42_Graph_02_vertex_55</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_3</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_9</sourceID>
-      <targetID>Graph_01_vertex_8_Graph_02_vertex_8</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_9</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_12</sourceID>
-      <targetID>Graph_02_vertex_11</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_24</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_21</sourceID>
-      <targetID>Graph_01_vertex_20_Graph_02_vertex_18</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_45</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_30</sourceID>
-      <targetID>Graph_01_vertex_27</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_75</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_42_Graph_02_vertex_55</sourceID>
-      <targetID>Graph_01_vertex_41</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_85</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_47_Graph_02_vertex_56</sourceID>
-      <targetID>Graph_01_vertex_46_Graph_02_vertex_59</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_17</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_16</sourceID>
-      <targetID>Graph_01_vertex_15_Graph_02_vertex_14</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_63</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_37</sourceID>
-      <targetID>Graph_01_vertex_35</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_122</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_48_Graph_02_vertex_61</sourceID>
-      <targetID>Graph_02_vertex_60</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_107</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_23_Graph_02_vertex_54</sourceID>
-      <targetID>Graph_02_vertex_51</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_11</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_13</sourceID>
-      <targetID>Graph_01_vertex_12_Graph_02_vertex_10</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_33</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_25</sourceID>
-      <targetID>Graph_01_vertex_22_Graph_02_vertex_17</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_15</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_15_Graph_02_vertex_14</sourceID>
-      <targetID>Graph_01_vertex_14</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_105</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_53</sourceID>
-      <targetID>Graph_02_vertex_52</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_77</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_43_Graph_02_vertex_57</sourceID>
-      <targetID>Graph_01_vertex_42_Graph_02_vertex_55</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_58</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_35</sourceID>
-      <targetID>Graph_01_vertex_33</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_26</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_22</sourceID>
-      <targetID>Graph_02_vertex_19</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_5</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_12_Graph_02_vertex_10</sourceID>
-      <targetID>Graph_02_vertex_9</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_114</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_43_Graph_02_vertex_57</sourceID>
-      <targetID>Graph_01_vertex_47_Graph_02_vertex_56</targetID>
     </edge>
     <edge>
       <ID>Graph_02_edge_85</ID>
@@ -6449,156 +6064,12 @@
       <targetID>Graph_02_vertex_43</targetID>
     </edge>
     <edge>
-      <ID>Graph_02_edge_40</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_27</sourceID>
-      <targetID>Graph_02_vertex_25</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_70</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_40</sourceID>
-      <targetID>Graph_01_vertex_37</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_13</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_15_Graph_02_vertex_14</sourceID>
-      <targetID>Graph_02_vertex_13</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_50</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_32</sourceID>
-      <targetID>Graph_01_vertex_30</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_62</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_36</sourceID>
-      <targetID>Graph_02_vertex_34</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_47</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_30</sourceID>
-      <targetID>Graph_02_vertex_28</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_90</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_47</sourceID>
-      <targetID>Graph_02_vertex_45</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_117</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_46_Graph_02_vertex_59</sourceID>
-      <targetID>Graph_01_vertex_43_Graph_02_vertex_57</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_41</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_28</sourceID>
-      <targetID>Graph_01_vertex_26</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_92</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_48</sourceID>
-      <targetID>Graph_02_vertex_46</targetID>
-    </edge>
-    <edge>
       <ID>Graph_01_edge_38</ID>
       <type>WasInformedBy</type>
       <label>Neutral</label>
       <value>0.0</value>
       <sourceID>Graph_01_vertex_27</sourceID>
       <targetID>Graph_01_vertex_25</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_73</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_40</sourceID>
-      <targetID>Graph_02_vertex_38</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_67</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_38</sourceID>
-      <targetID>Graph_02_vertex_35</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_78</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_42</sourceID>
-      <targetID>Graph_02_vertex_40</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_22</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_20_Graph_02_vertex_18</sourceID>
-      <targetID>Graph_01_vertex_17_Graph_02_vertex_15</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_50</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_31</sourceID>
-      <targetID>Graph_02_vertex_29</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_89</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_49_Graph_02_vertex_62</sourceID>
-      <targetID>Graph_01_vertex_48_Graph_02_vertex_61</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_53</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_33</sourceID>
-      <targetID>Graph_01_vertex_31</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_102</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_52</sourceID>
-      <targetID>Graph_02_vertex_50</targetID>
     </edge>
     <edge>
       <ID>Graph_02_edge_45</ID>
@@ -6609,92 +6080,12 @@
       <targetID>Graph_02_vertex_27</targetID>
     </edge>
     <edge>
-      <ID>Graph_02_edge_42</ID>
+      <ID>Graph_01_edge_70</ID>
       <type>WasInformedBy</type>
       <label>Neutral</label>
       <value>0.0</value>
-      <sourceID>Graph_02_vertex_28</sourceID>
-      <targetID>Graph_02_vertex_26</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_79</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_44</sourceID>
-      <targetID>Graph_01_vertex_43_Graph_02_vertex_57</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_55</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_33</sourceID>
-      <targetID>Graph_02_vertex_31</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_70</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_39</sourceID>
-      <targetID>Graph_01_vertex_5_Graph_02_vertex_20</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_126</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_63</sourceID>
-      <targetID>Graph_01_vertex_49_Graph_02_vertex_62</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_55</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_34</sourceID>
-      <targetID>Graph_01_vertex_32</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_26</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_22_Graph_02_vertex_17</sourceID>
-      <targetID>Graph_01_vertex_19_Graph_02_vertex_21</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_7</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_11</sourceID>
-      <targetID>Graph_01_vertex_12_Graph_02_vertex_10</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_68</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_39</sourceID>
-      <targetID>Graph_01_vertex_38</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_11</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_13</sourceID>
-      <targetID>Graph_02_vertex_12</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_31</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_24</sourceID>
-      <targetID>Graph_01_vertex_23_Graph_02_vertex_54</targetID>
+      <sourceID>Graph_01_vertex_40</sourceID>
+      <targetID>Graph_01_vertex_37</targetID>
     </edge>
     <edge>
       <ID>Graph_02_edge_75</ID>
@@ -6705,100 +6096,60 @@
       <targetID>Graph_02_vertex_39</targetID>
     </edge>
     <edge>
-      <ID>Graph_01_edge_43</ID>
+      <ID>Graph_01_edge_65</ID>
       <type>WasInformedBy</type>
       <label>Neutral</label>
       <value>0.0</value>
-      <sourceID>Graph_01_vertex_29</sourceID>
-      <targetID>Graph_01_vertex_28</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_48</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_31</sourceID>
-      <targetID>Graph_01_vertex_29</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_37</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_26</sourceID>
-      <targetID>Graph_02_vertex_23</targetID>
+      <sourceID>Graph_01_vertex_38</sourceID>
+      <targetID>Graph_01_vertex_36</targetID>
     </edge>
     <edge>
       <ID>Graph_01_edge_73</ID>
       <type>WasInformedBy</type>
       <label>Neutral</label>
       <value>0.0</value>
-      <sourceID>Graph_01_vertex_41</sourceID>
+      <sourceID>Graph_01_vertex_41_Graph_02_vertex_61 (Merged)</sourceID>
       <targetID>Graph_01_vertex_40</targetID>
     </edge>
     <edge>
-      <ID>Graph_02_edge_22</ID>
+      <ID>Graph_02_edge_70</ID>
       <type>WasInformedBy</type>
       <label>Neutral</label>
       <value>0.0</value>
-      <sourceID>Graph_01_vertex_5_Graph_02_vertex_20</sourceID>
-      <targetID>Graph_02_vertex_5</targetID>
+      <sourceID>Graph_02_vertex_39</sourceID>
+      <targetID>Graph_02_vertex_20</targetID>
     </edge>
     <edge>
-      <ID>Graph_01_edge_87</ID>
+      <ID>Graph_02_edge_130</ID>
       <type>WasInformedBy</type>
       <label>Neutral</label>
       <value>0.0</value>
-      <sourceID>Graph_01_vertex_48_Graph_02_vertex_61</sourceID>
-      <targetID>Graph_01_vertex_47_Graph_02_vertex_56</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_19</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_17_Graph_02_vertex_15</sourceID>
-      <targetID>Graph_01_vertex_16</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_13</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_14</sourceID>
-      <targetID>Graph_01_vertex_13</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_01_edge_7</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_01_vertex_11</sourceID>
-      <targetID>Graph_01_vertex_10</targetID>
-    </edge>
-    <edge>
-      <ID>Graph_02_edge_35</ID>
-      <type>WasInformedBy</type>
-      <label>Neutral</label>
-      <value>0.0</value>
-      <sourceID>Graph_02_vertex_25</sourceID>
-      <targetID>Graph_02_vertex_24</targetID>
+      <sourceID>Graph_01_vertex_52_Graph_02_vertex_65 (Merged)</sourceID>
+      <targetID>Graph_02_vertex_63</targetID>
     </edge>
     <edge>
       <ID>Graph_01_edge_95</ID>
       <type>WasInformedBy</type>
       <label>Neutral</label>
       <value>0.0</value>
-      <sourceID>Graph_01_vertex_52</sourceID>
-      <targetID>Graph_01_vertex_51_Graph_02_vertex_65</targetID>
+      <sourceID>Graph_01_vertex_52_Graph_02_vertex_65 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_51_Graph_02_vertex_62 (Merged)</targetID>
     </edge>
     <edge>
-      <ID>Graph_01_edge_82</ID>
+      <ID>Graph_02_edge_95</ID>
       <type>WasInformedBy</type>
       <label>Neutral</label>
       <value>0.0</value>
-      <sourceID>Graph_01_vertex_46_Graph_02_vertex_59</sourceID>
-      <targetID>Graph_01_vertex_44</targetID>
+      <sourceID>Graph_02_vertex_49</sourceID>
+      <targetID>Graph_02_vertex_47</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_18</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_20_Graph_02_vertex_18 (Merged)</sourceID>
+      <targetID>Graph_02_vertex_15</targetID>
     </edge>
     <edge>
       <ID>Graph_02_edge_80</ID>
@@ -6809,12 +6160,612 @@
       <targetID>Graph_02_vertex_42</targetID>
     </edge>
     <edge>
+      <ID>Graph_02_edge_100</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_51</sourceID>
+      <targetID>Graph_02_vertex_49</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_5</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_13_Graph_02_vertex_10 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_12_Graph_02_vertex_9 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_117</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_48_Graph_02_vertex_59 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_44_Graph_02_vertex_57 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_60</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_36</sourceID>
+      <targetID>Graph_01_vertex_34</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_15</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_15_Graph_02_vertex_13 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_14</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_63</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_37</sourceID>
+      <targetID>Graph_01_vertex_35</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_43</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_29</sourceID>
+      <targetID>Graph_01_vertex_28</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_22</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_20</sourceID>
+      <targetID>Graph_01_vertex_5_Graph_02_vertex_5 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_58</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_35</sourceID>
+      <targetID>Graph_01_vertex_33</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_33</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_24</sourceID>
+      <targetID>Graph_02_vertex_22</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_89</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_49_Graph_02_vertex_56 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_48_Graph_02_vertex_59 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_107</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_54</sourceID>
+      <targetID>Graph_02_vertex_51</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_60</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_35</sourceID>
+      <targetID>Graph_02_vertex_33</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_35</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_25</sourceID>
+      <targetID>Graph_02_vertex_24</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_53</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_33</sourceID>
+      <targetID>Graph_01_vertex_31_Graph_02_vertex_55 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_20</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_19</sourceID>
+      <targetID>Graph_01_vertex_20_Graph_02_vertex_18 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_41</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_28</sourceID>
+      <targetID>Graph_01_vertex_26</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_82</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_46</sourceID>
+      <targetID>Graph_01_vertex_44_Graph_02_vertex_57 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_47</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_30</sourceID>
+      <targetID>Graph_02_vertex_28</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_9</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_12_Graph_02_vertex_9 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_11</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_102</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_52</sourceID>
+      <targetID>Graph_02_vertex_50</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_122</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_41_Graph_02_vertex_61 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_42_Graph_02_vertex_60 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_114</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_44_Graph_02_vertex_57 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_49_Graph_02_vertex_56 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_3</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_9</sourceID>
+      <targetID>Graph_01_vertex_8_Graph_02_vertex_11 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_13</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_14</sourceID>
+      <targetID>Graph_01_vertex_13_Graph_02_vertex_10 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_57</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_34</sourceID>
+      <targetID>Graph_02_vertex_32</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_19</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_17</sourceID>
+      <targetID>Graph_01_vertex_16_Graph_02_vertex_14 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_120</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_42_Graph_02_vertex_60 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_48_Graph_02_vertex_59 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_112</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_49_Graph_02_vertex_56 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_31_Graph_02_vertex_55 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_90</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_47</sourceID>
+      <targetID>Graph_02_vertex_45</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_55</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_34</sourceID>
+      <targetID>Graph_01_vertex_32</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_73</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_40</sourceID>
+      <targetID>Graph_02_vertex_38</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_7</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_8_Graph_02_vertex_11 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_13_Graph_02_vertex_10 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_36</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_26</sourceID>
+      <targetID>Graph_01_vertex_24</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_65</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_37</sourceID>
+      <targetID>Graph_02_vertex_36</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_92</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_48</sourceID>
+      <targetID>Graph_01_vertex_22_Graph_02_vertex_46 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_62</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_36</sourceID>
+      <targetID>Graph_02_vertex_34</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_30</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_23</sourceID>
+      <targetID>Graph_02_vertex_21</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_24</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_21</sourceID>
+      <targetID>Graph_01_vertex_20_Graph_02_vertex_18 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_85</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_47</sourceID>
+      <targetID>Graph_01_vertex_46</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_110</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_31_Graph_02_vertex_55 (Merged)</sourceID>
+      <targetID>Graph_02_vertex_54</targetID>
+    </edge>
+    <edge>
       <ID>Graph_02_edge_52</ID>
       <type>WasInformedBy</type>
       <label>Neutral</label>
       <value>0.0</value>
       <sourceID>Graph_02_vertex_32</sourceID>
       <targetID>Graph_02_vertex_30</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_48</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_31_Graph_02_vertex_55 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_29</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_42</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_28</sourceID>
+      <targetID>Graph_02_vertex_26</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_40</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_27</sourceID>
+      <targetID>Graph_02_vertex_25</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_93</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_51_Graph_02_vertex_62 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_49_Graph_02_vertex_56 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_28</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_23</sourceID>
+      <targetID>Graph_01_vertex_21</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_11</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_15_Graph_02_vertex_13 (Merged)</sourceID>
+      <targetID>Graph_02_vertex_12</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_77</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_43</sourceID>
+      <targetID>Graph_01_vertex_42_Graph_02_vertex_60 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_97</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_50</sourceID>
+      <targetID>Graph_02_vertex_48</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_50</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_31</sourceID>
+      <targetID>Graph_02_vertex_29</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_37</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_26</sourceID>
+      <targetID>Graph_02_vertex_23</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_5</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_10</sourceID>
+      <targetID>Graph_01_vertex_9</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_126</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_63</sourceID>
+      <targetID>Graph_01_vertex_51_Graph_02_vertex_62 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_105</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_53</sourceID>
+      <targetID>Graph_02_vertex_52</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_9</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_12</sourceID>
+      <targetID>Graph_01_vertex_8_Graph_02_vertex_11 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_68</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_39</sourceID>
+      <targetID>Graph_01_vertex_38</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_31</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_24</sourceID>
+      <targetID>Graph_01_vertex_23</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_82</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_44</sourceID>
+      <targetID>Graph_02_vertex_41</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_124</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_51_Graph_02_vertex_62 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_41_Graph_02_vertex_61 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_33</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_25</sourceID>
+      <targetID>Graph_01_vertex_22_Graph_02_vertex_46 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_26</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_22</sourceID>
+      <targetID>Graph_02_vertex_19</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_55</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_33</sourceID>
+      <targetID>Graph_02_vertex_31</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_87</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_48_Graph_02_vertex_59 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_47</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_67</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_38</sourceID>
+      <targetID>Graph_02_vertex_35</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_7</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_11</sourceID>
+      <targetID>Graph_01_vertex_10</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_22</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_20_Graph_02_vertex_18 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_17</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_78</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_42</sourceID>
+      <targetID>Graph_02_vertex_40</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_50</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_32</sourceID>
+      <targetID>Graph_01_vertex_30</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_26</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_22_Graph_02_vertex_46 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_19_Graph_02_vertex_17 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_79</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_44_Graph_02_vertex_57 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_43</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_3</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_12_Graph_02_vertex_9 (Merged)</sourceID>
+      <targetID>Graph_02_vertex_8</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_45</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_30</sourceID>
+      <targetID>Graph_01_vertex_27</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_24</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_21</sourceID>
+      <targetID>Graph_01_vertex_19_Graph_02_vertex_17 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_02_edge_15</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_02_vertex_15</sourceID>
+      <targetID>Graph_01_vertex_16_Graph_02_vertex_14 (Merged)</targetID>
+    </edge>
+    <edge>
+      <ID>Graph_01_edge_75</ID>
+      <type>WasInformedBy</type>
+      <label>Neutral</label>
+      <value>0.0</value>
+      <sourceID>Graph_01_vertex_42_Graph_02_vertex_60 (Merged)</sourceID>
+      <targetID>Graph_01_vertex_41_Graph_02_vertex_61 (Merged)</targetID>
     </edge>
   </edges>
 </provenancedata>

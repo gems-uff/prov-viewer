@@ -11,8 +11,10 @@ import br.uff.ic.provviewer.Filter.Filters;
 import br.uff.ic.provviewer.Filter.PreFilters;
 import br.uff.ic.provviewer.Inference.PrologInference;
 import br.uff.ic.provviewer.Variables;
+import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
+import java.util.Collection;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 
@@ -44,6 +46,7 @@ public class GuiInitialization {
         GuiFunctions.GraphPaint(variables);
         GuiFunctions.VertexShape(variables);
         InitFilters(variables);
+        NormalizeTime(variables);
     }
 
     /**
@@ -71,6 +74,29 @@ public class GuiInitialization {
         variables.filter.FilterInit();
         PreFilters.PreFilter();
         variables.collapser.Filters(variables);
+    }
+
+    public static void NormalizeTime(Variables variables) {
+        Collection<Object> vertices = variables.graph.getVertices();
+        double minTime = Double.POSITIVE_INFINITY;
+        for (Object v : vertices) {
+            if(((Vertex)v).getTime() != -1) {
+                minTime = Math.min(minTime, ((Vertex)v).getTime());
+                System.out.println("Calculating:  " + ((Vertex)v).getID() + " " + ((Vertex)v).getTime());
+            }
+        }
+        
+        System.out.println("MinTime> " + minTime);
+        
+        // Normalize time
+        for (Object v : vertices) {
+            if(((Vertex)v).getTime() != -1) {
+                ((Vertex)v).setNormalizedTime((((Vertex)v).getTime() - minTime) + 1);
+                System.out.println(((Vertex)v).getID() + " " + ((Vertex)v).getNormalizedTime());
+            }
+            else
+                ((Vertex)v).setNormalizedTime(-1);
+        }
     }
     
 }
