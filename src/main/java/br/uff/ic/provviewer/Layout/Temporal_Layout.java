@@ -143,7 +143,7 @@ public class Temporal_Layout<V, E> extends ProvViewerLayout<V, E> {
              time = TimeUnit.MILLISECONDS.toDays((long) time);
             }
             else if(this.variables.TemporalLayoutisWeek) {
-                time = (int) (time / (1000*60*60*24*7));
+                time = (int) TimeUnit.MILLISECONDS.toDays((long) time) / 7;
             }
             else if(this.variables.TemporalLayoutisHours) {
                 time = TimeUnit.MILLISECONDS.toHours((long) time);

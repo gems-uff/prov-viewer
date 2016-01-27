@@ -29,6 +29,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
 import org.apache.commons.collections15.Transformer;
 
@@ -240,4 +241,31 @@ public class GuiButtons {
             Logger.getLogger(GuiButtons.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public static void TemporalLayoutGranularity(Variables variables, 
+            boolean milliseconds, 
+            boolean minutes, 
+            boolean hours, 
+            boolean days, 
+            boolean weeks, 
+            JComboBox Layouts, 
+            JCheckBoxMenuItem temporalMillisecondsButton, 
+            JCheckBoxMenuItem temporalMinutesButton, 
+            JCheckBoxMenuItem temporalHoursButton, 
+            JCheckBoxMenuItem temporalDaysButton, 
+            JCheckBoxMenuItem temporalWeeksButton) {
+        variables.TemporalLayoutisMilliseconds = milliseconds;
+        variables.TemporalLayoutisMinutes = minutes;
+        variables.TemporalLayoutisHours = hours;
+        variables.TemporalLayoutisDays = days;
+        variables.TemporalLayoutisWeek = weeks;
+        temporalMillisecondsButton.setSelected(milliseconds);
+        temporalMinutesButton.setSelected(minutes);
+        temporalHoursButton.setSelected(hours);
+        temporalDaysButton.setSelected(days);
+        temporalWeeksButton.setSelected(weeks);
+        
+        GuiButtons.UpdateTemporalLayout(variables, Layouts);
+    }
+
 }

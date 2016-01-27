@@ -63,6 +63,13 @@ public class Variables extends Object {
     public DefaultModalGraphMouse mouse = new DefaultModalGraphMouse();
     public Collapser collapser = new Collapser();
     public boolean initialGraph = true;
+    
+    
+    public boolean TemporalLayoutisMilliseconds = true;
+    public boolean TemporalLayoutisMinutes = false;
+    public boolean TemporalLayoutisHours = false;
+    public boolean TemporalLayoutisDays = false;
+    public boolean TemporalLayoutisWeek = false;
 
     /**
      * Return the max value between 2 values

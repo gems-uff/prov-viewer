@@ -723,73 +723,42 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private void temporalMillisecondsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporalMillisecondsButtonActionPerformed
         // TODO add your handling code here:
-        variables.TemporalLayoutisMilliseconds = true;
-        variables.TemporalLayoutisMinutes = false;
-        variables.TemporalLayoutisHours = false;
-        variables.TemporalLayoutisDays = false;
-        variables.TemporalLayoutisWeek = false;
-        temporalHoursButton.setSelected(false);
-        temporalDaysButton.setSelected(false);
-        temporalWeeksButton.setSelected(false);
-        temporalMinutesButton.setSelected(false);
-        GuiButtons.UpdateTemporalLayout(variables, Layouts);
-        
+        GuiButtons.TemporalLayoutGranularity(variables, true, false, false, 
+                false, false, Layouts, temporalMillisecondsButton, 
+                temporalMinutesButton, temporalHoursButton, 
+                temporalDaysButton, temporalWeeksButton);        
     }//GEN-LAST:event_temporalMillisecondsButtonActionPerformed
 
     private void temporalHoursButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporalHoursButtonActionPerformed
         // TODO add your handling code here:
-        variables.TemporalLayoutisMilliseconds = false;
-        variables.TemporalLayoutisMinutes = false;
-        variables.TemporalLayoutisHours = true;
-        variables.TemporalLayoutisDays = false;
-        variables.TemporalLayoutisWeek = false;
-        temporalMillisecondsButton.setSelected(false);
-        temporalDaysButton.setSelected(false);
-        temporalWeeksButton.setSelected(false);
-        temporalMinutesButton.setSelected(false);
-        GuiButtons.UpdateTemporalLayout(variables, Layouts);
+        GuiButtons.TemporalLayoutGranularity(variables, false, false, true, 
+                false, false, Layouts, temporalMillisecondsButton, 
+                temporalMinutesButton, temporalHoursButton, 
+                temporalDaysButton, temporalWeeksButton);
     }//GEN-LAST:event_temporalHoursButtonActionPerformed
 
     private void temporalDaysButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporalDaysButtonActionPerformed
         // TODO add your handling code here:
-        variables.TemporalLayoutisMilliseconds = false;
-        variables.TemporalLayoutisMinutes = false;
-        variables.TemporalLayoutisHours = false;
-        variables.TemporalLayoutisDays = true;
-        variables.TemporalLayoutisWeek = false;
-        temporalHoursButton.setSelected(false);
-        temporalMillisecondsButton.setSelected(false);
-        temporalWeeksButton.setSelected(false);
-        temporalMinutesButton.setSelected(false);
-        GuiButtons.UpdateTemporalLayout(variables, Layouts);
+        GuiButtons.TemporalLayoutGranularity(variables, false, false, false, 
+                true, false, Layouts, temporalMillisecondsButton, 
+                temporalMinutesButton, temporalHoursButton, 
+                temporalDaysButton, temporalWeeksButton);
     }//GEN-LAST:event_temporalDaysButtonActionPerformed
 
     private void temporalWeeksButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporalWeeksButtonActionPerformed
         // TODO add your handling code here:
-        variables.TemporalLayoutisMilliseconds = false;
-        variables.TemporalLayoutisMinutes = false;
-        variables.TemporalLayoutisHours = false;
-        variables.TemporalLayoutisDays = false;
-        variables.TemporalLayoutisWeek = true;
-        temporalHoursButton.setSelected(false);
-        temporalDaysButton.setSelected(false);
-        temporalMillisecondsButton.setSelected(false);
-        temporalMinutesButton.setSelected(false);
-        GuiButtons.UpdateTemporalLayout(variables, Layouts);
+        GuiButtons.TemporalLayoutGranularity(variables, false, false, false, 
+                false, true, Layouts, temporalMillisecondsButton, 
+                temporalMinutesButton, temporalHoursButton, 
+                temporalDaysButton, temporalWeeksButton);
     }//GEN-LAST:event_temporalWeeksButtonActionPerformed
 
     private void temporalMinutesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporalMinutesButtonActionPerformed
         // TODO add your handling code here:
-        variables.TemporalLayoutisMilliseconds = false;
-        variables.TemporalLayoutisMinutes = true;
-        variables.TemporalLayoutisHours = false;
-        variables.TemporalLayoutisDays = false;
-        variables.TemporalLayoutisWeek = false;
-        temporalHoursButton.setSelected(false);
-        temporalDaysButton.setSelected(false);
-        temporalMillisecondsButton.setSelected(false);
-        temporalWeeksButton.setSelected(false);
-        GuiButtons.UpdateTemporalLayout(variables, Layouts);
+        GuiButtons.TemporalLayoutGranularity(variables, false, true, false, 
+                false, false, Layouts, temporalMillisecondsButton, 
+                temporalMinutesButton, temporalHoursButton, 
+                temporalDaysButton, temporalWeeksButton);
     }//GEN-LAST:event_temporalMinutesButtonActionPerformed
    
     /**
