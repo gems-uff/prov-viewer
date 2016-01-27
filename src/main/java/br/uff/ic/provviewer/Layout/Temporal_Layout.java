@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.ConcurrentModificationException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Temporal Layout for Prov Viewer. Based on Temporal_Layout_Template
@@ -137,7 +138,21 @@ public class Temporal_Layout<V, E> extends ProvViewerLayout<V, E> {
 
         if (v instanceof Vertex) {
             //Node's X position is defined by the day it was created
-            newXPos = Math.round(((Vertex) v).getNormalizedTime()) * XDISTANCE;
+            double time = ((Vertex) v).getNormalizedTime();
+            if(this.variables.TemporalLayoutisDays) {
+             time = TimeUnit.MILLISECONDS.toDays((long) time);
+            }
+            else if(this.variables.TemporalLayoutisWeek) {
+                time = (int) (time / (1000*60*60*24*7));
+            }
+            else if(this.variables.TemporalLayoutisHours) {
+                time = TimeUnit.MILLISECONDS.toHours((long) time);
+            }
+            else if(this.variables.TemporalLayoutisMinutes) {
+                time = TimeUnit.MILLISECONDS.toMinutes((long) time);
+            }
+            
+            newXPos = Math.round(time) * XDISTANCE;
             //If node is from the backbone type
             if ((v instanceof Vertex) && ((Vertex) v).getLabel().contains(this.variables.config.layoutSpecialVertexType)) {
                 //I want the backbone-type node to always be on Y = 0

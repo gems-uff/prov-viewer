@@ -85,6 +85,12 @@ public class GraphFrame extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         mergeGraphButtom = new javax.swing.JMenuItem();
         exportGraphButton = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        temporalMillisecondsButton = new javax.swing.JCheckBoxMenuItem();
+        temporalMinutesButton = new javax.swing.JCheckBoxMenuItem();
+        temporalHoursButton = new javax.swing.JCheckBoxMenuItem();
+        temporalDaysButton = new javax.swing.JCheckBoxMenuItem();
+        temporalWeeksButton = new javax.swing.JCheckBoxMenuItem();
 
         fileChooser.setCurrentDirectory(new java.io.File("D:\\SVN\\Prov_Viewer\\prov-viewer\\src\\main\\resources"));
         fileChooser.setDialogTitle("This is my open dialog");
@@ -477,6 +483,51 @@ public class GraphFrame extends javax.swing.JFrame {
 
         MenuBar.add(jMenu2);
 
+        jMenu3.setText("Temporal Layout");
+
+        temporalMillisecondsButton.setSelected(true);
+        temporalMillisecondsButton.setText("Milliseconds");
+        temporalMillisecondsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                temporalMillisecondsButtonActionPerformed(evt);
+            }
+        });
+        jMenu3.add(temporalMillisecondsButton);
+
+        temporalMinutesButton.setText("Minutes");
+        temporalMinutesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                temporalMinutesButtonActionPerformed(evt);
+            }
+        });
+        jMenu3.add(temporalMinutesButton);
+
+        temporalHoursButton.setText("Hours");
+        temporalHoursButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                temporalHoursButtonActionPerformed(evt);
+            }
+        });
+        jMenu3.add(temporalHoursButton);
+
+        temporalDaysButton.setText("Days");
+        temporalDaysButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                temporalDaysButtonActionPerformed(evt);
+            }
+        });
+        jMenu3.add(temporalDaysButton);
+
+        temporalWeeksButton.setText("Week");
+        temporalWeeksButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                temporalWeeksButtonActionPerformed(evt);
+            }
+        });
+        jMenu3.add(temporalWeeksButton);
+
+        MenuBar.add(jMenu3);
+
         setJMenuBar(MenuBar);
 
         setSize(new java.awt.Dimension(744, 743));
@@ -669,6 +720,77 @@ public class GraphFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         GuiButtons.ExportPROVN(variables);
     }//GEN-LAST:event_exportGraphButtonActionPerformed
+
+    private void temporalMillisecondsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporalMillisecondsButtonActionPerformed
+        // TODO add your handling code here:
+        variables.TemporalLayoutisMilliseconds = true;
+        variables.TemporalLayoutisMinutes = false;
+        variables.TemporalLayoutisHours = false;
+        variables.TemporalLayoutisDays = false;
+        variables.TemporalLayoutisWeek = false;
+        temporalHoursButton.setSelected(false);
+        temporalDaysButton.setSelected(false);
+        temporalWeeksButton.setSelected(false);
+        temporalMinutesButton.setSelected(false);
+        GuiButtons.UpdateTemporalLayout(variables, Layouts);
+        
+    }//GEN-LAST:event_temporalMillisecondsButtonActionPerformed
+
+    private void temporalHoursButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporalHoursButtonActionPerformed
+        // TODO add your handling code here:
+        variables.TemporalLayoutisMilliseconds = false;
+        variables.TemporalLayoutisMinutes = false;
+        variables.TemporalLayoutisHours = true;
+        variables.TemporalLayoutisDays = false;
+        variables.TemporalLayoutisWeek = false;
+        temporalMillisecondsButton.setSelected(false);
+        temporalDaysButton.setSelected(false);
+        temporalWeeksButton.setSelected(false);
+        temporalMinutesButton.setSelected(false);
+        GuiButtons.UpdateTemporalLayout(variables, Layouts);
+    }//GEN-LAST:event_temporalHoursButtonActionPerformed
+
+    private void temporalDaysButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporalDaysButtonActionPerformed
+        // TODO add your handling code here:
+        variables.TemporalLayoutisMilliseconds = false;
+        variables.TemporalLayoutisMinutes = false;
+        variables.TemporalLayoutisHours = false;
+        variables.TemporalLayoutisDays = true;
+        variables.TemporalLayoutisWeek = false;
+        temporalHoursButton.setSelected(false);
+        temporalMillisecondsButton.setSelected(false);
+        temporalWeeksButton.setSelected(false);
+        temporalMinutesButton.setSelected(false);
+        GuiButtons.UpdateTemporalLayout(variables, Layouts);
+    }//GEN-LAST:event_temporalDaysButtonActionPerformed
+
+    private void temporalWeeksButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporalWeeksButtonActionPerformed
+        // TODO add your handling code here:
+        variables.TemporalLayoutisMilliseconds = false;
+        variables.TemporalLayoutisMinutes = false;
+        variables.TemporalLayoutisHours = false;
+        variables.TemporalLayoutisDays = false;
+        variables.TemporalLayoutisWeek = true;
+        temporalHoursButton.setSelected(false);
+        temporalDaysButton.setSelected(false);
+        temporalMillisecondsButton.setSelected(false);
+        temporalMinutesButton.setSelected(false);
+        GuiButtons.UpdateTemporalLayout(variables, Layouts);
+    }//GEN-LAST:event_temporalWeeksButtonActionPerformed
+
+    private void temporalMinutesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporalMinutesButtonActionPerformed
+        // TODO add your handling code here:
+        variables.TemporalLayoutisMilliseconds = false;
+        variables.TemporalLayoutisMinutes = true;
+        variables.TemporalLayoutisHours = false;
+        variables.TemporalLayoutisDays = false;
+        variables.TemporalLayoutisWeek = false;
+        temporalHoursButton.setSelected(false);
+        temporalDaysButton.setSelected(false);
+        temporalMillisecondsButton.setSelected(false);
+        temporalWeeksButton.setSelected(false);
+        GuiButtons.UpdateTemporalLayout(variables, Layouts);
+    }//GEN-LAST:event_temporalMinutesButtonActionPerformed
    
     /**
      * Main
@@ -748,6 +870,12 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JFileChooser fileChooser;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuItem mergeGraphButtom;
+    private javax.swing.JCheckBoxMenuItem temporalDaysButton;
+    private javax.swing.JCheckBoxMenuItem temporalHoursButton;
+    private javax.swing.JCheckBoxMenuItem temporalMillisecondsButton;
+    private javax.swing.JCheckBoxMenuItem temporalMinutesButton;
+    private javax.swing.JCheckBoxMenuItem temporalWeeksButton;
     // End of variables declaration//GEN-END:variables
 }

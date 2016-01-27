@@ -14,7 +14,6 @@ import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.provviewer.Vertex.ColorScheme.VertexPainter;
 import br.uff.ic.utility.IO.PROVNWriter;
 import br.uff.ic.utility.IO.XMLWriter;
-import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
 import edu.uci.ics.jung.algorithms.layout.FRLayout2;
@@ -26,7 +25,6 @@ import edu.uci.ics.jung.visualization.decorators.EdgeShape;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.picking.PickedInfo;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.logging.Level;
@@ -198,6 +196,17 @@ public class GuiButtons {
         GuiBackground.InitBackground(variables, Layouts);
         variables.view.setGraphLayout(variables.layout);
         variables.view.repaint();
+    }
+    
+    public static void UpdateTemporalLayout(Variables variables, JComboBox Layouts) {
+        String layout = (String) Layouts.getSelectedItem();
+        if (layout.equalsIgnoreCase("TemporalLayout")) {
+            variables.layout = new Temporal_Layout<Object, Edge>(variables.layout.getGraph(), variables);
+            GuiBackground.InitBackground(variables, Layouts);
+            variables.view.setGraphLayout(variables.layout);
+            variables.view.repaint();
+        }
+        
     }
 
     public static void AutoDetectEdge(Variables variables, boolean selected) {
