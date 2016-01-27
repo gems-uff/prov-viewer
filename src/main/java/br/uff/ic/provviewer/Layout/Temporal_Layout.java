@@ -49,7 +49,7 @@ public class Temporal_Layout<V, E> extends ProvViewerLayout<V, E> {
     private void doInit() {
         graph = getGraph();
         //Starting Y position
-        double ypos = -100.0;
+        double ypos = 100.0;
         //X offset for Agent-type nodes
         double xOffset = 10.0;
         //Compute Agent-type node position

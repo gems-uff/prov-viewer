@@ -154,6 +154,9 @@ public class Edge extends GraphObject{
         if(Utils.tryParseFloat(this.value)) {
             return Float.parseFloat(this.value);
         }
+        else if(Utils.tryParseFloat(this.value.split(" ")[0])) {
+            return Float.parseFloat(this.value.split(" ")[0]);
+        }
         else {
             return 0;
         }
@@ -178,7 +181,12 @@ public class Edge extends GraphObject{
      * @return (String) influence
      */
     public String getEdgeInfluence() {
-        return this.value + " " + getLabel() + " (" + this.type + ")";
+        String atts = "";
+        if(!this.attributes.values().isEmpty())
+        {
+            atts = "<br>" + this.printAttributes();
+        }
+        return this.value + " " + getLabel() + " (" + this.type + ")" + atts;
     }
 
     /**

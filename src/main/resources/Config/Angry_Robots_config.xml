@@ -16,8 +16,6 @@ and open the template in the editor.
     <imageOffset_Y>-48.11044</imageOffset_Y>
     <spatialLayoutPosition>113.404</spatialLayoutPosition>
     <temporalLayoutscale>1.0</temporalLayoutscale>
-    <showentitydate>false</showentitydate>
-    <showentitylabel>false</showentitylabel>
     <edgetype>
         <edge>Neutral</edge>
         <edgestroke>MAX</edgestroke>

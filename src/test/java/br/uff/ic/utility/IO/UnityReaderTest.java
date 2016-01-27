@@ -41,7 +41,7 @@ public class UnityReaderTest {
         testFiles(File.separator + "Graph" + File.separator + "Angry_Robots.xml");
         testFiles(File.separator + "Graph" + File.separator + "bus.xml");
         testFiles(File.separator + "Graph" + File.separator + "Map.xml");
-        testFiles(File.separator + "Graph" + File.separator + "Input.xml");
+        testFiles(File.separator + "Graph" + File.separator + "SDM_Example.xml");
     }
     
     public void testFiles(String path) throws Exception {

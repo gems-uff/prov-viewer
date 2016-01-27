@@ -55,7 +55,8 @@ public class GraphObject extends Object{
         {
             for(GraphAttribute att : this.attributes.values())
             {
-                attributeList += att.printAttribute();
+                if (!att.getAverageValue().isEmpty() && !att.getValue().equalsIgnoreCase("-") && !att.getValue().equalsIgnoreCase(""))
+                    attributeList += att.printAttribute();
             }
         }
         return attributeList;

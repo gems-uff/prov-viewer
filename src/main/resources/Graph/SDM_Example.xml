@@ -269,7 +269,7 @@ and open the template in the editor.
             <ID>ac0</ID>
             <type>Activity</type>
             <label>Action</label>
-            <date>1:Tue</date>
+            <date>1</date>
             <attributes>
                 <attribute>
                     <name>Role</name>
@@ -309,7 +309,7 @@ and open the template in the editor.
             <ID>ac1</ID>
             <type>Activity</type>
             <label>Action</label>
-            <date>2:Wed</date>
+            <date>2</date>
             <attributes>
                 <attribute>
                     <name>Role</name>
@@ -349,7 +349,7 @@ and open the template in the editor.
             <ID>ac2</ID>
             <type>Activity</type>
             <label>Action</label>
-            <date>3:Thu</date>
+            <date>3</date>
             <attributes>
                 <attribute>
                     <name>Role</name>
@@ -389,7 +389,7 @@ and open the template in the editor.
             <ID>ac3</ID>
             <type>Activity</type>
             <label>Action</label>
-            <date>4:Fri</date>
+            <date>4</date>
             <attributes>
                 <attribute>
                     <name>Role</name>
@@ -429,7 +429,7 @@ and open the template in the editor.
             <ID>ac4</ID>
             <type>Activity</type>
             <label>Action</label>
-            <date>1:Tue</date>
+            <date>1</date>
             <attributes>
                 <attribute>
                     <name>Role</name>
@@ -469,7 +469,7 @@ and open the template in the editor.
             <ID>ac6</ID>
             <type>Activity</type>
             <label>Action</label>
-            <date>2:Wed</date>
+            <date>2</date>
             <attributes>
                 <attribute>
                     <name>Role</name>
@@ -509,7 +509,7 @@ and open the template in the editor.
             <ID>ac8</ID>
             <type>Activity</type>
             <label>Action</label>
-            <date>3:Thu</date>
+            <date>3</date>
             <attributes>
                 <attribute>
                     <name>Role</name>
@@ -549,7 +549,7 @@ and open the template in the editor.
             <ID>ac10</ID>
             <type>Activity</type>
             <label>Action</label>
-            <date>4:Fri:Tue</date>
+            <date>4</date>
             <attributes>
                 <attribute>
                     <name>Role</name>
@@ -589,7 +589,7 @@ and open the template in the editor.
             <ID>ac5</ID>
             <type>Activity</type>
             <label>Action</label>
-            <date>1:Tue</date>
+            <date>1</date>
             <attributes>
                 <attribute>
                     <name>Role</name>
@@ -629,7 +629,7 @@ and open the template in the editor.
             <ID>ac7</ID>
             <type>Activity</type>
             <label>Action</label>
-            <date>2:Wed</date>
+            <date>2</date>
             <attributes>
                 <attribute>
                     <name>Role</name>
@@ -669,7 +669,7 @@ and open the template in the editor.
             <ID>ac9</ID>
             <type>Activity</type>
             <label>Action</label>
-            <date>3:Thu</date>
+            <date>3</date>
             <attributes>
                 <attribute>
                     <name>Role</name>
@@ -709,7 +709,7 @@ and open the template in the editor.
             <ID>ac11</ID>
             <type>Activity</type>
             <label>Action</label>
-            <date>4:Fri</date>
+            <date>4</date>
             <attributes>
                 <attribute>
                     <name>Role</name>
@@ -749,7 +749,7 @@ and open the template in the editor.
             <ID>ac12</ID>
             <type>Activity</type>
             <label>Action</label>
-            <date>1:Tue</date>
+            <date>1</date>
             <attributes>
                 <attribute>
                     <name>Role</name>
@@ -789,7 +789,7 @@ and open the template in the editor.
             <ID>ac13</ID>
             <type>Activity</type>
             <label>Action</label>
-            <date>2:Wed</date>
+            <date>2</date>
             <attributes>
                 <attribute>
                     <name>Role</name>
@@ -829,7 +829,7 @@ and open the template in the editor.
             <ID>ac14</ID>
             <type>Activity</type>
             <label>Action</label>
-            <date>3:Thu</date>
+            <date>3</date>
             <attributes>
                 <attribute>
                     <name>Role</name>
@@ -869,7 +869,7 @@ and open the template in the editor.
             <ID>ac15</ID>
             <type>Activity</type>
             <label>Action</label>
-            <date>4:Fri</date>
+            <date>4</date>
             <attributes>
                 <attribute>
                     <name>Role</name>
@@ -909,7 +909,7 @@ and open the template in the editor.
             <ID>ent0</ID>
             <type>Entity</type>
             <label>Project</label>
-            <date>0:Mon</date>
+            <date>0</date>
             <attributes>
                 <attribute>
                     <name>Deadline</name>
@@ -985,7 +985,7 @@ and open the template in the editor.
             <ID>ent1</ID>
             <type>Entity</type>
             <label>Project</label>
-            <date>1:Tue</date>
+            <date>1</date>
             <attributes>
                 <attribute>
                     <name>Deadline</name>
@@ -1061,7 +1061,7 @@ and open the template in the editor.
             <ID>ent2</ID>
             <type>Entity</type>
             <label>Project</label>
-            <date>2:Wed</date>
+            <date>2</date>
             <attributes>
                 <attribute>
                     <name>Deadline</name>
@@ -1137,7 +1137,7 @@ and open the template in the editor.
             <ID>ent3</ID>
             <type>Entity</type>
             <label>Project</label>
-            <date>3:Thu</date>
+            <date>3</date>
             <attributes>
                 <attribute>
                     <name>Deadline</name>
@@ -1213,7 +1213,7 @@ and open the template in the editor.
             <ID>ent4</ID>
             <type>Entity</type>
             <label>Project</label>
-            <date>4:Fri</date>
+            <date>4</date>
             <attributes>
                 <attribute>
                     <name>Deadline</name>
