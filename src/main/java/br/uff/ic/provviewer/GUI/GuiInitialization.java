@@ -17,6 +17,7 @@ import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
 import java.util.Collection;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.ToolTipManager;
 
 /**
  * Class to initialize the interface operations
@@ -48,6 +49,9 @@ public class GuiInitialization {
         GuiFunctions.VertexShape(variables);
         InitFilters(variables);
         NormalizeTime(variables);
+        
+        ToolTipManager.sharedInstance().setInitialDelay(10);
+        ToolTipManager.sharedInstance().setDismissDelay(50000);
     }
 
     /**

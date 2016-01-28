@@ -182,4 +182,41 @@ public class UtilsTest {
         assertEquals(true, Utils.FloatEqualTo(left, right, epsilon));
     }
     
+    /**
+     * Test of FloatEqualTo method, of class Utils.
+     */
+    @Test
+    public void testmedian() {
+        Object[] test = {"1","2","3","4","5","6","7","8","9"};
+        assertEquals("5.0", Utils.median(test, 0, test.length));
+        assertEquals("2.5", Utils.quartile(test, 1));
+        assertEquals("7.5", Utils.quartile(test, 3));
+        
+        Object[] test2 = {"3","5","7","8","12","13","14","18","21"};
+        assertEquals("12.0", Utils.median(test2, 0, test2.length));
+        assertEquals("6.0", Utils.quartile(test2, 1));
+        assertEquals("16.0", Utils.quartile(test2, 3));
+        
+        Object[] test3 = {"3","7","8","5","12","14","21","15","18","14"};
+        System.out.println("M");
+        assertEquals("13.0", Utils.median(test3, 0, test3.length));
+        System.out.println("Q1");
+        assertEquals("7.0", Utils.quartile(test3, 1));
+        System.out.println("Q3");
+        assertEquals("15.0", Utils.quartile(test3, 3));
+        
+        Object[] test4 = {"19","26","25","37","32","28","22","23","29", "34", "39", "31"};
+        assertEquals("28.5", Utils.median(test4, 0, test4.length));
+        assertEquals("24.0", Utils.quartile(test4, 1));
+        assertEquals("33.0", Utils.quartile(test4, 3));
+        
+        Object[] test5 = {"1", "2", "3"};
+        System.out.println("M");
+        assertEquals("2.0", Utils.median(test5, 0, test5.length));
+        System.out.println("Q1");
+        assertEquals("1", Utils.quartile(test5, 1));
+        System.out.println("Q3");
+        assertEquals("3", Utils.quartile(test5, 3));
+    }
+    
 }

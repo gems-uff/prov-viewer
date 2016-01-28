@@ -7,6 +7,7 @@ package br.uff.ic.utility;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
@@ -17,12 +18,14 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 /**
  * Class that contains utility functions
+ *
  * @author Kohwalter
  */
 public class Utils {
 
     /**
      * Method to check if it is possible to parse the value to float
+     *
      * @param value desired to be parsed to float
      * @return boolean
      */
@@ -36,9 +39,10 @@ public class Utils {
             return false;
         }
     }
-    
+
     /**
      * Function that verifies if it is possible to convert the String to a float
+     *
      * @param value is the String to be verified
      * @return true if it is possible to convert to a float
      */
@@ -46,9 +50,10 @@ public class Utils {
         value = value.replace(" ", "");
         return Float.parseFloat(value);
     }
-    
+
     /**
      * Function that verifies if it is possible to convert the String to a float
+     *
      * @param value is the String to be verified
      * @return true if it is possible to convert to a float
      */
@@ -56,9 +61,11 @@ public class Utils {
         value = value.replace(" ", "");
         return Double.parseDouble(value);
     }
-    
+
     /**
-     * Function that verifies if it is possible to convert the String to an integer
+     * Function that verifies if it is possible to convert the String to an
+     * integer
+     *
      * @param value is the String to be verified
      * @return true if it is possible to convert to an integer
      */
@@ -71,9 +78,10 @@ public class Utils {
             return false;
         }
     }
-    
+
     /**
      * Function to convert a String to an Int value
+     *
      * @param value is the String to be converted
      * @return the int value of the string
      */
@@ -81,9 +89,10 @@ public class Utils {
         value = value.replace(" ", "");
         return Integer.valueOf(value);
     }
-    
+
     /**
      * Function to convert a String to an Int value, rounding it
+     *
      * @param value is the String to be converted
      * @return the rounded int value of the string
      */
@@ -91,9 +100,10 @@ public class Utils {
         value = value.replace(" ", "");
         return Math.round(Float.parseFloat(value));
     }
-    
+
     /**
      * Function to compare two floats with an epsilon margin of error
+     *
      * @param f1 is the first float
      * @param f2 is the second float
      * @param epsilon is the margin of error for the comparison
@@ -102,16 +112,17 @@ public class Utils {
     public static boolean FloatEqualTo(double f1, double f2, double epsilon) {
         return Math.abs(f1 - f2) <= epsilon;
     }
-    
+
     public static boolean FloatSimilar(double f1, double f2, double epsilon) {
         double max = Math.max(f1, f2);
         double min = Math.min(f1, f2);
-        
+
         return min + Math.abs(max * epsilon) >= max;
     }
-    
+
     /**
      * Clamp function to clamp the value between min and max
+     *
      * @param min is the minimal accepted value
      * @param max is the maximum accepted value
      * @param value is the value to be clamped between min and max
@@ -120,9 +131,10 @@ public class Utils {
     public static double clamp(double min, double max, double value) {
         return Math.max(min, Math.min(max, value));
     }
-    
+
     /**
-     *  Method to convert a string to XMLGregorianCalendar
+     * Method to convert a string to XMLGregorianCalendar
+     *
      * @param time is the desired date in the "yyyy-MM-dd'T'HH:mm:ss"
      * @return the converted XMLGregorian Date
      */
@@ -132,7 +144,7 @@ public class Utils {
             Date date;
             SimpleDateFormat simpleDateFormat;
             GregorianCalendar gregorianCalendar;
-            
+
             simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
             date = simpleDateFormat.parse(time);
             gregorianCalendar
@@ -146,12 +158,13 @@ public class Utils {
         } catch (DatatypeConfigurationException ex) {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return null;
     }
-    
+
     /**
      * Function that verifies if it is possible to convert the String to Date
+     *
      * @param value is the String to be verified
      * @return true if it is possible to convert to Date
      */
@@ -162,13 +175,14 @@ public class Utils {
             simpleDateFormat.parse(value);
             return true;
         } catch (ParseException ex) {
-            
+
         }
         return false;
     }
-    
+
     /**
      * Convert a Date in the format of a string to double
+     *
      * @param d1 is the string to be converted
      * @return the value in Double for the date
      */
@@ -185,5 +199,97 @@ public class Utils {
         }
         return 0;
     }
-    
+
+    /**
+     * Method to return the median of a numeric array
+     *
+     * @param l is the array
+     * @param start
+     * @param end
+     * @return the median
+     */
+    public static String median(Object[] l, int start, int end) {
+        if (end - start > 1) {
+            System.out.println("Middle: " + (end - start));
+            int middle = (end - start) / 2; //l.length / 2;
+            middle = middle + start;
+            boolean isString = false;
+            double[] v = new double[l.length];
+            int i = 0;
+            for (Object s : l) {
+                if (tryParseFloat((String) s)) {
+                    v[i++] = Double.parseDouble((String) s);
+                } else {
+                    isString = true;
+                }
+
+            }
+            if (!isString) {
+                Arrays.sort(v);
+                if ((end - start) % 2 == 0) {
+                    double left = v[middle - 1];
+                    double right = v[middle];
+                    System.out.println("Expected: " + (left + right) / 2);
+                    return String.valueOf((left + right) / 2);
+                } else {
+                    System.out.println("Expected: " + v[middle]);
+                    return String.valueOf(v[middle]);
+                }
+            } else {
+                Arrays.sort(l);
+                return (String) l[middle];
+            }
+        } else {
+            return (String) l[start];
+        }
+    }
+//
+//    public static String getMedian(Object[] l, int middle, int size) {
+//        if ((tryParseFloat((String) l[middle - 1])) && ((size) % 2 == 0)) {
+//            //            if (l.length % 2 == 0) {
+//            double left = Double.parseDouble((String) l[middle - 1]);
+//            double right = Double.parseDouble((String) l[middle]);
+//            return String.valueOf((left + right) / 2);
+//        } else {
+//            return (String) l[middle];
+//        }
+//    }
+/**
+ * Retrieve the quartile value from an array
+ *
+ * @param values THe array of data
+ * @param lowerPercent The percent cut off. For the lower quartile use 25, for
+ * the upper-quartile use 75
+ * @return
+ */
+public static String quartile(Object[] values, int lowerPercent) {
+
+        if (values == null || values.length == 0) {
+            throw new IllegalArgumentException("The data array either is null or does not contain any data.");
+        }
+        int start, end;
+        if(lowerPercent == 1) {
+            start = 0;
+            end = values.length / 2;
+        }
+        else {
+            if((values.length % 2) == 0)
+                start = (values.length / 2);
+            else
+                start = (values.length / 2) + 1;
+            end = values.length;
+        }
+            
+        return median(values, start, end);
+//        Arrays.sort(values);
+//        // Rank order the values
+//        double[] v = new double[values.length];
+//        System.arraycopy(values, 0, v, 0, values.length);
+//        Arrays.sort(v);
+//
+//        int n = (int) Math.round(v.length * lowerPercent / 100);
+//        
+//        return v[n];
+
+    }
 }

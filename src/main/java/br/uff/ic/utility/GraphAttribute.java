@@ -7,6 +7,8 @@ package br.uff.ic.utility;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Class to define a vertex-graph attribute (collapsed vertices)
@@ -20,7 +22,10 @@ public class GraphAttribute {
     private float maxValue;
     private int quantity;
     private Collection<String> originalValues;
-
+//    private String median;
+//    private float firstQuartile;
+//    private float thirdQuartile;
+    
     /**
      * Default constructor
      * @param name is the attribute name
@@ -50,6 +55,10 @@ public class GraphAttribute {
         this.maxValue = Float.parseFloat(max);
         this.originalValues = new ArrayList<String>();
         this.originalValues.add(value);
+        if(value != min)
+            this.originalValues.add(min);
+        if(value != max)
+        this.originalValues.add(max);
 
     }
 
@@ -152,10 +161,22 @@ public class GraphAttribute {
      */
     public String printValue() {
         if (Utils.tryParseFloat(this.value)) {
-            return (Float.parseFloat(this.value) / this.quantity)
-                    + " (" + this.getMin() + " ~ "
-                    + this.getMax() + ")" + "<br>";
-        } else {
+            if(this.quantity > 2) {
+                return (Float.parseFloat(this.value) / this.quantity)
+                        + " (" + this.getMin() + " ~ "
+                        + this.get1stQuartile() + " ~"
+                        + this.getMedian() + " ~"
+                        + this.get3rdQuartile() + " ~"
+                        + this.getMax() + ")" + "<br>";
+            } else if(this.quantity > 1){
+                return (Float.parseFloat(this.value) / this.quantity)
+                        + " (" + this.getMin() + " ~ "
+                        + this.getMax() + ")" + "<br>";
+            }
+            else
+                return this.value + "<br>";
+        }
+        else {
             return this.value + "<br>";
         }
     }
@@ -175,5 +196,48 @@ public class GraphAttribute {
     
     public void setMin(float t) {
         this.minValue = t;
+    }
+    
+    /**
+     * Method to retrieve the median
+     * @return 
+     */
+    public String getMedian() {
+//        List<Double> list = new ArrayList<Double>();
+////        double[] list = new double[originalValues.size()];
+//        for (String s : originalValues) {
+//            list.add(Double.parseDouble(s));
+//        }
+        return Utils.median(originalValues.toArray(), 0, originalValues.size());
+    }
+    
+    /**
+     * Method to return the 1st quartile
+     * @return 
+     */
+    public String get1stQuartile() {
+        return getQuartile(1);
+    }
+    
+    /**
+     * Method to return the 3rd quartile
+     * @return 
+     */
+    public String get3rdQuartile() {
+        return getQuartile(3);
+    }
+    
+    /**
+     * Method to retrieve the quartile value from an array
+     * @param quartile The quartile desires (25 for 1st and 75 for 3rd)
+     * @return 
+     */
+    public String getQuartile(int quartile) {
+//        List<Double> list = new ArrayList<Double>();
+////        double[] list = new double[originalValues.size()];
+//        for (String s : originalValues) {
+//            list.add(Double.parseDouble(s));
+//        }
+        return Utils.quartile(originalValues.toArray(), quartile);
     }
 }
