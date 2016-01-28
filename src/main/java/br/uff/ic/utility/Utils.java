@@ -210,7 +210,6 @@ public class Utils {
      */
     public static String median(Object[] l, int start, int end) {
         if (end - start > 1) {
-            System.out.println("Middle: " + (end - start));
             int middle = (end - start) / 2; //l.length / 2;
             middle = middle + start;
             boolean isString = false;
@@ -229,10 +228,8 @@ public class Utils {
                 if ((end - start) % 2 == 0) {
                     double left = v[middle - 1];
                     double right = v[middle];
-                    System.out.println("Expected: " + (left + right) / 2);
                     return String.valueOf((left + right) / 2);
                 } else {
-                    System.out.println("Expected: " + v[middle]);
                     return String.valueOf(v[middle]);
                 }
             } else {
@@ -243,17 +240,7 @@ public class Utils {
             return (String) l[start];
         }
     }
-//
-//    public static String getMedian(Object[] l, int middle, int size) {
-//        if ((tryParseFloat((String) l[middle - 1])) && ((size) % 2 == 0)) {
-//            //            if (l.length % 2 == 0) {
-//            double left = Double.parseDouble((String) l[middle - 1]);
-//            double right = Double.parseDouble((String) l[middle]);
-//            return String.valueOf((left + right) / 2);
-//        } else {
-//            return (String) l[middle];
-//        }
-//    }
+
 /**
  * Retrieve the quartile value from an array
  *

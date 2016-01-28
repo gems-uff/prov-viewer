@@ -7,8 +7,6 @@ package br.uff.ic.utility;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * Class to define a vertex-graph attribute (collapsed vertices)
@@ -22,10 +20,7 @@ public class GraphAttribute {
     private float maxValue;
     private int quantity;
     private Collection<String> originalValues;
-//    private String median;
-//    private float firstQuartile;
-//    private float thirdQuartile;
-    
+  
     /**
      * Default constructor
      * @param name is the attribute name
@@ -47,6 +42,14 @@ public class GraphAttribute {
         this.originalValues.add(value);
     }
     
+    /**
+     * Constructor with min and max values (used when quantity == 2)
+     * @param name
+     * @param value
+     * @param min
+     * @param max
+     * @param quantity 
+     */
     public GraphAttribute(String name, String value, String min, String max, String quantity) {
         this.name = name;
         this.value = value;
@@ -55,13 +58,32 @@ public class GraphAttribute {
         this.maxValue = Float.parseFloat(max);
         this.originalValues = new ArrayList<String>();
         this.originalValues.add(value);
-        if(value != min)
+        if(!value.equalsIgnoreCase(min))
             this.originalValues.add(min);
-        if(value != max)
+        if(!value.equalsIgnoreCase(max))
         this.originalValues.add(max);
 
     }
-
+    
+    /** 
+     * Constructor with all variables (used when quantity >=3)
+     * @param name
+     * @param value
+     * @param min
+     * @param max
+     * @param quantity
+     * @param values 
+     */
+    public GraphAttribute(String name, String value, String min, String max, String quantity, Collection<String> values) {
+        this.name = name;
+        this.value = value;
+        this.quantity = Integer.valueOf(quantity);
+        this.minValue = Float.parseFloat(min);
+        this.maxValue = Float.parseFloat(max);
+        this.originalValues = new ArrayList<String>();
+        this.originalValues.addAll(values);
+    }
+    
     /**
      * Method to update the attribute when computing the collapsed set
      * @param value is the attribute value
@@ -185,15 +207,15 @@ public class GraphAttribute {
         return this.getName() + "=" + this.getAverageValue();
     }
     
-     // These method are only used for tests cases
+     // This method is only used for tests cases
     public void incrementQuantity() {
         quantity++;
     }
-    
+     // This method is only used for tests cases
     public void setMax(float t) {
         this.maxValue = t;
     }
-    
+     // This method is only used for tests cases
     public void setMin(float t) {
         this.minValue = t;
     }
@@ -203,11 +225,6 @@ public class GraphAttribute {
      * @return 
      */
     public String getMedian() {
-//        List<Double> list = new ArrayList<Double>();
-////        double[] list = new double[originalValues.size()];
-//        for (String s : originalValues) {
-//            list.add(Double.parseDouble(s));
-//        }
         return Utils.median(originalValues.toArray(), 0, originalValues.size());
     }
     
@@ -233,11 +250,6 @@ public class GraphAttribute {
      * @return 
      */
     public String getQuartile(int quartile) {
-//        List<Double> list = new ArrayList<Double>();
-////        double[] list = new double[originalValues.size()];
-//        for (String s : originalValues) {
-//            list.add(Double.parseDouble(s));
-//        }
         return Utils.quartile(originalValues.toArray(), quartile);
     }
 }
