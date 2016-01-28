@@ -57,10 +57,7 @@ public class GraphAttribute {
         this.minValue = Float.parseFloat(min);
         this.maxValue = Float.parseFloat(max);
         this.originalValues = new ArrayList<String>();
-        this.originalValues.add(value);
-        if(!value.equalsIgnoreCase(min))
-            this.originalValues.add(min);
-        if(!value.equalsIgnoreCase(max))
+        this.originalValues.add(min);
         this.originalValues.add(max);
 
     }
@@ -150,6 +147,9 @@ public class GraphAttribute {
         return Integer.toString(this.quantity);
     }
     
+    public Collection<String> getValues() {
+        return this.originalValues;
+    }
     /**
      * Method to set the attribute name
      * @param t is the new attribute name

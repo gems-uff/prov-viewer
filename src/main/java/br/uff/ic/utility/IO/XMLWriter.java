@@ -142,6 +142,16 @@ public final class XMLWriter {
                     Element quantity = doc.createElement("quantity");
                     quantity.setTextContent(((GraphAttribute) attributes[j]).getQuantity());
                     att.appendChild(quantity);
+                    
+                    Element values = doc.createElement("originalValues");
+                    att.appendChild(values);
+                    Object[] originalValues = null;
+                    originalValues = ((GraphAttribute) attributes[j]).getValues().toArray();
+                    for(Object s : originalValues) {
+                        Element originalValue = doc.createElement("originalValue");
+                        originalValue.setTextContent((String)s);
+                        values.appendChild(originalValue);
+                    }
                 }
 
             }

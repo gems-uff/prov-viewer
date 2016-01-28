@@ -12,6 +12,8 @@ import br.uff.ic.utility.graph.Vertex;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Collection;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -69,13 +71,27 @@ public class UnityReader extends XMLReader{
                 NodeList aList = eElement.getElementsByTagName("attribute");
                 for(int i = 0; i < aList.getLength(); i++){
                     GraphAttribute att;
-                    if(eElement.getElementsByTagName("min").item(i) != null && eElement.getElementsByTagName("max").item(i) != null && eElement.getElementsByTagName("quantity").item(i) != null)
-                        att = new GraphAttribute(eElement.getElementsByTagName("name").item(i).getTextContent(),
-                        eElement.getElementsByTagName("value").item(i).getTextContent(),
-                        eElement.getElementsByTagName("min").item(i).getTextContent(),
-                        eElement.getElementsByTagName("max").item(i).getTextContent(),
-                        eElement.getElementsByTagName("quantity").item(i).getTextContent());
-                    else
+                    if(eElement.getElementsByTagName("min").item(i) != null && eElement.getElementsByTagName("max").item(i) != null && eElement.getElementsByTagName("quantity").item(i) != null) {
+                        if(eElement.getElementsByTagName("originalValues").item(i) !=null) {
+                            Node valuesList;
+                            valuesList = eElement.getElementsByTagName("originalValues").item(i);
+                            Element e = (Element) valuesList;
+                            Collection<String> oValues = new ArrayList<String>(); 
+                            for(int j = 0; j < Integer.valueOf(eElement.getElementsByTagName("quantity").item(i).getTextContent()); j++) {
+                                oValues.add(e.getElementsByTagName("originalValue").item(j).getTextContent());
+                            }
+                            att = new GraphAttribute(eElement.getElementsByTagName("name").item(i).getTextContent(),
+                            eElement.getElementsByTagName("value").item(i).getTextContent(),
+                            eElement.getElementsByTagName("min").item(i).getTextContent(),
+                            eElement.getElementsByTagName("max").item(i).getTextContent(),
+                            eElement.getElementsByTagName("quantity").item(i).getTextContent(), oValues);
+                        } else
+                            att = new GraphAttribute(eElement.getElementsByTagName("name").item(i).getTextContent(),
+                            eElement.getElementsByTagName("value").item(i).getTextContent(),
+                            eElement.getElementsByTagName("min").item(i).getTextContent(),
+                            eElement.getElementsByTagName("max").item(i).getTextContent(),
+                            eElement.getElementsByTagName("quantity").item(i).getTextContent());
+                    } else
                         att = new GraphAttribute(eElement.getElementsByTagName("name").item(i).getTextContent(),
                         eElement.getElementsByTagName("value").item(i).getTextContent());
                     node.addAttribute(att);
