@@ -35,7 +35,11 @@ public class PROVNReader extends InputReader {
         try {
             String line = br.readLine();
 
-            Vertex node = new AgentVertex("Unknown", "Unknown", "");
+            Vertex node = new AgentVertex("Unknown Agent", "Unknown Agent", "");
+            addNode(node);
+            node = new ActivityVertex("Unknown Activity", "Unknown Activity", "");
+            addNode(node);
+            node = new EntityVertex("Unknown Entity", "Unknown Entity", "");
             addNode(node);
 
             while (line != null) {
@@ -579,7 +583,12 @@ public class PROVNReader extends InputReader {
     public String testPointer(String pointer, String type) {
         if (nodes.get(pointer) == null) {
             if (pointer.contentEquals("-")) {
-                pointer = "Unknown";
+                if(type.contentEquals("Entity"))
+                    pointer = "Unknown Entity";
+                else if(type.contentEquals("Agent"))
+                    pointer = "Unknown Agent";
+                else
+                    pointer = "Unknown Activity";
             } else if (pointer == null) {
                 pointer = "Unknown";
             } else if (pointer.isEmpty()) {
