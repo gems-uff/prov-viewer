@@ -277,6 +277,7 @@ public class GraphFrame extends javax.swing.JFrame {
         });
 
         TemporalFilterToggle.setText("Temporal Filter");
+        TemporalFilterToggle.setToolTipText("Hide vertices outside the range below using the selected temporal scale (zero represents the lowest timestamp in the graph) or XMLGregorianCalendar format");
         TemporalFilterToggle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TemporalFilterToggleActionPerformed(evt);
@@ -483,7 +484,7 @@ public class GraphFrame extends javax.swing.JFrame {
 
         MenuBar.add(jMenu2);
 
-        jMenu3.setText("Temporal Layout");
+        jMenu3.setText("Temporal Scale");
 
         temporalMillisecondsButton.setSelected(true);
         temporalMillisecondsButton.setText("Milliseconds");
@@ -839,12 +840,12 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JFileChooser fileChooser;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
+    public static javax.swing.JMenu jMenu3;
     private javax.swing.JMenuItem mergeGraphButtom;
-    private javax.swing.JCheckBoxMenuItem temporalDaysButton;
-    private javax.swing.JCheckBoxMenuItem temporalHoursButton;
+    public static javax.swing.JCheckBoxMenuItem temporalDaysButton;
+    public static javax.swing.JCheckBoxMenuItem temporalHoursButton;
     private javax.swing.JCheckBoxMenuItem temporalMillisecondsButton;
-    private javax.swing.JCheckBoxMenuItem temporalMinutesButton;
-    private javax.swing.JCheckBoxMenuItem temporalWeeksButton;
+    public static javax.swing.JCheckBoxMenuItem temporalMinutesButton;
+    public static javax.swing.JCheckBoxMenuItem temporalWeeksButton;
     // End of variables declaration//GEN-END:variables
 }

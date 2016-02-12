@@ -18,6 +18,7 @@ import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import org.apache.commons.collections15.Predicate;
 
 /**
@@ -155,19 +156,47 @@ public class Filters {
                         return false;
                     }
                 }
-                if(GraphFrame.TemporalFilterToggle.isSelected())
-                {
-                    while (vertex instanceof Graph)
-                    {
-                        vertex = ((Graph)vertex).getVertices().toArray()[0];
+                if (GraphFrame.TemporalFilterToggle.isSelected()) {
+                    while (vertex instanceof Graph) {
+                        vertex = ((Graph) vertex).getVertices().toArray()[0];
                     }
-                    if(Utils.tryParseFloat(GraphFrame.FilterVertexMinValue.getText())) {
-                        if (((Vertex)vertex).getTime() < Float.parseFloat(GraphFrame.FilterVertexMinValue.getText()))
-                            return false;
+                    double timeDate = ((Vertex) vertex).getTime();
+                    double time = ((Vertex) vertex).getNormalizedTime();
+
+                    if (GraphFrame.temporalDaysButton.isSelected()) {
+                        time = TimeUnit.MILLISECONDS.toDays((long) time);
+                    } else if (GraphFrame.temporalWeeksButton.isSelected()) {
+                        time = (int) TimeUnit.MILLISECONDS.toDays((long) time) / 7;
+                    } else if (GraphFrame.temporalHoursButton.isSelected()) {
+                        time = TimeUnit.MILLISECONDS.toHours((long) time);
+                    } else if (GraphFrame.temporalMinutesButton.isSelected()) {
+                        time = TimeUnit.MILLISECONDS.toMinutes((long) time);
                     }
-                    if(Utils.tryParseFloat(GraphFrame.FilterVertexMaxValue.getText())) {
-                        if (((Vertex)vertex).getTime() > Float.parseFloat(GraphFrame.FilterVertexMaxValue.getText()))
+                    
+                    if (Utils.tryParseFloat(GraphFrame.FilterVertexMinValue.getText())) {
+                        double minTime = Float.parseFloat(GraphFrame.FilterVertexMinValue.getText());
+                        if (time < minTime) {
                             return false;
+                        }
+                    }
+                    else if(Utils.tryParseDate(GraphFrame.FilterVertexMaxValue.getText())) {
+                            double minTime =  Utils.convertStringDateToDouble(GraphFrame.FilterVertexMinValue.getText());
+                            if (timeDate < minTime) {
+                                return false;
+                            }
+                    }
+                    if (Utils.tryParseFloat(GraphFrame.FilterVertexMaxValue.getText())) {
+                        double maxTime;
+                        maxTime = Float.parseFloat(GraphFrame.FilterVertexMaxValue.getText());
+                        if (time > maxTime) {
+                            return false;
+                        }
+                    }
+                    else if(Utils.tryParseDate(GraphFrame.FilterVertexMaxValue.getText())) {
+                            double maxTime =  Utils.convertStringDateToDouble(GraphFrame.FilterVertexMaxValue.getText());
+                            if (timeDate > maxTime) {
+                                return false;
+                            }
                     }
                 }
                 return true;

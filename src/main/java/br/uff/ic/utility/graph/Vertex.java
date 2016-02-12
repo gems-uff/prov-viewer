@@ -96,11 +96,9 @@ public abstract class Vertex extends GraphObject {
         {
 //            System.out.println("Time Milliseconds: " + (float) Utils.convertStringDateToDouble(this.time));
             double milliseconds =  Utils.convertStringDateToDouble(this.time);
-            int weeks = (int) (milliseconds / (1000*60*60*24*7));
-            long days = TimeUnit.MILLISECONDS.toDays((long) milliseconds);
-            long hours = TimeUnit.MILLISECONDS.toHours((long) milliseconds);
-//            System.out.println("Time Weeks: " + weeks);
-//            System.out.println("Time Days: " + days);
+//            int weeks = (int) (milliseconds / (1000*60*60*24*7));
+//            long days = TimeUnit.MILLISECONDS.toDays((long) milliseconds);
+//            long hours = TimeUnit.MILLISECONDS.toHours((long) milliseconds);
             return (float) milliseconds;
         }
         else

@@ -123,8 +123,11 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Temporal Layout"/>
+            <Property name="text" type="java.lang.String" value="Temporal Scale"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
           <SubComponents>
             <MenuItem class="javax.swing.JCheckBoxMenuItem" name="temporalMillisecondsButton">
               <Properties>
@@ -142,6 +145,9 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="temporalMinutesButtonActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+              </AuxValues>
             </MenuItem>
             <MenuItem class="javax.swing.JCheckBoxMenuItem" name="temporalHoursButton">
               <Properties>
@@ -150,6 +156,9 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="temporalHoursButtonActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+              </AuxValues>
             </MenuItem>
             <MenuItem class="javax.swing.JCheckBoxMenuItem" name="temporalDaysButton">
               <Properties>
@@ -158,6 +167,9 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="temporalDaysButtonActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+              </AuxValues>
             </MenuItem>
             <MenuItem class="javax.swing.JCheckBoxMenuItem" name="temporalWeeksButton">
               <Properties>
@@ -166,6 +178,9 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="temporalWeeksButtonActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+              </AuxValues>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -614,6 +629,7 @@
         <Component class="javax.swing.JToggleButton" name="TemporalFilterToggle">
           <Properties>
             <Property name="text" type="java.lang.String" value="Temporal Filter"/>
+            <Property name="toolTipText" type="java.lang.String" value="Hide vertices outside the range below using the selected temporal scale (zero represents the lowest timestamp in the graph) or XMLGregorianCalendar format"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TemporalFilterToggleActionPerformed"/>
