@@ -226,10 +226,6 @@ public class Config {
             
             nList = doc.getElementsByTagName("temporalLayoutscale");
             scale = Double.parseDouble(nList.item(0).getTextContent());
-//            nList = doc.getElementsByTagName("showentitydate");
-//            showEntityDate = Boolean.parseBoolean(nList.item(0).getTextContent());
-//            nList = doc.getElementsByTagName("showentitylabel");
-//            showEntityLabel = Boolean.parseBoolean(nList.item(0).getTextContent());
 
             ComputeCoordScale();
             //Edge Types
