@@ -26,6 +26,8 @@ and open the template in the editor.
             <xs:element name="imageOffset_Y" type="xs:string"/>
 			<!-- Spatial Layout Camera's upper left corner of the screen position in relation to the camera -->
             <xs:element name="spatialLayoutPosition" type="xs:string"/>
+			<!-- Spatial Layout parameter used for Google Maps image. Set value to zero if not using Google Maps image -->
+			<xs:element name="googleZoomLevel" type="xs:string"/>
             <!-- Temporal Layout backbone vertex type -->
             <xs:element name="layoutbackbone" type="xs:string"/>
 			<!-- Temporal Layout scale -->
