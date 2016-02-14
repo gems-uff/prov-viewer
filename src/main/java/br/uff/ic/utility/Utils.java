@@ -279,4 +279,54 @@ public static String quartile(Object[] values, int lowerPercent) {
 //        return v[n];
 
     }
+
+//    public static void calcPositionsLatLon(Point2D xyd, double lat, double lon, double width, double height) {
+//        double latitude    = lat; // (φ)
+//        double longitude   = lon;   // (λ)
+//
+//        double mapWidth    = width;
+//        double mapHeight   = height;
+//
+//        // get x value
+//        double x = (longitude+180)*(mapWidth/360);
+//
+//        // convert from degrees to radians
+//        double latRad = latitude*Math.PI/180;
+//
+//        // get y value
+//        double mercN = Math.log(Math.tan((Math.PI/4)+(latRad/2)));
+//        double y     = (mapHeight/2)-(mapWidth*mercN/(2*Math.PI));
+//        
+//        xyd.setLocation(x, y);
+//    }
+//    public static double calcPositionsLongitude(double lon, double width) {
+//        double longitude   = lon;   // (λ)
+//
+//        double mapWidth    = width;
+//
+//        // get x value
+//        double x = (longitude+180)*(mapWidth/360);
+//        
+//        return x;
+//    }
+//    
+//    public static double calcPositionsLatitude(double lat, double lon, double width, double height) {
+//        double latitude    = lat; // (φ)
+//        double longitude   = lon;   // (λ)
+//
+//        double mapWidth    = width;
+//        double mapHeight   = height;
+//
+//        // get x value
+//        double x = (longitude+180)*(mapWidth/360);
+//
+//        // convert from degrees to radians
+//        double latRad = latitude*Math.PI/180;
+//
+//        // get y value
+//        double mercN = Math.log(Math.tan((Math.PI/4)+(latRad/2)));
+//        double y     = (mapHeight/2)-(mapWidth*mercN/(2*Math.PI));
+//        
+//        return y;
+//    }
 }

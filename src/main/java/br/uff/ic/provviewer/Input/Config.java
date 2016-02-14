@@ -59,6 +59,8 @@ public class Config {
     public String imageLocation;
     public double imageOffsetX;
     public double imageOffsetY;
+    public boolean orthogonal = true;
+    public double googleZoomLevel;
 
     public double spatialLayoutPosition;
     public double coordinatesScale;
@@ -217,6 +219,11 @@ public class Config {
             imageOffsetY = Double.parseDouble(nList.item(0).getTextContent());
             nList = doc.getElementsByTagName("spatialLayoutPosition");
             spatialLayoutPosition = Double.parseDouble(nList.item(0).getTextContent());
+            if (!doc.getElementsByTagName("googleZoomLevel").item(0).getTextContent().isEmpty()) {
+                nList = doc.getElementsByTagName("googleZoomLevel");
+                orthogonal = false;
+            }
+            googleZoomLevel = Double.parseDouble(nList.item(0).getTextContent());
             nList = doc.getElementsByTagName("temporalLayoutscale");
             scale = Double.parseDouble(nList.item(0).getTextContent());
 //            nList = doc.getElementsByTagName("showentitydate");

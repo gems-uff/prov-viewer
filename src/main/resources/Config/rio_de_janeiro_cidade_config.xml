@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:noNamespaceSchemaLocation='config.xsd'>
+    <layoutbackbone>Player</layoutbackbone>
+	<layoutAxis_X>ObjectPosition_X</layoutAxis_X> <!-- longitude attribute in the vertices-->
+	<layoutAxis_Y>ObjectPosition_Y</layoutAxis_Y> <!-- latitude attribute vertices -->
+	<imageLocation>/images/Rio_City_Cosme_Velho.png</imageLocation> <!-- Image file location-->
+	<imageOffset_X>-43.31407</imageOffset_X> <!-- longitude from the top-left corner-->
+	<imageOffset_Y>-22.87407</imageOffset_Y> <!-- latitude from the top-left corner-->
+	<spatialLayoutPosition>-0.11161</spatialLayoutPosition> <!-- Not used with Google Maps images-->
+	<googleZoomLevel>15</googleZoomLevel> <!-- The zoom level used to take the picture from https://www.google.com/mymaps -->
+	
+	
+	<temporalLayoutscale>1</temporalLayoutscale>
+	<showentitydate>false</showentitydate>
+	<showentitylabel>false</showentitylabel>
+    <edgetype>
+        <edge>Cronological</edge>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+    <colorscheme>
+        <attribute>VELOCIDADE</attribute>
+        <class>ActivityScheme</class>
+        <values></values>
+        <goodvalue></goodvalue>
+        <badvalue></badvalue>
+    </colorscheme>	
+    <activitycolor>
+        <attribute>LINHA</attribute>
+        <value>47</value>
+        <vercolor>
+            <r>255</r>
+            <g>180</g>
+            <b>180</b>
+        </vercolor>
+    </activitycolor>
+</config>

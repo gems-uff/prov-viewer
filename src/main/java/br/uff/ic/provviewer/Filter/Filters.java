@@ -179,7 +179,7 @@ public class Filters {
                             return false;
                         }
                     }
-                    else if(Utils.tryParseDate(GraphFrame.FilterVertexMaxValue.getText())) {
+                    else if(Utils.tryParseDate(GraphFrame.FilterVertexMinValue.getText())) {
                             double minTime =  Utils.convertStringDateToDouble(GraphFrame.FilterVertexMinValue.getText());
                             if (timeDate < minTime) {
                                 return false;

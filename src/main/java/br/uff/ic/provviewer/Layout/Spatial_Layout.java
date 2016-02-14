@@ -1,6 +1,7 @@
 package br.uff.ic.provviewer.Layout;
 
 import br.uff.ic.provviewer.Variables;
+import br.uff.ic.utility.GoogleMapsAPIProjection;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
@@ -69,24 +70,7 @@ public class Spatial_Layout<V, E> extends ProvViewerLayout<V, E> {
         // Use the middle vertex atribute for position
         if (v instanceof Graph) {
             int i = ((Graph) v).getVertexCount();
-            /*
-//             Position using the vertex with the lowest value
-            String mode = GraphFrame.StatusFilterBox.getSelectedItem().toString();
-            List sorted = new ArrayList(((Graph) v).getVertices());
-            Object vertex = sorted.iterator().next();
-            while (vertex instanceof Graph) {
-                vertex = sorted.iterator().next();
-            }
-            for (Object vnext : sorted) {
-                if (!(vnext instanceof Graph)) {
-                    if (((Vertex) vnext).getAttributeValueFloat(mode) < ((Vertex) vertex).getAttributeValueFloat(mode)) {
-                        vertex = vnext;
-                    }
-                }
-            }
-            Vertex middle = (Vertex) vertex;
-            */
-            
+           
             //Sort vertices by ID
             List sorted = new ArrayList(((Graph) v).getVertices());
             Comparator comparator = new Comparator<Object>() {
@@ -106,18 +90,47 @@ public class Spatial_Layout<V, E> extends ProvViewerLayout<V, E> {
                 middleVertex = ((Graph)middleVertex).getVertices().toArray()[0];
             }
             middle = (Vertex) middleVertex;
-            newXPos = -middle.getAttributeValueFloat(variables.config.layoutAxis_X) * variables.config.coordinatesScale;
-            newYPos = middle.getAttributeValueFloat(variables.config.layoutAxis_Y) * variables.config.coordinatesScale;
-            xyd.setLocation(newXPos, newYPos);
+            if(variables.config.orthogonal)
+                calcPositionsPixel(xyd, (Vertex) middle);
+            else
+                calcPositionsLatLon(xyd, (Vertex) middle);
         }
 
         // Use vertex atribute for position
         if (v instanceof Vertex) {
-            newXPos = -((Vertex) v).getAttributeValueFloat(variables.config.layoutAxis_X) * variables.config.coordinatesScale;
-            newYPos = ((Vertex) v).getAttributeValueFloat(variables.config.layoutAxis_Y) * variables.config.coordinatesScale;
-            xyd.setLocation(newXPos, newYPos);
+            if(variables.config.orthogonal)
+                calcPositionsPixel(xyd, (Vertex) v);
+            else
+                calcPositionsLatLon(xyd, (Vertex) v);
         }
+    }
+    
+    protected synchronized void calcPositionsPixel(Point2D xyd, Vertex v) {
+        double newXPos = -((Vertex) v).getAttributeValueFloat(variables.config.layoutAxis_X) * variables.config.coordinatesScale;
+        double newYPos = ((Vertex) v).getAttributeValueFloat(variables.config.layoutAxis_Y) * variables.config.coordinatesScale;
+        xyd.setLocation(newXPos, newYPos);
+    }
+    
+    protected synchronized void calcPositionsLatLon(Point2D xyd, Vertex v) {
+        double latitude    = v.getAttributeValueFloat(variables.config.layoutAxis_Y); // (φ)
+        double longitude   = v.getAttributeValueFloat(variables.config.layoutAxis_X);   // (λ)
 
+        double mapWidth    = variables.config.width;
+        double mapHeight   = variables.config.height;
+
+        // get x value
+        double x = (longitude + 180) * (mapWidth / 360);
+
+        // convert from degrees to radians
+        double latRad = latitude * Math.PI / 180;
+
+        // get y value
+        double mercN = Math.log(Math.tan((Math.PI / 4) + (latRad / 2)));
+        double y     = (mapHeight / 2) - (mapWidth * mercN / (2 * Math.PI));
+        
+        GoogleMapsAPIProjection googleAPI = new GoogleMapsAPIProjection(variables.config.googleZoomLevel);
+        Point2D coord = googleAPI.FromCoordinatesToPixel(v.getAttributeValueFloat(variables.config.layoutAxis_X), v.getAttributeValueFloat(variables.config.layoutAxis_Y));
+        xyd.setLocation(coord.getX(), coord.getY());
     }
 
     double variation = 1.0;

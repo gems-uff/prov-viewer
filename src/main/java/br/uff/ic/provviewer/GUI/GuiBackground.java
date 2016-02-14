@@ -7,11 +7,14 @@ package br.uff.ic.provviewer.GUI;
 
 import br.uff.ic.utility.IO.BasePath;
 import br.uff.ic.provviewer.Variables;
+import br.uff.ic.utility.GoogleMapsAPIProjection;
+import br.uff.ic.utility.Utils;
 import edu.uci.ics.jung.visualization.Layer;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -64,15 +67,25 @@ public class GuiBackground {
      */
     public static void Background(Graphics g, Variables variables, final JComboBox Layouts,
             final ImageIcon icon, final ImageIcon whiteIcon) {
-        final int offsetX = (int) ((-icon.getIconWidth() * 0.5) - (variables.config.imageOffsetX * variables.config.coordinatesScale));
-        final int offsetY = (int) ((-icon.getIconHeight() * 0.5) + (variables.config.imageOffsetY * variables.config.coordinatesScale));
+        final double offsetX;
+        final double offsetY;
+        if(variables.config.orthogonal) {
+            offsetX = (int) ((-icon.getIconWidth() * 0.5) - (variables.config.imageOffsetX * variables.config.coordinatesScale));
+            offsetY = (int) ((-icon.getIconHeight() * 0.5) + (variables.config.imageOffsetY * variables.config.coordinatesScale));
+        }
+        else {
+            GoogleMapsAPIProjection googleAPI = new GoogleMapsAPIProjection(variables.config.googleZoomLevel);
+            Point2D coord = googleAPI.FromCoordinatesToPixel((float) variables.config.imageOffsetX, (float) variables.config.imageOffsetY);
+            offsetX = coord.getX();
+            offsetY = coord.getY();
+        }
         Graphics2D g2d = (Graphics2D) g;
         AffineTransform oldXform = g2d.getTransform();
         SetTransform(g2d, variables);
         if (Layouts.getSelectedItem().equals("SpatialLayout")) {
-            DrawImage(g, variables, icon, offsetX, offsetY);
+            DrawImage(g, variables, icon, (int) offsetX, (int) offsetY);
         } else {
-            DrawImage(g, variables, whiteIcon, offsetX, offsetY);
+            DrawImage(g, variables, whiteIcon, (int) offsetX, (int) offsetY);
         }
         g2d.setTransform(oldXform);
     }
