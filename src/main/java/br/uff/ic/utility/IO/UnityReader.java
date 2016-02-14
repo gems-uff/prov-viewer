@@ -122,7 +122,8 @@ public class UnityReader extends XMLReader{
                 String value = eElement.getElementsByTagName("value").item(0).getTextContent();
                 String source = eElement.getElementsByTagName("sourceID").item(0).getTextContent();
                 String target = eElement.getElementsByTagName("targetID").item(0).getTextContent();
-                addEdge(id, type, label, value, target, source);
+                if(nodes.containsKey(source) && nodes.containsKey(target))
+                    addEdge(id, type, label, value, target, source);
             }
         }
     }

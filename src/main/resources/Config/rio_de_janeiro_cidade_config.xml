@@ -20,7 +20,7 @@
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
     <colorscheme>
-        <attribute>VELOCIDADE</attribute>
+        <attribute>Speed</attribute>
         <class>ActivityScheme</class>
         <values></values>
         <goodvalue></goodvalue>

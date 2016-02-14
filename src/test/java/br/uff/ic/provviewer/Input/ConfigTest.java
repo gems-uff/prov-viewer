@@ -65,10 +65,11 @@ public class ConfigTest {
     public void testInitialize_File() {
         System.out.println("Initialize");
         testFiles("Angry_Robots_config.xml");
-        testFiles("bus_config.xml");
         testFiles("SDM_config.xml");
         testFiles("PROV_config.xml");
         testFiles("2D_Tower_Defense_config.xml");
+        testFiles("Car_Tutorial_config.xml");
+        testFiles("rio_de_janeiro_cidade_config.xml");
         
     }
     
