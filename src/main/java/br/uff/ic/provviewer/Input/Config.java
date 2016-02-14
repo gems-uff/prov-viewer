@@ -219,11 +219,11 @@ public class Config {
             imageOffsetY = Double.parseDouble(nList.item(0).getTextContent());
             nList = doc.getElementsByTagName("spatialLayoutPosition");
             spatialLayoutPosition = Double.parseDouble(nList.item(0).getTextContent());
-            if (!doc.getElementsByTagName("googleZoomLevel").item(0).getTextContent().isEmpty()) {
-                nList = doc.getElementsByTagName("googleZoomLevel");
-                orthogonal = false;
-            }
+            nList = doc.getElementsByTagName("googleZoomLevel");
             googleZoomLevel = Double.parseDouble(nList.item(0).getTextContent());
+            if(googleZoomLevel != 0)
+                orthogonal = false;
+            
             nList = doc.getElementsByTagName("temporalLayoutscale");
             scale = Double.parseDouble(nList.item(0).getTextContent());
 //            nList = doc.getElementsByTagName("showentitydate");

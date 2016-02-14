@@ -9,10 +9,8 @@
 	<imageLocation>/images/Rio_City_Cosme_Velho.png</imageLocation> <!-- Image file location-->
 	<imageOffset_X>-43.31407</imageOffset_X> <!-- longitude from the top-left corner-->
 	<imageOffset_Y>-22.87407</imageOffset_Y> <!-- latitude from the top-left corner-->
-	<spatialLayoutPosition>-0.11161</spatialLayoutPosition> <!-- Not used with Google Maps images-->
+	<spatialLayoutPosition>0</spatialLayoutPosition> <!-- Not used with Google Maps images-->
 	<googleZoomLevel>15</googleZoomLevel> <!-- The zoom level used to take the picture from https://www.google.com/mymaps -->
-	
-	
 	<temporalLayoutscale>1</temporalLayoutscale>
 	<showentitydate>false</showentitydate>
 	<showentitylabel>false</showentitylabel>

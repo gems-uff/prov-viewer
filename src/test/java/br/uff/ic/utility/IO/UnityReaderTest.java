@@ -39,7 +39,6 @@ public class UnityReaderTest {
         testFiles(Variables.demo);
         testFiles(File.separator + "Graph" + File.separator + "Car_Tutorial.xml");
         testFiles(File.separator + "Graph" + File.separator + "Angry_Robots.xml");
-        testFiles(File.separator + "Graph" + File.separator + "bus.xml");
         testFiles(File.separator + "Graph" + File.separator + "Map.xml");
         testFiles(File.separator + "Graph" + File.separator + "SDM_Example.xml");
     }

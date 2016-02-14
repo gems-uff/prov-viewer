@@ -16,6 +16,7 @@ and open the template in the editor.
     <imageOffset_X>0</imageOffset_X>
     <imageOffset_Y>0</imageOffset_Y>
     <spatialLayoutPosition>0.0</spatialLayoutPosition>
+	<googleZoomLevel>0</googleZoomLevel>
     <temporalLayoutscale>1.0</temporalLayoutscale>
     <showentitydate>true</showentitydate>
     <showentitylabel>true</showentitylabel>
