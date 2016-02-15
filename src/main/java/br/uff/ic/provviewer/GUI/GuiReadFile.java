@@ -34,8 +34,8 @@ import org.apache.commons.io.FilenameUtils;
  */
 public class GuiReadFile {
     
-    static double similarityThreshold = 0.9;
-    static double defaultErrorMargin = 0.9;
+    static double similarityThreshold = 0.95;
+    static double defaultErrorMargin = 0.95;
 
     /**
      * Method to read the graph from the XML file
@@ -145,7 +145,7 @@ public class GuiReadFile {
         epsilon = new AttributeErrorMargin("ObjectPosition_X", "0.5");
         restrictionList.put("ObjectPosition_X", epsilon);
         
-        epsilon = new AttributeErrorMargin("ObjectPosition_Y", "0.25");
+        epsilon = new AttributeErrorMargin("ObjectPosition_Y", "0.5");
         restrictionList.put("ObjectPosition_Y", epsilon);
         
         epsilon = new AttributeErrorMargin("ObjectPosition_Z", "0.5");

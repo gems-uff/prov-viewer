@@ -5,7 +5,6 @@
 package br.uff.ic.provviewer.Vertex.ColorScheme;
 
 import br.uff.ic.provviewer.Variables;
-import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.Vertex;
 import java.awt.Color;
 import java.awt.Paint;
@@ -28,7 +27,7 @@ public class GraphVisualizationScheme extends ColorScheme {
     public Paint Execute(Object v, final Variables variables) {
         if (((Vertex)v).getID().contains("(Merged)"))
             return new Color(200, 200, 200);
-        else if ((v instanceof ActivityVertex) && (((Vertex)v).getID().contains(this.attribute)))
+        else if (((Vertex)v).getID().contains(this.attribute))
             return new Color(0, 255, 0);
         else
 //            return ((Vertex) v).getColor();
