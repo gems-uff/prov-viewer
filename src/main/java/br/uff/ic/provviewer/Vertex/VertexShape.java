@@ -30,7 +30,7 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
     @Override
     public Shape transform(V v) {
         if (v instanceof Graph) {
-            int graphSize = ((Graph) v).getVertexCount();
+            int graphSize = GraphUtils.getCollapsedVertexSize(v);
             Object vertex;
             vertex = GraphUtils.hasAgentVertex(v);      
 

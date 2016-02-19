@@ -10,6 +10,7 @@ import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.Graph;
+import java.util.Collection;
 
 /**
  *
@@ -36,5 +37,19 @@ public class GraphUtils {
             return activity;
         else
             return entity;
+    }
+    
+    public static int getCollapsedVertexSize(Object v) {
+        int graphSize = 0;
+        if(v instanceof Graph) {
+            for(Object vertex : ((Graph) v).getVertices()) {
+                if(vertex instanceof Graph)
+                    graphSize = graphSize + getCollapsedVertexSize(vertex);
+                else
+                    graphSize++;  
+            }
+        }
+        return graphSize;
+        //int graphSize = ((Graph) v).getVertexCount();
     }
 }
