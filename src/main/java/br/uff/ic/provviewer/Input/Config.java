@@ -100,12 +100,16 @@ public class Config {
         final ImageIcon icon = new ImageIcon(BasePath.getBasePathForClass(Config.class) + imageLocation);
         width = icon.getIconWidth();
         height = icon.getIconHeight();
-        coordinatesScale = (width * 0.5);
-        coordinatesScale = coordinatesScale * 100;
-        if (spatialLayoutPosition != 0) {
-            coordinatesScale = coordinatesScale / spatialLayoutPosition;
+        if(width > 0) {
+            coordinatesScale = (width * 0.5);
+            coordinatesScale = coordinatesScale * 100;
+            if (spatialLayoutPosition != 0) {
+                coordinatesScale = coordinatesScale / spatialLayoutPosition;
+            }
+            coordinatesScale = coordinatesScale / 100;
         }
-        coordinatesScale = coordinatesScale / 100;
+        else
+            coordinatesScale = -100;
     }
 
     public void DetectEdges(Collection<Edge> edges) {
