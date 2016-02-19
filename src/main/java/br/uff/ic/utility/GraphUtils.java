@@ -7,6 +7,7 @@ package br.uff.ic.utility;
 
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
+import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.Graph;
 
@@ -16,18 +17,24 @@ import edu.uci.ics.jung.graph.Graph;
  */
 public class GraphUtils {
     public static Object hasAgentVertex(Object v) {
-        Object vertex = null;
+        Object activity = null;
+        Object entity = null;
         if(v instanceof Graph) {
-            for(Object ver : ((Graph) v).getVertices()) {
-                if(ver instanceof AgentVertex)
-                    return ver;
-                else if(ver instanceof Graph)
-                    hasAgentVertex(ver);
-                else if(ver instanceof ActivityVertex)
-                    vertex = ver;
+            for(Object vertex : ((Graph) v).getVertices()) {
+                if(vertex instanceof AgentVertex)
+                    return vertex;
+                else if(vertex instanceof Graph)
+                    return hasAgentVertex(vertex);
+                else if(vertex instanceof ActivityVertex)
+                    activity = vertex;
+                else if (vertex instanceof EntityVertex)
+                    entity = vertex;
             }
         } else
             return v;
-        return vertex;
+        if(activity != null)
+            return activity;
+        else
+            return entity;
     }
 }
