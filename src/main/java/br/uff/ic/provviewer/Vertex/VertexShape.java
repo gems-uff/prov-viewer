@@ -1,5 +1,6 @@
 package br.uff.ic.provviewer.Vertex;
 
+import br.uff.ic.utility.GraphUtils;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.graph.EntityVertex;
 import edu.uci.ics.jung.graph.Graph;
@@ -31,12 +32,9 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
         if (v instanceof Graph) {
             int graphSize = ((Graph) v).getVertexCount();
             Object vertex;
-            vertex = (((Graph) v).getVertices()).iterator().next();
-            while (vertex instanceof Graph) {
-                vertex = (((Graph) vertex).getVertices()).iterator().next();
-            }
+            vertex = GraphUtils.hasAgentVertex(v);      
+
             v = (V) vertex;
-            
             setSizeTransformer(new VertexSize<V>(defaultSize + graphSize));
         }
         else

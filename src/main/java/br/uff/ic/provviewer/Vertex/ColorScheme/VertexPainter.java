@@ -7,6 +7,7 @@ package br.uff.ic.provviewer.Vertex.ColorScheme;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.GraphFrame;
 import br.uff.ic.provviewer.Variables;
+import br.uff.ic.utility.GraphUtils;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.graph.EntityVertex;
@@ -67,25 +68,8 @@ public class VertexPainter {
                 for (ColorScheme vm : variables.config.vertexModes) {
                     if (mode.equalsIgnoreCase((String) GraphFrame.StatusFilterBox.getItemAt(j))) {
                         if (v instanceof Graph) {
-                            //Paint the vertex with the lowest value
-                            List sorted = new ArrayList(((Graph) v).getVertices());
-                            Object vertex = sorted.iterator().next();
-                            while (vertex instanceof Graph) {
-                                vertex = sorted.iterator().next();
-                            }
-                            for (Object vnext : sorted) {
-                                if (!(vnext instanceof Graph)) {
-                                    if (((Vertex) vnext).getAttributeValueFloat(mode) < ((Vertex) vertex).getAttributeValueFloat(mode)) {
-                                        vertex = vnext;
-                                    }
-                                }
-                            }
-                            // Paint the first vertex
-//                            Object vertex;
-//                            vertex = (((Graph) v).getVertices()).iterator().next();
-//                            while (vertex instanceof Graph) {
-//                                vertex = (((Graph) vertex).getVertices()).iterator().next();
-//                            }
+                            Object vertex;
+                            vertex = (Vertex) GraphUtils.hasAgentVertex(v); 
                             return vm.Execute(((Vertex) vertex), variables);
                         } else {
                             return vm.Execute(v, variables);
