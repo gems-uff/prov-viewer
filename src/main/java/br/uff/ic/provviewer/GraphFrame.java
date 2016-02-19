@@ -629,7 +629,7 @@ public class GraphFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_LayoutsActionPerformed
 
     private void OpenConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenConfigActionPerformed
-        GuiReadFile.openConfigFile(variables, fileChooser, this);
+        GuiReadFile.openConfigFile(variables, fileChooser, this, Layouts);
     }//GEN-LAST:event_OpenConfigActionPerformed
 
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed

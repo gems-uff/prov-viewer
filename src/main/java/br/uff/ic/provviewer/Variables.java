@@ -6,6 +6,7 @@ package br.uff.ic.provviewer;
 
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.Filter.Filters;
+import br.uff.ic.provviewer.GUI.GuiBackground;
 import br.uff.ic.provviewer.Inference.PrologInference;
 import br.uff.ic.provviewer.Input.Config;
 import edu.uci.ics.jung.algorithms.layout.Layout;
@@ -50,9 +51,11 @@ public class Variables extends Object {
 //    public static String configDemo = File.separator + "Config" + File.separator + "2D_Provenance_config.xml";
 
 //    public static String demo = File.separator + "Graph" + File.separator + "map.xml";
+//    public static String demo = File.separator + "Graph" + File.separator + "graph_features_example.xml";
 //    public static String configDemo = File.separator + "Config" + File.separator + "map_config.xml";
 
 
+    public GuiBackground guiBackground = new GuiBackground();
     public VisualizationViewer<Object, Edge> view;
     public Layout<Object, Edge> layout;
     public GraphCollapser gCollapser;

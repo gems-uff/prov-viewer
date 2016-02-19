@@ -194,7 +194,7 @@ public class GuiButtons {
         if (layout.equalsIgnoreCase("KKLayout")) {
             variables.layout = new KKLayout<Object, Edge>(variables.layout.getGraph());
         }
-        GuiBackground.InitBackground(variables, Layouts);
+        variables.guiBackground.InitBackground(variables, Layouts);
         variables.view.setGraphLayout(variables.layout);
         variables.view.repaint();
     }
@@ -203,7 +203,7 @@ public class GuiButtons {
         String layout = (String) Layouts.getSelectedItem();
         if (layout.equalsIgnoreCase("TemporalLayout")) {
             variables.layout = new Temporal_Layout<Object, Edge>(variables.layout.getGraph(), variables);
-            GuiBackground.InitBackground(variables, Layouts);
+            variables.guiBackground.InitBackground(variables, Layouts);
             variables.view.setGraphLayout(variables.layout);
             variables.view.repaint();
         }

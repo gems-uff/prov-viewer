@@ -72,12 +72,15 @@ public class GuiReadFile {
      * @param fileChooser is the file chooser from the interface
      * @param graphFrame is the tool's main frame
      */
-    public static void openConfigFile(Variables variables, JFileChooser fileChooser, JFrame graphFrame) {
+    public static void openConfigFile(Variables variables, JFileChooser fileChooser, JFrame graphFrame, JComboBox Layouts) {
         int returnVal = fileChooser.showOpenDialog(graphFrame);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
             variables.config.Initialize(file);
             variables.initConfig = true;
+//            variables.guiBackground.g2d.dispose();
+            variables.guiBackground = new GuiBackground();
+            variables.guiBackground.InitBackground(variables, Layouts);
 
         } else {
             System.out.println("File access cancelled by user.");
@@ -114,7 +117,7 @@ public class GuiReadFile {
             } else {
                 System.out.println("File access cancelled by user.");
             }
-            GuiBackground.InitBackground(variables, Layouts);
+            variables.guiBackground.InitBackground(variables, Layouts);
             GraphFrame.FilterList.setSelectedIndex(0);
             PanCameraToFirstVertex(variables);
         }
@@ -133,7 +136,7 @@ public class GuiReadFile {
         } else {
             System.out.println("File access cancelled by user.");
         }
-        GuiBackground.InitBackground(variables, Layouts);
+        variables.guiBackground.InitBackground(variables, Layouts);
         GraphFrame.FilterList.setSelectedIndex(0);
         PanCameraToFirstVertex(variables);
     }

@@ -40,7 +40,7 @@ public class GuiInitialization {
         variables.graph = graph;
         variables.collapsedGraph = variables.graph;
         GuiFunctions.SetView(variables, Layouts, graphFrame);
-        GuiBackground.InitBackground(variables, Layouts);
+        variables.guiBackground.InitBackground(variables, Layouts);
         GuiFunctions.MouseInteraction(variables);
         GuiTooltip.Tooltip(variables);
         GuiFunctions.VertexLabel(variables, agentLabel, activityLabel, entityLabel, timeLabel);

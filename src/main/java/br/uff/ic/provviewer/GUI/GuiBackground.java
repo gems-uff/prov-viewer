@@ -21,82 +21,86 @@ import javax.swing.JComboBox;
 
 /**
  * Class responsible for loading an image in the background
+ *
  * @author Kohwalter
  */
 public class GuiBackground {
 
     /**
-     * Method to paint the background with the image from the configuration file 
+     * Method to paint the background with the image from the configuration file
+     *
      * @param variables
-     * @param Layouts 
+     * @param Layouts
      */
-    public static void InitBackground(final Variables variables, final JComboBox Layouts) {
+    public void InitBackground(final Variables variables, final JComboBox Layouts) {
         final ImageIcon whiteIcon = new ImageIcon(BasePath.getBasePathForClass(GuiBackground.class) + File.separator + "images" + File.separator + "White.png");
 
         ImageIcon mapIcon = null;
-        try {
-            mapIcon
-                    = new ImageIcon(BasePath.getBasePathForClass(GuiBackground.class) + variables.config.imageLocation);
-        } catch (Exception ex) {
-            System.err.println("Can't load \"" + variables.config.imageLocation + "\"");
+        if (!variables.config.imageLocation.equals("")) {
+            try {
+                mapIcon
+                        = new ImageIcon(BasePath.getBasePathForClass(GuiBackground.class) + variables.config.imageLocation);
+            } catch (Exception ex) {
+                System.err.println("Can't load \"" + variables.config.imageLocation + "\"");
+            }
         }
-
         final ImageIcon icon = mapIcon;
-        if (icon != null) {
-            
-            variables.view.addPreRenderPaintable(new VisualizationViewer.Paintable() {
-                public void paint(Graphics g) {
+        variables.view.addPreRenderPaintable(new VisualizationViewer.Paintable() {
+            public void paint(Graphics g) {
+                if (icon == null) {
                     ResetBackground(g, variables, whiteIcon);
+                } else {
                     Background(g, variables, Layouts, icon, whiteIcon);
                 }
+            }
 
-                public boolean useTransform() {
-                    return false;
-                }
-            });
-        }
+            public boolean useTransform() {
+                return false;
+            }
+        });
     }
 
     /**
      * Method to bake the image in the background
+     *
      * @param g
      * @param variables
      * @param Layouts
      * @param icon is the image
      * @param whiteIcon is the default (white) background
      */
-    public static void Background(Graphics g, Variables variables, final JComboBox Layouts,
+    public void Background(Graphics g, Variables variables, final JComboBox Layouts,
             final ImageIcon icon, final ImageIcon whiteIcon) {
         final double offsetX;
         final double offsetY;
-        if(variables.config.orthogonal) {
+        if (variables.config.orthogonal) {
             offsetX = (int) ((-icon.getIconWidth() * 0.5) - (variables.config.imageOffsetX * variables.config.coordinatesScale));
             offsetY = (int) ((-icon.getIconHeight() * 0.5) + (variables.config.imageOffsetY * variables.config.coordinatesScale));
-        }
-        else {
+        } else {
             GoogleMapsAPIProjection googleAPI = new GoogleMapsAPIProjection(variables.config.googleZoomLevel);
             Point2D coord = googleAPI.FromCoordinatesToPixel((float) variables.config.imageOffsetX, (float) variables.config.imageOffsetY);
             offsetX = coord.getX();
             offsetY = coord.getY();
         }
-        Graphics2D g2d = (Graphics2D) g;
+        Graphics2D g2d = (Graphics2D) g.create();
         AffineTransform oldXform = g2d.getTransform();
         SetTransform(g2d, variables);
         if (Layouts.getSelectedItem().equals("SpatialLayout")) {
-            DrawImage(g, variables, icon, (int) offsetX, (int) offsetY);
+            DrawImage(g2d, variables, icon, (int) offsetX, (int) offsetY);
         } else {
-            DrawImage(g, variables, whiteIcon, (int) offsetX, (int) offsetY);
+            DrawImage(g2d, variables, whiteIcon, (int) offsetX, (int) offsetY);
         }
         g2d.setTransform(oldXform);
     }
 
     /**
      * Method to clear the background with the default white image
+     *
      * @param g
      * @param variables
      * @param whiteIcon is the default background image
      */
-    public static void ResetBackground(Graphics g, Variables variables, final ImageIcon whiteIcon) {
+    public void ResetBackground(Graphics g, Variables variables, final ImageIcon whiteIcon) {
         Graphics2D g2d = (Graphics2D) g;
         AffineTransform oldXform = g2d.getTransform();
         SetTransform(g2d, variables);
@@ -104,13 +108,14 @@ public class GuiBackground {
                 10000000, 10000000, variables.view);
         g2d.setTransform(oldXform);
     }
-    
+
     /**
      * Method to set the background image transform
+     *
      * @param g2d is the Graphics2D used by the image
-     * @param variables 
+     * @param variables
      */
-    public static void SetTransform(Graphics2D g2d, Variables variables) {
+    public void SetTransform(Graphics2D g2d, Variables variables) {
         AffineTransform lat
                 = variables.view.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.LAYOUT).getTransform();
         AffineTransform vat
@@ -124,13 +129,14 @@ public class GuiBackground {
 
     /**
      * Method to draw the image in the background
+     *
      * @param g is the Graphics 2D for the image
      * @param variables
      * @param icon is the image
      * @param offsetX image X offset in the frame
-     * @param offsetY  image Y offset in the frame
+     * @param offsetY image Y offset in the frame
      */
-    public static void DrawImage(Graphics g, Variables variables,
+    public void DrawImage(Graphics g, Variables variables,
             final ImageIcon icon, final int offsetX, final int offsetY) {
         g.drawImage(icon.getImage(), offsetX, offsetY,
                 icon.getIconWidth(), icon.getIconHeight(), variables.view);
