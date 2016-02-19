@@ -69,8 +69,8 @@ public class VertexPainter {
                     if (mode.equalsIgnoreCase((String) GraphFrame.StatusFilterBox.getItemAt(j))) {
                         if (v instanceof Graph) {
                             Object vertex;
-                            vertex = (Vertex) GraphUtils.hasAgentVertex(v); 
-                            return vm.Execute(((Vertex) vertex), variables);
+                            vertex = GraphUtils.hasAgentVertex(v); 
+                            return vm.Execute(vertex, variables);
                         } else {
                             return vm.Execute(v, variables);
                         }
