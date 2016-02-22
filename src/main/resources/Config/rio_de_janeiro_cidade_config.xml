@@ -19,6 +19,11 @@
         <edgestroke>MAX</edgestroke>
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
+    <edgetype>
+        <edge>Neutral</edge>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
     <colorscheme>
         <attribute>Speed</attribute>
         <class>ActivityScheme</class>
