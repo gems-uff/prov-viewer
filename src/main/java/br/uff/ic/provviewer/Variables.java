@@ -30,6 +30,7 @@ public class Variables extends Object {
 
 
     public static String demo = File.separator + "Graph" + File.separator + "Merge_Test.xml";
+//    public static String demo = File.separator + "Graph" + File.separator + "Angry_Robots_paperCIG.xml";
 //    public static String demo = File.separator + "Graph" + File.separator + "Angry_Robots.xml";
     public String configDemo = File.separator + "Config" + File.separator + "Angry_Robots_config.xml";
     
@@ -38,6 +39,7 @@ public class Variables extends Object {
 //    public static String configDemo = File.separator + "Config" + File.separator + "Car_Tutorial_config.xml";
     
 //    public static String demo = File.separator + "Graph" + File.separator + "rio_city_bus_example.xml";
+//    public static String demo = File.separator + "Graph" + File.separator + "bus_linha5.xml";
 //    public static String configDemo = File.separator + "Config" + File.separator + "rio_de_janeiro_cidade_config.xml";
     
 //    public static String demo = File.separator + "Graph" + File.separator + "input.xml";
@@ -52,6 +54,8 @@ public class Variables extends Object {
 
 //    public static String demo = File.separator + "Graph" + File.separator + "map.xml";
 //    public static String demo = File.separator + "Graph" + File.separator + "graph_features_example.xml";
+//    public static String demo = File.separator + "Graph" + File.separator + "graph1.xml";
+//    public static String demo = File.separator + "Graph" + File.separator + "graph2.xml";
 //    public static String configDemo = File.separator + "Config" + File.separator + "map_config.xml";
 
 
@@ -132,10 +136,7 @@ public class Variables extends Object {
     /**
      * Return the average value
      *
-     * @param type (String) Edge type to be analyzed
      * @param value (Float[]) Current value and counter
-     * @param edge (Edge) Second value is extracted from this edge, if the
-     * influence type is the same
      * @param average (Boolean) To compute the average or not
      * @return average value between value and edge.getValue
      */
@@ -149,8 +150,8 @@ public class Variables extends Object {
     /**
      * Return the new value
      *
+     * @param etype
      * @param type (String) Edge type to be analyzed
-     * @param value (Float[]) Current value and counter
      * @param edge (Edge) Second value is extracted from this edge, if the
      * influence type is the same
      * @param max (Boolean) To compute the max between values or to add values
@@ -168,14 +169,15 @@ public class Variables extends Object {
     /**
      * Find max values for each edge type. Used for edge width.
      *
+     * @param variables
      * @param graph Graph
      */
-    public void ComputeEdgeTypeValues(Variables variables, DirectedGraph<Object, Edge> graph) {
-        Collection<Edge> edges = graph.getEdges();
+    public void ComputeEdgeTypeValues() {
+        Collection<Edge> edges = this.graph.getEdges();
         for (Edge edge : edges) {
-            for (int i = 0; i < variables.config.edgetype.size(); i++) {
+            for (int i = 0; i < this.config.edgetype.size(); i++) {
                 GraphFrame.FilterList.setSelectedIndex(i);
-                variables.config.edgetype.set(i, ComputeValue(variables.config.edgetype.get(i), GraphFrame.FilterList.getSelectedValue().toString(), edge, variables.config.edgetype.get(i).stroke));
+                this.config.edgetype.set(i, ComputeValue(this.config.edgetype.get(i), GraphFrame.FilterList.getSelectedValue().toString(), edge, this.config.edgetype.get(i).stroke));
             }
         }
         GraphFrame.FilterList.setSelectedIndex(0);

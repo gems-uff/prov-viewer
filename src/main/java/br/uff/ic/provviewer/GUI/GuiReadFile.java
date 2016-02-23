@@ -90,7 +90,7 @@ public class GuiReadFile {
     private static void loadGraph(Variables variables, DirectedGraph<Object, Edge> openGraph) {
         variables.graph = openGraph;
         variables.collapsedGraph = variables.graph;
-        variables.collapser.Filters(variables);
+        variables.filter.Filters(variables);
         variables.view.repaint();
         variables.initialGraph = false;
     }

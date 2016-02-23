@@ -62,7 +62,7 @@ public class GuiFunctions {
         variables.view.getRenderContext().setVertexStrokeTransformer(nodeStrokeTransformer);
         
         // Edge Stroke
-        variables.ComputeEdgeTypeValues(variables, variables.graph);
+        variables.ComputeEdgeTypeValues();
         Transformer<Edge, Stroke> edgeStrokeTransformer = new Transformer<Edge, Stroke>() {
             @Override
             public Stroke transform(Edge e) {

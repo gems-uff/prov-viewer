@@ -117,7 +117,7 @@ public class GuiButtons {
      * @param variables 
      */
     public static void Filter(Variables variables) {
-        variables.collapser.Filters(variables);
+        variables.filter.Filters(variables);
     }
 
     /**
@@ -213,7 +213,7 @@ public class GuiButtons {
     public static void AutoDetectEdge(Variables variables, boolean selected) {
         if(selected)
             variables.config.DetectEdges(variables.graph.getEdges());
-        variables.ComputeEdgeTypeValues(variables, variables.graph);
+        variables.ComputeEdgeTypeValues();
     }
     
     public static void AutoDetectVertexModes(Variables variables, boolean selected) {
@@ -234,9 +234,11 @@ public class GuiButtons {
 //        
         PROVNWriter provnWriter = new PROVNWriter(variables.graph.getVertices(), variables.graph.getEdges());
         XMLWriter xmlWriter = new XMLWriter(variables.graph.getVertices(), variables.graph.getEdges());
+        XMLWriter xmlWriter_collapsed = new XMLWriter(variables.collapsedGraph.getVertices(), variables.graph.getEdges());
         try {
             provnWriter.saveToProvn("PROVN_Export_Test");
             xmlWriter.saveToXML("XML_Export_Test");
+            xmlWriter_collapsed.saveToXML("XML_Collapsed_Export_Test");
         } catch (IOException ex) {
             Logger.getLogger(GuiButtons.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -109,7 +109,7 @@ public class Config {
             coordinatesScale = coordinatesScale / 100;
         }
         else
-            coordinatesScale = -100;
+            coordinatesScale = -50;
     }
 
     public void DetectEdges(Collection<Edge> edges) {

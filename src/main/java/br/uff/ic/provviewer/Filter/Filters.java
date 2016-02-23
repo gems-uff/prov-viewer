@@ -6,6 +6,7 @@ package br.uff.ic.provviewer.Filter;
 
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.GraphFrame;
+import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.graph.EntityVertex;
@@ -44,21 +45,72 @@ public class Filters {
     /**
      * Initialize filters
      */
-    public void FilterInit() {
+//    public void FilterInit() {
+    public void Filters() {
         //All vertices are visiable
-        VertexFilter = new VertexPredicateFilter<Object, Edge>(new Predicate<Object>() {
+        VertexFilter = new VertexPredicateFilter<>(new Predicate<Object>() {
             @Override
             public boolean evaluate(Object vertex) {
                 return true;
             }
         });
         //All edges are visible
-        EdgeFilter = new EdgePredicateFilter<Object, Edge>(new Predicate<Edge>() {
+        EdgeFilter = new EdgePredicateFilter<>(new Predicate<Edge>() {
             @Override
             public boolean evaluate(Edge edge) {
                 return true;
             }
         });
+    }
+    
+    /**
+     * Method for filtering the Graph
+     *
+     * @param variables Variables type
+     * @param hiddenEdges Boolean used to decide if hidden (original edges that
+     * composes the collapsed edge) edges will be filtered
+     */
+    public void Filters(Variables variables, boolean hiddenEdges) {
+        variables.filter.filterVerticesAndEdges(variables.view,
+                variables.layout,
+                variables.collapsedGraph,
+                hiddenEdges);
+    }
+
+    /**
+     * Overload of the Filters method. hiddenEdges is always set as true,
+     * filtering the edges that composes the collapsed one
+     *
+     * @param variables Variables type
+     */
+    public void Filters(Variables variables) {
+        Filters(variables, true);
+    }
+    
+    /**
+     * Method to apply filters after an operation
+     *
+     * @param variables
+     */
+    public void AddFilters(Variables variables) {
+        GraphFrame.FilterList.setSelectionInterval(0, variables.config.edgetype.size() - 1);
+        Filters(variables, false);
+    }
+
+    /**
+     * Method to remove filters before an operation, avoiding the loss of
+     * information
+     *
+     * @param variables
+     */
+    public void RemoveFilters(Variables variables) {
+        GraphFrame.FilterList.setSelectedIndex(0);
+        GraphFrame.FilterEdgeAgentButton.setSelected(false);
+        GraphFrame.FilterNodeAgentButton.setSelected(false);
+        GraphFrame.FilterNodeEntityButton.setSelected(false);
+        GraphFrame.FilterNodeLonelyButton.setSelected(false);
+        GraphFrame.TemporalFilterToggle.setSelected(false);
+        Filters(variables);
     }
 
     /**
@@ -70,14 +122,14 @@ public class Filters {
      * @param hiddenEdges Boolean (filter original edges that composes a
      * collapsed one or not?)
      */
-    public void Filter(VisualizationViewer<Object, Edge> view,
+    public void filterVerticesAndEdges(VisualizationViewer<Object, Edge> view,
             Layout<Object, Edge> layout,
             DirectedGraph<Object, Edge> collapsedGraph,
             boolean hiddenEdges) {
         filteredGraph = collapsedGraph;
 
-        EdgeFilter = FilterEdges(hiddenEdges);
-        VertexFilter = FilterVertex();
+        EdgeFilter = filterEdges(hiddenEdges);
+        VertexFilter = filterVertex();
 
         filteredGraph = (DirectedGraph<Object, Edge>) EdgeFilter.transform(filteredGraph);
         filteredGraph = (DirectedGraph<Object, Edge>) VertexFilter.transform(filteredGraph);
@@ -91,117 +143,168 @@ public class Filters {
      * @param hiddenEdges Boolean (consider hidden edges or not?)
      * @return new EdgePredicateFilter<Object, Edge>(new Predicate<Edge>()
      */
-    public Filter<Object, Edge> FilterEdges(final boolean hiddenEdges) {
-        Filter<Object, Edge> filterEdge = new EdgePredicateFilter<Object, Edge>(new Predicate<Edge>() {
+    private Filter<Object, Edge> filterEdges(final boolean hiddenEdges) {
+        Filter<Object, Edge> filterEdge = new EdgePredicateFilter<>(new Predicate<Edge>() {
             @Override
             public boolean evaluate(Edge edge) {
-//                String[] line = edge.toString().split(" ");
-
                 if (hiddenEdges) {
                     if (edge.isHidden()) {
                         return false;
                     }
                 }
-
-                List filtersL = GraphFrame.FilterList.getSelectedValuesList();
-
-                boolean returnValue = false;
-                for (int i = 0; i < filtersL.size(); i++) {
-                    String filter = (String) filtersL.get(i);
-//                    if (edge.getEdgeInfluence().contains(filter)) {
-                    if (edge.getLabel().contains(filter) || edge.getType().contains(filter)) {
-                        if (!returnValue) {
-                            returnValue = true;
-                        }
-                    }
-                    if(filter.equalsIgnoreCase("All Edges"))
-                    {
-                        return true;
-                    }
-                }
-                if (GraphFrame.FilterEdgeAgentButton.isSelected()) {
-                    if (filteredGraph.getDest(edge) instanceof AgentVertex) {
-                        return false;
-                    }
+                if (edgeTypeFilter(edge)) {
+                    return false;
                 }
 
-                return returnValue;
+                return !edgeAgentFilter(edge);
             }
         });
         return filterEdge;
     }
 
     /**
-     * Method for filtering vertices
-     *
-     * @return new VertexPredicateFilter<Object, Edge>(new Predicate<Object>()
+     * Edge filter to show only edges from the selected type or label
+     * @param edge
+     * @return if the edge will be hidden
      */
-    public Filter<Object, Edge> FilterVertex() {
-        Filter<Object, Edge> filterVertex = new VertexPredicateFilter<Object, Edge>(new Predicate<Object>() {
+    private boolean edgeTypeFilter(Edge edge) {
+        List filtersL = GraphFrame.FilterList.getSelectedValuesList();
+        for (Object filtersL1 : filtersL) {
+            String filter = (String) filtersL1;
+            if (filter.equalsIgnoreCase("All Edges")) {
+                return false;
+            }
+            if (edge.getLabel().contains(filter) || edge.getType().contains(filter)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Method to filter edges that connect to agents
+     *
+     * @param edge
+     * @return if the edge will be hidden
+     */
+    private boolean edgeAgentFilter(Edge edge) {
+        if (GraphFrame.FilterEdgeAgentButton.isSelected()) {
+            if (filteredGraph.getDest(edge) instanceof AgentVertex) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Vertex filter method
+     *
+     * @return if the vertex will be hidden
+     */
+    private Filter<Object, Edge> filterVertex() {
+
+        Filter<Object, Edge> filterVertex = new VertexPredicateFilter<>(new Predicate<Object>() {
             @Override
             public boolean evaluate(Object vertex) {
-                final Graph test = filteredGraph;
-                if (GraphFrame.FilterNodeAgentButton.isSelected()) {
-                    if (vertex instanceof AgentVertex) {
-                        return false;
-                    }
+                if (vertexTypeFilter(vertex)) {
+                    return false;
                 }
-                if (GraphFrame.FilterNodeEntityButton.isSelected()) {
-                    if (vertex instanceof EntityVertex) {
-                        return false;
-                    }
+                if (vertexLonelyFilter(vertex)) {
+                    return false;
                 }
-                if (GraphFrame.FilterNodeLonelyButton.isSelected()) {
-                    if (test.getNeighborCount(vertex) == 0) {
-                        return false;
-                    }
-                }
-                if (GraphFrame.TemporalFilterToggle.isSelected()) {
-                    while (vertex instanceof Graph) {
-                        vertex = ((Graph) vertex).getVertices().toArray()[0];
-                    }
-                    double timeDate = ((Vertex) vertex).getTime();
-                    double time = ((Vertex) vertex).getNormalizedTime();
-
-                    if (GraphFrame.temporalDaysButton.isSelected()) {
-                        time = TimeUnit.MILLISECONDS.toDays((long) time);
-                    } else if (GraphFrame.temporalWeeksButton.isSelected()) {
-                        time = (int) TimeUnit.MILLISECONDS.toDays((long) time) / 7;
-                    } else if (GraphFrame.temporalHoursButton.isSelected()) {
-                        time = TimeUnit.MILLISECONDS.toHours((long) time);
-                    } else if (GraphFrame.temporalMinutesButton.isSelected()) {
-                        time = TimeUnit.MILLISECONDS.toMinutes((long) time);
-                    }
-                    
-                    if (Utils.tryParseFloat(GraphFrame.FilterVertexMinValue.getText())) {
-                        double minTime = Float.parseFloat(GraphFrame.FilterVertexMinValue.getText());
-                        if (time < minTime) {
-                            return false;
-                        }
-                    }
-                    else if(Utils.tryParseDate(GraphFrame.FilterVertexMinValue.getText())) {
-                            double minTime =  Utils.convertStringDateToDouble(GraphFrame.FilterVertexMinValue.getText());
-                            if (timeDate < minTime) {
-                                return false;
-                            }
-                    }
-                    if (Utils.tryParseFloat(GraphFrame.FilterVertexMaxValue.getText())) {
-                        double maxTime;
-                        maxTime = Float.parseFloat(GraphFrame.FilterVertexMaxValue.getText());
-                        if (time > maxTime) {
-                            return false;
-                        }
-                    }
-                    else if(Utils.tryParseDate(GraphFrame.FilterVertexMaxValue.getText())) {
-                            double maxTime =  Utils.convertStringDateToDouble(GraphFrame.FilterVertexMaxValue.getText());
-                            if (timeDate > maxTime) {
-                                return false;
-                            }
-                    }
-                }
-                return true;
+                return !vertexTemporalFilter(vertex);
             }
         });
         return filterVertex;
+    }
+
+    /**
+     * Vertex filter for filtering lonely vertices (vertices without edges)
+     *
+     * @param vertex
+     * @return if the vertex will be hidden
+     */
+    private boolean vertexLonelyFilter(Object vertex) {
+        if (GraphFrame.FilterNodeLonelyButton.isSelected()) {
+            final Graph test = filteredGraph;
+            if (test.getNeighborCount(vertex) == 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Vertex filter to filter vertices of the selected type
+     *
+     * @param vertex
+     * @return if the vertex will be hidden
+     */
+    private boolean vertexTypeFilter(Object vertex) {
+        if (GraphFrame.FilterNodeAgentButton.isSelected()) {
+            if (vertex instanceof AgentVertex) {
+                return true;
+            }
+        }
+        if (GraphFrame.FilterNodeEntityButton.isSelected()) {
+            if (vertex instanceof EntityVertex) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Vertex filter to filter vertices that is outside the desired temporal
+     * range
+     *
+     * @param vertex
+     * @return if the vertex will be hidden
+     */
+    private boolean vertexTemporalFilter(Object vertex) {
+        if (GraphFrame.TemporalFilterToggle.isSelected()) {
+            if (!(vertex instanceof AgentVertex)) {
+                while (vertex instanceof Graph) {
+                    vertex = ((Graph) vertex).getVertices().toArray()[0];
+                }
+                double timeDate = ((Vertex) vertex).getTime();
+                double time = ((Vertex) vertex).getNormalizedTime();
+
+                if (GraphFrame.temporalDaysButton.isSelected()) {
+                    time = TimeUnit.MILLISECONDS.toDays((long) time);
+                } else if (GraphFrame.temporalWeeksButton.isSelected()) {
+                    time = (int) TimeUnit.MILLISECONDS.toDays((long) time) / 7;
+                } else if (GraphFrame.temporalHoursButton.isSelected()) {
+                    time = TimeUnit.MILLISECONDS.toHours((long) time);
+                } else if (GraphFrame.temporalMinutesButton.isSelected()) {
+                    time = TimeUnit.MILLISECONDS.toMinutes((long) time);
+                }
+
+                if (Utils.tryParseFloat(GraphFrame.FilterVertexMinValue.getText())) {
+                    double minTime = Float.parseFloat(GraphFrame.FilterVertexMinValue.getText());
+                    if (time < minTime) {
+                        return true;
+                    }
+                } else if (Utils.tryParseDate(GraphFrame.FilterVertexMinValue.getText())) {
+                    double minTime = Utils.convertStringDateToDouble(GraphFrame.FilterVertexMinValue.getText());
+                    if (timeDate < minTime) {
+                        return true;
+                    }
+                }
+                if (Utils.tryParseFloat(GraphFrame.FilterVertexMaxValue.getText())) {
+                    double maxTime;
+                    maxTime = Float.parseFloat(GraphFrame.FilterVertexMaxValue.getText());
+                    if (time > maxTime) {
+                        return true;
+                    }
+                } else if (Utils.tryParseDate(GraphFrame.FilterVertexMaxValue.getText())) {
+                    double maxTime = Utils.convertStringDateToDouble(GraphFrame.FilterVertexMaxValue.getText());
+                    if (timeDate > maxTime) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 }

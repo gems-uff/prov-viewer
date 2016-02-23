@@ -15,8 +15,10 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Class to Collapse/Expand selected vertices and edges
@@ -42,8 +44,8 @@ public class Collapser {
         for (Object node : variables.graph.getVertices()) {
             RemoveCollapsedEdges(variables, node);
         }
-        variables.ComputeEdgeTypeValues(variables, (DirectedGraph) variables.graph);
-        RemoveFilters(variables);
+        variables.ComputeEdgeTypeValues();
+        variables.filter.RemoveFilters(variables);
     }
 
     //
@@ -74,7 +76,7 @@ public class Collapser {
      */
     public void Collapse(Variables variables, Collection picked, boolean refresh) {
         //add all filters to avoid losing information
-        AddFilters(variables);
+        variables.filter.AddFilters(variables);
         //If selected more than 1 vertex
         if (picked.size() > 1) {
             //Graph inGraph = layout.getGraph();
@@ -108,8 +110,8 @@ public class Collapser {
     public void RefreshGraph(Variables variables)
     {
         CollapseEdges(variables);
-        variables.ComputeEdgeTypeValues(variables, (DirectedGraph) variables.layout.getGraph());
-        RemoveFilters(variables);
+        variables.ComputeEdgeTypeValues();
+        variables.filter.RemoveFilters(variables);
         variables.view.repaint();
         System.out.println("#Vertices: " + variables.collapsedGraph.getVertexCount());
     }
@@ -123,11 +125,109 @@ public class Collapser {
     // probably it is better to override the original Collapse function from JUNG
     public void CollapseEdges(final Variables variables) {
         Graph newGraph = variables.layout.getGraph();
+//        Map<String, Edge> addEdges = new HashMap<String, Edge>();
         Collection<Edge> addEdges = new ArrayList<Edge>();
         Collection<Edge> removeEdges = new ArrayList<Edge>();
+        
+        checkEdges(variables, addEdges, removeEdges);
+        //Add collapsed edges in the graph
+        for (Edge edge : addEdges) {
+//            System.out.println(edge.getEdgeInfluence());
+            newGraph.addEdge(edge, edge.getSource(), edge.getTarget());
+        }
+        //Remove old collapsed edges
+        for (Edge edge : removeEdges) {
+            newGraph.removeEdge(edge);
+        }
+        variables.layout.setGraph(newGraph);
+//        variables.view.repaint();
+    }
+    
+    /**
+     * Method underdevelopment to solve a bug with collapsing edges depending on the order of the collapse
+     * Use checkEdges method instead
+     * @param variables
+     * @param addEdges
+     * @param removeEdges 
+     */
+    public void checkEdges_Prototype(final Variables variables, Map<String, Edge> addEdges, Collection<Edge> removeEdges) {
+        for (Edge e1 : variables.layout.getGraph().getEdges()) {
+            boolean collapse = false;
+            Object target = e1.getTarget();
+            Object source = e1.getSource();
+            float value = e1.getValue();
+            int count = 0;
+            for (Edge e2 : variables.layout.getGraph().getEdges()) {
+                if(!e1.getID().equalsIgnoreCase(e2.getID())) {
+                    if(e1.getType().equalsIgnoreCase(e2.getType())) {
+                        if(e1.getLabel().equalsIgnoreCase(e2.getLabel())) {
+                            boolean targetSameGraph = false;
+                            //check if there is any graph_vertex.
+                            for (Object g : variables.layout.getGraph().getVertices()) {
+                                if (g instanceof Graph) {
+                                    //If the graph has the target vertex, then the graph is the target
+                                    if (((Graph) g).containsVertex(e1.getTarget()) 
+                                            && ((Graph) g).containsVertex(e2.getTarget())) {
+                                        targetSameGraph = true;
+                                        target = g;
+                                    }
+                                }
+                            }
+                            if ((e1.getTarget().equals(e2.getTarget())) || targetSameGraph) {
+                                if (e1.isCollapased()) {
+                                    removeEdges.add(e1);
+                                }
+                                else if (e2.isCollapased()) {
+                                    removeEdges.add(e2);
+                                }
+                                else {
+                                    value += e2.getValue();
+                                    e1.setHide(true);
+                                    e2.setHide(true);
+                                    collapse = true;
+                                    count++;
+                                }
+                            } // if SAME TARGET
+                        } // if LABEL
+                    } // if TYPE
+                }// if ID
+                
+            } // end for e2
+            
+            if (collapse) {
+                if (!e1.addInfluence(variables)) {
+                    value = value / count;
+                }
+                String influence;
+
+                influence = e1.getLabel();
+                //Create collpased edge and add it in the graph                        
+                Edge edge;
+                
+                for (Object g : variables.layout.getGraph().getVertices()) {
+                    if (g instanceof Graph) {
+                        //If the graph has the target vertex, then the graph is the target
+                        if (((Graph) g).containsVertex(e1.getSource()))
+                            source = g;
+                    }
+                }
+                edge = CollapsedEdgeType(target, source, influence, Float.toString(value));
+//                if (target == null) {
+//                    target = e1.getTarget();
+//                    edge = CollapsedEdgeType(target, e1.getSource(), influence, Float.toString(value));
+//                } else {
+//                    edge = CollapsedEdgeType(target, e1.getSource(), influence, Float.toString(value));
+//                }
+            
+                edge.setCollapse(true);
+                addEdges.put(target + " " + source + " " + influence, edge);
+            }
+        } // end for e1
+    }
+    public void checkEdges(final Variables variables, Collection<Edge> addEdges, Collection<Edge> removeEdges){
         for (Object node : variables.layout.getGraph().getVertices()) {
             //Only need to collapse if the node is a graph
-            if (node instanceof Graph) {
+//            if (node instanceof Graph) {
                 List sorted = new ArrayList(variables.layout.getGraph().getOutEdges(node));//.getInEdges(node));
                 //Type comparator
                 Comparator comparator = new Comparator<Edge>() {
@@ -218,19 +318,8 @@ public class Collapser {
                     }
                     j++;
                 }//end while
-            }//end if
-        }//end for
-        //Add collapsed edges in the graph
-        for (Edge edge : addEdges) {
-//            System.out.println(edge.getEdgeInfluence());
-            newGraph.addEdge(edge, edge.getSource(), edge.getTarget());
+//            }//end if
         }
-        //Remove old collapsed edges
-        for (Edge edge : removeEdges) {
-            newGraph.removeEdge(edge);
-        }
-        variables.layout.setGraph(newGraph);
-//        variables.view.repaint();
     }
 
     /**
@@ -247,7 +336,7 @@ public class Collapser {
             if (v instanceof Graph) {
                 //TODO: Save current filters state
                 //Add all filters to not lose edges/information
-                AddFilters(variables);
+                variables.filter.AddFilters(variables);
                 RemoveCollapsedEdges(variables, v);
                 //Expand the vertex
                 variables.collapsedGraph = (DirectedGraph<Object, Edge>) variables.gCollapser.expand(variables.layout.getGraph(), (Graph) v);
@@ -255,39 +344,16 @@ public class Collapser {
                 variables.layout.setGraph(variables.collapsedGraph);
                 //TODO: Load filters state
                 //Remove filters to clean the visualization
-                RemoveFilters(variables);
+                variables.filter.RemoveFilters(variables);
 //                Filters(variables);
             }
         }
         variables.view.getPickedVertexState().clear();
-        variables.ComputeEdgeTypeValues(variables, variables.graph);
+        variables.ComputeEdgeTypeValues();
         variables.view.repaint();
         CollapseEdges(variables);
     }
 
-    /**
-     * Method for filtering the Graph
-     *
-     * @param variables Variables type
-     * @param hiddenEdges Boolean used to decide if hidden (original edges that
-     * composes the collapsed edge) edges will be filtered
-     */
-    public void Filters(Variables variables, boolean hiddenEdges) {
-        variables.filter.Filter(variables.view,
-                variables.layout,
-                variables.collapsedGraph,
-                hiddenEdges);
-    }
-
-    /**
-     * Overload of the Filters method. hiddenEdges is always set as true,
-     * filtering the edges that composes the collapsed one
-     *
-     * @param variables Variables type
-     */
-    public void Filters(Variables variables) {
-        Filters(variables, true);
-    }
 
     /**
      * Method used to create the collapsed edge using the application's edge
@@ -358,31 +424,6 @@ public class Collapser {
         RefreshGraph(variables);
     }
 
-    /**
-     * Method to apply filters after an operation
-     *
-     * @param variables
-     */
-    public void AddFilters(Variables variables) {
-        GraphFrame.FilterList.setSelectionInterval(0, variables.config.edgetype.size() - 1);
-        Filters(variables, false);
-    }
-
-    /**
-     * Method to remove filters before an operation, avoiding the loss of
-     * information
-     *
-     * @param variables
-     */
-    public void RemoveFilters(Variables variables) {
-        GraphFrame.FilterList.setSelectedIndex(0);
-        GraphFrame.FilterEdgeAgentButton.setSelected(false);
-        GraphFrame.FilterNodeAgentButton.setSelected(false);
-        GraphFrame.FilterNodeEntityButton.setSelected(false);
-        GraphFrame.FilterNodeLonelyButton.setSelected(false);
-        GraphFrame.TemporalFilterToggle.setSelected(false);
-        Filters(variables);
-    }
 }
 
 //Drafts
