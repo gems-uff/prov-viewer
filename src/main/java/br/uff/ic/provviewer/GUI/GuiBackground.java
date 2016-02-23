@@ -8,7 +8,6 @@ package br.uff.ic.provviewer.GUI;
 import br.uff.ic.utility.IO.BasePath;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.GoogleMapsAPIProjection;
-import br.uff.ic.utility.Utils;
 import edu.uci.ics.jung.visualization.Layer;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import java.awt.Graphics;
@@ -46,6 +45,7 @@ public class GuiBackground {
         }
         final ImageIcon icon = mapIcon;
         variables.view.addPreRenderPaintable(new VisualizationViewer.Paintable() {
+            @Override
             public void paint(Graphics g) {
                 if (icon == null) {
                     ResetBackground(g, variables, whiteIcon);
@@ -54,6 +54,7 @@ public class GuiBackground {
                 }
             }
 
+            @Override
             public boolean useTransform() {
                 return false;
             }

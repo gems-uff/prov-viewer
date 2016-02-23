@@ -38,7 +38,7 @@ public class GraphAttribute {
             this.minValue = 0;
             this.maxValue = 0;
         }
-        this.originalValues = new ArrayList<String>();
+        this.originalValues = new ArrayList<>();
         this.originalValues.add(value);
     }
     
@@ -56,7 +56,7 @@ public class GraphAttribute {
         this.quantity = Integer.valueOf(quantity);
         this.minValue = Float.parseFloat(min);
         this.maxValue = Float.parseFloat(max);
-        this.originalValues = new ArrayList<String>();
+        this.originalValues = new ArrayList<>();
         this.originalValues.add(min);
         this.originalValues.add(max);
 
@@ -77,7 +77,7 @@ public class GraphAttribute {
         this.quantity = Integer.valueOf(quantity);
         this.minValue = Float.parseFloat(min);
         this.maxValue = Float.parseFloat(max);
-        this.originalValues = new ArrayList<String>();
+        this.originalValues = new ArrayList<>();
         this.originalValues.addAll(values);
     }
     

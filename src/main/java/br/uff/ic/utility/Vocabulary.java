@@ -19,11 +19,11 @@ public class Vocabulary {
      * Empty Constructor
      */
     public Vocabulary() {
-        vocabulary = new HashMap<String, String>();
+        vocabulary = new HashMap<>();
     }
     
     public Vocabulary(String values) {
-        vocabulary = new HashMap<String, String>();
+        vocabulary = new HashMap<>();
         addVocabulary(values);
     }
     

@@ -43,7 +43,7 @@ public class GuiReadFile {
      * @return 
      */
     public static DirectedGraph<Object, Edge> getGraph(File graphFile) {
-        DirectedGraph<Object, Edge> g = new DirectedSparseMultigraph<Object, Edge>();
+        DirectedGraph<Object, Edge> g = new DirectedSparseMultigraph<>();
         try {
             String extension = FilenameUtils.getExtension(graphFile.toPath().toString());
             InputReader fileReader;
@@ -71,6 +71,7 @@ public class GuiReadFile {
      * @param variables
      * @param fileChooser is the file chooser from the interface
      * @param graphFrame is the tool's main frame
+     * @param Layouts
      */
     public static void openConfigFile(Variables variables, JFileChooser fileChooser, JFrame graphFrame, JComboBox Layouts) {
         int returnVal = fileChooser.showOpenDialog(graphFrame);

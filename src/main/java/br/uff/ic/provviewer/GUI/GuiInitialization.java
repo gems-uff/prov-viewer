@@ -33,6 +33,10 @@ public class GuiInitialization {
      * @param graph
      * @param graphFrame
      * @param Layouts
+     * @param agentLabel interface check-box state agent label
+     * @param activityLabel interface check-box state activity label
+     * @param entityLabel interface check-box state for entity label
+     * @param timeLabel interface check-box state for time label
      */
     public static void initGraphComponent(Variables variables, DirectedGraph<Object, Edge> graph,
             JFrame graphFrame, JComboBox Layouts, boolean agentLabel, boolean activityLabel, boolean entityLabel, boolean timeLabel) {

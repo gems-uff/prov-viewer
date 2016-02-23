@@ -47,6 +47,7 @@ public class ActivityVertex extends Vertex {
     /**
      * Color function used by Default Color Scheme
      * (Activity vertex only)
+     * @param variables
      * @return 
      */
     public Paint getDefaultColor(Variables variables) {

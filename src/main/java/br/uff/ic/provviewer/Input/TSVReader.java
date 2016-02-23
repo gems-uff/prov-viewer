@@ -20,8 +20,8 @@ import java.util.Map;
  * @author Kohwalter
  */
 public class TSVReader {
-    private Map<String, Vertex> nodes = new HashMap<String, Vertex>();
-    private Collection<Edge> edges = new ArrayList<Edge>();
+    private Map<String, Vertex> nodes = new HashMap<>();
+    private Collection<Edge> edges = new ArrayList<>();
     
     /**
      * Method to read the file and classify the information according to its vertex/edge type

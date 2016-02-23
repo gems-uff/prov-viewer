@@ -8,9 +8,7 @@ package br.uff.ic.utility;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.graph.EntityVertex;
-import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.Graph;
-import java.util.Collection;
 
 /**
  *

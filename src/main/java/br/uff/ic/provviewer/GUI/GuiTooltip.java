@@ -62,10 +62,10 @@ public class GuiTooltip {
      */
     public static String GraphTooltip(Object v) {
         String nodeTypes = "";
-        Map<String, String> ids = new HashMap<String, String>();
-        Map<String, String> labels = new HashMap<String, String>();
-        Map<String, String> times = new HashMap<String, String>();
-        Map<String, GraphAttribute> attributes = new HashMap<String, GraphAttribute>(); 
+        Map<String, String> ids = new HashMap<>();
+        Map<String, String> labels = new HashMap<>();
+        Map<String, String> times = new HashMap<>();
+        Map<String, GraphAttribute> attributes = new HashMap<>(); 
         
         agents = 0;
         activities = 0;

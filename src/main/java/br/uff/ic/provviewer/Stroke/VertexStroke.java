@@ -47,6 +47,7 @@ public class VertexStroke {
      * @param v
      * @param view
      * @param layout
+     * @param variables
      * @return
      */
     public static Stroke VertexStroke(Object v, VisualizationViewer<Object, Edge> view, Layout<Object, Edge> layout, Variables variables) {
@@ -57,8 +58,8 @@ public class VertexStroke {
 
         if (v instanceof Vertex) {
             if (!variables.config.vertexStrokevariables.isEmpty()) {
-                for (int i = 0; i < variables.config.vertexStrokevariables.size(); i++) {
-                    String[] list = variables.config.vertexStrokevariables.get(i).split(" ");
+                for (String vertexStrokevariable : variables.config.vertexStrokevariables) {
+                    String[] list = vertexStrokevariable.split(" ");
                     String att = ((Vertex) v).getAttributeValue(list[0]);
                     if (!"".equals(att)) {
                         for (int j = 1; j < list.length; j++) {

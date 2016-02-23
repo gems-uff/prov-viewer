@@ -169,8 +169,6 @@ public class Variables extends Object {
     /**
      * Find max values for each edge type. Used for edge width.
      *
-     * @param variables
-     * @param graph Graph
      */
     public void ComputeEdgeTypeValues() {
         Collection<Edge> edges = this.graph.getEdges();

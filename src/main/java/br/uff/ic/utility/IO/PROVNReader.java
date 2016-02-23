@@ -166,7 +166,7 @@ public class PROVNReader extends InputReader {
         Edge edge;
         String id = null;
         String entity = "-";
-        String activity = "-";;
+        String activity = "-";
         String time;
 
         if (attributes.length == 3) {

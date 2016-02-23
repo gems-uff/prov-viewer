@@ -7,7 +7,6 @@ import java.awt.Paint;
 import java.awt.Stroke;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Abstract (Generic) vertex type for the provenance graph
@@ -34,7 +33,7 @@ public abstract class Vertex extends GraphObject {
         this.id = id;
         setLabel(label);
         this.time = time;
-        this.attributes  = new HashMap<String, GraphAttribute>();
+        this.attributes  = new HashMap<>();
     }
     
     /**

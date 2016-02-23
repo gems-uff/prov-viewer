@@ -43,8 +43,8 @@ public abstract class InputReader {
 
     public InputReader(File f){
         file = f;
-        nodes = new HashMap<String, Vertex>();
-        edges = new ArrayList<Edge>();
+        nodes = new HashMap<>();
+        edges = new ArrayList<>();
     }
     
 //    public void addEdge(String id, String influence, String type, String value, String label, Map<String, Attribute> attributes, String target, String source)

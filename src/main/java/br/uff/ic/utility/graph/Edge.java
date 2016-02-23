@@ -71,7 +71,7 @@ public class Edge extends GraphObject{
         this.source = source;
         this.target = target;
         this.type = type;
-        if (label.equalsIgnoreCase("") || label == null || label == "-" || label.equalsIgnoreCase("Neutral")) {
+        if (label.equalsIgnoreCase("") || label == null || "-".equals(label) || label.equalsIgnoreCase("Neutral")) {
             setLabel("Neutral");
             this.value = "0";
         } else {
@@ -80,7 +80,7 @@ public class Edge extends GraphObject{
         setLabel(label);
         hide = false;
         collapsed = false;
-        this.attributes  = new HashMap<String, GraphAttribute>();
+        this.attributes  = new HashMap<>();
     }
     
     /**
@@ -104,7 +104,7 @@ public class Edge extends GraphObject{
         this.type = getLabel();
         hide = false;
         collapsed = false;
-        this.attributes  = new HashMap<String, GraphAttribute>();
+        this.attributes  = new HashMap<>();
     }
 
     /**

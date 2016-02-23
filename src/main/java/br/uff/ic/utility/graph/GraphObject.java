@@ -82,7 +82,7 @@ public class GraphObject extends Object{
     
     public Map<String, String> attributeList()
     {
-        Map<String, String> attributeList = new HashMap<String, String>();
+        Map<String, String> attributeList = new HashMap<>();
         if(!this.attributes.values().isEmpty())
         {
             for(GraphAttribute att : this.attributes.values())

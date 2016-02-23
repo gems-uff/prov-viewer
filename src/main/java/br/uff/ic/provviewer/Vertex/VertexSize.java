@@ -28,6 +28,7 @@ public class VertexSize<V> implements Transformer<V, Integer> {
      * @return the vertex size. If the vertex is a graph (collapsed vertices)
      * then it will be twice bigger.
      */
+    @Override
     public Integer transform(V v) {
         if (v instanceof Graph) {
             return (size * 2);

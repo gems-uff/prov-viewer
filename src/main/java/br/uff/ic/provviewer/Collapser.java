@@ -113,7 +113,7 @@ public class Collapser {
         variables.ComputeEdgeTypeValues();
         variables.filter.RemoveFilters(variables);
         variables.view.repaint();
-        System.out.println("#Vertices: " + variables.collapsedGraph.getVertexCount());
+//        System.out.println("#Vertices: " + variables.collapsedGraph.getVertexCount());
     }
     /**
      * Collapse edges from the same type and target Problem: Between Collapsed
@@ -126,8 +126,8 @@ public class Collapser {
     public void CollapseEdges(final Variables variables) {
         Graph newGraph = variables.layout.getGraph();
 //        Map<String, Edge> addEdges = new HashMap<String, Edge>();
-        Collection<Edge> addEdges = new ArrayList<Edge>();
-        Collection<Edge> removeEdges = new ArrayList<Edge>();
+        Collection<Edge> addEdges = new ArrayList<>();
+        Collection<Edge> removeEdges = new ArrayList<>();
         
         checkEdges(variables, addEdges, removeEdges);
         //Add collapsed edges in the graph
@@ -373,8 +373,8 @@ public class Collapser {
 
         Collection selected = new ArrayList();
         //System.out.println( "L = " + list);
-        List<String> collapsegroup = new ArrayList<String>();
-        List<String> used = new ArrayList<String>();
+        List<String> collapsegroup = new ArrayList<>();
+        List<String> used = new ArrayList<>();
 
         String[] elements = list.split(" ");
 

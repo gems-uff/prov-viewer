@@ -75,6 +75,10 @@ public class GuiFunctions {
     /**
      * Method to display labels for vertices
      * @param variables 
+     * @param agentLabel interface check-box state agent label
+     * @param activityLabel interface check-box state activity label
+     * @param entityLabel interface check-box state for entity label
+     * @param timeLabel interface check-box state for time label
      */
     public static void VertexLabel(final Variables variables, final boolean agentLabel, final boolean activityLabel, final boolean entityLabel, final boolean timeLabel) {
         variables.view.getRenderContext().setVertexLabelTransformer(new Transformer<Object, String>() {
@@ -165,7 +169,7 @@ public class GuiFunctions {
      * @param variables 
      */
     public static void ScaleView(Variables variables) {
-        variables.view = new VisualizationViewer<Object, Edge>(variables.layout);
+        variables.view = new VisualizationViewer<>(variables.layout);
         final ScalingControl scaler = new CrossoverScalingControl();
         scaler.scale(variables.view, 1 / 2.1f, variables.view.getCenter());
     }
@@ -180,7 +184,7 @@ public class GuiFunctions {
         // Choosing layout
         if (variables.initLayout) {
             variables.config.Initialize(variables);
-            variables.layout = new Temporal_Layout<Object, Edge>(variables.graph, variables);
+            variables.layout = new Temporal_Layout<>(variables.graph, variables);
             variables.view = new VisualizationViewer<Object, Edge>(variables.layout);
             Layouts.setSelectedItem(variables.config.defaultLayout);
             variables.initLayout = false;

@@ -40,10 +40,10 @@ import org.w3c.dom.NodeList;
 public class Config {
 
     //Filter List
-    public List<EdgeType> edgetype = new ArrayList<EdgeType>();
+    public List<EdgeType> edgetype = new ArrayList<>();
 
     //Modes
-    public Collection<ColorScheme> vertexModes = new ArrayList<ColorScheme>();
+    public Collection<ColorScheme> vertexModes = new ArrayList<>();
 
     //Temporal Layout
     public String layoutSpecialVertexType;
@@ -72,13 +72,13 @@ public class Config {
     public double height;
 
     //Vertex Stroke variables
-    public List<String> vertexStrokevariables = new ArrayList<String>();
+    public List<String> vertexStrokevariables = new ArrayList<>();
 
     //ActivityVertex
     //All 3 arrays must have the same size
-    public List<String> actVerAtt = new ArrayList<String>();
-    public List<String> actVerValue = new ArrayList<String>();
-    public List<Paint> actVerColor = new ArrayList<Paint>();
+    public List<String> actVerAtt = new ArrayList<>();
+    public List<String> actVerValue = new ArrayList<>();
+    public List<Paint> actVerColor = new ArrayList<>();
 
     /**
      * Method to configure the tool for the first time using the default graph
@@ -113,7 +113,7 @@ public class Config {
     }
 
     public void DetectEdges(Collection<Edge> edges) {
-        Map<String, EdgeType> newEdges = new HashMap<String, EdgeType>();
+        Map<String, EdgeType> newEdges = new HashMap<>();
         for (Edge edge : edges) {
             boolean isNewType = true;
             boolean isNewLabel = true;
@@ -147,8 +147,8 @@ public class Config {
     }
 
     public void DetectVertexModes(Collection<Object> vertices) {
-        Map<String, String> attributeList = new HashMap<String, String>();
-        Map<String, ColorScheme> newAttributes = new HashMap<String, ColorScheme>();
+        Map<String, String> attributeList = new HashMap<>();
+        Map<String, ColorScheme> newAttributes = new HashMap<>();
         for (Object v : vertices) {
             attributeList.putAll(((Vertex) v).attributeList());
         }
@@ -177,14 +177,14 @@ public class Config {
      */
     public void Initialize(File fXmlFile) {
         try {
-            edgetype = new ArrayList<EdgeType>();
-            vertexModes = new ArrayList<ColorScheme>();
+            edgetype = new ArrayList<>();
+            vertexModes = new ArrayList<>();
             layoutSpecialVertexType = "";
             scale = 1.0;
-            vertexStrokevariables = new ArrayList<String>();
-            actVerAtt = new ArrayList<String>();
-            actVerValue = new ArrayList<String>();
-            actVerColor = new ArrayList<Paint>();
+            vertexStrokevariables = new ArrayList<>();
+            actVerAtt = new ArrayList<>();
+            actVerValue = new ArrayList<>();
+            actVerColor = new ArrayList<>();
 
             EdgeType allEdges = new EdgeType();
             allEdges.type = "All Edges";

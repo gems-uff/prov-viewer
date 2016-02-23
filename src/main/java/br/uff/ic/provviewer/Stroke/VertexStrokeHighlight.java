@@ -72,6 +72,7 @@ public class VertexStrokeHighlight<V, E> implements
      * @param v Vertex
      * @return Stroke
      */
+    @Override
     public Stroke transform(V v) {
         if (highlight) {
             if (pi.isPicked(v)) {

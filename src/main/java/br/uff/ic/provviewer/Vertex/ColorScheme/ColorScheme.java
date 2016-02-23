@@ -53,6 +53,10 @@ public abstract class ColorScheme {
      * works
      *
      * @param attribute
+     * @param value
+     * @param max
+     * @param min
+     * @param limited
      */
     public ColorScheme(String attribute, String value, String max, String min, boolean limited) {
         this.attribute = attribute;
