@@ -8,17 +8,16 @@ and open the template in the editor.
 <config
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
     xsi:noNamespaceSchemaLocation='config.xsd'>
-    <layoutbackbone>Project</layoutbackbone>
-	<layoutAxis_X>ObjectPosition_X</layoutAxis_X>
-	<layoutAxis_Y>ObjectPosition_Z</layoutAxis_Y>
-	<imageLocation></imageLocation>
-	<imageOffset_X>0</imageOffset_X>
-	<imageOffset_Y>0</imageOffset_Y>
-	<spatialLayoutPosition>1.0</spatialLayoutPosition>
-	<googleZoomLevel>0</googleZoomLevel>
-	<temporalLayoutscale>1.0</temporalLayoutscale>
-	<showentitydate>true</showentitydate>
-	<showentitylabel>false</showentitylabel>
+    <default_layout>TemporalLayout</default_layout>
+    <layoutAxis_X>ObjectPosition_X</layoutAxis_X>
+    <layoutAxis_Y>ObjectPosition_Z</layoutAxis_Y>
+    <imageLocation></imageLocation>
+    <imageOffset_X>0</imageOffset_X>
+    <imageOffset_Y>0</imageOffset_Y>
+    <spatialLayoutPosition>1.0</spatialLayoutPosition>
+    <zoomLevel>0</zoomLevel>
+    <temporalLayoutbackbone>Project</temporalLayoutbackbone>
+    <temporalLayoutscale>1.0</temporalLayoutscale>
     <edgetype>
         <edge>Neutral</edge>
         <edgestroke>MAX</edgestroke>

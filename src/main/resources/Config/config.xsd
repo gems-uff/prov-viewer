@@ -14,24 +14,24 @@ and open the template in the editor.
     <xs:complexType name="configuration">
         <xs:sequence>
             <xs:element name="default_layout" type="xs:string"/>
-			<!-- Spatial Layout X axis name -->
+            <!-- Spatial Layout X axis name -->
             <xs:element name="layoutAxis_X" type="xs:string"/>
-			<!-- Spatial Layout Y axis name -->
+            <!-- Spatial Layout Y axis name -->
             <xs:element name="layoutAxis_Y" type="xs:string"/>
-			<!-- Spatial Layout Background Image location -->
+            <!-- Spatial Layout Background Image location -->
             <xs:element name="imageLocation" type="xs:string"/>
-			<!-- Spatial Layout Camera X position -->
+            <!-- Spatial Layout Camera X position -->
             <xs:element name="imageOffset_X" type="xs:string"/>
-			<!-- Spatial Layout Camera Y position -->
+            <!-- Spatial Layout Camera Y position -->
             <xs:element name="imageOffset_Y" type="xs:string"/>
-			<!-- Spatial Layout Camera's upper left corner of the screen position in relation to the camera -->
+            <!-- Spatial Layout Camera's upper left corner of the screen position in relation to the camera -->
             <xs:element name="spatialLayoutPosition" type="xs:string"/>
-			<!-- Spatial Layout parameter used for Google Maps image. Set value to zero if not using Google Maps image -->
-			<xs:element name="googleZoomLevel" type="xs:string"/>
+            <!-- Spatial Layout parameter used for Google Maps or OpenStreetMap image. Set value to zero if not using Google Maps image -->
+            <xs:element name="zoomLevel" type="xs:string"/>
             <!-- Temporal Layout backbone vertex type -->
-            <xs:element name="layoutbackbone" type="xs:string"/>
-			<!-- Temporal Layout scale -->
-            <xs:element name="layoutscale" type="xs:string"/>
+            <xs:element name="temporalLayoutbackbone" type="xs:string"/>
+            <!-- Temporal Layout scale -->
+            <xs:element name="temporalLayoutscale" type="xs:string"/>
             <!-- List of all edges and their configuration values -->
             <xs:element name="edgetype" type="edgetype" minOccurs="0" maxOccurs="unbounded"/>
             <!-- List of all display modes -->
@@ -75,6 +75,8 @@ and open the template in the editor.
             <xs:element name="values" type="stringlist"/>
             <xs:element name="goodvalue" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
             <xs:element name="badvalue" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="restrictedAttribute" type="stringlist"/>
+            <xs:element name="restrictedValue" type="stringlist"/>
         </xs:sequence>
     </xs:complexType>
     

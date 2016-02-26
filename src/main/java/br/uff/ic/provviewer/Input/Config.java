@@ -199,7 +199,7 @@ public class Config {
             doc.getDocumentElement().normalize();
 
             //Temporal Layout Backbone
-            NodeList nList = doc.getElementsByTagName("layoutbackbone");
+            NodeList nList = doc.getElementsByTagName("temporalLayoutbackbone");
             layoutSpecialVertexType = nList.item(0).getTextContent();
             
             // To avoid empty backbone
@@ -223,7 +223,7 @@ public class Config {
             imageOffsetY = Double.parseDouble(nList.item(0).getTextContent());
             nList = doc.getElementsByTagName("spatialLayoutPosition");
             spatialLayoutPosition = Double.parseDouble(nList.item(0).getTextContent());
-            nList = doc.getElementsByTagName("googleZoomLevel");
+            nList = doc.getElementsByTagName("zoomLevel");
             googleZoomLevel = Double.parseDouble(nList.item(0).getTextContent());
             if(googleZoomLevel != 0)
                 orthogonal = false;

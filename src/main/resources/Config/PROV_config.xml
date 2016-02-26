@@ -8,7 +8,6 @@ and open the template in the editor.
 <config
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
     xsi:noNamespaceSchemaLocation='config.xsd'>
-    <layoutbackbone></layoutbackbone>
     <default_layout>FRLayout</default_layout>
     <layoutAxis_X>ObjectPosition_X</layoutAxis_X>
     <layoutAxis_Y>ObjectPosition_Y</layoutAxis_Y>
@@ -16,10 +15,9 @@ and open the template in the editor.
     <imageOffset_X>0</imageOffset_X>
     <imageOffset_Y>0</imageOffset_Y>
     <spatialLayoutPosition>0.0</spatialLayoutPosition>
-	<googleZoomLevel>0</googleZoomLevel>
+    <zoomLevel>0</zoomLevel>
     <temporalLayoutscale>1.0</temporalLayoutscale>
-    <showentitydate>true</showentitydate>
-    <showentitylabel>true</showentitylabel>
+    <temporalLayoutbackbone></temporalLayoutbackbone>
     <edgetype>
         <edge>wasDerivedFrom</edge>
         <edgestroke>MAX</edgestroke>

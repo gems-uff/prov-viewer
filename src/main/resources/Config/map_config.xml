@@ -3,15 +3,16 @@
 <config
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
     xsi:noNamespaceSchemaLocation='config.xsd'>
-    <layoutbackbone>Player</layoutbackbone>
-	<layoutAxis_X>ObjectPosition_X</layoutAxis_X>
-	<layoutAxis_Y>ObjectPosition_Y</layoutAxis_Y>
-	<imageLocation></imageLocation>
-	<imageOffset_X>0</imageOffset_X>
-	<imageOffset_Y>0</imageOffset_Y>
-	<spatialLayoutPosition>0.0</spatialLayoutPosition>
-	<googleZoomLevel>0</googleZoomLevel>
-	<temporalLayoutscale>1.0</temporalLayoutscale>
+    <default_layout>SpatialLayout</default_layout>
+    <layoutAxis_X>ObjectPosition_X</layoutAxis_X>
+    <layoutAxis_Y>ObjectPosition_Y</layoutAxis_Y>
+    <imageLocation></imageLocation>
+    <imageOffset_X>0</imageOffset_X>
+    <imageOffset_Y>0</imageOffset_Y>
+    <spatialLayoutPosition>0.0</spatialLayoutPosition>
+    <zoomLevel>0</zoomLevel>
+    <temporalLayoutbackbone>Player</temporalLayoutbackbone>
+    <temporalLayoutscale>1.0</temporalLayoutscale>
     <edgetype>
         <edge>Chronological</edge>
         <edgestroke>MAX</edgestroke>
