@@ -24,8 +24,8 @@ public class EdgeType {
         this.type = "";
         this.stroke = "";
         this.collapse = "";
-        this.max = 0;
-        this.min = 0;
+        this.max = (float) Double.NEGATIVE_INFINITY;
+        this.min = (float) Double.POSITIVE_INFINITY;
         this.count = 0;
         this.total = 0;
     }
