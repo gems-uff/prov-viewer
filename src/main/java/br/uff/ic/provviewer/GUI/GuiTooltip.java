@@ -50,7 +50,7 @@ public class GuiTooltip {
         variables.view.setEdgeToolTipTransformer(new Transformer<Edge, String>() {
             @Override
             public String transform(Edge n) {
-                return "<html>" + n.getEdgeInfluence() + "</html>";
+                return "<html><font size=\"4\">" + n.getEdgeTooltip() + "</html>";
             }
         });
     }

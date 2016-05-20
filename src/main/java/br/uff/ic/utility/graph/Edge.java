@@ -180,14 +180,34 @@ public class Edge extends GraphObject{
      *
      * @return (String) influence
      */
-    public String getEdgeInfluence() {
+    public String getEdgeTooltip() {
         String atts = "";
         if(!this.attributes.values().isEmpty())
         {
             atts = "<br>" + this.printAttributes();
         }
-        return this.value + " " + getLabel() + " (" + this.type + ")" + atts;
+        
+        String v = this.value;
+        String l = getLabel();
+        String t = "(" + this.type + ")";
+        
+        if("0".equals(this.value))
+            v = "";
+        if("".equals(getLabel()))
+        {
+            l = "";
+            t = this.type;
+        }
+        if(getLabel().contentEquals(this.type))
+        {
+            l = "";
+            t = this.type;
+        }
+        return v + " " + l + " " + t + " " + atts;
+        
+//        return v + " " + getLabel() + " (" + this.type + ")" + atts;
     }
+    
 
     /**
      * Method to check if the edge is hidden (due to collapses)
@@ -245,8 +265,10 @@ public class Edge extends GraphObject{
      */
     @Override
     public String toString() {
-        String font = "<html><font size=\"6\", font color=\"blue\">";
+        String font = "<html><font size=\"4\", font color=\"blue\">";
         if(getLabel().isEmpty())
+            return font + this.type;
+        else if(getLabel().equals(this.type))
             return font + this.type;
         else
             return font + this.type + " (" + getLabel() + ")";
@@ -281,7 +303,10 @@ public class Edge extends GraphObject{
                     j = i;
                 }
             }
-            
+            // TODO add inverted color scheme for increase in value to be red and decrease to be green
+            // if (variables.config.edgetype.get(j).isInverted)
+            // DO
+            // else
             if (v > 0) {
                 return compareValueGreen(v, 0, variables.config.edgetype.get(j).max);
             }
@@ -313,7 +338,7 @@ public class Edge extends GraphObject{
      */
     public boolean addInfluence(Variables variables) {
         for (EdgeType edgetype : variables.config.edgetype) {
-            if (this.getEdgeInfluence().contains(edgetype.type)) {
+            if (this.getEdgeTooltip().contains(edgetype.type)) {
                 if (edgetype.collapse.equalsIgnoreCase("AVERAGE")) {
                     return false;
                 }

@@ -85,7 +85,7 @@ public class GuiFunctions {
 
             @Override
             public String transform(Object v) {
-                String font = "<html><font size=\"8\", font color=\"blue\">";
+                String font = "<html><font size=\"4\", font color=\"blue\">";
                 if (v instanceof Graph) {
                     boolean hasActivity = false;
 //                    boolean hasEntity = false;
