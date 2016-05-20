@@ -6,8 +6,6 @@ package br.uff.ic.provviewer.Vertex.ColorScheme;
 
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.Variables;
-import br.uff.ic.utility.graph.ActivityVertex;
-import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import java.awt.Color;
@@ -43,6 +41,8 @@ public abstract class ColorScheme {
         this.givenMin = null;
         this.limited = false;
         this.computedMinMax = false;
+        this.min = Double.POSITIVE_INFINITY;
+        this.max = Double.NEGATIVE_INFINITY;
     }
 
     /**
@@ -88,45 +88,55 @@ public abstract class ColorScheme {
     }
 
     public Paint GetMinMaxColor(Object v) {
-        if (!limited) {
-            return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.min, this.max);
-        } else {
-            if (this.givenMax == null) {
-                return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMin), this.max);
-            }
-            if (this.givenMin == null) {
-                return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.min, Double.parseDouble(this.givenMax));
+        if(!((Vertex) v).getAttributeValue(this.attribute).contentEquals("Unknown"))
+        {
+            if (!limited) {
+                return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.min, this.max);
             } else {
-                return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMin), Double.parseDouble(this.givenMax));
+                if (this.givenMax == null) {
+                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMin), this.max);
+                }
+                if (this.givenMin == null) {
+                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.min, Double.parseDouble(this.givenMax));
+                } else {
+                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMin), Double.parseDouble(this.givenMax));
+                }
             }
         }
+        return ((Vertex) v).getColor();
     }
 
     public Paint GetInvertedMinMaxColor(Object v) {
-        if (!limited) {
-            return this.CompareValue(((ActivityVertex) v).getAttributeValueFloat(this.attribute), this.max, this.min);
-        } else {
-            if (this.givenMax == null) {
-                return this.CompareValue(((ActivityVertex) v).getAttributeValueFloat(this.attribute), this.max, Double.parseDouble(this.givenMin));
-            }
-            if (this.givenMin == null) {
-                return this.CompareValue(((ActivityVertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMax), this.min);
+        if(!((Vertex) v).getAttributeValue(this.attribute).contentEquals("Unknown"))
+        {
+            if (!limited) {
+                return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.max, this.min);
             } else {
-                return this.CompareValue(((ActivityVertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMax), Double.parseDouble(this.givenMin));
+                if (this.givenMax == null) {
+                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.max, Double.parseDouble(this.givenMin));
+                }
+                if (this.givenMin == null) {
+                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMax), this.min);
+                } else {
+                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMax), Double.parseDouble(this.givenMin));
+                }
             }
         }
+        return ((Vertex) v).getColor();
     }
 
     public void ComputeValue(DirectedGraph<Object, Edge> graph, boolean isActivity) {
         if (!computedMinMax) {
             Collection<Object> nodes = graph.getVertices();
             for (Object node : nodes) {
-                if (node instanceof ActivityVertex && isActivity) {
-                    this.max = Math.max(this.max, ((ActivityVertex) node).getAttributeValueFloat(this.attribute));
-                    this.min = Math.min(this.min, ((ActivityVertex) node).getAttributeValueFloat(this.attribute));
-                } else if (node instanceof EntityVertex && !isActivity) {
-                    this.max = Math.max(this.max, ((EntityVertex) node).getAttributeValueFloat(this.attribute));
-                    this.min = Math.min(this.min, ((EntityVertex) node).getAttributeValueFloat(this.attribute));
+                if(!((Vertex) node).getAttributeValue(this.attribute).contentEquals("Unknown"))
+                {
+//                if (node instanceof ActivityVertex) {
+                    this.max = Math.max(this.max, ((Vertex) node).getAttributeValueFloat(this.attribute));
+                    this.min = Math.min(this.min, ((Vertex) node).getAttributeValueFloat(this.attribute));
+//                } else if (node instanceof EntityVertex) {
+//                    this.max = Math.max(this.max, ((EntityVertex) node).getAttributeValueFloat(this.attribute));
+//                    this.min = Math.min(this.min, ((EntityVertex) node).getAttributeValueFloat(this.attribute));
                 }
             }
             computedMinMax = true;
@@ -137,14 +147,14 @@ public abstract class ColorScheme {
         if (!computedMinMax) {
             Collection<Object> nodes = graph.getVertices();
             for (Object node : nodes) {
-                if (node instanceof ActivityVertex && isActivity) {
-                    if (((ActivityVertex) node).getAttributeValue(aRestriction).equalsIgnoreCase(aValue)) {
-                        this.max = Math.max(this.max, ((ActivityVertex) node).getAttributeValueFloat(this.attribute));
-                        this.min = Math.min(this.min, ((ActivityVertex) node).getAttributeValueFloat(this.attribute));
+                if(!((Vertex) node).getAttributeValue(this.attribute).contentEquals("Unknown")) {
+                    if (((Vertex) node).getAttributeValue(aRestriction).equalsIgnoreCase(aValue)) {
+                        this.max = Math.max(this.max, ((Vertex) node).getAttributeValueFloat(this.attribute));
+                        this.min = Math.min(this.min, ((Vertex) node).getAttributeValueFloat(this.attribute));
                     }
-                } else if (node instanceof EntityVertex && !isActivity) {
-                    this.max = Math.max(this.max, ((EntityVertex) node).getAttributeValueFloat(this.attribute));
-                    this.min = Math.min(this.min, ((EntityVertex) node).getAttributeValueFloat(this.attribute));
+//                } else if (node instanceof EntityVertex && !isActivity) {
+//                    this.max = Math.max(this.max, ((EntityVertex) node).getAttributeValueFloat(this.attribute));
+//                    this.min = Math.min(this.min, ((EntityVertex) node).getAttributeValueFloat(this.attribute));
                 }
             }
             computedMinMax = true;
