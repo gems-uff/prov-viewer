@@ -83,7 +83,7 @@ public class GuiTooltip {
             nodeTypes += "Entities: " + entities + "<br>";
         }
 
-        return "<b>Collapsed Vertex" + "</b>" + "<br>" + nodeTypes
+        return "<b>Summarized Vertex" + "</b>" + "<br>" + nodeTypes
                 + "<br>IDs: " + ids.values().toString() + "<br>"
                 + "<b>Labels: " + labels.values().toString() + "</b>"
                 + " <br>" + "Times: " + times.values().toString()
