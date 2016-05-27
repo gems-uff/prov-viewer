@@ -85,6 +85,21 @@ public abstract class ColorScheme {
     public Paint CompareValue(float value, double min, double max) {
         int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
         return new Color(Math.min(255, 510 - proportion), Math.min(255, proportion), 0);
+//        if(value > 0 && max > min)
+//            return compareValueGreen(value, min, max);
+//        else
+//            return compareValueRed(value, min, max);
+    }
+    
+    public Paint compareValueGreen(float value, double min, double max){
+        int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
+        proportion = Math.max(proportion, 0);
+        return new Color(0, Math.min(255, proportion), 0);
+    }
+    public Paint compareValueRed(float value, double min, double max){
+        int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
+        proportion = Math.min(proportion, 510);
+        return new Color(Math.min(255, 510 - proportion), 0, 0);
     }
 
     public Paint GetMinMaxColor(Object v) {
