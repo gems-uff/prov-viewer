@@ -88,6 +88,10 @@ public class GuiFunctions {
                 String font = "<html><font size=\"4\", font color=\"blue\">";
                 if (v instanceof Graph) {
                     boolean hasActivity = false;
+                    boolean hasAgent = false;
+                    String agentName = "";
+                    String activityName = "";
+                    String entityName = "";
 //                    boolean hasEntity = false;
                     for (Object vertex : ((Graph) v).getVertices()) {
                         if (vertex instanceof AgentVertex && agentLabel) {
@@ -95,13 +99,22 @@ public class GuiFunctions {
                         }
                         if (vertex instanceof ActivityVertex) {
                             hasActivity = true;
+                            activityName = ((Vertex)vertex).getLabel();
                         }
-//                        if (vertex instanceof EntityVertex) {
-//                            hasEntity = true;
-//                        }
+                        if (vertex instanceof AgentVertex) {
+                            hasAgent = true;
+                            agentName = ((Vertex)vertex).getLabel();
+                        }
+                        if (vertex instanceof EntityVertex) {
+                            entityName = ((Vertex)vertex).getLabel();
+                        }
                     }
+                    if(hasAgent && agentLabel)
+                        return font + agentName + " (Summarized)";
                     if(hasActivity && activityLabel)
-                        return font + "Collapsed Vertex";
+                        return font + activityName + " (Summarized)";
+                    if(entityLabel)
+                        return font + entityName + " (Summarized)";
                 }
                 // Agent
                 if (v instanceof AgentVertex && agentLabel) {
