@@ -13,6 +13,9 @@ and open the template in the editor.
     <!-- Configuration Type -->
     <xs:complexType name="configuration">
         <xs:sequence>
+            <!-- Define the vertex size in the graph. Default value is 15 -->
+            <xs:element name="vertexSize" type="xs:string"/>
+            <!-- The default layout used when loading the program -->
             <xs:element name="default_layout" type="xs:string"/>
             <!-- Spatial Layout X axis name -->
             <xs:element name="layoutAxis_X" type="xs:string"/>
@@ -56,6 +59,8 @@ and open the template in the editor.
             <xs:element name="edgestroke" type="xs:string"/>
             <!-- Collapse function used: True = multiplication; False = Add -->
             <xs:element name="collapsefunction" type="xs:string"/>
+            <!-- Define if the color scheme for the edge is inverted (Inverted: Red = positive values, Green = negative values) -->
+            <xs:element name="isInverted" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
       
@@ -72,6 +77,8 @@ and open the template in the editor.
         <xs:sequence>
             <xs:element name="attribute" type="xs:string"/>
             <xs:element name="class" type="xs:string"/>
+            <xs:element name="trafficLightType" type="xs:string"/>
+            <xs:element name="isInverted" type="xs:string"/>
             <xs:element name="values" type="stringlist"/>
             <xs:element name="goodvalue" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
             <xs:element name="badvalue" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
