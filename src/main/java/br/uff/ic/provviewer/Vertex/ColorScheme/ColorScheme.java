@@ -20,8 +20,8 @@ public abstract class ColorScheme {
 
     public String attribute;
     public String[] value;
-    public double max;
-    public double min;
+    public double max = Double.NEGATIVE_INFINITY;
+    public double min = Double.POSITIVE_INFINITY;
     public String givenMax;
     public String givenMin;
     public boolean limited;
@@ -82,39 +82,91 @@ public abstract class ColorScheme {
         return attribute;
     }
 
-    public Paint CompareValue(float value, double min, double max) {
-        int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
-        return new Color(Math.min(255, 510 - proportion), Math.min(255, proportion), 0);
-//        if(value > 0 && max > min)
-//            return compareValueGreen(value, min, max);
-//        else
-//            return compareValueRed(value, min, max);
+    public Paint CompareValue(float value, double min, double max, boolean inverted) {
+//        return trafficLight(value, min, max);
+        return splittedTrafficLight(value, min, max, inverted);
     }
     
-    public Paint compareValueGreen(float value, double min, double max){
+    public Paint trafficLight(float value, double min, double max) {
         int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
-        proportion = Math.max(proportion, 0);
-        return new Color(0, Math.min(255, proportion), 0);
+        return new Color(Math.min(255, 510 - proportion), Math.min(255, proportion), 0);
     }
-    public Paint compareValueRed(float value, double min, double max){
-        int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
-        proportion = Math.min(proportion, 510);
-        return new Color(Math.min(255, 510 - proportion), 0, 0);
+    
+    public Paint splittedTrafficLight(float value, double min, double max, boolean inverted){
+        // normalize the color between 0 and 1
+        float vPositive;
+        float vNegative;
+        
+        // Fix one of the extremes to be zero in order to always have white as zero
+        if(min > 0) {
+            min = 0;
+        }
+        if (max < 0) {
+            max = 0;
+        }
+        
+        if(min < 0 && max > 0) {
+            vNegative = (float) (Math.abs(value - min) / (float) Math.abs(0 - min));
+            vPositive = (float) (Math.abs(value - 0) / (float) Math.abs(max - 0));
+        }
+        else {
+            vPositive = (float) (Math.abs(value - min) / (float) Math.abs(max - min));
+            vNegative = vPositive;
+        }
+//        float v = (float) (Math.abs(value - min) / (float) Math.abs(max - min));
+//        System.out.println("Original value: " + value);
+//        System.out.println("vPositive: " + vPositive);  
+//        System.out.println("vNegative: " + vNegative); 
+//        System.out.println("min: " + min);  
+//        System.out.println("max: " + max); 
+//        if(value == 0)
+//            return new Color(255,255,255);
+        if(!inverted) {
+            if(value > 0)
+                return compareValueGreen(vPositive, min, max);
+            else
+                return compareValueRed(1 - vNegative, min, max);
+            }
+        else {
+            if(value >= 0)
+                return compareValueRed(vPositive, min, max);
+            else
+                return compareValueGreen(1 - vNegative, min, max);
+        }
+    }
+    
+    public Paint compareValueGreen(float value, double min, double max){       
+        int aR = 255;   int aG = 255; int aB=255;  // RGB for the lowest value.
+        int bR = 0; int bG = 255; int bB=0;    // RGB for the highest value.
+        
+        return gradientColor(aR, aG, aB, bR, bG, bB, value);
+    }
+    public Paint compareValueRed(float value, double min, double max){       
+        int aR = 255;   int aG = 255; int aB=255;  // RGB for the lowest value.
+        int bR = 255; int bG = 0; int bB=0;    // RGB for the highest value.
+        return gradientColor(aR, aG, aB, bR, bG, bB, value);
+    }
+    
+    private Paint gradientColor(int aR, int aG, int aB, int bR, int bG, int bB, float v) {
+        int red   = (int) ((float)(bR - aR) * v + aR);      // Evaluated as -255*value + 255.
+        int green = (int) ((float)(bG - aG) * v + aG);      // Evaluates as 0.
+        int blue  = (int) ((float)(bB - aB) * v + aB);      // Evaluates as 255*value + 0.
+        return new Color(red, green, blue);
     }
 
     public Paint GetMinMaxColor(Object v) {
         if(!((Vertex) v).getAttributeValue(this.attribute).contentEquals("Unknown"))
         {
             if (!limited) {
-                return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.min, this.max);
+                return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.min, this.max, false);
             } else {
                 if (this.givenMax == null) {
-                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMin), this.max);
+                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMin), this.max, false);
                 }
                 if (this.givenMin == null) {
-                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.min, Double.parseDouble(this.givenMax));
+                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.min, Double.parseDouble(this.givenMax), false);
                 } else {
-                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMin), Double.parseDouble(this.givenMax));
+                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMin), Double.parseDouble(this.givenMax), false);
                 }
             }
         }
@@ -124,16 +176,28 @@ public abstract class ColorScheme {
     public Paint GetInvertedMinMaxColor(Object v) {
         if(!((Vertex) v).getAttributeValue(this.attribute).contentEquals("Unknown"))
         {
+//            if (!limited) {
+//                return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.max, this.min);
+//            } else {
+//                if (this.givenMax == null) {
+//                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.max, Double.parseDouble(this.givenMin));
+//                }
+//                if (this.givenMin == null) {
+//                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMax), this.min);
+//                } else {
+//                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMax), Double.parseDouble(this.givenMin));
+//                }
+//            }
             if (!limited) {
-                return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.max, this.min);
+                return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.min, this.max, true);
             } else {
                 if (this.givenMax == null) {
-                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.max, Double.parseDouble(this.givenMin));
+                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMin), this.max, true);
                 }
                 if (this.givenMin == null) {
-                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMax), this.min);
+                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.min, Double.parseDouble(this.givenMax), true);
                 } else {
-                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMax), Double.parseDouble(this.givenMin));
+                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMin), Double.parseDouble(this.givenMax), true);
                 }
             }
         }
@@ -146,12 +210,8 @@ public abstract class ColorScheme {
             for (Object node : nodes) {
                 if(!((Vertex) node).getAttributeValue(this.attribute).contentEquals("Unknown"))
                 {
-//                if (node instanceof ActivityVertex) {
                     this.max = Math.max(this.max, ((Vertex) node).getAttributeValueFloat(this.attribute));
                     this.min = Math.min(this.min, ((Vertex) node).getAttributeValueFloat(this.attribute));
-//                } else if (node instanceof EntityVertex) {
-//                    this.max = Math.max(this.max, ((EntityVertex) node).getAttributeValueFloat(this.attribute));
-//                    this.min = Math.min(this.min, ((EntityVertex) node).getAttributeValueFloat(this.attribute));
                 }
             }
             computedMinMax = true;
@@ -167,9 +227,6 @@ public abstract class ColorScheme {
                         this.max = Math.max(this.max, ((Vertex) node).getAttributeValueFloat(this.attribute));
                         this.min = Math.min(this.min, ((Vertex) node).getAttributeValueFloat(this.attribute));
                     }
-//                } else if (node instanceof EntityVertex && !isActivity) {
-//                    this.max = Math.max(this.max, ((EntityVertex) node).getAttributeValueFloat(this.attribute));
-//                    this.min = Math.min(this.min, ((EntityVertex) node).getAttributeValueFloat(this.attribute));
                 }
             }
             computedMinMax = true;
