@@ -92,10 +92,15 @@ public abstract class ColorScheme {
         if (isZeroWhite)
             return splittedTrafficLight(value, min, max, inverted);
         else
-            return trafficLight(value, min, max);
+            return trafficLight(value, min, max, inverted);
     }
     
-    public Paint trafficLight(float value, double min, double max) {
+    public Paint trafficLight(float value, double min, double max, boolean inverted) {
+        if(inverted){
+            double aux = min;
+            min = max;
+            max = aux;
+        }
         int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
         return new Color(Math.min(255, 510 - proportion), Math.min(255, proportion), 0);
     }
