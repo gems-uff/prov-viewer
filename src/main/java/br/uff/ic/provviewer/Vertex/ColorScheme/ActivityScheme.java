@@ -15,8 +15,8 @@ import java.awt.Paint;
  */
 public class ActivityScheme extends ColorScheme {
 
-    public ActivityScheme(String attribute, String empty, String g, String y, boolean l) {
-        super(attribute, empty, g, y, l);
+    public ActivityScheme(boolean isZeroWhite, boolean isInverted, String attribute, String empty, String g, String y, boolean l) {
+        super(isZeroWhite, isInverted, attribute, empty, g, y, l);
     }
 
     @Override
@@ -24,7 +24,7 @@ public class ActivityScheme extends ColorScheme {
         
         ComputeValue(variables.graph, true);
         if (v instanceof ActivityVertex) {
-            return this.GetMinMaxColor(v, false);
+            return this.GetMinMaxColor(v);
         }
         return ((Vertex) v).getColor();
     }

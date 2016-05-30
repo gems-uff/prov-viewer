@@ -15,8 +15,8 @@ import java.awt.Paint;
  */
 public class EntityScheme extends ColorScheme {
     
-    public EntityScheme(String attribute, String empty, String g, String y, boolean l) {
-        super(attribute, empty, g, y, l);
+    public EntityScheme(boolean isZeroWhite, boolean isInverted, String attribute, String empty, String g, String y, boolean l) {
+        super(isZeroWhite, isInverted, attribute, empty, g, y, l);
     }
 
     @Override
@@ -24,7 +24,7 @@ public class EntityScheme extends ColorScheme {
         
         ComputeValue(variables.graph, false);
         if (v instanceof EntityVertex) {
-            return this.GetMinMaxColor(v, false);
+            return this.GetMinMaxColor(v);
         }
         return ((Vertex) v).getColor();
     }

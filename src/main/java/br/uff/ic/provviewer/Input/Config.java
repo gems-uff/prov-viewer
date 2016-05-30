@@ -38,6 +38,8 @@ import org.w3c.dom.NodeList;
  * @author Kohwalter
  */
 public class Config {
+    
+    public int vertexSize = 15;
 
     //Filter List
     public List<EdgeType> edgetype = new ArrayList<>();
@@ -197,9 +199,13 @@ public class Config {
             Document doc = dBuilder.parse(fXmlFile);
 
             doc.getDocumentElement().normalize();
+            NodeList nList = doc.getElementsByTagName("vertexSize");
+            if (nList != null && nList.getLength() > 0) {
+                vertexSize = Integer.parseInt(nList.item(0).getTextContent());
+            }
 
             //Temporal Layout Backbone
-            NodeList nList = doc.getElementsByTagName("temporalLayoutbackbone");
+            nList = doc.getElementsByTagName("temporalLayoutbackbone");
             layoutSpecialVertexType = nList.item(0).getTextContent();
             
             // To avoid empty backbone
@@ -274,6 +280,8 @@ public class Config {
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
                     String attribute = eElement.getElementsByTagName("attribute").item(0).getTextContent();
+                    boolean isInverted = false;
+                    boolean isZeroWhite = false;
                     String values = "empty";
                     String maxvalue = null;
                     String minvalue = null;
@@ -281,8 +289,21 @@ public class Config {
                     String restrictedValue = null;
                     boolean limited = false;
                     boolean restricted = false;
-                    if (!eElement.getElementsByTagName("values").item(0).getTextContent().isEmpty()) {
-                        values = eElement.getElementsByTagName("values").item(0).getTextContent();
+                    if(eElement.getElementsByTagName("trafficLightType") != null && eElement.getElementsByTagName("trafficLightType").getLength() > 0) {
+                        if (!eElement.getElementsByTagName("trafficLightType").item(0).getTextContent().isEmpty()) {
+                            if(eElement.getElementsByTagName("trafficLightType").item(0).getTextContent().equalsIgnoreCase("type2"))
+                                isZeroWhite = true;
+                        }
+                    }
+                    if(eElement.getElementsByTagName("isInverted") != null && eElement.getElementsByTagName("trafficLightType").getLength() > 0) {
+                        if (!eElement.getElementsByTagName("isInverted").item(0).getTextContent().isEmpty()) {
+                            isInverted = Boolean.parseBoolean(eElement.getElementsByTagName("isInverted").item(0).getTextContent());
+                        }
+                    }
+                    if(eElement.getElementsByTagName("values") != null && eElement.getElementsByTagName("values").getLength() > 0) {
+                        if (!eElement.getElementsByTagName("values").item(0).getTextContent().isEmpty()) {
+                            values = eElement.getElementsByTagName("values").item(0).getTextContent();
+                        }
                     }
                     NodeList goodattribute = eElement.getElementsByTagName("goodvalue");
                     if (goodattribute != null && goodattribute.getLength() > 0) {
@@ -315,12 +336,12 @@ public class Config {
 
                     Class cl = Class.forName("br.uff.ic.provviewer.Vertex.ColorScheme." + eElement.getElementsByTagName("class").item(0).getTextContent());
                     if (restricted) {
-                        Constructor con = cl.getConstructor(String.class, String.class, String.class, String.class, boolean.class, String.class, String.class);
-                        ColorScheme attMode = (ColorScheme) con.newInstance(attribute, values, maxvalue, minvalue, limited, restrictedAttribute, restrictedValue);
+                        Constructor con = cl.getConstructor(boolean.class, boolean.class,String.class, String.class, String.class, String.class, boolean.class, String.class, String.class);
+                        ColorScheme attMode = (ColorScheme) con.newInstance(isZeroWhite, isInverted, attribute, values, maxvalue, minvalue, limited, restrictedAttribute, restrictedValue);
                         vertexModes.add(attMode);
                     } else {
-                        Constructor con = cl.getConstructor(String.class, String.class, String.class, String.class, boolean.class);
-                        ColorScheme attMode = (ColorScheme) con.newInstance(attribute, values, maxvalue, minvalue, limited);
+                        Constructor con = cl.getConstructor(boolean.class, boolean.class, String.class, String.class, String.class, String.class, boolean.class);
+                        ColorScheme attMode = (ColorScheme) con.newInstance(isZeroWhite, isInverted, attribute, values, maxvalue, minvalue, limited);
                         vertexModes.add(attMode);
                     }
 

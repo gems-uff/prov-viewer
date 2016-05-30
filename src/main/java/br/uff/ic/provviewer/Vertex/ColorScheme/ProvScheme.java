@@ -19,8 +19,8 @@ public class ProvScheme extends ColorScheme {
         super(attribute);
     }
 
-    public ProvScheme(String attribute, String empty, String g, String y, boolean l) {
-        super(attribute, empty, g, y, l);
+    public ProvScheme(boolean isZeroWhite, boolean isInverted, String attribute, String empty, String g, String y, boolean l) {
+        super(false, false, attribute, empty, g, y, l);
     }
 
     @Override

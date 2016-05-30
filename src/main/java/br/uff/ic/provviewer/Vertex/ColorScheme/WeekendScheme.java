@@ -16,8 +16,8 @@ import java.awt.Paint;
 public class WeekendScheme extends ColorScheme {
 
     
-    public WeekendScheme(String attribute, String days, String g, String y, boolean l) {
-        super(attribute, days, g, y, l);
+    public WeekendScheme(boolean isZeroWhite, boolean isInverted, String attribute, String days, String g, String y, boolean l) {
+        super(false, false, attribute, days, g, y, l);
     }
 
     @Override

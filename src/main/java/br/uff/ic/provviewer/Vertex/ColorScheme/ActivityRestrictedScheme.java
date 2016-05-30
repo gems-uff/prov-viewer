@@ -15,8 +15,8 @@ import java.awt.Paint;
  */
 public class ActivityRestrictedScheme extends ColorScheme {
 
-    public ActivityRestrictedScheme(String attribute, String empty, String g, String y, boolean l, String aR, String aV) {
-        super(attribute, empty, g, y, l, aR, aV);
+    public ActivityRestrictedScheme(boolean isZeroWhite, boolean isInverted, String attribute, String empty, String g, String y, boolean l, String aR, String aV) {
+        super(isZeroWhite, isInverted, attribute, empty, g, y, l, aR, aV);
     }
     
     @Override
@@ -29,7 +29,7 @@ public class ActivityRestrictedScheme extends ColorScheme {
         
         ComputeRestrictedValue(variables.graph, true, this.restrictedAttribute, this.restrictedValue);
         if ((v instanceof ActivityVertex) && ((ActivityVertex) v).getAttributeValue(this.restrictedAttribute).equalsIgnoreCase(this.restrictedValue)) {
-            return this.GetMinMaxColor(v, false);
+            return this.GetMinMaxColor(v);
         }
         return ((Vertex) v).getColor();
     }

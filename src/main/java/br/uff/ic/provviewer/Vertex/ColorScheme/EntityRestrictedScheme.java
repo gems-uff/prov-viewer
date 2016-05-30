@@ -15,8 +15,8 @@ import java.awt.Paint;
  */
 public class EntityRestrictedScheme extends ColorScheme {
     
-    public EntityRestrictedScheme(String attribute, String empty, String g, String y, boolean l) {
-        super(attribute, empty, g, y, l);
+    public EntityRestrictedScheme(boolean isZeroWhite, boolean isInverted, String attribute, String empty, String g, String y, boolean l) {
+        super(isZeroWhite, isInverted, attribute, empty, g, y, l);
     }
 
     @Override
@@ -24,7 +24,7 @@ public class EntityRestrictedScheme extends ColorScheme {
         
         ComputeRestrictedValue(variables.graph, true, this.restrictedAttribute, this.restrictedValue);
         if ((v instanceof EntityVertex) && ((EntityVertex) v).getAttributeValue(this.restrictedAttribute).equalsIgnoreCase(this.restrictedValue)) {
-            return this.GetMinMaxColor(v, false);
+            return this.GetMinMaxColor(v);
         }
         return ((Vertex) v).getColor();
     }

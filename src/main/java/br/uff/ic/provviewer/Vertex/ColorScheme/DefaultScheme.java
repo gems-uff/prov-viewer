@@ -19,8 +19,8 @@ public class DefaultScheme extends ColorScheme {
         super(attribute);
     }
 
-    public DefaultScheme(String attribute, String empty, String g, String y, boolean l) {
-        super(attribute, empty, g, y, l);
+    public DefaultScheme(boolean isZeroWhite, boolean isInverted, String attribute, String empty, String g, String y, boolean l) {
+        super(isZeroWhite, isInverted, attribute, empty, g, y, l);
     }
 
     @Override

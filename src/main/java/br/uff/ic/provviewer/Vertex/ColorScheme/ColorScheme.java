@@ -28,6 +28,8 @@ public abstract class ColorScheme {
     private boolean computedMinMax;
     public String restrictedAttribute;
     public String restrictedValue;
+    private boolean isZeroWhite = true;
+    private boolean isInverted = false;
 
     /**
      * This constructor is used by the Default color scheme
@@ -58,16 +60,18 @@ public abstract class ColorScheme {
      * @param min
      * @param limited
      */
-    public ColorScheme(String attribute, String value, String max, String min, boolean limited) {
+    public ColorScheme(boolean isWhite, boolean isInverted, String attribute, String value, String max, String min, boolean limited) {
         this.attribute = attribute;
         this.value = value.split(" ");
         this.givenMax = max;
         this.givenMin = min;
         this.limited = limited;
         this.computedMinMax = false;
+        this.isZeroWhite = isWhite;
+        this.isInverted = isInverted;
     }
 
-    public ColorScheme(String attribute, String value, String max, String min, boolean limited, String rA, String rV) {
+    public ColorScheme(boolean isWhite, boolean isInverted, String attribute, String value, String max, String min, boolean limited, String rA, String rV) {
         this.attribute = attribute;
         this.value = value.split(" ");
         this.givenMax = max;
@@ -76,6 +80,8 @@ public abstract class ColorScheme {
         this.computedMinMax = false;
         this.restrictedAttribute = rA;
         this.restrictedValue = rV;
+        this.isZeroWhite = isWhite;
+        this.isInverted = isInverted;
     }
 
     public String GetName() {
@@ -83,8 +89,10 @@ public abstract class ColorScheme {
     }
 
     public Paint CompareValue(float value, double min, double max, boolean inverted) {
-//        return trafficLight(value, min, max);
-        return splittedTrafficLight(value, min, max, inverted);
+        if (isZeroWhite)
+            return splittedTrafficLight(value, min, max, inverted);
+        else
+            return trafficLight(value, min, max);
     }
     
     public Paint trafficLight(float value, double min, double max) {
@@ -154,7 +162,7 @@ public abstract class ColorScheme {
         return new Color(red, green, blue);
     }
 
-    public Paint GetMinMaxColor(Object v, boolean isInverted) {
+    public Paint GetMinMaxColor(Object v) {
         if(!((Vertex) v).getAttributeValue(this.attribute).contentEquals("Unknown"))
         {
             if (!limited) {
