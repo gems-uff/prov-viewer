@@ -249,7 +249,11 @@ public class Config {
                     etype.type = eElement.getElementsByTagName("edge").item(0).getTextContent();
                     etype.stroke = eElement.getElementsByTagName("edgestroke").item(0).getTextContent();
                     etype.collapse = eElement.getElementsByTagName("collapsefunction").item(0).getTextContent();
-                    edgetype.add(etype);
+                    if (eElement.getElementsByTagName("isInverted") != null && eElement.getElementsByTagName("isInverted").getLength() > 0) {
+                        if (!eElement.getElementsByTagName("isInverted").item(0).getTextContent().isEmpty())
+                            etype.isInverted = Boolean.parseBoolean(eElement.getElementsByTagName("isInverted").item(0).getTextContent()); 
+                    }
+                        edgetype.add(etype);
                 }
             }
             //Vertex Stroke Types

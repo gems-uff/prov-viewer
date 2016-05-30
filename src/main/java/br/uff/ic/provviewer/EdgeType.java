@@ -16,6 +16,7 @@ public class EdgeType {
     public float min;
     public int count;
     public float total;
+    public boolean isInverted;
     
     /**
      * Empty constructor
@@ -28,6 +29,7 @@ public class EdgeType {
         this.min = (float) Double.POSITIVE_INFINITY;
         this.count = 0;
         this.total = 0;
+        this.isInverted = false;
     }
     
     /**
@@ -40,6 +42,14 @@ public class EdgeType {
         this.type = type;
         this.stroke = stroke;
         this.collapse = collapse;
+        this.isInverted = false;
+    }
+    
+    public EdgeType(String type, String stroke, String collapse, boolean isInverted){
+        this.type = type;
+        this.stroke = stroke;
+        this.collapse = collapse;
+        this.isInverted = isInverted;
     }
     
 }
