@@ -71,20 +71,20 @@ and open the template in the editor.
     <colorscheme>
         <attribute>CurrentGear</attribute>
         <class>ActivityScheme</class>
-        <values></values>
-        <goodvalue></goodvalue>
-        <badvalue></badvalue>
+		<trafficLightType>type2</trafficLightType>
+		<isInverted>false</isInverted>
     </colorscheme>
 	<colorscheme>
         <attribute>Speed</attribute>
         <class>ActivityScheme</class>
-        <values></values>
-        <goodvalue></goodvalue>
-        <badvalue></badvalue>
+		<trafficLightType>type2</trafficLightType>
+		<isInverted>false</isInverted>
     </colorscheme>
 	<colorscheme>
         <attribute>TurnRate</attribute>
         <class>ActivityScheme</class>
+		<trafficLightType>type2</trafficLightType>
+		<isInverted>false</isInverted>
         <values></values>
         <goodvalue>15</goodvalue>
         <badvalue>10</badvalue>
@@ -92,44 +92,38 @@ and open the template in the editor.
 	<colorscheme>
         <attribute>CurrentEnginePower</attribute>
         <class>ActivityScheme</class>
-        <values></values>
-        <goodvalue></goodvalue>
-        <badvalue></badvalue>
+		<trafficLightType>type2</trafficLightType>
+		<isInverted>false</isInverted>
     </colorscheme>
 	<colorscheme>
         <attribute>Throttle</attribute>
         <class>ActivityScheme</class>
-        <values></values>
-        <goodvalue></goodvalue>
-        <badvalue></badvalue>
+		<trafficLightType>type2</trafficLightType>
+		<isInverted>false</isInverted>
     </colorscheme>
 	<colorscheme>
         <attribute>DeltaTime</attribute>
-        <class>ActivityInvertedScheme</class>
-        <values></values>
-        <goodvalue></goodvalue>
-        <badvalue></badvalue>
+        <class>ActivityScheme</class>
+		<trafficLightType>type2</trafficLightType>
+		<isInverted>true</isInverted>
     </colorscheme>
 	<colorscheme>
         <attribute>VelocityVector</attribute>
         <class>ActivityVectorScheme</class>
-        <values></values>
-        <goodvalue></goodvalue>
-        <badvalue></badvalue>
+		<trafficLightType>type2</trafficLightType>
+		<isInverted>false</isInverted>
     </colorscheme>
 	<colorscheme>
         <attribute>AngularVelocity</attribute>
         <class>ActivityVectorScheme</class>
-        <values></values>
-        <goodvalue></goodvalue>
-        <badvalue></badvalue>
+		<trafficLightType>type2</trafficLightType>
+		<isInverted>false</isInverted>
     </colorscheme>
 	<colorscheme>
         <attribute>DragVector</attribute>
         <class>ActivityVectorScheme</class>
-        <values></values>
-        <goodvalue></goodvalue>
-        <badvalue></badvalue>
+		<trafficLightType>type2</trafficLightType>
+		<isInverted>false</isInverted>
     </colorscheme>
 	<activitycolor>
         <attribute>Label</attribute>

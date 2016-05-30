@@ -104,7 +104,8 @@ and open the template in the editor.
     </colorscheme>
     <colorscheme>
         <attribute>Hours</attribute>
-        <class>ActivityInvertedScheme</class>
+        <class>ActivityScheme</class>
+		<isInverted>true</isInverted>
         <values></values>
         <goodvalue>16</goodvalue>
         <badvalue>0</badvalue>
