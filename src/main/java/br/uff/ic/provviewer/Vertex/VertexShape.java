@@ -21,6 +21,11 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
         setSizeTransformer(new VertexSize<V>(defaultSize));
     }
 
+    public VertexShape(int vertexSize) {
+        defaultSize = vertexSize;
+        setSizeTransformer(new VertexSize<V>(vertexSize));
+    }
+
     /**
      * Create the vertex shape using VertexShapeFactory<V> factory;
      *
