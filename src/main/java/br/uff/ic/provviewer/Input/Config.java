@@ -295,7 +295,7 @@ public class Config {
                                 isZeroWhite = true;
                         }
                     }
-                    if(eElement.getElementsByTagName("isInverted") != null && eElement.getElementsByTagName("trafficLightType").getLength() > 0) {
+                    if(eElement.getElementsByTagName("isInverted") != null && eElement.getElementsByTagName("isInverted").getLength() > 0) {
                         if (!eElement.getElementsByTagName("isInverted").item(0).getTextContent().isEmpty()) {
                             isInverted = Boolean.parseBoolean(eElement.getElementsByTagName("isInverted").item(0).getTextContent());
                         }
