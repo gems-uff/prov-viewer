@@ -174,12 +174,12 @@ public abstract class Vertex extends GraphObject {
      */
     public float getAttributeValueFloat(String attribute) {
         if(attributes.get(attribute) == null)
-            return 0;
+            return Float.NaN;
         if(Utils.tryParseFloat(attributes.get(attribute).getAverageValue())) {
             return Float.parseFloat(attributes.get(attribute).getAverageValue());
         }
         else {
-            return 0;
+            return Float.NaN;
         }
     }
     
