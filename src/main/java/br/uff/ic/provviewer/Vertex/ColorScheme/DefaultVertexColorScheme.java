@@ -25,7 +25,7 @@ public class DefaultVertexColorScheme extends ColorScheme {
         
         ComputeValue(variables.graph, true);
         if (v instanceof ActivityVertex || v instanceof EntityVertex) {
-            return this.GetMinMaxColor(v);
+            return this.GetMinMaxColor(v, false);
         }
         return ((Vertex) v).getColor();
     }

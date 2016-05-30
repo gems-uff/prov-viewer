@@ -24,7 +24,7 @@ public class ActivityScheme extends ColorScheme {
         
         ComputeValue(variables.graph, true);
         if (v instanceof ActivityVertex) {
-            return this.GetMinMaxColor(v);
+            return this.GetMinMaxColor(v, false);
         }
         return ((Vertex) v).getColor();
     }

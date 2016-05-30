@@ -24,7 +24,7 @@ public class ActivityInvertedScheme extends ColorScheme {
 
         ComputeValue(variables.graph, true);
         if (v instanceof ActivityVertex) {
-            return this.GetInvertedMinMaxColor(v);
+            return this.GetMinMaxColor(v, true);
         }
         return ((Vertex) v).getColor();
     }

@@ -29,7 +29,7 @@ public class ActivityRestrictedScheme extends ColorScheme {
         
         ComputeRestrictedValue(variables.graph, true, this.restrictedAttribute, this.restrictedValue);
         if ((v instanceof ActivityVertex) && ((ActivityVertex) v).getAttributeValue(this.restrictedAttribute).equalsIgnoreCase(this.restrictedValue)) {
-            return this.GetMinMaxColor(v);
+            return this.GetMinMaxColor(v, false);
         }
         return ((Vertex) v).getColor();
     }

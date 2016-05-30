@@ -29,7 +29,7 @@ public class ActivityInvertedRestrictedScheme extends ColorScheme {
         
         ComputeRestrictedValue(variables.graph, true, this.restrictedAttribute, this.restrictedValue);
         if ((v instanceof ActivityVertex) && ((ActivityVertex) v).getAttributeValue(this.restrictedAttribute).equalsIgnoreCase(this.restrictedValue)) {
-            return this.GetInvertedMinMaxColor(v);
+            return this.GetMinMaxColor(v, true);
         }
         return ((Vertex) v).getColor();
     }

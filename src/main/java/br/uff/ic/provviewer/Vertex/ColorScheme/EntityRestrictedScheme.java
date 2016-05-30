@@ -24,7 +24,7 @@ public class EntityRestrictedScheme extends ColorScheme {
         
         ComputeRestrictedValue(variables.graph, true, this.restrictedAttribute, this.restrictedValue);
         if ((v instanceof EntityVertex) && ((EntityVertex) v).getAttributeValue(this.restrictedAttribute).equalsIgnoreCase(this.restrictedValue)) {
-            return this.GetMinMaxColor(v);
+            return this.GetMinMaxColor(v, false);
         }
         return ((Vertex) v).getColor();
     }

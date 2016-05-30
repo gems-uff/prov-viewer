@@ -24,7 +24,7 @@ public class EntityScheme extends ColorScheme {
         
         ComputeValue(variables.graph, false);
         if (v instanceof EntityVertex) {
-            return this.GetMinMaxColor(v);
+            return this.GetMinMaxColor(v, false);
         }
         return ((Vertex) v).getColor();
     }

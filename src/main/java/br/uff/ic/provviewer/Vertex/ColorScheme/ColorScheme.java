@@ -154,55 +154,43 @@ public abstract class ColorScheme {
         return new Color(red, green, blue);
     }
 
-    public Paint GetMinMaxColor(Object v) {
+    public Paint GetMinMaxColor(Object v, boolean isInverted) {
         if(!((Vertex) v).getAttributeValue(this.attribute).contentEquals("Unknown"))
         {
             if (!limited) {
-                return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.min, this.max, false);
+                return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.min, this.max, isInverted);
             } else {
                 if (this.givenMax == null) {
-                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMin), this.max, false);
+                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMin), this.max, isInverted);
                 }
                 if (this.givenMin == null) {
-                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.min, Double.parseDouble(this.givenMax), false);
+                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.min, Double.parseDouble(this.givenMax), isInverted);
                 } else {
-                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMin), Double.parseDouble(this.givenMax), false);
+                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMin), Double.parseDouble(this.givenMax), isInverted);
                 }
             }
         }
         return ((Vertex) v).getColor();
     }
 
-    public Paint GetInvertedMinMaxColor(Object v) {
-        if(!((Vertex) v).getAttributeValue(this.attribute).contentEquals("Unknown"))
-        {
+//    public Paint GetInvertedMinMaxColor(Object v) {
+//        if(!((Vertex) v).getAttributeValue(this.attribute).contentEquals("Unknown"))
+//        {
 //            if (!limited) {
-//                return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.max, this.min);
+//                return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.min, this.max, true);
 //            } else {
 //                if (this.givenMax == null) {
-//                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.max, Double.parseDouble(this.givenMin));
+//                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMin), this.max, true);
 //                }
 //                if (this.givenMin == null) {
-//                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMax), this.min);
+//                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.min, Double.parseDouble(this.givenMax), true);
 //                } else {
-//                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMax), Double.parseDouble(this.givenMin));
+//                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMin), Double.parseDouble(this.givenMax), true);
 //                }
 //            }
-            if (!limited) {
-                return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.min, this.max, true);
-            } else {
-                if (this.givenMax == null) {
-                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMin), this.max, true);
-                }
-                if (this.givenMin == null) {
-                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.min, Double.parseDouble(this.givenMax), true);
-                } else {
-                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMin), Double.parseDouble(this.givenMax), true);
-                }
-            }
-        }
-        return ((Vertex) v).getColor();
-    }
+//        }
+//        return ((Vertex) v).getColor();
+//    }
 
     public void ComputeValue(DirectedGraph<Object, Edge> graph, boolean isActivity) {
         if (!computedMinMax) {

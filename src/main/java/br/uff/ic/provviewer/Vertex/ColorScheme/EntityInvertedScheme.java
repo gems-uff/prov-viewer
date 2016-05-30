@@ -24,7 +24,7 @@ public class EntityInvertedScheme extends ColorScheme {
 
         ComputeValue(variables.graph, false);
         if (v instanceof EntityVertex) {
-            return this.GetInvertedMinMaxColor(v);
+            return this.GetMinMaxColor(v, true);
         }
         return ((Vertex) v).getColor();
     }
