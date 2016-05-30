@@ -44,7 +44,7 @@ public class GuiFunctions {
      * @param variables
      */
     public static void VertexShape(Variables variables) {
-        variables.view.getRenderContext().setVertexShapeTransformer(new VertexShape());
+        variables.view.getRenderContext().setVertexShapeTransformer(new VertexShape(variables.config.vertexSize));
     }
 
     /**
