@@ -14,7 +14,7 @@ import java.util.Map;
  *
  * @author Kohwalter
  */
-public class Edge extends GraphObject{
+public class Edge extends GraphObject {
 
     private String id;
     private Object source;
@@ -26,9 +26,10 @@ public class Edge extends GraphObject{
     private boolean hide;
     //used to say this edge is a temporary one
     private boolean collapsed;
-    
+
     /**
      * Constructor
+     *
      * @param id
      * @param influence
      * @param type
@@ -36,9 +37,9 @@ public class Edge extends GraphObject{
      * @param label
      * @param attributes
      * @param target
-     * @param source 
+     * @param source
      */
-    public Edge(String id, String influence, String type, String value, 
+    public Edge(String id, String influence, String type, String value,
             String label, Map<String, GraphAttribute> attributes, Object target, Object source) {
         this.id = id;
         this.source = source;
@@ -56,15 +57,16 @@ public class Edge extends GraphObject{
         collapsed = false;
         this.attributes.putAll(attributes);
     }
-    
+
     /**
      * Constructor without extra attributes
+     *
      * @param id
      * @param type
      * @param value
      * @param label
      * @param target
-     * @param source 
+     * @param source
      */
     public Edge(String id, String type, String label, String value, Object target, Object source) {
         this.id = id;
@@ -80,11 +82,13 @@ public class Edge extends GraphObject{
         setLabel(label);
         hide = false;
         collapsed = false;
-        this.attributes  = new HashMap<>();
+        this.attributes = new HashMap<>();
     }
-    
+
     /**
-     * Constructor without influence value, label, type (type=influence) and no extra attribute
+     * Constructor without influence value, label, type (type=influence) and no
+     * extra attribute
+     *
      * @param id Edge's ID
      * @deprecated Used only on outdated TSVReader
      * @param target Vertex target
@@ -104,21 +108,22 @@ public class Edge extends GraphObject{
         this.type = getLabel();
         hide = false;
         collapsed = false;
-        this.attributes  = new HashMap<>();
+        this.attributes = new HashMap<>();
     }
 
     /**
      * Return Edge id
-     * @return 
+     *
+     * @return
      */
     public String getID() {
         return id;
     }
-    
+
     public void setID(String t) {
         id = t;
     }
-    
+
     /**
      * Method to get the edge source
      *
@@ -131,7 +136,7 @@ public class Edge extends GraphObject{
     public void setSource(Object t) {
         source = t;
     }
-    
+
     /**
      * Method to get the edge target
      *
@@ -140,32 +145,30 @@ public class Edge extends GraphObject{
     public Object getTarget() {
         return target;
     }
-    
+
     public void setTarget(Object t) {
         target = t;
     }
-    
+
     /**
-     * Method for returning the edge value 
+     * Method for returning the edge value
      *
      * @return (float) edge influence value
      */
     public float getValue() {
-        if(Utils.tryParseFloat(this.value)) {
+        if (Utils.tryParseFloat(this.value)) {
             return Float.parseFloat(this.value);
-        }
-        else if(Utils.tryParseFloat(this.value.split(" ")[0])) {
+        } else if (Utils.tryParseFloat(this.value.split(" ")[0])) {
             return Float.parseFloat(this.value.split(" ")[0]);
-        }
-        else {
+        } else {
             return 0;
         }
     }
-    
-    public void setValue(String t)
-    {
+
+    public void setValue(String t) {
         this.value = t;
     }
+
     /**
      * Method for returning the edge type
      *
@@ -182,32 +185,29 @@ public class Edge extends GraphObject{
      */
     public String getEdgeTooltip() {
         String atts = "";
-        if(!this.attributes.values().isEmpty())
-        {
+        if (!this.attributes.values().isEmpty()) {
             atts = "<br>" + this.printAttributes();
         }
-        
+
         String v = this.value;
         String l = getLabel();
         String t = "(" + this.type + ")";
-        
-        if("0".equals(this.value))
+
+        if ("0".equals(this.value)) {
             v = "";
-        if("".equals(getLabel()))
-        {
+        }
+        if ("".equals(getLabel())) {
             l = "";
             t = this.type;
         }
-        if(getLabel().contentEquals(this.type))
-        {
+        if (getLabel().contentEquals(this.type)) {
             l = "";
             t = this.type;
         }
         return v + " " + l + " " + t + " " + atts;
-        
+
 //        return v + " " + getLabel() + " (" + this.type + ")" + atts;
     }
-    
 
     /**
      * Method to check if the edge is hidden (due to collapses)
@@ -265,23 +265,25 @@ public class Edge extends GraphObject{
      */
     @Override
     public String toString() {
-        String font = "<html><font size=\"4\", font color=\"blue\">";
-        if(getLabel().isEmpty())
+        String font = "<html><font size=\"3\", font color=\"blue\">";
+        if (getLabel().isEmpty()) {
             return font + this.type;
-        else if(getLabel().equals(this.type))
+        } else if (getLabel().equals(this.type)) {
             return font + this.type;
-        else
+        } else {
             return font + this.type + " (" + getLabel() + ")";
+        }
     }
 
     /**
      * Method to get the edge color (red, black, or green), defined by value
+     *
      * @param variables
      * @return
      */
     public Paint getColor(Variables variables) {
         float v = getValue();
-        
+
 //        if(this.label.equalsIgnoreCase("Neutral"))
 //        {
 //            if(((Vertex)this.source).getDate() < 85)
@@ -293,10 +295,8 @@ public class Edge extends GraphObject{
 //        }     
         // Return blue if neutral edge (value = 0)
         if (v == 0) {
-            return new Color(0, 255, 255);
-        }
-        else
-        {
+            return new Color(0, 0, 0);
+        } else {
             int j = 0;
             for (int i = 0; i < variables.config.edgetype.size(); i++) {
                 if (this.getLabel().contains(variables.config.edgetype.get(i).type)) {
@@ -304,33 +304,54 @@ public class Edge extends GraphObject{
                 }
             }
             // TODO add inverted color scheme for increase in value to be red and decrease to be green
-            // if (variables.config.edgetype.get(j).isInverted)
+            if (variables.config.edgetype.get(j).isInverted) {
+                if (v > 0) {
+                    return compareValueRed(v, 0, variables.config.edgetype.get(j).max, variables.config.edgetype.get(j).isInverted);
+                } else {
+                    return compareValueGreen(v, variables.config.edgetype.get(j).min, 0, variables.config.edgetype.get(j).isInverted);
+                }
+            } else {
             // DO
-            // else
-            if (v > 0) {
-                return compareValueGreen(v, 0, variables.config.edgetype.get(j).max);
-            }
-            else {
-                return compareValueRed(v, variables.config.edgetype.get(j).min, 0);
+                // else
+                if (v > 0) {
+                    return compareValueGreen(v, 0, variables.config.edgetype.get(j).max, variables.config.edgetype.get(j).isInverted);
+                } else {
+                    return compareValueRed(v, variables.config.edgetype.get(j).min, 0, variables.config.edgetype.get(j).isInverted);
+                }
             }
         }
     }
 
-    public Paint compareValueGreen(float value, double min, double max){
-        int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
-        proportion = Math.max(proportion, 0);
-        return new Color(0, Math.min(255, proportion), 0);
+    public Paint compareValueGreen(float value, double min, double max, boolean isInverted) {
+        if(!isInverted) {
+            int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
+            proportion = Math.max(proportion, 0);
+            return new Color(0, Math.min(255, proportion), 0);
+        }
+        else {
+            int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
+            proportion = Math.min(proportion, 510);
+            return new Color(0, Math.min(255, 510 - proportion), 0);
+        }
     }
-    public Paint compareValueRed(float value, double min, double max){
-        int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
-        proportion = Math.min(proportion, 510);
-        return new Color(Math.min(255, 510 - proportion), 0, 0);
+
+    public Paint compareValueRed(float value, double min, double max, boolean isInverted) {
+        if(!isInverted) {
+            int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
+            proportion = Math.min(proportion, 510);
+            return new Color(Math.min(255, 510 - proportion), 0, 0);
+        } else
+        {
+            int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
+            proportion = Math.max(proportion, 0);
+            return new Color(Math.min(255, proportion), 0, 0);
+        }
     }
-    
+
     /**
      * Method used during the collapse of edges. This method defines if the
-     * collapsed edge influence value will be the sum of the edges values or
-     * the average
+     * collapsed edge influence value will be the sum of the edges values or the
+     * average
      *
      * @param variables
      * @return (boolean) Return true if influence from collapsed edges are
