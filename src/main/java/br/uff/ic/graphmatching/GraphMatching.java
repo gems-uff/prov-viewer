@@ -222,7 +222,7 @@ public class GraphMatching {
             if (Utils.tryParseFloat(av1) && Utils.tryParseFloat(av2) && Utils.tryParseFloat(errorMargin)) {
                 if (Utils.FloatSimilar(Utils.convertFloat(av1), Utils.convertFloat(av2), Utils.convertFloat(errorMargin))) {
                     similarity = similarity + (1 * weight);
-                    System.out.println(av1 + " " + av2 + " error: " + errorMargin);
+//                    System.out.println(av1 + " " + av2 + " error: " + errorMargin);
                 }
             } // Dealing with a timeDate values
             else if(Utils.tryParseDate(av1) && Utils.tryParseDate(av2)) {
