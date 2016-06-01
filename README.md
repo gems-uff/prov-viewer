@@ -4,6 +4,8 @@ Prov Viewer is a provenance visualization tool that generates a provenance graph
 
 This project was initiated by Troy Kohwalter and professors Leonardo Murta and Esteban Clua during Troy's master course at Universidade Federal Fluminense. 
 
+![Prov Viewer](https://cloud.githubusercontent.com/assets/5375876/15714095/8c0a117c-27ef-11e6-9ebe-24cd8486573b.png)
+
 #Team
 
 * Troy Costa Kohwalter (joined in July 2011)
@@ -11,6 +13,10 @@ This project was initiated by Troy Kohwalter and professors Leonardo Murta and E
 * Esteban Walter Gonzalez Clua (joined in July 2011)
 
 #Additional contributors
+
+#Installation
+* [Prov Viewer Installation Guide](https://github.com/gems-uff/prov-viewer/wiki/Installation)
+
 
 #Documentation
 * [Prov Viewer Wiki](https://github.com/gems-uff/prov-viewer/wiki)
