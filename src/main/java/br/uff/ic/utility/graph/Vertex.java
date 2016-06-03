@@ -173,6 +173,10 @@ public abstract class Vertex extends GraphObject {
      * @return 
      */
     public float getAttributeValueFloat(String attribute) {
+        if(attribute.equalsIgnoreCase("Time"))
+        {
+            return getTime();
+        }
         if(attributes.get(attribute) == null)
             return Float.NaN;
         if(Utils.tryParseFloat(attributes.get(attribute).getAverageValue())) {
