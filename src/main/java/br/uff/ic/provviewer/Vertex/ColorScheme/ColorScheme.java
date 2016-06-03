@@ -132,8 +132,8 @@ public abstract class ColorScheme {
 //        System.out.println("vNegative: " + vNegative); 
 //        System.out.println("min: " + min);  
 //        System.out.println("max: " + max); 
-//        if(value == 0)
-//            return new Color(255,255,255);
+        if(value == 0)
+            return new Color(255,255,255);
         if(!inverted) {
             if(value > 0)
                 return compareValueGreen(vPositive, min, max);
