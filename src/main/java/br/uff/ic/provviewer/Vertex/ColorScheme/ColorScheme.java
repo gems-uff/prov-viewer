@@ -6,6 +6,7 @@ package br.uff.ic.provviewer.Vertex.ColorScheme;
 
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.Variables;
+import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import java.awt.Color;
@@ -130,12 +131,7 @@ public abstract class ColorScheme {
             vPositive = (float) (Math.abs(value - min) / (float) Math.abs(max - min));
             vNegative = vPositive;
         }
-//        float v = (float) (Math.abs(value - min) / (float) Math.abs(max - min));
-//        System.out.println("Original value: " + value);
-//        System.out.println("vPositive: " + vPositive);  
-//        System.out.println("vNegative: " + vNegative); 
-//        System.out.println("min: " + min);  
-//        System.out.println("max: " + max); 
+
         if(value == 0)
             return new Color(255,255,255);
         if(!inverted) {
@@ -178,6 +174,10 @@ public abstract class ColorScheme {
 //            boolean isDerivate = true;
             if(variables.doDerivate) {
                 float slope = getSlope(v);
+                if(slope < this.derivateMin)
+                    slope = (float) this.derivateMin;
+                else if (slope > this.derivateMax)
+                    slope = (float) this.derivateMax;
                 return this.CompareValue(slope, this.derivateMin, this.derivateMax, isInverted);
             }
             //
@@ -200,33 +200,37 @@ public abstract class ColorScheme {
     public void ComputeValue(DirectedGraph<Object, Edge> graph, boolean isActivity) {
         if (!computedMinMax) {
             Collection<Object> nodes = graph.getVertices();
+            ArrayList<Float> derivateValues = new ArrayList<>();
             for (Object node : nodes) {
                 if(!((Vertex) node).getAttributeValue(this.attribute).contentEquals("Unknown")) {
                     this.max = Math.max(this.max, ((Vertex) node).getAttributeValueFloat(this.attribute));
                     this.min = Math.min(this.min, ((Vertex) node).getAttributeValueFloat(this.attribute));
-                    this.derivateMax = Math.max(this.derivateMax, getSlope(node));
-                    this.derivateMin = Math.min(this.derivateMin, getSlope(node));
+                    derivateValues.add(getSlope(node));
                 }
             }
+            ArrayList<Float> noOutliers = Utils.removeOutLierAnalysis(derivateValues);
+            this.derivateMax = noOutliers.get(noOutliers.size() - 1);
+            this.derivateMin = noOutliers.get(0);
             computedMinMax = true;
-//            System.out.println("derivateMin = " + derivateMin);
-//            System.out.println("derivateMax = " + derivateMax);
         }
     }
 
     public void ComputeRestrictedValue(DirectedGraph<Object, Edge> graph, boolean isActivity, String aRestriction, String aValue) {
         if (!computedMinMax) {
             Collection<Object> nodes = graph.getVertices();
+            ArrayList<Float> derivateValues = new ArrayList<>();
             for (Object node : nodes) {
                 if(!((Vertex) node).getAttributeValue(this.attribute).contentEquals("Unknown")) {
                     if (((Vertex) node).getAttributeValue(aRestriction).equalsIgnoreCase(aValue)) {
                         this.max = Math.max(this.max, ((Vertex) node).getAttributeValueFloat(this.attribute));
                         this.min = Math.min(this.min, ((Vertex) node).getAttributeValueFloat(this.attribute));
-                        this.derivateMax = Math.max(this.derivateMax, getSlope(node));
-                        this.derivateMin = Math.min(this.derivateMin, getSlope(node));
+                        derivateValues.add(getSlope(node));
                     }
                 }
             }
+            ArrayList<Float> noOutliers = Utils.removeOutLierAnalysis(derivateValues);
+            this.derivateMax = noOutliers.get(noOutliers.size() - 1);
+            this.derivateMin = noOutliers.get(0);
             computedMinMax = true;
         }
     }

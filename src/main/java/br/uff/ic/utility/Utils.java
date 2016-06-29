@@ -7,9 +7,12 @@ package br.uff.ic.utility;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -278,6 +281,44 @@ public static String quartile(Object[] values, int lowerPercent) {
 //        
 //        return v[n];
 
+    }
+
+    public static ArrayList<Float> removeOutLierAnalysis(ArrayList<Float> allNumbers)
+    {
+        if (allNumbers.isEmpty())
+            return null;
+
+        ArrayList<Float> normalNumbers = new ArrayList<>();
+        Collections.sort(allNumbers);
+//        double mean;
+        double q1;
+        double q3;
+        if (allNumbers.size() %2 == 0) {
+            int position;
+//            mean = (allNumbers.get(position) + allNumbers.get(position - 1)) * 0.5;
+            position = (int) (allNumbers.size() * 0.25);
+            q1 = (allNumbers.get(position) + allNumbers.get(position - 1)) * 0.5;
+            position = (int) (allNumbers.size() * 0.75);
+            q3 = (allNumbers.get(position) + allNumbers.get(position - 1)) * 0.5;
+        }
+        else {
+            int position;
+//            mean = allNumbers.get(position);
+            position = (int) (allNumbers.size() * 0.25);
+            q1 = allNumbers.get(position);
+            position = (int) (allNumbers.size() * 0.75);
+            q3 = allNumbers.get(position);
+        }
+        double iqr = q3 - q1;
+        double lowerThreshold = q1 - iqr * 3;
+        double upperThreshold = q3 + iqr * 3;
+        
+        for(float number : allNumbers) {
+            if((lowerThreshold <= number) && (number <= upperThreshold))
+                normalNumbers.add(number);
+        }
+
+        return normalNumbers;
     }
 
 //    public static void calcPositionsLatLon(Point2D xyd, double lat, double lon, double width, double height) {
