@@ -22,7 +22,7 @@ public class DefaultVertexColorScheme extends ColorScheme {
 
     @Override
     public Paint Execute(Object v, final Variables variables) {
-        
+        this.variables = variables;
         ComputeValue(variables.graph, true);
         if (v instanceof ActivityVertex || v instanceof EntityVertex) {
             return this.GetMinMaxColor(v);

@@ -26,7 +26,7 @@ public class ActivityRestrictedScheme extends ColorScheme {
 
     @Override
     public Paint Execute(Object v, final Variables variables) {
-        
+        this.variables = variables;
         ComputeRestrictedValue(variables.graph, true, this.restrictedAttribute, this.restrictedValue);
         if ((v instanceof ActivityVertex) && ((ActivityVertex) v).getAttributeValue(this.restrictedAttribute).equalsIgnoreCase(this.restrictedValue)) {
             return this.GetMinMaxColor(v);

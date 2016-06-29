@@ -25,6 +25,7 @@ public class DefaultScheme extends ColorScheme {
 
     @Override
     public Paint Execute(Object v, final Variables variables) {
+        this.variables = variables;
         if (v instanceof ActivityVertex) {
             return ((ActivityVertex) v).getDefaultColor(variables);
         }

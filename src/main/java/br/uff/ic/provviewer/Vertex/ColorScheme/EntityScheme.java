@@ -21,7 +21,7 @@ public class EntityScheme extends ColorScheme {
 
     @Override
     public Paint Execute(Object v, final Variables variables) {
-        
+        this.variables = variables;
         ComputeValue(variables.graph, false);
         if (v instanceof EntityVertex) {
             return this.GetMinMaxColor(v);

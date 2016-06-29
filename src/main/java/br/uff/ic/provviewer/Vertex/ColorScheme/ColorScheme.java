@@ -10,6 +10,7 @@ import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import java.awt.Color;
 import java.awt.Paint;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -30,6 +31,9 @@ public abstract class ColorScheme {
     public String restrictedValue;
     private boolean isZeroWhite = true;
     private boolean isInverted = false;
+    public Variables variables;
+    public double derivateMax = Double.NEGATIVE_INFINITY;
+    public double derivateMin = Double.POSITIVE_INFINITY;
 
     /**
      * This constructor is used by the Default color scheme
@@ -166,11 +170,18 @@ public abstract class ColorScheme {
         int blue  = (int) ((float)(bB - aB) * v + aB);      // Evaluates as 255*value + 0.
         return new Color(red, green, blue);
     }
-
+    
     public Paint GetMinMaxColor(Object v) {
         if(!((Vertex) v).getAttributeValue(this.attribute).contentEquals("Unknown"))
         {
-            if (!limited) {
+            // 
+//            boolean isDerivate = true;
+            if(variables.doDerivate) {
+                float slope = getSlope(v);
+                return this.CompareValue(slope, this.derivateMin, this.derivateMax, isInverted);
+            }
+            //
+            else if (!limited) {
                 return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.min, this.max, isInverted);
             } else {
                 if (this.givenMax == null) {
@@ -186,36 +197,20 @@ public abstract class ColorScheme {
         return ((Vertex) v).getColor();
     }
 
-//    public Paint GetInvertedMinMaxColor(Object v) {
-//        if(!((Vertex) v).getAttributeValue(this.attribute).contentEquals("Unknown"))
-//        {
-//            if (!limited) {
-//                return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.min, this.max, true);
-//            } else {
-//                if (this.givenMax == null) {
-//                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMin), this.max, true);
-//                }
-//                if (this.givenMin == null) {
-//                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.min, Double.parseDouble(this.givenMax), true);
-//                } else {
-//                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMin), Double.parseDouble(this.givenMax), true);
-//                }
-//            }
-//        }
-//        return ((Vertex) v).getColor();
-//    }
-
     public void ComputeValue(DirectedGraph<Object, Edge> graph, boolean isActivity) {
         if (!computedMinMax) {
             Collection<Object> nodes = graph.getVertices();
             for (Object node : nodes) {
-                if(!((Vertex) node).getAttributeValue(this.attribute).contentEquals("Unknown"))
-                {
+                if(!((Vertex) node).getAttributeValue(this.attribute).contentEquals("Unknown")) {
                     this.max = Math.max(this.max, ((Vertex) node).getAttributeValueFloat(this.attribute));
                     this.min = Math.min(this.min, ((Vertex) node).getAttributeValueFloat(this.attribute));
+                    this.derivateMax = Math.max(this.derivateMax, getSlope(node));
+                    this.derivateMin = Math.min(this.derivateMin, getSlope(node));
                 }
             }
             computedMinMax = true;
+//            System.out.println("derivateMin = " + derivateMin);
+//            System.out.println("derivateMax = " + derivateMax);
         }
     }
 
@@ -227,11 +222,32 @@ public abstract class ColorScheme {
                     if (((Vertex) node).getAttributeValue(aRestriction).equalsIgnoreCase(aValue)) {
                         this.max = Math.max(this.max, ((Vertex) node).getAttributeValueFloat(this.attribute));
                         this.min = Math.min(this.min, ((Vertex) node).getAttributeValueFloat(this.attribute));
+                        this.derivateMax = Math.max(this.derivateMax, getSlope(node));
+                        this.derivateMin = Math.min(this.derivateMin, getSlope(node));
                     }
                 }
             }
             computedMinMax = true;
         }
+    }
+    
+    // TO DO: Get the mean of slopes if there are more than 1 vertex with the attribute
+    // TO DO: Allow for jumping vertices until finding the vertex with the same attribute (e.g., skip an entity between two activities) 
+    private float getSlope(Object node) {
+        float slope = 0;
+        String id = "";
+        for(Edge e : variables.graph.getOutEdges(node)) {
+            if(!((Vertex) e.getTarget()).getAttributeValue(this.attribute).contentEquals("Unknown")) {
+                float attValue = ((Vertex) node).getAttributeValueFloat(this.attribute) - ((Vertex) e.getTarget()).getAttributeValueFloat(this.attribute);
+                float time = ((Vertex) node).getTime() - ((Vertex) e.getTarget()).getTime();
+                if(time != 0) {
+                    slope = attValue / time;
+                    id = ((Vertex) e.getTarget()).getID();
+                }
+            }
+        }
+//        System.out.println("Slope = " + slope + " (" + ((Vertex) node).getID() + " + " + id + ")");
+        return slope;
     }
 
     public abstract Paint Execute(Object v, final Variables variables);

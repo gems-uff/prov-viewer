@@ -33,6 +33,17 @@
         <edgestroke>MEAN</edgestroke>
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
+	<edgetype>
+        <edge>Inverted</edge>
+        <edgestroke>MEAN</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+		<isInverted>true</isInverted>
+    </edgetype>
+	<edgetype>
+        <edge>Normal</edge>
+        <edgestroke>MEAN</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
     <colorscheme>
         <attribute>Health</attribute>
         <class>EntityScheme</class>
@@ -41,8 +52,31 @@
         <badvalue>0</badvalue>
     </colorscheme>
     <colorscheme>
-        <attribute>Time</attribute>
+        <attribute>Numeric</attribute>
         <class>ActivityScheme</class>
+		<trafficLightType>type2</trafficLightType>
+        <values></values>
+        <goodvalue></goodvalue>
+        <badvalue></badvalue>
+    </colorscheme>
+	<colorscheme>
+        <attribute>XPTO</attribute>
+        <class>ActivityScheme</class>
+		<trafficLightType>type2</trafficLightType>
+        <values></values>
+        <goodvalue></goodvalue>
+        <badvalue></badvalue>
+    </colorscheme>
+	<colorscheme>
+        <attribute>Hour</attribute>
+        <class>ActivityScheme</class>
+		<trafficLightType>type1</trafficLightType>
+        <isInverted>true</isInverted>
+    </colorscheme>
+	<colorscheme>
+        <attribute>Duration</attribute>
+        <class>ActivityScheme</class>
+		<trafficLightType>type2</trafficLightType>
         <values></values>
         <goodvalue></goodvalue>
         <badvalue></badvalue>

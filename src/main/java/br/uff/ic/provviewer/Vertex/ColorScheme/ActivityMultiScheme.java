@@ -22,6 +22,7 @@ public class ActivityMultiScheme extends ColorScheme {
 
     @Override
     public Paint Execute(Object v, final Variables variables) {
+        this.variables = variables;
         if (v instanceof ActivityVertex) {
             return GetAttributeColor(((ActivityVertex) v).getAttributeValue(this.attribute));
         }

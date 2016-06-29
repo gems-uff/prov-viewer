@@ -39,7 +39,7 @@ import org.w3c.dom.NodeList;
  */
 public class Config {
     
-    public int vertexSize = 15;
+    public int vertexSize = 30;
 
     //Filter List
     public List<EdgeType> edgetype = new ArrayList<>();

@@ -91,6 +91,8 @@ public class GraphFrame extends javax.swing.JFrame {
         temporalHoursButton = new javax.swing.JCheckBoxMenuItem();
         temporalDaysButton = new javax.swing.JCheckBoxMenuItem();
         temporalWeeksButton = new javax.swing.JCheckBoxMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        doDerivateButton = new javax.swing.JCheckBoxMenuItem();
 
         fileChooser.setCurrentDirectory(new java.io.File("D:\\SVN\\Prov_Viewer\\prov-viewer\\src\\main\\resources"));
         fileChooser.setDialogTitle("This is my open dialog");
@@ -529,6 +531,18 @@ public class GraphFrame extends javax.swing.JFrame {
 
         MenuBar.add(jMenu3);
 
+        jMenu4.setText("Color Scheme");
+
+        doDerivateButton.setText("Derivate");
+        doDerivateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                doDerivateButtonActionPerformed(evt);
+            }
+        });
+        jMenu4.add(doDerivateButton);
+
+        MenuBar.add(jMenu4);
+
         setJMenuBar(MenuBar);
 
         setSize(new java.awt.Dimension(744, 743));
@@ -761,6 +775,11 @@ public class GraphFrame extends javax.swing.JFrame {
                 temporalMinutesButton, temporalHoursButton, 
                 temporalDaysButton, temporalWeeksButton);
     }//GEN-LAST:event_temporalMinutesButtonActionPerformed
+
+    private void doDerivateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doDerivateButtonActionPerformed
+        // TODO add your handling code here:
+        GuiButtons.derivateScheme(variables, doDerivateButton.getState());
+    }//GEN-LAST:event_doDerivateButtonActionPerformed
    
     /**
      * Main
@@ -835,12 +854,14 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem displayAgentLabelButton;
     private javax.swing.JCheckBoxMenuItem displayEntityLabelButton;
     private javax.swing.JCheckBoxMenuItem displayTimeLabel;
+    private javax.swing.JCheckBoxMenuItem doDerivateButton;
     public javax.swing.JTextField edgeTypeField;
     private javax.swing.JMenuItem exportGraphButton;
     private javax.swing.JFileChooser fileChooser;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     public static javax.swing.JMenu jMenu3;
+    public static javax.swing.JMenu jMenu4;
     private javax.swing.JMenuItem mergeGraphButtom;
     public static javax.swing.JCheckBoxMenuItem temporalDaysButton;
     public static javax.swing.JCheckBoxMenuItem temporalHoursButton;

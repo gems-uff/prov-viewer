@@ -29,35 +29,37 @@ public class Variables extends Object {
 
 
 
-    public static String demo = File.separator + "Graph" + File.separator + "Merge_Test.xml";
+//    public static String demo = File.separator + "Graph" + File.separator + "Merge_Test.xml";
 //    public static String demo = File.separator + "Graph" + File.separator + "Angry_Robots_paperCIG.xml";
 //    public static String demo = File.separator + "Graph" + File.separator + "Angry_Robots.xml";
-    public String configDemo = File.separator + "Config" + File.separator + "Angry_Robots_config.xml";
+//    public String configDemo = File.separator + "Config" + File.separator + "Angry_Robots_config.xml";
     
-//    public static String demo = File.separator + "Graph" + File.separator + "Car_Tutorial.xml";   
-//    public static String demo = File.separator + "Graph" + File.separator + "Car_Tutorial3.xml";
-//    public static String configDemo = File.separator + "Config" + File.separator + "Car_Tutorial_config.xml";
+    public static String demo = File.separator + "Graph" + File.separator + "Car_Tutorial.xml";   
+    public String configDemo = File.separator + "Config" + File.separator + "Car_Tutorial_config.xml";
     
 //    public static String demo = File.separator + "Graph" + File.separator + "rio_city_bus_example.xml";
 //    public static String demo = File.separator + "Graph" + File.separator + "bus_linha5.xml";
-//    public static String configDemo = File.separator + "Config" + File.separator + "rio_de_janeiro_cidade_config.xml";
+//    public String configDemo = File.separator + "Config" + File.separator + "rio_de_janeiro_cidade_config.xml";
     
 //    public static String demo = File.separator + "Graph" + File.separator + "input.xml";
-//    public static String configDemo = File.separator + "Config" + File.separator + "config.xml";
+//    public String configDemo = File.separator + "Config" + File.separator + "config.xml";
     
 //    public static String demo = File.separator + "Graph" + File.separator + "Test" + File.separator + "prov-dm-example1.prov-asn";
 //    public static String demo = File.separator + "Graph" + File.separator + "test" + File.separator + "example-blog1.provn";
-//    public static String configDemo = File.separator + "Config" + File.separator + "PROV_config.xml";
+//    public String configDemo = File.separator + "Config" + File.separator + "PROV_config.xml";
     
 //    public static String demo = File.separator + "Graph" + File.separator + "2D_Provenance.xml";
-//    public static String configDemo = File.separator + "Config" + File.separator + "2D_Provenance_config.xml";
+//    public String configDemo = File.separator + "Config" + File.separator + "2D_Provenance_config.xml";
 
 //    public static String demo = File.separator + "Graph" + File.separator + "map.xml";
 //    public static String demo = File.separator + "Graph" + File.separator + "graph_features_example.xml";
 //    public static String demo = File.separator + "Graph" + File.separator + "graph1.xml";
 //    public static String demo = File.separator + "Graph" + File.separator + "graph2.xml";
-//    public static String configDemo = File.separator + "Config" + File.separator + "map_config.xml";
-
+//    public static String demo = File.separator + "Graph" + File.separator + "Gradient.xml";
+//    public String configDemo = File.separator + "Config" + File.separator + "map_config.xml";
+    
+//    public static String demo = File.separator + "Graph" + File.separator + "program_prov_example.xml";
+//    public String configDemo = File.separator + "Config" + File.separator + "prog_example_config.xml";  
 
     public GuiBackground guiBackground = new GuiBackground();
     public VisualizationViewer<Object, Edge> view;
@@ -84,6 +86,7 @@ public class Variables extends Object {
     public boolean TemporalLayoutisHours = false;
     public boolean TemporalLayoutisDays = false;
     public boolean TemporalLayoutisWeek = false;
+    public boolean doDerivate = false;
 
     /**
      * Return the max value between 2 values

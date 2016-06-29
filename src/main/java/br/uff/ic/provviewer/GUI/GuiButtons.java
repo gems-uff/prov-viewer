@@ -269,5 +269,11 @@ public class GuiButtons {
         
         GuiButtons.UpdateTemporalLayout(variables, Layouts);
     }
+    
+    public static void derivateScheme(Variables variables, boolean doDerivate) {
+        variables.doDerivate = doDerivate;
+        StatusFilter(variables);
+        
+    }
 
 }

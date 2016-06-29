@@ -22,6 +22,7 @@ public class EntityMultiScheme extends ColorScheme {
 
     @Override
     public Paint Execute(Object v, final Variables variables) {
+        this.variables = variables;
         if (v instanceof EntityVertex) {
             return GetAttributeColor(((EntityVertex) v).getAttributeValue(this.attribute));
         }
