@@ -93,6 +93,7 @@ public class GraphFrame extends javax.swing.JFrame {
         temporalWeeksButton = new javax.swing.JCheckBoxMenuItem();
         jMenu4 = new javax.swing.JMenu();
         doDerivateButton = new javax.swing.JCheckBoxMenuItem();
+        removeOutliersButton = new javax.swing.JCheckBoxMenuItem();
 
         fileChooser.setCurrentDirectory(new java.io.File("D:\\SVN\\Prov_Viewer\\prov-viewer\\src\\main\\resources"));
         fileChooser.setDialogTitle("This is my open dialog");
@@ -541,6 +542,14 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu4.add(doDerivateButton);
 
+        removeOutliersButton.setText("Remove Outliers");
+        removeOutliersButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeOutliersButtonActionPerformed(evt);
+            }
+        });
+        jMenu4.add(removeOutliersButton);
+
         MenuBar.add(jMenu4);
 
         setJMenuBar(MenuBar);
@@ -780,6 +789,11 @@ public class GraphFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         GuiButtons.derivateScheme(variables, doDerivateButton.getState());
     }//GEN-LAST:event_doDerivateButtonActionPerformed
+
+    private void removeOutliersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeOutliersButtonActionPerformed
+        // TODO add your handling code here:
+        GuiButtons.removeOutliersDerivateScheme(variables, removeOutliersButton.getState());
+    }//GEN-LAST:event_removeOutliersButtonActionPerformed
    
     /**
      * Main
@@ -863,6 +877,7 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JMenu jMenu3;
     public static javax.swing.JMenu jMenu4;
     private javax.swing.JMenuItem mergeGraphButtom;
+    public static javax.swing.JCheckBoxMenuItem removeOutliersButton;
     public static javax.swing.JCheckBoxMenuItem temporalDaysButton;
     public static javax.swing.JCheckBoxMenuItem temporalHoursButton;
     private javax.swing.JCheckBoxMenuItem temporalMillisecondsButton;

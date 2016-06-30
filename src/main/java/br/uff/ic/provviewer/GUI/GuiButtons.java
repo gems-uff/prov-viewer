@@ -275,5 +275,12 @@ public class GuiButtons {
         StatusFilter(variables);
         
     }
+    
+    public static void removeOutliersDerivateScheme(Variables variables, boolean removeOutliers) {
+        variables.removeDerivateOutliers = removeOutliers;
+        variables.changedOutliersOption = true;
+        StatusFilter(variables);
+        
+    }
 
 }

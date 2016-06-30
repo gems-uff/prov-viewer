@@ -87,6 +87,8 @@ public class Variables extends Object {
     public boolean TemporalLayoutisDays = false;
     public boolean TemporalLayoutisWeek = false;
     public boolean doDerivate = false;
+    public boolean removeDerivateOutliers = false;
+    public boolean changedOutliersOption = false;
 
     /**
      * Return the max value between 2 values

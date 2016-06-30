@@ -200,6 +200,17 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="doDerivateButtonActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="removeOutliersButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Remove Outliers"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removeOutliersButtonActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+              </AuxValues>
+            </MenuItem>
           </SubComponents>
         </Menu>
       </SubComponents>

@@ -13,6 +13,7 @@ import java.awt.Color;
 import java.awt.Paint;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  *
@@ -208,6 +209,10 @@ public abstract class ColorScheme {
     }
 
     public void ComputeValue(DirectedGraph<Object, Edge> graph, boolean isActivity) {
+        if(variables.changedOutliersOption && variables.doDerivate) {
+            computedMinMax = false;
+            variables.changedOutliersOption = !variables.changedOutliersOption;
+        }
         if (!computedMinMax) {
             Collection<Object> nodes = graph.getVertices();
             ArrayList<Float> derivateValues = new ArrayList<>();
@@ -218,7 +223,10 @@ public abstract class ColorScheme {
                     derivateValues.add(getSlope(node));
                 }
             }
-            derivateValues = Utils.removeOutLierAnalysis(derivateValues);
+            if(variables.removeDerivateOutliers)
+                derivateValues = Utils.removeOutLierAnalysis(derivateValues);
+            else
+                Collections.sort(derivateValues);
             this.derivateMax = derivateValues.get(derivateValues.size() - 1);
             this.derivateMin = derivateValues.get(0);
             computedMinMax = true;
@@ -226,6 +234,10 @@ public abstract class ColorScheme {
     }
 
     public void ComputeRestrictedValue(DirectedGraph<Object, Edge> graph, boolean isActivity, String aRestriction, String aValue) {
+        if(variables.changedOutliersOption && variables.doDerivate) {
+            computedMinMax = false;
+            variables.changedOutliersOption = !variables.changedOutliersOption;
+        }
         if (!computedMinMax) {
             Collection<Object> nodes = graph.getVertices();
             ArrayList<Float> derivateValues = new ArrayList<>();
@@ -238,7 +250,10 @@ public abstract class ColorScheme {
                     }
                 }
             }
-            derivateValues = Utils.removeOutLierAnalysis(derivateValues);
+            if(variables.removeDerivateOutliers)
+                derivateValues = Utils.removeOutLierAnalysis(derivateValues);
+            else
+                Collections.sort(derivateValues);
             this.derivateMax = derivateValues.get(derivateValues.size() - 1);
             this.derivateMin = derivateValues.get(0);
             computedMinMax = true;
