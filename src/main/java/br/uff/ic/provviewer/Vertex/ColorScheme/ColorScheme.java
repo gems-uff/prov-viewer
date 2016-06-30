@@ -264,14 +264,14 @@ public abstract class ColorScheme {
     // TO DO: Allow for jumping vertices until finding the vertex with the same attribute (e.g., skip an entity between two activities) 
     private float getSlope(Object node) {
         float slope = 0;
-        String id = "";
+//        String id = "";
         for (Edge e : variables.graph.getOutEdges(node)) {
             if (!((Vertex) e.getTarget()).getAttributeValue(this.attribute).contentEquals("Unknown")) {
                 float attValue = ((Vertex) node).getAttributeValueFloat(this.attribute) - ((Vertex) e.getTarget()).getAttributeValueFloat(this.attribute);
                 float time = ((Vertex) node).getTime() - ((Vertex) e.getTarget()).getTime();
                 if (time != 0) {
                     slope = attValue / time;
-                    id = ((Vertex) e.getTarget()).getID();
+//                    id = ((Vertex) e.getTarget()).getID();
                 }
             }
         }

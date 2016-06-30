@@ -310,8 +310,8 @@ public static String quartile(Object[] values, int lowerPercent) {
             q3 = allNumbers.get(position);
         }
         double iqr = q3 - q1;
-        double lowerThreshold = q1 - iqr * 3;
-        double upperThreshold = q3 + iqr * 3;
+        double lowerThreshold = q1 - iqr * 1.5;
+        double upperThreshold = q3 + iqr * 1.5;
         
         for(float number : allNumbers) {
             if((lowerThreshold <= number) && (number <= upperThreshold))
