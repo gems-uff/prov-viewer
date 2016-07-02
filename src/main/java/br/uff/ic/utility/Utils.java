@@ -244,32 +244,32 @@ public class Utils {
         }
     }
 
-/**
- * Retrieve the quartile value from an array
- *
- * @param values THe array of data
- * @param lowerPercent The percent cut off. For the lower quartile use 25, for
- * the upper-quartile use 75
- * @return
- */
-public static String quartile(Object[] values, int lowerPercent) {
+    /**
+     * Retrieve the quartile value from an array
+     *
+     * @param values THe array of data
+     * @param lowerPercent The percent cut off. For the lower quartile use 25,
+     * for the upper-quartile use 75
+     * @return
+     */
+    public static String quartile(Object[] values, int lowerPercent) {
 
         if (values == null || values.length == 0) {
             throw new IllegalArgumentException("The data array either is null or does not contain any data.");
         }
         int start, end;
-        if(lowerPercent == 1) {
+        if (lowerPercent == 1) {
             start = 0;
             end = values.length / 2;
-        }
-        else {
-            if((values.length % 2) == 0)
+        } else {
+            if ((values.length % 2) == 0) {
                 start = (values.length / 2);
-            else
+            } else {
                 start = (values.length / 2) + 1;
+            }
             end = values.length;
         }
-            
+
         return median(values, start, end);
 //        Arrays.sort(values);
 //        // Rank order the values
@@ -283,25 +283,44 @@ public static String quartile(Object[] values, int lowerPercent) {
 
     }
 
-    public static ArrayList<Float> removeOutLierAnalysis(ArrayList<Float> allNumbers)
-    {
-        if (allNumbers.isEmpty())
+    /**
+     * Method to remove the infinity numbers from an arrayList
+     * @param allNumbers is the arrayList of float
+     * @return the same arrayList without the infinity numbers
+     */
+    public static ArrayList<Float> removeInfinity(ArrayList<Float> allNumbers) {
+        ArrayList<Float> normalNumbers = new ArrayList<>();
+        for (float number : allNumbers) {
+            if ((number != Float.NEGATIVE_INFINITY) && (number != Float.POSITIVE_INFINITY)) {
+                normalNumbers.add(number);
+            }
+        }
+        return normalNumbers;
+    }
+
+    /**
+     * Method to remove outliers from a list
+     * @param allNumbers is the arrayList of float
+     * @return the same arrayList without the outliers
+     */
+    public static ArrayList<Float> removeOutLierAnalysis(ArrayList<Float> allNumbers) {
+        if (allNumbers.isEmpty()) {
             return null;
+        }
 
         ArrayList<Float> normalNumbers = new ArrayList<>();
         Collections.sort(allNumbers);
 //        double mean;
         double q1;
         double q3;
-        if (allNumbers.size() %2 == 0) {
+        if (allNumbers.size() % 2 == 0) {
             int position;
 //            mean = (allNumbers.get(position) + allNumbers.get(position - 1)) * 0.5;
             position = (int) (allNumbers.size() * 0.25);
             q1 = (allNumbers.get(position) + allNumbers.get(position - 1)) * 0.5;
             position = (int) (allNumbers.size() * 0.75);
             q3 = (allNumbers.get(position) + allNumbers.get(position - 1)) * 0.5;
-        }
-        else {
+        } else {
             int position;
 //            mean = allNumbers.get(position);
             position = (int) (allNumbers.size() * 0.25);
@@ -312,10 +331,11 @@ public static String quartile(Object[] values, int lowerPercent) {
         double iqr = q3 - q1;
         double lowerThreshold = q1 - iqr * 1.5;
         double upperThreshold = q3 + iqr * 1.5;
-        
-        for(float number : allNumbers) {
-            if((lowerThreshold <= number) && (number <= upperThreshold))
+
+        for (float number : allNumbers) {
+            if ((lowerThreshold <= number) && (number <= upperThreshold)) {
                 normalNumbers.add(number);
+            }
         }
 
         return normalNumbers;

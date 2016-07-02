@@ -185,7 +185,9 @@ public abstract class ColorScheme {
 //            boolean isDerivate = true;
             if (variables.doDerivate) {
                 float slope = getSlope(v);
-                if (slope < this.derivateMin) {
+                if (slope == Float.NEGATIVE_INFINITY) {
+                    return new Color(0, 0, 0);
+                } else if (slope < this.derivateMin) {
                     slope = (float) this.derivateMin;
                 } else if (slope > this.derivateMax) {
                     slope = (float) this.derivateMax;
@@ -209,7 +211,7 @@ public abstract class ColorScheme {
     }
 
     public void ComputeValue(DirectedGraph<Object, Edge> graph, boolean isActivity) {
-        if(variables.changedOutliersOption && variables.doDerivate) {
+        if (variables.changedOutliersOption && variables.doDerivate) {
             computedMinMax = false;
             variables.changedOutliersOption = !variables.changedOutliersOption;
         }
@@ -223,10 +225,12 @@ public abstract class ColorScheme {
                     derivateValues.add(getSlope(node));
                 }
             }
-            if(variables.removeDerivateOutliers)
+            derivateValues = Utils.removeInfinity(derivateValues);
+            if (variables.removeDerivateOutliers) {
                 derivateValues = Utils.removeOutLierAnalysis(derivateValues);
-            else
+            } else {
                 Collections.sort(derivateValues);
+            }
             this.derivateMax = derivateValues.get(derivateValues.size() - 1);
             this.derivateMin = derivateValues.get(0);
             computedMinMax = true;
@@ -234,7 +238,7 @@ public abstract class ColorScheme {
     }
 
     public void ComputeRestrictedValue(DirectedGraph<Object, Edge> graph, boolean isActivity, String aRestriction, String aValue) {
-        if(variables.changedOutliersOption && variables.doDerivate) {
+        if (variables.changedOutliersOption && variables.doDerivate) {
             computedMinMax = false;
             variables.changedOutliersOption = !variables.changedOutliersOption;
         }
@@ -250,10 +254,12 @@ public abstract class ColorScheme {
                     }
                 }
             }
-            if(variables.removeDerivateOutliers)
+            derivateValues = Utils.removeInfinity(derivateValues);
+            if (variables.removeDerivateOutliers) {
                 derivateValues = Utils.removeOutLierAnalysis(derivateValues);
-            else
+            } else {
                 Collections.sort(derivateValues);
+            }
             this.derivateMax = derivateValues.get(derivateValues.size() - 1);
             this.derivateMin = derivateValues.get(0);
             computedMinMax = true;
@@ -263,19 +269,21 @@ public abstract class ColorScheme {
     // TO DO: Get the mean of slopes if there are more than 1 vertex with the attribute
     // TO DO: Allow for jumping vertices until finding the vertex with the same attribute (e.g., skip an entity between two activities) 
     private float getSlope(Object node) {
-        float slope = 0;
-//        String id = "";
+        float slope = Float.NEGATIVE_INFINITY;
         for (Edge e : variables.graph.getOutEdges(node)) {
             if (!((Vertex) e.getTarget()).getAttributeValue(this.attribute).contentEquals("Unknown")) {
                 float attValue = ((Vertex) node).getAttributeValueFloat(this.attribute) - ((Vertex) e.getTarget()).getAttributeValueFloat(this.attribute);
                 float time = ((Vertex) node).getTime() - ((Vertex) e.getTarget()).getTime();
                 if (time != 0) {
                     slope = attValue / time;
-//                    id = ((Vertex) e.getTarget()).getID();
+                } else if ((attValue != 0) && (time == 0)) {
+                    slope = attValue;
+                }
+                else if (time == 0) {
+                    slope = 0;
                 }
             }
         }
-//        System.out.println("Slope = " + slope + " (" + ((Vertex) node).getID() + " + " + id + ")");
         return slope;
     }
 
