@@ -369,7 +369,7 @@ public class Collapser {
         return new Edge("C", "Collapsed", label, value, target, source);
     }
 
-    public void CollapseIrrelevant(Variables variables, String list, String edgetype) {
+    public void CollapseIrrelevant(Variables variables, String list) {
 
         Collection selected = new ArrayList();
         //System.out.println( "L = " + list);
@@ -393,7 +393,8 @@ public class Collapser {
 
         //For each elements of collapses
         for (String collapsegroup1 : collapsegroup) {
-            //System.out.println("Current Group = " + collapsegroup.get(i));
+//            System.out.println("Current Group = " + collapsegroup1);
+//            String group = "";
             String[] vertexlist = collapsegroup1.split(",");
             //For each vertex in the elements
             for (String vertexlist1 : vertexlist) {
@@ -405,10 +406,12 @@ public class Collapser {
                         if (((Vertex) (node1)).getID().equalsIgnoreCase(vertexlist1)) {
                             Vertex node = (Vertex) node1;
                             selected.add(node);
+//                            group += "," + vertexlist1;
                         }
                     }
                 }
             }
+//            System.out.println("Current Group = " + group);
             //Collapse selected vertices
             if (!selected.isEmpty() && (selected.size() > 1)) {
                 Collapse(variables, selected, false);
@@ -425,108 +428,3 @@ public class Collapser {
     }
 
 }
-
-//Drafts
-    /**
-     * Example of mass collapse by Date, grouping vertices from the same week
-     * TODO: Correct the vertices position. Manually collapsing preserves
-     * position but not when using this function
-     *
-     * @param variables Variables type
-     * @param filter Filters type
-     * @param vertex Vertex used as pivot to collapse the neighbors. I.e. Agent
-     * vertex for collapsing all his activity vertices
-     * @param gran The granularity (int) used to collapse vertices. I.e. 7 by 7
-     */
-//    collapser.ResetGraph(variables, filter);
-//        //Collapse agent's nodes 7 by 7
-//        for(Object z : variables.layout.getGraph().getVertices())
-//        {
-//            if(z instanceof AgentVertex)
-//            {
-//                collapser.Granularity(variables, filter, z, 7);
-//            }
-//        }  
-    /*
-    public void Granularity(Variables variables, Filters filter, Object vertex, int gran) {
-        //gran = 7;
-        if (vertex instanceof Vertex) {
-            //ResetGraph();
-            List sorted = new ArrayList(variables.layout.getGraph().getNeighbors(vertex));
-            //Date comparator
-            Comparator comparator = new Comparator<Vertex>() {
-                @Override
-                public int compare(Vertex c1, Vertex c2) {
-                    return (int)(c1.getDate() - c2.getDate());
-                }
-            };
-            //Sort nodes by date
-            Collections.sort(sorted, comparator);
-            Collection selected = new ArrayList();
-            //Collpase each week
-            int j = 0;
-            //run the list
-            while (j < sorted.size()) {
-                //collapse nodes in a factor of "gran" (ex: gran = 7, then collapse by 7 by 7 days
-                for (int i = 0; i < gran; i++) {
-                    //we want an organized collapse (not only 7 by 7, but by week).
-                    while ((j < sorted.size()) && (((ActivityVertex) sorted.get(j)).getDate() % gran) == i) {
-                        selected.add(sorted.get(j));
-                        j++;
-                    }
-                }
-                //Collection picked = new HashSet(a);
-                //Collapse selected vertices
-                if (!selected.isEmpty()) {
-                    Collapse(variables, filter, selected);
-                }
-                selected.clear();
-            }//end while(list)
-        }
-    }
-
- public Graph collapse(Graph inGraph, Graph clusterGraph) {
-         
-         if(clusterGraph.getVertexCount() < 2) return inGraph;
- 
-         Graph graph = inGraph;
-         try {
-             graph = createGraph();
-         } catch(Exception ex) {
-             ex.printStackTrace();
-         }
-         Collection cluster = clusterGraph.getVertices();
-         
-         // add all vertices in the delegate, unless the vertex is in the
-         // cluster.
-         for(Object v : inGraph.getVertices()) {
-             if(cluster.contains(v) == false) {
-                 graph.addVertex(v);
-             }
-         }
-         // add the clusterGraph as a vertex
-         graph.addVertex(clusterGraph);
-         
-         //add all edges from the inGraph, unless both endpoints of
-         // the edge are in the cluster
-         for(Object e : (Collection<?>)inGraph.getEdges()) {
-             Pair endpoints = inGraph.getEndpoints(e);
-             // don't add edges whose endpoints are both in the cluster
-             if(cluster.containsAll(endpoints) == false) {
- 
-                 if(cluster.contains(endpoints.getFirst())) {
-                        //Target = endpoints.getSecond()
-                        //Need to keep track of processed targets and edge
-                 	graph.addEdge(e, clusterGraph, endpoints.getSecond(), inGraph.getEdgeType(e));
- 
-                 } else if(cluster.contains(endpoints.getSecond())) {
-                 	graph.addEdge(e, endpoints.getFirst(), clusterGraph, inGraph.getEdgeType(e));
- 
-                 } else {
-                 	graph.addEdge(e,endpoints.getFirst(), endpoints.getSecond(), inGraph.getEdgeType(e));
-                 }
-             }
-         }
-         return graph;
-     }
-    */
