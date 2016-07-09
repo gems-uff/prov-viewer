@@ -154,7 +154,7 @@ public class Utils {
                     = (GregorianCalendar) GregorianCalendar.getInstance();
             gregorianCalendar.setTime(date);
             result = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregorianCalendar);
-            System.out.println("Date: " + result.toString());
+//            System.out.println("Date: " + result.toString());
             return result;
         } catch (ParseException ex) {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
@@ -340,54 +340,27 @@ public class Utils {
 
         return normalNumbers;
     }
+    
+    public static double stdev(float[] list){
+        double sum = 0.0;
+        double mean = 0.0;
+        double num=0.0;
+        double numi = 0.0;
+        double deno = 0.0;
+        for (int i=0; i < list.length; i++){
+            sum+=list[i];
+            mean = sum/list.length-1;
 
-//    public static void calcPositionsLatLon(Point2D xyd, double lat, double lon, double width, double height) {
-//        double latitude    = lat; // (φ)
-//        double longitude   = lon;   // (λ)
-//
-//        double mapWidth    = width;
-//        double mapHeight   = height;
-//
-//        // get x value
-//        double x = (longitude+180)*(mapWidth/360);
-//
-//        // convert from degrees to radians
-//        double latRad = latitude*Math.PI/180;
-//
-//        // get y value
-//        double mercN = Math.log(Math.tan((Math.PI/4)+(latRad/2)));
-//        double y     = (mapHeight/2)-(mapWidth*mercN/(2*Math.PI));
-//        
-//        xyd.setLocation(x, y);
-//    }
-//    public static double calcPositionsLongitude(double lon, double width) {
-//        double longitude   = lon;   // (λ)
-//
-//        double mapWidth    = width;
-//
-//        // get x value
-//        double x = (longitude+180)*(mapWidth/360);
-//        
-//        return x;
-//    }
-//    
-//    public static double calcPositionsLatitude(double lat, double lon, double width, double height) {
-//        double latitude    = lat; // (φ)
-//        double longitude   = lon;   // (λ)
-//
-//        double mapWidth    = width;
-//        double mapHeight   = height;
-//
-//        // get x value
-//        double x = (longitude+180)*(mapWidth/360);
-//
-//        // convert from degrees to radians
-//        double latRad = latitude*Math.PI/180;
-//
-//        // get y value
-//        double mercN = Math.log(Math.tan((Math.PI/4)+(latRad/2)));
-//        double y     = (mapHeight/2)-(mapWidth*mercN/(2*Math.PI));
-//        
-//        return y;
-//    }
+        }
+
+        for (int i=0; i <list.length; i++){
+             numi = Math.pow((list[i] - mean),2);
+             num+=numi;
+             deno =list.length - 1;  
+        }
+
+
+        double stdevResult = Math.sqrt(num/deno);
+        return stdevResult;
+    }
 }
