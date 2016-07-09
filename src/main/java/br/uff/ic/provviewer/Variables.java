@@ -32,6 +32,7 @@ public class Variables extends Object {
 //    public static String demo = File.separator + "Graph" + File.separator + "Merge_Test.xml";
 //    public static String demo = File.separator + "Graph" + File.separator + "Angry_Robots_paperCIG.xml";
 //    public static String demo = File.separator + "Graph" + File.separator + "Angry_Robots.xml";
+//    public static String demo = File.separator + "Graph" + File.separator + "Graph_to_Merge_01.xml";
 //    public String configDemo = File.separator + "Config" + File.separator + "Angry_Robots_config.xml";
     
     public static String demo = File.separator + "Graph" + File.separator + "Car_Tutorial.xml";   
