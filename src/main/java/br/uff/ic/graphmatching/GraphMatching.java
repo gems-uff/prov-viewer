@@ -29,7 +29,8 @@ public class GraphMatching {
     private int edgeID = 0;
     private int vertexID = 0;
     private double threshold;
-    private double defaultError;
+    private String defaultError;
+    private float defaultWeight;
     Map<String, Edge> duplicateEdges;
     private final Map<String, Object> vertexList;
     private final Map<String, Edge> edgeList;
@@ -59,10 +60,11 @@ public class GraphMatching {
         threshold = Utils.clamp(0.0, 1.0, similarityThreshold);
         combinedVertexList = new HashMap<>();
         duplicateEdges = new HashMap<>();
-        defaultError = 0;
+        defaultError = "0";
+        defaultWeight = 1;
     }
     
-    public GraphMatching(Map<String, AttributeErrorMargin> restrictionList, Map<String, String> vocabulary, double similarityThreshold, double errorMargin) {
+    public GraphMatching(Map<String, AttributeErrorMargin> restrictionList, Map<String, String> vocabulary, double similarityThreshold, String errorMargin) {
         vertexList = new HashMap<>();
         edgeList = new HashMap<>();
         attributeList = restrictionList;
@@ -72,6 +74,7 @@ public class GraphMatching {
         combinedVertexList = new HashMap<>();
         duplicateEdges = new HashMap<>();
         defaultError = errorMargin;
+        defaultWeight = 1;
     }
     
     /**
@@ -91,10 +94,11 @@ public class GraphMatching {
         threshold = Utils.clamp(0.0, 1.0, similarityThreshold);
         combinedVertexList = new HashMap<>();
         duplicateEdges = new HashMap<>();
-        defaultError = 0;
+        defaultError = "0";
+        defaultWeight = 1;
     }
     
-    public GraphMatching(Map<String, AttributeErrorMargin> restrictionList, double similarityThreshold, double errorMargin) {
+    public GraphMatching(Map<String, AttributeErrorMargin> restrictionList, double similarityThreshold, String errorMargin) {
         vertexList = new HashMap<>();
         edgeList = new HashMap<>();
         attributeList = restrictionList;
@@ -104,6 +108,20 @@ public class GraphMatching {
         combinedVertexList = new HashMap<>();
         duplicateEdges = new HashMap<>();
         defaultError = errorMargin;
+        defaultWeight = 1;
+    }
+    
+    public GraphMatching(Map<String, AttributeErrorMargin> restrictionList, double similarityThreshold, String errorMargin, float weight) {
+        vertexList = new HashMap<>();
+        edgeList = new HashMap<>();
+        attributeList = restrictionList;
+        this.vocabulary = new HashMap<>();
+        threshold = similarityThreshold;
+        threshold = Utils.clamp(0.0, 1.0, similarityThreshold);
+        combinedVertexList = new HashMap<>();
+        duplicateEdges = new HashMap<>();
+        defaultError = errorMargin;
+        defaultWeight = weight;
     }
 
     /**
@@ -121,7 +139,8 @@ public class GraphMatching {
         threshold = Utils.clamp(0.0, 1.0, similarityThreshold);
         combinedVertexList = new HashMap<>();
         duplicateEdges = new HashMap<>();
-        defaultError = 0;
+        defaultError = "0";
+        defaultWeight = 1;
     }
 
     /**
@@ -178,14 +197,15 @@ public class GraphMatching {
         // Compute the number of attributes, considering their weights, for the similarity check
         float size = 0;
         for (GraphAttribute att : attributes.values()) {
-            float weight = 1;
+            float weight = defaultWeight;
             if (attributeList.get(att.getName()) != null) {
                 weight = attributeList.get(att.getName()).getWeight();
             }
             size = size + (1 * weight);
         }
         
-        
+//        System.out.println("Similarity: " + similarity);
+//        System.out.println("Size: " + size);
         similarity = similarity / size;
 
 //        System.out.println("Match Similarity between " + v1.getID() + " and " + v2.getID() + ": " + similarity);
@@ -211,18 +231,27 @@ public class GraphMatching {
         if (v2.getAttribute(attribute.getName()) != null) {
             String av1 = attribute.getAverageValue();
             String av2 = v2.getAttribute(attribute.getName()).getAverageValue();
-            String errorMargin = String.valueOf(defaultError);
-            float weight = 1;
+            String errorMargin = defaultError;
+            float weight = defaultWeight;
             if (attributeList.get(attribute.getName()) != null) {
                 errorMargin = attributeList.get(attribute.getName()).getValue();
                 weight = attributeList.get(attribute.getName()).getWeight();
             }
 
             // Dealing with numeric values
-            if (Utils.tryParseFloat(av1) && Utils.tryParseFloat(av2) && Utils.tryParseFloat(errorMargin)) {
-                if (Utils.FloatSimilar(Utils.convertFloat(av1), Utils.convertFloat(av2), Utils.convertFloat(errorMargin))) {
-                    similarity = similarity + (1 * weight);
-//                    System.out.println(av1 + " " + av2 + " error: " + errorMargin);
+            if (Utils.tryParseFloat(av1) && Utils.tryParseFloat(av2)) { // && Utils.tryParseFloat(errorMargin)) {
+                if(Utils.tryParseFloat(errorMargin)) {
+                    if (Utils.FloatEqualTo(Utils.convertFloat(av1), Utils.convertFloat(av2), Utils.convertFloat(errorMargin))) {
+                        similarity = similarity + (1 * weight);
+//                        System.out.println(attribute.getName() + ": " + av1 + " / " + av2 + " error: " + errorMargin);
+                    }
+                }
+                else if(errorMargin.contains("%")) {
+                    errorMargin = errorMargin.replaceAll("%", "");
+                    if (Utils.FloatSimilar(Utils.convertFloat(av1), Utils.convertFloat(av2), Utils.convertFloat(errorMargin) * 0.01)) {
+                        similarity = similarity + (1 * weight);
+//                        System.out.println(attribute.getName() + ": " + av1 + " / " + av2 + " error: " + errorMargin);
+                    }
                 }
             } // Dealing with a timeDate values
             else if(Utils.tryParseDate(av1) && Utils.tryParseDate(av2)) {

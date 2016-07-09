@@ -38,7 +38,7 @@ public class Matcher {
             DirectedGraph<Object, Edge> graph_02, 
             Map<String, AttributeErrorMargin> restrictionList,
             Vocabulary vocabulary,
-            double similarityThreshold, double defaultError) {
+            double similarityThreshold, String defaultError) {
         
         GraphMatching combiner = new GraphMatching(restrictionList, vocabulary.getVocabulary(), similarityThreshold, defaultError);
         return MergeGraphs(graph_01, graph_02, combiner);
@@ -49,7 +49,7 @@ public class Matcher {
             DirectedGraph<Object, Edge> graph_01, 
             DirectedGraph<Object, Edge> graph_02, 
             Map<String, AttributeErrorMargin> restrictionList, 
-            double similarityThreshold, double defaultError) {
+            double similarityThreshold, String defaultError) {
         
         GraphMatching combiner = new GraphMatching(restrictionList, similarityThreshold, defaultError);
         return MergeGraphs(graph_01, graph_02, combiner);

@@ -136,39 +136,39 @@ public class GraphMatchingTest {
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         
-        GraphMatching instance = new GraphMatching(restrictionList, threshold, 0.25);
+        GraphMatching instance = new GraphMatching(restrictionList, threshold, "25%");
         boolean result = instance.isSimilar(v1, v2);
         assertEquals(expResult, result);
     }
     
     public void equals(double threshold, boolean expResult) {
         System.out.println("Equal");
-        Comparing(threshold, expResult, "asd", "bvF", "2012-05-24T10:00:02", "2012-05-24T10:00:01", "asd, bvf", "2000", "0.5", "3");
-        Comparing(threshold, expResult, "8", "10", "2012-05-24T10:00:02", "2012-05-24T10:00:01", "0.2", "2000", "0.5", "3");
-        Comparing(threshold, expResult, "10", "8", "10", "7", "0.2", "0.3", "0.5", "3");
-        ComparingDefault(threshold, expResult, "8", "10", "-10", "-10", "0.5", "3");
+        Comparing(threshold, expResult, "asd", "bvF", "2012-05-24T10:00:02", "2012-05-24T10:00:01", "asd, bvf", "2000", "50%", "300%");
+        Comparing(threshold, expResult, "8", "10", "2012-05-24T10:00:02", "2012-05-24T10:00:01", "2", "2000", "50%", "300%");
+        Comparing(threshold, expResult, "10", "8", "10", "7", "20%", "30%", "50%", "300%");
+        ComparingDefault(threshold, expResult, "8", "10", "-10", "-10", "50%", "300%");
     }
     
     public void almostEquals(double threshold, boolean expResult) {
         System.out.println("AlmostEqual");
-        Comparing(threshold, expResult, "asd", "AsD", "2012-05-24T10:00:01", "2012-05-24T10:00:02", "0", "2000", "0.5", "0");
-        ComparingDefault(threshold, expResult, "8", "10", "7", "10", "0.5", "3");
+        Comparing(threshold, expResult, "asd", "AsD", "2012-05-24T10:00:01", "2012-05-24T10:00:02", "0", "2000", "50%", "0%");
+        ComparingDefault(threshold, expResult, "8", "10", "7", "10", "50%", "300%");
     }
     
     public void halfEquals(double threshold, boolean expResult) {
         System.out.println("HalfEqual");
-        Comparing(threshold, expResult, "asd", "AsD", "2012-05-24T10:00:01", "2012-05-24T10:00:02", "0", "2000", "0", "0");
-        ComparingDefault(threshold, expResult, "8", "10", "7", "10", "0.5", "0");
+        Comparing(threshold, expResult, "asd", "AsD", "2012-05-24T10:00:01", "2012-05-24T10:00:02", "0", "2000", "0%", "0%");
+        ComparingDefault(threshold, expResult, "8", "10", "7", "10", "50%", "0");
     }
     
     public void quarterEquals(double threshold, boolean expResult) {
         System.out.println("notEqual");
-        Comparing(threshold, expResult, "asd", "AsD", "2012-05-24T10:00:01", "2012-05-24T10:00:02", "0", "0", "0", "0");
+        Comparing(threshold, expResult, "asd", "AsD", "2012-05-24T10:00:01", "2012-05-24T10:00:02", "0", "0", "0%", "0%");
     }
     
     public void notEquals(double threshold, boolean expResult) {
         System.out.println("notEqual");
-        Comparing(threshold, expResult, "asd", "AsDD", "2012-05-24T10:00:01", "2012-05-24T10:00:02", "0", "0", "0", "0");
+        Comparing(threshold, expResult, "asd", "AsDD", "2012-05-24T10:00:01", "2012-05-24T10:00:02", "0", "0", "0%", "0%");
     }
     
     public void differentTypes(double threshold, boolean expResult) {
