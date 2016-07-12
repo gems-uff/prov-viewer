@@ -3,7 +3,7 @@ package br.uff.ic.provviewer;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.GUI.GuiButtons;
 import br.uff.ic.provviewer.GUI.GuiInitialization;
-import br.uff.ic.provviewer.GUI.GuiProlog;
+import br.uff.ic.provviewer.GUI.GuiInference;
 import br.uff.ic.provviewer.GUI.GuiReadFile;
 import br.uff.ic.provviewer.GUI.GuiRun;
 import edu.uci.ics.jung.graph.DirectedGraph;
@@ -668,15 +668,15 @@ public class GraphFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_FilterEdgeAgentButtonActionPerformed
 
     private void InitPrologButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InitPrologButtonActionPerformed
-        GuiProlog.InitializeProlog(variables.testProlog, variables.prologIsInitialized, InitPrologButton);
+        GuiInference.InitializeProlog(variables.testProlog, variables.prologIsInitialized, InitPrologButton);
     }//GEN-LAST:event_InitPrologButtonActionPerformed
 
     private void PrologGenerateFactsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrologGenerateFactsActionPerformed
-        GuiProlog.GeneratePrologFacts(variables.initialGraph, variables.file, Variables.demo);
+        GuiInference.GeneratePrologFacts(variables.initialGraph, variables.file, Variables.demo);
     }//GEN-LAST:event_PrologGenerateFactsActionPerformed
 
     private void PrologSimilarityInferenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrologSimilarityInferenceActionPerformed
-        GuiProlog.SimilarityCollapse(InitPrologButton.isSelected(), variables.testProlog, variables, edgeTypeField.getText());
+        GuiInference.SimilarityCollapse(InitPrologButton.isSelected(), variables.testProlog, variables, edgeTypeField.getText());
     }//GEN-LAST:event_PrologSimilarityInferenceActionPerformed
 
     private void edgeTypeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edgeTypeFieldActionPerformed
