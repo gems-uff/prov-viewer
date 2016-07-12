@@ -6,6 +6,7 @@ package br.uff.ic.provviewer.Vertex.ColorScheme;
 
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.Variables;
+import br.uff.ic.utility.GraphUtils;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
@@ -184,7 +185,7 @@ public abstract class ColorScheme {
             // 
 //            boolean isDerivate = true;
             if (variables.doDerivate) {
-                float slope = getSlope(v);
+                float slope = GraphUtils.getSlope(v, this);
                 if (slope == Float.NEGATIVE_INFINITY) {
                     return new Color(0, 0, 0);
                 } else if (slope < this.derivateMin) {
@@ -222,7 +223,7 @@ public abstract class ColorScheme {
                 if (!((Vertex) node).getAttributeValue(this.attribute).contentEquals("Unknown")) {
                     this.max = Math.max(this.max, ((Vertex) node).getAttributeValueFloat(this.attribute));
                     this.min = Math.min(this.min, ((Vertex) node).getAttributeValueFloat(this.attribute));
-                    derivateValues.add(getSlope(node));
+                    derivateValues.add(GraphUtils.getSlope(node, this));
                 }
             }
             derivateValues = Utils.removeInfinity(derivateValues);
@@ -250,7 +251,7 @@ public abstract class ColorScheme {
                     if (((Vertex) node).getAttributeValue(aRestriction).equalsIgnoreCase(aValue)) {
                         this.max = Math.max(this.max, ((Vertex) node).getAttributeValueFloat(this.attribute));
                         this.min = Math.min(this.min, ((Vertex) node).getAttributeValueFloat(this.attribute));
-                        derivateValues.add(getSlope(node));
+                        derivateValues.add(GraphUtils.getSlope(node, this));
                     }
                 }
             }
@@ -264,27 +265,6 @@ public abstract class ColorScheme {
             this.derivateMin = derivateValues.get(0);
             computedMinMax = true;
         }
-    }
-
-    // TO DO: Get the mean of slopes if there are more than 1 vertex with the attribute
-    // TO DO: Allow for jumping vertices until finding the vertex with the same attribute (e.g., skip an entity between two activities) 
-    private float getSlope(Object node) {
-        float slope = Float.NEGATIVE_INFINITY;
-        for (Edge e : variables.graph.getOutEdges(node)) {
-            if (!((Vertex) e.getTarget()).getAttributeValue(this.attribute).contentEquals("Unknown")) {
-                float attValue = ((Vertex) node).getAttributeValueFloat(this.attribute) - ((Vertex) e.getTarget()).getAttributeValueFloat(this.attribute);
-                float time = ((Vertex) node).getTime() - ((Vertex) e.getTarget()).getTime();
-                if (time != 0) {
-                    slope = attValue / time;
-                } else if ((attValue != 0) && (time == 0)) {
-                    slope = attValue;
-                }
-                else if (time == 0) {
-                    slope = 0;
-                }
-            }
-        }
-        return slope;
     }
 
     public abstract Paint Execute(Object v, final Variables variables);
