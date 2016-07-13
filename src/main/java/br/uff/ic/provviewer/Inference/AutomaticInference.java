@@ -10,6 +10,7 @@ import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.Vertex;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -18,7 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author Kohwalter
  */
 public class AutomaticInference {
-
+    
     /**
      * Method to generate the correct format to pass to the Collapser class
      *
@@ -90,7 +91,7 @@ public class AutomaticInference {
      * @param cg
      * @param processedVertices
      */
-    private static void Neighborhood(Object v1, Variables variables, GraphMatching combiner, ConcurrentHashMap<String, Object> cg, Map<String, String> processedVertices) {
+    private static void getNeighborhood(Object v1, Variables variables, GraphMatching combiner, ConcurrentHashMap<String, Object> cg, Map<String, String> processedVertices) {
         for (Object v2 : variables.graph.getNeighbors(v1)) {
             String id2 = ((Vertex) v2).getID();
             if (!processedVertices.containsKey(id2)) {
@@ -107,32 +108,167 @@ public class AutomaticInference {
                     if (isSimilar) {
                         processedVertices.put(id2, id2);
                         cg.put(id2, v2);
-                        Neighborhood(v2, variables, combiner, cg, processedVertices);
+                        getNeighborhood(v2, variables, combiner, cg, processedVertices);
                     }
                 }
             }
         }
     }
-
+    
     /**
      * Generate clusters based on the Neighborhood heuristic
      *
      * @param variables
-     * @param processedVertices
-     * @param collapseGroups
      * @param combiner
+     * @return the list of clusters
      */
-    public static void createCollapseClusters(Variables variables, Map<String, String> processedVertices, ArrayList<ConcurrentHashMap<String, Object>> collapseGroups, GraphMatching combiner) {
-        ConcurrentHashMap<String, Object> cg;
+    public static String cluster(Variables variables, GraphMatching combiner) {
+        ArrayList<ConcurrentHashMap<String, Object>> clusters = new ArrayList<>();
+        ConcurrentHashMap<String, Object> cluster;
+        Map<String, String> visited = new HashMap<>();
         for (Object v1 : variables.graph.getVertices()) {
             String id1 = ((Vertex) v1).getID();
-            if (!processedVertices.containsKey(id1)) {
-                cg = new ConcurrentHashMap<>();
-                processedVertices.put(id1, id1);
-                Neighborhood(v1, variables, combiner, cg, processedVertices);
-                collapseGroups.add(cg);
+            if (!visited.containsKey(id1)) {
+                cluster = new ConcurrentHashMap<>();
+                visited.put(id1, id1);
+                getNeighborhood(v1, variables, combiner, cluster, visited);
+                clusters.add(cluster);
             }
         }
+        breakCollapseClusters(clusters, combiner);
+        return printCollapseGroups(clusters);
     }
 
+    
+    /* DBSCAN implementation  */
+    
+    /** Distance Metric **/
+    private static ArrayList<Object> getNeighbors(Object current,
+            Variables variables,
+            GraphMatching combiner) {
+
+        ArrayList<Object> neighbors = new ArrayList<>();
+
+        for (Object v2 : variables.graph.getNeighbors(current)) {
+            String id2 = ((Vertex) v2).getID();
+//            if (!processedVertices.containsKey(id2)) {
+            if (combiner.isSimilar((Vertex) current, (Vertex) v2)) {
+                boolean isSimilar = true;
+                for (Object v3 : neighbors.toArray()) {
+                    if (!combiner.isSimilar((Vertex) v2, (Vertex) v3)) {
+                        isSimilar = false;
+                    }
+                }
+                if (isSimilar) {
+//                        processedVertices.put(id2, id2);
+                    neighbors.add(v2);
+                }
+            }
+//            }
+        }
+        return neighbors;
+    }
+    
+    /**
+     * Expands the cluster to include density-reachable items.
+     *
+     **/
+    private static ArrayList<Object> expandCluster(ArrayList<Object> cluster,
+            Object vertex,
+            ArrayList<Object> neighbors,
+            Variables variables,
+            GraphMatching combiner,
+            Map<String, String> visited) {
+
+        String id1 = ((Vertex) vertex).getID();
+        cluster.add(vertex);
+        visited.put(id1, id1);
+        ArrayList<Object> seeds = new ArrayList<>(neighbors);
+        int index = 0;
+        while (index < seeds.size()) {
+            final Object current = seeds.get(index);
+            String idCurrent = ((Vertex) current).getID();
+            // only check non-visited points
+            if (!visited.containsKey(idCurrent)) {
+                final ArrayList<Object> currentNeighbors = getNeighbors(current, variables, combiner);
+                int minPts = 1;
+                if (currentNeighbors.size() >= minPts) {
+                    seeds = merge(seeds, currentNeighbors);
+                }
+                visited.put(idCurrent, idCurrent);
+                cluster.add(current);
+            }
+
+            index++;
+        }
+        return cluster;
+
+    }
+
+    /**
+     * Merges two lists together.
+     *
+     * @param one first list
+     * @param two second list
+     * @return merged lists
+     */
+    private static ArrayList<Object> merge(final ArrayList<Object> one, final ArrayList<Object> two) {
+        final ArrayList<Object> oneSet = new ArrayList<>(one);
+        for (Object item : two) {
+            if (!oneSet.contains(item)) {
+                one.add(item);
+            }
+        }
+        return one;
+    }
+
+    /**
+     * Performs DBSCAN cluster analysis.
+     * @param variables
+     * @param combiner
+     * @return the list of clusters
+     */
+    public static String dbscan(Variables variables, GraphMatching combiner) {
+
+        final ArrayList<Object> clusters = new ArrayList<>();
+        Map<String, String> visited = new HashMap<>();
+
+        for (Object current : variables.graph.getVertices()) {
+            String id1 = ((Vertex) current).getID();
+            if (!visited.containsKey(id1)) {
+//                clusters = new ConcurrentHashMap<>();
+                ArrayList<Object> neighbors = getNeighbors(current, variables, combiner);
+                int minPts = 1;
+                if (neighbors.size() >= minPts) {
+                    // DBSCAN does not care about center points
+                    final ArrayList<Object> cluster = new ArrayList<>();
+                    clusters.add(expandCluster(cluster, current, neighbors, variables, combiner, visited));
+                } else {
+                    visited.put(id1, id1);
+                }
+            }
+        }
+
+        return printClusters(clusters);
+    }
+
+    /**
+     * Method to generate the correct format to pass to the Collapser class
+     *
+     * @param clusters
+     * @return
+     */
+    public static String printClusters(ArrayList<Object> clusters) {
+        String collapseList = "";
+        for (Object subGraph : clusters) {
+            if (((ArrayList<Object>) subGraph).size() > 1) {
+                for (Object v1 : ((ArrayList<Object>) subGraph).toArray()) {
+                    String id1 = ((Vertex) v1).getID();
+                    collapseList += "," + id1;
+                }
+                collapseList += " ";
+            }
+        }
+        return collapseList;
+    }
 }

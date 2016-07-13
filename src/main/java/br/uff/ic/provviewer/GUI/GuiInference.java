@@ -95,9 +95,6 @@ public class GuiInference {
     }
 
     public static String ColorSchemeCollapse(String attribute, Variables variables) {
-        Map<String, String> processedVertices = new HashMap<>();
-        ArrayList<ConcurrentHashMap<String, Object>> collapseGroups = new ArrayList<>();
-
         // -----------------------------
         // Standard Deviation
         // -----------------------------
@@ -116,21 +113,17 @@ public class GuiInference {
         GraphMatching combiner = new GraphMatching(restrictionList, similarityThreshold, defaultError, 0);
 
         // -----------------------------
-        // Create 1st order clusters
-        // -----------------------------
-        // Run through all vertices in the graph
-        AutomaticInference.createCollapseClusters(variables, processedVertices, collapseGroups, combiner);
-
-        // -----------------------------
-        // Break 1st order clusters
-        // -----------------------------
-        AutomaticInference.breakCollapseClusters(collapseGroups, combiner);
-
-        // -----------------------------
         // Return Collapse Clusters
         // -----------------------------
+//        long startTime = System.currentTimeMillis();
 //        System.out.println(": L = " + collapseList);
-        return AutomaticInference.printCollapseGroups(collapseGroups);
+        String clusters =  AutomaticInference.cluster(variables, combiner);
+//        String clusters =  AutomaticInference.dbscan(variables, combiner);
+        
+//        long stopTime = System.currentTimeMillis();
+//        long elapsedTime = stopTime - startTime;
+//        System.out.println("elapsedTime: " + elapsedTime);
+        return clusters;
     }
 
 }
