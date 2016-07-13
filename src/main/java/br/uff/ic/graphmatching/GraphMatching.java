@@ -237,36 +237,37 @@ public class GraphMatching {
                 errorMargin = attributeList.get(attribute.getName()).getValue();
                 weight = attributeList.get(attribute.getName()).getWeight();
             }
-
-            // Dealing with numeric values
-            if (Utils.tryParseFloat(av1) && Utils.tryParseFloat(av2)) { // && Utils.tryParseFloat(errorMargin)) {
-                if(Utils.tryParseFloat(errorMargin)) {
-                    if (Utils.FloatEqualTo(Utils.convertFloat(av1), Utils.convertFloat(av2), Utils.convertFloat(errorMargin))) {
+            if(weight != 0) {
+                // Dealing with numeric values
+                if (Utils.tryParseFloat(av1) && Utils.tryParseFloat(av2)) { // && Utils.tryParseFloat(errorMargin)) {
+                    if(Utils.tryParseFloat(errorMargin)) {
+                        if (Utils.FloatEqualTo(Utils.convertFloat(av1), Utils.convertFloat(av2), Utils.convertFloat(errorMargin))) {
+                            similarity = similarity + (1 * weight);
+    //                        System.out.println(attribute.getName() + ": " + av1 + " / " + av2 + " error: " + errorMargin);
+                        }
+                    }
+                    else if(errorMargin.contains("%")) {
+                        errorMargin = errorMargin.replaceAll("%", "");
+                        if (Utils.FloatSimilar(Utils.convertFloat(av1), Utils.convertFloat(av2), Utils.convertFloat(errorMargin) * 0.01)) {
+                            similarity = similarity + (1 * weight);
+    //                        System.out.println(attribute.getName() + ": " + av1 + " / " + av2 + " error: " + errorMargin);
+                        }
+                    }
+                } // Dealing with a timeDate values
+                else if(Utils.tryParseDate(av1) && Utils.tryParseDate(av2)) {
+                    if(Utils.FloatEqualTo(Utils.convertStringDateToDouble(av1),Utils.convertStringDateToDouble(av2),Utils.convertDouble(errorMargin))) {
                         similarity = similarity + (1 * weight);
-//                        System.out.println(attribute.getName() + ": " + av1 + " / " + av2 + " error: " + errorMargin);
                     }
                 }
-                else if(errorMargin.contains("%")) {
-                    errorMargin = errorMargin.replaceAll("%", "");
-                    if (Utils.FloatSimilar(Utils.convertFloat(av1), Utils.convertFloat(av2), Utils.convertFloat(errorMargin) * 0.01)) {
-                        similarity = similarity + (1 * weight);
-//                        System.out.println(attribute.getName() + ": " + av1 + " / " + av2 + " error: " + errorMargin);
-                    }
-                }
-            } // Dealing with a timeDate values
-            else if(Utils.tryParseDate(av1) && Utils.tryParseDate(av2)) {
-                if(Utils.FloatEqualTo(Utils.convertStringDateToDouble(av1),Utils.convertStringDateToDouble(av2),Utils.convertDouble(errorMargin))) {
+                // Dealing with string values: Checking if they are equals
+                else if (av1.equalsIgnoreCase(av2)) {
                     similarity = similarity + (1 * weight);
-                }
+                } // Dealing with String values: Checking if they are in the Vocabulary and thus synonymous
+                else if(vocabulary.containsKey(av1.toLowerCase()))
+                    if(vocabulary.get(av1.toLowerCase()).contains(av2.toLowerCase() + " ")){
+                        similarity = similarity + (1 * weight);
+                } 
             }
-            // Dealing with string values: Checking if they are equals
-            else if (av1.equalsIgnoreCase(av2)) {
-                similarity = similarity + (1 * weight);
-            } // Dealing with String values: Checking if they are in the Vocabulary and thus synonymous
-            else if(vocabulary.containsKey(av1.toLowerCase()))
-                if(vocabulary.get(av1.toLowerCase()).contains(av2.toLowerCase() + " ")){
-                    similarity = similarity + (1 * weight);
-            } 
         }
 
         return similarity;
