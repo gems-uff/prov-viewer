@@ -6,12 +6,17 @@
 package br.uff.ic.utility.graphgenerator;
 
 import br.uff.ic.utility.GraphAttribute;
+import br.uff.ic.utility.IO.XMLWriter;
+import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
+import java.io.FileNotFoundException;
 import java.util.Collection;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,13 +29,13 @@ public class NoiseGraph {
     String attribute;
     DirectedGraph<Object, Edge> templateGraph;
     DirectedGraph<Object, Edge> noiseGraph;
-    
+
     /**
      * Constructor
      * @param templateGraph is the template graph
-     * @param attribute  is the name of the attribute used by the vertices
+     * @param attribute is the name of the attribute used by the vertices
      */
-    public void NoiseGraph(DirectedGraph<Object, Edge> templateGraph, String attribute) {
+    NoiseGraph(DirectedGraph<Object, Edge> templateGraph, String attribute) {
         this.attribute = attribute;
         id_counter = 1;
         this.templateGraph = templateGraph;
@@ -84,9 +89,9 @@ public class NoiseGraph {
         
         value = mean + sigma * rng.nextGaussian();
         
-        while((value < mean - threeSigma) || (value > mean + threeSigma)) {
-            value = mean + sigma * rng.nextGaussian();
-        }
+//        while((value < mean - threeSigma) || (value > mean + threeSigma)) {
+//            value = mean + sigma * rng.nextGaussian();
+//        }
         
         return value;
     }
@@ -96,12 +101,12 @@ public class NoiseGraph {
      * @param noiseValue is the value for the noise vertex
      * @return the noise vertex
      */
-    private Vertex newNoiseVertex(double noiseValue) {
+    private Vertex newNoiseVertex(double noiseValue, String date) {
         String id;
         id = "noise_" + id_counter;
         id_counter++;
         
-        Vertex noise = new ActivityVertex(id);
+        Vertex noise = new ActivityVertex(id, id, date);
         GraphAttribute att = new GraphAttribute(attribute, Double.toString(noiseValue));
         noise.addAttribute(att);
         
@@ -157,7 +162,7 @@ public class NoiseGraph {
         float mean = getMean(vertex);
         double noiseValue = randomNoiseValue(mean, (float) threeSigma);
         
-        Vertex noise = newNoiseVertex(noiseValue);
+        Vertex noise = newNoiseVertex(noiseValue, ((Vertex)vertex).getTimeString());
         
         insertNoise((Vertex) vertex, noise);
     }
@@ -189,6 +194,8 @@ public class NoiseGraph {
                 addNoise(templateVertices);
             }
         }
+        
+        Utils.exportGraph(noiseGraph, "noise_graph");
         
         return noiseGraph;
     }
