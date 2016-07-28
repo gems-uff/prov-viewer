@@ -5,6 +5,11 @@
  */
 package br.uff.ic.utility;
 
+import br.uff.ic.utility.IO.XMLWriter;
+import br.uff.ic.utility.graph.Edge;
+import br.uff.ic.utility.graphgenerator.NoiseGraph;
+import edu.uci.ics.jung.graph.DirectedGraph;
+import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,6 +31,21 @@ import javax.xml.datatype.XMLGregorianCalendar;
  */
 public class Utils {
 
+    /**
+     * Method to export the graph in an xml format
+     * @param graph is the desired graph to be exported 
+     * @param fileName is the name of the file (without extension)
+     */
+    public static void exportGraph(DirectedGraph<Object, Edge> graph, String fileName) {
+        try {
+            XMLWriter xmlWriter = new XMLWriter(graph.getVertices(), graph.getEdges());
+            xmlWriter.saveToXML(fileName);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(NoiseGraph.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
     /**
      * Method to check if it is possible to parse the value to float
      *
