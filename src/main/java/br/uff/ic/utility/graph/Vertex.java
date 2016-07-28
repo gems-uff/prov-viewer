@@ -104,10 +104,18 @@ public abstract class Vertex extends GraphObject {
             return -1;
     }
     
+    /**
+     * Method to get the value of the variable time 
+     * @return time
+     */
     public String getTimeString() {    
         return this.time;
     }
     
+    /**
+     * Method to set the value of the variable time
+     * @param t is the new value
+     */
     public void setTime(String t){
         this.time = t;
     }
