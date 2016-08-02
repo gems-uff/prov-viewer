@@ -13,6 +13,8 @@ import br.uff.ic.provviewer.Inference.AutomaticInference;
 import br.uff.ic.provviewer.Inference.PrologInference;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.AttributeErrorMargin;
+import br.uff.ic.utility.graph.Edge;
+import edu.uci.ics.jung.graph.DirectedGraph;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -88,17 +90,17 @@ public class GuiInference {
             System.out.println("Finished Collapsing");
         } else {
             GuiButtons.Reset(variables);
-            String list = ColorSchemeCollapse((String) StatusFilterBox.getSelectedItem(), variables);
+            String list = ColorSchemeCollapse((String) StatusFilterBox.getSelectedItem(), variables.graph);
             variables.collapser.CollapseIrrelevant(variables, list);
             System.out.println("Finished Collapsing");
         }
     }
 
-    public static String ColorSchemeCollapse(String attribute, Variables variables) {
+    public static String ColorSchemeCollapse(String attribute, DirectedGraph<Object, Edge> graph) {
         // -----------------------------
         // Standard Deviation
         // -----------------------------
-        double std = AutomaticInference.std(variables, attribute);
+        double std = AutomaticInference.std(graph, attribute);
 //        System.out.println("STD = " + std);
 
         // -----------------------------
@@ -117,7 +119,7 @@ public class GuiInference {
         // -----------------------------
 //        long startTime = System.currentTimeMillis();
 //        System.out.println(": L = " + collapseList);
-        String clusters =  AutomaticInference.cluster(variables, combiner);
+        String clusters =  AutomaticInference.cluster(graph, combiner);
 //        String clusters =  AutomaticInference.dbscan(variables, combiner);
         
 //        long stopTime = System.currentTimeMillis();
