@@ -8,7 +8,9 @@ package br.uff.ic.provviewer.Inference;
 import br.uff.ic.graphmatching.GraphMatching;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.Utils;
+import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
+import edu.uci.ics.jung.graph.DirectedGraph;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -60,13 +62,13 @@ public class AutomaticInference {
     /**
      * Computes the standard deviation for the attribute
      *
-     * @param variables
+     * @param graph
      * @param attribute
      * @return
      */
-    public static double std(Variables variables, String attribute) {
+    public static double std(DirectedGraph<Object, Edge> graph, String attribute) {
         ArrayList<Float> values = new ArrayList<>();
-        for (Object v1 : variables.graph.getVertices()) {
+        for (Object v1 : graph.getVertices()) {
             float val = ((Vertex) v1).getAttributeValueFloat(attribute);
             if (!(val != val)) {
                 values.add(val);
@@ -86,13 +88,13 @@ public class AutomaticInference {
      * within acceptable parameters
      *
      * @param v1
-     * @param variables
+     * @param graph
      * @param combiner
      * @param cg
      * @param processedVertices
      */
-    private static void getNeighborhood(Object v1, Variables variables, GraphMatching combiner, ConcurrentHashMap<String, Object> cg, Map<String, String> processedVertices) {
-        for (Object v2 : variables.graph.getNeighbors(v1)) {
+    private static void getNeighborhood(Object v1, DirectedGraph<Object, Edge> graph, GraphMatching combiner, ConcurrentHashMap<String, Object> cg, Map<String, String> processedVertices) {
+        for (Object v2 : graph.getNeighbors(v1)) {
             String id2 = ((Vertex) v2).getID();
             if (!processedVertices.containsKey(id2)) {
                 if (combiner.isSimilar((Vertex) v1, (Vertex) v2)) {
@@ -108,7 +110,7 @@ public class AutomaticInference {
                     if (isSimilar) {
                         processedVertices.put(id2, id2);
                         cg.put(id2, v2);
-                        getNeighborhood(v2, variables, combiner, cg, processedVertices);
+                        getNeighborhood(v2, graph, combiner, cg, processedVertices);
                     }
                 }
             }
@@ -118,20 +120,20 @@ public class AutomaticInference {
     /**
      * Generate clusters based on the Neighborhood heuristic
      *
-     * @param variables
+     * @param graph
      * @param combiner
      * @return the list of clusters
      */
-    public static String cluster(Variables variables, GraphMatching combiner) {
+    public static String cluster(DirectedGraph<Object, Edge> graph, GraphMatching combiner) {
         ArrayList<ConcurrentHashMap<String, Object>> clusters = new ArrayList<>();
         ConcurrentHashMap<String, Object> cluster;
         Map<String, String> visited = new HashMap<>();
-        for (Object v1 : variables.graph.getVertices()) {
+        for (Object v1 : graph.getVertices()) {
             String id1 = ((Vertex) v1).getID();
             if (!visited.containsKey(id1)) {
                 cluster = new ConcurrentHashMap<>();
                 visited.put(id1, id1);
-                getNeighborhood(v1, variables, combiner, cluster, visited);
+                getNeighborhood(v1, graph, combiner, cluster, visited);
                 clusters.add(cluster);
             }
         }
