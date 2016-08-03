@@ -9,6 +9,7 @@ import br.uff.ic.utility.IO.XMLWriter;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graphgenerator.NoiseGraph;
 import edu.uci.ics.jung.graph.DirectedGraph;
+import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,7 +18,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -361,6 +361,11 @@ public class Utils {
         return normalNumbers;
     }
     
+    /**
+     * Method to compute the standard deviation
+     * @param list is the list of float values
+     * @return the stdev
+     */
     public static double stdev(float[] list){
         double sum = 0.0;
         double mean = 0.0;
@@ -382,5 +387,19 @@ public class Utils {
 
         double stdevResult = Math.sqrt(num/deno);
         return stdevResult;
+    }
+
+    /**
+     * Method to clone a graph
+     * @param graph The graph to be cloned
+     * @return a clone of the graph
+     */
+    public static DirectedGraph<Object, Edge> copyGraph(DirectedGraph<Object, Edge> graph) {
+        DirectedGraph<Object, Edge> clone = new DirectedSparseMultigraph<>();;
+        for (Edge e : graph.getEdges()) {
+            clone.addEdge(e, e.getSource(), e.getTarget());
+        }
+        
+        return clone;
     }
 }
