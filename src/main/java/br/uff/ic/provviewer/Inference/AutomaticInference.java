@@ -31,7 +31,7 @@ public class AutomaticInference {
     public static String printCollapseGroups(ArrayList<ConcurrentHashMap<String, Object>> collapseGroups) {
         String collapseList = "";
         for (ConcurrentHashMap<String, Object> subGraph : collapseGroups) {
-            if (subGraph.size() > 1) {
+            if (subGraph.size() > 0) {
                 for (Object v1 : subGraph.values()) {
                     String id1 = ((Vertex) v1).getID();
                     collapseList += "," + id1;
@@ -98,9 +98,9 @@ public class AutomaticInference {
             String id2 = ((Vertex) v2).getID();
             if (!processedVertices.containsKey(id2)) {
                 if (combiner.isSimilar((Vertex) v1, (Vertex) v2)) {
-                    if (cg.isEmpty()) {
-                        cg.put(((Vertex) v1).getID(), v1);
-                    }
+//                    if (cg.isEmpty()) {
+//                        cg.put(((Vertex) v1).getID(), v1);
+//                    }
                     boolean isSimilar = true;
                     for (Object v3 : cg.values()) {
                         if (!combiner.isSimilar((Vertex) v2, (Vertex) v3)) {
@@ -133,11 +133,13 @@ public class AutomaticInference {
             if (!visited.containsKey(id1)) {
                 cluster = new ConcurrentHashMap<>();
                 visited.put(id1, id1);
+                cluster.put(id1, v1);
                 getNeighborhood(v1, graph, combiner, cluster, visited);
                 clusters.add(cluster);
             }
         }
         breakCollapseClusters(clusters, combiner);
+//        System.out.println(printCollapseGroups(clusters));
         return printCollapseGroups(clusters);
     }
 
