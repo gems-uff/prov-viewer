@@ -6,17 +6,13 @@
 package br.uff.ic.utility.graphgenerator;
 
 import br.uff.ic.utility.GraphAttribute;
-import br.uff.ic.utility.IO.XMLWriter;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
-import java.io.FileNotFoundException;
 import java.util.Collection;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -24,22 +20,22 @@ import java.util.logging.Logger;
  */
 public class NoiseGraph {
     
-    String EDGE_DEFAULT_TYPE = "Neutral";
+    String EDGE_DEFAULT_TYPE = "Chronological";
     int id_counter;
     String attribute;
-    DirectedGraph<Object, Edge> templateGraph;
+    DirectedGraph<Object, Edge> oracleGraph;
     DirectedGraph<Object, Edge> noiseGraph;
 
     /**
      * Constructor
-     * @param templateGraph is the template graph
+     * @param oracleGraph is the template graph
      * @param attribute is the name of the attribute used by the vertices
      */
-    NoiseGraph(DirectedGraph<Object, Edge> templateGraph, String attribute) {
+    NoiseGraph(DirectedGraph<Object, Edge> oracleGraph, String attribute) {
         this.attribute = attribute;
         id_counter = 1;
-        this.templateGraph = templateGraph;
-        this.noiseGraph = templateGraph;
+        this.oracleGraph = oracleGraph;
+        this.noiseGraph = Utils.copyGraph(this.oracleGraph);
     }
     
     /**
@@ -48,7 +44,7 @@ public class NoiseGraph {
      * @return the noise threshold
      */
     private float noiseThreshold(Vertex vertex) {
-        Collection<Object> neighbors = templateGraph.getNeighbors(vertex);
+        Collection<Object> neighbors = oracleGraph.getNeighbors(vertex);
         float minDelta = Float.POSITIVE_INFINITY;
         for (Object v : neighbors) {
             float n_value;
@@ -103,7 +99,7 @@ public class NoiseGraph {
      */
     private Vertex newNoiseVertex(double noiseValue, String date) {
         String id;
-        id = "noise_" + id_counter;
+        id = id_counter + "_noise";
         id_counter++;
         
         Vertex noise = new ActivityVertex(id, id, date);
@@ -155,9 +151,9 @@ public class NoiseGraph {
     /**
      * Method to create and insert the noise vertex in the noiseGraph
      */
-    private void addNoise (Object[] templateVertices) {
-        int random = pickRandomly(templateVertices.length);
-        Object vertex = templateVertices[random];
+    private void addNoise (Object[] oracleVertices) {
+        int random = pickRandomly(oracleVertices.length);
+        Object vertex = oracleVertices[random];
         double threeSigma = noiseThreshold((Vertex) vertex);
         float mean = getMean(vertex);
         double noiseValue = randomNoiseValue(mean, (float) threeSigma);
@@ -186,12 +182,12 @@ public class NoiseGraph {
      * @return the noiseGraph, which is a templateGraph with noise
      */
     public DirectedGraph<Object, Edge> generateNoiseGraph(float noiseFactor, float noiseProbability) {
-        int noiseQuantity = (int) (templateGraph.getVertices().size() * noiseFactor);
-        Object[] templateVertices = templateGraph.getVertices().toArray();
+        int noiseQuantity = (int) (oracleGraph.getVertices().size() * noiseFactor);
+        Object[] oracleVertices = oracleGraph.getVertices().toArray();
         
         for( int i = 0; i < noiseQuantity; i++) {
             if(generateNewNoise(noiseProbability)) {
-                addNoise(templateVertices);
+                addNoise(oracleVertices);
             }
         }
         
