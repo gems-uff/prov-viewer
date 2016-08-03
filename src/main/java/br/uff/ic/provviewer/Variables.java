@@ -61,6 +61,9 @@ public class Variables extends Object {
     
 //    public static String demo = File.separator + "Graph" + File.separator + "program_prov_example.xml";
 //    public String configDemo = File.separator + "Config" + File.separator + "prog_example_config.xml";  
+    
+//    public static String demo = File.separator + "Graph" + File.separator + "Car_Tutorial.xml";
+//    public String configDemo = File.separator + "Config" + File.separator + "Noise_config.xml";
 
     public GuiBackground guiBackground = new GuiBackground();
     public VisualizationViewer<Object, Edge> view;
