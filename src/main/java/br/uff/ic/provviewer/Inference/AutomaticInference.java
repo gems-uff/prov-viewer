@@ -22,6 +22,8 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class AutomaticInference {
     
+    static int STD_QUANTITY = 1;
+    
     /**
      * Method to generate the correct format to pass to the Collapser class
      *
@@ -67,19 +69,16 @@ public class AutomaticInference {
      * @return
      */
     public static double std(DirectedGraph<Object, Edge> graph, String attribute) {
-        ArrayList<Float> values = new ArrayList<>();
+        ArrayList<Double> values = new ArrayList<>();
         for (Object v1 : graph.getVertices()) {
-            float val = ((Vertex) v1).getAttributeValueFloat(attribute);
+            double val = ((Vertex) v1).getAttributeValueFloat(attribute);
             if (!(val != val)) {
                 values.add(val);
             }
         }
-        float[] floatArray = new float[values.size()];
-        int i = 0;
-        for (Float f : values) {
-            floatArray[i++] = (f != null ? f : Float.NaN);
-        }
-        return Utils.stdev(floatArray) * 1;
+        Double[] doubleArray = new Double[values.size()];
+        doubleArray = Utils.listToDoubleArray(values);
+        return Utils.stdev(doubleArray) * STD_QUANTITY;
     }
 
     /**
