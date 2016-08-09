@@ -17,8 +17,6 @@ public class NoiseGraphTest {
     
     
     String attribute = "A";
-    float noiseFactor = 3.0F;
-    float noiseProbability = 1.0F;
     
     public NoiseGraphTest() {
     }
