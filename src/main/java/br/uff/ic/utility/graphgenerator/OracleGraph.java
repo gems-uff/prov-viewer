@@ -22,12 +22,13 @@ public class OracleGraph {
     int MIN_ORACLE_VALUE = -200;
     int MAX_ORACLE_VALUE = 200;
     String attribute;
+    int oracleGraphNumber = 0;
     
     /**
      * Constructor
      * @param attribute 
      */
-    OracleGraph(String attribute) {
+    public OracleGraph(String attribute) {
         this.attribute = attribute;
     }
     
@@ -38,6 +39,8 @@ public class OracleGraph {
     private void generateOracleValues(Vertex v) {
         GraphAttribute att = new GraphAttribute(attribute, Double.toString(generateOracleNumber()));
         v.addAttribute(att);
+        System.out.println("V = " + att.getValue());
+        
         att = new GraphAttribute("isOracle", "true");
         v.addAttribute(att);
     }
@@ -100,8 +103,8 @@ public class OracleGraph {
         templateGraph.addEdge(e8, e8.getSource(), e8.getTarget());
         templateGraph.addEdge(e9, e9.getSource(), e9.getTarget());
         
-        Utils.exportGraph(templateGraph, "oracleLinearGraph");
-        
+        Utils.exportGraph(templateGraph, "oracleLinearGraph" + "_" + oracleGraphNumber);
+        oracleGraphNumber++;
         return templateGraph;
     }
     
