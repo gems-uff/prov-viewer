@@ -22,10 +22,11 @@ public class ClusteringEvaluator {
 
     int NUMBER_OF_ORACLE_GRAPHS = 10;
     int NUMBER_OF_NOISE_GRAPHS = 10;
+    int MAX_NOISE_GRAPH_SIZE = 10;
 //    double averageFmeasure = 0;
-    float noiseProbability = 1.0F;
+    double noiseProbability = 1.0F;
 //    double averageRecall = 0;
-    float noiseFactor = 3.0F;
+    double noiseFactor = 3.0F;
 //    double averagePrecision = 0;
     
     ArrayList<Double> p = new ArrayList<>();
@@ -63,6 +64,7 @@ public class ClusteringEvaluator {
         r.add(recall);
         f.add(fmeasure);
 
+        System.out.println("=========================");
         System.out.println("Intersection: " + intersection);
         System.out.println("Retrieved Documents: " + retrievedDocuments);
         System.out.println("Relevant Documents: " + relevantDocuments);
@@ -70,6 +72,7 @@ public class ClusteringEvaluator {
         System.out.println("Precision: " + precision);
         System.out.println("Recall: " + recall);
         System.out.println("F-Measure: " + fmeasure);
+        System.out.println("=========================");
     }
 
     public void collapse(OracleGraph oracleGraph) {
@@ -84,6 +87,7 @@ public class ClusteringEvaluator {
                 System.out.println("===============================");
                 System.out.println("TEST NUMBER #" + i);
                 NoiseGraph instance = new NoiseGraph(oracle, oracleGraph.attribute);
+                noiseFactor = (Math.random() * MAX_NOISE_GRAPH_SIZE);
                 DirectedGraph<Object, Edge> noiseGraph = instance.generateNoiseGraph(noiseFactor, noiseProbability);
                 String clusters = ColorSchemeCollapse(oracleGraph.attribute, noiseGraph);
                 System.out.println("Finished Collapsing");
