@@ -6,6 +6,8 @@
 package br.uff.ic.utility.graphgenerator;
 
 import static br.uff.ic.provviewer.GUI.GuiInference.ColorSchemeCollapse;
+import br.uff.ic.provviewer.Inference.AutomaticInference;
+import br.uff.ic.utility.Dbscan;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
@@ -29,11 +31,14 @@ public class ClusteringEvaluator {
     double noiseFactor = 3.0F;
 //    double averagePrecision = 0;
     
-    ArrayList<Double> p = new ArrayList<>();
-    ArrayList<Double> r = new ArrayList<>();
-    ArrayList<Double> f = new ArrayList<>();
+    ArrayList<Double> p_similarity = new ArrayList<>();
+    ArrayList<Double> r_similarity = new ArrayList<>();
+    ArrayList<Double> f_similarity = new ArrayList<>();
+    ArrayList<Double> p_dbscan = new ArrayList<>();
+    ArrayList<Double> r_dbscan = new ArrayList<>();
+    ArrayList<Double> f_dbscan = new ArrayList<>();
 
-    public void comparePRF(DirectedGraph<Object, Edge> oracle, String list, OracleGraph oracleGraph) {
+    public void comparePRF(DirectedGraph<Object, Edge> oracle, String list, ArrayList<Double> p, ArrayList<Double> r, ArrayList<Double> f) {
         List<String> clusters = new ArrayList<>();
         double relevantDocuments = oracle.getVertexCount();
         double retrievedDocuments;
@@ -88,27 +93,65 @@ public class ClusteringEvaluator {
                 System.out.println("TEST NUMBER #" + i);
                 NoiseGraph instance = new NoiseGraph(oracle, oracleGraph.attribute);
                 noiseFactor = (Math.random() * MAX_NOISE_GRAPH_SIZE);
-                DirectedGraph<Object, Edge> noiseGraph = instance.generateNoiseGraph(noiseFactor, noiseProbability);
-                String clusters = ColorSchemeCollapse(oracleGraph.attribute, noiseGraph);
-                System.out.println("Finished Collapsing");
+                DirectedGraph<Object, Edge> noiseGraph = instance.generateNoiseGraph(noiseFactor, noiseProbability, "" + j + i);
                 System.out.println("Oracle size: " + oracle.getVertexCount());
                 System.out.println("NoiseGraph size: " + noiseGraph.getVertexCount());
-                comparePRF(oracle, clusters, oracleGraph);
+                SimilarityCollapse(oracleGraph, oracle, noiseGraph);
+                dbscan(oracleGraph, oracle, noiseGraph);
+                
             }
         }
+        printResults();
+    }
+    
+    private void SimilarityCollapse(OracleGraph oracleGraph, DirectedGraph<Object, Edge> oracle, DirectedGraph<Object, Edge> noiseGraph) {
         System.out.println("=========================");
-        System.out.println("Average Precision: " + Utils.mean(Utils.listToDoubleArray(p)));
-        System.out.println("STD Precision: " + Utils.stdev(Utils.listToDoubleArray(p)));
-        System.out.println("Minimum Precision: " + Utils.minimumValue(Utils.listToDoubleArray(p)));
+        System.out.println("Similarity Collapse");
+        String similarity = ColorSchemeCollapse(oracleGraph.attribute, noiseGraph);
+        comparePRF(oracle, similarity, p_similarity, r_similarity, f_similarity);
+    }
+    
+    private void dbscan(OracleGraph oracleGraph, DirectedGraph<Object, Edge> oracle, DirectedGraph<Object, Edge> noiseGraph) {
         System.out.println("=========================");
-        System.out.println("Average Recall: " + Utils.mean(Utils.listToDoubleArray(r)));
-        System.out.println("STD Recall: " + Utils.stdev(Utils.listToDoubleArray(r)));
-        System.out.println("Minimum Recall: " + Utils.minimumValue(Utils.listToDoubleArray(r)));
+        System.out.println("DBSCAN");
+        double eps = AutomaticInference.std(noiseGraph, oracleGraph.attribute);
+        Dbscan instance = new Dbscan(noiseGraph, oracleGraph.attribute, eps, 1);
+        String dbscan = instance.applyDbscan(); 
+        comparePRF(oracle, dbscan, p_dbscan, r_dbscan, f_dbscan);
         System.out.println("=========================");
-        System.out.println("Average F-Measure: " + Utils.mean(Utils.listToDoubleArray(f)));
-        System.out.println("STD F-Measure: " + Utils.stdev(Utils.listToDoubleArray(f)));
-        System.out.println("Minimum F-Measure: " + Utils.minimumValue(Utils.listToDoubleArray(f)));
+    }
+    
+    private void printResults() {
+        String precision = "";
+        String recall = "";
+        String fmeasure = "";
         System.out.println("=========================");
+        System.out.println("Similarity Collapse");
+        printPrf(p_similarity, r_similarity, f_similarity);
+        System.out.println("=========================");
+        System.out.println("DBSCAN");
+        printPrf(p_dbscan, r_dbscan, f_dbscan);
+    }
+    
+    private void printPrf(ArrayList<Double> p, ArrayList<Double> r, ArrayList<Double> f) {
+        String precision = "";
+        String recall = "";
+        String fmeasure = "";
+        precision = "Precision> Mean: " + Utils.mean(Utils.listToDoubleArray(p)) + 
+                " / STD:" + Utils.stdev(Utils.listToDoubleArray(p)) + 
+                " / Min: " + Utils.minimumValue(Utils.listToDoubleArray(p));
+        
+        recall = "Recall> Mean: " + Utils.mean(Utils.listToDoubleArray(r)) + 
+                " / STD:" + Utils.stdev(Utils.listToDoubleArray(r)) + 
+                " / Min: " + Utils.minimumValue(Utils.listToDoubleArray(r));
+        
+        fmeasure = "F-Measure> Mean: " + Utils.mean(Utils.listToDoubleArray(f)) + 
+                " / STD:" + Utils.stdev(Utils.listToDoubleArray(f)) + 
+                " / Min: " + Utils.minimumValue(Utils.listToDoubleArray(f));
+        
+        System.out.println(precision);
+        System.out.println(recall);
+        System.out.println(fmeasure);
     }
     
 }
