@@ -6,6 +6,7 @@
 package br.uff.ic.utility.graphgenerator;
 
 import static br.uff.ic.provviewer.GUI.GuiInference.ColorSchemeCollapse;
+import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
@@ -21,11 +22,15 @@ public class ClusteringEvaluator {
 
     int NUMBER_OF_ORACLE_GRAPHS = 10;
     int NUMBER_OF_NOISE_GRAPHS = 10;
-    double averageFmeasure = 0;
+//    double averageFmeasure = 0;
     float noiseProbability = 1.0F;
-    double averageRecall = 0;
+//    double averageRecall = 0;
     float noiseFactor = 3.0F;
-    double averagePrecision = 0;
+//    double averagePrecision = 0;
+    
+    ArrayList<Double> p = new ArrayList<>();
+    ArrayList<Double> r = new ArrayList<>();
+    ArrayList<Double> f = new ArrayList<>();
 
     public void comparePRF(DirectedGraph<Object, Edge> oracle, String list, OracleGraph oracleGraph) {
         List<String> clusters = new ArrayList<>();
@@ -50,11 +55,14 @@ public class ClusteringEvaluator {
             }
         }
         precision = intersection / retrievedDocuments;
+        
         recall = intersection / relevantDocuments;
         fmeasure = 2 * (precision * recall) / (precision + recall);
-        averagePrecision += precision;
-        averageRecall += recall;
-        averageFmeasure += fmeasure;
+        
+        p.add(precision);
+        r.add(recall);
+        f.add(fmeasure);
+
         System.out.println("Intersection: " + intersection);
         System.out.println("Retrieved Documents: " + retrievedDocuments);
         System.out.println("Relevant Documents: " + relevantDocuments);
@@ -85,9 +93,18 @@ public class ClusteringEvaluator {
             }
         }
         System.out.println("=========================");
-        System.out.println("Average Precision: " + averagePrecision / (i * j));
-        System.out.println("Average Recall: " + averageRecall / (i * j));
-        System.out.println("Average F-Measure: " + averageFmeasure / (i * j));
+        System.out.println("Average Precision: " + Utils.mean(Utils.listToDoubleArray(p)));
+        System.out.println("STD Precision: " + Utils.stdev(Utils.listToDoubleArray(p)));
+        System.out.println("Minimum Precision: " + Utils.minimumValue(Utils.listToDoubleArray(p)));
+        System.out.println("=========================");
+        System.out.println("Average Recall: " + Utils.mean(Utils.listToDoubleArray(r)));
+        System.out.println("STD Recall: " + Utils.stdev(Utils.listToDoubleArray(r)));
+        System.out.println("Minimum Recall: " + Utils.minimumValue(Utils.listToDoubleArray(r)));
+        System.out.println("=========================");
+        System.out.println("Average F-Measure: " + Utils.mean(Utils.listToDoubleArray(f)));
+        System.out.println("STD F-Measure: " + Utils.stdev(Utils.listToDoubleArray(f)));
+        System.out.println("Minimum F-Measure: " + Utils.minimumValue(Utils.listToDoubleArray(f)));
+        System.out.println("=========================");
     }
     
 }
