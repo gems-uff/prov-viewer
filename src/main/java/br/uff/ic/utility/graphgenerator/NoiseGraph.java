@@ -11,6 +11,7 @@ import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
+import java.io.File;
 import java.util.Collection;
 import java.util.Random;
 
@@ -181,7 +182,7 @@ public class NoiseGraph {
      * @param noiseProbability is the probability to create a new noise
      * @return the noiseGraph, which is a templateGraph with noise
      */
-    public DirectedGraph<Object, Edge> generateNoiseGraph(double noiseFactor, double noiseProbability) {
+    public DirectedGraph<Object, Edge> generateNoiseGraph(double noiseFactor, double noiseProbability, String noiseGraphName) {
         if(noiseFactor < 1) {
             noiseFactor = 1;
         }
@@ -194,8 +195,7 @@ public class NoiseGraph {
             }
         }
         
-        Utils.exportGraph(noiseGraph, "noise_graph");
-        
+        Utils.exportGraph(noiseGraph, "noise_graph" + "_" + noiseGraphName);
         return noiseGraph;
     }
 }
