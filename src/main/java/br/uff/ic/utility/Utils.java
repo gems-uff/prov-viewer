@@ -366,17 +366,22 @@ public class Utils {
      * @param list is the list of float values
      * @return the stdev
      */
-    public static double stdev(float[] list){
-        double sum = 0.0;
+    public static double stdev(Double[] list){
         double mean = 0.0;
+        mean = mean(list);
+        return stdev(list, mean);
+    }
+    
+    /**
+     * Method to compute the standard deviation when the mean is already known
+     * @param list is the list of float values
+     * @param mean is the known mean of the list
+     * @return the stdev
+     */
+    public static double stdev(Double[] list, double mean){
         double num=0.0;
         double numi = 0.0;
         double deno = 0.0;
-        for (int i=0; i < list.length; i++){
-            sum+=list[i];
-            mean = sum/list.length-1;
-
-        }
 
         for (int i=0; i <list.length; i++){
              numi = Math.pow((list[i] - mean),2);
@@ -387,6 +392,51 @@ public class Utils {
 
         double stdevResult = Math.sqrt(num/deno);
         return stdevResult;
+    }
+    
+    /**
+     * Method to compute the mean of a list
+     * @param list is the list
+     * @return the mean of the list
+     */
+    public static double mean(Double[] list) {
+        double mean = 0.0;
+        double sum = 0.0;
+        for (int i=0; i < list.length; i++){
+            sum+=list[i];            
+        }
+        mean = sum / list.length;
+        
+        return mean;
+    }
+    
+    /**
+     * Method to find the minimum value of a list
+     * @param list is the list of values
+     * @return the minimum value of the list
+     */
+    public static double minimumValue(Double[] list) {
+        double min = Double.POSITIVE_INFINITY;
+        for (int i=0; i < list.length; i++){
+            min = Math.min(min, list[i]);            
+        }
+        
+        
+        return min;
+    }
+    
+    /**
+     * Method to convert a list of objects to an arraylist of double
+     * @param values is the list of objects to be convertable
+     * @return the arraylist of double
+     */
+    public static Double[] listToDoubleArray(ArrayList<Double> values) {
+        Double[] doubleArray = new Double[values.size()];
+        int i = 0;
+        for (Double f : values) {
+            doubleArray[i++] = (f != null ? f : Double.NaN);
+        }
+        return doubleArray;
     }
 
     /**
