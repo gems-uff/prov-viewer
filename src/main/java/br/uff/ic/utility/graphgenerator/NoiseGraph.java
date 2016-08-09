@@ -168,7 +168,7 @@ public class NoiseGraph {
      * @param noiseProbability is the probability of generating a new noise, ranging from 0 to 1
      * @return true or false
      */
-    private boolean generateNewNoise(float noiseProbability) {
+    private boolean generateNewNoise(double noiseProbability) {
         if(Math.random() < noiseProbability)
             return true;
         else
@@ -181,7 +181,10 @@ public class NoiseGraph {
      * @param noiseProbability is the probability to create a new noise
      * @return the noiseGraph, which is a templateGraph with noise
      */
-    public DirectedGraph<Object, Edge> generateNoiseGraph(float noiseFactor, float noiseProbability) {
+    public DirectedGraph<Object, Edge> generateNoiseGraph(double noiseFactor, double noiseProbability) {
+        if(noiseFactor < 1) {
+            noiseFactor = 1;
+        }
         int noiseQuantity = (int) (oracleGraph.getVertices().size() * noiseFactor);
         Object[] oracleVertices = oracleGraph.getVertices().toArray();
         
