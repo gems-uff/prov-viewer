@@ -35,13 +35,13 @@ public class NoiseGraphTest {
     @Test
     public void testGenerateNoiseGraph() {
         System.out.println("generateNoiseGraph");
-        OracleGraph oracle = new OracleGraph(attribute);
+        OracleGraph oracle = new OracleGraph(attribute, -200, 200);
         ClusteringEvaluator eval = new ClusteringEvaluator();
 //        DirectedGraph<Object, Edge> templateGraph = oracle.generateLinearGraph();
 //        NoiseGraph instance = new NoiseGraph(templateGraph, attribute);
 //        instance.generateNoiseGraph(noiseFactor, noiseProbability);
         
-        eval.collapse(oracle);
+        eval.collapse(oracle, 1, 100, 100);
 //        DirectedGraph<Object, Edge> expResult = null;
 //        DirectedGraph<Object, Edge> result = instance.generateNoiseGraph(noiseFactor, noiseProbability);
 //        assertEquals(expResult, result);

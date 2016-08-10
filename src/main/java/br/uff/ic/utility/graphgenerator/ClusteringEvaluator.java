@@ -22,13 +22,13 @@ import java.util.List;
  */
 public class ClusteringEvaluator {
 
-    int NUMBER_OF_ORACLE_GRAPHS = 10;
-    int NUMBER_OF_NOISE_GRAPHS = 10;
-    int MAX_NOISE_GRAPH_SIZE = 10;
+//    int NUMBER_OF_ORACLE_GRAPHS = 10;
+//    int NUMBER_OF_NOISE_GRAPHS = 10;
+//    int MAX_NOISE_GRAPH_SIZE = 10;
 //    double averageFmeasure = 0;
     double noiseProbability = 1.0F;
 //    double averageRecall = 0;
-    double noiseFactor = 3.0F;
+//    double noiseFactor = 3.0F;
 //    double averagePrecision = 0;
     
     ArrayList<Double> p_similarity = new ArrayList<>();
@@ -80,7 +80,7 @@ public class ClusteringEvaluator {
         System.out.println("=========================");
     }
 
-    public void collapse(OracleGraph oracleGraph) {
+    public void collapse(OracleGraph oracleGraph, int NUMBER_OF_ORACLE_GRAPHS, int NUMBER_OF_NOISE_GRAPHS, int MAX_NOISE_GRAPH_SIZE) {
         int i = 0;
         int j = 0;
         for (j = 0; j < NUMBER_OF_ORACLE_GRAPHS; j++) {
@@ -92,7 +92,7 @@ public class ClusteringEvaluator {
                 System.out.println("===============================");
                 System.out.println("TEST NUMBER #" + i);
                 NoiseGraph instance = new NoiseGraph(oracle, oracleGraph.attribute);
-                noiseFactor = (Math.random() * MAX_NOISE_GRAPH_SIZE);
+                double noiseFactor = (Math.random() * MAX_NOISE_GRAPH_SIZE);
                 DirectedGraph<Object, Edge> noiseGraph = instance.generateNoiseGraph(noiseFactor, noiseProbability, "" + j + i);
                 System.out.println("Oracle size: " + oracle.getVertexCount());
                 System.out.println("NoiseGraph size: " + noiseGraph.getVertexCount());

@@ -49,7 +49,7 @@ public class dbscanTest {
     public void testApplyDbscan() {
         System.out.println("applyDbscan");
         OracleGraph oracle;
-        oracle = new OracleGraph(attribute);
+        oracle = new OracleGraph(attribute, -200, 200);
         Dbscan instance = new Dbscan(oracle.generateLinearGraph(), attribute, e, minpt);
 //        String expResult = "";
         String result = instance.applyDbscan();

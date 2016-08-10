@@ -28,7 +28,9 @@ public class OracleGraph {
      * Constructor
      * @param attribute 
      */
-    public OracleGraph(String attribute) {
+    public OracleGraph(String attribute, int min, int max) {
+        this.MIN_ORACLE_VALUE = min;
+        this.MAX_ORACLE_VALUE = max;
         this.attribute = attribute;
     }
     
