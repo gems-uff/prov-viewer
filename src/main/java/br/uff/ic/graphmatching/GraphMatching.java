@@ -35,7 +35,7 @@ public class GraphMatching {
     private final Map<String, Object> vertexList;
     private final Map<String, Edge> edgeList;
     private final Map<String, Object> combinedVertexList;
-    private final Map<String, AttributeErrorMargin> attributeList;  
+    private Map<String, AttributeErrorMargin> attributeList;  
     private final Map<String, String> vocabulary; 
     // AttributeErrorMargin.name = the atribute 
     // AttributeErrorMargin.value = error margin
@@ -174,8 +174,9 @@ public class GraphMatching {
      * @param list is the new restriction list
      */
     public void setRestrictionList(Map<String, AttributeErrorMargin> list) {
-        attributeList.clear();
-        attributeList.putAll(list);
+//        attributeList.clear();
+//        attributeList.putAll(list);
+        attributeList = new HashMap<String,AttributeErrorMargin>(list);
     }
     
 
