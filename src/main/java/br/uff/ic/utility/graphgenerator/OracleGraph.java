@@ -6,7 +6,6 @@
 package br.uff.ic.utility.graphgenerator;
 
 import br.uff.ic.utility.GraphAttribute;
-import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
@@ -41,7 +40,7 @@ public class OracleGraph {
     private void generateOracleValues(Vertex v) {
         GraphAttribute att = new GraphAttribute(attribute, Double.toString(generateOracleNumber()));
         v.addAttribute(att);
-        System.out.println("V = " + att.getValue());
+//        System.out.println("V = " + att.getValue());
         
         att = new GraphAttribute("isOracle", "true");
         v.addAttribute(att);
@@ -105,7 +104,7 @@ public class OracleGraph {
         templateGraph.addEdge(e8, e8.getSource(), e8.getTarget());
         templateGraph.addEdge(e9, e9.getSource(), e9.getTarget());
         
-        Utils.exportGraph(templateGraph, "oracleLinearGraph" + "_" + oracleGraphNumber);
+//        Utils.exportGraph(templateGraph, "oracleLinearGraph" + "_" + oracleGraphNumber);
         oracleGraphNumber++;
         return templateGraph;
     }
