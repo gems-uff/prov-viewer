@@ -160,6 +160,24 @@ public class GraphMatching {
     public Collection<Edge> getEdgeList() {
         return edgeList.values();
     }
+    
+    /**
+     * Method to return the restriction list
+     * @return 
+     */
+    public Map<String, AttributeErrorMargin> getRestrictionList() {
+        return attributeList;
+    }
+    
+    /**
+     * Method to update the restriction list 
+     * @param list is the new restriction list
+     */
+    public void setRestrictionList(Map<String, AttributeErrorMargin> list) {
+        attributeList.clear();
+        attributeList.putAll(list);
+    }
+    
 
     /**
      * Function that determines if two vertices are equivalent
