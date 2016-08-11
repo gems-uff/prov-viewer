@@ -12,6 +12,10 @@ import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -37,8 +41,12 @@ public class ClusteringEvaluator {
     ArrayList<Double> p_dbscan = new ArrayList<>();
     ArrayList<Double> r_dbscan = new ArrayList<>();
     ArrayList<Double> f_dbscan = new ArrayList<>();
+    
+    File file = new File("clusterEvaluation.txt");
+    FileWriter fw;
+    BufferedWriter bw;
 
-    public void comparePRF(DirectedGraph<Object, Edge> oracle, String list, ArrayList<Double> p, ArrayList<Double> r, ArrayList<Double> f) {
+    public void comparePRF(DirectedGraph<Object, Edge> oracle, String list, ArrayList<Double> p, ArrayList<Double> r, ArrayList<Double> f) throws IOException {
         List<String> clusters = new ArrayList<>();
         double relevantDocuments = oracle.getVertexCount();
         double retrievedDocuments;
@@ -51,7 +59,8 @@ public class ClusteringEvaluator {
         retrievedDocuments = clusters.size();
         for (String cluster : clusters) {
             boolean computedCluster = false;
-            System.out.println("Cluster: " + cluster);
+//            bw.write("Cluster: " + cluster);
+//            bw.newLine();
             for (Object v : oracle.getVertices()) {
                 String id = ((Vertex) v).getID();
                 if (cluster.contains(id) && !computedCluster) {
@@ -69,71 +78,104 @@ public class ClusteringEvaluator {
         r.add(recall);
         f.add(fmeasure);
 
-        System.out.println("=========================");
-        System.out.println("Intersection: " + intersection);
-        System.out.println("Retrieved Documents: " + retrievedDocuments);
-        System.out.println("Relevant Documents: " + relevantDocuments);
-        System.out.println("");
-        System.out.println("Precision: " + precision);
-        System.out.println("Recall: " + recall);
-        System.out.println("F-Measure: " + fmeasure);
-        System.out.println("=========================");
+//        bw.write("=========================");
+//        bw.newLine();
+//        bw.write("Intersection: " + intersection);
+//        bw.newLine();
+//        bw.write("Retrieved Documents: " + retrievedDocuments);
+//        bw.newLine();
+//        bw.write("Relevant Documents: " + relevantDocuments);
+//        bw.newLine();
+//        bw.write("");
+//        bw.newLine();
+//        bw.write("Precision: " + precision);
+//        bw.newLine();
+//        bw.write("Recall: " + recall);
+//        bw.newLine();
+//        bw.write("F-Measure: " + fmeasure);
+//        bw.newLine();
     }
 
-    public void collapse(OracleGraph oracleGraph, int NUMBER_OF_ORACLE_GRAPHS, int NUMBER_OF_NOISE_GRAPHS, int MAX_NOISE_GRAPH_SIZE) {
+    public void collapse(OracleGraph oracleGraph, int NUMBER_OF_ORACLE_GRAPHS, int NUMBER_OF_NOISE_GRAPHS, double INITIAL_NOISE_GRAPH_SIZE, double NOISE_INCREASE_NUMBER) throws IOException {
         int i = 0;
         int j = 0;
+        
+        // if file doesnt exists, then create it
+        if (!file.exists()) {
+                file.createNewFile();
+        }
+
+        fw = new FileWriter(file.getAbsoluteFile());
+        bw = new BufferedWriter(fw);
+        
+        double noiseFactor = INITIAL_NOISE_GRAPH_SIZE;        
         for (j = 0; j < NUMBER_OF_ORACLE_GRAPHS; j++) {
-            System.out.println("===============================");
-            System.out.println("ORACLE NUMBER #" + j);
+            bw.write("==============================================================");
+            bw.newLine();
+            bw.write("ORACLE NUMBER #" + j);
+            bw.newLine();
             DirectedGraph<Object, Edge> oracle = oracleGraph.generateLinearGraph();
-            System.out.println("===============================");
+            bw.write("Oracle size: " + oracle.getVertexCount());
+            bw.newLine();
+            bw.write("NoiseGraph size: " + oracle.getVertexCount() * noiseFactor);
+                bw.newLine();
+//            bw.write("===============================");
             for (i = 0; i < NUMBER_OF_NOISE_GRAPHS; i++) {
-                System.out.println("===============================");
-                System.out.println("TEST NUMBER #" + i);
+//                bw.write("==============================================================");
+//                bw.newLine();
+//                bw.write("TEST NUMBER #" + i);
+//                bw.newLine();
                 NoiseGraph instance = new NoiseGraph(oracle, oracleGraph.attribute);
-                double noiseFactor = (Math.random() * MAX_NOISE_GRAPH_SIZE);
                 DirectedGraph<Object, Edge> noiseGraph = instance.generateNoiseGraph(noiseFactor, noiseProbability, "" + j + i);
-                System.out.println("Oracle size: " + oracle.getVertexCount());
-                System.out.println("NoiseGraph size: " + noiseGraph.getVertexCount());
+//                bw.write("NoiseGraph size: " + noiseGraph.getVertexCount());
+//                bw.newLine();
                 SimilarityCollapse(oracleGraph, oracle, noiseGraph);
                 dbscan(oracleGraph, oracle, noiseGraph);
                 
+                               
             }
+            printResults();
+            noiseFactor += NOISE_INCREASE_NUMBER; 
         }
-        printResults();
+//        printResults();
+        bw.close();
     }
     
-    private void SimilarityCollapse(OracleGraph oracleGraph, DirectedGraph<Object, Edge> oracle, DirectedGraph<Object, Edge> noiseGraph) {
-        System.out.println("=========================");
-        System.out.println("Similarity Collapse");
+    private void SimilarityCollapse(OracleGraph oracleGraph, DirectedGraph<Object, Edge> oracle, DirectedGraph<Object, Edge> noiseGraph) throws IOException {
+//        bw.write("=========================");
+//        bw.newLine();
+//        bw.write("Similarity Collapse");
+//        bw.newLine();
         String similarity = ColorSchemeCollapse(oracleGraph.attribute, noiseGraph);
         comparePRF(oracle, similarity, p_similarity, r_similarity, f_similarity);
     }
     
-    private void dbscan(OracleGraph oracleGraph, DirectedGraph<Object, Edge> oracle, DirectedGraph<Object, Edge> noiseGraph) {
-        System.out.println("=========================");
-        System.out.println("DBSCAN");
+    private void dbscan(OracleGraph oracleGraph, DirectedGraph<Object, Edge> oracle, DirectedGraph<Object, Edge> noiseGraph) throws IOException {
+//        bw.write("=========================");
+//        bw.newLine();
+//        bw.write("DBSCAN");
+//        bw.newLine();
         double eps = AutomaticInference.std(noiseGraph, oracleGraph.attribute);
         Dbscan instance = new Dbscan(noiseGraph, oracleGraph.attribute, eps, 1);
         String dbscan = instance.applyDbscan(); 
         comparePRF(oracle, dbscan, p_dbscan, r_dbscan, f_dbscan);
-        System.out.println("=========================");
+//        System.out.println("=========================");
     }
     
-    private void printResults() {
-        String precision = "";
-        String recall = "";
-        String fmeasure = "";
-        System.out.println("=========================");
-        System.out.println("Similarity Collapse");
+    private void printResults() throws IOException {
+        bw.write("=========================");
+        bw.newLine();
+        bw.write("Similarity Collapse");
+        bw.newLine();
         printPrf(p_similarity, r_similarity, f_similarity);
-        System.out.println("=========================");
-        System.out.println("DBSCAN");
+        bw.write("=========================");
+        bw.newLine();
+        bw.write("DBSCAN");
+        bw.newLine();
         printPrf(p_dbscan, r_dbscan, f_dbscan);
     }
     
-    private void printPrf(ArrayList<Double> p, ArrayList<Double> r, ArrayList<Double> f) {
+    private void printPrf(ArrayList<Double> p, ArrayList<Double> r, ArrayList<Double> f) throws IOException {
         String precision = "";
         String recall = "";
         String fmeasure = "";
@@ -149,9 +191,19 @@ public class ClusteringEvaluator {
                 " / STD:" + Utils.stdev(Utils.listToDoubleArray(f)) + 
                 " / Min: " + Utils.minimumValue(Utils.listToDoubleArray(f));
         
+        bw.write(precision);
+        bw.newLine();
+        bw.write(recall);
+        bw.newLine();
+        bw.write(fmeasure);
+        bw.newLine();
+        
         System.out.println(precision);
         System.out.println(recall);
         System.out.println(fmeasure);
+        p.clear();
+        r.clear();
+        f.clear();
     }
     
 }
