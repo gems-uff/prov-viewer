@@ -13,6 +13,7 @@ import br.uff.ic.provviewer.Inference.AutomaticInference;
 import br.uff.ic.provviewer.Inference.PrologInference;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.AttributeErrorMargin;
+import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.Edge;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import java.io.File;
@@ -100,7 +101,7 @@ public class GuiInference {
         // -----------------------------
         // Standard Deviation
         // -----------------------------
-        double std = AutomaticInference.std(graph, attribute);
+        double std = Utils.std(graph.getVertices(), attribute);
 //        System.out.println("STD = " + std);
 
         // -----------------------------

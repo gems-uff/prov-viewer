@@ -155,7 +155,7 @@ public class ClusteringEvaluator {
 //        bw.newLine();
 //        bw.write("DBSCAN");
 //        bw.newLine();
-        double eps = AutomaticInference.std(noiseGraph, oracleGraph.attribute);
+        double eps = Utils.std(noiseGraph.getVertices(), oracleGraph.attribute);
         Dbscan instance = new Dbscan(noiseGraph, oracleGraph.attribute, eps, 1);
         String dbscan = instance.applyDbscan(); 
         comparePRF(oracle, dbscan, p_dbscan, r_dbscan, f_dbscan);
