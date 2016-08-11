@@ -7,6 +7,7 @@ package br.uff.ic.utility;
 
 import br.uff.ic.utility.IO.XMLWriter;
 import br.uff.ic.utility.graph.Edge;
+import br.uff.ic.utility.graph.Vertex;
 import br.uff.ic.utility.graphgenerator.NoiseGraph;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
@@ -15,6 +16,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -392,6 +394,26 @@ public class Utils {
 
         double stdevResult = Math.sqrt(num/deno);
         return stdevResult;
+    }
+    
+    /**
+     * Computes the standard deviation for the attribute
+     *
+     * @param vertices the list of vertices
+     * @param attribute the attribute in which we want to calculate the standard deviation
+     * @return the standard deviation
+     */
+    public static double std(Collection<Object> vertices, String attribute) {
+        ArrayList<Double> values = new ArrayList<>();
+        for (Object v1 : vertices) {
+            double val = ((Vertex) v1).getAttributeValueFloat(attribute);
+            if (!(val != val)) {
+                values.add(val);
+            }
+        }
+        Double[] doubleArray = new Double[values.size()];
+        doubleArray = Utils.listToDoubleArray(values);
+        return stdev(doubleArray);
     }
     
     /**
