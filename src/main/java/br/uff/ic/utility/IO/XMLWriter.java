@@ -197,7 +197,7 @@ public final class XMLWriter {
             String path = fileName + ".xml";//Output" + File.separator + fileName + ".xml";
             StreamResult result = new StreamResult(new File(path));
             transformer.transform(dom, result);
-            System.out.println("XML File was created: " + path);
+//            System.out.println("XML File was created: " + path);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
