@@ -91,13 +91,13 @@ public class GuiInference {
             System.out.println("Finished Collapsing");
         } else {
             GuiButtons.Reset(variables);
-            String list = ColorSchemeCollapse((String) StatusFilterBox.getSelectedItem(), variables.graph);
+            String list = ColorSchemeCollapse((String) StatusFilterBox.getSelectedItem(), variables.graph, false, true);
             variables.collapser.CollapseIrrelevant(variables, list);
             System.out.println("Finished Collapsing");
         }
     }
 
-    public static String ColorSchemeCollapse(String attribute, DirectedGraph<Object, Edge> graph) {
+    public static String ColorSchemeCollapse(String attribute, DirectedGraph<Object, Edge> graph, boolean updateError, boolean verifyWithinCluster) {
         // -----------------------------
         // Standard Deviation
         // -----------------------------
@@ -120,7 +120,7 @@ public class GuiInference {
         // -----------------------------
 //        long startTime = System.currentTimeMillis();
 //        System.out.println(": L = " + collapseList);
-        String clusters =  AutomaticInference.cluster(graph, combiner);
+        String clusters =  AutomaticInference.cluster(graph, combiner, updateError, verifyWithinCluster);
 //        String clusters =  AutomaticInference.dbscan(variables, combiner);
         
 //        long stopTime = System.currentTimeMillis();
