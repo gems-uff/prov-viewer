@@ -5,6 +5,9 @@
  */
 package br.uff.ic.utility.graphgenerator;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -40,12 +43,15 @@ public class NoiseGraphTest {
 //        DirectedGraph<Object, Edge> templateGraph = oracle.generateLinearGraph();
 //        NoiseGraph instance = new NoiseGraph(templateGraph, attribute);
 //        instance.generateNoiseGraph(noiseFactor, noiseProbability);
-        
-        eval.collapse(oracle, 1, 100, 100);
+        try {
+            eval.collapse(oracle, 50, 100, 2, 1);
 //        DirectedGraph<Object, Edge> expResult = null;
 //        DirectedGraph<Object, Edge> result = instance.generateNoiseGraph(noiseFactor, noiseProbability);
 //        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
+// TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
+        } catch (IOException ex) {
+            Logger.getLogger(NoiseGraphTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
