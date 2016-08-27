@@ -5,6 +5,7 @@
  */
 package br.uff.ic.utility.graphgenerator;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,16 +41,29 @@ public class NoiseGraphTest {
         System.out.println("generateNoiseGraph");
         OracleGraph oracle = new OracleGraph(attribute, -200, 200);
         ClusteringEvaluator eval = new ClusteringEvaluator();
-//        DirectedGraph<Object, Edge> templateGraph = oracle.generateLinearGraph();
-//        NoiseGraph instance = new NoiseGraph(templateGraph, attribute);
-//        instance.generateNoiseGraph(noiseFactor, noiseProbability);
+        int NUMBER_OF_ORACLE_GRAPHS = 50;
+        int NUMBER_OF_NOISE_GRAPHS = 100;
+        double INITIAL_NOISE_GRAPH_SIZE = 2;
+        double NOISE_INCREASE_NUMBER = 1;
+
         try {
-            eval.collapse(oracle, 50, 100, 2, 1);
-//        DirectedGraph<Object, Edge> expResult = null;
-//        DirectedGraph<Object, Edge> result = instance.generateNoiseGraph(noiseFactor, noiseProbability);
-//        assertEquals(expResult, result);
-// TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
+            File file;
+            double dagEps = 177.63;
+            double linearEps = 199.23;
+            double treeEps = 202.78;
+//            linearEps = eval.trainDBSCAN(oracle, NUMBER_OF_ORACLE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, "Linear");
+//            dagEps = eval.trainDBSCAN(oracle, NUMBER_OF_ORACLE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, "DAG");
+//            treeEps = eval.trainDBSCAN(oracle, NUMBER_OF_ORACLE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, "TREE");
+//          
+            file = new File("LinearEvaluation.txt");
+            eval.collapse(oracle, NUMBER_OF_ORACLE_GRAPHS, NUMBER_OF_NOISE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, file, "Linear", linearEps);
+//            
+//            file = new File("DAGEvaluation.txt");
+//            eval.collapse(oracle, NUMBER_OF_ORACLE_GRAPHS, NUMBER_OF_NOISE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, file, "DAG", dagEps);
+//            
+//            file = new File("TreeEvaluation.txt");
+//            eval.collapse(oracle, NUMBER_OF_ORACLE_GRAPHS, NUMBER_OF_NOISE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, file, "TREE", treeEps);
+
         } catch (IOException ex) {
             Logger.getLogger(NoiseGraphTest.class.getName()).log(Level.SEVERE, null, ex);
         }
