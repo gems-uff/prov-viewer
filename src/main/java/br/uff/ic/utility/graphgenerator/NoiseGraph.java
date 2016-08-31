@@ -26,6 +26,7 @@ public class NoiseGraph {
     String attribute;
     DirectedGraph<Object, Edge> oracleGraph;
     DirectedGraph<Object, Edge> noiseGraph;
+    private boolean isMonotonic = true;
 
     /**
      * Constructor
@@ -37,6 +38,18 @@ public class NoiseGraph {
         id_counter = 1;
         this.oracleGraph = oracleGraph;
         this.noiseGraph = Utils.copyGraph(this.oracleGraph);
+    }
+
+    NoiseGraph(DirectedGraph<Object, Edge> oracleGraph, String attribute, boolean b) {
+        this.attribute = attribute;
+        id_counter = 1;
+        this.oracleGraph = oracleGraph;
+        this.noiseGraph = Utils.copyGraph(this.oracleGraph);
+        isMonotonic = b;
+    }
+    
+    public void setMonotonic(boolean t) {
+        isMonotonic = t;
     }
     
     /**
@@ -93,6 +106,16 @@ public class NoiseGraph {
         return value;
     }
     
+    private Vertex createMonotonicNoise (Edge edge)  {
+        double value;
+        
+        double source = ((Vertex)edge.getSource()).getAttributeValueFloat(attribute);
+        double target = ((Vertex)edge.getTarget()).getAttributeValueFloat(attribute);
+        value = Math.min(source, target) + (Math.random() * ((Math.max(source, target) - Math.min(source, target)) + 1));
+        
+        return newNoiseVertex(value, ((Vertex)edge.getSource()).getTimeString());
+    }
+    
     /**
      * Method to create a new noise vertex
      * @param noiseValue is the value for the noise vertex
@@ -128,7 +151,9 @@ public class NoiseGraph {
         Collection<Edge> neighborEdges = noiseGraph.getIncidentEdges(vertex);
         int random = pickRandomly(neighborEdges.size());
         Edge edge = (Edge) neighborEdges.toArray()[random];
-        
+        if(isMonotonic) {
+            noise = createMonotonicNoise(edge);
+        }
         String edgeID = "Noise_Edge_" + id_counter; 
         Edge noiseEdge_1 = new Edge(edgeID + "_1", edge.getType(), edge.getLabel(), "", edge.getTarget(), noise);
         Edge noiseEdge_2 = new Edge(edgeID + "_2", edge.getType(), edge.getLabel(), "", noise, edge.getSource());
@@ -152,6 +177,7 @@ public class NoiseGraph {
     /**
      * Method to create and insert the noise vertex in the noiseGraph
      */
+    
     private void addNoise (Object[] oracleVertices) {
         int random = pickRandomly(oracleVertices.length);
         Object vertex = oracleVertices[random];
