@@ -12,7 +12,6 @@ import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -24,9 +23,17 @@ import java.util.concurrent.ConcurrentHashMap;
 public class AutomaticInference {
     
     static int STD_QUANTITY = 3;
-    static int MINIMUM_SIZE = 2;
+    static int MINIMUM_SIZE = 10;
+    static int smallClusterError = 3;
     static boolean isUpdating = false;
     static boolean isRestrictingVariation = false;
+    
+    
+    public AutomaticInference(int minSize, int thresholdIncrease, int std) {
+        MINIMUM_SIZE = minSize;
+        smallClusterError = thresholdIncrease;
+        STD_QUANTITY = std;
+    }
     
     /**
      * Method to generate the correct format to pass to the Collapser class
@@ -105,12 +112,15 @@ public class AutomaticInference {
     }
     
     private static void updateError(GraphMatching combiner, ConcurrentHashMap<String, Object> cg) {
-        if (cg.size() > MINIMUM_SIZE) {
+        if (cg.size() > 2) {
 //            System.out.println("Updating error");
             Map<String, AttributeErrorMargin> error = combiner.getRestrictionList();
             for (String e : error.keySet()) {
 //                System.out.println("Old error: " + error.get(e).getValue());
                 double std = Utils.std(cg.values(), e) * STD_QUANTITY;
+                if (cg.size() < MINIMUM_SIZE) {
+                    std *= smallClusterError;
+                }
                 AttributeErrorMargin newError = new AttributeErrorMargin(e, "" + std);
                 error.put(e, newError);
 //                System.out.println("New error: " + error.get(e).getValue());
