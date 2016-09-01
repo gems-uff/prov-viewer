@@ -446,6 +446,18 @@ public class Utils {
         
         return min;
     }
+    /**
+     * Method to find the maximum value of a list
+     * @param list is the list of values
+     * @return the maximum value of the list
+     */
+    public static double maximumValue(Double[] list) {
+        double max = Double.NEGATIVE_INFINITY;
+        for (int i=0; i < list.length; i++){
+            max = Math.max(max, list[i]);            
+        }
+        return max;
+    }
     
     /**
      * Method to convert a list of objects to an arraylist of double
