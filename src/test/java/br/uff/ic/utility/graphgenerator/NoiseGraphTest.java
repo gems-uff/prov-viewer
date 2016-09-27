@@ -41,35 +41,39 @@ public class NoiseGraphTest {
         System.out.println("generateNoiseGraph");
         OracleGraph oracle = new OracleGraph(attribute, -200, 200);
         ClusteringEvaluator eval = new ClusteringEvaluator(false);
-        int NUMBER_OF_ORACLE_GRAPHS = 10;
+        int NUMBER_OF_ORACLE_GRAPHS = 5;
         int NUMBER_OF_NOISE_GRAPHS = 10;
         double INITIAL_NOISE_GRAPH_SIZE = 10;
         double NOISE_INCREASE_NUMBER = 2;
-        int NUMBER_ITERATIONS = 4;
+        int NUMBER_ITERATIONS = 5;
 
         try {
             File file;
+            File fileR;
             Trainer trainer = new Trainer();
             int smallCluster = 7;
             int threshold = 4;
             int smallClusterMod = 4;
-            double dagEps = 177.63; // Linear
+            double dagEps = 288; // Dag previous 177.63
             double linearEps = 380; // Linear 248
-            double treeEps = 202.78; // Linear
+            double treeEps = 364; // Tree 202.78
             double monotonicLinearEps = 40.64; // Monotonic
             double monotonicDagEps = 89.88; // Monotonic
             double monotonicTreeEps = 23.45; // Monotonic
 //            linearEps = trainer.trainDBSCAN(oracle, NUMBER_OF_ORACLE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, "Linear");
-//            dagEps = eval.trainDBSCAN(oracle, NUMBER_OF_ORACLE_GRAPHS * 2, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, "DAG");
-//            treeEps = eval.trainDBSCAN(oracle, NUMBER_OF_ORACLE_GRAPHS * 2, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, "TREE");
+//            dagEps = trainer.trainDBSCAN(oracle, NUMBER_OF_ORACLE_GRAPHS * 2, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, "DAG");
+//            treeEps = trainer.trainDBSCAN(oracle, NUMBER_OF_ORACLE_GRAPHS * 2, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, "TREE");
+//            System.out.println("Best DAG: " + dagEps);
+//            System.out.println("Best TREE: " + treeEps);
             // TODO
             // Train the similarity algorithm to determine the minimum size of clusters
             
 //            linearEps = trainer.trainSimilarity(oracle, 3, 3, 10, 4, "Linear");
 
-            eval = new ClusteringEvaluator(false);
+//            eval = new ClusteringEvaluator(false);
             file = new File("EvaluationLinear.txt");
-            eval.collapse(oracle, NUMBER_OF_ORACLE_GRAPHS, NUMBER_OF_NOISE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, NUMBER_ITERATIONS,  file, "Linear", linearEps, smallCluster, smallClusterMod, threshold);
+            fileR = new File("R_Data_Linear.txt");
+            eval.collapse(oracle, NUMBER_OF_ORACLE_GRAPHS, NUMBER_OF_NOISE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, NUMBER_ITERATIONS,  file, fileR, "Linear", linearEps, smallCluster, smallClusterMod, threshold);
             
 //            eval = new ClusteringEvaluator(false);
 //            file = new File("EvaluationDAG.txt");
@@ -78,7 +82,7 @@ public class NoiseGraphTest {
 //            eval = new ClusteringEvaluator(false);
 //            file = new File("EvaluationTree.txt");
 //            eval.collapse(oracle, NUMBER_OF_ORACLE_GRAPHS, NUMBER_OF_NOISE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, NUMBER_ITERATIONS, file, "TREE", treeEps, smallCluster, smallClusterMod, threshold);
-//            
+            
 //            eval = new ClusteringEvaluator(true);
 //            file = new File("MonotonicEvaluationLinear.txt");
 //            eval.collapse(oracle, NUMBER_OF_ORACLE_GRAPHS, NUMBER_OF_NOISE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, NUMBER_ITERATIONS,  file, "Linear", monotonicLinearEps, smallCluster, smallClusterMod, threshold);

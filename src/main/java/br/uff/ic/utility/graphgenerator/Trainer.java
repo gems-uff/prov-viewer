@@ -80,8 +80,8 @@ public class Trainer {
                         }
                         noiseFactor *= NOISE_INCREASE_NUMBER;
 
-                        current += eval.isWinner(f2, f, f);
-                        best += eval.isWinner(f, f2, f2);
+                        current += eval.isWinner(f2, f);
+                        best += eval.isWinner(f, f2);
                         eval.clearLists(p, r, f, c);
                         eval.clearLists(p2, r2, f2, c2);
                     }
@@ -161,7 +161,7 @@ public class Trainer {
         System.out.println("Training");
         for (int w = initialValue; w < 100; w++) {
             System.out.println("Training run: " + w);
-            noiseFactor = INITIAL_NOISE_GRAPH_SIZE * 8;
+            noiseFactor = INITIAL_NOISE_GRAPH_SIZE * 4;
             eval.clearLists(p, r, f, c);
             eval.clearLists(p2, r2, f2, c2);
             current = 0;
@@ -169,11 +169,11 @@ public class Trainer {
             current_eps += 4;
             for(int i = 0; i < NUMBER_OF_ORACLE_GRAPHS * 0.2; i++) {
                 // Iterations of the same graph size
-                for(int iterations = 0; iterations < 9; iterations++) {
+                for(int iterations = 0; iterations < 3; iterations++) {
                     // Make oracle graph
                     DirectedGraph<Object, Edge> oracle = eval.createOracleGraph(oracleGraph, typeGraph);
 
-                    for (int noise = 0; noise < NUMBER_OF_ORACLE_GRAPHS * 0.25; noise++) {
+                    for (int noise = 0; noise < NUMBER_OF_ORACLE_GRAPHS * 0.2; noise++) {
                         // Make noise graphs
                         NoiseGraph instance = new NoiseGraph(oracle, oracleGraph.attribute, isMonotonic);
                         DirectedGraph<Object, Edge> noiseGraph = instance.generateNoiseGraph(noiseFactor, noiseProbability, "" + noise + i);
@@ -183,8 +183,8 @@ public class Trainer {
                 }
                 noiseFactor *= NOISE_INCREASE_NUMBER * 2;
             }
-            current += eval.isWinner(f2, f, f);
-            best += eval.isWinner(f, f2, f2);
+            current += eval.isWinner(f2, f);
+            best += eval.isWinner(f, f2);
             
             if(current > (best * 1.25)) {
                 if(Utils.mean(Utils.listToDoubleArray(f)) > Utils.mean(Utils.listToDoubleArray(f2))) {

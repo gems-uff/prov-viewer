@@ -31,16 +31,33 @@ import java.util.Map;
 public class ClusteringEvaluator {
 
     double noiseProbability = 1.0F;
+//    ArrayList<ArrayList<Double>> precision = new ArrayList<ArrayList<Double>>();
+//    ArrayList<ArrayList<Double>> recall = new ArrayList<ArrayList<Double>>();
+//    ArrayList<ArrayList<Double>> fmeasure = new ArrayList<ArrayList<Double>>();
+//    ArrayList<ArrayList<Double>> clusters = new ArrayList<ArrayList<Double>>();
     
     ArrayList<Double> p_similarity = new ArrayList<>();
     ArrayList<Double> r_similarity = new ArrayList<>();
     ArrayList<Double> f_similarity = new ArrayList<>();
     ArrayList<Double> c_similarity = new ArrayList<>();  
+    ArrayList<Double> p_similarityFT = new ArrayList<>();
+    ArrayList<Double> r_similarityFT = new ArrayList<>();
+    ArrayList<Double> f_similarityFT = new ArrayList<>();
+    ArrayList<Double> c_similarityFT = new ArrayList<>(); 
+    ArrayList<Double> p_similarityTT = new ArrayList<>();
+    ArrayList<Double> r_similarityTT = new ArrayList<>();
+    ArrayList<Double> f_similarityTT = new ArrayList<>();
+    ArrayList<Double> c_similarityTT = new ArrayList<>(); 
     ArrayList<Double> p_dbscan = new ArrayList<>();
     ArrayList<Double> r_dbscan = new ArrayList<>();
     ArrayList<Double> f_dbscan = new ArrayList<>();
-    ArrayList<Double> c_dbscan = new ArrayList<>();  
+    ArrayList<Double> c_dbscan = new ArrayList<>();  // number of clusters
     private boolean isMonotonic = false;
+    
+    int similarity = 0;
+    int similarityFT = 0;
+    int similarityTT = 0;
+    int dbscan = 0;
 
     ClusteringEvaluator(boolean b) {
         isMonotonic = b;
@@ -120,6 +137,7 @@ public class ClusteringEvaluator {
             double NOISE_INCREASE_NUMBER, 
             int NUMBER_ITERATIONS,
             File file, 
+            File fileR,
             String typeGraph,
             double epsMod,
             int s_size,
@@ -130,14 +148,22 @@ public class ClusteringEvaluator {
         int w = 1;
         int total_similarity = 0;
         int total_dbscan = 0;
+        int total_tt = 0;
+        int total_ft = 0;
         BufferedWriter bw;
+        BufferedWriter bwR;
         
         // if file doesnt exists, then create it
         if (!file.exists()) {
-                file.createNewFile();
+            file.createNewFile();
+        }
+        
+        if (!fileR.exists()) {
+            fileR.createNewFile();
         }
 
         bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
+        bwR = new BufferedWriter(new FileWriter(fileR.getAbsoluteFile()));
         
         System.out.println("DBSCAN EPS MOD: " + epsMod);
         System.out.println("Similarity small cluster definition: " + s_increase);
@@ -191,23 +217,31 @@ public class ClusteringEvaluator {
                     // Good when data is sorted
                     SimilarityCollapse(oracleGraph, oracle, noiseGraph, true, false, p_similarity, r_similarity, f_similarity, c_similarity, s_size, s_increase, qnt);
                     // Good when data is monotonic-ish
-    //                SimilarityCollapse(oracleGraph, oracle, noiseGraph, false, true, p_similarity, r_similarity, f_similarity);
+                    SimilarityCollapse(oracleGraph, oracle, noiseGraph, false, true, p_similarityFT, r_similarityFT, f_similarityFT, c_similarityFT, s_size, s_increase, qnt);
                     // Terrible in all types of data so far
-    //                SimilarityCollapse(oracleGraph, oracle, noiseGraph, true, true, p_similarity, r_similarity, f_similarity);
+                    SimilarityCollapse(oracleGraph, oracle, noiseGraph, true, true, p_similarityTT, r_similarityTT, f_similarityTT, c_similarityTT, s_size, s_increase, qnt);
                     dbscan(oracleGraph, oracle, noiseGraph, epsMod, p_dbscan, r_dbscan, f_dbscan, c_dbscan);
 
                 }
             }
-            printResults(bw);
+            printResults(bw, bwR, w);
             bw.newLine();
             bw.write("Similarity wins: " + similarity);
             bw.newLine();
             bw.write("dbscan wins: " + dbscan);
             bw.newLine();
+            bw.write("Similarity TF wins: " + similarityFT);
+            bw.newLine();
+            bw.write("Similarity TT wins: " + similarityTT);
+            bw.newLine();
             total_similarity += similarity;
             total_dbscan += dbscan;
+            total_ft += similarityFT;
+            total_tt += similarityTT;
             similarity = 0;
             dbscan = 0;
+            similarityTT = 0;
+            similarityFT = 0;
             noiseFactor *= NOISE_INCREASE_NUMBER; 
         }
         
@@ -219,12 +253,17 @@ public class ClusteringEvaluator {
         bw.newLine();
         bw.write("Final Result");
         bw.newLine();
-        bw.write("Similarity: " + total_similarity);
+        bw.write("Similarity (tf): " + total_similarity);
         bw.newLine();
-        bw.write("dbscan: " + total_dbscan);
+        bw.write("dbscan (ff): " + total_dbscan);
+        bw.newLine();
+        bw.write("Similarity (ft): " + total_ft);
+        bw.newLine();
+        bw.write("Similarity (tt): " + total_tt);
         bw.newLine();
         
         bw.close();
+        bwR.close();
     }
     
     public void SimilarityCollapse(OracleGraph oracleGraph, 
@@ -237,10 +276,6 @@ public class ClusteringEvaluator {
             ArrayList<Double> f, 
             ArrayList<Double> c,
             int minSize, int thresholdIncrease, int qnt) throws IOException {
-//        bw.write("=========================");
-//        bw.newLine();
-//        bw.write("Similarity Collapse");
-//        bw.newLine();
         
         GraphMatching combiner = configureSimilarityMatcher(oracleGraph, noiseGraph);
         AutomaticInference infer = new AutomaticInference(minSize, thresholdIncrease, qnt);
@@ -269,35 +304,41 @@ public class ClusteringEvaluator {
             ArrayList<Double> r,
             ArrayList<Double> f,
             ArrayList<Double> c) throws IOException {
-//        bw.write("=========================");
-//        bw.newLine();
-//        bw.write("DBSCAN");
-//        bw.newLine();
-//        double eps = Utils.std(noiseGraph.getVertices(), oracleGraph.attribute) * epsMod;
+        
         double eps = epsMod;
         Dbscan instance = new Dbscan(noiseGraph, oracleGraph.attribute, eps, 1);
         String dbscan = instance.applyDbscan(); 
         comparePRF(oracle, dbscan, p, r, f, c);
     }
     
-    private void printResults(BufferedWriter bw) throws IOException {
+    private void printResults(BufferedWriter bw, BufferedWriter bwR, int iteration) throws IOException {
         bw.write("=========================");
         bw.newLine();
-        bw.write("Similarity Collapse");
+        bw.write("Similarity Collapse (TF)");
         bw.newLine();
-        printPrf(p_similarity, r_similarity, f_similarity, c_similarity, bw);
+        printPrf(p_similarity, r_similarity, f_similarity, c_similarity, bw, bwR, "s", iteration);
         bw.write("=========================");
         bw.newLine();
-        bw.write("DBSCAN");
+        bw.write("DBSCAN (FF)");
         bw.newLine();
-        printPrf(p_dbscan, r_dbscan, f_dbscan, c_dbscan, bw);
+        printPrf(p_dbscan, r_dbscan, f_dbscan, c_dbscan, bw, bwR, "d", iteration);
+        bw.write("=========================");
+        bw.newLine();
+        bw.write("Similarity Collapse (FT)");
+        bw.newLine();
+        printPrf(p_similarityFT, r_similarityFT, f_similarityFT, c_similarityFT, bw, bwR, "ft", iteration);
+        bw.write("=========================");
+        bw.newLine();
+        bw.write("Similarity Collapse (TT)");
+        bw.newLine();
+        printPrf(p_similarityTT, r_similarityTT, f_similarityTT, c_similarityTT, bw, bwR, "tt", iteration);
         
         checkWinner();
         clearLists(p_similarity, r_similarity, f_similarity, c_similarity);
         clearLists(p_dbscan, r_dbscan, f_dbscan, c_dbscan);
     }
     
-    private void printPrf(ArrayList<Double> p, ArrayList<Double> r, ArrayList<Double> f, ArrayList<Double> c, BufferedWriter bw) throws IOException {
+    private void printPrf(ArrayList<Double> p, ArrayList<Double> r, ArrayList<Double> f, ArrayList<Double> c, BufferedWriter bw, BufferedWriter bwR, String name, int iteration) throws IOException {
         String precision = "";
         String recall = "";
         String fmeasure = "";
@@ -326,12 +367,13 @@ public class ClusteringEvaluator {
         bw.newLine();
         bw.write(clusters);
         bw.newLine();
-        bw.write(printValues(p, "Precision"));
-        bw.newLine();
-        bw.write(printValues(r, "Recall"));
-        bw.newLine();
-        bw.write(printValues(f, "F-Measure"));
-        bw.newLine();
+        bwR.write(printValues(p, "p" + name + iteration));
+        bwR.newLine();
+        bwR.write(printValues(r, "r" + name + iteration));
+        bwR.newLine();
+        bwR.write(printValues(f, "f" + name + iteration));
+        bwR.newLine();
+        bwR.newLine();
         
 //        System.out.println(precision);
 //        System.out.println(recall);
@@ -345,6 +387,7 @@ public class ClusteringEvaluator {
         for(Double e : v) {
             values += Double.valueOf(df.format(e)) + ",";
         }
+        values = values.substring(0, values.length()-1);
         values += ")";
         return values;
     }
@@ -355,18 +398,11 @@ public class ClusteringEvaluator {
         c.clear();
     }
     
-    int similarity = 0;
-    int tf = 0;
-    int tt = 0;
-    int dbscan = 0;
     private void checkWinner() {
-        similarity += isWinner(f_similarity, f_dbscan, f_dbscan);
-//        tf += isWinner(f_similarity_TF, f_similarity, f_similarity_TT, f_dbscan);
-//        tt += isWinner(f_similarity_TT, f_similarity_TF, f_similarity, f_dbscan);
-        dbscan += isWinner(f_dbscan, f_similarity, f_similarity);
+        countWinnings(f_similarity, f_dbscan, f_similarityFT, f_similarityTT);
     }
     
-    public int isWinner(ArrayList<Double> first, ArrayList<Double> second, ArrayList<Double> third) {
+    public int isWinner(ArrayList<Double> first, ArrayList<Double> second) {
         int win = 0;
 //        if (Utils.mean(Utils.listToDoubleArray(first)) > Utils.mean(Utils.listToDoubleArray(second))) {
 //            if (Utils.mean(Utils.listToDoubleArray(first)) > Utils.mean(Utils.listToDoubleArray(third))) {
@@ -375,12 +411,37 @@ public class ClusteringEvaluator {
 //        }
         for (int i = 0; i < first.size(); i++) {
             if(first.get(i) >= second.get(i)) {
-                if(first.get(i) >= third.get(i)) {
-                    win += 1;
-                }
+                        win += 1;
             }
         }
         return win;
+    }
+    
+    public void countWinnings(ArrayList<Double> sim, ArrayList<Double> db, ArrayList<Double> ft, ArrayList<Double> tt) {
+        for (int i = 0; i < sim.size(); i++) {
+            
+            if((sim.get(i) >= db.get(i)) 
+                    && (sim.get(i) >= ft.get(i))
+                    && (sim.get(i) >= tt.get(i))) {
+                similarity += 1;
+            }
+            if((db.get(i) >= sim.get(i)) 
+                    && (db.get(i) >= ft.get(i))
+                    && (db.get(i) >= tt.get(i))) {
+                dbscan += 1;
+            }
+            if((ft.get(i) >= db.get(i)) 
+                    && (ft.get(i) >= sim.get(i))
+                    && (ft.get(i) >= tt.get(i))) {
+                similarityFT += 1;
+            }
+            if((tt.get(i) >= db.get(i)) 
+                    && (tt.get(i) >= ft.get(i))
+                    && (tt.get(i) >= sim.get(i))) {
+                similarityTT += 1;
+            }
+            
+        }
     }
     
 }
