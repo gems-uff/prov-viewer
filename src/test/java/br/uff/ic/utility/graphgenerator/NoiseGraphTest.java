@@ -42,10 +42,10 @@ public class NoiseGraphTest {
         OracleGraph oracle = new OracleGraph(attribute, -200, 200);
         ClusteringEvaluator eval = new ClusteringEvaluator(false);
         int NUMBER_OF_ORACLE_GRAPHS = 5;
-        int NUMBER_OF_NOISE_GRAPHS = 10;
+        int NUMBER_OF_NOISE_GRAPHS = 5;
         double INITIAL_NOISE_GRAPH_SIZE = 10;
         double NOISE_INCREASE_NUMBER = 2;
-        int NUMBER_ITERATIONS = 5;
+        int NUMBER_ITERATIONS = 4;
 
         try {
             File file;
@@ -70,30 +70,35 @@ public class NoiseGraphTest {
             
 //            linearEps = trainer.trainSimilarity(oracle, 3, 3, 10, 4, "Linear");
 
-//            eval = new ClusteringEvaluator(false);
+            eval = new ClusteringEvaluator(false);
             file = new File("EvaluationLinear.txt");
             fileR = new File("R_Data_Linear.txt");
-            eval.collapse(oracle, NUMBER_OF_ORACLE_GRAPHS, NUMBER_OF_NOISE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, NUMBER_ITERATIONS,  file, fileR, "Linear", linearEps, smallCluster, smallClusterMod, threshold);
+            eval.collapse(oracle, NUMBER_OF_ORACLE_GRAPHS, NUMBER_OF_NOISE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, NUMBER_ITERATIONS,  "Linear", "Linear", linearEps, smallCluster, smallClusterMod, threshold);
             
 //            eval = new ClusteringEvaluator(false);
 //            file = new File("EvaluationDAG.txt");
-//            eval.collapse(oracle, NUMBER_OF_ORACLE_GRAPHS, NUMBER_OF_NOISE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, NUMBER_ITERATIONS, file, "DAG", dagEps, smallCluster, smallClusterMod, threshold);
+//            fileR = new File("R_Data_DAG.txt");
+//            eval.collapse(oracle, NUMBER_OF_ORACLE_GRAPHS, NUMBER_OF_NOISE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, NUMBER_ITERATIONS, file, fileR, "DAG", dagEps, smallCluster, smallClusterMod, threshold);
 //            
 //            eval = new ClusteringEvaluator(false);
 //            file = new File("EvaluationTree.txt");
-//            eval.collapse(oracle, NUMBER_OF_ORACLE_GRAPHS, NUMBER_OF_NOISE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, NUMBER_ITERATIONS, file, "TREE", treeEps, smallCluster, smallClusterMod, threshold);
-            
+//            fileR = new File("R_Data_Tree.txt");
+//            eval.collapse(oracle, NUMBER_OF_ORACLE_GRAPHS, NUMBER_OF_NOISE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, NUMBER_ITERATIONS, file, fileR, "TREE", treeEps, smallCluster, smallClusterMod, threshold);
+//            
 //            eval = new ClusteringEvaluator(true);
 //            file = new File("MonotonicEvaluationLinear.txt");
-//            eval.collapse(oracle, NUMBER_OF_ORACLE_GRAPHS, NUMBER_OF_NOISE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, NUMBER_ITERATIONS,  file, "Linear", monotonicLinearEps, smallCluster, smallClusterMod, threshold);
+//            fileR = new File("R_Data_Monotonic_Linear.txt");
+//            eval.collapse(oracle, NUMBER_OF_ORACLE_GRAPHS, NUMBER_OF_NOISE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, NUMBER_ITERATIONS,  file, fileR, "Linear", monotonicLinearEps, smallCluster, smallClusterMod, threshold);
 //            
 //            eval = new ClusteringEvaluator(true);
 //            file = new File("MonotonicEvaluationDAG.txt");
-//            eval.collapse(oracle, NUMBER_OF_ORACLE_GRAPHS, NUMBER_OF_NOISE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, NUMBER_ITERATIONS, file, "DAG", monotonicDagEps, smallCluster, smallClusterMod, threshold);
+//            fileR = new File("R_Data_Monotonic_DAG.txt");
+//            eval.collapse(oracle, NUMBER_OF_ORACLE_GRAPHS, NUMBER_OF_NOISE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, NUMBER_ITERATIONS, file, fileR, "DAG", monotonicDagEps, smallCluster, smallClusterMod, threshold);
 //            
 //            eval = new ClusteringEvaluator(true);
 //            file = new File("MonotonicEvaluationTree.txt");
-//            eval.collapse(oracle, NUMBER_OF_ORACLE_GRAPHS, NUMBER_OF_NOISE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, NUMBER_ITERATIONS, file, "TREE", monotonicTreeEps, smallCluster, smallClusterMod, threshold);
+//            fileR = new File("R_Data_Monotonic_Tree.txt");
+//            eval.collapse(oracle, NUMBER_OF_ORACLE_GRAPHS, NUMBER_OF_NOISE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, NUMBER_ITERATIONS, file, fileR, "TREE", monotonicTreeEps, smallCluster, smallClusterMod, threshold);
             
         } catch (IOException ex) {
             Logger.getLogger(NoiseGraphTest.class.getName()).log(Level.SEVERE, null, ex);

@@ -40,24 +40,35 @@ public class ClusteringEvaluator {
     ArrayList<Double> r_similarity = new ArrayList<>();
     ArrayList<Double> f_similarity = new ArrayList<>();
     ArrayList<Double> c_similarity = new ArrayList<>();  
+    ArrayList<Double> t_similarity = new ArrayList<>(); 
+    
     ArrayList<Double> p_similarityFT = new ArrayList<>();
     ArrayList<Double> r_similarityFT = new ArrayList<>();
     ArrayList<Double> f_similarityFT = new ArrayList<>();
     ArrayList<Double> c_similarityFT = new ArrayList<>(); 
+    ArrayList<Double> t_similarityFT = new ArrayList<>(); 
+    
     ArrayList<Double> p_similarityTT = new ArrayList<>();
     ArrayList<Double> r_similarityTT = new ArrayList<>();
     ArrayList<Double> f_similarityTT = new ArrayList<>();
     ArrayList<Double> c_similarityTT = new ArrayList<>(); 
+    ArrayList<Double> t_similarityTT = new ArrayList<>(); 
+    
     ArrayList<Double> p_dbscan = new ArrayList<>();
     ArrayList<Double> r_dbscan = new ArrayList<>();
     ArrayList<Double> f_dbscan = new ArrayList<>();
     ArrayList<Double> c_dbscan = new ArrayList<>();  // number of clusters
+    ArrayList<Double> t_dbscan = new ArrayList<>(); 
+    
     private boolean isMonotonic = false;
     
     int similarity = 0;
     int similarityFT = 0;
     int similarityTT = 0;
     int dbscan = 0;
+    
+    BufferedWriter bw;
+    BufferedWriter bwR;
 
     ClusteringEvaluator(boolean b) {
         isMonotonic = b;
@@ -102,23 +113,6 @@ public class ClusteringEvaluator {
         r.add(recall);
         f.add(fmeasure);
         c.add(retrievedDocuments);
-
-//        bw.write("=========================");
-//        bw.newLine();
-//        bw.write("Intersection: " + intersection);
-//        bw.newLine();
-//        bw.write("Retrieved Documents: " + retrievedDocuments);
-//        bw.newLine();
-//        bw.write("Relevant Documents: " + relevantDocuments);
-//        bw.newLine();
-//        bw.write("");
-//        bw.newLine();
-//        bw.write("Precision: " + precision);
-//        bw.newLine();
-//        bw.write("Recall: " + recall);
-//        bw.newLine();
-//        bw.write("F-Measure: " + fmeasure);
-//        bw.newLine();
     }
 
     public DirectedGraph<Object, Edge> createOracleGraph(OracleGraph oracleGraph, String typeGraph) {
@@ -136,8 +130,7 @@ public class ClusteringEvaluator {
             double INITIAL_NOISE_GRAPH_SIZE, 
             double NOISE_INCREASE_NUMBER, 
             int NUMBER_ITERATIONS,
-            File file, 
-            File fileR,
+            String fileName,
             String typeGraph,
             double epsMod,
             int s_size,
@@ -150,77 +143,52 @@ public class ClusteringEvaluator {
         int total_dbscan = 0;
         int total_tt = 0;
         int total_ft = 0;
-        BufferedWriter bw;
-        BufferedWriter bwR;
-        
-        // if file doesnt exists, then create it
-        if (!file.exists()) {
-            file.createNewFile();
-        }
-        
-        if (!fileR.exists()) {
-            fileR.createNewFile();
-        }
 
-        bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
-        bwR = new BufferedWriter(new FileWriter(fileR.getAbsoluteFile()));
         
         System.out.println("DBSCAN EPS MOD: " + epsMod);
         System.out.println("Similarity small cluster definition: " + s_increase);
         System.out.println("Similarity threshold small cluster (multiplicates the normal threshold by): " + s_increase);
         System.out.println("Similarity Threshold (in STD): " + qnt);
-        bw.write("DBSCAN EPS: " + epsMod);
-        bw.newLine();
-        bw.write("Similarity small cluster definition: " + s_increase);
-        bw.newLine();
-        bw.write("Similarity threshold small cluster (multiplicates the normal threshold by): " + s_increase);
-        bw.newLine();
-        bw.write("Similarity Threshold (in STD): " + qnt);
-        bw.newLine();
+
         double noiseFactor = INITIAL_NOISE_GRAPH_SIZE;  
         for (w = 0; w < NUMBER_ITERATIONS; w++) {
             System.out.println("Iteration NUMBER #" + w);
+            createIterationFile(fileName, w, epsMod, s_size, s_increase, qnt);
             bw.write("==============================================================");
-                bw.newLine();
-                bw.write("ITERATION NUMBER #" + w);
-                bw.newLine();
-                DirectedGraph<Object, Edge> oracle;
-                oracle = createOracleGraph(oracleGraph, typeGraph);
-                bw.write("Oracle size: " + oracle.getVertexCount());
-                bw.newLine();
-                bw.write("NoiseGraph size: " + oracle.getVertexCount() * noiseFactor);
-                bw.newLine();
+            bw.newLine();
+            bw.write("ITERATION NUMBER #" + w);
+            bw.newLine();
+            DirectedGraph<Object, Edge> oracle;
+            oracle = createOracleGraph(oracleGraph, typeGraph);
+            bw.write("Oracle size: " + oracle.getVertexCount());
+            bw.newLine();
+            bw.write("NoiseGraph size: " + oracle.getVertexCount() * noiseFactor);
+            bw.newLine();
 
-//                oracle = createOracleGraph(oracleGraph, typeGraph);
             for (j = 1; j <= NUMBER_OF_ORACLE_GRAPHS; j++) {
-//                bw.write("==============================================================");
-//                bw.newLine();
-//                bw.write("ORACLE NUMBER #" + j);
-//                bw.newLine();
-//                System.out.println("ORACLE NUMBER #" + j);
-//                DirectedGraph<Object, Edge> oracle;
-
                 oracle = createOracleGraph(oracleGraph, typeGraph);
 
-//                bw.write("Oracle size: " + oracle.getVertexCount());
-//                bw.newLine();
-//                bw.write("NoiseGraph size: " + oracle.getVertexCount() * noiseFactor);
-//                bw.newLine();
                 for (i = 0; i < NUMBER_OF_NOISE_GRAPHS; i++) {
-    //                bw.write("==============================================================");
-    //                bw.newLine();
-    //                bw.write("TEST NUMBER #" + i);
-    //                bw.newLine();
                     NoiseGraph instance = new NoiseGraph(oracle, oracleGraph.attribute, isMonotonic);
                     DirectedGraph<Object, Edge> noiseGraph = instance.generateNoiseGraph(noiseFactor, noiseProbability, "" + j + i);
-
+                    
+                    // TO DO: record execution time for each type than make average for each iteration
                     // Good when data is sorted
-                    SimilarityCollapse(oracleGraph, oracle, noiseGraph, true, false, p_similarity, r_similarity, f_similarity, c_similarity, s_size, s_increase, qnt);
+                    double time;
+                    time = SimilarityCollapse(oracleGraph, oracle, noiseGraph, true, false, p_similarity, r_similarity, f_similarity, c_similarity, s_size, s_increase, qnt);
+                    t_similarity.add(time);
+                    
                     // Good when data is monotonic-ish
-                    SimilarityCollapse(oracleGraph, oracle, noiseGraph, false, true, p_similarityFT, r_similarityFT, f_similarityFT, c_similarityFT, s_size, s_increase, qnt);
+                    time = SimilarityCollapse(oracleGraph, oracle, noiseGraph, false, true, p_similarityFT, r_similarityFT, f_similarityFT, c_similarityFT, s_size, s_increase, qnt);
+                    t_similarityFT.add(time);
+                    
                     // Terrible in all types of data so far
-                    SimilarityCollapse(oracleGraph, oracle, noiseGraph, true, true, p_similarityTT, r_similarityTT, f_similarityTT, c_similarityTT, s_size, s_increase, qnt);
-                    dbscan(oracleGraph, oracle, noiseGraph, epsMod, p_dbscan, r_dbscan, f_dbscan, c_dbscan);
+                    time = SimilarityCollapse(oracleGraph, oracle, noiseGraph, true, true, p_similarityTT, r_similarityTT, f_similarityTT, c_similarityTT, s_size, s_increase, qnt);
+                    t_similarityTT.add(time);
+                    
+                    time = SimilarityCollapse(oracleGraph, oracle, noiseGraph, false, false, p_dbscan, r_dbscan, f_dbscan, c_dbscan, s_size, s_increase, qnt);
+                    t_dbscan.add(time);
+                    // dbscan(oracleGraph, oracle, noiseGraph, epsMod, p_dbscan, r_dbscan, f_dbscan, c_dbscan);
 
                 }
             }
@@ -243,30 +211,83 @@ public class ClusteringEvaluator {
             similarityTT = 0;
             similarityFT = 0;
             noiseFactor *= NOISE_INCREASE_NUMBER; 
+            bw.close();
+            bwR.close();
+        }
+        createFinalResultsFile(fileName, total_similarity, total_dbscan, total_ft, total_tt, epsMod, s_size, s_increase, qnt);
+    }
+    
+    public void createIterationFile(String name, int iteration, double epsMod,
+            int s_size,
+            int s_increase,
+            int qnt) throws IOException {
+        File file = new File("Evaluation_" + name + iteration + ".txt");
+        File fileR = new File("R_Data_" + name + iteration + ".txt");
+
+        // if file doesnt exists, then create it
+        if (!file.exists()) {
+            file.createNewFile();
         }
         
+        if (!fileR.exists()) {
+            fileR.createNewFile();
+        }
+
+        bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
+        bwR = new BufferedWriter(new FileWriter(fileR.getAbsoluteFile()));
+        
+        bw.write("DBSCAN EPS: " + epsMod);
+        bw.newLine();
+        bw.write("Similarity small cluster definition: " + s_increase);
+        bw.newLine();
+        bw.write("Similarity threshold small cluster (multiplicates the normal threshold by): " + s_increase);
+        bw.newLine();
+        bw.write("Similarity Threshold (in STD): " + qnt);
+        bw.newLine();
+    }
+    
+    public void createFinalResultsFile(String fileName, int total_similarity, int total_dbscan, int total_ft, int total_tt, double epsMod,
+            int s_size,
+            int s_increase,
+            int qnt) throws IOException {
+        BufferedWriter results;
+        File file = new File("Evaluation_" + fileName + "_Results.txt");
+        // if file doesnt exists, then create it
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        results = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
         System.out.println("===============================");
         System.out.println("Final Result");
         System.out.println("Similarity: " + total_similarity);
         System.out.println("dbscan: " + total_dbscan);
-        bw.write("===============================");
-        bw.newLine();
-        bw.write("Final Result");
-        bw.newLine();
-        bw.write("Similarity (tf): " + total_similarity);
-        bw.newLine();
-        bw.write("dbscan (ff): " + total_dbscan);
-        bw.newLine();
-        bw.write("Similarity (ft): " + total_ft);
-        bw.newLine();
-        bw.write("Similarity (tt): " + total_tt);
-        bw.newLine();
         
-        bw.close();
-        bwR.close();
+        results.write("DBSCAN EPS: " + epsMod);
+        results.newLine();
+        results.write("Similarity small cluster definition: " + s_increase);
+        results.newLine();
+        results.write("Similarity threshold small cluster (multiplicates the normal threshold by): " + s_increase);
+        results.newLine();
+        results.write("Similarity Threshold (in STD): " + qnt);
+        results.newLine();
+        
+        results.write("===============================");
+        results.newLine();
+        results.write("Final Result");
+        results.newLine();
+        results.write("Similarity (tf): " + total_similarity);
+        results.newLine();
+        results.write("dbscan (ff): " + total_dbscan);
+        results.newLine();
+        results.write("Similarity (ft): " + total_ft);
+        results.newLine();
+        results.write("Similarity (tt): " + total_tt);
+        results.newLine();
+        
+        results.close();
     }
-    
-    public void SimilarityCollapse(OracleGraph oracleGraph, 
+
+    public long SimilarityCollapse(OracleGraph oracleGraph, 
             DirectedGraph<Object, Edge> oracle, 
             DirectedGraph<Object, Edge> noiseGraph, 
             boolean updateError, 
@@ -279,8 +300,17 @@ public class ClusteringEvaluator {
         
         GraphMatching combiner = configureSimilarityMatcher(oracleGraph, noiseGraph);
         AutomaticInference infer = new AutomaticInference(minSize, thresholdIncrease, qnt);
+        
+        // Measure time
+        long startTime = System.nanoTime();
         String similarity = infer.cluster(noiseGraph, combiner, updateError, verifyWithinCluster);
+        long endTime = System.nanoTime();
+        long duration = (endTime - startTime) / 1000000;  //divide by 1000000 to get milliseconds.
+        
+        // Compare results with the oracle
         comparePRF(oracle, similarity, p, r, f, c);
+        
+        return duration;
     }
     
     private GraphMatching configureSimilarityMatcher(OracleGraph oracleGraph, DirectedGraph<Object, Edge> noiseGraph) {
@@ -294,8 +324,7 @@ public class ClusteringEvaluator {
         return new GraphMatching(restrictionList, similarityThreshold, defaultError, 0);
     }
     
-    
-    
+
     public void dbscan(OracleGraph oracleGraph, 
             DirectedGraph<Object, Edge> oracle, 
             DirectedGraph<Object, Edge> noiseGraph, 
@@ -316,33 +345,48 @@ public class ClusteringEvaluator {
         bw.newLine();
         bw.write("Similarity Collapse (TF)");
         bw.newLine();
-        printPrf(p_similarity, r_similarity, f_similarity, c_similarity, bw, bwR, "s", iteration);
+        printPrf(p_similarity, r_similarity, f_similarity, c_similarity, t_similarity, bw, bwR, "s", iteration);
         bw.write("=========================");
         bw.newLine();
         bw.write("DBSCAN (FF)");
         bw.newLine();
-        printPrf(p_dbscan, r_dbscan, f_dbscan, c_dbscan, bw, bwR, "d", iteration);
+        printPrf(p_dbscan, r_dbscan, f_dbscan, c_dbscan, t_dbscan, bw, bwR, "d", iteration);
         bw.write("=========================");
         bw.newLine();
         bw.write("Similarity Collapse (FT)");
         bw.newLine();
-        printPrf(p_similarityFT, r_similarityFT, f_similarityFT, c_similarityFT, bw, bwR, "ft", iteration);
+        printPrf(p_similarityFT, r_similarityFT, f_similarityFT, c_similarityFT, t_similarityFT, bw, bwR, "ft", iteration);
         bw.write("=========================");
         bw.newLine();
         bw.write("Similarity Collapse (TT)");
         bw.newLine();
-        printPrf(p_similarityTT, r_similarityTT, f_similarityTT, c_similarityTT, bw, bwR, "tt", iteration);
+        printPrf(p_similarityTT, r_similarityTT, f_similarityTT, c_similarityTT, t_similarityTT, bw, bwR, "tt", iteration);
         
         checkWinner();
-        clearLists(p_similarity, r_similarity, f_similarity, c_similarity);
-        clearLists(p_dbscan, r_dbscan, f_dbscan, c_dbscan);
+        
+        clearLists(p_similarity, r_similarity, f_similarity, c_similarity, t_similarity);
+        clearLists(p_similarityFT, r_similarityFT, f_similarityFT, c_similarityFT, t_similarityFT);
+        clearLists(p_similarityTT, r_similarityTT, f_similarityTT, c_similarityTT, t_similarityTT);
+        clearLists(p_dbscan, r_dbscan, f_dbscan, c_dbscan, t_dbscan);
     }
     
-    private void printPrf(ArrayList<Double> p, ArrayList<Double> r, ArrayList<Double> f, ArrayList<Double> c, BufferedWriter bw, BufferedWriter bwR, String name, int iteration) throws IOException {
+    private void printPrf(ArrayList<Double> p, 
+            ArrayList<Double> r, 
+            ArrayList<Double> f, 
+            ArrayList<Double> c,
+            ArrayList<Double> t,
+            BufferedWriter bw, 
+            BufferedWriter bwR, 
+            String name, 
+            int iteration) throws IOException {
+        
         String precision = "";
         String recall = "";
         String fmeasure = "";
         String clusters = "";
+        String time = "";
+        String efficiency = "";
+        
         precision = "Precision> Mean: " + Utils.mean(Utils.listToDoubleArray(p)) + 
                 " / STD:" + Utils.stdev(Utils.listToDoubleArray(p)) + 
                 " / Min: " + Utils.minimumValue(Utils.listToDoubleArray(p));
@@ -358,6 +402,12 @@ public class ClusteringEvaluator {
                 " / STD:" + Utils.stdev(Utils.listToDoubleArray(c)) + 
                 " / Min: " + Utils.minimumValue(Utils.listToDoubleArray(c)) +
                 " / Max: " + Utils.maximumValue(Utils.listToDoubleArray(c));
+        time = "Time (milliseconds)> Mean: " + Utils.mean(Utils.listToDoubleArray(t)) + 
+                " / STD:" + Utils.stdev(Utils.listToDoubleArray(t)) + 
+                " / Min: " + Utils.minimumValue(Utils.listToDoubleArray(t)) +
+                " / Max: " + Utils.maximumValue(Utils.listToDoubleArray(t));
+        
+        efficiency = "Efficiency (precision/time)>: " + Utils.mean(Utils.listToDoubleArray(p)) / Utils.mean(Utils.listToDoubleArray(t));
         
         bw.write(precision);
         bw.newLine();
@@ -367,11 +417,17 @@ public class ClusteringEvaluator {
         bw.newLine();
         bw.write(clusters);
         bw.newLine();
+        bw.write(time);
+        bw.newLine();
+        bw.write(efficiency);
+        bw.newLine();
         bwR.write(printValues(p, "p" + name + iteration));
         bwR.newLine();
         bwR.write(printValues(r, "r" + name + iteration));
         bwR.newLine();
         bwR.write(printValues(f, "f" + name + iteration));
+        bwR.newLine();
+        bwR.write(printValues(t, "t" + name + iteration));
         bwR.newLine();
         bwR.newLine();
         
@@ -391,6 +447,14 @@ public class ClusteringEvaluator {
         values += ")";
         return values;
     }
+    public void clearLists(ArrayList<Double> p, ArrayList<Double> r, ArrayList<Double> f, ArrayList<Double> c, ArrayList<Double> t) {
+        p.clear();
+        r.clear();
+        f.clear();
+        c.clear();
+        t.clear();
+    }
+    
     public void clearLists(ArrayList<Double> p, ArrayList<Double> r, ArrayList<Double> f, ArrayList<Double> c) {
         p.clear();
         r.clear();
