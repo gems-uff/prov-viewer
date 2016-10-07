@@ -182,4 +182,12 @@ public class OracleGraph {
         return templateGraph;
     }
     
+    public DirectedGraph<Object, Edge> createOracleGraph(String typeGraph) {
+        if(typeGraph.equalsIgnoreCase("DAG"))
+            return generateDagGraph();
+        else if(typeGraph.equalsIgnoreCase("TREE"))
+            return generateTreeGraph();
+        else
+            return generateLinearGraph();
+    }
 }
