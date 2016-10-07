@@ -123,7 +123,7 @@ public class NoiseGraph {
      */
     private Vertex newNoiseVertex(double noiseValue, String date) {
         String id;
-        id = id_counter + "_noise";
+        id = id_counter + "N";
         id_counter++;
         
         Vertex noise = new ActivityVertex(id, id, date);
