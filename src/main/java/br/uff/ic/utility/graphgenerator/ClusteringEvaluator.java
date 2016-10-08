@@ -15,8 +15,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  *
@@ -79,6 +78,7 @@ public class ClusteringEvaluator {
      * adds the results (precision, recall, f-measure) in their respective lists
      *
      * @param oracle is the oracle that contains the "correct" answers
+     * @param collapseGroups
      * @param list is the clusters found by an algorithm
      * @param p is a variable that will store the precision for this trial
      * @param r is a variable that will store the recall for this trial
@@ -87,34 +87,61 @@ public class ClusteringEvaluator {
      * this trial
      * @throws IOException
      */
-    public void comparePRF(DirectedGraph<Object, Edge> oracle, String list, ArrayList<Double> p, ArrayList<Double> r, ArrayList<Double> f, ArrayList<Double> c) throws IOException {
-        List<String> clusters = new ArrayList<>();
+    public void comparePRF(DirectedGraph<Object, Edge> oracle, ArrayList<ConcurrentHashMap<String, Object>> collapseGroups, ArrayList<Double> p, ArrayList<Double> r, ArrayList<Double> f, ArrayList<Double> c) throws IOException {
+//        List<String> clusters = new ArrayList<>();
         double relevantDocuments = oracle.getVertexCount();
         double retrievedDocuments;
         double intersection = 0;
         double precision;
         double recall;
         double fmeasure;
-        String[] elements = list.split(" ");
-        clusters.addAll(Arrays.asList(elements));
-        retrievedDocuments = clusters.size();
-        for (String cluster : clusters) {
+//        String[] elements = list.split(" ");
+//        clusters.addAll(Arrays.asList(elements));
+//        retrievedDocuments = clusters.size();
+        retrievedDocuments = collapseGroups.size();
+        
+        for (ConcurrentHashMap<String, Object> subGraph : collapseGroups) {
             boolean computedCluster = false;
-//            bw.write("Cluster: " + cluster);
-//            bw.newLine();
-            for (Object v : oracle.getVertices()) {
-                String id = ((Vertex) v).getID();
-                if (cluster.contains(id) && !computedCluster) {
-                    computedCluster = true;
-                    intersection++;
+            if (subGraph.size() > 0) {
+                for (Object v : oracle.getVertices()) {
+                    String id = ((Vertex) v).getID();
+                    if (subGraph.containsKey(id) && !computedCluster) {
+                        computedCluster = true;
+                        intersection++;
+                    }
                 }
+//                for (Object v1 : subGraph.values()) {
+//                    String id1 = ((Vertex) v1).getID();
+//                    collapseList += "," + id1;
+//                }
+//                collapseList += " ";
             }
         }
+        
+//        for (String cluster : clusters) {
+//            boolean computedCluster = false;
+////            bw.write("Cluster: " + cluster);
+////            bw.newLine();
+//            for (Object v : oracle.getVertices()) {
+//                String id = ((Vertex) v).getID();
+//                if (cluster.contains(id) && !computedCluster) {
+//                    computedCluster = true;
+//                    intersection++;
+//                }
+//            }
+//        }
         precision = intersection / retrievedDocuments;
 
         recall = intersection / relevantDocuments;
         fmeasure = 2 * (precision * recall) / (precision + recall);
 
+        if(retrievedDocuments == 0) {
+            System.out.println("intersection: " + intersection);
+            System.out.println("retrievedDocuments: " + retrievedDocuments);
+            System.out.println("precision: " + precision);
+            System.out.println("recall: " + recall);
+            System.out.println("fmeasure: " + fmeasure);
+        }
         p.add(precision);
         r.add(recall);
         f.add(fmeasure);
@@ -205,10 +232,10 @@ public class ClusteringEvaluator {
                     DirectedGraph<Object, Edge> noiseGraph = instance.generateNoiseGraph(noiseFactor, noiseProbability, "" + j + i);
                     double time;
 
-                    StringBuffer clusters1 = new StringBuffer();
-                    StringBuffer clusters2 = new StringBuffer();
-                    StringBuffer clusters3 = new StringBuffer();
-                    StringBuffer clusters4 = new StringBuffer();
+                    ArrayList<ConcurrentHashMap<String, Object>> clusters1 = new ArrayList<>();
+                    ArrayList<ConcurrentHashMap<String, Object>> clusters2 = new ArrayList<>();
+                    ArrayList<ConcurrentHashMap<String, Object>> clusters3 = new ArrayList<>();
+                    ArrayList<ConcurrentHashMap<String, Object>> clusters4 = new ArrayList<>();
 
                     Thread t1 = new Thread(new SimilarityThread(clusters1, oracleGraph, noiseGraph, true, false, t_similarity, TF_size, TF_increase, TF_qnt));
                     Thread t2 = new Thread(new SimilarityThread(clusters2, oracleGraph, noiseGraph, false, true, t_similarityFT, FT_size, FT_increase, FT_qnt));
@@ -239,10 +266,11 @@ public class ClusteringEvaluator {
 ////                    time = SimilarityCollapse(noiseGraph, false, false, clusters4, 1, 1, 1);
 //                    time = dbscan(noiseGraph, epsMod, clusters4);
 //                    t_dbscan.add(time);
-                    comparePRF(oracle, clusters1.toString(), p_similarity, r_similarity, f_similarity, c_similarity);
-                    comparePRF(oracle, clusters2.toString(), p_similarityFT, r_similarityFT, f_similarityFT, c_similarityFT);
-                    comparePRF(oracle, clusters3.toString(), p_similarityTT, r_similarityTT, f_similarityTT, c_similarityTT);
-                    comparePRF(oracle, clusters4.toString(), p_dbscan, r_dbscan, f_dbscan, c_dbscan);
+
+                    comparePRF(oracle, clusters1, p_similarity, r_similarity, f_similarity, c_similarity);
+                    comparePRF(oracle, clusters2, p_similarityFT, r_similarityFT, f_similarityFT, c_similarityFT);
+                    comparePRF(oracle, clusters3, p_similarityTT, r_similarityTT, f_similarityTT, c_similarityTT);
+                    comparePRF(oracle, clusters4, p_dbscan, r_dbscan, f_dbscan, c_dbscan);
                 }
             }
             printResults(bw, bwR, w);
@@ -486,7 +514,7 @@ public class ClusteringEvaluator {
                 + " / Min: " + Utils.minimumValue(Utils.listToDoubleArray(t))
                 + " / Max: " + Utils.maximumValue(Utils.listToDoubleArray(t));
 
-        efficiency = "Efficiency (precision/time)>: " + Utils.mean(Utils.listToDoubleArray(p)) / Utils.mean(Utils.listToDoubleArray(t));
+        efficiency = "Efficiency (precision/time)>: " + Utils.mean(Utils.listToDoubleArray(p)) / (Utils.mean(Utils.listToDoubleArray(t)) / 60000);
 
         bw.write(precision);
         bw.newLine();
@@ -522,7 +550,12 @@ public class ClusteringEvaluator {
         DecimalFormat df = new DecimalFormat("#.###");
         String values = type + " <- c(";
         for (Double e : v) {
-            values += Double.valueOf(df.format(e)) + ",";
+            if(e.isNaN()) {
+                values += 0 + ",";
+                System.out.println("NaN");
+            }
+            else
+                values += Double.valueOf(df.format(e)) + ",";
         }
         values = values.substring(0, values.length() - 1);
         values += ")";

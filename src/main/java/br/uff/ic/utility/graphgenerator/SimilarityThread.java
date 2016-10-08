@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -44,10 +45,10 @@ public class SimilarityThread implements Runnable{
     int size; 
     int thresholdIncrease; 
     int qnt;
-    StringBuffer clusters;
+    ArrayList<ConcurrentHashMap<String, Object>> clusters;
             
             
-    SimilarityThread(StringBuffer answer, OracleGraph og, DirectedGraph<Object, Edge> noiseGraph, boolean updateError, 
+    SimilarityThread(ArrayList<ConcurrentHashMap<String, Object>> answer, OracleGraph og, DirectedGraph<Object, Edge> noiseGraph, boolean updateError, 
             boolean verifyWithinCluster,
             ArrayList<Double> t,
             int minSize, int thresholdIncrease, int qnt) {
@@ -82,7 +83,7 @@ public class SimilarityThread implements Runnable{
         
         // Measure time
         long startTime = System.nanoTime();
-        clusters.append(infer.cluster(noiseGraph, combiner, updateError, verifyWithinCluster));
+        clusters.addAll(infer.cluster(noiseGraph, combiner, updateError, verifyWithinCluster));
         long endTime = System.nanoTime();
         long duration = (endTime - startTime) / 1000000;  //divide by 1000000 to get milliseconds.
         

@@ -6,6 +6,8 @@
 package br.uff.ic.utility;
 
 import br.uff.ic.utility.graphgenerator.OracleGraph;
+import java.util.ArrayList;
+import java.util.concurrent.ConcurrentHashMap;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -52,7 +54,7 @@ public class dbscanTest {
         oracle = new OracleGraph(attribute, -200, 200);
         Dbscan instance = new Dbscan(oracle.generateLinearGraph(), attribute, e, minpt);
 //        String expResult = "";
-        String result = instance.applyDbscan();
+        ArrayList<ConcurrentHashMap<String, Object>> result = instance.applyDbscan();
         instance.printClusters(result);
 //        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.

@@ -258,8 +258,8 @@ public class GraphMatching {
             }
             if(weight != 0) {
                 // Dealing with numeric values
-                if (Utils.tryParseFloat(av1) && Utils.tryParseFloat(av2)) { // && Utils.tryParseFloat(errorMargin)) {
-                    if(Utils.tryParseFloat(errorMargin)) {
+                if (Utils.tryParseDouble(av1) && Utils.tryParseDouble(av2)) { // && Utils.tryParseFloat(errorMargin)) {
+                    if(Utils.tryParseDouble(errorMargin)) {
                         if (Utils.FloatEqualTo(Utils.convertFloat(av1), Utils.convertFloat(av2), Utils.convertFloat(errorMargin))) {
                             similarity = similarity + (1 * weight);
     //                        System.out.println(attribute.getName() + ": " + av1 + " / " + av2 + " error: " + errorMargin);

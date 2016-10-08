@@ -138,7 +138,7 @@ public class AutomaticInference {
      * @param verifyWithinCluster
      * @return the list of clusters
      */
-    public String cluster(DirectedGraph<Object, Edge> graph, GraphMatching combiner, boolean updateError, boolean verifyWithinCluster) {
+    public ArrayList<ConcurrentHashMap<String, Object>> cluster(DirectedGraph<Object, Edge> graph, GraphMatching combiner, boolean updateError, boolean verifyWithinCluster) {
         isUpdating = updateError;
         isRestrictingVariation = verifyWithinCluster;
         ArrayList<ConcurrentHashMap<String, Object>> clusters = new ArrayList<>();
@@ -158,6 +158,7 @@ public class AutomaticInference {
         }
 //        breakCollapseClusters(clusters, combiner);
 //        System.out.println(printCollapseGroups(clusters));
-        return printCollapseGroups(clusters);
+//        return printCollapseGroups(clusters);
+        return clusters;
     }
 }

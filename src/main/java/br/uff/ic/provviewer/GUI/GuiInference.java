@@ -15,12 +15,19 @@ import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.AttributeErrorMargin;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.Edge;
+import br.uff.ic.utility.graph.Vertex;
+import br.uff.ic.utility.graphgenerator.ClusteringEvaluator;
+import br.uff.ic.utility.graphgenerator.Main;
+import br.uff.ic.utility.graphgenerator.OracleGraph;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JToggleButton;
 
 /**
@@ -91,13 +98,27 @@ public class GuiInference {
             System.out.println("Finished Collapsing");
         } else {
             GuiButtons.Reset(variables);
-            String list = ColorSchemeCollapse((String) StatusFilterBox.getSelectedItem(), variables.graph, false, true);
-            variables.collapser.CollapseIrrelevant(variables, list);
+            ArrayList<ConcurrentHashMap<String, Object>> list = ColorSchemeCollapse((String) StatusFilterBox.getSelectedItem(), variables.graph, false, true);
+            variables.collapser.CollapseIrrelevant(variables, printCollapseGroups(list));
             System.out.println("Finished Collapsing");
         }
     }
+    
+    public static String printCollapseGroups(ArrayList<ConcurrentHashMap<String, Object>> collapseGroups) {
+        String collapseList = "";
+        for (ConcurrentHashMap<String, Object> subGraph : collapseGroups) {
+            if (subGraph.size() > 0) {
+                for (Object v1 : subGraph.values()) {
+                    String id1 = ((Vertex) v1).getID();
+                    collapseList += "," + id1;
+                }
+                collapseList += " ";
+            }
+        }
+        return collapseList;
+    }
 
-    public static String ColorSchemeCollapse(String attribute, DirectedGraph<Object, Edge> graph, boolean updateError, boolean verifyWithinCluster) {
+    public static ArrayList<ConcurrentHashMap<String, Object>> ColorSchemeCollapse(String attribute, DirectedGraph<Object, Edge> graph, boolean updateError, boolean verifyWithinCluster) {
         // -----------------------------
         // Standard Deviation
         // -----------------------------
@@ -121,7 +142,7 @@ public class GuiInference {
 //        long startTime = System.currentTimeMillis();
 //        System.out.println(": L = " + collapseList);
         AutomaticInference infer = new AutomaticInference(7, 4, 4);
-        String clusters =  infer.cluster(graph, combiner, updateError, verifyWithinCluster);
+        ArrayList<ConcurrentHashMap<String, Object>> clusters =  infer.cluster(graph, combiner, updateError, verifyWithinCluster);
 //        String clusters =  AutomaticInference.dbscan(variables, combiner);
         
 //        long stopTime = System.currentTimeMillis();

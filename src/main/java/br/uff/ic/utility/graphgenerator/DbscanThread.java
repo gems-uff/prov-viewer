@@ -22,6 +22,7 @@ import br.uff.ic.utility.graph.Edge;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,14 +32,14 @@ import java.util.logging.Logger;
  */
 public class DbscanThread implements Runnable{
     
-    StringBuffer clusters;
+    ArrayList<ConcurrentHashMap<String, Object>> clusters;
     double epsilon;
     OracleGraph oracleGraph;
     DirectedGraph<Object, Edge> noiseGraph;
     ArrayList<Double> t;
             
             
-    DbscanThread(StringBuffer answer, OracleGraph og, DirectedGraph<Object, Edge> noiseGraph, double eps, ArrayList<Double> t) {
+    DbscanThread(ArrayList<ConcurrentHashMap<String, Object>> answer, OracleGraph og, DirectedGraph<Object, Edge> noiseGraph, double eps, ArrayList<Double> t) {
         this.clusters = answer;
         this.oracleGraph = og;
         this.noiseGraph = noiseGraph;
@@ -58,7 +59,7 @@ public class DbscanThread implements Runnable{
         double eps = epsMod;
         Dbscan instance = new Dbscan(noiseGraph, oracleGraph.attribute, eps, 1);
         long startTime = System.nanoTime();
-        clusters.append(instance.applyDbscan());
+        clusters.addAll(instance.applyDbscan());
         long endTime = System.nanoTime();
         long duration = (endTime - startTime) / 1000000;  //divide by 1000000 to get milliseconds.
 

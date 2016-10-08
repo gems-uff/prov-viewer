@@ -53,7 +53,8 @@ public class OracleGraph {
     private double generateOracleNumber() {
         int min = MIN_ORACLE_VALUE;
         int max = MAX_ORACLE_VALUE;
-        return min + (Math.random() * ((max - min) + 1));
+        float value = ((int) ((min + (Math.random() * ((max - min) + 1))) * 100000000)) / 100000000;
+        return value;
     }
     
     /**

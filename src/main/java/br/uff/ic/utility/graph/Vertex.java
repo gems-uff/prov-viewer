@@ -89,7 +89,7 @@ public abstract class Vertex extends GraphObject {
      */
     public float getTime() {    
 //        String[] day = this.time.split(":");
-        if(Utils.tryParseFloat(this.time))
+        if(Utils.tryParseDouble(this.time))
             return (Float.parseFloat(this.time));
         else if(Utils.tryParseDate(this.time))
         {
@@ -187,8 +187,8 @@ public abstract class Vertex extends GraphObject {
         }
         if(attributes.get(attribute) == null)
             return Float.NaN;
-        if(Utils.tryParseFloat(attributes.get(attribute).getAverageValue())) {
-            return Float.parseFloat(attributes.get(attribute).getAverageValue());
+        if(Utils.tryParseDouble(attributes.get(attribute).getAverageValue())) {
+            return (float) Double.parseDouble(attributes.get(attribute).getAverageValue());
         }
         else {
             return Float.NaN;

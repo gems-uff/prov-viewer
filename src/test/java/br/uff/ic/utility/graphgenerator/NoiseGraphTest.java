@@ -41,8 +41,8 @@ public class NoiseGraphTest {
         System.out.println("generateNoiseGraph");
         OracleGraph oracle = new OracleGraph(attribute, -200, 200);
         ClusteringEvaluator eval = new ClusteringEvaluator(false, oracle);
-        int NUMBER_OF_ORACLE_GRAPHS = 40;
-        int NUMBER_OF_NOISE_GRAPHS = 10;
+        int NUMBER_OF_ORACLE_GRAPHS = 1;
+        int NUMBER_OF_NOISE_GRAPHS = 1;
         double INITIAL_NOISE_GRAPH_SIZE = 10;
         double NOISE_INCREASE_NUMBER = 2;
         int NUMBER_ITERATIONS = 10;
@@ -134,66 +134,66 @@ public class NoiseGraphTest {
             FT_qnt = 3;
             eval.collapse(NUMBER_OF_ORACLE_GRAPHS, NUMBER_OF_NOISE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, NUMBER_ITERATIONS,  "Linear", "Linear", linearEps, TF_size, TF_increase, TF_qnt, TT_size, TT_increase, TT_qnt, FT_size, FT_increase, FT_qnt);
             
-            eval = new ClusteringEvaluator(false, oracle);
-            TF_size = 5; 
-            TF_increase = 3; 
-            TF_qnt = 5; 
-            TT_size = 7; 
-            TT_increase = 3; 
-            TT_qnt = 5; 
-            FT_size = 1; 
-            FT_increase = 1; 
-            FT_qnt = 3;
-            eval.collapse(NUMBER_OF_ORACLE_GRAPHS, NUMBER_OF_NOISE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, NUMBER_ITERATIONS, "DAG", "DAG", dagEps, TF_size, TF_increase, TF_qnt, TT_size, TT_increase, TT_qnt, FT_size, FT_increase, FT_qnt);
-            
-            eval = new ClusteringEvaluator(false, oracle);
-            TF_size = 7; 
-            TF_increase = 3; 
-            TF_qnt = 4; 
-            TT_size = 7; 
-            TT_increase = 2; 
-            TT_qnt = 5; 
-            FT_size = 1; 
-            FT_increase = 1; 
-            FT_qnt = 3;
-            eval.collapse(NUMBER_OF_ORACLE_GRAPHS, NUMBER_OF_NOISE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, NUMBER_ITERATIONS, "TREE", "TREE", treeEps, TF_size, TF_increase, TF_qnt, TT_size, TT_increase, TT_qnt, FT_size, FT_increase, FT_qnt);
-            
-             // Monotonic
-            eval = new ClusteringEvaluator(true, oracle);
-            TF_size = 7; 
-            TF_increase = 3; 
-            TF_qnt = 5; 
-            TT_size = 7; 
-            TT_increase = 4; 
-            TT_qnt = 5; 
-            FT_size = 7; 
-            FT_increase = 4; 
-            FT_qnt = 5;
-            eval.collapse(NUMBER_OF_ORACLE_GRAPHS, NUMBER_OF_NOISE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, NUMBER_ITERATIONS,  "Monotonic_Linear", "Linear", monotonicLinearEps, TF_size, TF_increase, TF_qnt, TT_size, TT_increase, TT_qnt, FT_size, FT_increase, FT_qnt);
+//            eval = new ClusteringEvaluator(false, oracle);
+//            TF_size = 5; 
+//            TF_increase = 3; 
+//            TF_qnt = 5; 
+//            TT_size = 7; 
+//            TT_increase = 3; 
+//            TT_qnt = 5; 
+//            FT_size = 1; 
+//            FT_increase = 1; 
+//            FT_qnt = 3;
+//            eval.collapse(NUMBER_OF_ORACLE_GRAPHS, NUMBER_OF_NOISE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, NUMBER_ITERATIONS, "DAG", "DAG", dagEps, TF_size, TF_increase, TF_qnt, TT_size, TT_increase, TT_qnt, FT_size, FT_increase, FT_qnt);
 //            
-            eval = new ClusteringEvaluator(true, oracle);
-            TF_size = 7; 
-            TF_increase = 3; 
-            TF_qnt = 5; 
-            TT_size = 7; 
-            TT_increase = 4; 
-            TT_qnt = 5; 
-            FT_size = 7; 
-            FT_increase = 3; 
-            FT_qnt = 5;
-            eval.collapse(NUMBER_OF_ORACLE_GRAPHS, NUMBER_OF_NOISE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, NUMBER_ITERATIONS, "Monotonic_Dag", "DAG", monotonicDagEps, TF_size, TF_increase, TF_qnt, TT_size, TT_increase, TT_qnt, FT_size, FT_increase, FT_qnt);
+//            eval = new ClusteringEvaluator(false, oracle);
+//            TF_size = 7; 
+//            TF_increase = 3; 
+//            TF_qnt = 4; 
+//            TT_size = 7; 
+//            TT_increase = 2; 
+//            TT_qnt = 5; 
+//            FT_size = 1; 
+//            FT_increase = 1; 
+//            FT_qnt = 3;
+//            eval.collapse(NUMBER_OF_ORACLE_GRAPHS, NUMBER_OF_NOISE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, NUMBER_ITERATIONS, "TREE", "TREE", treeEps, TF_size, TF_increase, TF_qnt, TT_size, TT_increase, TT_qnt, FT_size, FT_increase, FT_qnt);
 //            
-            eval = new ClusteringEvaluator(true, oracle);
-            TF_size = 7; 
-            TF_increase = 2; 
-            TF_qnt = 6;
-            TT_size = 7; 
-            TT_increase = 3; 
-            TT_qnt = 5; 
-            FT_size = 5; 
-            FT_increase = 4; 
-            FT_qnt = 5;
-            eval.collapse(NUMBER_OF_ORACLE_GRAPHS, NUMBER_OF_NOISE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, NUMBER_ITERATIONS, "Monotonic_TREE", "TREE", monotonicTreeEps, TF_size, TF_increase, TF_qnt, TT_size, TT_increase, TT_qnt, FT_size, FT_increase, FT_qnt);
+//             // Monotonic
+//            eval = new ClusteringEvaluator(true, oracle);
+//            TF_size = 7; 
+//            TF_increase = 3; 
+//            TF_qnt = 5; 
+//            TT_size = 7; 
+//            TT_increase = 4; 
+//            TT_qnt = 5; 
+//            FT_size = 7; 
+//            FT_increase = 4; 
+//            FT_qnt = 5;
+//            eval.collapse(NUMBER_OF_ORACLE_GRAPHS, NUMBER_OF_NOISE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, NUMBER_ITERATIONS,  "Monotonic_Linear", "Linear", monotonicLinearEps, TF_size, TF_increase, TF_qnt, TT_size, TT_increase, TT_qnt, FT_size, FT_increase, FT_qnt);
+////            
+//            eval = new ClusteringEvaluator(true, oracle);
+//            TF_size = 7; 
+//            TF_increase = 3; 
+//            TF_qnt = 5; 
+//            TT_size = 7; 
+//            TT_increase = 4; 
+//            TT_qnt = 5; 
+//            FT_size = 7; 
+//            FT_increase = 3; 
+//            FT_qnt = 5;
+//            eval.collapse(NUMBER_OF_ORACLE_GRAPHS, NUMBER_OF_NOISE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, NUMBER_ITERATIONS, "Monotonic_Dag", "DAG", monotonicDagEps, TF_size, TF_increase, TF_qnt, TT_size, TT_increase, TT_qnt, FT_size, FT_increase, FT_qnt);
+////            
+//            eval = new ClusteringEvaluator(true, oracle);
+//            TF_size = 7; 
+//            TF_increase = 2; 
+//            TF_qnt = 6;
+//            TT_size = 7; 
+//            TT_increase = 3; 
+//            TT_qnt = 5; 
+//            FT_size = 5; 
+//            FT_increase = 4; 
+//            FT_qnt = 5;
+//            eval.collapse(NUMBER_OF_ORACLE_GRAPHS, NUMBER_OF_NOISE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, NUMBER_ITERATIONS, "Monotonic_TREE", "TREE", monotonicTreeEps, TF_size, TF_increase, TF_qnt, TT_size, TT_increase, TT_qnt, FT_size, FT_increase, FT_qnt);
             
         } catch (IOException ex) {
             Logger.getLogger(NoiseGraphTest.class.getName()).log(Level.SEVERE, null, ex);

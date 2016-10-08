@@ -156,9 +156,9 @@ public class Edge extends GraphObject {
      * @return (float) edge influence value
      */
     public float getValue() {
-        if (Utils.tryParseFloat(this.value)) {
+        if (Utils.tryParseDouble(this.value)) {
             return Float.parseFloat(this.value);
-        } else if (Utils.tryParseFloat(this.value.split(" ")[0])) {
+        } else if (Utils.tryParseDouble(this.value.split(" ")[0])) {
             return Float.parseFloat(this.value.split(" ")[0]);
         } else {
             return 0;

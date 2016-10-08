@@ -22,6 +22,7 @@ import br.uff.ic.utility.graph.Edge;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  *
@@ -76,8 +77,8 @@ public class Trainer {
                         for(int noise = 0; noise < NUMBER_OF_NOISE_GRAPHS; noise++) {
                             NoiseGraph instance = new NoiseGraph(oracle, oracleGraph.attribute, isMonotonic);
                             DirectedGraph<Object, Edge> noiseGraph = instance.generateNoiseGraph(noiseFactor, noiseProbability, "" + noise + oraclegraph);
-                            StringBuffer clusters1 = new StringBuffer();
-                            StringBuffer clusters2 = new StringBuffer();
+                            ArrayList<ConcurrentHashMap<String, Object>> clusters1 = new ArrayList<>();
+                            ArrayList<ConcurrentHashMap<String, Object>> clusters2 = new ArrayList<>();
                             ArrayList<Double> t1 = new ArrayList<>();
                             ArrayList<Double> t2 = new ArrayList<>();
                             SimilarityThread alg1 = new SimilarityThread(clusters1, oracleGraph, noiseGraph, updateError, withinCluster, t1, bestSize, bestInc, bestqnt);
@@ -86,8 +87,8 @@ public class Trainer {
                             alg2.run();
 //                            eval.SimilarityCollapse(noiseGraph, updateError, withinCluster, clusters1, bestSize, bestInc, bestqnt);
 //                            eval.SimilarityCollapse(noiseGraph, updateError, withinCluster, clusters2, current_size, current_inc, currentqnt);
-                            eval.comparePRF(oracle, clusters1.toString(), p, r, f, c);
-                            eval.comparePRF(oracle, clusters2.toString(), p2, r2, f2, c2);
+                            eval.comparePRF(oracle, clusters1, p, r, f, c);
+                            eval.comparePRF(oracle, clusters2, p2, r2, f2, c2);
                         }
                         noiseFactor *= NOISE_INCREASE_NUMBER;
 
@@ -188,8 +189,8 @@ public class Trainer {
                         // Make noise graphs
                         NoiseGraph instance = new NoiseGraph(oracle, oracleGraph.attribute, isMonotonic);
                         DirectedGraph<Object, Edge> noiseGraph = instance.generateNoiseGraph(noiseFactor, noiseProbability, "" + noise + i);
-                        StringBuffer clusters1 = new StringBuffer();
-                        StringBuffer clusters2 = new StringBuffer();
+                        ArrayList<ConcurrentHashMap<String, Object>> clusters1 = new ArrayList<>();
+                        ArrayList<ConcurrentHashMap<String, Object>> clusters2 = new ArrayList<>();
                         ArrayList<Double> t1 = new ArrayList<>(); 
                         ArrayList<Double> t2 = new ArrayList<>(); 
                         DbscanThread dbscan1 = new DbscanThread(clusters1, oracleGraph, noiseGraph, best_eps, t1);
@@ -198,8 +199,8 @@ public class Trainer {
                         dbscan2.run();
 //                        eval.dbscan(noiseGraph, best_eps, clusters1);
 //                        eval.dbscan(noiseGraph, current_eps, clusters2);
-                        eval.comparePRF(oracle, clusters1.toString(), p, r, f, c);
-                        eval.comparePRF(oracle, clusters2.toString(), p2, r2, f2, c2);
+                        eval.comparePRF(oracle, clusters1, p, r, f, c);
+                        eval.comparePRF(oracle, clusters2, p2, r2, f2, c2);
                     }
                 }
                 noiseFactor *= NOISE_INCREASE_NUMBER * 2;

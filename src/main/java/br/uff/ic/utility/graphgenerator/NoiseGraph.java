@@ -103,7 +103,7 @@ public class NoiseGraph {
 //            value = mean + sigma * rng.nextGaussian();
 //        }
         
-        return value;
+        return (float) ((int) value * 100000000) / 100000000;
     }
     
     private Vertex createMonotonicNoise (Edge edge)  {

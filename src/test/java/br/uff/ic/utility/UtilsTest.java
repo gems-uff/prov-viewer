@@ -33,23 +33,23 @@ public class UtilsTest {
     @Test
     public void testTryParseFloat() {
         System.out.println("tryParseFloat");
-        boolean result = Utils.tryParseFloat("");
+        boolean result = Utils.tryParseDouble("");
         assertEquals(false, result);
-        result = Utils.tryParseFloat("1");
+        result = Utils.tryParseDouble("1");
         assertEquals(true, result);
-        result = Utils.tryParseFloat("1.5");
+        result = Utils.tryParseDouble("1.5");
         assertEquals(true, result);
-        result = Utils.tryParseFloat("-1.5");
+        result = Utils.tryParseDouble("-1.5");
         assertEquals(true, result);
-        result = Utils.tryParseFloat("+1.5");
+        result = Utils.tryParseDouble("+1.5");
         assertEquals(true, result);
-        result = Utils.tryParseFloat("- 1.5");
+        result = Utils.tryParseDouble("- 1.5");
         assertEquals(true, result);
-        result = Utils.tryParseFloat("+ 1.5");
+        result = Utils.tryParseDouble("+ 1.5");
         assertEquals(true, result);
-        result = Utils.tryParseFloat("1,5");
+        result = Utils.tryParseDouble("1,5");
         assertEquals(true, result);
-        result = Utils.tryParseFloat("asd1");
+        result = Utils.tryParseDouble("asd1");
         assertEquals(false, result);
     }
 
@@ -60,7 +60,7 @@ public class UtilsTest {
     public void testConvertFloat() {
         System.out.println("convertFloat");
         Utils instance = new Utils();
-        float result = instance.convertFloat("1");
+        double result = instance.convertFloat("1");
         assertEquals(1, result, 0.0);
         result = instance.convertFloat("0");
         assertEquals(0.0F, result, 0.0);

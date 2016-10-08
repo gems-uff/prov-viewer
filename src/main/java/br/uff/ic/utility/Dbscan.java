@@ -5,6 +5,7 @@ import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /*
 PSEUDOCODE
@@ -40,7 +41,7 @@ public class Dbscan {
     public double e;
     public int minpt;
     public ArrayList<Object> visitList = new ArrayList<>();
-    public ArrayList<List> resultList = new ArrayList<>();
+    public ArrayList<ConcurrentHashMap<String, Object>> resultList = new ArrayList<>();
 //    public ArrayList<Object> neighbours;
     public DirectedGraph<Object, Edge> graph;
     String attribute;
@@ -111,7 +112,7 @@ public class Dbscan {
         return collapseList;
     }
     
-    public String applyDbscan() {
+    public ArrayList<ConcurrentHashMap<String, Object>> applyDbscan() {
         String result = "";
         for (Object p : graph.getVertices()) {
             if(!isVisited(p)) {
@@ -119,23 +120,25 @@ public class Dbscan {
                 
                 ArrayList<Object> n = getNeighbours(p);
 //                if (n.size() >= minpt) {
-                    ArrayList<Object> c = new ArrayList<>();
+                    ConcurrentHashMap<String, Object> c = new ConcurrentHashMap<>();
                     expandCluster(p, n, c);
                     resultList.add(c);
 //                }
             }
         }
-        return printCollapseGroups(resultList);
+        return resultList;
+//        return printCollapseGroups(resultList);
     }
 
-    private void expandCluster(Object p, ArrayList<Object> n, ArrayList<Object> c) {
-        c.add(p);
+    private void expandCluster(Object p, ArrayList<Object> n, ConcurrentHashMap<String, Object> c) {
+        c.put(((Vertex) p).getID(), p);
         int ind=0;
         while(n.size()>ind){
             Object point = n.get(ind);
             if(!isVisited(point)) {
                 visited(point);
-                c.add(point);
+//                c.add(point);
+                c.put(((Vertex) point).getID(), point);
                 ArrayList<Object> n2 = getNeighbours(point);
                 if (n2.size() >= minpt) {
                     n = merge(n, n2);
@@ -161,5 +164,19 @@ public class Dbscan {
             boolean computedCluster = false;
             System.out.println("Cluster: " + cluster);
         }
+    }
+    
+    public String printClusters(ArrayList<ConcurrentHashMap<String, Object>> collapseGroups) {
+        String collapseList = "";
+        for (ConcurrentHashMap<String, Object> subGraph : collapseGroups) {
+            if (subGraph.size() > 0) {
+                for (Object v1 : subGraph.values()) {
+                    String id1 = ((Vertex) v1).getID();
+                    collapseList += "," + id1;
+                }
+                collapseList += " ";
+            }
+        }
+        return collapseList;
     }
 }
