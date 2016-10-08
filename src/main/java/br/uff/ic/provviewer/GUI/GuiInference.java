@@ -120,7 +120,8 @@ public class GuiInference {
         // -----------------------------
 //        long startTime = System.currentTimeMillis();
 //        System.out.println(": L = " + collapseList);
-        String clusters =  AutomaticInference.cluster(graph, combiner, updateError, verifyWithinCluster);
+        AutomaticInference infer = new AutomaticInference(7, 4, 4);
+        String clusters =  infer.cluster(graph, combiner, updateError, verifyWithinCluster);
 //        String clusters =  AutomaticInference.dbscan(variables, combiner);
         
 //        long stopTime = System.currentTimeMillis();

@@ -22,11 +22,11 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class AutomaticInference {
     
-    static int STD_QUANTITY = 3;
-    static int MINIMUM_SIZE = 10;
-    static int smallClusterError = 3;
-    static boolean isUpdating = false;
-    static boolean isRestrictingVariation = false;
+    int STD_QUANTITY = 3;
+    int MINIMUM_SIZE = 10;
+    int smallClusterError = 3;
+    boolean isUpdating = false;
+    boolean isRestrictingVariation = false;
     
     
     public AutomaticInference(int minSize, int thresholdIncrease, int std) {
@@ -41,7 +41,7 @@ public class AutomaticInference {
      * @param collapseGroups
      * @return
      */
-    public static String printCollapseGroups(ArrayList<ConcurrentHashMap<String, Object>> collapseGroups) {
+    public String printCollapseGroups(ArrayList<ConcurrentHashMap<String, Object>> collapseGroups) {
         String collapseList = "";
         for (ConcurrentHashMap<String, Object> subGraph : collapseGroups) {
             if (subGraph.size() > 0) {
@@ -85,7 +85,7 @@ public class AutomaticInference {
      * @param cg
      * @param processedVertices
      */
-    private static void getNeighborhood(Object v1, DirectedGraph<Object, Edge> graph, GraphMatching combiner, ConcurrentHashMap<String, Object> cg, Map<String, String> processedVertices) {
+    private void getNeighborhood(Object v1, DirectedGraph<Object, Edge> graph, GraphMatching combiner, ConcurrentHashMap<String, Object> cg, Map<String, String> processedVertices) {
         for (Object v2 : graph.getNeighbors(v1)) {
             String id2 = ((Vertex) v2).getID();
             if (!processedVertices.containsKey(id2)) {
@@ -111,7 +111,7 @@ public class AutomaticInference {
         }
     }
     
-    private static void updateError(GraphMatching combiner, ConcurrentHashMap<String, Object> cg) {
+    private void updateError(GraphMatching combiner, ConcurrentHashMap<String, Object> cg) {
         if (cg.size() > 2) {
 //            System.out.println("Updating error");
             Map<String, AttributeErrorMargin> error = combiner.getRestrictionList();
@@ -134,15 +134,17 @@ public class AutomaticInference {
      *
      * @param graph
      * @param combiner
+     * @param updateError
+     * @param verifyWithinCluster
      * @return the list of clusters
      */
-    public static String cluster(DirectedGraph<Object, Edge> graph, GraphMatching combiner, boolean updateError, boolean verifyWithinCluster) {
+    public String cluster(DirectedGraph<Object, Edge> graph, GraphMatching combiner, boolean updateError, boolean verifyWithinCluster) {
         isUpdating = updateError;
         isRestrictingVariation = verifyWithinCluster;
         ArrayList<ConcurrentHashMap<String, Object>> clusters = new ArrayList<>();
         ConcurrentHashMap<String, Object> cluster;
         Map<String, String> visited = new HashMap<>();
-        Map<String, AttributeErrorMargin> error = new HashMap<String,AttributeErrorMargin>(combiner.getRestrictionList());
+        Map<String, AttributeErrorMargin> error = new HashMap<>(combiner.getRestrictionList());
         for (Object v1 : graph.getVertices()) {
             String id1 = ((Vertex) v1).getID();
             if (!visited.containsKey(id1)) {
