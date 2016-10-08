@@ -28,16 +28,17 @@ import java.util.ArrayList;
  * @author Kohwalter
  */
 public class Trainer {
-    
-    ClusteringEvaluator eval = new ClusteringEvaluator(false);
+    OracleGraph oracleGraph = new OracleGraph("A", -200, 200);
+    ClusteringEvaluator eval;
     private boolean isMonotonic = false;
     double noiseProbability = 1.0F;
     
     public void setMonotonic (boolean b) {
         isMonotonic = b;
+        eval = new ClusteringEvaluator(isMonotonic, oracleGraph);
     }
     
-    public double trainSimilarity(OracleGraph oracleGraph, 
+    public double trainSimilarity(boolean updateError, boolean withinCluster, OracleGraph oracleGraph, 
             int NUMBER_OF_ORACLE_GRAPHS, 
             int NUMBER_OF_NOISE_GRAPHS,
             double INITIAL_NOISE_GRAPH_SIZE, 
@@ -63,20 +64,24 @@ public class Trainer {
         int best = 0;
 //        System.out.println("Training Size");
         for (int itqnt = 0; itqnt < 4; itqnt++) {
-            System.out.println("Training qnt: " + itqnt);
+//            System.out.println("Training qnt: " + itqnt);
             for (int itinc = 0; itinc < 3; itinc++) {
-                System.out.println("Training inc: " + itinc);
+//                System.out.println("Training inc: " + itinc);
                 for (int itsize = 0; itsize < 3; itsize++) {
-                    System.out.println("Training size: " + itsize);
+//                    System.out.println("Training size: " + itsize);
                     noiseFactor = INITIAL_NOISE_GRAPH_SIZE;
                     for(int oraclegraph = 0; oraclegraph < NUMBER_OF_ORACLE_GRAPHS; oraclegraph++) {
-                        DirectedGraph<Object, Edge> oracle = eval.createOracleGraph(oracleGraph, typeGraph);
+                        DirectedGraph<Object, Edge> oracle = eval.oracleGraph.createOracleGraph(typeGraph);
 //                        System.out.println("oraclegraph: " + oraclegraph);
                         for(int noise = 0; noise < NUMBER_OF_NOISE_GRAPHS; noise++) {
                             NoiseGraph instance = new NoiseGraph(oracle, oracleGraph.attribute, isMonotonic);
                             DirectedGraph<Object, Edge> noiseGraph = instance.generateNoiseGraph(noiseFactor, noiseProbability, "" + noise + oraclegraph);
-                            eval.SimilarityCollapse(oracleGraph, oracle, noiseGraph, true, false, p, r, f, c, bestSize, bestInc, bestqnt);
-                            eval.SimilarityCollapse(oracleGraph, oracle, noiseGraph, true, false, p2, r2, f2, c2, current_size, current_inc, currentqnt);
+                            StringBuffer clusters1 = new StringBuffer();
+                            StringBuffer clusters2 = new StringBuffer();
+                            eval.SimilarityCollapse(noiseGraph, updateError, withinCluster, clusters1, bestSize, bestInc, bestqnt);
+                            eval.SimilarityCollapse(noiseGraph, updateError, withinCluster, clusters2, current_size, current_inc, currentqnt);
+                            eval.comparePRF(oracle, clusters1.toString(), p, r, f, c);
+                            eval.comparePRF(oracle, clusters2.toString(), p2, r2, f2, c2);
                         }
                         noiseFactor *= NOISE_INCREASE_NUMBER;
 
@@ -171,14 +176,18 @@ public class Trainer {
                 // Iterations of the same graph size
                 for(int iterations = 0; iterations < 3; iterations++) {
                     // Make oracle graph
-                    DirectedGraph<Object, Edge> oracle = eval.createOracleGraph(oracleGraph, typeGraph);
+                    DirectedGraph<Object, Edge> oracle = eval.oracleGraph.createOracleGraph(typeGraph);
 
                     for (int noise = 0; noise < NUMBER_OF_ORACLE_GRAPHS * 0.2; noise++) {
                         // Make noise graphs
                         NoiseGraph instance = new NoiseGraph(oracle, oracleGraph.attribute, isMonotonic);
                         DirectedGraph<Object, Edge> noiseGraph = instance.generateNoiseGraph(noiseFactor, noiseProbability, "" + noise + i);
-                        eval.dbscan(oracleGraph, oracle, noiseGraph, best_eps, p, r, f, c);
-                        eval.dbscan(oracleGraph, oracle, noiseGraph, current_eps, p2, r2, f2, c2);
+                        StringBuffer clusters1 = new StringBuffer();
+                        StringBuffer clusters2 = new StringBuffer();
+                        eval.dbscan(noiseGraph, best_eps, clusters1);
+                        eval.dbscan(noiseGraph, current_eps, clusters2);
+                        eval.comparePRF(oracle, clusters1.toString(), p, r, f, c);
+                        eval.comparePRF(oracle, clusters2.toString(), p2, r2, f2, c2);
                     }
                 }
                 noiseFactor *= NOISE_INCREASE_NUMBER * 2;
