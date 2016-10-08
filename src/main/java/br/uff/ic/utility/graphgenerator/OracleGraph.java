@@ -50,10 +50,10 @@ public class OracleGraph {
      * Method to generate a random oracle value for the vertex
      * @return the random value
      */
-    private double generateOracleNumber() {
+    private float generateOracleNumber() {
         int min = MIN_ORACLE_VALUE;
         int max = MAX_ORACLE_VALUE;
-        float value = ((int) ((min + (Math.random() * ((max - min) + 1))) * 100000000)) / 100000000;
+        float value = (float) (((int) ((min + (Math.random() * ((max - min) + 1))) * 1000000)) * 0.0000001);
         return value;
     }
     

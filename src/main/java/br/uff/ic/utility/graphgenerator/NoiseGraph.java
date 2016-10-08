@@ -92,18 +92,18 @@ public class NoiseGraph {
      * @param threeSigma is the threshold for the noise value
      * @return the value for the noise vertex
      */
-    private double randomNoiseValue (float mean, float threeSigma)  {
-        double value;
+    private float randomNoiseValue (float mean, float threeSigma)  {
+        float value;
         double sigma = threeSigma / 3;
         Random rng = new Random();
         
-        value = mean + sigma * rng.nextGaussian();
+        value = (float) (mean + sigma * rng.nextGaussian());
         
 //        while((value < mean - threeSigma) || (value > mean + threeSigma)) {
 //            value = mean + sigma * rng.nextGaussian();
 //        }
         
-        return (float) ((int) value * 100000000) / 100000000;
+        return (float) (((int) value * 1000000) * 0.0000001);
     }
     
     private Vertex createMonotonicNoise (Edge edge)  {

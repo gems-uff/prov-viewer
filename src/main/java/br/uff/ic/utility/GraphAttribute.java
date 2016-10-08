@@ -30,7 +30,7 @@ public class GraphAttribute {
         this.name = name;
         this.value = value;
         this.quantity = 1;
-        if (Utils.tryParseDouble(value)){
+        if (Utils.tryParseFloat(value)){
             this.minValue = Float.parseFloat(this.value);
             this.maxValue = Float.parseFloat(this.value);
         }
@@ -87,7 +87,7 @@ public class GraphAttribute {
      */
     public void updateAttribute(String value) {
         this.quantity++;
-        if (Utils.tryParseDouble(value)) {
+        if (Utils.tryParseFloat(value)) {
             this.value = Float.toString(Float.parseFloat(this.value) + Float.parseFloat(value));
             this.minValue = Math.min(this.minValue, Float.parseFloat(value));
             this.maxValue = Math.max(this.maxValue, Float.parseFloat(value));
@@ -113,7 +113,7 @@ public class GraphAttribute {
      */
     public String getAverageValue() {
         // Return the average number
-        if ((this.quantity != 1) && Utils.tryParseDouble(this.value))
+        if ((this.quantity != 1) && Utils.tryParseFloat(this.value))
             return Float.toString(Float.parseFloat(this.value) / this.quantity); 
         else
             return this.value;
@@ -182,7 +182,7 @@ public class GraphAttribute {
      * @return a string with the attribute characteristics
      */
     public String printValue() {
-        if (Utils.tryParseDouble(this.value)) {
+        if (Utils.tryParseFloat(this.value)) {
             if(this.quantity > 2) {
                 return (Float.parseFloat(this.value) / this.quantity)
                         + " (" + this.getMin() + " ~ "

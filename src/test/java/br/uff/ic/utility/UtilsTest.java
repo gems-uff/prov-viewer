@@ -33,23 +33,23 @@ public class UtilsTest {
     @Test
     public void testTryParseFloat() {
         System.out.println("tryParseFloat");
-        boolean result = Utils.tryParseDouble("");
+        boolean result = Utils.tryParseFloat("");
         assertEquals(false, result);
-        result = Utils.tryParseDouble("1");
+        result = Utils.tryParseFloat("1");
         assertEquals(true, result);
-        result = Utils.tryParseDouble("1.5");
+        result = Utils.tryParseFloat("1.5");
         assertEquals(true, result);
-        result = Utils.tryParseDouble("-1.5");
+        result = Utils.tryParseFloat("-1.5");
         assertEquals(true, result);
-        result = Utils.tryParseDouble("+1.5");
+        result = Utils.tryParseFloat("+1.5");
         assertEquals(true, result);
-        result = Utils.tryParseDouble("- 1.5");
+        result = Utils.tryParseFloat("- 1.5");
         assertEquals(true, result);
-        result = Utils.tryParseDouble("+ 1.5");
+        result = Utils.tryParseFloat("+ 1.5");
         assertEquals(true, result);
-        result = Utils.tryParseDouble("1,5");
+        result = Utils.tryParseFloat("1,5");
         assertEquals(true, result);
-        result = Utils.tryParseDouble("asd1");
+        result = Utils.tryParseFloat("asd1");
         assertEquals(false, result);
     }
 

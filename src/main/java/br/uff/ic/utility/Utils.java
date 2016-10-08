@@ -54,12 +54,12 @@ public class Utils {
      * @param value desired to be parsed to float
      * @return boolean
      */
-    public static boolean tryParseDouble(String value) {
+    public static boolean tryParseFloat(String value) {
 //        value = value.replace(" ", "");
 //        value = value.replace(",", ".");
         try {
-//            Double.parseDouble(value);
-            double number = new Double(value);
+            Float.parseFloat(value);
+//            float number = new Float(value);
             return true;
         } catch (NumberFormatException nfe) {
 //            System.out.println("value: " + value);
@@ -73,9 +73,9 @@ public class Utils {
      * @param value is the String to be verified
      * @return true if it is possible to convert to a float
      */
-    public static double convertFloat(String value) {
+    public static float convertFloat(String value) {
         value = value.replace(" ", "");
-        return Double.parseDouble(value);
+        return Float.parseFloat(value);
     }
 
     /**
@@ -243,7 +243,7 @@ public class Utils {
             double[] v = new double[l.length];
             int i = 0;
             for (Object s : l) {
-                if (tryParseDouble((String) s)) {
+                if (tryParseFloat((String) s)) {
                     v[i++] = Double.parseDouble((String) s);
                 } else {
                     isString = true;

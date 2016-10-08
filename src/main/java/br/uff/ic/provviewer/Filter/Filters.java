@@ -280,7 +280,7 @@ public class Filters {
                     time = TimeUnit.MILLISECONDS.toMinutes((long) time);
                 }
 
-                if (Utils.tryParseDouble(GraphFrame.FilterVertexMinValue.getText())) {
+                if (Utils.tryParseFloat(GraphFrame.FilterVertexMinValue.getText())) {
                     double minTime = Float.parseFloat(GraphFrame.FilterVertexMinValue.getText());
                     if (time < minTime) {
                         return true;
@@ -291,7 +291,7 @@ public class Filters {
                         return true;
                     }
                 }
-                if (Utils.tryParseDouble(GraphFrame.FilterVertexMaxValue.getText())) {
+                if (Utils.tryParseFloat(GraphFrame.FilterVertexMaxValue.getText())) {
                     double maxTime;
                     maxTime = Float.parseFloat(GraphFrame.FilterVertexMaxValue.getText());
                     if (time > maxTime) {
