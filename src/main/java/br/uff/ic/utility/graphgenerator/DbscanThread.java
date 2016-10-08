@@ -17,17 +17,11 @@
  */
 package br.uff.ic.utility.graphgenerator;
 
-import br.uff.ic.graphmatching.GraphMatching;
-import br.uff.ic.provviewer.Inference.AutomaticInference;
-import br.uff.ic.utility.AttributeErrorMargin;
 import br.uff.ic.utility.Dbscan;
-import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.Edge;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
