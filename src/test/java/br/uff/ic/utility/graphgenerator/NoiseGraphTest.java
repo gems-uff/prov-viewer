@@ -41,11 +41,11 @@ public class NoiseGraphTest {
         System.out.println("generateNoiseGraph");
         OracleGraph oracle = new OracleGraph(attribute, -200, 200);
         ClusteringEvaluator eval = new ClusteringEvaluator(false, oracle);
-        int NUMBER_OF_ORACLE_GRAPHS = 1;
-        int NUMBER_OF_NOISE_GRAPHS = 1;
+        int NUMBER_OF_ORACLE_GRAPHS = 40;
+        int NUMBER_OF_NOISE_GRAPHS = 10;
         double INITIAL_NOISE_GRAPH_SIZE = 10;
         double NOISE_INCREASE_NUMBER = 2;
-        int NUMBER_ITERATIONS = 10;
+        int NUMBER_ITERATIONS = 2;
 
         try {
             File file;
@@ -70,7 +70,7 @@ public class NoiseGraphTest {
             int FT_increase; 
             int FT_qnt;
             
-            Main main = new Main();
+//            Main main = new Main();
 //            main.main();
             
 //            linearEps = trainer.trainDBSCAN(oracle, NUMBER_OF_ORACLE_GRAPHS, INITIAL_NOISE_GRAPH_SIZE, NOISE_INCREASE_NUMBER, "Linear");

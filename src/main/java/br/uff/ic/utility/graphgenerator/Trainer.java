@@ -78,8 +78,14 @@ public class Trainer {
                             DirectedGraph<Object, Edge> noiseGraph = instance.generateNoiseGraph(noiseFactor, noiseProbability, "" + noise + oraclegraph);
                             StringBuffer clusters1 = new StringBuffer();
                             StringBuffer clusters2 = new StringBuffer();
-                            eval.SimilarityCollapse(noiseGraph, updateError, withinCluster, clusters1, bestSize, bestInc, bestqnt);
-                            eval.SimilarityCollapse(noiseGraph, updateError, withinCluster, clusters2, current_size, current_inc, currentqnt);
+                            ArrayList<Double> t1 = new ArrayList<>();
+                            ArrayList<Double> t2 = new ArrayList<>();
+                            SimilarityThread alg1 = new SimilarityThread(clusters1, oracleGraph, noiseGraph, updateError, withinCluster, t1, bestSize, bestInc, bestqnt);
+                            SimilarityThread alg2 = new SimilarityThread(clusters2, oracleGraph, noiseGraph, updateError, withinCluster, t2, current_size, current_inc, currentqnt);
+                            alg1.run();
+                            alg2.run();
+//                            eval.SimilarityCollapse(noiseGraph, updateError, withinCluster, clusters1, bestSize, bestInc, bestqnt);
+//                            eval.SimilarityCollapse(noiseGraph, updateError, withinCluster, clusters2, current_size, current_inc, currentqnt);
                             eval.comparePRF(oracle, clusters1.toString(), p, r, f, c);
                             eval.comparePRF(oracle, clusters2.toString(), p2, r2, f2, c2);
                         }
@@ -184,8 +190,14 @@ public class Trainer {
                         DirectedGraph<Object, Edge> noiseGraph = instance.generateNoiseGraph(noiseFactor, noiseProbability, "" + noise + i);
                         StringBuffer clusters1 = new StringBuffer();
                         StringBuffer clusters2 = new StringBuffer();
-                        eval.dbscan(noiseGraph, best_eps, clusters1);
-                        eval.dbscan(noiseGraph, current_eps, clusters2);
+                        ArrayList<Double> t1 = new ArrayList<>(); 
+                        ArrayList<Double> t2 = new ArrayList<>(); 
+                        DbscanThread dbscan1 = new DbscanThread(clusters1, oracleGraph, noiseGraph, best_eps, t1);
+                        DbscanThread dbscan2 = new DbscanThread(clusters1, oracleGraph, noiseGraph, current_eps, t2);
+                        dbscan1.run();
+                        dbscan2.run();
+//                        eval.dbscan(noiseGraph, best_eps, clusters1);
+//                        eval.dbscan(noiseGraph, current_eps, clusters2);
                         eval.comparePRF(oracle, clusters1.toString(), p, r, f, c);
                         eval.comparePRF(oracle, clusters2.toString(), p2, r2, f2, c2);
                     }

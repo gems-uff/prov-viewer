@@ -200,20 +200,20 @@ public class ClusteringEvaluator {
                     StringBuffer clusters3 = new StringBuffer();
                     StringBuffer clusters4 = new StringBuffer();
                     
-//                    Thread t1 = new Thread (new WorkerThread(clusters1, oracleGraph, noiseGraph, true, false, t_similarity, TF_size, TF_increase, TF_qnt));
-//                    Thread t2 = new Thread (new WorkerThread(clusters2, oracleGraph, noiseGraph, false, true, t_similarityFT, FT_size, FT_increase, FT_qnt));
-//                    Thread t3 = new Thread (new WorkerThread(clusters3, oracleGraph, noiseGraph, true, true, t_similarityTT, TT_size, TT_increase, TT_qnt));
-//                    Thread t4 = new Thread (new WorkerThread(clusters4, oracleGraph, noiseGraph, false, false, t_dbscan, 1, 1, 1));
-//                    
-//                    t1.start();
-//                    t2.start();
-//                    t3.start();
-//                    t4.start();
-//
-//                    t1.join();
-//                    t2.join();
-//                    t3.join();
-//                    t4.join();
+                    Thread t1 = new Thread (new SimilarityThread(clusters1, oracleGraph, noiseGraph, true, false, t_similarity, TF_size, TF_increase, TF_qnt));
+                    Thread t2 = new Thread (new SimilarityThread(clusters2, oracleGraph, noiseGraph, false, true, t_similarityFT, FT_size, FT_increase, FT_qnt));
+                    Thread t3 = new Thread (new SimilarityThread(clusters3, oracleGraph, noiseGraph, true, true, t_similarityTT, TT_size, TT_increase, TT_qnt));
+                    Thread t4 = new Thread (new DbscanThread(clusters4, oracleGraph, noiseGraph, epsMod, t_dbscan));
+                    
+                    t1.start();
+                    t2.start();
+                    t3.start();
+                    t4.start();
+
+                    t1.join();
+                    t2.join();
+                    t3.join();
+                    t4.join();
 //                    
 //                    System.out.println("Ts1 = " + clusters1.toString());
 //                    System.out.println("Ts2 = " + clusters2.toString());
@@ -225,25 +225,25 @@ public class ClusteringEvaluator {
 //                    clusters3 = new StringBuffer();
 //                    clusters4 = new StringBuffer();
 
-                    time = SimilarityCollapse(noiseGraph, true, false, clusters1, TF_size, TF_increase, TF_qnt);
-                    t_similarity.add(time);
-                    
-                    // Good when data is monotonic-ish
-                    time = SimilarityCollapse(noiseGraph, false, true, clusters2, FT_size, FT_increase, FT_qnt);
-                    t_similarityFT.add(time);
-                    
-                    // Terrible in all types of data so far
-                    time = SimilarityCollapse(noiseGraph, true, true, clusters3, TT_size, TT_increase, TT_qnt);
-                    t_similarityTT.add(time);
-
-//                    time = SimilarityCollapse(noiseGraph, false, false, clusters4, 1, 1, 1);
-                    time = dbscan(noiseGraph, epsMod, clusters4);
-                    t_dbscan.add(time);
-                    
-                    System.out.println("s1 = " + clusters1.toString());
-                    System.out.println("s2 = " + clusters2.toString());
-                    System.out.println("s3 = " + clusters3.toString());
-                    System.out.println("s4 = " + clusters4.toString());
+//                    time = SimilarityCollapse(noiseGraph, true, false, clusters1, TF_size, TF_increase, TF_qnt);
+//                    t_similarity.add(time);
+//                    
+//                    // Good when data is monotonic-ish
+//                    time = SimilarityCollapse(noiseGraph, false, true, clusters2, FT_size, FT_increase, FT_qnt);
+//                    t_similarityFT.add(time);
+//                    
+//                    // Terrible in all types of data so far
+//                    time = SimilarityCollapse(noiseGraph, true, true, clusters3, TT_size, TT_increase, TT_qnt);
+//                    t_similarityTT.add(time);
+//
+////                    time = SimilarityCollapse(noiseGraph, false, false, clusters4, 1, 1, 1);
+//                    time = dbscan(noiseGraph, epsMod, clusters4);
+//                    t_dbscan.add(time);
+//                    
+//                    System.out.println("s1 = " + clusters1.toString());
+//                    System.out.println("s2 = " + clusters2.toString());
+//                    System.out.println("s3 = " + clusters3.toString());
+//                    System.out.println("s4 = " + clusters4.toString());
 
                     comparePRF(oracle, clusters1.toString(), p_similarity, r_similarity, f_similarity, c_similarity);
                     comparePRF(oracle, clusters2.toString(), p_similarityFT, r_similarityFT, f_similarityFT, c_similarityFT);
@@ -276,75 +276,6 @@ public class ClusteringEvaluator {
             bwR.close();
         }
         createFinalResultsFile(fileName, total_similarity, total_dbscan, total_ft, total_tt, epsMod, TF_size, TF_increase, TF_qnt, TT_size, TT_increase, TT_qnt, FT_size, FT_increase, FT_qnt);
-    }
-    
-    /**
-     * Method to run the Similairty algorithm to find the clusters
-     * @param noiseGraph is the graph that we want to run the algorithm
-     * @param updateError defines if this algorithm will use a global epsilon or if each cluster will have its own epsilon
-     * @param verifyWithinCluster defines if the algorithm will compare with the actual neighbor or with everyone already in the cluster in order to decide if the new element will join
-     * @param clusters is the variable that will contain the clusters found by the algorithm
-     * @param minSize is a configuration value for the similarity algorithm
-     * @param thresholdIncrease is a configuration value for the similarity algorithm
-     * @param qnt is a configuration value for the similarity algorithm
-     * @return the duration it took to find the clusters
-     * @throws IOException 
-     */
-    public long SimilarityCollapse(DirectedGraph<Object, Edge> noiseGraph, boolean updateError, 
-            boolean verifyWithinCluster,
-            StringBuffer clusters,
-            int minSize, int thresholdIncrease, int qnt) throws IOException {
-        
-        GraphMatching combiner = configureSimilarityMatcher(noiseGraph);
-        AutomaticInference infer = new AutomaticInference(minSize, thresholdIncrease, qnt);
-        
-        // Measure time
-        long startTime = System.nanoTime();
-        clusters.append(infer.cluster(noiseGraph, combiner, updateError, verifyWithinCluster));
-        long endTime = System.nanoTime();
-        long duration = (endTime - startTime) / 1000000;  //divide by 1000000 to get milliseconds.
-        
-        // Compare results with the oracle
-//        comparePRF(oracle, similarity, p, r, f, c);
-        
-        return duration;
-    }
-    
-    /**
-     * Method to configure the similarity cluster for the experiment
-     * @param noiseGraph is the graph that will be used in the similarity algorithm
-     * @return 
-     */
-    private GraphMatching configureSimilarityMatcher(DirectedGraph<Object, Edge> noiseGraph) {
-        double std = Utils.std(noiseGraph.getVertices(), oracleGraph.attribute);
-        double similarityThreshold = 0.5;
-        String defaultError = "0";
-        Map<String, AttributeErrorMargin> restrictionList = new HashMap<>();
-        AttributeErrorMargin epsilon;
-        epsilon = new AttributeErrorMargin(oracleGraph.attribute, "" + std);
-        restrictionList.put(oracleGraph.attribute, epsilon);
-        return new GraphMatching(restrictionList, similarityThreshold, defaultError, 0);
-    }
-    
-
-    /**
-     * Method to run an algorithm similar to the DBSCAN
-     * @param noiseGraph is the graph used for finding the clusters
-     * @param epsMod is the dbscan's epsilon
-     * @param clusters is the variable that will store the clusters found by the method
-     * @return the time it took to execute this algorithm
-     * @throws IOException 
-     */
-    public long dbscan(DirectedGraph<Object, Edge> noiseGraph, double epsMod, StringBuffer clusters) throws IOException {
-        
-        double eps = epsMod;
-        Dbscan instance = new Dbscan(noiseGraph, oracleGraph.attribute, eps, 1);
-        long startTime = System.nanoTime();
-        clusters.append(instance.applyDbscan());
-        long endTime = System.nanoTime();
-        long duration = (endTime - startTime) / 1000000;  //divide by 1000000 to get milliseconds.
-
-        return duration;
     }
     
     /**
