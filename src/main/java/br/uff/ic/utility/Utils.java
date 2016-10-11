@@ -56,8 +56,8 @@ public class Utils {
      * @return boolean
      */
     public static boolean tryParseFloat(String value) {
-//        value = value.replace(" ", "");
-//        value = value.replace(",", ".");
+        value = value.replace(" ", "");
+        value = value.replace(",", ".");
 //        try {
 ////            Float.parseFloat(value);
 //            Float.valueOf(value.trim());
@@ -95,8 +95,8 @@ public class Utils {
      * @return true if it is possible to convert to a float
      */
     public static float convertFloat(String value) {
-//        value = value.replace(" ", "");
-//        value = value.replace(",", ".");
+        value = value.replace(" ", "");
+        value = value.replace(",", ".");
         String v = new BigDecimal(value.trim()).toPlainString();
         return Float.valueOf(v);
     }

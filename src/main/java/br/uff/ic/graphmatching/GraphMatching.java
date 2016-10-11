@@ -202,14 +202,16 @@ public class GraphMatching {
 
         // Check all v1 attributes
         for (GraphAttribute attribute : v1.getAttributes()) {
-            similarity = compareAttributes(attributes, attribute, v2, similarity);
+            attributes.put(attribute.getName(), attribute.getName());
+            similarity = compareAttributes(attribute, v2, similarity);
         }
 
         // Now check all v2 attributes
         for (GraphAttribute attribute : v2.getAttributes()) {
             // Do not check the same attributes already verified when checking v1
             if (!attributes.containsKey(attribute.getName())) {
-                similarity = compareAttributes(attributes, attribute, v1, similarity);
+                attributes.put(attribute.getName(), attribute.getName());
+                similarity = compareAttributes(attribute, v1, similarity);
             }
         }
 
@@ -238,54 +240,53 @@ public class GraphMatching {
     /**
      * Function to compare all attributes from 2 verties
      *
-     * @param attributes is the list of processed attributes
      * @param attribute is the current attribute from v1
      * @param v2 is the second vertex
      * @param similarity is the similarity variable used to discern if vertices
      * are similar
      * @return
      */
-    public float compareAttributes(Map<String, String> attributes, GraphAttribute attribute, Vertex v2, float similarity) {
-        attributes.put(attribute.getName(), attribute.getName());
-        if (v2.getAttribute(attribute.getName()) != null) {
+    public float compareAttributes(GraphAttribute attribute, Vertex v2, float similarity) {
+//        attributes.put(attribute.getName(), attribute.getName());
+        String attName = attribute.getName();
+        if (v2.getAttribute(attName) != null) {
             String av1 = attribute.getAverageValue();
-            String av2 = v2.getAttribute(attribute.getName()).getAverageValue();
+            String av2 = v2.getAttribute(attName).getAverageValue();
             String errorMargin = defaultError;
             float weight = defaultWeight;
-            if (attributeList.get(attribute.getName()) != null) {
-                errorMargin = attributeList.get(attribute.getName()).getValue();
-                weight = attributeList.get(attribute.getName()).getWeight();
+            if (attributeList.get(attName) != null) {
+                errorMargin = attributeList.get(attName).getValue();
+                weight = attributeList.get(attName).getWeight();
             }
-            if(weight != 0) {
+            if (weight != 0) {
                 // Dealing with numeric values
                 if (Utils.tryParseFloat(av1) && Utils.tryParseFloat(av2)) { // && Utils.tryParseFloat(errorMargin)) {
-                    if(Utils.tryParseFloat(errorMargin)) {
+                    if (Utils.tryParseFloat(errorMargin)) {
                         if (Utils.FloatEqualTo(Utils.convertFloat(av1), Utils.convertFloat(av2), Utils.convertFloat(errorMargin))) {
                             similarity = similarity + (1 * weight);
-    //                        System.out.println(attribute.getName() + ": " + av1 + " / " + av2 + " error: " + errorMargin);
+                            //                        System.out.println(attribute.getName() + ": " + av1 + " / " + av2 + " error: " + errorMargin);
                         }
-                    }
-                    else if(errorMargin.contains("%")) {
+                    } else if (errorMargin.contains("%")) {
                         errorMargin = errorMargin.replaceAll("%", "");
                         if (Utils.FloatSimilar(Utils.convertFloat(av1), Utils.convertFloat(av2), Utils.convertFloat(errorMargin) * 0.01f)) {
                             similarity = similarity + (1 * weight);
-    //                        System.out.println(attribute.getName() + ": " + av1 + " / " + av2 + " error: " + errorMargin);
+                            //                        System.out.println(attribute.getName() + ": " + av1 + " / " + av2 + " error: " + errorMargin);
                         }
                     }
                 } // Dealing with a timeDate values
-                else if(Utils.tryParseDate(av1) && Utils.tryParseDate(av2)) {
-                    if(Utils.DoubleEqualTo(Utils.convertStringDateToFloat(av1),Utils.convertStringDateToFloat(av2),Utils.convertFloat(errorMargin))) {
+                else if (Utils.tryParseDate(av1) && Utils.tryParseDate(av2)) {
+                    if (Utils.DoubleEqualTo(Utils.convertStringDateToFloat(av1), Utils.convertStringDateToFloat(av2), Utils.convertFloat(errorMargin))) {
                         similarity = similarity + (1 * weight);
                     }
-                }
-                // Dealing with string values: Checking if they are equals
+                } // Dealing with string values: Checking if they are equals
                 else if (av1.equalsIgnoreCase(av2)) {
                     similarity = similarity + (1 * weight);
                 } // Dealing with String values: Checking if they are in the Vocabulary and thus synonymous
-                else if(vocabulary.containsKey(av1.toLowerCase()))
-                    if(vocabulary.get(av1.toLowerCase()).contains(av2.toLowerCase() + " ")){
+                else if (vocabulary.containsKey(av1.toLowerCase())) {
+                    if (vocabulary.get(av1.toLowerCase()).contains(av2.toLowerCase() + " ")) {
                         similarity = similarity + (1 * weight);
-                } 
+                    }
+                }
             }
         }
 

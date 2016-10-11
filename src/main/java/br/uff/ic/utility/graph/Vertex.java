@@ -185,12 +185,16 @@ public abstract class Vertex extends GraphObject {
         {
             return getTime();
         }
-        if(attributes.get(attribute) == null)
+        if(attributes.get(attribute) == null) {
+//            System.out.println("If getAttributeValue equals NULL: " + attributes.get(attribute).getValue());
             return Float.NaN;
+        }
+            
         if(Utils.tryParseFloat(attributes.get(attribute).getAverageValue())) {
             return Utils.convertFloat(attributes.get(attribute).getAverageValue());
         }
         else {
+//            System.out.println("Else getAttributeValue: " + attributes.get(attribute).getValue());
             return Float.NaN;
         }
     }

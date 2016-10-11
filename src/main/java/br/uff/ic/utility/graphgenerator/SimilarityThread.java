@@ -79,11 +79,11 @@ public class SimilarityThread implements Runnable{
             int minSize, int thresholdIncrease, int qnt) throws IOException {
         
         GraphMatching combiner = configureSimilarityMatcher(noiseGraph);
-        AutomaticInference infer = new AutomaticInference(minSize, thresholdIncrease, qnt);
+        AutomaticInference infer = new AutomaticInference(combiner, noiseGraph, minSize, thresholdIncrease, qnt);
         
         // Measure time
         long startTime = System.nanoTime();
-        clusters.addAll(infer.cluster(noiseGraph, combiner, updateError, verifyWithinCluster));
+        clusters.addAll(infer.applySimilarity(updateError, verifyWithinCluster));
         long endTime = System.nanoTime();
         long duration = (endTime - startTime) / 1000000;  //divide by 1000000 to get milliseconds.
         

@@ -44,7 +44,7 @@ public class Trainer {
             int NUMBER_OF_NOISE_GRAPHS,
             float INITIAL_NOISE_GRAPH_SIZE, 
             float NOISE_INCREASE_NUMBER,
-            String typeGraph) throws IOException {
+            String typeGraph) throws IOException, InterruptedException {
         
         int current_size = 3;
         int bestSize = 1; // 17
@@ -64,11 +64,11 @@ public class Trainer {
         int current = 0;
         int best = 0;
 //        System.out.println("Training Size");
-        for (int itqnt = 0; itqnt < 4; itqnt++) {
-//            System.out.println("Training qnt: " + itqnt);
-            for (int itinc = 0; itinc < 3; itinc++) {
+        for (int itqnt = 0; itqnt < 5; itqnt++) {
+            System.out.println("Training qnt: " + itqnt);
+            for (int itinc = 0; itinc < 5; itinc++) {
 //                System.out.println("Training inc: " + itinc);
-                for (int itsize = 0; itsize < 3; itsize++) {
+                for (int itsize = 0; itsize < 5; itsize++) {
 //                    System.out.println("Training size: " + itsize);
                     noiseFactor = INITIAL_NOISE_GRAPH_SIZE;
                     for(int oraclegraph = 0; oraclegraph < NUMBER_OF_ORACLE_GRAPHS; oraclegraph++) {
@@ -81,10 +81,12 @@ public class Trainer {
                             ArrayList<ConcurrentHashMap<String, Object>> clusters2 = new ArrayList<>();
                             ArrayList<Float> t1 = new ArrayList<>();
                             ArrayList<Float> t2 = new ArrayList<>();
-                            SimilarityThread alg1 = new SimilarityThread(clusters1, oracleGraph, noiseGraph, updateError, withinCluster, t1, bestSize, bestInc, bestqnt);
-                            SimilarityThread alg2 = new SimilarityThread(clusters2, oracleGraph, noiseGraph, updateError, withinCluster, t2, current_size, current_inc, currentqnt);
-                            alg1.run();
-                            alg2.run();
+                            Thread worker1 = new Thread(new SimilarityThread(clusters1, oracleGraph, noiseGraph, updateError, withinCluster, t1, bestSize, bestInc, bestqnt));
+                            Thread worker2 = new Thread(new SimilarityThread(clusters2, oracleGraph, noiseGraph, updateError, withinCluster, t2, current_size, current_inc, currentqnt));
+                            worker1.start();
+                            worker2.start();
+                            worker1.join();
+                            worker2.join();
 //                            eval.SimilarityCollapse(noiseGraph, updateError, withinCluster, clusters1, bestSize, bestInc, bestqnt);
 //                            eval.SimilarityCollapse(noiseGraph, updateError, withinCluster, clusters2, current_size, current_inc, currentqnt);
                             eval.comparePRF(oracle, clusters1, p, r, f, c);
@@ -104,7 +106,7 @@ public class Trainer {
                     }
                     current = 0;
                     best = 0;
-                    current_size += 2;
+                    current_size += 1;
                 }
                 current_size = 3;
                 current_inc += 1;
@@ -194,7 +196,7 @@ public class Trainer {
                         ArrayList<Float> t1 = new ArrayList<>(); 
                         ArrayList<Float> t2 = new ArrayList<>(); 
                         DbscanThread dbscan1 = new DbscanThread(clusters1, oracleGraph, noiseGraph, best_eps, t1);
-                        DbscanThread dbscan2 = new DbscanThread(clusters1, oracleGraph, noiseGraph, current_eps, t2);
+                        DbscanThread dbscan2 = new DbscanThread(clusters2, oracleGraph, noiseGraph, current_eps, t2);
                         dbscan1.run();
                         dbscan2.run();
 //                        eval.dbscan(noiseGraph, best_eps, clusters1);

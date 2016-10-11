@@ -94,16 +94,15 @@ public class NoiseGraph {
      * @return the value for the noise vertex
      */
     private float randomNoiseValue (float mean, float threeSigma)  {
-        float value;
+        float value = 0;
         float sigma = (float) (threeSigma * 0.333);
         Random rng = new Random();
         
         value = (float) (mean + sigma * rng.nextGaussian());
-        float v = ((int) value * 10000) * 0.0001f;
-//        while((value < mean - threeSigma) || (value > mean + threeSigma)) {
-//            value = mean + sigma * rng.nextGaussian();
-//        }
-        return v;
+        if(value != value) {
+            System.out.println("randomNoiseValue NaN!");
+        }
+        return value;
     }
     
     private Vertex createMonotonicNoise (Edge edge)  {
@@ -112,7 +111,13 @@ public class NoiseGraph {
         float source = ((Vertex)edge.getSource()).getAttributeValueFloat(attribute);
         float target = ((Vertex)edge.getTarget()).getAttributeValueFloat(attribute);
         value = (float) (Math.min(source, target) + (Math.random() * ((Math.max(source, target) - Math.min(source, target)) + 1)));
-        
+        if(value != value) {
+            System.out.println("createMonotonicNoise NaN!");
+            System.out.println("createMonotonicNoise source: " + source);
+            System.out.println("createMonotonicNoise target: " + target);
+            System.out.println("createMonotonicNoise Edge source: " + ((Vertex)edge.getSource()).getID() + " (" + attribute + ") " + ((Vertex)edge.getSource()).getAttributeValue(attribute));
+            System.out.println("createMonotonicNoise Edge target: " + ((Vertex)edge.getTarget()).getID() + " (" + attribute + ") " + ((Vertex)edge.getTarget()).getAttributeValue(attribute));
+        }
         return newNoiseVertex(value, ((Vertex)edge.getSource()).getTimeString());
     }
     
@@ -127,7 +132,9 @@ public class NoiseGraph {
         id_counter++;
         
         Vertex noise = new ActivityVertex(id, id, date);
-        GraphAttribute att = new GraphAttribute(attribute, noiseValue + "");
+        GraphAttribute att = new GraphAttribute(attribute, String.valueOf(noiseValue));
+        if(noiseValue != noiseValue)
+            System.out.println("noiseValue NaN!");
         noise.addAttribute(att);
         
         return noise;
@@ -183,7 +190,7 @@ public class NoiseGraph {
         Object vertex = oracleVertices[random];
         float threeSigma = noiseThreshold((Vertex) vertex);
         float mean = getMean(vertex);
-        float noiseValue = randomNoiseValue(mean, (float) threeSigma);
+        float noiseValue = randomNoiseValue(mean, threeSigma);
         
         Vertex noise = newNoiseVertex(noiseValue, ((Vertex)vertex).getTimeString());
         

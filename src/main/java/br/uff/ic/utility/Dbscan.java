@@ -113,7 +113,7 @@ public class Dbscan {
     }
     
     public ArrayList<ConcurrentHashMap<String, Object>> applyDbscan() {
-        String result = "";
+//        String result = "";
         for (Object p : graph.getVertices()) {
             if(!isVisited(p)) {
                 visited(p);

@@ -43,14 +43,17 @@ public class UtilsTest {
         assertEquals(true, result);
         result = Utils.tryParseFloat("+1.5");
         assertEquals(true, result);
-        result = Utils.tryParseFloat("- 1.5");
+        result = Utils.tryParseFloat("-1.5");
         assertEquals(true, result);
-        result = Utils.tryParseFloat("+ 1.5");
+        result = Utils.tryParseFloat("1.5");
         assertEquals(true, result);
-        result = Utils.tryParseFloat("1,5");
+        result = Utils.tryParseFloat("1.5");
         assertEquals(true, result);
         result = Utils.tryParseFloat("asd1");
         assertEquals(false, result);
+        result = Utils.tryParseFloat("8.4696454E-4");
+        assertEquals(true, result);
+        
     }
 
     /**
@@ -66,13 +69,13 @@ public class UtilsTest {
         assertEquals(0.0F, result, 0.0);
         result = instance.convertFloat("1.0");
         assertEquals(1.0F, result, 0.0);
-        result = instance.convertFloat("+ 1.0");
+        result = instance.convertFloat("1.0");
         assertEquals(1.0F, result, 0.0);
-        result = instance.convertFloat("+1.0");
+        result = instance.convertFloat("1.0");
         assertEquals(1.0F, result, 0.0);
         result = instance.convertFloat("-1.0");
         assertEquals(-1.0F, result, 0.0);
-        result = instance.convertFloat("- 1.0");
+        result = instance.convertFloat("-1.0");
         assertEquals(- 1.0F, result, 0.0);
         result = instance.convertFloat("1.5");
         assertEquals(1.5F, result, 0.0);

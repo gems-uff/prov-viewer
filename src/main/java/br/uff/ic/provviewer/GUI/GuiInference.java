@@ -16,18 +16,12 @@ import br.uff.ic.utility.AttributeErrorMargin;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
-import br.uff.ic.utility.graphgenerator.ClusteringEvaluator;
-import br.uff.ic.utility.graphgenerator.Main;
-import br.uff.ic.utility.graphgenerator.OracleGraph;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JToggleButton;
 
 /**
@@ -141,9 +135,10 @@ public class GuiInference {
         // -----------------------------
 //        long startTime = System.currentTimeMillis();
 //        System.out.println(": L = " + collapseList);
-        AutomaticInference infer = new AutomaticInference(7, 4, 4);
-        ArrayList<ConcurrentHashMap<String, Object>> clusters =  infer.cluster(graph, combiner, updateError, verifyWithinCluster);
-//        String clusters =  AutomaticInference.dbscan(variables, combiner);
+        AutomaticInference infer = new AutomaticInference(combiner, graph, 7, 4, 4);
+        ArrayList<ConcurrentHashMap<String, Object>> clusters =  infer.applySimilarity(updateError, verifyWithinCluster);
+//        Dbscan dbscan = new Dbscan(graph, attribute, std, 1);
+//        ArrayList<ConcurrentHashMap<String, Object>> clusters = dbscan.applyDbscan();
         
 //        long stopTime = System.currentTimeMillis();
 //        long elapsedTime = stopTime - startTime;
