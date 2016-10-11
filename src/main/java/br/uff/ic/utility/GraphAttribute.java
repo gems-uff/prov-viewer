@@ -5,7 +5,6 @@
  */
 package br.uff.ic.utility;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -116,7 +115,7 @@ public class GraphAttribute {
      */
     public String getAverageValue() {
         // Return the average number
-        if ((this.quantity != 1) && Utils.tryParseFloat(this.value))
+        if ((this.quantity > 1) && Utils.tryParseFloat(this.value))
             return Float.toString(Utils.convertFloat(this.value) / this.quantity); 
         else
             return this.value;

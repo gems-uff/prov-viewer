@@ -12,8 +12,7 @@ import br.uff.ic.utility.graphgenerator.NoiseGraph;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import java.io.FileNotFoundException;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -57,16 +56,36 @@ public class Utils {
      * @return boolean
      */
     public static boolean tryParseFloat(String value) {
-        value = value.replace(" ", "");
-        value = value.replace(",", ".");
-        try {
-//            Float.parseFloat(value);
-            Float.valueOf(value.trim());
-
-            return true;
-        } catch (NumberFormatException nfe) { 
+//        value = value.replace(" ", "");
+//        value = value.replace(",", ".");
+//        try {
+////            Float.parseFloat(value);
+//            Float.valueOf(value.trim());
+//            value.matches(("[+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+)"));
+//
+//            return true;
+//        } catch (NumberFormatException nfe) { 
+//            return false;
+//        }
+        if(value.isEmpty())
             return false;
+        else if(value == null)
+            return false;
+        else if(value.equalsIgnoreCase(""))
+            return false;
+        else if(value.equalsIgnoreCase("NaN"))
+            return false;
+        else {
+            try {
+                String v = new BigDecimal(value).toPlainString();
+                Float.parseFloat(v);
+                return true;
+//                return v.matches(("[+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+)"));
+            } catch (NumberFormatException nfe) { 
+                return false;
+            }
         }
+            
     }
 
     /**
@@ -76,9 +95,10 @@ public class Utils {
      * @return true if it is possible to convert to a float
      */
     public static float convertFloat(String value) {
-        value = value.replace(" ", "");
-        value = value.replace(",", ".");
-        return Float.valueOf(value.trim());
+//        value = value.replace(" ", "");
+//        value = value.replace(",", ".");
+        String v = new BigDecimal(value.trim()).toPlainString();
+        return Float.valueOf(v);
     }
 
     /**
@@ -203,15 +223,23 @@ public class Utils {
      * @return true if it is possible to convert to Date
      */
     public static boolean tryParseDate(String value) {
+        System.out.println("tryParseDate: " + value);
+        if(value.isEmpty())
+            return false;
+        else if(value == null)
+            return false;
+        else if(value.equalsIgnoreCase(""))
+            return false;
+        else if(value.equalsIgnoreCase("NaN"))
+            return false;
         try {
             SimpleDateFormat simpleDateFormat;
             simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
             simpleDateFormat.parse(value);
             return true;
         } catch (ParseException ex) {
-
+            return false;
         }
-        return false;
     }
 
     /**
