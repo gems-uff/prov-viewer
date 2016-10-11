@@ -122,17 +122,17 @@ public class GuiInference {
         // -----------------------------
         // Standard Deviation
         // -----------------------------
-        double std = Utils.std(graph.getVertices(), attribute);
+        float std = Utils.std(graph.getVertices(), attribute);
 //        System.out.println("STD = " + std);
 
         // -----------------------------
         // Similarity configuration
         // -----------------------------
-        double similarityThreshold = 0.5;
+        float similarityThreshold = 0.5f;
         String defaultError = "0";
         Map<String, AttributeErrorMargin> restrictionList = new HashMap<>();
         AttributeErrorMargin epsilon;
-        epsilon = new AttributeErrorMargin(attribute, "" + std);
+        epsilon = new AttributeErrorMargin(attribute, String.valueOf(std));
         restrictionList.put(attribute, epsilon);
         GraphMatching combiner = new GraphMatching(restrictionList, similarityThreshold, defaultError, 0);
 

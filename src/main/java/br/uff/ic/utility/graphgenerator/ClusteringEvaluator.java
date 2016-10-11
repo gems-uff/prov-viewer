@@ -23,35 +23,35 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class ClusteringEvaluator {
 
-    double noiseProbability = 1.0F;
+    float noiseProbability = 1.0F;
 //    ArrayList<ArrayList<Double>> precision = new ArrayList<ArrayList<Double>>();
 //    ArrayList<ArrayList<Double>> recall = new ArrayList<ArrayList<Double>>();
 //    ArrayList<ArrayList<Double>> fmeasure = new ArrayList<ArrayList<Double>>();
 //    ArrayList<ArrayList<Double>> clusters = new ArrayList<ArrayList<Double>>();
 
-    ArrayList<Double> p_similarity = new ArrayList<>();
-    ArrayList<Double> r_similarity = new ArrayList<>();
-    ArrayList<Double> f_similarity = new ArrayList<>();
-    ArrayList<Double> c_similarity = new ArrayList<>();
-    ArrayList<Double> t_similarity = new ArrayList<>();
+    ArrayList<Float> p_similarity = new ArrayList<>();
+    ArrayList<Float> r_similarity = new ArrayList<>();
+    ArrayList<Float> f_similarity = new ArrayList<>();
+    ArrayList<Float> c_similarity = new ArrayList<>();
+    ArrayList<Float> t_similarity = new ArrayList<>();
 
-    ArrayList<Double> p_similarityFT = new ArrayList<>();
-    ArrayList<Double> r_similarityFT = new ArrayList<>();
-    ArrayList<Double> f_similarityFT = new ArrayList<>();
-    ArrayList<Double> c_similarityFT = new ArrayList<>();
-    ArrayList<Double> t_similarityFT = new ArrayList<>();
+    ArrayList<Float> p_similarityFT = new ArrayList<>();
+    ArrayList<Float> r_similarityFT = new ArrayList<>();
+    ArrayList<Float> f_similarityFT = new ArrayList<>();
+    ArrayList<Float> c_similarityFT = new ArrayList<>();
+    ArrayList<Float> t_similarityFT = new ArrayList<>();
 
-    ArrayList<Double> p_similarityTT = new ArrayList<>();
-    ArrayList<Double> r_similarityTT = new ArrayList<>();
-    ArrayList<Double> f_similarityTT = new ArrayList<>();
-    ArrayList<Double> c_similarityTT = new ArrayList<>();
-    ArrayList<Double> t_similarityTT = new ArrayList<>();
+    ArrayList<Float> p_similarityTT = new ArrayList<>();
+    ArrayList<Float> r_similarityTT = new ArrayList<>();
+    ArrayList<Float> f_similarityTT = new ArrayList<>();
+    ArrayList<Float> c_similarityTT = new ArrayList<>();
+    ArrayList<Float> t_similarityTT = new ArrayList<>();
 
-    ArrayList<Double> p_dbscan = new ArrayList<>();
-    ArrayList<Double> r_dbscan = new ArrayList<>();
-    ArrayList<Double> f_dbscan = new ArrayList<>();
-    ArrayList<Double> c_dbscan = new ArrayList<>();  // number of clusters
-    ArrayList<Double> t_dbscan = new ArrayList<>();
+    ArrayList<Float> p_dbscan = new ArrayList<>();
+    ArrayList<Float> r_dbscan = new ArrayList<>();
+    ArrayList<Float> f_dbscan = new ArrayList<>();
+    ArrayList<Float> c_dbscan = new ArrayList<>();  // number of clusters
+    ArrayList<Float> t_dbscan = new ArrayList<>();
 
     private boolean isMonotonic = false;
     OracleGraph oracleGraph;
@@ -87,55 +87,36 @@ public class ClusteringEvaluator {
      * this trial
      * @throws IOException
      */
-    public void comparePRF(DirectedGraph<Object, Edge> oracle, ArrayList<ConcurrentHashMap<String, Object>> collapseGroups, ArrayList<Double> p, ArrayList<Double> r, ArrayList<Double> f, ArrayList<Double> c) throws IOException {
+    public void comparePRF(DirectedGraph<Object, Edge> oracle, ArrayList<ConcurrentHashMap<String, Object>> collapseGroups, ArrayList<Float> p, ArrayList<Float> r, ArrayList<Float> f, ArrayList<Float> c) throws IOException {
 //        List<String> clusters = new ArrayList<>();
-        double relevantDocuments = oracle.getVertexCount();
-        double retrievedDocuments;
-        double intersection = 0;
-        double precision;
-        double recall;
-        double fmeasure;
+        float relevantDocuments = oracle.getVertexCount();
+        float retrievedDocuments;
+        float intersection = 0;
+        float precision = 0;
+        float recall = 0;
+        float fmeasure = 0;
 //        String[] elements = list.split(" ");
 //        clusters.addAll(Arrays.asList(elements));
 //        retrievedDocuments = clusters.size();
         retrievedDocuments = collapseGroups.size();
-        
-        for (ConcurrentHashMap<String, Object> subGraph : collapseGroups) {
-            boolean computedCluster = false;
-            if (subGraph.size() > 0) {
-                for (Object v : oracle.getVertices()) {
-                    String id = ((Vertex) v).getID();
-                    if (subGraph.containsKey(id) && !computedCluster) {
-                        computedCluster = true;
-                        intersection++;
+        if(retrievedDocuments != 0) {
+            for (ConcurrentHashMap<String, Object> subGraph : collapseGroups) {
+                boolean computedCluster = false;
+                if (subGraph.size() > 0) {
+                    for (Object v : oracle.getVertices()) {
+                        String id = ((Vertex) v).getID();
+                        if (subGraph.containsKey(id) && !computedCluster) {
+                            computedCluster = true;
+                            intersection++;
+                        }
                     }
                 }
-//                for (Object v1 : subGraph.values()) {
-//                    String id1 = ((Vertex) v1).getID();
-//                    collapseList += "," + id1;
-//                }
-//                collapseList += " ";
             }
+            precision = intersection / retrievedDocuments;
+            recall = intersection / relevantDocuments;
+            fmeasure = 2 * (precision * recall) / (precision + recall);
         }
-        
-//        for (String cluster : clusters) {
-//            boolean computedCluster = false;
-////            bw.write("Cluster: " + cluster);
-////            bw.newLine();
-//            for (Object v : oracle.getVertices()) {
-//                String id = ((Vertex) v).getID();
-//                if (cluster.contains(id) && !computedCluster) {
-//                    computedCluster = true;
-//                    intersection++;
-//                }
-//            }
-//        }
-        precision = intersection / retrievedDocuments;
-
-        recall = intersection / relevantDocuments;
-        fmeasure = 2 * (precision * recall) / (precision + recall);
-
-        if(retrievedDocuments == 0) {
+        else {
             System.out.println("intersection: " + intersection);
             System.out.println("retrievedDocuments: " + retrievedDocuments);
             System.out.println("precision: " + precision);
@@ -186,12 +167,12 @@ public class ClusteringEvaluator {
      */
     public void collapse(int NUMBER_OF_ORACLE_GRAPHS,
             int NUMBER_OF_NOISE_GRAPHS,
-            double INITIAL_NOISE_GRAPH_SIZE,
-            double NOISE_INCREASE_NUMBER,
+            float INITIAL_NOISE_GRAPH_SIZE,
+            float NOISE_INCREASE_NUMBER,
             int NUMBER_ITERATIONS,
             String fileName,
             String typeGraph,
-            double epsMod,
+            float epsMod,
             int TF_size,
             int TF_increase,
             int TF_qnt,
@@ -209,7 +190,7 @@ public class ClusteringEvaluator {
         int total_dbscan = 0;
         int total_tt = 0;
         int total_ft = 0;
-        double noiseFactor = INITIAL_NOISE_GRAPH_SIZE;
+        float noiseFactor = INITIAL_NOISE_GRAPH_SIZE;
         for (w = 0; w < NUMBER_ITERATIONS; w++) {
             System.out.println("Iteration NUMBER #" + w);
             createIterationFile(fileName, w, epsMod, TF_size, TF_increase, TF_qnt, TT_size, TT_increase, TT_qnt, FT_size, FT_increase, FT_qnt);
@@ -230,7 +211,7 @@ public class ClusteringEvaluator {
                 for (i = 0; i < NUMBER_OF_NOISE_GRAPHS; i++) {
                     NoiseGraph instance = new NoiseGraph(oracle, oracleGraph.attribute, isMonotonic);
                     DirectedGraph<Object, Edge> noiseGraph = instance.generateNoiseGraph(noiseFactor, noiseProbability, "" + j + i);
-                    double time;
+                    float time;
 
                     ArrayList<ConcurrentHashMap<String, Object>> clusters1 = new ArrayList<>();
                     ArrayList<ConcurrentHashMap<String, Object>> clusters2 = new ArrayList<>();
@@ -252,6 +233,15 @@ public class ClusteringEvaluator {
                     t3.join();
                     t4.join();
 
+//                    SimilarityThread alg1 = new SimilarityThread(clusters1, oracleGraph, noiseGraph, true, false, t_similarity, TF_size, TF_increase, TF_qnt);
+//                    SimilarityThread alg2 = new SimilarityThread(clusters2, oracleGraph, noiseGraph, false, true, t_similarityFT, FT_size, FT_increase, FT_qnt);
+//                    SimilarityThread alg3 = new SimilarityThread(clusters3, oracleGraph, noiseGraph, true, true, t_similarityTT, TT_size, TT_increase, TT_qnt);
+//                    DbscanThread alg4 = new DbscanThread(clusters4, oracleGraph, noiseGraph, epsMod, t_dbscan);
+//                    
+//                    alg1.run();
+//                    alg2.run();
+//                    alg3.run();
+//                    alg4.run();
 //                    time = SimilarityCollapse(noiseGraph, true, false, clusters1, TF_size, TF_increase, TF_qnt);
 //                    t_similarity.add(time);
 //                    
@@ -266,7 +256,6 @@ public class ClusteringEvaluator {
 ////                    time = SimilarityCollapse(noiseGraph, false, false, clusters4, 1, 1, 1);
 //                    time = dbscan(noiseGraph, epsMod, clusters4);
 //                    t_dbscan.add(time);
-
                     comparePRF(oracle, clusters1, p_similarity, r_similarity, f_similarity, c_similarity);
                     comparePRF(oracle, clusters2, p_similarityFT, r_similarityFT, f_similarityFT, c_similarityFT);
                     comparePRF(oracle, clusters3, p_similarityTT, r_similarityTT, f_similarityTT, c_similarityTT);
@@ -315,7 +304,7 @@ public class ClusteringEvaluator {
      * @param FT_qnt
      * @throws IOException
      */
-    public void createIterationFile(String name, int iteration, double epsMod,
+    public void createIterationFile(String name, int iteration, float epsMod,
             int TF_size, int TF_increase, int TF_qnt, int TT_size, int TT_increase, int TT_qnt, int FT_size, int FT_increase, int FT_qnt) throws IOException {
         File file = new File("Evaluation_" + name + iteration + ".txt");
         File fileR = new File("R_Data_" + name + iteration + ".txt");
@@ -374,7 +363,7 @@ public class ClusteringEvaluator {
      * @param FT_qnt
      * @throws IOException
      */
-    public void createFinalResultsFile(String fileName, int total_similarity, int total_dbscan, int total_ft, int total_tt, double epsMod,
+    public void createFinalResultsFile(String fileName, int total_similarity, int total_dbscan, int total_ft, int total_tt, float epsMod,
             int TF_size, int TF_increase, int TF_qnt, int TT_size, int TT_increase, int TT_qnt, int FT_size, int FT_increase, int FT_qnt) throws IOException {
         BufferedWriter results;
         File file = new File("Evaluation_" + fileName + "_Results.txt");
@@ -477,11 +466,11 @@ public class ClusteringEvaluator {
      * @param iteration
      * @throws IOException
      */
-    private void printPrf(ArrayList<Double> p,
-            ArrayList<Double> r,
-            ArrayList<Double> f,
-            ArrayList<Double> c,
-            ArrayList<Double> t,
+    private void printPrf(ArrayList<Float> p,
+            ArrayList<Float> r,
+            ArrayList<Float> f,
+            ArrayList<Float> c,
+            ArrayList<Float> t,
             BufferedWriter bw,
             BufferedWriter bwR,
             String name,
@@ -494,27 +483,27 @@ public class ClusteringEvaluator {
         String time;
         String efficiency;
 
-        precision = "Precision> Mean: " + Utils.mean(Utils.listToDoubleArray(p))
-                + " / STD:" + Utils.stdev(Utils.listToDoubleArray(p))
-                + " / Min: " + Utils.minimumValue(Utils.listToDoubleArray(p));
+        precision = "Precision> Mean: " + Utils.mean(Utils.listToFloatArray(p))
+                + " / STD:" + Utils.stdev(Utils.listToFloatArray(p))
+                + " / Min: " + Utils.minimumValue(Utils.listToFloatArray(p));
 
-        recall = "Recall> Mean: " + Utils.mean(Utils.listToDoubleArray(r))
-                + " / STD:" + Utils.stdev(Utils.listToDoubleArray(r))
-                + " / Min: " + Utils.minimumValue(Utils.listToDoubleArray(r));
+        recall = "Recall> Mean: " + Utils.mean(Utils.listToFloatArray(r))
+                + " / STD:" + Utils.stdev(Utils.listToFloatArray(r))
+                + " / Min: " + Utils.minimumValue(Utils.listToFloatArray(r));
 
-        fmeasure = "F-Measure> Mean: " + Utils.mean(Utils.listToDoubleArray(f))
-                + " / STD:" + Utils.stdev(Utils.listToDoubleArray(f))
-                + " / Min: " + Utils.minimumValue(Utils.listToDoubleArray(f));
-        clusters = "#Clusters> Mean: " + Utils.mean(Utils.listToDoubleArray(c))
-                + " / STD:" + Utils.stdev(Utils.listToDoubleArray(c))
-                + " / Min: " + Utils.minimumValue(Utils.listToDoubleArray(c))
-                + " / Max: " + Utils.maximumValue(Utils.listToDoubleArray(c));
-        time = "Time (milliseconds)> Mean: " + Utils.mean(Utils.listToDoubleArray(t))
-                + " / STD:" + Utils.stdev(Utils.listToDoubleArray(t))
-                + " / Min: " + Utils.minimumValue(Utils.listToDoubleArray(t))
-                + " / Max: " + Utils.maximumValue(Utils.listToDoubleArray(t));
+        fmeasure = "F-Measure> Mean: " + Utils.mean(Utils.listToFloatArray(f))
+                + " / STD:" + Utils.stdev(Utils.listToFloatArray(f))
+                + " / Min: " + Utils.minimumValue(Utils.listToFloatArray(f));
+        clusters = "#Clusters> Mean: " + Utils.mean(Utils.listToFloatArray(c))
+                + " / STD:" + Utils.stdev(Utils.listToFloatArray(c))
+                + " / Min: " + Utils.minimumValue(Utils.listToFloatArray(c))
+                + " / Max: " + Utils.maximumValue(Utils.listToFloatArray(c));
+        time = "Time (milliseconds)> Mean: " + Utils.mean(Utils.listToFloatArray(t))
+                + " / STD:" + Utils.stdev(Utils.listToFloatArray(t))
+                + " / Min: " + Utils.minimumValue(Utils.listToFloatArray(t))
+                + " / Max: " + Utils.maximumValue(Utils.listToFloatArray(t));
 
-        efficiency = "Efficiency (precision/time)>: " + Utils.mean(Utils.listToDoubleArray(p)) / (Utils.mean(Utils.listToDoubleArray(t)) / 60000);
+        efficiency = "Efficiency (precision/time)>: " + Utils.mean(Utils.listToFloatArray(p)) / (Utils.mean(Utils.listToFloatArray(t)) / 60000);
 
         bw.write(precision);
         bw.newLine();
@@ -546,16 +535,16 @@ public class ClusteringEvaluator {
      * @param type
      * @return
      */
-    private String printValues(ArrayList<Double> v, String type) {
+    private String printValues(ArrayList<Float> v, String type) {
         DecimalFormat df = new DecimalFormat("#.###");
         String values = type + " <- c(";
-        for (Double e : v) {
+        for (Float e : v) {
             if(e.isNaN()) {
                 values += 0 + ",";
                 System.out.println("NaN");
             }
             else
-                values += Double.valueOf(df.format(e)) + ",";
+                values += Float.valueOf(df.format(e)) + ",";
         }
         values = values.substring(0, values.length() - 1);
         values += ")";
@@ -571,7 +560,7 @@ public class ClusteringEvaluator {
      * @param c
      * @param t
      */
-    public void clearLists(ArrayList<Double> p, ArrayList<Double> r, ArrayList<Double> f, ArrayList<Double> c, ArrayList<Double> t) {
+    public void clearLists(ArrayList<Float> p, ArrayList<Float> r, ArrayList<Float> f, ArrayList<Float> c, ArrayList<Float> t) {
         p.clear();
         r.clear();
         f.clear();
@@ -587,7 +576,7 @@ public class ClusteringEvaluator {
      * @param f
      * @param c
      */
-    public void clearLists(ArrayList<Double> p, ArrayList<Double> r, ArrayList<Double> f, ArrayList<Double> c) {
+    public void clearLists(ArrayList<Float> p, ArrayList<Float> r, ArrayList<Float> f, ArrayList<Float> c) {
         p.clear();
         r.clear();
         f.clear();
@@ -601,7 +590,7 @@ public class ClusteringEvaluator {
         countWinnings(f_similarity, f_dbscan, f_similarityFT, f_similarityTT);
     }
 
-    public int isWinner(ArrayList<Double> first, ArrayList<Double> second) {
+    public int isWinner(ArrayList<Float> first, ArrayList<Float> second) {
         int win = 0;
         for (int i = 0; i < first.size(); i++) {
             if (first.get(i) >= second.get(i)) {
@@ -619,7 +608,7 @@ public class ClusteringEvaluator {
      * @param ft
      * @param tt
      */
-    public void countWinnings(ArrayList<Double> sim, ArrayList<Double> db, ArrayList<Double> ft, ArrayList<Double> tt) {
+    public void countWinnings(ArrayList<Float> sim, ArrayList<Float> db, ArrayList<Float> ft, ArrayList<Float> tt) {
         for (int i = 0; i < sim.size(); i++) {
 
             if ((sim.get(i) >= db.get(i))

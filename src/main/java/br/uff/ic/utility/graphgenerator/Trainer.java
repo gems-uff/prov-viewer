@@ -32,18 +32,18 @@ public class Trainer {
     OracleGraph oracleGraph = new OracleGraph("A", -200, 200);
     ClusteringEvaluator eval;
     private boolean isMonotonic = false;
-    double noiseProbability = 1.0F;
+    float noiseProbability = 1.0F;
     
     public void setMonotonic (boolean b) {
         isMonotonic = b;
         eval = new ClusteringEvaluator(isMonotonic, oracleGraph);
     }
     
-    public double trainSimilarity(boolean updateError, boolean withinCluster, OracleGraph oracleGraph, 
+    public float trainSimilarity(boolean updateError, boolean withinCluster, OracleGraph oracleGraph, 
             int NUMBER_OF_ORACLE_GRAPHS, 
             int NUMBER_OF_NOISE_GRAPHS,
-            double INITIAL_NOISE_GRAPH_SIZE, 
-            double NOISE_INCREASE_NUMBER,
+            float INITIAL_NOISE_GRAPH_SIZE, 
+            float NOISE_INCREASE_NUMBER,
             String typeGraph) throws IOException {
         
         int current_size = 3;
@@ -52,15 +52,15 @@ public class Trainer {
         int bestInc = 1;
         int currentqnt = 2;
         int bestqnt = 3;
-        double noiseFactor;
-        ArrayList<Double> p = new ArrayList<>();
-        ArrayList<Double> r = new ArrayList<>();
-        ArrayList<Double> f = new ArrayList<>();
-        ArrayList<Double> p2 = new ArrayList<>();
-        ArrayList<Double> r2 = new ArrayList<>();
-        ArrayList<Double> f2 = new ArrayList<>();
-        ArrayList<Double> c = new ArrayList<>();
-        ArrayList<Double> c2 = new ArrayList<>();
+        float noiseFactor;
+        ArrayList<Float> p = new ArrayList<>();
+        ArrayList<Float> r = new ArrayList<>();
+        ArrayList<Float> f = new ArrayList<>();
+        ArrayList<Float> p2 = new ArrayList<>();
+        ArrayList<Float> r2 = new ArrayList<>();
+        ArrayList<Float> f2 = new ArrayList<>();
+        ArrayList<Float> c = new ArrayList<>();
+        ArrayList<Float> c2 = new ArrayList<>();
         int current = 0;
         int best = 0;
 //        System.out.println("Training Size");
@@ -79,8 +79,8 @@ public class Trainer {
                             DirectedGraph<Object, Edge> noiseGraph = instance.generateNoiseGraph(noiseFactor, noiseProbability, "" + noise + oraclegraph);
                             ArrayList<ConcurrentHashMap<String, Object>> clusters1 = new ArrayList<>();
                             ArrayList<ConcurrentHashMap<String, Object>> clusters2 = new ArrayList<>();
-                            ArrayList<Double> t1 = new ArrayList<>();
-                            ArrayList<Double> t2 = new ArrayList<>();
+                            ArrayList<Float> t1 = new ArrayList<>();
+                            ArrayList<Float> t2 = new ArrayList<>();
                             SimilarityThread alg1 = new SimilarityThread(clusters1, oracleGraph, noiseGraph, updateError, withinCluster, t1, bestSize, bestInc, bestqnt);
                             SimilarityThread alg2 = new SimilarityThread(clusters2, oracleGraph, noiseGraph, updateError, withinCluster, t2, current_size, current_inc, currentqnt);
                             alg1.run();
@@ -151,23 +151,23 @@ public class Trainer {
         return bestSize;
     }
     
-    public double trainDBSCAN(OracleGraph oracleGraph, 
+    public float trainDBSCAN(OracleGraph oracleGraph, 
             int NUMBER_OF_ORACLE_GRAPHS, 
-            double INITIAL_NOISE_GRAPH_SIZE, 
-            double NOISE_INCREASE_NUMBER,
+            float INITIAL_NOISE_GRAPH_SIZE, 
+            float NOISE_INCREASE_NUMBER,
             String typeGraph) throws IOException {
         int initialValue = 0;
-        double current_eps = initialValue;
-        double best_eps = 199;
-        double noiseFactor;
-        ArrayList<Double> p = new ArrayList<>();
-        ArrayList<Double> r = new ArrayList<>();
-        ArrayList<Double> f = new ArrayList<>();
-        ArrayList<Double> p2 = new ArrayList<>();
-        ArrayList<Double> r2 = new ArrayList<>();
-        ArrayList<Double> f2 = new ArrayList<>();
-        ArrayList<Double> c = new ArrayList<>();
-        ArrayList<Double> c2 = new ArrayList<>();
+        float current_eps = initialValue;
+        float best_eps = 199;
+        float noiseFactor;
+        ArrayList<Float> p = new ArrayList<>();
+        ArrayList<Float> r = new ArrayList<>();
+        ArrayList<Float> f = new ArrayList<>();
+        ArrayList<Float> p2 = new ArrayList<>();
+        ArrayList<Float> r2 = new ArrayList<>();
+        ArrayList<Float> f2 = new ArrayList<>();
+        ArrayList<Float> c = new ArrayList<>();
+        ArrayList<Float> c2 = new ArrayList<>();
         int current = 0;
         int best = 0;
         System.out.println("Training");
@@ -191,8 +191,8 @@ public class Trainer {
                         DirectedGraph<Object, Edge> noiseGraph = instance.generateNoiseGraph(noiseFactor, noiseProbability, "" + noise + i);
                         ArrayList<ConcurrentHashMap<String, Object>> clusters1 = new ArrayList<>();
                         ArrayList<ConcurrentHashMap<String, Object>> clusters2 = new ArrayList<>();
-                        ArrayList<Double> t1 = new ArrayList<>(); 
-                        ArrayList<Double> t2 = new ArrayList<>(); 
+                        ArrayList<Float> t1 = new ArrayList<>(); 
+                        ArrayList<Float> t2 = new ArrayList<>(); 
                         DbscanThread dbscan1 = new DbscanThread(clusters1, oracleGraph, noiseGraph, best_eps, t1);
                         DbscanThread dbscan2 = new DbscanThread(clusters1, oracleGraph, noiseGraph, current_eps, t2);
                         dbscan1.run();
@@ -209,10 +209,10 @@ public class Trainer {
             best += eval.isWinner(f, f2);
             
             if(current > (best * 1.25)) {
-                if(Utils.mean(Utils.listToDoubleArray(f)) > Utils.mean(Utils.listToDoubleArray(f2))) {
+                if(Utils.mean(Utils.listToFloatArray(f)) > Utils.mean(Utils.listToFloatArray(f2))) {
                     best_eps = current_eps;
-                    System.out.println("Best F-measure: " + Utils.mean(Utils.listToDoubleArray(f2)));
-                    System.out.println("Old F-measure: " + Utils.mean(Utils.listToDoubleArray(f)));
+                    System.out.println("Best F-measure: " + Utils.mean(Utils.listToFloatArray(f2)));
+                    System.out.println("Old F-measure: " + Utils.mean(Utils.listToFloatArray(f)));
                 }
             }
             

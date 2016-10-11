@@ -286,7 +286,7 @@ public class Filters {
                         return true;
                     }
                 } else if (Utils.tryParseDate(GraphFrame.FilterVertexMinValue.getText())) {
-                    double minTime = Utils.convertStringDateToDouble(GraphFrame.FilterVertexMinValue.getText());
+                    double minTime = Utils.convertStringDateToFloat(GraphFrame.FilterVertexMinValue.getText());
                     if (timeDate < minTime) {
                         return true;
                     }
@@ -298,7 +298,7 @@ public class Filters {
                         return true;
                     }
                 } else if (Utils.tryParseDate(GraphFrame.FilterVertexMaxValue.getText())) {
-                    double maxTime = Utils.convertStringDateToDouble(GraphFrame.FilterVertexMaxValue.getText());
+                    double maxTime = Utils.convertStringDateToFloat(GraphFrame.FilterVertexMaxValue.getText());
                     if (timeDate > maxTime) {
                         return true;
                     }

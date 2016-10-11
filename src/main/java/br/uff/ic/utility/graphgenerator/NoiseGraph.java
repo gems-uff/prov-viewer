@@ -12,6 +12,7 @@ import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.Random;
 
@@ -94,24 +95,23 @@ public class NoiseGraph {
      */
     private float randomNoiseValue (float mean, float threeSigma)  {
         float value;
-        double sigma = threeSigma / 3;
+        float sigma = (float) (threeSigma * 0.333);
         Random rng = new Random();
         
         value = (float) (mean + sigma * rng.nextGaussian());
-        
+        float v = ((int) value * 10000) * 0.0001f;
 //        while((value < mean - threeSigma) || (value > mean + threeSigma)) {
 //            value = mean + sigma * rng.nextGaussian();
 //        }
-        
-        return (float) (((int) value * 1000000) * 0.0000001);
+        return v;
     }
     
     private Vertex createMonotonicNoise (Edge edge)  {
-        double value;
+        float value;
         
-        double source = ((Vertex)edge.getSource()).getAttributeValueFloat(attribute);
-        double target = ((Vertex)edge.getTarget()).getAttributeValueFloat(attribute);
-        value = Math.min(source, target) + (Math.random() * ((Math.max(source, target) - Math.min(source, target)) + 1));
+        float source = ((Vertex)edge.getSource()).getAttributeValueFloat(attribute);
+        float target = ((Vertex)edge.getTarget()).getAttributeValueFloat(attribute);
+        value = (float) (Math.min(source, target) + (Math.random() * ((Math.max(source, target) - Math.min(source, target)) + 1)));
         
         return newNoiseVertex(value, ((Vertex)edge.getSource()).getTimeString());
     }
@@ -121,13 +121,13 @@ public class NoiseGraph {
      * @param noiseValue is the value for the noise vertex
      * @return the noise vertex
      */
-    private Vertex newNoiseVertex(double noiseValue, String date) {
+    private Vertex newNoiseVertex(float noiseValue, String date) {
         String id;
         id = id_counter + "N";
         id_counter++;
         
         Vertex noise = new ActivityVertex(id, id, date);
-        GraphAttribute att = new GraphAttribute(attribute, Double.toString(noiseValue));
+        GraphAttribute att = new GraphAttribute(attribute, noiseValue + "");
         noise.addAttribute(att);
         
         return noise;
@@ -181,9 +181,9 @@ public class NoiseGraph {
     private void addNoise (Object[] oracleVertices) {
         int random = pickRandomly(oracleVertices.length);
         Object vertex = oracleVertices[random];
-        double threeSigma = noiseThreshold((Vertex) vertex);
+        float threeSigma = noiseThreshold((Vertex) vertex);
         float mean = getMean(vertex);
-        double noiseValue = randomNoiseValue(mean, (float) threeSigma);
+        float noiseValue = randomNoiseValue(mean, (float) threeSigma);
         
         Vertex noise = newNoiseVertex(noiseValue, ((Vertex)vertex).getTimeString());
         
@@ -195,7 +195,7 @@ public class NoiseGraph {
      * @param noiseProbability is the probability of generating a new noise, ranging from 0 to 1
      * @return true or false
      */
-    private boolean generateNewNoise(double noiseProbability) {
+    private boolean generateNewNoise(float noiseProbability) {
         if(Math.random() < noiseProbability)
             return true;
         else
@@ -208,7 +208,7 @@ public class NoiseGraph {
      * @param noiseProbability is the probability to create a new noise
      * @return the noiseGraph, which is a templateGraph with noise
      */
-    public DirectedGraph<Object, Edge> generateNoiseGraph(double noiseFactor, double noiseProbability, String noiseGraphName) {
+    public DirectedGraph<Object, Edge> generateNoiseGraph(float noiseFactor, float noiseProbability, String noiseGraphName) {
         if(noiseFactor < 1) {
             noiseFactor = 1;
         }

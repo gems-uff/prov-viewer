@@ -12,6 +12,8 @@ import br.uff.ic.utility.graphgenerator.NoiseGraph;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -55,14 +57,14 @@ public class Utils {
      * @return boolean
      */
     public static boolean tryParseFloat(String value) {
-//        value = value.replace(" ", "");
-//        value = value.replace(",", ".");
+        value = value.replace(" ", "");
+        value = value.replace(",", ".");
         try {
-            Float.parseFloat(value);
-//            float number = new Float(value);
+//            Float.parseFloat(value);
+            Float.valueOf(value.trim());
+
             return true;
-        } catch (NumberFormatException nfe) {
-//            System.out.println("value: " + value);
+        } catch (NumberFormatException nfe) { 
             return false;
         }
     }
@@ -75,7 +77,8 @@ public class Utils {
      */
     public static float convertFloat(String value) {
         value = value.replace(" ", "");
-        return Float.parseFloat(value);
+        value = value.replace(",", ".");
+        return Float.valueOf(value.trim());
     }
 
     /**
@@ -125,7 +128,7 @@ public class Utils {
      */
     public static float roundToInt(String value) {
         value = value.replace(" ", "");
-        return Math.round(Float.parseFloat(value));
+        return Math.round(convertFloat(value));
     }
 
     /**
@@ -136,13 +139,17 @@ public class Utils {
      * @param epsilon is the margin of error for the comparison
      * @return true if floats are equals within the epsilon error margin
      */
-    public static boolean FloatEqualTo(double f1, double f2, double epsilon) {
+    public static boolean FloatEqualTo(float f1, float f2, float epsilon) {
+        return Math.abs(f1 - f2) <= epsilon;
+    }
+    
+    public static boolean DoubleEqualTo(double f1, double f2, double epsilon) {
         return Math.abs(f1 - f2) <= epsilon;
     }
 
-    public static boolean FloatSimilar(double f1, double f2, double epsilon) {
-        double max = Math.max(f1, f2);
-        double min = Math.min(f1, f2);
+    public static boolean FloatSimilar(float f1, float f2, float epsilon) {
+        float max = Math.max(f1, f2);
+        float min = Math.min(f1, f2);
 
         return min + Math.abs(max * epsilon) >= max;
     }
@@ -155,7 +162,7 @@ public class Utils {
      * @param value is the value to be clamped between min and max
      * @return clamped value
      */
-    public static double clamp(double min, double max, double value) {
+    public static float clamp(float min, float max, float value) {
         return Math.max(min, Math.min(max, value));
     }
 
@@ -208,19 +215,19 @@ public class Utils {
     }
 
     /**
-     * Convert a Date in the format of a string to double
+     * Convert a Date in the format of a string to float
      *
      * @param d1 is the string to be converted
-     * @return the value in Double for the date
+     * @return the value in Float for the date
      */
-    public static double convertStringDateToDouble(String d1) {
+    public static double convertStringDateToFloat(String d1) {
         // Try to convert to date format and return how many milliseconds have passed since January 1, 1970, 00:00:00 GMT
         try {
             Date date;
             SimpleDateFormat simpleDateFormat;
             simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
             date = simpleDateFormat.parse(d1);
-            return (double) date.getTime();
+            return date.getTime();
         } catch (ParseException ex) {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -240,11 +247,11 @@ public class Utils {
             int middle = (end - start) / 2; //l.length / 2;
             middle = middle + start;
             boolean isString = false;
-            double[] v = new double[l.length];
+            float[] v = new float[l.length];
             int i = 0;
             for (Object s : l) {
                 if (tryParseFloat((String) s)) {
-                    v[i++] = Double.parseDouble((String) s);
+                    v[i++] = convertFloat((String) s);
                 } else {
                     isString = true;
                 }
@@ -253,8 +260,8 @@ public class Utils {
             if (!isString) {
                 Arrays.sort(v);
                 if ((end - start) % 2 == 0) {
-                    double left = v[middle - 1];
-                    double right = v[middle];
+                    float left = v[middle - 1];
+                    float right = v[middle];
                     return String.valueOf((left + right) / 2);
                 } else {
                     return String.valueOf(v[middle]);
@@ -295,16 +302,6 @@ public class Utils {
         }
 
         return median(values, start, end);
-//        Arrays.sort(values);
-//        // Rank order the values
-//        double[] v = new double[values.length];
-//        System.arraycopy(values, 0, v, 0, values.length);
-//        Arrays.sort(v);
-//
-//        int n = (int) Math.round(v.length * lowerPercent / 100);
-//        
-//        return v[n];
-
     }
 
     /**
@@ -335,15 +332,15 @@ public class Utils {
         ArrayList<Float> normalNumbers = new ArrayList<>();
         Collections.sort(allNumbers);
 //        double mean;
-        double q1;
-        double q3;
+        float q1;
+        float q3;
         if (allNumbers.size() % 2 == 0) {
             int position;
 //            mean = (allNumbers.get(position) + allNumbers.get(position - 1)) * 0.5;
             position = (int) (allNumbers.size() * 0.25);
-            q1 = (allNumbers.get(position) + allNumbers.get(position - 1)) * 0.5;
+            q1 = (allNumbers.get(position) + allNumbers.get(position - 1)) * 0.5f;
             position = (int) (allNumbers.size() * 0.75);
-            q3 = (allNumbers.get(position) + allNumbers.get(position - 1)) * 0.5;
+            q3 = (allNumbers.get(position) + allNumbers.get(position - 1)) * 0.5f;
         } else {
             int position;
 //            mean = allNumbers.get(position);
@@ -352,9 +349,9 @@ public class Utils {
             position = (int) (allNumbers.size() * 0.75);
             q3 = allNumbers.get(position);
         }
-        double iqr = q3 - q1;
-        double lowerThreshold = q1 - iqr * 1.5;
-        double upperThreshold = q3 + iqr * 1.5;
+        float iqr = q3 - q1;
+        float lowerThreshold = q1 - iqr * 1.5f;
+        float upperThreshold = q3 + iqr * 1.5f;
 
         for (float number : allNumbers) {
             if ((lowerThreshold <= number) && (number <= upperThreshold)) {
@@ -370,8 +367,8 @@ public class Utils {
      * @param list is the list of float values
      * @return the stdev
      */
-    public static double stdev(Double[] list){
-        double mean = 0.0;
+    public static float stdev(Float[] list){
+        float mean = 0.0F;
         mean = mean(list);
         return stdev(list, mean);
     }
@@ -382,20 +379,22 @@ public class Utils {
      * @param mean is the known mean of the list
      * @return the stdev
      */
-    public static double stdev(Double[] list, double mean){
-        double num=0.0;
-        double numi = 0.0;
-        double deno = 0.0;
+    public static float stdev(Float[] list, float mean){
+        float num=0.0f;
+        float numi = 0.0f;
+        float deno = 0.0f;
 
         for (int i=0; i <list.length; i++){
-             numi = Math.pow((list[i] - mean),2);
+             numi = (float) Math.pow((list[i] - mean),2);
              num+=numi;
              deno =list.length - 1;  
         }
 
 
-        double stdevResult = Math.sqrt(num/deno);
-        return stdevResult;
+        float stdevResult = (float) Math.sqrt(num/deno);
+        
+        float v = (float) ((int) stdevResult * 10000) * 0.0001f;
+        return v;
     }
     
     /**
@@ -405,17 +404,17 @@ public class Utils {
      * @param attribute the attribute in which we want to calculate the standard deviation
      * @return the standard deviation
      */
-    public static double std(Collection<Object> vertices, String attribute) {
-        ArrayList<Double> values = new ArrayList<>();
+    public static float std(Collection<Object> vertices, String attribute) {
+        ArrayList<Float> values = new ArrayList<>();
         for (Object v1 : vertices) {
-            double val = ((Vertex) v1).getAttributeValueFloat(attribute);
+            float val = ((Vertex) v1).getAttributeValueFloat(attribute);
             if (!(val != val)) {
                 values.add(val);
             }
         }
-        Double[] doubleArray = new Double[values.size()];
-        doubleArray = Utils.listToDoubleArray(values);
-        return stdev(doubleArray);
+        Float[] floatArray = new Float[values.size()];
+        floatArray = Utils.listToFloatArray(values);
+        return stdev(floatArray);
     }
     
     /**
@@ -423,9 +422,9 @@ public class Utils {
      * @param list is the list
      * @return the mean of the list
      */
-    public static double mean(Double[] list) {
-        double mean = 0.0;
-        double sum = 0.0;
+    public static float mean(Float[] list) {
+        float mean = 0.0F;
+        float sum = 0.0F;
         for (int i=0; i < list.length; i++){
             sum+=list[i];            
         }
@@ -439,8 +438,8 @@ public class Utils {
      * @param list is the list of values
      * @return the minimum value of the list
      */
-    public static double minimumValue(Double[] list) {
-        double min = Double.POSITIVE_INFINITY;
+    public static float minimumValue(Float[] list) {
+        float min = Float.POSITIVE_INFINITY;
         for (int i=0; i < list.length; i++){
             min = Math.min(min, list[i]);            
         }
@@ -453,8 +452,8 @@ public class Utils {
      * @param list is the list of values
      * @return the maximum value of the list
      */
-    public static double maximumValue(Double[] list) {
-        double max = Double.NEGATIVE_INFINITY;
+    public static float maximumValue(Float[] list) {
+        float max = Float.NEGATIVE_INFINITY;
         for (int i=0; i < list.length; i++){
             max = Math.max(max, list[i]);            
         }
@@ -466,13 +465,27 @@ public class Utils {
      * @param values is the list of objects to be convertable
      * @return the arraylist of double
      */
-    public static Double[] listToDoubleArray(ArrayList<Double> values) {
-        Double[] doubleArray = new Double[values.size()];
+//    public static Double[] listToDoubleArray(ArrayList<Double> values) {
+//        Double[] doubleArray = new Double[values.size()];
+//        int i = 0;
+//        for (Double f : values) {
+//            doubleArray[i++] = (f != null ? f : Double.NaN);
+//        }
+//        return doubleArray;
+//    }
+    
+    /**
+     * Method to convert a list of objects to an arraylist of double
+     * @param values is the list of objects to be convertable
+     * @return the arraylist of double
+     */
+    public static Float[] listToFloatArray(ArrayList<Float> values) {
+        Float[] floatArray = new Float[values.size()];
         int i = 0;
-        for (Double f : values) {
-            doubleArray[i++] = (f != null ? f : Double.NaN);
+        for (Float f : values) {
+            floatArray[i++] = (f != null ? f : Float.NaN);
         }
-        return doubleArray;
+        return floatArray;
     }
 
     /**

@@ -55,7 +55,7 @@ public class MatcherTest {
         DirectedGraph<Object, Edge> graph_01 = graphFile("Graph_to_Merge_01.xml");
         DirectedGraph<Object, Edge> graph_02 = graphFile("Graph_to_Merge_02.xml");
         Map<String, AttributeErrorMargin> restrictionList = restriction();
-        double similarityThreshold = 0.9;
+        float similarityThreshold = 0.9f;
         Matcher instance = new Matcher();
 //        DirectedGraph<Vertex, Edge> expResult = null;
         DirectedGraph<Object, Edge> result = instance.Matching(graph_01, graph_02, restrictionList, similarityThreshold, "0.9%");

@@ -94,7 +94,7 @@ public abstract class Vertex extends GraphObject {
         else if(Utils.tryParseDate(this.time))
         {
 //            System.out.println("Time Milliseconds: " + (float) Utils.convertStringDateToDouble(this.time));
-            double milliseconds =  Utils.convertStringDateToDouble(this.time);
+            double milliseconds =  Utils.convertStringDateToFloat(this.time);
 //            int weeks = (int) (milliseconds / (1000*60*60*24*7));
 //            long days = TimeUnit.MILLISECONDS.toDays((long) milliseconds);
 //            long hours = TimeUnit.MILLISECONDS.toHours((long) milliseconds);
@@ -188,7 +188,7 @@ public abstract class Vertex extends GraphObject {
         if(attributes.get(attribute) == null)
             return Float.NaN;
         if(Utils.tryParseFloat(attributes.get(attribute).getAverageValue())) {
-            return (float) Double.parseDouble(attributes.get(attribute).getAverageValue());
+            return Utils.convertFloat(attributes.get(attribute).getAverageValue());
         }
         else {
             return Float.NaN;

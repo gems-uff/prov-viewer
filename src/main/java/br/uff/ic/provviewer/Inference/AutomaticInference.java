@@ -85,8 +85,8 @@ public class AutomaticInference {
      * @param cg
      * @param processedVertices
      */
-    private void getNeighborhood(Object v1, DirectedGraph<Object, Edge> graph, GraphMatching combiner, ConcurrentHashMap<String, Object> cg, Map<String, String> processedVertices) {
-        for (Object v2 : graph.getNeighbors(v1)) {
+    private void getNeighborhood(Object v1, Map<String, Object[]> graph, GraphMatching combiner, ConcurrentHashMap<String, Object> cg, Map<String, String> processedVertices) {
+        for (Object v2 : graph.get(((Vertex) v1).getID())) {
             String id2 = ((Vertex) v2).getID();
             if (!processedVertices.containsKey(id2)) {
                 if(isUpdating)
@@ -117,11 +117,11 @@ public class AutomaticInference {
             Map<String, AttributeErrorMargin> error = combiner.getRestrictionList();
             for (String e : error.keySet()) {
 //                System.out.println("Old error: " + error.get(e).getValue());
-                double std = Utils.std(cg.values(), e) * STD_QUANTITY;
+                float std = Utils.std(cg.values(), e) * STD_QUANTITY;
                 if (cg.size() < MINIMUM_SIZE) {
                     std *= smallClusterError;
                 }
-                AttributeErrorMargin newError = new AttributeErrorMargin(e, "" + std);
+                AttributeErrorMargin newError = new AttributeErrorMargin(e, Float.toString(std));
                 error.put(e, newError);
 //                System.out.println("New error: " + error.get(e).getValue());
             }
@@ -145,13 +145,18 @@ public class AutomaticInference {
         ConcurrentHashMap<String, Object> cluster;
         Map<String, String> visited = new HashMap<>();
         Map<String, AttributeErrorMargin> error = new HashMap<>(combiner.getRestrictionList());
+        Map<String, Object[]> neighbors = new HashMap<>();
+        for(Object v : graph.getVertices()) {
+            Object[] neigh = graph.getNeighbors(v).toArray();
+            neighbors.put(((Vertex) v).getID(), neigh);
+        }
         for (Object v1 : graph.getVertices()) {
             String id1 = ((Vertex) v1).getID();
             if (!visited.containsKey(id1)) {
                 cluster = new ConcurrentHashMap<>();
                 visited.put(id1, id1);
                 cluster.put(id1, v1);
-                getNeighborhood(v1, graph, combiner, cluster, visited);
+                getNeighborhood(v1, neighbors, combiner, cluster, visited);
                 combiner.setRestrictionList(error);
                 clusters.add(cluster);
             }

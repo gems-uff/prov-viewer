@@ -41,7 +41,7 @@ public class SimilarityThread implements Runnable{
     DirectedGraph<Object, Edge> noiseGraph; 
     boolean updateError; 
     boolean verifyWithinCluster;
-    ArrayList<Double> t;
+    ArrayList<Float> t;
     int size; 
     int thresholdIncrease; 
     int qnt;
@@ -50,7 +50,7 @@ public class SimilarityThread implements Runnable{
             
     SimilarityThread(ArrayList<ConcurrentHashMap<String, Object>> answer, OracleGraph og, DirectedGraph<Object, Edge> noiseGraph, boolean updateError, 
             boolean verifyWithinCluster,
-            ArrayList<Double> t,
+            ArrayList<Float> t,
             int minSize, int thresholdIncrease, int qnt) {
         oracleGraph = og;
         this.noiseGraph = noiseGraph;
@@ -97,12 +97,12 @@ public class SimilarityThread implements Runnable{
      * @return 
      */
     private GraphMatching configureSimilarityMatcher(DirectedGraph<Object, Edge> noiseGraph) {
-        double std = Utils.std(noiseGraph.getVertices(), oracleGraph.attribute);
-        double similarityThreshold = 0.5;
+        float std = Utils.std(noiseGraph.getVertices(), oracleGraph.attribute);
+        float similarityThreshold = 0.5f;
         String defaultError = "0";
         Map<String, AttributeErrorMargin> restrictionList = new HashMap<>();
         AttributeErrorMargin epsilon;
-        epsilon = new AttributeErrorMargin(oracleGraph.attribute, "" + std);
+        epsilon = new AttributeErrorMargin(oracleGraph.attribute, String.valueOf(std));
         restrictionList.put(oracleGraph.attribute, epsilon);
         return new GraphMatching(restrictionList, similarityThreshold, defaultError, 0);
     }
@@ -110,7 +110,7 @@ public class SimilarityThread implements Runnable{
     @Override
     public void run() {
         try {
-            double time = SimilarityCollapse(noiseGraph, true, false, size, thresholdIncrease, qnt);
+            float time = SimilarityCollapse(noiseGraph, true, false, size, thresholdIncrease, qnt);
             t.add(time);
         } catch (IOException ex) {
             Logger.getLogger(SimilarityThread.class.getName()).log(Level.SEVERE, null, ex);

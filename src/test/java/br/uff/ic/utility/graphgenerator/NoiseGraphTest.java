@@ -38,14 +38,18 @@ public class NoiseGraphTest {
      */
     @Test
     public void testGenerateNoiseGraph() throws InterruptedException {
+//        runExperiment();
+    }
+    
+    private void runExperiment() throws InterruptedException {
         System.out.println("generateNoiseGraph");
         OracleGraph oracle = new OracleGraph(attribute, -200, 200);
         ClusteringEvaluator eval = new ClusteringEvaluator(false, oracle);
-        int NUMBER_OF_ORACLE_GRAPHS = 50;
+        int NUMBER_OF_ORACLE_GRAPHS = 40;
         int NUMBER_OF_NOISE_GRAPHS = 5;
-        double INITIAL_NOISE_GRAPH_SIZE = 10;
-        double NOISE_INCREASE_NUMBER = 2;
-        int NUMBER_ITERATIONS = 10;
+        float INITIAL_NOISE_GRAPH_SIZE = 10;
+        float NOISE_INCREASE_NUMBER = 2;
+        int NUMBER_ITERATIONS = 3;
 
         try {
             File file;
@@ -54,12 +58,12 @@ public class NoiseGraphTest {
             int smallCluster = 7;
             int threshold = 4;
             int smallClusterMod = 4;
-            double dagEps = 288; // Dag previous 177.63
-            double linearEps = 380; // Linear 248
-            double treeEps = 364; // Tree 202.78
-            double monotonicLinearEps = 40.64; // Monotonic 312
-            double monotonicDagEps = 89.88; // Monotonic 268
-            double monotonicTreeEps = 23.45; // Monotonic 328
+            float dagEps = 288; // Dag previous 177.63
+            float linearEps = 380; // Linear 248
+            float treeEps = 364; // Tree 202.78
+            float monotonicLinearEps = 40.64F; // Monotonic 312
+            float monotonicDagEps = 89.88F; // Monotonic 268
+            float monotonicTreeEps = 23.45F; // Monotonic 328
             int TF_size; 
             int TF_increase; 
             int TF_qnt; 

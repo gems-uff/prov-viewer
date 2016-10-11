@@ -5,6 +5,7 @@
  */
 package br.uff.ic.utility;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -31,8 +32,10 @@ public class GraphAttribute {
         this.value = value;
         this.quantity = 1;
         if (Utils.tryParseFloat(value)){
-            this.minValue = Float.parseFloat(this.value);
-            this.maxValue = Float.parseFloat(this.value);
+            this.minValue = Utils.convertFloat(value.trim());
+            this.maxValue = Utils.convertFloat(value.trim());
+            float v = ((int) (Utils.convertFloat(value.trim()) * 10000)) * 0.0001f;
+            this.value = String.valueOf(v);
         }
         else {
             this.minValue = 0;
@@ -54,8 +57,8 @@ public class GraphAttribute {
         this.name = name;
         this.value = value;
         this.quantity = Integer.valueOf(quantity);
-        this.minValue = Float.parseFloat(min);
-        this.maxValue = Float.parseFloat(max);
+        this.minValue = Utils.convertFloat(min);
+        this.maxValue = Utils.convertFloat(max);
         this.originalValues = new ArrayList<>();
         this.originalValues.add(min);
         this.originalValues.add(max);
@@ -75,8 +78,8 @@ public class GraphAttribute {
         this.name = name;
         this.value = value;
         this.quantity = Integer.valueOf(quantity);
-        this.minValue = Float.parseFloat(min);
-        this.maxValue = Float.parseFloat(max);
+        this.minValue = Utils.convertFloat(min);
+        this.maxValue = Utils.convertFloat(max);
         this.originalValues = new ArrayList<>();
         this.originalValues.addAll(values);
     }
@@ -88,9 +91,9 @@ public class GraphAttribute {
     public void updateAttribute(String value) {
         this.quantity++;
         if (Utils.tryParseFloat(value)) {
-            this.value = Float.toString(Float.parseFloat(this.value) + Float.parseFloat(value));
-            this.minValue = Math.min(this.minValue, Float.parseFloat(value));
-            this.maxValue = Math.max(this.maxValue, Float.parseFloat(value));
+            this.value = Float.toString(Utils.convertFloat(this.value) + Utils.convertFloat(value));
+            this.minValue = Math.min(this.minValue, Utils.convertFloat(value));
+            this.maxValue = Math.max(this.maxValue, Utils.convertFloat(value));
                 
         } else {
             if(!this.value.equalsIgnoreCase(value))
@@ -114,7 +117,7 @@ public class GraphAttribute {
     public String getAverageValue() {
         // Return the average number
         if ((this.quantity != 1) && Utils.tryParseFloat(this.value))
-            return Float.toString(Float.parseFloat(this.value) / this.quantity); 
+            return Float.toString(Utils.convertFloat(this.value) / this.quantity); 
         else
             return this.value;
     }
@@ -184,14 +187,14 @@ public class GraphAttribute {
     public String printValue() {
         if (Utils.tryParseFloat(this.value)) {
             if(this.quantity > 2) {
-                return (Float.parseFloat(this.value) / this.quantity)
+                return (Utils.convertFloat(this.value) / this.quantity)
                         + " (" + this.getMin() + " ~ "
                         + this.get1stQuartile() + " ~"
                         + this.getMedian() + " ~"
                         + this.get3rdQuartile() + " ~"
                         + this.getMax() + ")" + "<br>";
             } else if(this.quantity > 1){
-                return (Float.parseFloat(this.value) / this.quantity)
+                return (Utils.convertFloat(this.value) / this.quantity)
                         + " (" + this.getMin() + " ~ "
                         + this.getMax() + ")" + "<br>";
             }

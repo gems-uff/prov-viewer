@@ -11,6 +11,7 @@ import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
+import java.text.DecimalFormat;
 
 /**
  *
@@ -38,7 +39,7 @@ public class OracleGraph {
      * @param v is the oracle vertex to be edited
      */
     private void generateOracleValues(Vertex v) {
-        GraphAttribute att = new GraphAttribute(attribute, Double.toString(generateOracleNumber()));
+        GraphAttribute att = new GraphAttribute(attribute, generateOracleNumber() + "");
         v.addAttribute(att);
 //        System.out.println("V = " + att.getValue());
         
@@ -53,8 +54,11 @@ public class OracleGraph {
     private float generateOracleNumber() {
         int min = MIN_ORACLE_VALUE;
         int max = MAX_ORACLE_VALUE;
-        float value = (float) (((int) ((min + (Math.random() * ((max - min) + 1))) * 1000000)) * 0.0000001);
-        return value;
+        float value = (float) (min + (Math.random() * ((max - min) + 1)));
+//        DecimalFormat df = new DecimalFormat("#.###");
+//        int v = (int) (Float.valueOf(df.format(value)) * 1000);
+        float v = ((int) value * 10000) * 0.0001f;
+        return v;
     }
     
     /**

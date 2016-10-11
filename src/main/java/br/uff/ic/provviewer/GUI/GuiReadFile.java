@@ -34,7 +34,7 @@ import org.apache.commons.io.FilenameUtils;
  */
 public class GuiReadFile {
     
-    static double similarityThreshold = 0.95;
+    static float similarityThreshold = 0.95f;
     static String defaultErrorMargin = "5%";
 
     /**
