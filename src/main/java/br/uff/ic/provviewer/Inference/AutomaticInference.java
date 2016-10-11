@@ -12,7 +12,9 @@ import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -27,12 +29,21 @@ public class AutomaticInference {
     int smallClusterError = 3;
     boolean isUpdating = false;
     boolean isRestrictingVariation = false;
+    GraphMatching combiner;
+    
+    public ArrayList<Object> visitList = new ArrayList<>();
+    public DirectedGraph<Object, Edge> graph;
+    public ArrayList<ConcurrentHashMap<String, Object>> resultList = new ArrayList<>();
     
     
-    public AutomaticInference(int minSize, int thresholdIncrease, int std) {
+    public AutomaticInference(GraphMatching combiner, DirectedGraph<Object, Edge> g, int minSize, int thresholdIncrease, int std) {
         MINIMUM_SIZE = minSize;
         smallClusterError = thresholdIncrease;
         STD_QUANTITY = std;
+        graph = g;
+        resultList.clear();
+        visitList.clear();
+        this.combiner = combiner;
     }
     
     /**
@@ -85,32 +96,32 @@ public class AutomaticInference {
      * @param cg
      * @param processedVertices
      */
-    private void getNeighborhood(Object v1, Map<String, Object[]> graph, GraphMatching combiner, ConcurrentHashMap<String, Object> cg, Map<String, String> processedVertices) {
-        for (Object v2 : graph.get(((Vertex) v1).getID())) {
-            String id2 = ((Vertex) v2).getID();
-            if (!processedVertices.containsKey(id2)) {
-                if(isUpdating)
-                    updateError(combiner, cg);
-                if (combiner.isSimilar((Vertex) v1, (Vertex) v2)) {
-                    boolean isSimilar = true;
-                    if(isRestrictingVariation) {
-                        
-                        for (Object v3 : cg.values()) {
-                            if (!combiner.isSimilar((Vertex) v2, (Vertex) v3)) {
-                                isSimilar = false;
-                            }
-                        }
-                    }
-                    if (isSimilar) {
-                        processedVertices.put(id2, id2);
-                        cg.put(id2, v2);
-                        getNeighborhood(v2, graph, combiner, cg, processedVertices);
-                    }
-                }
-            }
-        }
-    }
-    
+//    private void getNeighborhood(Object v1, Map<String, Object[]> graph, GraphMatching combiner, ConcurrentHashMap<String, Object> cg, Map<String, String> processedVertices) {
+//        for (Object v2 : graph.get(((Vertex) v1).getID())) {
+//            String id2 = ((Vertex) v2).getID();
+//            if (!processedVertices.containsKey(id2)) {
+//                if(isUpdating)
+//                    updateError(combiner, cg);
+//                if (combiner.isSimilar((Vertex) v1, (Vertex) v2)) {
+//                    boolean isSimilar = true;
+//                    if(isRestrictingVariation) {
+//                        
+//                        for (Object v3 : cg.values()) {
+//                            if (!combiner.isSimilar((Vertex) v2, (Vertex) v3)) {
+//                                isSimilar = false;
+//                            }
+//                        }
+//                    }
+//                    if (isSimilar) {
+//                        processedVertices.put(id2, id2);
+//                        cg.put(id2, v2);
+//                        getNeighborhood(v2, graph, combiner, cg, processedVertices);
+//                    }
+//                }
+//            }
+//        }
+//    }
+     
     private void updateError(GraphMatching combiner, ConcurrentHashMap<String, Object> cg) {
         if (cg.size() > 2) {
 //            System.out.println("Updating error");
@@ -138,32 +149,122 @@ public class AutomaticInference {
      * @param verifyWithinCluster
      * @return the list of clusters
      */
-    public ArrayList<ConcurrentHashMap<String, Object>> cluster(DirectedGraph<Object, Edge> graph, GraphMatching combiner, boolean updateError, boolean verifyWithinCluster) {
+//    public ArrayList<ConcurrentHashMap<String, Object>> cluster(DirectedGraph<Object, Edge> graph, GraphMatching combiner, boolean updateError, boolean verifyWithinCluster) {
+//        isUpdating = updateError;
+//        isRestrictingVariation = verifyWithinCluster;
+//        ArrayList<ConcurrentHashMap<String, Object>> clusters = new ArrayList<>();
+//        ConcurrentHashMap<String, Object> cluster;
+//        Map<String, String> visited = new HashMap<>();
+////        Map<String, AttributeErrorMargin> error = new HashMap<>(combiner.getRestrictionList());
+//        Map<String, Object[]> neighbors = new HashMap<>();
+//        for(Object v : graph.getVertices()) {
+//            Object[] neigh = graph.getNeighbors(v).toArray();
+//            neighbors.put(((Vertex) v).getID(), neigh);
+//        }
+//        for (Object v1 : graph.getVertices()) {
+//            String id1 = ((Vertex) v1).getID();
+//            if (!visited.containsKey(id1)) {
+//                cluster = new ConcurrentHashMap<>();
+//                visited.put(id1, id1);
+//                cluster.put(id1, v1);
+//                getNeighborhood(v1, neighbors, combiner, cluster, visited);
+////                combiner.setRestrictionList(error);
+//                clusters.add(cluster);
+//            }
+//        }
+////        breakCollapseClusters(clusters, combiner);
+////        System.out.println(printCollapseGroups(clusters));
+////        return printCollapseGroups(clusters);
+//        return clusters;
+//    }
+    
+    
+    public ArrayList<ConcurrentHashMap<String, Object>> applySimilarity(boolean updateError, boolean verifyWithinCluster) {
         isUpdating = updateError;
         isRestrictingVariation = verifyWithinCluster;
-        ArrayList<ConcurrentHashMap<String, Object>> clusters = new ArrayList<>();
-        ConcurrentHashMap<String, Object> cluster;
-        Map<String, String> visited = new HashMap<>();
-        Map<String, AttributeErrorMargin> error = new HashMap<>(combiner.getRestrictionList());
-        Map<String, Object[]> neighbors = new HashMap<>();
-        for(Object v : graph.getVertices()) {
-            Object[] neigh = graph.getNeighbors(v).toArray();
-            neighbors.put(((Vertex) v).getID(), neigh);
-        }
-        for (Object v1 : graph.getVertices()) {
-            String id1 = ((Vertex) v1).getID();
-            if (!visited.containsKey(id1)) {
-                cluster = new ConcurrentHashMap<>();
-                visited.put(id1, id1);
-                cluster.put(id1, v1);
-                getNeighborhood(v1, neighbors, combiner, cluster, visited);
-                combiner.setRestrictionList(error);
-                clusters.add(cluster);
+        
+        for (Object p : graph.getVertices()) {
+            if(!isVisited(p)) {
+                visited(p);
+                ConcurrentHashMap<String, Object> c = new ConcurrentHashMap<>();
+                c.put(((Vertex) p).getID(), p);
+                ArrayList<Object> n = getNeighbours(p, c);
+                
+                expandCluster(p, n, c, c);
+                resultList.add(c);
             }
         }
-//        breakCollapseClusters(clusters, combiner);
-//        System.out.println(printCollapseGroups(clusters));
-//        return printCollapseGroups(clusters);
-        return clusters;
+        return resultList;
+    }
+    
+    private void expandCluster(Object p, ArrayList<Object> n, ConcurrentHashMap<String, Object> c, ConcurrentHashMap<String, Object> cg) {
+//        c.put(((Vertex) p).getID(), p);
+        int ind = 0;
+        while(n.size() > ind){
+            Object point = n.get(ind);
+            if(!isVisited(point)) {
+                visited(point);
+//                c.add(point);
+                c.put(((Vertex) point).getID(), point);
+                ArrayList<Object> n2 = getNeighbours(point, cg);
+                n = merge(n, n2);
+            }
+            ind++;
+        }
+    }
+    
+    private ArrayList<Object> merge(ArrayList<Object> a, ArrayList<Object> b) {
+
+        Iterator<Object> it5 = b.iterator();
+        while (it5.hasNext()) {
+            Object t = it5.next();
+            if (!a.contains(t)) {
+                a.add(t);
+            }
+        }
+        return a;
+    }
+    
+    private ArrayList<Object> getNeighbours(Object current, ConcurrentHashMap<String, Object> cg) {
+        ArrayList<Object> neighbor = new ArrayList<>();
+        Collection<Object> points = graph.getNeighbors(current);
+        for(Object point : points) {
+            if(getDistance(current, point, cg)) {
+                neighbor.add(point);
+            }
+        }
+        return neighbor;
+    }
+    
+    private boolean getDistance(Object p, Object q, ConcurrentHashMap<String, Object> cg) {
+        if (isUpdating) {
+            updateError(combiner, cg);
+        }
+
+        if (combiner.isSimilar((Vertex) p, (Vertex) q)) {
+            boolean isSimilar = true;
+            if (isRestrictingVariation) {
+
+                for (Object v3 : cg.values()) {
+                    if (!combiner.isSimilar((Vertex) q, (Vertex) v3)) {
+                        isSimilar = false;
+                        break;
+                    }
+                }
+            }
+            return isSimilar;
+        }
+        return false;
+    }
+    
+    private boolean isVisited(Object c) {
+        if (visitList.contains(c)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    private void visited(Object d) {
+        visitList.add(d);
     }
 }
