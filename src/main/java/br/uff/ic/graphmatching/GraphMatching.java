@@ -198,7 +198,7 @@ public class GraphMatching {
             return false;
         }
 
-        Map<String, GraphAttribute> attributes = new HashMap<>();
+        Map<String, String> attributes = new HashMap<>();
 
         // Check all v1 attributes
         for (GraphAttribute attribute : v1.getAttributes()) {
@@ -215,10 +215,10 @@ public class GraphMatching {
 
         // Compute the number of attributes, considering their weights, for the similarity check
         float size = 0;
-        for (GraphAttribute att : attributes.values()) {
+        for (String att : attributes.values()) {
             float weight = defaultWeight;
-            if (attributeList.get(att.getName()) != null) {
-                weight = attributeList.get(att.getName()).getWeight();
+            if (attributeList.get(att) != null) {
+                weight = attributeList.get(att).getWeight();
             }
             size = size + (1 * weight);
         }
@@ -245,8 +245,8 @@ public class GraphMatching {
      * are similar
      * @return
      */
-    public float compareAttributes(Map<String, GraphAttribute> attributes, GraphAttribute attribute, Vertex v2, float similarity) {
-        attributes.put(attribute.getName(), attribute);
+    public float compareAttributes(Map<String, String> attributes, GraphAttribute attribute, Vertex v2, float similarity) {
+        attributes.put(attribute.getName(), attribute.getName());
         if (v2.getAttribute(attribute.getName()) != null) {
             String av1 = attribute.getAverageValue();
             String av2 = v2.getAttribute(attribute.getName()).getAverageValue();
