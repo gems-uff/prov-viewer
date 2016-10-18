@@ -19,6 +19,7 @@ import edu.uci.ics.jung.algorithms.layout.FRLayout;
 import edu.uci.ics.jung.algorithms.layout.FRLayout2;
 import edu.uci.ics.jung.algorithms.layout.ISOMLayout;
 import edu.uci.ics.jung.algorithms.layout.KKLayout;
+import edu.uci.ics.jung.algorithms.layout.SpringLayout;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
 import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
 import edu.uci.ics.jung.visualization.decorators.EdgeShape;
@@ -194,6 +195,9 @@ public class GuiButtons {
         if (layout.equalsIgnoreCase("KKLayout")) {
             variables.layout = new KKLayout<>(variables.layout.getGraph());
         }
+        if (layout.equalsIgnoreCase("SpringLayout")) {
+            variables.layout = new SpringLayout<>(variables.layout.getGraph());
+        }
         variables.guiBackground.InitBackground(variables, Layouts);
         variables.view.setGraphLayout(variables.layout);
         variables.view.repaint();
@@ -221,8 +225,8 @@ public class GuiButtons {
             variables.config.DetectVertexModes(variables.graph.getVertices());
     }
 
-    public static void VertexLabel(Variables variables, boolean agentLabel, boolean activityLabel, boolean entityLabel, boolean timeLabel) {
-        GuiFunctions.VertexLabel(variables, agentLabel, activityLabel, entityLabel, timeLabel);
+    public static void VertexLabel(Variables variables, boolean agentLabel, boolean activityLabel, boolean entityLabel, boolean timeLabel, boolean showID) {
+        GuiFunctions.VertexLabel(variables, agentLabel, activityLabel, entityLabel, timeLabel, showID);
         variables.view.repaint();
     }
 

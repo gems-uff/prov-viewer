@@ -28,6 +28,9 @@ import java.awt.Color;
 import java.awt.Paint;
 import java.awt.Stroke;
 import java.awt.geom.Point2D;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import org.apache.commons.collections15.Predicate;
@@ -80,7 +83,7 @@ public class GuiFunctions {
      * @param entityLabel interface check-box state for entity label
      * @param timeLabel interface check-box state for time label
      */
-    public static void VertexLabel(final Variables variables, final boolean agentLabel, final boolean activityLabel, final boolean entityLabel, final boolean timeLabel) {
+    public static void VertexLabel(final Variables variables, final boolean agentLabel, final boolean activityLabel, final boolean entityLabel, final boolean timeLabel, final boolean showID) {
         variables.view.getRenderContext().setVertexLabelTransformer(new Transformer<Object, String>() {
 
             @Override
@@ -115,6 +118,11 @@ public class GuiFunctions {
                         return font + activityName + " (Summarized)";
                     if(entityLabel)
                         return font + entityName + " (Summarized)";
+                    if(showID) {
+                        Map<String, String> ids = new HashMap<>();
+                        GraphVertexGetID(ids, v);
+                        return font + ids.values().toString();
+                    }
                 }
                 // Agent
                 if (v instanceof AgentVertex && agentLabel) {
@@ -146,8 +154,23 @@ public class GuiFunctions {
                 else if ((v instanceof ActivityVertex) && activityLabel) {
                     return font + ((Vertex) v).getLabel();
                 }
+                else if(showID)
+                    return font + ((Vertex) v).getID();
                 
                 return "";
+            }
+
+            private void GraphVertexGetID(Map<String, String> ids, Object v) {
+                
+                Collection vertices = ((Graph) v).getVertices();
+                for (Object vertex : vertices) {
+                    if (!(vertex instanceof Graph))
+                    {
+                        ids.put(((Vertex) vertex).getID(), ((Vertex) vertex).getID());
+                    }
+                    else
+                        GraphVertexGetID(ids, vertex);
+                }
             }
         });
     }

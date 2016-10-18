@@ -46,11 +46,11 @@ public class Trainer {
             float NOISE_INCREASE_NUMBER,
             String typeGraph) throws IOException, InterruptedException {
         
-        int current_size = 3;
-        int bestSize = 1; // 17
-        int current_inc = 2;
-        int bestInc = 1;
-        int currentqnt = 2;
+        int current_size = 5;
+        int bestSize = 5; // 17
+        int current_inc = 4;
+        int bestInc = 4;
+        int currentqnt = 3;
         int bestqnt = 3;
         float noiseFactor;
         ArrayList<Float> p = new ArrayList<>();
@@ -64,33 +64,36 @@ public class Trainer {
         int current = 0;
         int best = 0;
 //        System.out.println("Training Size");
-        for (int itqnt = 0; itqnt < 5; itqnt++) {
-            System.out.println("Training qnt: " + itqnt);
-            for (int itinc = 0; itinc < 5; itinc++) {
+        for (int itqnt = 0; itqnt < 10; itqnt++) {
+//            System.out.println("Training qnt: " + itqnt);
+            for (int itinc = 0; itinc < 10; itinc++) {
 //                System.out.println("Training inc: " + itinc);
-                for (int itsize = 0; itsize < 5; itsize++) {
+//                for (int itsize = 0; itsize < 4; itsize++) {
 //                    System.out.println("Training size: " + itsize);
                     noiseFactor = INITIAL_NOISE_GRAPH_SIZE;
-                    for(int oraclegraph = 0; oraclegraph < NUMBER_OF_ORACLE_GRAPHS; oraclegraph++) {
-                        DirectedGraph<Object, Edge> oracle = eval.oracleGraph.createOracleGraph(typeGraph);
-//                        System.out.println("oraclegraph: " + oraclegraph);
-                        for(int noise = 0; noise < NUMBER_OF_NOISE_GRAPHS; noise++) {
-                            NoiseGraph instance = new NoiseGraph(oracle, oracleGraph.attribute, isMonotonic);
-                            DirectedGraph<Object, Edge> noiseGraph = instance.generateNoiseGraph(noiseFactor, noiseProbability, "" + noise + oraclegraph);
-                            ArrayList<ConcurrentHashMap<String, Object>> clusters1 = new ArrayList<>();
-                            ArrayList<ConcurrentHashMap<String, Object>> clusters2 = new ArrayList<>();
-                            ArrayList<Float> t1 = new ArrayList<>();
-                            ArrayList<Float> t2 = new ArrayList<>();
-                            Thread worker1 = new Thread(new SimilarityThread(clusters1, oracleGraph, noiseGraph, updateError, withinCluster, t1, bestSize, bestInc, bestqnt));
-                            Thread worker2 = new Thread(new SimilarityThread(clusters2, oracleGraph, noiseGraph, updateError, withinCluster, t2, current_size, current_inc, currentqnt));
-                            worker1.start();
-                            worker2.start();
-                            worker1.join();
-                            worker2.join();
-//                            eval.SimilarityCollapse(noiseGraph, updateError, withinCluster, clusters1, bestSize, bestInc, bestqnt);
-//                            eval.SimilarityCollapse(noiseGraph, updateError, withinCluster, clusters2, current_size, current_inc, currentqnt);
-                            eval.comparePRF(oracle, clusters1, p, r, f, c);
-                            eval.comparePRF(oracle, clusters2, p2, r2, f2, c2);
+                    for(int iteration = 0; iteration < 5; iteration++) {
+//                        System.out.println("iteration: " + iteration);
+                        for(int oraclegraph = 0; oraclegraph < NUMBER_OF_ORACLE_GRAPHS; oraclegraph++) {
+                            DirectedGraph<Object, Edge> oracle = eval.oracleGraph.createOracleGraph(typeGraph);
+    //                        System.out.println("oraclegraph: " + oraclegraph);
+                            for(int noise = 0; noise < NUMBER_OF_NOISE_GRAPHS; noise++) {
+                                NoiseGraph instance = new NoiseGraph(oracle, oracleGraph.attribute, isMonotonic);
+                                DirectedGraph<Object, Edge> noiseGraph = instance.generateNoiseGraph(noiseFactor, noiseProbability, "" + noise + iteration);
+                                ArrayList<ConcurrentHashMap<String, Object>> clusters1 = new ArrayList<>();
+                                ArrayList<ConcurrentHashMap<String, Object>> clusters2 = new ArrayList<>();
+                                ArrayList<Float> t1 = new ArrayList<>();
+                                ArrayList<Float> t2 = new ArrayList<>();
+                                Thread worker1 = new Thread(new SimilarityThread(clusters1, oracleGraph, noiseGraph, updateError, withinCluster, t1, bestSize, bestInc, bestqnt));
+                                Thread worker2 = new Thread(new SimilarityThread(clusters2, oracleGraph, noiseGraph, updateError, withinCluster, t2, current_size, current_inc, currentqnt));
+                                worker1.start();
+                                worker2.start();
+                                worker1.join();
+                                worker2.join();
+    //                            eval.SimilarityCollapse(noiseGraph, updateError, withinCluster, clusters1, bestSize, bestInc, bestqnt);
+    //                            eval.SimilarityCollapse(noiseGraph, updateError, withinCluster, clusters2, current_size, current_inc, currentqnt);
+                                eval.comparePRF(oracle, clusters1, p, r, f, c);
+                                eval.comparePRF(oracle, clusters2, p2, r2, f2, c2);
+                            }
                         }
                         noiseFactor *= NOISE_INCREASE_NUMBER;
 
@@ -106,47 +109,14 @@ public class Trainer {
                     }
                     current = 0;
                     best = 0;
-                    current_size += 1;
-                }
-                current_size = 3;
+//                    current_size += 2;
+//                }
+//                current_size = 3;
                 current_inc += 1;
             }
-            current_inc = 2;
+            current_inc = 4;
             currentqnt++;
         }
-        
-        
-        
-//        for (int w = 0; w < 50; w++) {
-//            System.out.println("Training run: " + w);
-//            noiseFactor = INITIAL_NOISE_GRAPH_SIZE;
-//            current_size = (int) (Math.random() * 100);
-//            current_inc = (int) (Math.random() * 100);
-//            for(int i = 0; i < NUMBER_OF_ORACLE_GRAPHS * 0.5; i++) {
-//                // Make oracle graph
-//                DirectedGraph<Object, Edge> oracle = eval.createOracleGraph(oracleGraph, typeGraph);
-//                
-//                for (int j = 0; j < NUMBER_OF_ORACLE_GRAPHS * 0.25; j++) {
-//                    // Make noise graphs
-//                    NoiseGraph instance = new NoiseGraph(oracle, oracleGraph.attribute, isMonotonic);
-//                    DirectedGraph<Object, Edge> noiseGraph = instance.generateNoiseGraph(noiseFactor, noiseProbability, "" + j + i);
-//                    eval.SimilarityCollapse(oracleGraph, oracle, noiseGraph, true, false, p, r, f, c, bestSize, bestInc, bestqnt);
-//                    eval.SimilarityCollapse(oracleGraph, oracle, noiseGraph, true, false, p2, r2, f2, c2, current_size, current_inc, currentqnt);
-//                }
-//                noiseFactor += NOISE_INCREASE_NUMBER * 10;
-//                
-//                current += eval.isWinner(f2, f, f);
-//                best += eval.isWinner(f, f2, f2);
-//                eval.clearLists(p, r, f, c);
-//                eval.clearLists(p2, r2, f2, c2);
-//            }
-//            if(current > best) {
-////                bestSize = current_size;
-//                bestInc = current_inc;
-//            }
-//            current = 0;
-//            best = 0;
-//        }
         System.out.println("Best size mod: " + bestSize);
         System.out.println("Best inc mod: " + bestInc);
         System.out.println("Best qnt mod: " + bestqnt);

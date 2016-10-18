@@ -412,17 +412,17 @@ public class Utils {
         float numi = 0.0f;
         float deno = 0.0f;
 
-        for (int i=0; i <list.length; i++){
-             numi = (float) Math.pow((list[i] - mean),2);
-             num+=numi;
-             deno =list.length - 1;  
+        for (int i = 0; i < list.length; i++){
+             numi = (float) Math.pow((list[i] - mean), 2);
+             num += numi;
+             deno = list.length - 1;  
         }
 
 
         float stdevResult = (float) Math.sqrt(num/deno);
         
-        float v = (float) ((int) stdevResult * 10000) * 0.0001f;
-        return v;
+//        float v = (float) ((int) stdevResult * 10000) * 0.0001f;
+        return stdevResult;
     }
     
     /**
@@ -453,8 +453,8 @@ public class Utils {
     public static float mean(Float[] list) {
         float mean = 0.0F;
         float sum = 0.0F;
-        for (int i=0; i < list.length; i++){
-            sum+=list[i];            
+        for (int i = 0; i < list.length; i++){
+            sum += list[i];            
         }
         mean = sum / list.length;
         

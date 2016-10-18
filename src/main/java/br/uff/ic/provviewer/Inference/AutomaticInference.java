@@ -122,7 +122,7 @@ public class AutomaticInference {
 //        }
 //    }
      
-    private void updateError(GraphMatching combiner, ConcurrentHashMap<String, Object> cg) {
+    private void updateError(ConcurrentHashMap<String, Object> cg) {
         if (cg.size() > 2) {
 //            System.out.println("Updating error");
             Map<String, AttributeErrorMargin> error = combiner.getRestrictionList();
@@ -238,7 +238,7 @@ public class AutomaticInference {
     
     private boolean getDistance(Object p, Object q, ConcurrentHashMap<String, Object> cg) {
         if (isUpdating) {
-            updateError(combiner, cg);
+            updateError(cg);
         }
 
         if (combiner.isSimilar((Vertex) p, (Vertex) q)) {

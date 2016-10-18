@@ -39,7 +39,7 @@ public class GuiInitialization {
      * @param timeLabel interface check-box state for time label
      */
     public static void initGraphComponent(Variables variables, DirectedGraph<Object, Edge> graph,
-            JFrame graphFrame, JComboBox Layouts, boolean agentLabel, boolean activityLabel, boolean entityLabel, boolean timeLabel) {
+            JFrame graphFrame, JComboBox Layouts, boolean agentLabel, boolean activityLabel, boolean entityLabel, boolean timeLabel, boolean showID) {
         variables.initConfig = true;
         variables.graph = graph;
         variables.collapsedGraph = variables.graph;
@@ -47,7 +47,7 @@ public class GuiInitialization {
         variables.guiBackground.InitBackground(variables, Layouts);
         GuiFunctions.MouseInteraction(variables);
         GuiTooltip.Tooltip(variables);
-        GuiFunctions.VertexLabel(variables, agentLabel, activityLabel, entityLabel, timeLabel);
+        GuiFunctions.VertexLabel(variables, agentLabel, activityLabel, entityLabel, timeLabel, showID);
         GuiFunctions.Stroke(variables);
         GuiFunctions.GraphPaint(variables);
         GuiFunctions.VertexShape(variables);

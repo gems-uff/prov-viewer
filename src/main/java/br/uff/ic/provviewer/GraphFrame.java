@@ -29,7 +29,8 @@ public class GraphFrame extends javax.swing.JFrame {
                 displayAgentLabelButton.getState(), 
                 displayActivityLabelButton.getState(), 
                 displayEntityLabelButton.getState(), 
-                displayTimeLabel.getState());       
+                displayTimeLabel.getState(), 
+                displayID.getState());       
     }
 
     /** This method is called from within the constructor to
@@ -82,6 +83,7 @@ public class GraphFrame extends javax.swing.JFrame {
         displayActivityLabelButton = new javax.swing.JCheckBoxMenuItem();
         displayEntityLabelButton = new javax.swing.JCheckBoxMenuItem();
         displayTimeLabel = new javax.swing.JCheckBoxMenuItem();
+        displayID = new javax.swing.JCheckBoxMenuItem();
         jMenu2 = new javax.swing.JMenu();
         mergeGraphButtom = new javax.swing.JMenuItem();
         exportGraphButton = new javax.swing.JMenuItem();
@@ -205,7 +207,7 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         EdgeTypes.setViewportView(FilterList);
 
-        Layouts.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CircleLayout", "FRLayout", "FRLayout2", "TemporalLayout", "SpatialLayout", "ISOMLayout", "KKLayout" }));
+        Layouts.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CircleLayout", "FRLayout", "FRLayout2", "TemporalLayout", "SpatialLayout", "ISOMLayout", "KKLayout", "SpringLayout" }));
         Layouts.setToolTipText("Change the graph layout");
         Layouts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -321,11 +323,11 @@ public class GraphFrame extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ToolMenuLayout.createSequentialGroup()
                         .addComponent(FilterVertexMinValue, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(FilterVertexMaxValue, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))
+                        .addComponent(FilterVertexMaxValue))
                     .addComponent(StatusFilterBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(AttributeStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(TemporalFilterToggle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(EdgeStyle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(GraphLayout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -340,48 +342,50 @@ public class GraphFrame extends javax.swing.JFrame {
         ToolMenuLayout.setVerticalGroup(
             ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ToolMenuLayout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(InitPrologButton)
-                    .addComponent(CollapseAgent)
-                    .addComponent(ShowEdgeTextButton)
-                    .addComponent(DisplayEdges)
-                    .addComponent(AttributeStatus))
-                .addGap(2, 2, 2)
-                .addComponent(EdgeTypes, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(ToolMenuLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(FilterNodeAgentButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FilterEdgeAgentButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FilterNodeEntityButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FilterNodeLonelyButton))
-            .addGroup(ToolMenuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(MouseModes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MouseModeLabel))
-                .addGap(3, 3, 3)
-                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Collapse)
-                    .addComponent(PrologGenerateFacts)
-                    .addComponent(StatusFilterBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Layouts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(GraphLayout))
-                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Expand)
-                    .addComponent(PrologSimilarityInference)
-                    .addComponent(EdgeLineShapeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(EdgeStyle)
-                    .addComponent(TemporalFilterToggle))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Reset)
-                    .addComponent(edgeTypeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FilterVertexMinValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FilterVertexMaxValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ToolMenuLayout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(InitPrologButton)
+                            .addComponent(CollapseAgent)
+                            .addComponent(ShowEdgeTextButton)
+                            .addComponent(DisplayEdges)
+                            .addComponent(AttributeStatus))
+                        .addGap(2, 2, 2)
+                        .addComponent(EdgeTypes, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(ToolMenuLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(FilterNodeAgentButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(FilterEdgeAgentButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(FilterNodeEntityButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(FilterNodeLonelyButton))
+                    .addGroup(ToolMenuLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(MouseModes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(MouseModeLabel))
+                        .addGap(3, 3, 3)
+                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Collapse)
+                            .addComponent(PrologGenerateFacts)
+                            .addComponent(StatusFilterBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Layouts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(GraphLayout))
+                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Expand)
+                            .addComponent(PrologSimilarityInference)
+                            .addComponent(EdgeLineShapeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(EdgeStyle)
+                            .addComponent(TemporalFilterToggle))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Reset)
+                            .addComponent(edgeTypeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(FilterVertexMinValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(FilterVertexMaxValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -464,6 +468,14 @@ public class GraphFrame extends javax.swing.JFrame {
             }
         });
         jMenu1.add(displayTimeLabel);
+
+        displayID.setText("Display ID");
+        displayID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                displayIDActionPerformed(evt);
+            }
+        });
+        jMenu1.add(displayID);
 
         MenuBar.add(jMenu1);
 
@@ -712,22 +724,22 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private void displayEntityLabelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayEntityLabelButtonActionPerformed
         // TODO add your handling code here:
-        GuiButtons.VertexLabel(variables, displayAgentLabelButton.getState(), displayActivityLabelButton.getState(), displayEntityLabelButton.getState(), displayTimeLabel.getState());
+        GuiButtons.VertexLabel(variables, displayAgentLabelButton.getState(), displayActivityLabelButton.getState(), displayEntityLabelButton.getState(), displayTimeLabel.getState(), displayID.getState());
     }//GEN-LAST:event_displayEntityLabelButtonActionPerformed
 
     private void displayActivityLabelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayActivityLabelButtonActionPerformed
         // TODO add your handling code here:
-        GuiButtons.VertexLabel(variables, displayAgentLabelButton.getState(), displayActivityLabelButton.getState(), displayEntityLabelButton.getState(), displayTimeLabel.getState());
+        GuiButtons.VertexLabel(variables, displayAgentLabelButton.getState(), displayActivityLabelButton.getState(), displayEntityLabelButton.getState(), displayTimeLabel.getState(), displayID.getState());
     }//GEN-LAST:event_displayActivityLabelButtonActionPerformed
 
     private void displayAgentLabelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayAgentLabelButtonActionPerformed
         // TODO add your handling code here:
-        GuiButtons.VertexLabel(variables, displayAgentLabelButton.getState(), displayActivityLabelButton.getState(), displayEntityLabelButton.getState(), displayTimeLabel.getState());
+        GuiButtons.VertexLabel(variables, displayAgentLabelButton.getState(), displayActivityLabelButton.getState(), displayEntityLabelButton.getState(), displayTimeLabel.getState(), displayID.getState());
     }//GEN-LAST:event_displayAgentLabelButtonActionPerformed
 
     private void displayTimeLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayTimeLabelActionPerformed
         // TODO add your handling code here:
-        GuiButtons.VertexLabel(variables, displayAgentLabelButton.getState(), displayActivityLabelButton.getState(), displayEntityLabelButton.getState(), displayTimeLabel.getState());
+        GuiButtons.VertexLabel(variables, displayAgentLabelButton.getState(), displayActivityLabelButton.getState(), displayEntityLabelButton.getState(), displayTimeLabel.getState(), displayID.getState());
     }//GEN-LAST:event_displayTimeLabelActionPerformed
 
     private void FilterNodeEntityButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterNodeEntityButtonActionPerformed
@@ -794,6 +806,11 @@ public class GraphFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         GuiButtons.removeOutliersDerivateScheme(variables, removeOutliersButton.getState());
     }//GEN-LAST:event_removeOutliersButtonActionPerformed
+
+    private void displayIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayIDActionPerformed
+        // TODO add your handling code here:
+        GuiButtons.VertexLabel(variables, displayAgentLabelButton.getState(), displayActivityLabelButton.getState(), displayEntityLabelButton.getState(), displayTimeLabel.getState(), displayID.getState());
+    }//GEN-LAST:event_displayIDActionPerformed
    
     /**
      * Main
@@ -867,6 +884,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem displayActivityLabelButton;
     private javax.swing.JCheckBoxMenuItem displayAgentLabelButton;
     private javax.swing.JCheckBoxMenuItem displayEntityLabelButton;
+    private javax.swing.JCheckBoxMenuItem displayID;
     private javax.swing.JCheckBoxMenuItem displayTimeLabel;
     private javax.swing.JCheckBoxMenuItem doDerivateButton;
     public javax.swing.JTextField edgeTypeField;

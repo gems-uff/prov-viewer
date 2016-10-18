@@ -70,16 +70,16 @@ public class SimilarityThread implements Runnable{
      * @param verifyWithinCluster defines if the algorithm will compare with the actual neighbor or with everyone already in the cluster in order to decide if the new element will join
      * @param minSize is a configuration value for the similarity algorithm
      * @param thresholdIncrease is a configuration value for the similarity algorithm
-     * @param qnt is a configuration value for the similarity algorithm
+     * @param base_error_std is a configuration value for the similarity algorithm
      * @return the duration it took to find the clusters
      * @throws IOException 
      */
     public long SimilarityCollapse(DirectedGraph<Object, Edge> noiseGraph, boolean updateError, 
             boolean verifyWithinCluster,
-            int minSize, int thresholdIncrease, int qnt) throws IOException {
+            int minSize, int thresholdIncrease, int base_error_std) throws IOException {
         
         GraphMatching combiner = configureSimilarityMatcher(noiseGraph);
-        AutomaticInference infer = new AutomaticInference(combiner, noiseGraph, minSize, thresholdIncrease, qnt);
+        AutomaticInference infer = new AutomaticInference(combiner, noiseGraph, minSize, thresholdIncrease, base_error_std);
         
         // Measure time
         long startTime = System.nanoTime();

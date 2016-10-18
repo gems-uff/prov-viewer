@@ -96,6 +96,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="displayTimeLabelActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="displayID">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Display ID"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="displayIDActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu2">
@@ -296,13 +304,13 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="FilterVertexMinValue" min="-2" pref="48" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="FilterVertexMaxValue" pref="50" max="32767" attributes="0"/>
+                          <Component id="FilterVertexMaxValue" max="32767" attributes="0"/>
                       </Group>
                       <Component id="StatusFilterBox" alignment="0" max="32767" attributes="0"/>
                       <Component id="AttributeStatus" max="32767" attributes="0"/>
                       <Component id="TemporalFilterToggle" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="7" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="EdgeStyle" max="32767" attributes="0"/>
                       <Component id="GraphLayout" alignment="0" max="32767" attributes="0"/>
@@ -321,54 +329,58 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="InitPrologButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="CollapseAgent" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="ShowEdgeTextButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="DisplayEdges" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="AttributeStatus" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                  <Component id="EdgeTypes" min="-2" pref="92" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="FilterNodeAgentButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="FilterEdgeAgentButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="FilterNodeEntityButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="FilterNodeLonelyButton" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="MouseModes" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="MouseModeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="Collapse" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="PrologGenerateFacts" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="StatusFilterBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="Layouts" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="GraphLayout" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="Expand" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="PrologSimilarityInference" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="EdgeLineShapeSelection" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="EdgeStyle" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="TemporalFilterToggle" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="Reset" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="edgeTypeField" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="FilterVertexMinValue" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="FilterVertexMaxValue" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="InitPrologButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="CollapseAgent" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="ShowEdgeTextButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="DisplayEdges" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="AttributeStatus" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="EdgeTypes" min="-2" pref="92" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="FilterNodeAgentButton" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="FilterEdgeAgentButton" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="FilterNodeEntityButton" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="FilterNodeLonelyButton" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="MouseModes" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="MouseModeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="Collapse" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="PrologGenerateFacts" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="StatusFilterBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Layouts" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="GraphLayout" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="Expand" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="PrologSimilarityInference" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="EdgeLineShapeSelection" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="EdgeStyle" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="TemporalFilterToggle" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="Reset" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="edgeTypeField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="FilterVertexMinValue" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="FilterVertexMaxValue" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -547,7 +559,7 @@
         <Component class="javax.swing.JComboBox" name="Layouts">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="7">
+              <StringArray count="8">
                 <StringItem index="0" value="CircleLayout"/>
                 <StringItem index="1" value="FRLayout"/>
                 <StringItem index="2" value="FRLayout2"/>
@@ -555,6 +567,7 @@
                 <StringItem index="4" value="SpatialLayout"/>
                 <StringItem index="5" value="ISOMLayout"/>
                 <StringItem index="6" value="KKLayout"/>
+                <StringItem index="7" value="SpringLayout"/>
               </StringArray>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Change the graph layout"/>
