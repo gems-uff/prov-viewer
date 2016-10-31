@@ -11,6 +11,7 @@ import br.uff.ic.utility.graph.Vertex;
 import br.uff.ic.utility.graphgenerator.NoiseGraph;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
+import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -33,7 +34,33 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * @author Kohwalter
  */
 public class Utils {
+    
+    Color[] colors = new Color[17];
+    
+    public static Color getColor(int i) {
+        int size = 17;
+        int index = i % size;
+        Color[] colors = new Color[size];
+        colors[0] = new Color(0, 0, 0); // Black
+        colors[1] = new Color(255, 0, 0); // Red
+        colors[2] = new Color(0, 255, 0); // Lime/Green
+        colors[3] = new Color(0, 0, 255); // Blue
+        colors[4] = new Color(255, 255, 0); // Yellow
+        colors[5] = new Color(0, 255, 255); // Cyan/Aqua
+        colors[6] = new Color(255, 0, 255); // Magenta
+        colors[7] = new Color(128, 128, 128); // Gray
+        colors[8] = new Color(128, 0, 0); // Brown
+        colors[9] = new Color(128, 128, 0); // olive
+        colors[10] = new Color(0, 128, 0); // Green
+        colors[11] = new Color(128, 0, 128); // Purple
+        colors[12] = new Color(0, 128, 128); // Teal
+        colors[13] = new Color(0, 0, 128); // Navy
+        colors[14] = new Color(255, 128, 128); // Pink
+        colors[15] = new Color(255, 128, 0); // Orange
+        colors[16] = new Color(192, 192, 192); // Silver
 
+        return colors[index];
+    }
     /**
      * Method to export the graph in an xml format
      * @param graph is the desired graph to be exported 
@@ -223,7 +250,7 @@ public class Utils {
      * @return true if it is possible to convert to Date
      */
     public static boolean tryParseDate(String value) {
-        System.out.println("tryParseDate: " + value);
+//        System.out.println("tryParseDate: " + value);
         if(value.isEmpty())
             return false;
         else if(value == null)
