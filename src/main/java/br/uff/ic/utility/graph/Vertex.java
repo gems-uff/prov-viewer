@@ -166,6 +166,10 @@ public abstract class Vertex extends GraphObject {
         {
             return getLabel();
         }
+        if(attribute.equalsIgnoreCase("Time"))
+        {
+            return String.valueOf(getTime());
+        }
         GraphAttribute aux = attributes.get(attribute);
         if(aux != null) {
             return aux.getAverageValue();
