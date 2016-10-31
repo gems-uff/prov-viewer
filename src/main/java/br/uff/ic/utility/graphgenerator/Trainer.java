@@ -40,6 +40,7 @@ public class Trainer {
     }
     
     public float trainSimilarity(boolean updateError, boolean withinCluster, OracleGraph oracleGraph, 
+            int ITERATIONS,
             int NUMBER_OF_ORACLE_GRAPHS, 
             int NUMBER_OF_NOISE_GRAPHS,
             float INITIAL_NOISE_GRAPH_SIZE, 
@@ -71,7 +72,7 @@ public class Trainer {
 //                for (int itsize = 0; itsize < 4; itsize++) {
 //                    System.out.println("Training size: " + itsize);
                     noiseFactor = INITIAL_NOISE_GRAPH_SIZE;
-                    for(int iteration = 0; iteration < 5; iteration++) {
+                    for(int iteration = 0; iteration < ITERATIONS; iteration++) {
 //                        System.out.println("iteration: " + iteration);
                         for(int oraclegraph = 0; oraclegraph < NUMBER_OF_ORACLE_GRAPHS; oraclegraph++) {
                             DirectedGraph<Object, Edge> oracle = eval.oracleGraph.createOracleGraph(typeGraph);
@@ -124,7 +125,9 @@ public class Trainer {
     }
     
     public float trainDBSCAN(OracleGraph oracleGraph, 
-            int NUMBER_OF_ORACLE_GRAPHS, 
+            int ITERATIONS,
+            int NUMBER_OF_ORACLE_GRAPHS,
+            int NUMBER_OF_NOISE_GRAPHS,
             float INITIAL_NOISE_GRAPH_SIZE, 
             float NOISE_INCREASE_NUMBER,
             String typeGraph) throws IOException {
@@ -144,20 +147,20 @@ public class Trainer {
         int best = 0;
         System.out.println("Training");
         for (int w = initialValue; w < 100; w++) {
-            System.out.println("Training run: " + w);
+//            System.out.println("Training run: " + w);
             noiseFactor = INITIAL_NOISE_GRAPH_SIZE * 4;
             eval.clearLists(p, r, f, c);
             eval.clearLists(p2, r2, f2, c2);
             current = 0;
             best = 0;
             current_eps += 4;
-            for(int i = 0; i < NUMBER_OF_ORACLE_GRAPHS * 0.2; i++) {
+            for(int i = 0; i < ITERATIONS; i++) {
                 // Iterations of the same graph size
-                for(int iterations = 0; iterations < 3; iterations++) {
+                for(int iterations = 0; iterations < NUMBER_OF_ORACLE_GRAPHS; iterations++) {
                     // Make oracle graph
                     DirectedGraph<Object, Edge> oracle = eval.oracleGraph.createOracleGraph(typeGraph);
 
-                    for (int noise = 0; noise < NUMBER_OF_ORACLE_GRAPHS * 0.2; noise++) {
+                    for (int noise = 0; noise < NUMBER_OF_NOISE_GRAPHS * 0.2; noise++) {
                         // Make noise graphs
                         NoiseGraph instance = new NoiseGraph(oracle, oracleGraph.attribute, isMonotonic);
                         DirectedGraph<Object, Edge> noiseGraph = instance.generateNoiseGraph(noiseFactor, noiseProbability, "" + noise + i);
@@ -183,8 +186,8 @@ public class Trainer {
             if(current > (best * 1.25)) {
                 if(Utils.mean(Utils.listToFloatArray(f)) > Utils.mean(Utils.listToFloatArray(f2))) {
                     best_eps = current_eps;
-                    System.out.println("Best F-measure: " + Utils.mean(Utils.listToFloatArray(f2)));
-                    System.out.println("Old F-measure: " + Utils.mean(Utils.listToFloatArray(f)));
+//                    System.out.println("Best F-measure: " + Utils.mean(Utils.listToFloatArray(f2)));
+//                    System.out.println("Old F-measure: " + Utils.mean(Utils.listToFloatArray(f)));
                 }
             }
             
