@@ -10,8 +10,6 @@ import br.uff.ic.provviewer.Layout.Temporal_Layout;
 import br.uff.ic.provviewer.Stroke.EdgeStroke;
 import br.uff.ic.provviewer.Stroke.VertexStroke;
 import br.uff.ic.provviewer.Variables;
-import br.uff.ic.provviewer.Vertex.ColorScheme.ActivityScheme;
-import br.uff.ic.provviewer.Vertex.ColorScheme.ColorScheme;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.provviewer.Vertex.ColorScheme.VertexPainter;
 import br.uff.ic.utility.graph.EntityVertex;
@@ -72,12 +70,14 @@ public class GuiFunctions {
         Transformer<Object, Paint> drawPaint = new Transformer<Object, Paint>() {
             @Override
             public Paint transform(Object v) {
-
-                float value = ((Vertex) v).getAttributeValueFloat("Cluster");
-                if( value != value)
-                    return new Color(0, 0, 0);
-                else
-                    return Utils.getColor((int) ((Vertex) v).getAttributeValueFloat("Cluster"));
+                if(v instanceof Vertex) {
+                    float value = ((Vertex) v).getAttributeValueFloat("Cluster");
+                    if( value != value)
+                        return new Color(0, 0, 0);
+                    else
+                        return Utils.getColor((int) ((Vertex) v).getAttributeValueFloat("Cluster"));
+                }
+                return Color.BLACK;
             }
         };
         variables.view.getRenderContext().setVertexDrawPaintTransformer(drawPaint);
@@ -101,6 +101,7 @@ public class GuiFunctions {
      * @param activityLabel interface check-box state activity label
      * @param entityLabel interface check-box state for entity label
      * @param timeLabel interface check-box state for time label
+     * @param showID interface check-box state for ID label
      */
     public static void VertexLabel(final Variables variables, final boolean agentLabel, final boolean activityLabel, final boolean entityLabel, final boolean timeLabel, final boolean showID) {
         variables.view.getRenderContext().setVertexLabelTransformer(new Transformer<Object, String>() {
@@ -240,7 +241,7 @@ public class GuiFunctions {
         if (variables.initLayout) {
             variables.config.Initialize(variables);
             variables.layout = new Temporal_Layout<>(variables.graph, variables);
-            variables.view = new VisualizationViewer<Object, Edge>(variables.layout);
+            variables.view = new VisualizationViewer<>(variables.layout);
             Layouts.setSelectedItem(variables.config.defaultLayout);
             variables.initLayout = false;
         }

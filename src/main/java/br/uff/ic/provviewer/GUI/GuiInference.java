@@ -13,6 +13,8 @@ import br.uff.ic.provviewer.Inference.AutomaticInference;
 import br.uff.ic.provviewer.Inference.PrologInference;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.AttributeErrorMargin;
+import br.uff.ic.utility.Dbscan;
+import br.uff.ic.utility.GraphAttribute;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
@@ -81,7 +83,7 @@ public class GuiInference {
      * @param variables
      * @param edgeType is the type of edge used for the collapse
      */
-    public static void SimilarityCollapse(boolean InitPrologButton, PrologInference prolog, Variables variables, String edgeType) {
+    public static void SimilarityCollapse(boolean InitPrologButton, PrologInference prolog, Variables variables, String edgeType, boolean updateError, boolean verifyWithinCluster) {
         if (InitPrologButton) {
             System.out.println("Starting Prolog Inference: " + edgeType);
             GuiButtons.Reset(variables);
@@ -92,10 +94,22 @@ public class GuiInference {
             System.out.println("Finished Collapsing");
         } else {
             GuiButtons.Reset(variables);
-            ArrayList<ConcurrentHashMap<String, Object>> list = ColorSchemeCollapse((String) StatusFilterBox.getSelectedItem(), variables.graph, false, true);
+            System.out.println("updateError: " + updateError);
+            System.out.println("verifyWithinCluster: " + verifyWithinCluster);
+            ArrayList<ConcurrentHashMap<String, Object>> list = ColorSchemeCollapse((String) StatusFilterBox.getSelectedItem(), variables.graph, updateError, verifyWithinCluster);
+            MarkClusters(list, variables);
             variables.collapser.CollapseIrrelevant(variables, printCollapseGroups(list));
             System.out.println("Finished Collapsing");
         }
+    }
+    
+    public static void DBSCANCollapse(Variables variables) {
+        GuiButtons.Reset(variables);
+        ArrayList<ConcurrentHashMap<String, Object>> list = DBSCAN((String) StatusFilterBox.getSelectedItem(), variables.graph);
+        MarkClusters(list, variables);
+        variables.collapser.CollapseIrrelevant(variables, printCollapseGroups(list));
+        System.out.println("Finished Collapsing");
+        
     }
     
     public static String printCollapseGroups(ArrayList<ConcurrentHashMap<String, Object>> collapseGroups) {
@@ -130,20 +144,63 @@ public class GuiInference {
         restrictionList.put(attribute, epsilon);
         GraphMatching combiner = new GraphMatching(restrictionList, similarityThreshold, defaultError, 0);
 
-        // -----------------------------
-        // Return Collapse Clusters
-        // -----------------------------
-//        long startTime = System.currentTimeMillis();
-//        System.out.println(": L = " + collapseList);
-        AutomaticInference infer = new AutomaticInference(combiner, graph, 7, 4, 4);
-        ArrayList<ConcurrentHashMap<String, Object>> clusters =  infer.applySimilarity(updateError, verifyWithinCluster);
-//        Dbscan dbscan = new Dbscan(graph, attribute, std, 1);
-//        ArrayList<ConcurrentHashMap<String, Object>> clusters = dbscan.applyDbscan();
+        AutomaticInference infer;
+        int TF_size;
+        int TF_increase;
+        int TF_qnt;
+        int TT_size;
+        int TT_increase;
+        int TT_qnt;
+        int FT_size;
+        int FT_increase;
+        int FT_qnt;
         
-//        long stopTime = System.currentTimeMillis();
-//        long elapsedTime = stopTime - startTime;
-//        System.out.println("elapsedTime: " + elapsedTime);
+        TF_size = 5;
+        TF_increase = 9;
+        TF_qnt = 6;
+        TT_size = 5;
+        TT_increase = 9;
+        TT_qnt = 5;
+        FT_size = 5;
+        FT_increase = 10;
+        FT_qnt = 5;
+        
+        if(updateError) {
+            if(verifyWithinCluster) { // True True
+                infer = new AutomaticInference(combiner, graph, TT_size, TT_increase, TT_qnt);
+            }
+            else { // True False
+                infer = new AutomaticInference(combiner, graph, TF_size, TF_increase, TF_qnt);
+            }
+        }
+        else {
+            if(verifyWithinCluster) { // False True
+                infer = new AutomaticInference(combiner, graph, FT_size, FT_increase, FT_qnt);
+            }
+            else { // False False
+                infer = new AutomaticInference(combiner, graph, 1, 1, 1);
+            }
+        }
+//        infer = new AutomaticInference(combiner, graph, 7, 4, 4);
+        ArrayList<ConcurrentHashMap<String, Object>> clusters =  infer.applySimilarity(updateError, verifyWithinCluster);
         return clusters;
     }
-
+    
+    public static ArrayList<ConcurrentHashMap<String, Object>> DBSCAN (String attribute, DirectedGraph<Object, Edge> graph) {
+        float epsilon = 364;
+        Dbscan dbscan = new Dbscan(graph, attribute, epsilon, 1);
+        ArrayList<ConcurrentHashMap<String, Object>> clusters = dbscan.applyDbscan();
+        return clusters; 
+    }
+    
+    private static void MarkClusters(ArrayList<ConcurrentHashMap<String, Object>> clusters, Variables variables) {
+        int i = 0;
+        for(ConcurrentHashMap<String, Object> c : clusters) {
+            for(Object v : c.values()) {
+                GraphAttribute att = new GraphAttribute("Cluster", i + "");
+                ((Vertex)v).addAttribute(att);
+            }
+            i++;
+        }
+    }
 }
