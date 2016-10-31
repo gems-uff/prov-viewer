@@ -28,7 +28,7 @@ public class VertexStroke {
      */
     public static Stroke VertexStroke(Object v, float[] dash, VisualizationViewer<Object, Edge> view, Layout<Object, Edge> layout) {
         PickedState<Object> picked_state = view.getPickedVertexState();
-        if (picked_state.isPicked(v.toString())) {
+        if (picked_state.isPicked(v)) {
             return new BasicStroke(7.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
         } else {
             for (Object w : layout.getGraph().getNeighbors(v)) {
