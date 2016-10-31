@@ -10,11 +10,14 @@ import br.uff.ic.provviewer.Layout.Temporal_Layout;
 import br.uff.ic.provviewer.Stroke.EdgeStroke;
 import br.uff.ic.provviewer.Stroke.VertexStroke;
 import br.uff.ic.provviewer.Variables;
+import br.uff.ic.provviewer.Vertex.ColorScheme.ActivityScheme;
+import br.uff.ic.provviewer.Vertex.ColorScheme.ColorScheme;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.provviewer.Vertex.ColorScheme.VertexPainter;
 import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
 import br.uff.ic.provviewer.Vertex.VertexShape;
+import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.ActivityVertex;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.Layer;
@@ -63,6 +66,22 @@ public class GuiFunctions {
             }
         };
         variables.view.getRenderContext().setVertexStrokeTransformer(nodeStrokeTransformer);
+        
+                
+        // Change Stroke color
+        Transformer<Object, Paint> drawPaint = new Transformer<Object, Paint>() {
+            @Override
+            public Paint transform(Object v) {
+
+                float value = ((Vertex) v).getAttributeValueFloat("Cluster");
+                if( value != value)
+                    return new Color(0, 0, 0);
+                else
+                    return Utils.getColor((int) ((Vertex) v).getAttributeValueFloat("Cluster"));
+            }
+        };
+        variables.view.getRenderContext().setVertexDrawPaintTransformer(drawPaint);
+        
         
         // Edge Stroke
         variables.ComputeEdgeTypeValues();
