@@ -205,6 +205,7 @@ public class OracleGraph {
         Vertex v3 = new ActivityVertex("v3_ORACLE", "v3_ORACLE", "2");
         Vertex v4 = new ActivityVertex("v4_ORACLE", "v4_ORACLE", "3");
         Vertex v5 = new ActivityVertex("v5_ORACLE", "v5_ORACLE", "4");
+//        Vertex v6 = new ActivityVertex("v6_ORACLE", "v6_ORACLE", "5");
         
         generateOracleValues(v1);
         generateOracleValues(v2);
@@ -212,11 +213,13 @@ public class OracleGraph {
         generateOracleValues(v4);
         generateOracleValues(v5);
         
+//        Edge e6 = new Edge("E5", "", "", "", v6, v1);
         Edge e1 = new Edge("E1", "", "", "", v1, v2);
         Edge e2 = new Edge("E2", "", "", "", v1, v3);
         Edge e3 = new Edge("E3", "", "", "", v2, v4);
         Edge e4 = new Edge("E4", "", "", "", v3, v4);
         Edge e5 = new Edge("E5", "", "", "", v4, v5);
+        
         
         DirectedGraph<Object, Edge> templateGraph = new DirectedSparseMultigraph<>();
         templateGraph.addEdge(e1, e1.getSource(), e1.getTarget());
@@ -224,6 +227,7 @@ public class OracleGraph {
         templateGraph.addEdge(e3, e3.getSource(), e3.getTarget());
         templateGraph.addEdge(e4, e4.getSource(), e4.getTarget());
         templateGraph.addEdge(e5, e5.getSource(), e5.getTarget());
+//        templateGraph.addEdge(e6, e6.getSource(), e6.getTarget());
         
         oracleGraphNumber++;
         return templateGraph;
