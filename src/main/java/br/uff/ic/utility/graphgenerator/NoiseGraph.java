@@ -11,8 +11,6 @@ import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
-import java.io.File;
-import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.Random;
 
@@ -101,6 +99,8 @@ public class NoiseGraph {
         value = (float) (mean + sigma * rng.nextGaussian());
         if(value != value) {
             System.out.println("randomNoiseValue NaN!");
+            System.out.println("Mean: " + mean);
+            System.out.println("Sigma: " + sigma);
         }
         return value;
     }
@@ -111,13 +111,13 @@ public class NoiseGraph {
         float source = ((Vertex)edge.getSource()).getAttributeValueFloat(attribute);
         float target = ((Vertex)edge.getTarget()).getAttributeValueFloat(attribute);
         value = (float) (Math.min(source, target) + (Math.random() * ((Math.max(source, target) - Math.min(source, target)) + 1)));
-        if(value != value) {
-            System.out.println("createMonotonicNoise NaN!");
-            System.out.println("createMonotonicNoise source: " + source);
-            System.out.println("createMonotonicNoise target: " + target);
-            System.out.println("createMonotonicNoise Edge source: " + ((Vertex)edge.getSource()).getID() + " (" + attribute + ") " + ((Vertex)edge.getSource()).getAttributeValue(attribute));
-            System.out.println("createMonotonicNoise Edge target: " + ((Vertex)edge.getTarget()).getID() + " (" + attribute + ") " + ((Vertex)edge.getTarget()).getAttributeValue(attribute));
-        }
+//        if(value != value) {
+//            System.out.println("createMonotonicNoise NaN!");
+//            System.out.println("createMonotonicNoise source: " + source);
+//            System.out.println("createMonotonicNoise target: " + target);
+//            System.out.println("createMonotonicNoise Edge source: " + ((Vertex)edge.getSource()).getID() + " (" + attribute + ") " + ((Vertex)edge.getSource()).getAttributeValue(attribute));
+//            System.out.println("createMonotonicNoise Edge target: " + ((Vertex)edge.getTarget()).getID() + " (" + attribute + ") " + ((Vertex)edge.getTarget()).getAttributeValue(attribute));
+//        }
         return newNoiseVertex(value, ((Vertex)edge.getSource()).getTimeString());
     }
     
@@ -133,8 +133,8 @@ public class NoiseGraph {
         
         Vertex noise = new ActivityVertex(id, id, date);
         GraphAttribute att = new GraphAttribute(attribute, String.valueOf(noiseValue));
-        if(noiseValue != noiseValue)
-            System.out.println("noiseValue NaN!");
+//        if(noiseValue != noiseValue)
+//            System.out.println("noiseValue NaN!");
         noise.addAttribute(att);
         
         return noise;
