@@ -38,26 +38,28 @@ public class Utils {
     Color[] colors = new Color[17];
     
     public static Color getColor(int i) {
-        int size = 17;
+        int size = 15;
         int index = i % size;
         Color[] colors = new Color[size];
         colors[0] = new Color(0, 0, 0); // Black
-        colors[1] = new Color(255, 0, 0); // Red
-        colors[2] = new Color(0, 255, 0); // Lime/Green
-        colors[3] = new Color(0, 0, 255); // Blue
-        colors[4] = new Color(255, 255, 0); // Yellow
-        colors[5] = new Color(0, 255, 255); // Cyan/Aqua
-        colors[6] = new Color(255, 0, 255); // Magenta
-        colors[7] = new Color(128, 128, 128); // Gray
-        colors[8] = new Color(128, 0, 0); // Brown
-        colors[9] = new Color(128, 128, 0); // olive
-        colors[10] = new Color(0, 128, 0); // Green
-        colors[11] = new Color(128, 0, 128); // Purple
-        colors[12] = new Color(0, 128, 128); // Teal
-        colors[13] = new Color(0, 0, 128); // Navy
-        colors[14] = new Color(255, 128, 128); // Pink
-        colors[15] = new Color(255, 128, 0); // Orange
-        colors[16] = new Color(192, 192, 192); // Silver
+//        colors[1] = new Color(255, 0, 0); // Red
+//        colors[2] = new Color(0, 255, 0); // Lime/Green
+        colors[1] = new Color(0, 0, 255); // Blue
+        colors[2] = new Color(255, 255, 0); // Yellow
+        colors[3] = new Color(0, 255, 255); // Cyan/Aqua
+        colors[4] = new Color(255, 0, 255); // Magenta
+        colors[5] = new Color(128, 128, 128); // Gray
+        colors[6] = new Color(128, 0, 0); // Brown
+        colors[7] = new Color(128, 128, 0); // olive
+//        colors[10] = new Color(0, 128, 0); // Green
+        colors[8] = new Color(210,105,30); // Chocolate
+//        colors[12] = new Color(0, 128, 128); // Teal
+        colors[9] = new Color(0, 0, 128); // Navy
+        colors[10] = new Color(255, 128, 128); // Pink
+        colors[11] = new Color(255, 128, 0); // Orange
+        colors[12] = new Color(192, 192, 192); // Silver
+        colors[13] = new Color(70, 130, 180); // Steel blue
+        colors[14] = new Color(184, 134, 11); // Dark golden rod
 
         return colors[index];
     }
