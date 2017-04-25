@@ -50,7 +50,7 @@ public class Variables extends Object {
 //    public String configDemo = File.separator + "Config" + File.separator + "PROV_config.xml";
     
 //    public static String demo = File.separator + "Graph" + File.separator + "2D_Provenance.xml";
-//    public String configDemo = File.separator + "Config" + File.separator + "2D_Provenance_config.xml";
+//    public String configDemo = File.separator + "Config" + File.separator + "2D_Tower_Defense_config.xml";
 
 //    public static String demo = File.separator + "Graph" + File.separator + "map.xml";
 //    public static String demo = File.separator + "Graph" + File.separator + "graph_features_example.xml";
@@ -93,7 +93,7 @@ public class Variables extends Object {
     public boolean doDerivate = false;
     public boolean removeDerivateOutliers = false;
     public boolean changedOutliersOption = false;
-
+    
     /**
      * Return the max value between 2 values
      *
@@ -183,10 +183,10 @@ public class Variables extends Object {
         Collection<Edge> edges = this.graph.getEdges();
         for (Edge edge : edges) {
             for (int i = 0; i < this.config.edgetype.size(); i++) {
-                GraphFrame.FilterList.setSelectedIndex(i);
-                this.config.edgetype.set(i, ComputeValue(this.config.edgetype.get(i), GraphFrame.FilterList.getSelectedValue().toString(), edge, this.config.edgetype.get(i).stroke));
+                GraphFrame.edgeFilterList.setSelectedIndex(i);
+                this.config.edgetype.set(i, ComputeValue(this.config.edgetype.get(i), GraphFrame.edgeFilterList.getSelectedValue().toString(), edge, this.config.edgetype.get(i).stroke));
             }
         }
-        GraphFrame.FilterList.setSelectedIndex(0);
+        GraphFrame.edgeFilterList.setSelectedIndex(0);
     }
 }
