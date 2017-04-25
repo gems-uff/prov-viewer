@@ -18,6 +18,7 @@
 package br.uff.ic.utility.graphgenerator;
 
 import br.uff.ic.utility.Dbscan;
+import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.Edge;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import java.io.IOException;
@@ -56,7 +57,8 @@ public class DbscanThread implements Runnable{
      */
     public long dbscan(DirectedGraph<Object, Edge> noiseGraph, float epsMod) throws IOException {
         
-        float eps = epsMod;
+        float eps = epsMod; 
+        eps = Utils.std(noiseGraph.getVertices(), oracleGraph.attribute) * epsMod;
         Dbscan instance = new Dbscan(noiseGraph, oracleGraph.attribute, eps, 1);
         long startTime = System.nanoTime();
         clusters.addAll(instance.applyDbscan());
