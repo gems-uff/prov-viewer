@@ -26,6 +26,7 @@ public class Edge extends GraphObject {
     private boolean hide;
     //used to say this edge is a temporary one
     private boolean collapsed;
+    private Color defaultColor = new Color(0, 255, 255);
 
     /**
      * Constructor
@@ -295,7 +296,7 @@ public class Edge extends GraphObject {
 //        }     
         // Return blue if neutral edge (value = 0)
         if (v == 0) {
-            return new Color(0, 0, 0);
+            return defaultColor;
         } else {
             int j = 0;
             for (int i = 0; i < variables.config.edgetype.size(); i++) {
