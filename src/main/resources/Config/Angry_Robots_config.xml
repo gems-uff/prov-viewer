@@ -80,13 +80,6 @@ and open the template in the editor.
         <restrictedValue>Player</restrictedValue>
     </colorscheme>
     <colorscheme>
-        <attribute>Score</attribute>
-        <class>ActivityScheme</class>
-        <values></values>
-        <goodvalue></goodvalue>
-        <badvalue></badvalue>
-    </colorscheme>
-    <colorscheme>
         <attribute>Graph_01</attribute>
         <class>GraphVisualizationScheme</class>
         <values></values>

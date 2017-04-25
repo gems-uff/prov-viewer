@@ -9,6 +9,7 @@ and open the template in the editor.
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
     xsi:noNamespaceSchemaLocation='config.xsd'>
     <default_layout>ISOMLayout</default_layout>
+    <vertexSize>15</vertexSize>
     <layoutAxis_X>ObjectPosition_X</layoutAxis_X>
     <layoutAxis_Y>ObjectPosition_Y</layoutAxis_Y>
     <imageLocation></imageLocation>
@@ -68,10 +69,20 @@ and open the template in the editor.
         <goodvalue></goodvalue>
         <badvalue></badvalue>
     </colorscheme>
-	<vertexstroke>
+	<colorscheme>
+        <attribute>Cluster</attribute>
+        <class>ActivityScheme</class>
+		<trafficLightType>type1</trafficLightType>
+		<isInverted>false</isInverted>
+        <values></values>
+        <goodvalue></goodvalue>
+        <badvalue></badvalue>
+    </colorscheme>
+	<!-- <vertexstroke>
         <attribute>isOracle</attribute>
         <values>true</values>
     </vertexstroke>
+	-->
 	<activitycolor>
         <attribute>isOracle</attribute>
         <value>true</value>
