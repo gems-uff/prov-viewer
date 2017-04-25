@@ -93,7 +93,8 @@ public class Filters {
      * @param variables
      */
     public void AddFilters(Variables variables) {
-        GraphFrame.FilterList.setSelectionInterval(0, variables.config.edgetype.size() - 1);
+        GraphFrame.edgeFilterList.setSelectionInterval(0, variables.config.edgetype.size() - 1);
+        GraphFrame.vertexFilterList.setSelectionInterval(0, variables.config.vertexLabelFilter.size() - 1);
         Filters(variables, false);
     }
 
@@ -104,7 +105,8 @@ public class Filters {
      * @param variables
      */
     public void RemoveFilters(Variables variables) {
-        GraphFrame.FilterList.setSelectedIndex(0);
+        GraphFrame.edgeFilterList.setSelectedIndex(0);
+        GraphFrame.vertexFilterList.setSelectedIndex(0);
         GraphFrame.FilterEdgeAgentButton.setSelected(false);
         GraphFrame.FilterNodeAgentButton.setSelected(false);
         GraphFrame.FilterNodeEntityButton.setSelected(false);
@@ -168,7 +170,7 @@ public class Filters {
      * @return if the edge will be hidden
      */
     private boolean edgeTypeFilter(Edge edge) {
-        List filtersL = GraphFrame.FilterList.getSelectedValuesList();
+        List filtersL = GraphFrame.edgeFilterList.getSelectedValuesList();
         for (Object filtersL1 : filtersL) {
             String filter = (String) filtersL1;
             if (filter.equalsIgnoreCase("All Edges")) {
@@ -212,6 +214,9 @@ public class Filters {
                 if (vertexLonelyFilter(vertex)) {
                     return false;
                 }
+                if (vertexLabelFilter((Vertex) vertex)) {
+                    return false;
+                }
                 return !vertexTemporalFilter(vertex);
             }
         });
@@ -252,6 +257,20 @@ public class Filters {
             }
         }
         return false;
+    }
+    
+    private boolean vertexLabelFilter(Vertex vertex) {
+        List filtersL = GraphFrame.vertexFilterList.getSelectedValuesList();
+        for (Object filtersL1 : filtersL) {
+            String filter = (String) filtersL1;
+            if (filter.equalsIgnoreCase("All Vertices")) {
+                return false;
+            }
+            if (vertex.getLabel().contains(filter)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

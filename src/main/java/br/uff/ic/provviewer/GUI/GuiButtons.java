@@ -224,6 +224,11 @@ public class GuiButtons {
         if(selected)
             variables.config.DetectVertexModes(variables.graph.getVertices());
     }
+    
+    public static void AutoDetectVertexLabels(Variables variables, boolean selected) {
+        if(selected)
+            variables.config.DetectVertexLabels(variables.graph.getVertices());
+    }
 
     public static void VertexLabel(Variables variables, boolean agentLabel, boolean activityLabel, boolean entityLabel, boolean timeLabel, boolean showID) {
         GuiFunctions.VertexLabel(variables, agentLabel, activityLabel, entityLabel, timeLabel, showID);

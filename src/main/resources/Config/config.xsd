@@ -37,6 +37,8 @@ and open the template in the editor.
             <xs:element name="temporalLayoutscale" type="xs:string"/>
             <!-- List of all edges and their configuration values -->
             <xs:element name="edgetype" type="edgetype" minOccurs="0" maxOccurs="unbounded"/>
+            <!-- List of all vertices labels for filtering -->
+            <xs:element name="vertexlabelfilter" type="vertexlabelfilter" minOccurs="0" maxOccurs="unbounded"/>
             <!-- List of all display modes -->
             <xs:element name="colorscheme" type="colorscheme" minOccurs="0" maxOccurs="unbounded"/>
             <!-- List of all special vertices that has different stroke -->
@@ -61,6 +63,13 @@ and open the template in the editor.
             <xs:element name="collapsefunction" type="xs:string"/>
             <!-- Define if the color scheme for the edge is inverted (Inverted: Red = positive values, Green = negative values) -->
             <xs:element name="isInverted" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!-- Vertex Label Filter -->
+    <xs:complexType name="vertexlabelfilter">
+        <xs:sequence>
+            <xs:element name="vertexlabel" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
       

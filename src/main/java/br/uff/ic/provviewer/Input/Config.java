@@ -43,6 +43,7 @@ public class Config {
 
     //Filter List
     public List<EdgeType> edgetype = new ArrayList<>();
+    public List<String> vertexLabelFilter = new ArrayList<>();
 
     //Modes
     public Collection<ColorScheme> vertexModes = new ArrayList<>();
@@ -144,7 +145,7 @@ public class Config {
         }
         edgetype.addAll(newEdges.values());
         InterfaceEdgeFilters();
-        GraphFrame.FilterList.setSelectedIndex(0);
+        GraphFrame.edgeFilterList.setSelectedIndex(0);
 
     }
 
@@ -170,6 +171,18 @@ public class Config {
         vertexModes.addAll(newAttributes.values());
         InterfaceStatusFilters();
     }
+    
+    public void DetectVertexLabels(Collection<Object> vertices) {
+        Map<String, String> labelList = new HashMap<>();
+        Map<String, ColorScheme> newAttributes = new HashMap<>();
+        for (Object v : vertices) {
+            labelList.put(((Vertex) v).getLabel(), ((Vertex) v).getLabel());
+        }
+
+        vertexLabelFilter.addAll(labelList.values());
+        InterfaceVertexFilters();
+        GraphFrame.vertexFilterList.setSelectedIndex(0);
+    }
 
     /**
      * Method to configure the tool
@@ -180,6 +193,7 @@ public class Config {
     public void Initialize(File fXmlFile) {
         try {
             edgetype = new ArrayList<>();
+            vertexLabelFilter = new ArrayList<>();
             vertexModes = new ArrayList<>();
             layoutSpecialVertexType = "";
             scale = 1.0;
@@ -193,6 +207,9 @@ public class Config {
             allEdges.stroke = "MAX";
             allEdges.collapse = "SUM";
             edgetype.add(allEdges);
+            
+            String allvertices = "All Vertices";
+            vertexLabelFilter.add(allvertices);
 
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -256,6 +273,20 @@ public class Config {
                         edgetype.add(etype);
                 }
             }
+            
+            //Vertex Label Filters
+            nList = doc.getElementsByTagName("vertexlabelfilter");
+
+            for (int temp = 0; temp < nList.getLength(); temp++) {
+                Node nNode = nList.item(temp);
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element eElement = (Element) nNode;
+                    String vertexFilter = new String();
+                    vertexFilter = eElement.getElementsByTagName("vertexlabel").item(0).getTextContent();
+                    vertexLabelFilter.add(vertexFilter);
+                }
+            }
+            
             //Vertex Stroke Types
             nList = doc.getElementsByTagName("vertexstroke");
             for (int temp = 0; temp < nList.getLength(); temp++) {
@@ -373,6 +404,7 @@ public class Config {
 
         //Initialize Interface Filters
         InterfaceEdgeFilters();
+        InterfaceVertexFilters();
         InterfaceStatusFilters();
     }
 
@@ -385,7 +417,19 @@ public class Config {
         for (int x = 0; x < types.length; x++) {
             types[x] = edgetype.get(x).type;
         }
-        GraphFrame.FilterList.setListData(types);
+        GraphFrame.edgeFilterList.setListData(types);
+    }
+    
+    /**
+     * Function to update the vertex filter list in the GraphFrame interface
+     */
+    private void InterfaceVertexFilters() {
+        //Initialize Interface Filters
+        String[] types = new String[vertexLabelFilter.size()];
+        for (int x = 0; x < types.length; x++) {
+            types[x] = vertexLabelFilter.get(x);
+        }
+        GraphFrame.vertexFilterList.setListData(types);
     }
 
     /**

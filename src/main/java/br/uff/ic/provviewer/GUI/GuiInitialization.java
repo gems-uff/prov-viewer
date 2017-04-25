@@ -9,6 +9,7 @@ import br.uff.ic.provviewer.Collapser;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.Filter.Filters;
 import br.uff.ic.provviewer.Filter.PreFilters;
+import br.uff.ic.provviewer.GraphFrame;
 import br.uff.ic.provviewer.Inference.PrologInference;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.graph.Vertex;
@@ -56,6 +57,7 @@ public class GuiInitialization {
         
         ToolTipManager.sharedInstance().setInitialDelay(10);
         ToolTipManager.sharedInstance().setDismissDelay(50000);
+        GraphFrame.vertexFilterList.setSelectedIndex(0);
     }
 
     /**

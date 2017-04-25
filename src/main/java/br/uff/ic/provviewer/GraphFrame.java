@@ -59,7 +59,7 @@ public class GraphFrame extends javax.swing.JFrame {
         EdgeStyle = new javax.swing.JLabel();
         MouseModeLabel = new javax.swing.JLabel();
         EdgeTypes = new javax.swing.JScrollPane();
-        FilterList = new javax.swing.JList();
+        edgeFilterList = new javax.swing.JList();
         Layouts = new javax.swing.JComboBox();
         GraphLayout = new javax.swing.JLabel();
         FilterEdgeAgentButton = new javax.swing.JCheckBox();
@@ -72,6 +72,9 @@ public class GraphFrame extends javax.swing.JFrame {
         FilterVertexMaxValue = new javax.swing.JTextField();
         TemporalFilterToggle = new javax.swing.JToggleButton();
         jButton1 = new javax.swing.JButton();
+        VertexLabels = new javax.swing.JScrollPane();
+        vertexFilterList = new javax.swing.JList();
+        DisplayVertices = new javax.swing.JLabel();
         MenuBar = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
         OpenConfig = new javax.swing.JMenuItem();
@@ -198,18 +201,18 @@ public class GraphFrame extends javax.swing.JFrame {
 
         MouseModeLabel.setText("Mouse Mode");
 
-        FilterList.setModel(new javax.swing.AbstractListModel() {
+        edgeFilterList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        FilterList.setToolTipText("Edge filter: Display only the edges with selected labels");
-        FilterList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+        edgeFilterList.setToolTipText("Edge filter: Display only the edges with selected labels");
+        edgeFilterList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                FilterListValueChanged(evt);
+                edgeFilterListValueChanged(evt);
             }
         });
-        EdgeTypes.setViewportView(FilterList);
+        EdgeTypes.setViewportView(edgeFilterList);
 
         Layouts.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CircleLayout", "FRLayout", "FRLayout2", "TemporalLayout", "SpatialLayout", "ISOMLayout", "KKLayout", "SpringLayout" }));
         Layouts.setToolTipText("Change the graph layout");
@@ -300,6 +303,21 @@ public class GraphFrame extends javax.swing.JFrame {
             }
         });
 
+        vertexFilterList.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        vertexFilterList.setToolTipText("Vertex filter: Display only the vertices with selected labels");
+        vertexFilterList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                vertexFilterListValueChanged(evt);
+            }
+        });
+        VertexLabels.setViewportView(vertexFilterList);
+
+        DisplayVertices.setText("Display Vertices");
+
         javax.swing.GroupLayout ToolMenuLayout = new javax.swing.GroupLayout(ToolMenu);
         ToolMenu.setLayout(ToolMenuLayout);
         ToolMenuLayout.setHorizontalGroup(
@@ -314,21 +332,28 @@ public class GraphFrame extends javax.swing.JFrame {
                         .addComponent(FilterNodeEntityButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(FilterEdgeAgentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(DisplayEdges, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
-                    .addComponent(EdgeTypes))
+                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(DisplayEdges, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(EdgeTypes, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ToolMenuLayout.createSequentialGroup()
+                        .addComponent(DisplayVertices, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(96, 96, 96))
+                    .addGroup(ToolMenuLayout.createSequentialGroup()
+                        .addComponent(VertexLabels, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(CollapseAgent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Collapse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Expand, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Reset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Reset, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(PrologSimilarityInference, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(PrologGenerateFacts, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(InitPrologButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(edgeTypeField))
+                    .addComponent(edgeTypeField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ToolMenuLayout.createSequentialGroup()
@@ -337,10 +362,10 @@ public class GraphFrame extends javax.swing.JFrame {
                         .addComponent(FilterVertexMaxValue))
                     .addComponent(StatusFilterBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(AttributeStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(TemporalFilterToggle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(TemporalFilterToggle, javax.swing.GroupLayout.Alignment.LEADING))
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ToolMenuLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(EdgeStyle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(GraphLayout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -349,27 +374,16 @@ public class GraphFrame extends javax.swing.JFrame {
                         .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(MouseModes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(Layouts, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(EdgeLineShapeSelection, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addGroup(ToolMenuLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(EdgeLineShapeSelection, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ToolMenuLayout.createSequentialGroup()
+                        .addGap(125, 125, 125)
+                        .addComponent(jButton1)))
+                .addGap(697, 697, 697))
         );
         ToolMenuLayout.setVerticalGroup(
             ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ToolMenuLayout.createSequentialGroup()
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ToolMenuLayout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(InitPrologButton)
-                            .addComponent(CollapseAgent)
-                            .addComponent(ShowEdgeTextButton)
-                            .addComponent(DisplayEdges)
-                            .addComponent(AttributeStatus))
-                        .addGap(2, 2, 2)
-                        .addComponent(EdgeTypes, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(ToolMenuLayout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addComponent(FilterNodeAgentButton)
@@ -381,29 +395,50 @@ public class GraphFrame extends javax.swing.JFrame {
                         .addComponent(FilterNodeLonelyButton))
                     .addGroup(ToolMenuLayout.createSequentialGroup()
                         .addContainerGap()
+                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(InitPrologButton)
+                                .addComponent(CollapseAgent)
+                                .addComponent(AttributeStatus))
+                            .addGroup(ToolMenuLayout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(Collapse)
+                                    .addComponent(PrologGenerateFacts)
+                                    .addComponent(StatusFilterBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(Expand)
+                                    .addComponent(PrologSimilarityInference)
+                                    .addComponent(TemporalFilterToggle))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(Reset)
+                                    .addComponent(edgeTypeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(FilterVertexMinValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(FilterVertexMaxValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(ToolMenuLayout.createSequentialGroup()
+                                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(MouseModes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(MouseModeLabel))
+                                .addGap(4, 4, 4)
+                                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(Layouts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(GraphLayout))
+                                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(EdgeLineShapeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(EdgeStyle))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1))))
+                    .addGroup(ToolMenuLayout.createSequentialGroup()
+                        .addGap(5, 5, 5)
                         .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(MouseModes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(MouseModeLabel))
-                        .addGap(3, 3, 3)
-                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Collapse)
-                            .addComponent(PrologGenerateFacts)
-                            .addComponent(StatusFilterBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Layouts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(GraphLayout))
-                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Expand)
-                            .addComponent(PrologSimilarityInference)
-                            .addComponent(EdgeLineShapeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(EdgeStyle)
-                            .addComponent(TemporalFilterToggle))
+                            .addComponent(ShowEdgeTextButton)
+                            .addComponent(DisplayEdges)
+                            .addComponent(DisplayVertices))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Reset)
-                            .addComponent(edgeTypeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(FilterVertexMinValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(FilterVertexMaxValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))))
+                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(EdgeTypes, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(VertexLabels, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -605,7 +640,7 @@ public class GraphFrame extends javax.swing.JFrame {
 
         setJMenuBar(MenuBar);
 
-        setSize(new java.awt.Dimension(855, 743));
+        setSize(new java.awt.Dimension(1039, 743));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     /**
@@ -694,9 +729,9 @@ public class GraphFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ShowEdgeTextButtonActionPerformed
 
    
-    private void FilterListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_FilterListValueChanged
+    private void edgeFilterListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_edgeFilterListValueChanged
         GuiButtons.Filter(variables);
-    }//GEN-LAST:event_FilterListValueChanged
+    }//GEN-LAST:event_edgeFilterListValueChanged
 
     private void LayoutsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LayoutsActionPerformed
         GuiButtons.LayoutSelection(variables, Layouts);
@@ -863,6 +898,11 @@ public class GraphFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         GuiInference.DBSCANCollapse(variables);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void vertexFilterListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_vertexFilterListValueChanged
+//        GuiButtons.Filter(variables);
+        GuiButtons.Filter(variables);
+    }//GEN-LAST:event_vertexFilterListValueChanged
    
     /**
      * Main
@@ -903,6 +943,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JButton Collapse;
     private javax.swing.JButton CollapseAgent;
     private javax.swing.JLabel DisplayEdges;
+    private javax.swing.JLabel DisplayVertices;
     private javax.swing.JComboBox EdgeLineShapeSelection;
     private javax.swing.JLabel EdgeStyle;
     private javax.swing.JScrollPane EdgeTypes;
@@ -910,7 +951,6 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JButton Expand;
     private javax.swing.JMenu FileMenu;
     public static javax.swing.JCheckBox FilterEdgeAgentButton;
-    public static javax.swing.JList FilterList;
     public static javax.swing.JCheckBox FilterNodeAgentButton;
     public static javax.swing.JCheckBox FilterNodeEntityButton;
     public static javax.swing.JCheckBox FilterNodeLonelyButton;
@@ -931,6 +971,7 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JComboBox StatusFilterBox;
     public static javax.swing.JToggleButton TemporalFilterToggle;
     private javax.swing.JPanel ToolMenu;
+    private javax.swing.JScrollPane VertexLabels;
     private javax.swing.JCheckBoxMenuItem autoDetectAttributeCheckBox;
     private javax.swing.JCheckBoxMenuItem autoDetectEdgesCheckBox;
     private javax.swing.JCheckBoxMenuItem displayActivityLabelButton;
@@ -939,6 +980,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem displayID;
     private javax.swing.JCheckBoxMenuItem displayTimeLabel;
     private javax.swing.JCheckBoxMenuItem doDerivateButton;
+    public static javax.swing.JList edgeFilterList;
     public javax.swing.JTextField edgeTypeField;
     private javax.swing.JMenuItem exportGraphButton;
     private javax.swing.JFileChooser fileChooser;
@@ -957,5 +999,6 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JCheckBoxMenuItem temporalWeeksButton;
     private javax.swing.JCheckBoxMenuItem updateErrorButton;
     private javax.swing.JCheckBoxMenuItem verifyWithinClusterButton;
+    public static javax.swing.JList vertexFilterList;
     // End of variables declaration//GEN-END:variables
 }
