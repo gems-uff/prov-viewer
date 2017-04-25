@@ -151,19 +151,14 @@ public class GuiInference {
         int TT_size;
         int TT_increase;
         int TT_qnt;
-        int FT_size;
-        int FT_increase;
-        int FT_qnt;
+        
+        TT_size = 5;
+        TT_increase = 10;
+        TT_qnt = 4;
         
         TF_size = 5;
-        TF_increase = 9;
-        TF_qnt = 6;
-        TT_size = 5;
-        TT_increase = 9;
-        TT_qnt = 5;
-        FT_size = 5;
-        FT_increase = 10;
-        FT_qnt = 5;
+        TF_increase = 13;
+        TF_qnt = 5;
         
         if(updateError) {
             if(verifyWithinCluster) { // True True
@@ -175,7 +170,7 @@ public class GuiInference {
         }
         else {
             if(verifyWithinCluster) { // False True
-                infer = new AutomaticInference(combiner, graph, FT_size, FT_increase, FT_qnt);
+                infer = new AutomaticInference(combiner, graph, 1, 1, 1);
             }
             else { // False False
                 infer = new AutomaticInference(combiner, graph, 1, 1, 1);
@@ -187,8 +182,9 @@ public class GuiInference {
     }
     
     public static ArrayList<ConcurrentHashMap<String, Object>> DBSCAN (String attribute, DirectedGraph<Object, Edge> graph) {
-        float epsilon = 364;
-        Dbscan dbscan = new Dbscan(graph, attribute, epsilon, 1);
+//        float epsilon = 50;
+        float epsilon = Utils.std(graph.getVertices(), attribute);
+        Dbscan dbscan = new Dbscan(graph, attribute, epsilon * 0.5, 1);
         ArrayList<ConcurrentHashMap<String, Object>> clusters = dbscan.applyDbscan();
         return clusters; 
     }
