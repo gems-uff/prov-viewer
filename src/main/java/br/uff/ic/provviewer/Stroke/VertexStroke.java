@@ -36,11 +36,11 @@ public class VertexStroke {
                     return new BasicStroke(4.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
                 }
             }
-            float value = ((Vertex)v).getAttributeValueFloat("Cluster");
-            if(value != value)
+//            float value = ((Vertex)v).getAttributeValueFloat("Cluster");
+//            if(value != value)
                 return new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
-            else
-                return new BasicStroke(2.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
+//            else
+//                return new BasicStroke(5.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
         }
     }
 

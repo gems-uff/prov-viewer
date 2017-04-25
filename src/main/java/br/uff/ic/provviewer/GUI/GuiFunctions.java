@@ -70,13 +70,13 @@ public class GuiFunctions {
         Transformer<Object, Paint> drawPaint = new Transformer<Object, Paint>() {
             @Override
             public Paint transform(Object v) {
-                if(v instanceof Vertex) {
-                    float value = ((Vertex) v).getAttributeValueFloat("Cluster");
-                    if( value != value)
-                        return new Color(0, 0, 0);
-                    else
-                        return Utils.getColor((int) ((Vertex) v).getAttributeValueFloat("Cluster"));
-                }
+//                if(v instanceof Vertex) {
+//                    float value = ((Vertex) v).getAttributeValueFloat("Cluster");
+//                    if( value != value)
+//                        return new Color(0, 0, 0);
+//                    else
+//                        return Utils.getColor((int) ((Vertex) v).getAttributeValueFloat("Cluster"));
+//                }
                 return Color.BLACK;
             }
         };
