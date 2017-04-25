@@ -13,7 +13,6 @@ import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -24,7 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class AutomaticInference {
     
-    int STD_QUANTITY = 3;
+    float STD_QUANTITY = 3;
     int MINIMUM_SIZE = 10;
     int smallClusterError = 3;
     boolean isUpdating = false;
@@ -35,8 +34,13 @@ public class AutomaticInference {
     public DirectedGraph<Object, Edge> graph;
     public ArrayList<ConcurrentHashMap<String, Object>> resultList = new ArrayList<>();
     
+    // For the experiment only
+    String attribute;
+    double e;
+    boolean testing = false;
     
-    public AutomaticInference(GraphMatching combiner, DirectedGraph<Object, Edge> g, int minSize, int thresholdIncrease, int std) {
+    
+    public AutomaticInference(GraphMatching combiner, DirectedGraph<Object, Edge> g, int minSize, int thresholdIncrease, float std) {
         MINIMUM_SIZE = minSize;
         smallClusterError = thresholdIncrease;
         STD_QUANTITY = std;
@@ -44,6 +48,12 @@ public class AutomaticInference {
         resultList.clear();
         visitList.clear();
         this.combiner = combiner;
+    }
+    
+    public void setErrorTest(String att, double error) {
+        attribute = att;
+        e = error;
+        testing = true;
     }
     
     /**
@@ -189,7 +199,6 @@ public class AutomaticInference {
                 ConcurrentHashMap<String, Object> c = new ConcurrentHashMap<>();
                 c.put(((Vertex) p).getID(), p);
                 ArrayList<Object> n = getNeighbours(p, c);
-                
                 expandCluster(p, n, c, c);
                 resultList.add(c);
             }
@@ -229,9 +238,18 @@ public class AutomaticInference {
         ArrayList<Object> neighbor = new ArrayList<>();
         Collection<Object> points = graph.getNeighbors(current);
         for(Object point : points) {
-            if(getDistance(current, point, cg)) {
-                neighbor.add(point);
+            // TODO: Revert to original getDistance
+            if(testing) {
+                if(getDistanceTest(current, point, cg)) {
+                    neighbor.add(point);
+                }
             }
+            else {
+                if(getDistance(current, point, cg)) {
+                    neighbor.add(point);
+                }
+            }
+            
         }
         return neighbor;
     }
@@ -255,6 +273,47 @@ public class AutomaticInference {
             return isSimilar;
         }
         return false;
+    }
+    
+    private boolean getDistanceTest(Object p, Object q, ConcurrentHashMap<String, Object> cg) {
+        if (isUpdating) {
+            updateErrorTest(cg);
+        }
+
+        if (isSimilarTest((Vertex) p, (Vertex) q) <= e) {
+            boolean isSimilar = true;
+            if (isRestrictingVariation) {
+
+                for (Object v3 : cg.values()) {
+                    if ((isSimilarTest((Vertex) q, (Vertex) v3) * 1.0) > e) {
+                        isSimilar = false;
+                        break;
+                    }
+                }
+            }
+            return isSimilar;
+        }
+        return false;
+    }
+    
+    private double isSimilarTest(Object p, Object q) {
+
+        double dx = ((Vertex)p).getAttributeValueFloat(attribute) - ((Vertex)q).getAttributeValueFloat(attribute);
+
+        double distance = Math.sqrt(dx * dx);
+
+        return distance;
+    }
+    
+    private void updateErrorTest(ConcurrentHashMap<String, Object> cg) {
+        if (cg.size() > 2) {
+//            System.out.println("Updating error");
+            float std = Utils.std(cg.values(), attribute) * STD_QUANTITY;
+            if (cg.size() < MINIMUM_SIZE) {
+                std *= smallClusterError;
+            }
+            e = std;
+        }
     }
     
     private boolean isVisited(Object c) {
