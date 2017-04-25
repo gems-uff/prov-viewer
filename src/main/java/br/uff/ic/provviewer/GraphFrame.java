@@ -564,7 +564,7 @@ public class GraphFrame extends javax.swing.JFrame {
 
         jMenu4.setText("Color Scheme");
 
-        doDerivateButton.setText("Derivate");
+        doDerivateButton.setText("Derivative");
         doDerivateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 doDerivateButtonActionPerformed(evt);

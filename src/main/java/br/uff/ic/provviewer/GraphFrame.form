@@ -202,7 +202,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JCheckBoxMenuItem" name="doDerivateButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Derivate"/>
+                <Property name="text" type="java.lang.String" value="Derivative"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="doDerivateButtonActionPerformed"/>
