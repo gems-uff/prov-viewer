@@ -52,6 +52,11 @@ public class ClusteringEvaluator {
     ArrayList<Float> f_dbscan = new ArrayList<>();
     ArrayList<Float> c_dbscan = new ArrayList<>();  // number of clusters
     ArrayList<Float> t_dbscan = new ArrayList<>();
+    
+    ArrayList<Float> f_all_similarity = new ArrayList<>();
+    ArrayList<Float> f_all_dbscan = new ArrayList<>();
+    ArrayList<Float> f_all_ft = new ArrayList<>();
+    ArrayList<Float> f_all_tt = new ArrayList<>();
 
     private boolean isMonotonic = false;
     OracleGraph oracleGraph;
@@ -63,6 +68,7 @@ public class ClusteringEvaluator {
 
     BufferedWriter bw;
     BufferedWriter bwR;
+    BufferedWriter bwR_all;
 
     ClusteringEvaluator(boolean b, OracleGraph oracle) {
         isMonotonic = b;
@@ -101,20 +107,28 @@ public class ClusteringEvaluator {
         retrievedDocuments = collapseGroups.size();
         if(retrievedDocuments != 0) {
             for (ConcurrentHashMap<String, Object> subGraph : collapseGroups) {
-                boolean computedCluster = false;
+//                boolean computedCluster = false;
+                int collapsedOraclesSameGroup = 0;
                 if (subGraph.size() > 0) {
                     for (Object v : oracle.getVertices()) {
                         String id = ((Vertex) v).getID();
-                        if (subGraph.containsKey(id) && !computedCluster) {
-                            computedCluster = true;
-                            intersection++;
+                        if (subGraph.containsKey(id)){ // && !computedCluster) {
+//                            computedCluster = true;
+                            collapsedOraclesSameGroup++;
+//                            intersection++;
                         }
                     }
+                }
+                if(collapsedOraclesSameGroup == 1) {
+                    intersection++;
                 }
             }
             precision = intersection / retrievedDocuments;
             recall = intersection / relevantDocuments;
-            fmeasure = 2 * (precision * recall) / (precision + recall);
+            if((precision != 0) || (recall != 0))
+                fmeasure = 2 * (precision * recall) / (precision + recall);
+            else
+                fmeasure = 0;
         }
         else {
             System.out.println("intersection: " + intersection);
@@ -175,13 +189,13 @@ public class ClusteringEvaluator {
             float epsMod,
             int TF_size,
             int TF_increase,
-            int TF_qnt,
+            float TF_qnt,
             int TT_size,
             int TT_increase,
-            int TT_qnt,
+            float TT_qnt,
             int FT_size,
             int FT_increase,
-            int FT_qnt) throws IOException, InterruptedException {
+            float FT_qnt) throws IOException, InterruptedException {
 
         int i;
         int j;
@@ -191,6 +205,8 @@ public class ClusteringEvaluator {
         int total_tt = 0;
         int total_ft = 0;
         float noiseFactor = INITIAL_NOISE_GRAPH_SIZE;
+        File fileR_all = new File("R_Data_All_" + fileName + ".txt");
+        bwR_all = new BufferedWriter(new FileWriter(fileR_all.getAbsoluteFile()));
         for (w = 0; w < NUMBER_ITERATIONS; w++) {
             System.out.println("Iteration NUMBER #" + w);
             createIterationFile(fileName, w, epsMod, TF_size, TF_increase, TF_qnt, TT_size, TT_increase, TT_qnt, FT_size, FT_increase, FT_qnt);
@@ -233,29 +249,6 @@ public class ClusteringEvaluator {
                     t3.join();
                     t4.join();
 
-//                    SimilarityThread alg1 = new SimilarityThread(clusters1, oracleGraph, noiseGraph, true, false, t_similarity, TF_size, TF_increase, TF_qnt);
-//                    SimilarityThread alg2 = new SimilarityThread(clusters2, oracleGraph, noiseGraph, false, true, t_similarityFT, FT_size, FT_increase, FT_qnt);
-//                    SimilarityThread alg3 = new SimilarityThread(clusters3, oracleGraph, noiseGraph, true, true, t_similarityTT, TT_size, TT_increase, TT_qnt);
-//                    DbscanThread alg4 = new DbscanThread(clusters4, oracleGraph, noiseGraph, epsMod, t_dbscan);
-//                    
-//                    alg1.run();
-//                    alg2.run();
-//                    alg3.run();
-//                    alg4.run();
-//                    time = SimilarityCollapse(noiseGraph, true, false, clusters1, TF_size, TF_increase, TF_qnt);
-//                    t_similarity.add(time);
-//                    
-//                    // Good when data is monotonic-ish
-//                    time = SimilarityCollapse(noiseGraph, false, true, clusters2, FT_size, FT_increase, FT_qnt);
-//                    t_similarityFT.add(time);
-//                    
-//                    // Terrible in all types of data so far
-//                    time = SimilarityCollapse(noiseGraph, true, true, clusters3, TT_size, TT_increase, TT_qnt);
-//                    t_similarityTT.add(time);
-//
-////                    time = SimilarityCollapse(noiseGraph, false, false, clusters4, 1, 1, 1);
-//                    time = dbscan(noiseGraph, epsMod, clusters4);
-//                    t_dbscan.add(time);
                     comparePRF(oracle, clusters1, p_similarity, r_similarity, f_similarity, c_similarity);
                     comparePRF(oracle, clusters2, p_similarityFT, r_similarityFT, f_similarityFT, c_similarityFT);
                     comparePRF(oracle, clusters3, p_similarityTT, r_similarityTT, f_similarityTT, c_similarityTT);
@@ -305,7 +298,7 @@ public class ClusteringEvaluator {
      * @throws IOException
      */
     public void createIterationFile(String name, int iteration, float epsMod,
-            int TF_size, int TF_increase, int TF_qnt, int TT_size, int TT_increase, int TT_qnt, int FT_size, int FT_increase, int FT_qnt) throws IOException {
+            int TF_size, int TF_increase, float TF_qnt, int TT_size, int TT_increase, float TT_qnt, int FT_size, int FT_increase, float FT_qnt) throws IOException {
         File file = new File("Evaluation_" + name + iteration + ".txt");
         File fileR = new File("R_Data_" + name + iteration + ".txt");
 
@@ -323,22 +316,22 @@ public class ClusteringEvaluator {
 
         bw.write("DBSCAN EPS: " + epsMod);
         bw.newLine();
-        bw.write("(TF) Similarity small cluster definition: " + TF_increase);
+        bw.write("(TF) Similarity small cluster definition: " + TF_size);
         bw.newLine();
         bw.write("(TF) Similarity threshold small cluster (multiplicates the normal threshold by): " + TF_increase);
         bw.newLine();
         bw.write("(TF) Similarity Threshold (in STD): " + TF_qnt);
         bw.newLine();
-        bw.write("(TT) Similarity small cluster definition: " + TT_increase);
+        bw.write("(TT) Similarity small cluster definition: " + TT_size);
         bw.newLine();
         bw.write("(TT) Similarity threshold small cluster (multiplicates the normal threshold by): " + TT_increase);
         bw.newLine();
         bw.write("(TT) Similarity Threshold (in STD): " + TT_qnt);
         bw.newLine();
-        bw.write("(FT) Similarity small cluster definition: " + FT_increase);
-        bw.newLine();
-        bw.write("(FT) Similarity threshold small cluster (multiplicates the normal threshold by): " + FT_increase);
-        bw.newLine();
+//        bw.write("(FT) Similarity small cluster definition: " + TF_size);
+//        bw.newLine();
+//        bw.write("(FT) Similarity threshold small cluster (multiplicates the normal threshold by): " + FT_increase);
+//        bw.newLine();
         bw.write("(FT) Similarity Threshold (in STD): " + FT_qnt);
         bw.newLine();
     }
@@ -364,7 +357,7 @@ public class ClusteringEvaluator {
      * @throws IOException
      */
     public void createFinalResultsFile(String fileName, int total_similarity, int total_dbscan, int total_ft, int total_tt, float epsMod,
-            int TF_size, int TF_increase, int TF_qnt, int TT_size, int TT_increase, int TT_qnt, int FT_size, int FT_increase, int FT_qnt) throws IOException {
+            int TF_size, int TF_increase, float TF_qnt, int TT_size, int TT_increase, float TT_qnt, int FT_size, int FT_increase, float FT_qnt) throws IOException {
         BufferedWriter results;
         File file = new File("Evaluation_" + fileName + "_Results.txt");
         // if file doesnt exists, then create it
@@ -412,6 +405,16 @@ public class ClusteringEvaluator {
         results.newLine();
 
         results.close();
+        
+        bwR_all.write(printValues(f_all_similarity, "ve"));
+        bwR_all.newLine();
+        bwR_all.write(printValues(f_all_dbscan, "dbscan"));
+        bwR_all.newLine();
+        bwR_all.write(printValues(f_all_ft, "ic"));
+        bwR_all.newLine();
+        bwR_all.write(printValues(f_all_tt, "icve"));
+        bwR_all.newLine();
+        bwR_all.close();
     }
 
     /**
@@ -445,6 +448,11 @@ public class ClusteringEvaluator {
         printPrf(p_similarityTT, r_similarityTT, f_similarityTT, c_similarityTT, t_similarityTT, bw, bwR, "tt", iteration);
 
         checkWinner();
+        
+        f_all_similarity.addAll(f_similarity);
+        f_all_dbscan.addAll(f_dbscan);
+        f_all_ft.addAll(f_similarityFT);
+        f_all_tt.addAll(f_similarityTT);
 
         clearLists(p_similarity, r_similarity, f_similarity, c_similarity, t_similarity);
         clearLists(p_similarityFT, r_similarityFT, f_similarityFT, c_similarityFT, t_similarityFT);
@@ -541,7 +549,7 @@ public class ClusteringEvaluator {
         for (Float e : v) {
             if(e.isNaN()) {
                 values += 0 + ",";
-                System.out.println("NaN");
+                System.out.println("NaN" + " " + type);
             }
             else
                 values += Float.valueOf(df.format(e)) + ",";
