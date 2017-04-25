@@ -44,14 +44,14 @@ public class SimilarityThread implements Runnable{
     ArrayList<Float> t;
     int size; 
     int thresholdIncrease; 
-    int qnt;
+    float qnt;
     ArrayList<ConcurrentHashMap<String, Object>> clusters;
             
             
     SimilarityThread(ArrayList<ConcurrentHashMap<String, Object>> answer, OracleGraph og, DirectedGraph<Object, Edge> noiseGraph, boolean updateError, 
             boolean verifyWithinCluster,
             ArrayList<Float> t,
-            int minSize, int thresholdIncrease, int qnt) {
+            int minSize, int thresholdIncrease, float qnt) {
         oracleGraph = og;
         this.noiseGraph = noiseGraph;
         this.updateError = updateError;
@@ -76,10 +76,13 @@ public class SimilarityThread implements Runnable{
      */
     public long SimilarityCollapse(DirectedGraph<Object, Edge> noiseGraph, boolean updateError, 
             boolean verifyWithinCluster,
-            int minSize, int thresholdIncrease, int base_error_std) throws IOException {
+            int minSize, int thresholdIncrease, float base_error_std) throws IOException {
         
-        GraphMatching combiner = configureSimilarityMatcher(noiseGraph);
+        GraphMatching combiner = configureSimilarityMatcher(noiseGraph, base_error_std);
         AutomaticInference infer = new AutomaticInference(combiner, noiseGraph, minSize, thresholdIncrease, base_error_std);
+        // For faster testing
+        double error = Utils.std(noiseGraph.getVertices(), oracleGraph.attribute) * base_error_std;
+        infer.setErrorTest(oracleGraph.attribute, error);
         
         // Measure time
         long startTime = System.nanoTime();
@@ -96,13 +99,13 @@ public class SimilarityThread implements Runnable{
      * @param noiseGraph is the graph that will be used in the similarity algorithm
      * @return 
      */
-    private GraphMatching configureSimilarityMatcher(DirectedGraph<Object, Edge> noiseGraph) {
+    private GraphMatching configureSimilarityMatcher(DirectedGraph<Object, Edge> noiseGraph, float base_error_std) {
         float std = Utils.std(noiseGraph.getVertices(), oracleGraph.attribute);
         float similarityThreshold = 0.5f;
         String defaultError = "0";
         Map<String, AttributeErrorMargin> restrictionList = new HashMap<>();
         AttributeErrorMargin epsilon;
-        epsilon = new AttributeErrorMargin(oracleGraph.attribute, String.valueOf(std));
+        epsilon = new AttributeErrorMargin(oracleGraph.attribute, String.valueOf(std * base_error_std));
         restrictionList.put(oracleGraph.attribute, epsilon);
         return new GraphMatching(restrictionList, similarityThreshold, defaultError, 0);
     }
@@ -110,7 +113,7 @@ public class SimilarityThread implements Runnable{
     @Override
     public void run() {
         try {
-            float time = SimilarityCollapse(noiseGraph, true, false, size, thresholdIncrease, qnt);
+            float time = SimilarityCollapse(noiseGraph, updateError, verifyWithinCluster, size, thresholdIncrease, qnt);
             t.add(time);
         } catch (IOException ex) {
             Logger.getLogger(SimilarityThread.class.getName()).log(Level.SEVERE, null, ex);
