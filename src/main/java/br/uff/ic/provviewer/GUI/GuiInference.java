@@ -6,6 +6,7 @@
 package br.uff.ic.provviewer.GUI;
 
 import br.uff.ic.graphmatching.GraphMatching;
+import br.uff.ic.provviewer.GraphFrame;
 import br.uff.ic.provviewer.xmlToProlog.XMLConverter;
 import br.uff.ic.utility.IO.BasePath;
 import static br.uff.ic.provviewer.GraphFrame.StatusFilterBox;
@@ -183,8 +184,23 @@ public class GuiInference {
     
     public static ArrayList<ConcurrentHashMap<String, Object>> DBSCAN (String attribute, DirectedGraph<Object, Edge> graph) {
 //        float epsilon = 50;
-        float epsilon = Utils.std(graph.getVertices(), attribute);
-        Dbscan dbscan = new Dbscan(graph, attribute, epsilon * 0.5, 1);
+        Dbscan dbscan;
+        
+        
+        float eps = 1;
+        if (Utils.tryParseFloat(GraphFrame.dbscanEpsilon.getText())) {
+            eps = Float.parseFloat(GraphFrame.dbscanEpsilon.getText());
+        }
+        System.out.println("Eps = " + eps);
+        if(GraphFrame.isSTDeps.isSelected()) {
+            float epsilon = Utils.std(graph.getVertices(), attribute);
+            dbscan = new Dbscan(graph, attribute, epsilon * eps, 1);
+            System.out.println("STD");
+        }
+        else {
+            dbscan = new Dbscan(graph, attribute, eps, 1);
+            System.out.println("Normal");
+        }
         ArrayList<ConcurrentHashMap<String, Object>> clusters = dbscan.applyDbscan();
         return clusters; 
     }

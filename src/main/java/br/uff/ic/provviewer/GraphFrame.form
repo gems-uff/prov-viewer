@@ -352,9 +352,9 @@
                       <Component id="AttributeStatus" max="32767" attributes="0"/>
                       <Component id="TemporalFilterToggle" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="EdgeStyle" max="32767" attributes="0"/>
                               <Component id="GraphLayout" alignment="0" max="32767" attributes="0"/>
@@ -362,15 +362,17 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="dbscanEpsilon" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <Component id="MouseModes" max="32767" attributes="0"/>
                               <Component id="Layouts" max="32767" attributes="0"/>
                               <Component id="EdgeLineShapeSelection" alignment="1" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="isSTDeps" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="697" max="-2" attributes="0"/>
               </Group>
@@ -391,53 +393,6 @@
                           <Component id="FilterNodeLonelyButton" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                  <Component id="InitPrologButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="CollapseAgent" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="AttributeStatus" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="33" pref="33" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="Collapse" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="PrologGenerateFacts" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="StatusFilterBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="Expand" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="PrologSimilarityInference" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="TemporalFilterToggle" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="Reset" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="edgeTypeField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="FilterVertexMinValue" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="FilterVertexMaxValue" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="MouseModes" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="MouseModeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="Layouts" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="GraphLayout" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="EdgeLineShapeSelection" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="EdgeStyle" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="ShowEdgeTextButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -452,6 +407,58 @@
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                          <Component id="InitPrologButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="CollapseAgent" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="AttributeStatus" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="33" pref="33" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="Collapse" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="PrologGenerateFacts" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="StatusFilterBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="Expand" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="PrologSimilarityInference" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="TemporalFilterToggle" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="Reset" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="edgeTypeField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="FilterVertexMinValue" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="FilterVertexMaxValue" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="MouseModes" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="MouseModeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="Layouts" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="GraphLayout" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="EdgeLineShapeSelection" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="EdgeStyle" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="dbscanEpsilon" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="isSTDeps" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -790,6 +797,30 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Display Vertices"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="dbscanEpsilon">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0.5"/>
+            <Property name="toolTipText" type="java.lang.String" value="DBSCAN Epsilon Value"/>
+          </Properties>
+          <AccessibilityProperties>
+            <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="DBSCAN Epsilon Value"/>
+          </AccessibilityProperties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dbscanEpsilonActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="isSTDeps">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Use STD eps"/>
+            <Property name="toolTipText" type="java.lang.String" value="Define if the Eps will use the defined value or multiply the value to the std of the selected attribute"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

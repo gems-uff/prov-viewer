@@ -214,7 +214,7 @@ public class Filters {
                 if (vertexLonelyFilter(vertex)) {
                     return false;
                 }
-                if (vertexLabelFilter((Vertex) vertex)) {
+                if (vertexLabelFilter(vertex)) {
                     return false;
                 }
                 return !vertexTemporalFilter(vertex);
@@ -259,15 +259,17 @@ public class Filters {
         return false;
     }
     
-    private boolean vertexLabelFilter(Vertex vertex) {
+    private boolean vertexLabelFilter(Object vertex) {
         List filtersL = GraphFrame.vertexFilterList.getSelectedValuesList();
         for (Object filtersL1 : filtersL) {
             String filter = (String) filtersL1;
             if (filter.equalsIgnoreCase("All Vertices")) {
                 return false;
             }
-            if (vertex.getLabel().contains(filter)) {
-                return false;
+            if(vertex instanceof Vertex) {
+                if (((Vertex)vertex).getLabel().contains(filter)) {
+                    return false;
+                }
             }
         }
         return true;
