@@ -25,7 +25,7 @@ public class AutomaticInference {
     
     float STD_QUANTITY = 3;
     int MINIMUM_SIZE = 10;
-    int smallClusterError = 3;
+    float smallClusterError = 3;
     boolean isUpdating = false;
     boolean isRestrictingVariation = false;
     GraphMatching combiner;
@@ -40,7 +40,7 @@ public class AutomaticInference {
     boolean testing = false;
     
     
-    public AutomaticInference(GraphMatching combiner, DirectedGraph<Object, Edge> g, int minSize, int thresholdIncrease, float std) {
+    public AutomaticInference(GraphMatching combiner, DirectedGraph<Object, Edge> g, int minSize, float thresholdIncrease, float std) {
         MINIMUM_SIZE = minSize;
         smallClusterError = thresholdIncrease;
         STD_QUANTITY = std;
