@@ -39,7 +39,14 @@ public class AutomaticInference {
     double e;
     boolean testing = false;
     
-    
+    /**
+     * Constructor used when VE is set as True
+     * @param combiner
+     * @param g is the graph
+     * @param minSize is the minimum cluster size
+     * @param thresholdIncrease is the epsilon modifier before reaching the minimum cluster size
+     * @param std is the epsilon used by the algorithms
+     */
     public AutomaticInference(GraphMatching combiner, DirectedGraph<Object, Edge> g, int minSize, float thresholdIncrease, float std) {
         MINIMUM_SIZE = minSize;
         smallClusterError = thresholdIncrease;
@@ -50,10 +57,38 @@ public class AutomaticInference {
         this.combiner = combiner;
     }
     
-    public void setErrorTest(String att, double error) {
+    /**
+     * Constructor used for when VE is set as False
+     * @param combiner
+     * @param g is the graph
+     */
+    public AutomaticInference(GraphMatching combiner, DirectedGraph<Object, Edge> g) {
+        MINIMUM_SIZE = 1;
+        smallClusterError = 1;
+        STD_QUANTITY = 1;
+        graph = g;
+        resultList.clear();
+        visitList.clear();
+        this.combiner = combiner;
+    }
+    
+    /**
+     * Function used to optimize calculations when using only one attribute for the similarity
+     * @param att is the single attribute used for the similarity
+     * @param epsilon is the STD of the attribute * the epsilon modifier
+     */
+    public void setSingleAttributeOptimization(String att, double epsilon) {
         attribute = att;
-        e = error;
+        e = epsilon;
         testing = true;
+    }
+    
+    public void setTestingOn() {
+        testing = true;
+    }
+    
+    public void setTestingOff() {
+        testing = false;
     }
     
     /**
@@ -240,7 +275,7 @@ public class AutomaticInference {
         for(Object point : points) {
             // TODO: Revert to original getDistance
             if(testing) {
-                if(getDistanceTest(current, point, cg)) {
+                if(getDistanceSingleAttribute(current, point, cg)) {
                     neighbor.add(point);
                 }
             }
@@ -275,17 +310,17 @@ public class AutomaticInference {
         return false;
     }
     
-    private boolean getDistanceTest(Object p, Object q, ConcurrentHashMap<String, Object> cg) {
+    private boolean getDistanceSingleAttribute(Object p, Object q, ConcurrentHashMap<String, Object> cg) {
         if (isUpdating) {
-            updateErrorTest(cg);
+            updateErrorSingleAttribute(cg);
         }
 
-        if (isSimilarTest((Vertex) p, (Vertex) q) <= e) {
+        if (isSimilarSingleAttribute((Vertex) p, (Vertex) q) <= e) {
             boolean isSimilar = true;
             if (isRestrictingVariation) {
 
                 for (Object v3 : cg.values()) {
-                    if ((isSimilarTest((Vertex) q, (Vertex) v3) * 1.0) > e) {
+                    if ((isSimilarSingleAttribute((Vertex) q, (Vertex) v3) * 1.0) > e) {
                         isSimilar = false;
                         break;
                     }
@@ -296,7 +331,7 @@ public class AutomaticInference {
         return false;
     }
     
-    private double isSimilarTest(Object p, Object q) {
+    private double isSimilarSingleAttribute(Object p, Object q) {
 
         double dx = ((Vertex)p).getAttributeValueFloat(attribute) - ((Vertex)q).getAttributeValueFloat(attribute);
 
@@ -305,7 +340,7 @@ public class AutomaticInference {
         return distance;
     }
     
-    private void updateErrorTest(ConcurrentHashMap<String, Object> cg) {
+    private void updateErrorSingleAttribute(ConcurrentHashMap<String, Object> cg) {
         if (cg.size() > 2) {
 //            System.out.println("Updating error");
             float std = Utils.std(cg.values(), attribute) * STD_QUANTITY;
