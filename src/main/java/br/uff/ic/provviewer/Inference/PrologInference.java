@@ -21,7 +21,7 @@ import jpl.Term;
 import jpl.Variable;
 
 /**
- *
+ * @deprecated Prolog is no longer used
  * @author Kohwalter
  */
 public class PrologInference {
