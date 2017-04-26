@@ -39,12 +39,12 @@ public class SimilarityThread implements Runnable{
     OracleGraph oracleGraph;
     DirectedGraph<Object, Edge> oracle; 
     DirectedGraph<Object, Edge> noiseGraph; 
-    boolean updateError; 
-    boolean verifyWithinCluster;
+    boolean ve; // Variable Epsilon: Update error for each cluster
+    boolean ic; // Inter-cluster verification: Verify with all cluster members before inserting a new element
     ArrayList<Float> t;
-    int size; 
-    int thresholdIncrease; 
-    float qnt;
+    int minClusterSize; // Defines the minimum size of the cluster before updating the epsilon
+    int thresholdIncrease; // Defines the epsilon multiplier used before reaching the minimum cluster size
+    float simEpsilon; // The epsilon used for similarity
     ArrayList<ConcurrentHashMap<String, Object>> clusters;
             
             
@@ -54,12 +54,12 @@ public class SimilarityThread implements Runnable{
             int minSize, int thresholdIncrease, float qnt) {
         oracleGraph = og;
         this.noiseGraph = noiseGraph;
-        this.updateError = updateError;
-        this.verifyWithinCluster = verifyWithinCluster;
+        this.ve = updateError;
+        this.ic = verifyWithinCluster;
         this.t = t;
-        this.size = minSize;
+        this.minClusterSize = minSize;
         this.thresholdIncrease = thresholdIncrease;
-        this.qnt = qnt;
+        this.simEpsilon = qnt;
         this.clusters = answer;
     }
     
@@ -70,19 +70,19 @@ public class SimilarityThread implements Runnable{
      * @param verifyWithinCluster defines if the algorithm will compare with the actual neighbor or with everyone already in the cluster in order to decide if the new element will join
      * @param minSize is a configuration value for the similarity algorithm
      * @param thresholdIncrease is a configuration value for the similarity algorithm
-     * @param base_error_std is a configuration value for the similarity algorithm
+     * @param epsilon is a configuration value for the similarity algorithm
      * @return the duration it took to find the clusters
      * @throws IOException 
      */
     public long SimilarityCollapse(DirectedGraph<Object, Edge> noiseGraph, boolean updateError, 
             boolean verifyWithinCluster,
-            int minSize, int thresholdIncrease, float base_error_std) throws IOException {
+            int minSize, int thresholdIncrease, float epsilon) throws IOException {
         
-        GraphMatching combiner = configureSimilarityMatcher(noiseGraph, base_error_std);
-        AutomaticInference infer = new AutomaticInference(combiner, noiseGraph, minSize, thresholdIncrease, base_error_std);
+        GraphMatching combiner = configureSimilarityMatcher(noiseGraph, epsilon);
+        AutomaticInference infer = new AutomaticInference(combiner, noiseGraph, minSize, thresholdIncrease, epsilon);
         // For faster testing
-        double error = Utils.std(noiseGraph.getVertices(), oracleGraph.attribute) * base_error_std;
-        infer.setErrorTest(oracleGraph.attribute, error);
+        double error = Utils.std(noiseGraph.getVertices(), oracleGraph.attribute) * epsilon;
+        infer.setSingleAttributeOptimization(oracleGraph.attribute, error);
         
         // Measure time
         long startTime = System.nanoTime();
@@ -113,7 +113,7 @@ public class SimilarityThread implements Runnable{
     @Override
     public void run() {
         try {
-            float time = SimilarityCollapse(noiseGraph, updateError, verifyWithinCluster, size, thresholdIncrease, qnt);
+            float time = SimilarityCollapse(noiseGraph, ve, ic, minClusterSize, thresholdIncrease, simEpsilon);
             t.add(time);
         } catch (IOException ex) {
             Logger.getLogger(SimilarityThread.class.getName()).log(Level.SEVERE, null, ex);
