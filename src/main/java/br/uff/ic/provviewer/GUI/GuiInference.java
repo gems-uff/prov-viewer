@@ -104,6 +104,10 @@ public class GuiInference {
         }
     }
     
+    /**
+     * Apply the DBSCAN clustering algorithm
+     * @param variables
+     */
     public static void DBSCANCollapse(Variables variables) {
         GuiButtons.Reset(variables);
         ArrayList<ConcurrentHashMap<String, Object>> list = DBSCAN((String) StatusFilterBox.getSelectedItem(), variables.graph);
@@ -113,6 +117,11 @@ public class GuiInference {
         
     }
     
+    /**
+     * Function that return the list of vertex ID from each cluster separating the IDs by a comma and the clusters by a blank space
+     * @param collapseGroups is the array that contains the clusters
+     * @return the IDs from each vertex in each cluster
+     */
     public static String printCollapseGroups(ArrayList<ConcurrentHashMap<String, Object>> collapseGroups) {
         String collapseList = "";
         for (ConcurrentHashMap<String, Object> subGraph : collapseGroups) {
@@ -127,6 +136,14 @@ public class GuiInference {
         return collapseList;
     }
 
+    /**
+     * Function to apply one of the three similarity clustering algorithms
+     * @param attribute is the attribute used in the distance metric
+     * @param graph is the graph that we want to apply the clustering
+     * @param updateError is the parameter value to define which algorithm will be used
+     * @param verifyWithinCluster is the parameter value to define which algorithm will be used
+     * @return the clusters
+     */
     public static ArrayList<ConcurrentHashMap<String, Object>> ColorSchemeCollapse(String attribute, DirectedGraph<Object, Edge> graph, boolean updateError, boolean verifyWithinCluster) {
         // -----------------------------
         // Standard Deviation
@@ -182,29 +199,35 @@ public class GuiInference {
         return clusters;
     }
     
+    /**
+     * Execute DBSCAN clustering algorithm
+     * @param attribute is the attribute to be considered for the distance metric
+     * @param graph is the graph that we want to apply the clustering
+     * @return the clusters for collapse
+     */
     public static ArrayList<ConcurrentHashMap<String, Object>> DBSCAN (String attribute, DirectedGraph<Object, Edge> graph) {
-//        float epsilon = 50;
         Dbscan dbscan;
-        
-        
+
         float eps = 1;
         if (Utils.tryParseFloat(GraphFrame.dbscanEpsilon.getText())) {
             eps = Float.parseFloat(GraphFrame.dbscanEpsilon.getText());
         }
-        System.out.println("Eps = " + eps);
         if(GraphFrame.isSTDeps.isSelected()) {
             float epsilon = Utils.std(graph.getVertices(), attribute);
             dbscan = new Dbscan(graph, attribute, epsilon * eps, 1);
-            System.out.println("STD");
         }
         else {
             dbscan = new Dbscan(graph, attribute, eps, 1);
-            System.out.println("Normal");
         }
         ArrayList<ConcurrentHashMap<String, Object>> clusters = dbscan.applyDbscan();
         return clusters; 
     }
     
+    /**
+     * Function to embedded the cluster number in the vertices. Used for debugging
+     * @param clusters
+     * @param variables 
+     */
     private static void MarkClusters(ArrayList<ConcurrentHashMap<String, Object>> clusters, Variables variables) {
         int i = 0;
         for(ConcurrentHashMap<String, Object> c : clusters) {
