@@ -236,7 +236,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JCheckBoxMenuItem" name="updateErrorButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Update Cluster Error"/>
+                <Property name="text" type="java.lang.String" value="Variable Epsilon (VE)"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateErrorButtonActionPerformed"/>
@@ -245,7 +245,7 @@
             <MenuItem class="javax.swing.JCheckBoxMenuItem" name="verifyWithinClusterButton">
               <Properties>
                 <Property name="selected" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" value="Verify with all members of the cluster"/>
+                <Property name="text" type="java.lang.String" value="Inter-cluster verification (IC)"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="verifyWithinClusterButtonActionPerformed"/>
@@ -334,14 +334,27 @@
                       <Component id="Expand" max="32767" attributes="0"/>
                       <Component id="Reset" min="-2" pref="113" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="PrologSimilarityInference" alignment="0" max="32767" attributes="0"/>
-                      <Component id="PrologGenerateFacts" alignment="0" max="32767" attributes="0"/>
-                      <Component id="InitPrologButton" alignment="0" max="32767" attributes="0"/>
-                      <Component id="edgeTypeField" min="-2" pref="137" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="SimilarityInference" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="simStdSize" max="32767" attributes="0"/>
+                              <Component id="simEpsilon" alignment="0" pref="40" max="32767" attributes="0"/>
+                              <Component id="simStdInc" alignment="0" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="FilterVertexMinValue" min="-2" pref="48" max="-2" attributes="0"/>
@@ -411,31 +424,6 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                          <Component id="InitPrologButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="CollapseAgent" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="AttributeStatus" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="33" pref="33" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="Collapse" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="PrologGenerateFacts" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="StatusFilterBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="Expand" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="PrologSimilarityInference" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="TemporalFilterToggle" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="Reset" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="edgeTypeField" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="FilterVertexMinValue" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="FilterVertexMaxValue" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="MouseModes" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -457,6 +445,40 @@
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="isSTDeps" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="33" pref="33" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="Collapse" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="StatusFilterBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="simEpsilon" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="Expand" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="TemporalFilterToggle" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="simStdSize" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                  <Component id="CollapseAgent" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="AttributeStatus" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="SimilarityInference" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="Reset" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="FilterVertexMinValue" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="FilterVertexMaxValue" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="simStdInc" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
               </Group>
@@ -669,44 +691,14 @@
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JToggleButton" name="InitPrologButton">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Init Prolog"/>
-            <Property name="toolTipText" type="java.lang.String" value="Initialzie the prolog knownledge and facts bases"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="InitPrologButtonActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="PrologGenerateFacts">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Generate Facts"/>
-            <Property name="toolTipText" type="java.lang.String" value="Generate the prolog facts from the XML (graph) file"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PrologGenerateFactsActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="PrologSimilarityInference">
+        <Component class="javax.swing.JButton" name="SimilarityInference">
           <Properties>
             <Property name="text" type="java.lang.String" value="Similarity Collapse"/>
             <Property name="toolTipText" type="java.lang.String" value="Collapse vertices by the Similarity Algorithm using the marked Edge Type below"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PrologSimilarityInferenceActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SimilarityInferenceActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JTextField" name="edgeTypeField">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Neutral"/>
-            <Property name="toolTipText" type="java.lang.String" value="Edge type for collapse"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edgeTypeFieldActionPerformed"/>
-          </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JCheckBox" name="FilterNodeEntityButton">
           <Properties>
@@ -803,9 +795,6 @@
             <Property name="text" type="java.lang.String" value="0.5"/>
             <Property name="toolTipText" type="java.lang.String" value="DBSCAN Epsilon Value"/>
           </Properties>
-          <AccessibilityProperties>
-            <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="DBSCAN Epsilon Value"/>
-          </AccessibilityProperties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dbscanEpsilonActionPerformed"/>
           </Events>
@@ -821,6 +810,54 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>
+        </Component>
+        <Component class="javax.swing.JTextField" name="simEpsilon">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="2.0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Defines the epsilon for the similarty algorithms (Float)"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="simEpsilonActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JTextField" name="simStdSize">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="1"/>
+            <Property name="toolTipText" type="java.lang.String" value="Defines the minimim cluster size (before havings its own epsilon) for the similarty algorithms (Integer) and is used when VE is selected"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JTextField" name="simStdInc">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="1.0"/>
+            <Property name="toolTipText" type="java.lang.String" value="Defines the epsilon multiplier used before reaching the minimum cluster size for the similarty algorithms (Float) and is used when VE is selected"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="STD Epsilon"/>
+            <Property name="toolTipText" type="java.lang.String" value="Defines the eps value for the similarity algorithm"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cluster Size"/>
+            <Property name="toolTipText" type="java.lang.String" value="Defines the minimum cluster size to be considered independent (used when VE is true)"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel3">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Eps Increase"/>
+            <Property name="toolTipText" type="java.lang.String" value="Defines the epsilon increase before reaching the minimum cluster size (used when VE is true)"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

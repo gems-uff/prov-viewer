@@ -63,10 +63,7 @@ public class GraphFrame extends javax.swing.JFrame {
         Layouts = new javax.swing.JComboBox();
         GraphLayout = new javax.swing.JLabel();
         FilterEdgeAgentButton = new javax.swing.JCheckBox();
-        InitPrologButton = new javax.swing.JToggleButton();
-        PrologGenerateFacts = new javax.swing.JButton();
-        PrologSimilarityInference = new javax.swing.JButton();
-        edgeTypeField = new javax.swing.JTextField();
+        SimilarityInference = new javax.swing.JButton();
         FilterNodeEntityButton = new javax.swing.JCheckBox();
         FilterVertexMinValue = new javax.swing.JTextField();
         FilterVertexMaxValue = new javax.swing.JTextField();
@@ -77,6 +74,12 @@ public class GraphFrame extends javax.swing.JFrame {
         DisplayVertices = new javax.swing.JLabel();
         dbscanEpsilon = new javax.swing.JTextField();
         isSTDeps = new javax.swing.JCheckBox();
+        simEpsilon = new javax.swing.JTextField();
+        simStdSize = new javax.swing.JTextField();
+        simStdInc = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         MenuBar = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
         OpenConfig = new javax.swing.JMenuItem();
@@ -235,35 +238,11 @@ public class GraphFrame extends javax.swing.JFrame {
             }
         });
 
-        InitPrologButton.setText("Init Prolog");
-        InitPrologButton.setToolTipText("Initialzie the prolog knownledge and facts bases");
-        InitPrologButton.addActionListener(new java.awt.event.ActionListener() {
+        SimilarityInference.setText("Similarity Collapse");
+        SimilarityInference.setToolTipText("Collapse vertices by the Similarity Algorithm using the marked Edge Type below");
+        SimilarityInference.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                InitPrologButtonActionPerformed(evt);
-            }
-        });
-
-        PrologGenerateFacts.setText("Generate Facts");
-        PrologGenerateFacts.setToolTipText("Generate the prolog facts from the XML (graph) file");
-        PrologGenerateFacts.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PrologGenerateFactsActionPerformed(evt);
-            }
-        });
-
-        PrologSimilarityInference.setText("Similarity Collapse");
-        PrologSimilarityInference.setToolTipText("Collapse vertices by the Similarity Algorithm using the marked Edge Type below");
-        PrologSimilarityInference.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PrologSimilarityInferenceActionPerformed(evt);
-            }
-        });
-
-        edgeTypeField.setText("Neutral");
-        edgeTypeField.setToolTipText("Edge type for collapse");
-        edgeTypeField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edgeTypeFieldActionPerformed(evt);
+                SimilarityInferenceActionPerformed(evt);
             }
         });
 
@@ -332,6 +311,29 @@ public class GraphFrame extends javax.swing.JFrame {
         isSTDeps.setText("Use STD eps");
         isSTDeps.setToolTipText("Define if the Eps will use the defined value or multiply the value to the std of the selected attribute");
 
+        simEpsilon.setText("2.0");
+        simEpsilon.setToolTipText("Defines the epsilon for the similarty algorithms (Float)");
+        simEpsilon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                simEpsilonActionPerformed(evt);
+            }
+        });
+
+        simStdSize.setText("1");
+        simStdSize.setToolTipText("Defines the minimim cluster size (before havings its own epsilon) for the similarty algorithms (Integer) and is used when VE is selected");
+
+        simStdInc.setText("1.0");
+        simStdInc.setToolTipText("Defines the epsilon multiplier used before reaching the minimum cluster size for the similarty algorithms (Float) and is used when VE is selected");
+
+        jLabel1.setText("STD Epsilon");
+        jLabel1.setToolTipText("Defines the eps value for the similarity algorithm");
+
+        jLabel2.setText("Cluster Size");
+        jLabel2.setToolTipText("Defines the minimum cluster size to be considered independent (used when VE is true)");
+
+        jLabel3.setText("Eps Increase");
+        jLabel3.setToolTipText("Defines the epsilon increase before reaching the minimum cluster size (used when VE is true)");
+
         javax.swing.GroupLayout ToolMenuLayout = new javax.swing.GroupLayout(ToolMenu);
         ToolMenu.setLayout(ToolMenuLayout);
         ToolMenuLayout.setHorizontalGroup(
@@ -362,13 +364,22 @@ public class GraphFrame extends javax.swing.JFrame {
                     .addComponent(Collapse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Expand, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Reset, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(PrologSimilarityInference, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(PrologGenerateFacts, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(InitPrologButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(edgeTypeField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ToolMenuLayout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(SimilarityInference))
+                    .addGroup(ToolMenuLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(simStdSize)
+                            .addComponent(simEpsilon, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                            .addComponent(simStdInc))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ToolMenuLayout.createSequentialGroup()
                         .addComponent(FilterVertexMinValue, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -423,26 +434,6 @@ public class GraphFrame extends javax.swing.JFrame {
             .addGroup(ToolMenuLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(InitPrologButton)
-                        .addComponent(CollapseAgent)
-                        .addComponent(AttributeStatus))
-                    .addGroup(ToolMenuLayout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Collapse)
-                            .addComponent(PrologGenerateFacts)
-                            .addComponent(StatusFilterBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Expand)
-                            .addComponent(PrologSimilarityInference)
-                            .addComponent(TemporalFilterToggle))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Reset)
-                            .addComponent(edgeTypeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(FilterVertexMinValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(FilterVertexMaxValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(ToolMenuLayout.createSequentialGroup()
                         .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(MouseModes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -459,10 +450,34 @@ public class GraphFrame extends javax.swing.JFrame {
                             .addComponent(jButton1)
                             .addComponent(dbscanEpsilon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(isSTDeps))))
+                        .addComponent(isSTDeps))
+                    .addGroup(ToolMenuLayout.createSequentialGroup()
+                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(ToolMenuLayout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(Collapse)
+                                    .addComponent(StatusFilterBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(simEpsilon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1))
+                                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(Expand)
+                                    .addComponent(TemporalFilterToggle)
+                                    .addComponent(simStdSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2)))
+                            .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(CollapseAgent)
+                                .addComponent(AttributeStatus)
+                                .addComponent(SimilarityInference)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(Reset)
+                                .addComponent(FilterVertexMinValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(FilterVertexMaxValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(simStdInc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3)))))
         );
-
-        dbscanEpsilon.getAccessibleContext().setAccessibleDescription("DBSCAN Epsilon Value");
 
         getContentPane().add(ToolMenu, java.awt.BorderLayout.PAGE_END);
 
@@ -649,7 +664,7 @@ public class GraphFrame extends javax.swing.JFrame {
 
         jMenu5.setText("Similarity Collapse");
 
-        updateErrorButton.setText("Update Cluster Error");
+        updateErrorButton.setText("Variable Epsilon (VE)");
         updateErrorButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateErrorButtonActionPerformed(evt);
@@ -658,7 +673,7 @@ public class GraphFrame extends javax.swing.JFrame {
         jMenu5.add(updateErrorButton);
 
         verifyWithinClusterButton.setSelected(true);
-        verifyWithinClusterButton.setText("Verify with all members of the cluster");
+        verifyWithinClusterButton.setText("Inter-cluster verification (IC)");
         verifyWithinClusterButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 verifyWithinClusterButtonActionPerformed(evt);
@@ -783,21 +798,9 @@ public class GraphFrame extends javax.swing.JFrame {
         GuiButtons.Filter(variables);
     }//GEN-LAST:event_FilterEdgeAgentButtonActionPerformed
 
-    private void InitPrologButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InitPrologButtonActionPerformed
-        GuiInference.InitializeProlog(variables.testProlog, variables.prologIsInitialized, InitPrologButton);
-    }//GEN-LAST:event_InitPrologButtonActionPerformed
-
-    private void PrologGenerateFactsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrologGenerateFactsActionPerformed
-        GuiInference.GeneratePrologFacts(variables.initialGraph, variables.file, Variables.demo);
-    }//GEN-LAST:event_PrologGenerateFactsActionPerformed
-
-    private void PrologSimilarityInferenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrologSimilarityInferenceActionPerformed
-        GuiInference.SimilarityCollapse(InitPrologButton.isSelected(), variables.testProlog, variables, edgeTypeField.getText(), updateErrorButton.getState(), verifyWithinClusterButton.getState());
-    }//GEN-LAST:event_PrologSimilarityInferenceActionPerformed
-
-    private void edgeTypeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edgeTypeFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edgeTypeFieldActionPerformed
+    private void SimilarityInferenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SimilarityInferenceActionPerformed
+        GuiInference.SimilarityCollapse(variables, updateErrorButton.getState(), verifyWithinClusterButton.getState());
+    }//GEN-LAST:event_SimilarityInferenceActionPerformed
 
     private void FilterVertexMaxValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterVertexMaxValueActionPerformed
         // TODO add your handling code here:
@@ -942,6 +945,10 @@ public class GraphFrame extends javax.swing.JFrame {
     private void dbscanEpsilonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dbscanEpsilonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_dbscanEpsilonActionPerformed
+
+    private void simEpsilonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simEpsilonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_simEpsilonActionPerformed
    
     /**
      * Main
@@ -996,17 +1003,15 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JTextField FilterVertexMaxValue;
     public static javax.swing.JTextField FilterVertexMinValue;
     private javax.swing.JLabel GraphLayout;
-    private javax.swing.JToggleButton InitPrologButton;
     private javax.swing.JComboBox Layouts;
     private javax.swing.JMenuBar MenuBar;
     private javax.swing.JLabel MouseModeLabel;
     private javax.swing.JComboBox MouseModes;
     private javax.swing.JMenuItem OpenConfig;
     private javax.swing.JMenuItem OpenGraph;
-    private javax.swing.JButton PrologGenerateFacts;
-    private javax.swing.JButton PrologSimilarityInference;
     private javax.swing.JButton Reset;
     private javax.swing.JCheckBox ShowEdgeTextButton;
+    private javax.swing.JButton SimilarityInference;
     public static javax.swing.JComboBox StatusFilterBox;
     public static javax.swing.JToggleButton TemporalFilterToggle;
     private javax.swing.JPanel ToolMenu;
@@ -1022,11 +1027,13 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem displayTimeLabel;
     private javax.swing.JCheckBoxMenuItem doDerivateButton;
     public static javax.swing.JList edgeFilterList;
-    public javax.swing.JTextField edgeTypeField;
     private javax.swing.JMenuItem exportGraphButton;
     private javax.swing.JFileChooser fileChooser;
     public static javax.swing.JCheckBox isSTDeps;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     public static javax.swing.JMenu jMenu3;
@@ -1034,6 +1041,9 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuItem mergeGraphButtom;
     public static javax.swing.JCheckBoxMenuItem removeOutliersButton;
+    public static javax.swing.JTextField simEpsilon;
+    public static javax.swing.JTextField simStdInc;
+    public static javax.swing.JTextField simStdSize;
     public static javax.swing.JCheckBoxMenuItem temporalDaysButton;
     public static javax.swing.JCheckBoxMenuItem temporalHoursButton;
     private javax.swing.JCheckBoxMenuItem temporalMillisecondsButton;
