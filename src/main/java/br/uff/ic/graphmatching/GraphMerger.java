@@ -18,10 +18,10 @@ import java.util.Map;
  *
  * @author Kohwalter
  */
-public class Matcher {
+public class GraphMerger {
     
     // List + Vocabulary + Threshold
-    public DirectedGraph<Object, Edge> Matching(
+    public DirectedGraph<Object, Edge> Merging(
             DirectedGraph<Object, Edge> graph_01, 
             DirectedGraph<Object, Edge> graph_02, 
             Map<String, AttributeErrorMargin> restrictionList,
@@ -33,7 +33,7 @@ public class Matcher {
     }
     
     // List + Vocabulary + Threshold + default
-    public DirectedGraph<Object, Edge> Matching(
+    public DirectedGraph<Object, Edge> Merging(
             DirectedGraph<Object, Edge> graph_01, 
             DirectedGraph<Object, Edge> graph_02, 
             Map<String, AttributeErrorMargin> restrictionList,
@@ -45,7 +45,7 @@ public class Matcher {
     }
     
     // List + Threshold + default
-    public DirectedGraph<Object, Edge> Matching(
+    public DirectedGraph<Object, Edge> Merging(
             DirectedGraph<Object, Edge> graph_01, 
             DirectedGraph<Object, Edge> graph_02, 
             Map<String, AttributeErrorMargin> restrictionList, 
@@ -56,7 +56,7 @@ public class Matcher {
     }
     
     // List + Threshold
-    public DirectedGraph<Object, Edge> Matching(
+    public DirectedGraph<Object, Edge> Merging(
             DirectedGraph<Object, Edge> graph_01, 
             DirectedGraph<Object, Edge> graph_02, 
             Map<String, AttributeErrorMargin> restrictionList, 

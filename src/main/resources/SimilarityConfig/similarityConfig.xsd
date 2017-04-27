@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!--
+Copyright (C) 2017 Kohwalter
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+-->
+
+<xs:schema version="1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+    
+    <xs:element name="config" type="configuration"/>
+    
+    <!-- Configuration Type -->
+    <xs:complexType name="configuration">
+        <xs:sequence>
+            <!--  -->
+            <xs:element name="similarityThreshold" type="xs:decimal"/>
+            <!-- The default  -->
+            <xs:element name="default_error" type="xs:string"/>
+            <!--  -->
+            <xs:element name="attributeErrorList" type="attribute" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!-- Attribute threshold -->
+    <xs:complexType name="attribute">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <!-- Take MAX value or MEAN value for each edge type -->
+            <xs:element name="value" type="xs:string"/>
+            <!-- Collapse function used: True = multiplication; False = Add -->
+            <xs:element name="weight" type="xs:decimal"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

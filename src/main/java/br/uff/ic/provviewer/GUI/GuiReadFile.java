@@ -5,7 +5,7 @@
  */
 package br.uff.ic.provviewer.GUI;
 
-import br.uff.ic.graphmatching.Matcher;
+import br.uff.ic.graphmatching.GraphMerger;
 import br.uff.ic.utility.graph.Edge;
 import static br.uff.ic.provviewer.GUI.GuiFunctions.PanCameraToFirstVertex;
 import br.uff.ic.provviewer.GraphFrame;
@@ -131,8 +131,8 @@ public class GuiReadFile {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             DirectedGraph<Object, Edge> fileGraph = GuiReadFile.getGraph(fileChooser.getSelectedFile());
             Map<String, AttributeErrorMargin> restrictionList = defaultRestriction(); 
-            Matcher merger = new Matcher();
-            DirectedGraph<Object, Edge> mergedGraph = merger.Matching(variables.graph, fileGraph, restrictionList, similarityThreshold, defaultErrorMargin);
+            GraphMerger merger = new GraphMerger();
+            DirectedGraph<Object, Edge> mergedGraph = merger.Merging(variables.graph, fileGraph, restrictionList, similarityThreshold, defaultErrorMargin);
             
             loadGraph(variables, mergedGraph);
         } else {

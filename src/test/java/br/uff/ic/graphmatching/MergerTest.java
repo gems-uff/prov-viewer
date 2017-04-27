@@ -32,9 +32,9 @@ import org.junit.Test;
  *
  * @author Kohwalter
  */
-public class MatcherTest {
+public class MergerTest {
     
-    public MatcherTest() {
+    public MergerTest() {
     }
     
     @BeforeClass
@@ -50,15 +50,15 @@ public class MatcherTest {
      * @throws java.io.FileNotFoundException
      */
     @Test
-    public void testMatching() throws FileNotFoundException, URISyntaxException, IOException {
+    public void testMerging() throws FileNotFoundException, URISyntaxException, IOException {
         System.out.println("Matching");
         DirectedGraph<Object, Edge> graph_01 = graphFile("Graph_to_Merge_01.xml");
         DirectedGraph<Object, Edge> graph_02 = graphFile("Graph_to_Merge_02.xml");
         Map<String, AttributeErrorMargin> restrictionList = restriction();
         float similarityThreshold = 0.9f;
-        Matcher instance = new Matcher();
+        GraphMerger instance = new GraphMerger();
 //        DirectedGraph<Vertex, Edge> expResult = null;
-        DirectedGraph<Object, Edge> result = instance.Matching(graph_01, graph_02, restrictionList, similarityThreshold, "0.9%");
+        DirectedGraph<Object, Edge> result = instance.Merging(graph_01, graph_02, restrictionList, similarityThreshold, "0.9%");
         
         String resultEdges = "";
         for (Edge e : result.getEdges()) {
