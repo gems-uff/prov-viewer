@@ -20,7 +20,15 @@ import java.util.Map;
  */
 public class GraphMerger {
     
-    // List + Vocabulary + Threshold
+    /**
+     * 
+     * @param graph_01
+     * @param graph_02
+     * @param restrictionList
+     * @param vocabulary
+     * @param similarityThreshold
+     * @return 
+     */
     public DirectedGraph<Object, Edge> Merging(
             DirectedGraph<Object, Edge> graph_01, 
             DirectedGraph<Object, Edge> graph_02, 
@@ -32,7 +40,16 @@ public class GraphMerger {
         return MergeGraphs(graph_01, graph_02, combiner);
     }
     
-    // List + Vocabulary + Threshold + default
+    /**
+     * 
+     * @param graph_01
+     * @param graph_02
+     * @param restrictionList
+     * @param vocabulary
+     * @param similarityThreshold
+     * @param defaultError
+     * @return 
+     */
     public DirectedGraph<Object, Edge> Merging(
             DirectedGraph<Object, Edge> graph_01, 
             DirectedGraph<Object, Edge> graph_02, 
@@ -44,7 +61,58 @@ public class GraphMerger {
         return MergeGraphs(graph_01, graph_02, combiner);
     }
     
-    // List + Threshold + default
+    /**
+     * 
+     * @param graph_01
+     * @param graph_02
+     * @param restrictionList
+     * @param vocabulary
+     * @param similarityThreshold
+     * @param defaultError
+     * @return 
+     */
+    public DirectedGraph<Object, Edge> Merging(
+            DirectedGraph<Object, Edge> graph_01, 
+            DirectedGraph<Object, Edge> graph_02, 
+            Map<String, AttributeErrorMargin> restrictionList,
+             Map<String, String> vocabulary,
+            float similarityThreshold, String defaultError) {
+        
+        GraphMatching combiner = new GraphMatching(restrictionList, vocabulary, similarityThreshold, defaultError);
+        return MergeGraphs(graph_01, graph_02, combiner);
+    }
+    
+    /**
+     * 
+     * @param graph_01
+     * @param graph_02
+     * @param restrictionList
+     * @param vocabulary
+     * @param similarityThreshold
+     * @param defaultError
+     * @param defaultWeight
+     * @return 
+     */
+    public DirectedGraph<Object, Edge> Merging(
+            DirectedGraph<Object, Edge> graph_01, 
+            DirectedGraph<Object, Edge> graph_02, 
+            Map<String, AttributeErrorMargin> restrictionList,
+             Map<String, String> vocabulary,
+            float similarityThreshold, String defaultError, float defaultWeight) {
+        
+        GraphMatching combiner = new GraphMatching(restrictionList, vocabulary, similarityThreshold, defaultError, defaultWeight);
+        return MergeGraphs(graph_01, graph_02, combiner);
+    }
+    
+    /**
+     * 
+     * @param graph_01
+     * @param graph_02
+     * @param restrictionList
+     * @param similarityThreshold
+     * @param defaultError
+     * @return 
+     */
     public DirectedGraph<Object, Edge> Merging(
             DirectedGraph<Object, Edge> graph_01, 
             DirectedGraph<Object, Edge> graph_02, 
@@ -55,7 +123,14 @@ public class GraphMerger {
         return MergeGraphs(graph_01, graph_02, combiner);
     }
     
-    // List + Threshold
+    /**
+     * 
+     * @param graph_01
+     * @param graph_02
+     * @param restrictionList
+     * @param similarityThreshold
+     * @return 
+     */
     public DirectedGraph<Object, Edge> Merging(
             DirectedGraph<Object, Edge> graph_01, 
             DirectedGraph<Object, Edge> graph_02, 
@@ -66,6 +141,13 @@ public class GraphMerger {
         return MergeGraphs(graph_01, graph_02, combiner);
     }
     
+    /**
+     * 
+     * @param graph_01
+     * @param graph_02
+     * @param combiner
+     * @return 
+     */
     private DirectedGraph<Object, Edge> MergeGraphs(
             DirectedGraph<Object, Edge> graph_01, 
             DirectedGraph<Object, Edge> graph_02, 
@@ -91,12 +173,22 @@ public class GraphMerger {
         return combiner.getCombinedGraph();
     }
     
+    /**
+     * 
+     * @param graph
+     * @param ID 
+     */
     public void updateVertexIDs(DirectedGraph<Object, Edge> graph, String ID) {
         for (Object v : graph.getVertices()) {
             ((Vertex)v).setID(ID + "_" + ((Vertex)v).getID());
         }
     }
     
+    /**
+     * 
+     * @param graph
+     * @param ID 
+     */
     public void updateEdgeIDs(DirectedGraph<Object, Edge> graph, String ID) {
         for (Edge e : graph.getEdges()) {
             e.setID(ID + "_" + e.getID());
