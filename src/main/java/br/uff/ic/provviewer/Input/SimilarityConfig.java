@@ -35,11 +35,12 @@ import org.w3c.dom.NodeList;
  */
 public class SimilarityConfig {
     
-    private Map<String, AttributeErrorMargin> restrictionList;
-    private String defaultError;
-    private float similarityThreshold;
-    private AttributeErrorMargin epsilon;
-    private Vocabulary vocabulary;
+    private Map<String, AttributeErrorMargin> restrictionList; // List of errors for each specified attribute, including their weights. Otherwise the default weight is 1
+    private String defaultError; // Default value error if not specified anywhere
+    private float defaultWeight; // Default weight if not specified anywhere
+    private float similarityThreshold; // Used to define if two vertices are similar. The similarity result will need to be highter than the similarityThreshold
+    private AttributeErrorMargin epsilon; // Auxiliary variable used in this class
+    private Vocabulary vocabulary; // The vocabulary that contains string synonyms
     
     public Map<String, AttributeErrorMargin> getRestrictionList() {
         return restrictionList;
@@ -53,8 +54,16 @@ public class SimilarityConfig {
         return defaultError;
     }
     
+    public float getDefaultWeight() {
+        return defaultWeight;
+    }
+    
     public Map<String, String> getVocabulary() {
         return vocabulary.getVocabulary();
+    }
+    
+    public Vocabulary returnVocabulary() {
+        return vocabulary;
     }
     
     public void readFile(File fXmlFile) {
@@ -71,6 +80,8 @@ public class SimilarityConfig {
             
             nList = doc.getElementsByTagName("default_error");
             defaultError = nList.item(0).getTextContent();
+            nList = doc.getElementsByTagName("default_weight");
+            defaultWeight = Float.parseFloat(nList.item(0).getTextContent());
             nList = doc.getElementsByTagName("similarityThreshold");
             similarityThreshold = Float.parseFloat(nList.item(0).getTextContent());
             
