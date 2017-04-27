@@ -26,11 +26,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <!-- Configuration Type -->
     <xs:complexType name="configuration">
         <xs:sequence>
-            <!--  -->
+            <!-- Used to define if two vertices are similar. The similarity result will need to be highter than the similarityThreshold. Need to be between 0.0f and 1.0f -->
             <xs:element name="similarityThreshold" type="xs:decimal"/>
-            <!-- The default  -->
+            <!-- The default value error if not specified anywhere. Can be a number or %  -->
             <xs:element name="default_error" type="xs:string"/>
-            <!--  -->
+            <!-- The default value error if not specified anywhere. Need to be equal or highter than zero  -->
+            <xs:element name="default_weight" type="xs:decimal"/>
+            <!-- The list of acceptable errors for each specified attribute  -->
             <xs:element name="attributeErrorList" type="attribute" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
@@ -38,10 +40,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <!-- Attribute threshold -->
     <xs:complexType name="attribute">
         <xs:sequence>
+            <!-- The attribute name -->
             <xs:element name="name" type="xs:string"/>
-            <!-- Take MAX value or MEAN value for each edge type -->
+            <!-- The accepted error. Can be numeric or in % -->
             <xs:element name="value" type="xs:string"/>
-            <!-- Collapse function used: True = multiplication; False = Add -->
+            <!-- The weight this attribute has in the final similarity computation. Must be equal or highter than 0. Zero means the attribute will not contribute to the similarity -->
             <xs:element name="weight" type="xs:decimal"/>
         </xs:sequence>
     </xs:complexType>
