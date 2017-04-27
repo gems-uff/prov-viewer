@@ -77,6 +77,19 @@ public class GraphMatching {
         defaultWeight = 1;
     }
     
+    public GraphMatching(Map<String, AttributeErrorMargin> restrictionList, Map<String, String> vocabulary, float similarityThreshold, String errorMargin, float weight) {
+        vertexList = new HashMap<>();
+        edgeList = new HashMap<>();
+        attributeList = restrictionList;
+        this.vocabulary = vocabulary;
+        threshold = similarityThreshold;
+        threshold = Utils.clamp(0.0f, 1.0f, similarityThreshold);
+        combinedVertexList = new HashMap<>();
+        duplicateEdges = new HashMap<>();
+        defaultError = errorMargin;
+        defaultWeight = weight;
+    }
+    
     /**
      * Constructor
      *
