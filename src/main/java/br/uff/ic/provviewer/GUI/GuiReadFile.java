@@ -9,6 +9,7 @@ import br.uff.ic.graphmatching.GraphMerger;
 import br.uff.ic.utility.graph.Edge;
 import static br.uff.ic.provviewer.GUI.GuiFunctions.PanCameraToFirstVertex;
 import br.uff.ic.provviewer.GraphFrame;
+import br.uff.ic.provviewer.Input.SimilarityConfig;
 import br.uff.ic.utility.IO.UnityReader;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.AttributeErrorMargin;
@@ -125,14 +126,62 @@ public class GuiReadFile {
         }
     }
     
+    /**
+     * 
+     * @param variables
+     * @param fileChooser
+     * @param graphFrame 
+     */
+    public static void loadMergeConfiguration(Variables variables, JFileChooser fileChooser, JFrame graphFrame) {
+        int returnVal = fileChooser.showOpenDialog(graphFrame);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            variables.mergeConfig = new SimilarityConfig();
+            variables.mergeConfig.readFile(file);
+        } else {
+            System.out.println("File access cancelled by user.");
+        }
+    }
     
+    /**
+     * 
+     * @param variables
+     * @param fileChooser
+     * @param graphFrame 
+     */
+    public static void loadSimilarityConfiguration(Variables variables, JFileChooser fileChooser, JFrame graphFrame) {
+        int returnVal = fileChooser.showOpenDialog(graphFrame);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            variables.similarityConfig = new SimilarityConfig();
+            variables.similarityConfig.readFile(file);
+            
+            // For Debug
+            System.out.println("Similarity Config Loaded");
+            System.out.println(variables.similarityConfig.getDefaultError());
+            System.out.println(variables.similarityConfig.getSimilarityThreshold());
+
+        } else {
+            System.out.println("File access cancelled by user.");
+        }
+    }
+    
+    /**
+     * 
+     * @param variables
+     * @param fileChooser
+     * @param graphFrame
+     * @param Layouts 
+     */
     public static void MergeGraph(Variables variables, JFileChooser fileChooser, JFrame graphFrame, JComboBox Layouts) {
         int returnVal = fileChooser.showOpenDialog(graphFrame);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             DirectedGraph<Object, Edge> fileGraph = GuiReadFile.getGraph(fileChooser.getSelectedFile());
-            Map<String, AttributeErrorMargin> restrictionList = defaultRestriction(); 
+//            Map<String, AttributeErrorMargin> restrictionList = defaultRestriction(); 
+//            GraphMerger merger = new GraphMerger();
+//            DirectedGraph<Object, Edge> mergedGraph = merger.Merging(variables.graph, fileGraph, restrictionList, similarityThreshold, defaultErrorMargin);
             GraphMerger merger = new GraphMerger();
-            DirectedGraph<Object, Edge> mergedGraph = merger.Merging(variables.graph, fileGraph, restrictionList, similarityThreshold, defaultErrorMargin);
+            DirectedGraph<Object, Edge> mergedGraph = merger.Merging(variables.graph, fileGraph, variables.mergeConfig.getRestrictionList(), variables.mergeConfig.getVocabulary(), variables.mergeConfig.getSimilarityThreshold(), variables.mergeConfig.getDefaultError(), variables.mergeConfig.getDefaultWeight());
             
             loadGraph(variables, mergedGraph);
         } else {
@@ -144,6 +193,11 @@ public class GuiReadFile {
         PanCameraToFirstVertex(variables);
     }
     
+    /**
+     * Changed to use the AngryBotsMergeConfigExample.xml
+     * @deprecated
+     * @return 
+     */
     private static Map<String, AttributeErrorMargin> defaultRestriction(){
         Map<String, AttributeErrorMargin> restrictionList = new HashMap<String, AttributeErrorMargin>();
         AttributeErrorMargin epsilon;

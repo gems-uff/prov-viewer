@@ -95,6 +95,7 @@ public class GraphFrame extends javax.swing.JFrame {
         displayTimeLabel = new javax.swing.JCheckBoxMenuItem();
         displayID = new javax.swing.JCheckBoxMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         mergeGraphButtom = new javax.swing.JMenuItem();
         exportGraphButton = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -109,6 +110,8 @@ public class GraphFrame extends javax.swing.JFrame {
         jMenu5 = new javax.swing.JMenu();
         updateErrorButton = new javax.swing.JCheckBoxMenuItem();
         verifyWithinClusterButton = new javax.swing.JCheckBoxMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        attributeDisplaySimConfig = new javax.swing.JRadioButtonMenuItem();
 
         fileChooser.setCurrentDirectory(new java.io.File("D:\\SVN\\Prov_Viewer\\prov-viewer\\src\\main\\resources"));
         fileChooser.setDialogTitle("This is my open dialog");
@@ -579,6 +582,14 @@ public class GraphFrame extends javax.swing.JFrame {
 
         jMenu2.setText("Merge");
 
+        jMenuItem1.setText("Merge Configuration");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem1);
+
         mergeGraphButtom.setText("Merge Graph With...");
         mergeGraphButtom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -680,6 +691,18 @@ public class GraphFrame extends javax.swing.JFrame {
             }
         });
         jMenu5.add(verifyWithinClusterButton);
+
+        jMenuItem2.setText("Similarity Configuration");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem2);
+
+        attributeDisplaySimConfig.setSelected(true);
+        attributeDisplaySimConfig.setText("Use Attribute Status Config");
+        jMenu5.add(attributeDisplaySimConfig);
 
         MenuBar.add(jMenu5);
 
@@ -949,6 +972,16 @@ public class GraphFrame extends javax.swing.JFrame {
     private void simEpsilonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simEpsilonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_simEpsilonActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        GuiReadFile.loadMergeConfiguration(variables, fileChooser, this);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        GuiReadFile.loadSimilarityConfiguration(variables, fileChooser, this);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
    
     /**
      * Main
@@ -1016,6 +1049,7 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JToggleButton TemporalFilterToggle;
     private javax.swing.JPanel ToolMenu;
     private javax.swing.JScrollPane VertexLabels;
+    public static javax.swing.JRadioButtonMenuItem attributeDisplaySimConfig;
     private javax.swing.JCheckBoxMenuItem autoDetectAttributeCheckBox;
     private javax.swing.JCheckBoxMenuItem autoDetectEdgesCheckBox;
     private javax.swing.JCheckBoxMenuItem autoDetectVertexFilters;
@@ -1039,6 +1073,8 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JMenu jMenu3;
     public static javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem mergeGraphButtom;
     public static javax.swing.JCheckBoxMenuItem removeOutliersButton;
     public static javax.swing.JTextField simEpsilon;

@@ -83,13 +83,15 @@ public class GuiInference {
      * Method to apply the similarity collapse in the graph
      *
      * @param variables
-     * @param edgeType is the type of edge used for the collapse
+     * @param updateError
+     * @param verifyWithinCluster
      */
     public static void SimilarityCollapse(Variables variables, boolean updateError, boolean verifyWithinCluster) {
         GuiButtons.Reset(variables);
         System.out.println("VE: " + updateError);
         System.out.println("IC: " + verifyWithinCluster);
-        ArrayList<ConcurrentHashMap<String, Object>> list = ColorSchemeCollapse((String) StatusFilterBox.getSelectedItem(), variables.graph, updateError, verifyWithinCluster);
+        ArrayList<ConcurrentHashMap<String, Object>> list;
+        list = ColorSchemeCollapse((String) StatusFilterBox.getSelectedItem(), variables, updateError, verifyWithinCluster);
         MarkClusters(list, variables);
         variables.collapser.CollapseIrrelevant(variables, printCollapseGroups(list));
         System.out.println("Finished Collapsing");
@@ -142,17 +144,18 @@ public class GuiInference {
      * algorithm will be used
      * @return the clusters
      */
-    public static ArrayList<ConcurrentHashMap<String, Object>> ColorSchemeCollapse(String attribute, DirectedGraph<Object, Edge> graph, boolean updateError, boolean verifyWithinCluster) {
+    public static ArrayList<ConcurrentHashMap<String, Object>> ColorSchemeCollapse(String attribute, Variables variables, boolean updateError, boolean verifyWithinCluster) {
         AutomaticInference infer;
         int simSize = 1;
         float simInc = 1;
         float simEpsilonModifier = 1;
-        double eps;
+        double eps = 1;
+        GraphMatching combiner;
 
         // -----------------------------
         // Standard Deviation
         // -----------------------------
-        float std = Utils.std(graph.getVertices(), attribute);
+        float std = Utils.std(variables.graph.getVertices(), attribute);
 
         // -----------------------------
         // Similarity configuration
@@ -160,15 +163,22 @@ public class GuiInference {
         if (Utils.tryParseFloat(GraphFrame.simEpsilon.getText())) {
             simEpsilonModifier = Float.parseFloat(GraphFrame.simEpsilon.getText());
         }
-
-        eps = std * simEpsilonModifier; // The epsilon used by the algorithm
-        String defaultError = "0";
-        Map<String, AttributeErrorMargin> restrictionList = new HashMap<>();
-        AttributeErrorMargin epsilon;
-        epsilon = new AttributeErrorMargin(attribute, String.valueOf(eps));
-        restrictionList.put(attribute, epsilon);
-        float similarityThreshold = 0.5f;
-        GraphMatching combiner = new GraphMatching(restrictionList, similarityThreshold, defaultError, 0);
+        
+        if(GraphFrame.attributeDisplaySimConfig.isSelected()) {
+            String defaultError = "0";
+            float similarityThreshold = 0.5f;
+            Map<String, AttributeErrorMargin> restrictionList = new HashMap<>();
+            AttributeErrorMargin epsilon;
+            eps = std * simEpsilonModifier; // The epsilon used by the algorithm
+            System.out.println("Eps used: " + eps);
+            epsilon = new AttributeErrorMargin(attribute, String.valueOf(eps));
+            restrictionList.put(attribute, epsilon);
+            combiner = new GraphMatching(restrictionList, similarityThreshold, defaultError, 0);
+        }
+        else {
+            combiner = new GraphMatching(variables.similarityConfig.getRestrictionList(), variables.similarityConfig.getVocabulary(), variables.similarityConfig.getSimilarityThreshold(), variables.similarityConfig.getDefaultError(), variables.similarityConfig.getDefaultWeight());
+        }
+        
 
         if (updateError) {
             if (Utils.tryParseFloat(GraphFrame.simStdSize.getText())) {
@@ -177,7 +187,7 @@ public class GuiInference {
             if (Utils.tryParseFloat(GraphFrame.simStdInc.getText())) {
                 simInc = Float.parseFloat(GraphFrame.simStdInc.getText());
             }
-            infer = new AutomaticInference(combiner, graph, simSize, simInc, simEpsilonModifier);
+            infer = new AutomaticInference(combiner, variables.graph, simSize, simInc, simEpsilonModifier);
 //            if(verifyWithinCluster) { // True True
 //                infer = new AutomaticInference(combiner, graph, TT_size, TT_increase, TT_qnt);
 //            }
@@ -185,11 +195,13 @@ public class GuiInference {
 //                infer = new AutomaticInference(combiner, graph, TF_size, TF_increase, TF_qnt);
 //            }
         } else {
-            infer = new AutomaticInference(combiner, graph);
+            infer = new AutomaticInference(combiner, variables.graph);
         }
 
         // Set "ErrorTest" since it uses only one attribute for faster computation
-        infer.setSingleAttributeOptimization(attribute, eps);
+        if(GraphFrame.attributeDisplaySimConfig.isSelected()) {
+            infer.setSingleAttributeOptimization(attribute, eps);
+        }
         ArrayList<ConcurrentHashMap<String, Object>> clusters = infer.applySimilarity(updateError, verifyWithinCluster);
         return clusters;
     }
