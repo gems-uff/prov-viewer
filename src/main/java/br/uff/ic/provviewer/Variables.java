@@ -9,6 +9,7 @@ import br.uff.ic.provviewer.Filter.Filters;
 import br.uff.ic.provviewer.GUI.GuiBackground;
 import br.uff.ic.provviewer.Inference.PrologInference;
 import br.uff.ic.provviewer.Input.Config;
+import br.uff.ic.provviewer.Input.SimilarityConfig;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
@@ -83,6 +84,8 @@ public class Variables extends Object {
     public DefaultModalGraphMouse mouse = new DefaultModalGraphMouse();
     public Collapser collapser = new Collapser();
     public boolean initialGraph = true;
+    public SimilarityConfig mergeConfig;
+    public SimilarityConfig similarityConfig;
     
     
     public boolean TemporalLayoutisMilliseconds = true;
