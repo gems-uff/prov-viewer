@@ -2,6 +2,7 @@ package br.uff.ic.provviewer;
 
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.GUI.GuiButtons;
+import br.uff.ic.provviewer.GUI.GuiFunctions;
 import br.uff.ic.provviewer.GUI.GuiInitialization;
 import br.uff.ic.provviewer.GUI.GuiInference;
 import br.uff.ic.provviewer.GUI.GuiReadFile;
@@ -94,6 +95,7 @@ public class GraphFrame extends javax.swing.JFrame {
         displayEntityLabelButton = new javax.swing.JCheckBoxMenuItem();
         displayTimeLabel = new javax.swing.JCheckBoxMenuItem();
         displayID = new javax.swing.JCheckBoxMenuItem();
+        PantoVertex = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         mergeGraphButtom = new javax.swing.JMenuItem();
@@ -580,6 +582,14 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu1.add(displayID);
 
+        PantoVertex.setText("Pan to vertex");
+        PantoVertex.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PantoVertexActionPerformed(evt);
+            }
+        });
+        jMenu1.add(PantoVertex);
+
         MenuBar.add(jMenu1);
 
         jMenu2.setText("Merge");
@@ -1016,6 +1026,11 @@ public class GraphFrame extends javax.swing.JFrame {
                 temporalSecondsButton, temporalMinutesButton, temporalHoursButton, 
                 temporalDaysButton, temporalWeeksButton);  
     }//GEN-LAST:event_temporalSecondsButtonActionPerformed
+
+    private void PantoVertexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PantoVertexActionPerformed
+        // TODO add your handling code here:
+        GuiFunctions.PanCameraToFirstVertex(variables);
+    }//GEN-LAST:event_PantoVertexActionPerformed
    
     /**
      * Main
@@ -1076,6 +1091,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox MouseModes;
     private javax.swing.JMenuItem OpenConfig;
     private javax.swing.JMenuItem OpenGraph;
+    private javax.swing.JMenuItem PantoVertex;
     private javax.swing.JButton Reset;
     private javax.swing.JCheckBox ShowEdgeTextButton;
     private javax.swing.JButton SimilarityInference;
