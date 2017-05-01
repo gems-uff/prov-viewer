@@ -281,14 +281,14 @@ public class Config {
             }
             
             //Vertex Label Filters
-            nList = doc.getElementsByTagName("vertexlabelfilter");
+            nList = doc.getElementsByTagName("vertexvaluefilter");
 
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
                     String vertexFilter = new String();
-                    vertexFilter = eElement.getElementsByTagName("vertexlabel").item(0).getTextContent();
+                    vertexFilter = eElement.getElementsByTagName("value").item(0).getTextContent();
                     vertexLabelFilter.add(vertexFilter);
                 }
             }
