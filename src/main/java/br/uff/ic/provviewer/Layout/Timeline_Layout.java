@@ -3,6 +3,7 @@ package br.uff.ic.provviewer.Layout;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.ActivityVertex;
+import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.Graph;
@@ -46,14 +47,14 @@ public class Timeline_Layout<V, E> extends ProvViewerLayout<V, E> {
     private void doInit() {
         layout_graph = getGraph();
         //Compute position for all node-types (minus Agent)
-        for (V v2 : layout_graph.getVertices()) {
-            calcPositions(v2);
+        for (V v : layout_graph.getVertices()) {
+            calcPositions(v);
         }
         //Check if there are nodes at the same place, if so apply repulsion
-         for(V v3 : layout_graph.getVertices()) 
-         {
-         calcRepulsion(v3);
-         }
+//         for(V v3 : layout_graph.getVertices()) 
+//         {
+//         calcRepulsion(v3);
+//         }
     }
 
     /**
@@ -89,19 +90,28 @@ public class Timeline_Layout<V, E> extends ProvViewerLayout<V, E> {
                 middleVertex = ((Graph)middleVertex).getVertices().toArray()[0];
             }
             middle = (Vertex) middleVertex;
-            calcPositions(xyd, (Vertex) v);
+            calcPositions(xyd, ((Vertex) v).getNormalizedTime(), 0);
         }
-
-        // Use vertex atribute for position
-        calcPositions(xyd, (Vertex) v);
+        else {
+            // Use vertex atribute for position
+            if (v instanceof AgentVertex) {
+                calcPositions(xyd, ((Vertex) v).getNormalizedTime(), 20);
+            }
+            else if (v instanceof EntityVertex) {
+                calcPositions(xyd, ((Vertex) v).getNormalizedTime(), -20);
+            }
+            else {
+                calcPositions(xyd, ((Vertex) v).getNormalizedTime(), 0);
+            }
+        }
+        
                 
     }
     
-    protected synchronized void calcPositions(Point2D xyd, Vertex v) {
-        double time = ((Vertex) v).getTime();
-        time = Utils.convertTime(time, variables.TemporalLayoutisMicroseconds, variables.TemporalLayoutisSeconds, variables.TemporalLayoutisMinutes, variables.TemporalLayoutisHours, variables.TemporalLayoutisDays, variables.TemporalLayoutisWeek);
-        double newXPos = time * variables.config.coordinatesScale;
-        double newYPos = 1.0f * variables.config.coordinatesScale;
+    protected synchronized void calcPositions(Point2D xyd, double t, double newYPos) {
+        double time;//.getTime();
+        time = Utils.convertTime(t, variables.TemporalLayoutisMicroseconds, variables.TemporalLayoutisSeconds, variables.TemporalLayoutisMinutes, variables.TemporalLayoutisHours, variables.TemporalLayoutisDays, variables.TemporalLayoutisWeek);
+        double newXPos = time;
         xyd.setLocation(newXPos, newYPos);
     }
     
