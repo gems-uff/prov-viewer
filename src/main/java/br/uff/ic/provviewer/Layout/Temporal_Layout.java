@@ -8,11 +8,8 @@ import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.Graph;
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.ConcurrentModificationException;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Temporal Layout for Prov Viewer. Based on Temporal_Layout_Template
