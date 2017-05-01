@@ -16,6 +16,7 @@ import br.uff.ic.provviewer.Vertex.ColorScheme.VertexPainter;
 import br.uff.ic.utility.IO.PROVNWriter;
 import br.uff.ic.utility.IO.XMLWriter;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
+import edu.uci.ics.jung.algorithms.layout.DAGLayout;
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
 import edu.uci.ics.jung.algorithms.layout.FRLayout2;
 import edu.uci.ics.jung.algorithms.layout.ISOMLayout;
@@ -184,15 +185,6 @@ public class GuiButtons {
         if (layout.equalsIgnoreCase("FRLayout2")) {
             variables.layout = new FRLayout2<>(variables.layout.getGraph());
         }
-        if (layout.equalsIgnoreCase("TemporalLayout")) {
-            variables.layout = new Temporal_Layout<>(variables.layout.getGraph(), variables);
-        }
-        if (layout.equalsIgnoreCase("SpatialLayout")) {
-            variables.layout = new Spatial_Layout<>(variables.layout.getGraph(), variables);
-        }
-        if (layout.equalsIgnoreCase("TimelineLayout")) {
-            variables.layout = new Timeline_Layout<>(variables.layout.getGraph(), variables);
-        }
         if (layout.equalsIgnoreCase("ISOMLayout")) {
             variables.layout = new ISOMLayout<>(variables.layout.getGraph());
         }
@@ -201,6 +193,18 @@ public class GuiButtons {
         }
         if (layout.equalsIgnoreCase("SpringLayout")) {
             variables.layout = new SpringLayout<>(variables.layout.getGraph());
+        }
+        if (layout.equalsIgnoreCase("DagLayout")) {
+            variables.layout = new DAGLayout<>(variables.layout.getGraph());
+        }
+        if (layout.equalsIgnoreCase("TemporalLayout")) {
+            variables.layout = new Temporal_Layout<>(variables.layout.getGraph(), variables);
+        }
+        if (layout.equalsIgnoreCase("SpatialLayout")) {
+            variables.layout = new Spatial_Layout<>(variables.layout.getGraph(), variables);
+        }
+        if (layout.equalsIgnoreCase("TimelineLayout")) {
+            variables.layout = new Timeline_Layout<>(variables.layout.getGraph(), variables);
         }
         variables.guiBackground.InitBackground(variables, Layouts);
         variables.view.setGraphLayout(variables.layout);
