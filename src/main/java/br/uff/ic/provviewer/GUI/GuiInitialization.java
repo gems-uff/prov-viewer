@@ -10,7 +10,6 @@ import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.Filter.Filters;
 import br.uff.ic.provviewer.Filter.PreFilters;
 import br.uff.ic.provviewer.GraphFrame;
-import br.uff.ic.provviewer.Inference.PrologInference;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
@@ -71,7 +70,6 @@ public class GuiInitialization {
         variables = new Variables();
         variables.collapser = new Collapser();
         variables.filter = new Filters();
-        variables.testProlog = new PrologInference();
         variables.prologIsInitialized = false;
         variables.initLayout = true;
         variables.initConfig = false;
