@@ -215,6 +215,12 @@ public class GuiButtons {
             variables.view.setGraphLayout(variables.layout);
             variables.view.repaint();
         }
+        if (layout.equalsIgnoreCase("TimelineLayout")) {
+            variables.layout = new Timeline_Layout<>(variables.layout.getGraph(), variables);
+            variables.guiBackground.InitBackground(variables, Layouts);
+            variables.view.setGraphLayout(variables.layout);
+            variables.view.repaint();
+        }
         
     }
 
@@ -258,23 +264,31 @@ public class GuiButtons {
     }
 
     public static void TemporalLayoutGranularity(Variables variables, 
+            boolean microseconds, 
             boolean milliseconds, 
+            boolean seconds, 
             boolean minutes, 
             boolean hours, 
             boolean days, 
             boolean weeks, 
             JComboBox Layouts, 
+            JCheckBoxMenuItem temporalNanosecondsButton, 
             JCheckBoxMenuItem temporalMillisecondsButton, 
+            JCheckBoxMenuItem temporalSecondsButton, 
             JCheckBoxMenuItem temporalMinutesButton, 
             JCheckBoxMenuItem temporalHoursButton, 
             JCheckBoxMenuItem temporalDaysButton, 
             JCheckBoxMenuItem temporalWeeksButton) {
+        variables.TemporalLayoutisMicroseconds = microseconds;
         variables.TemporalLayoutisMilliseconds = milliseconds;
+        variables.TemporalLayoutisSeconds = seconds;
         variables.TemporalLayoutisMinutes = minutes;
         variables.TemporalLayoutisHours = hours;
         variables.TemporalLayoutisDays = days;
         variables.TemporalLayoutisWeek = weeks;
+        temporalNanosecondsButton.setSelected(microseconds);
         temporalMillisecondsButton.setSelected(milliseconds);
+        temporalSecondsButton.setSelected(seconds);
         temporalMinutesButton.setSelected(minutes);
         temporalHoursButton.setSelected(hours);
         temporalDaysButton.setSelected(days);

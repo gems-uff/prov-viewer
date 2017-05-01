@@ -153,6 +153,17 @@
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>
           <SubComponents>
+            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="temporalMicrosecondsButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Microseconds"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="temporalMicrosecondsButtonActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+              </AuxValues>
+            </MenuItem>
             <MenuItem class="javax.swing.JCheckBoxMenuItem" name="temporalMillisecondsButton">
               <Properties>
                 <Property name="selected" type="boolean" value="true"/>
@@ -161,6 +172,17 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="temporalMillisecondsButtonActionPerformed"/>
               </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="temporalSecondsButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Seconds"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="temporalSecondsButtonActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+              </AuxValues>
             </MenuItem>
             <MenuItem class="javax.swing.JCheckBoxMenuItem" name="temporalMinutesButton">
               <Properties>

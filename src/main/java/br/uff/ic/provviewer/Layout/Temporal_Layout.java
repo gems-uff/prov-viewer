@@ -1,6 +1,7 @@
 package br.uff.ic.provviewer.Layout;
 
 import br.uff.ic.provviewer.Variables;
+import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.graph.EntityVertex;
@@ -139,18 +140,7 @@ public class Temporal_Layout<V, E> extends ProvViewerLayout<V, E> {
         if (v instanceof Vertex) {
             //Node's X position is defined by the day it was created
             double time = ((Vertex) v).getNormalizedTime();
-            if(this.variables.TemporalLayoutisDays) {
-             time = TimeUnit.MILLISECONDS.toDays((long) time);
-            }
-            else if(this.variables.TemporalLayoutisWeek) {
-                time = (int) TimeUnit.MILLISECONDS.toDays((long) time) / 7;
-            }
-            else if(this.variables.TemporalLayoutisHours) {
-                time = TimeUnit.MILLISECONDS.toHours((long) time);
-            }
-            else if(this.variables.TemporalLayoutisMinutes) {
-                time = TimeUnit.MILLISECONDS.toMinutes((long) time);
-            }
+            time = Utils.convertTime(time, variables.TemporalLayoutisMicroseconds, variables.TemporalLayoutisSeconds, variables.TemporalLayoutisMinutes, variables.TemporalLayoutisHours, variables.TemporalLayoutisDays, variables.TemporalLayoutisWeek);
             
             newXPos = Math.round(time) * XDISTANCE;
             //If node is from the backbone type

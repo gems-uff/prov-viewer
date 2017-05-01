@@ -48,6 +48,7 @@ public class Variables extends Object {
     
 //    public static String demo = File.separator + "Graph" + File.separator + "Test" + File.separator + "prov-dm-example1.prov-asn";
 //    public static String demo = File.separator + "Graph" + File.separator + "test" + File.separator + "example-blog1.provn";
+//    public static String demo = File.separator + "Graph" + File.separator + "ache.xml"; 
 //    public String configDemo = File.separator + "Config" + File.separator + "PROV_config.xml";
     
 //    public static String demo = File.separator + "Graph" + File.separator + "2D_Provenance.xml";
@@ -87,8 +88,9 @@ public class Variables extends Object {
     public SimilarityConfig mergeConfig;
     public SimilarityConfig similarityConfig;
     
-    
+    public boolean TemporalLayoutisMicroseconds = false;
     public boolean TemporalLayoutisMilliseconds = true;
+    public boolean TemporalLayoutisSeconds = false;
     public boolean TemporalLayoutisMinutes = false;
     public boolean TemporalLayoutisHours = false;
     public boolean TemporalLayoutisDays = false;

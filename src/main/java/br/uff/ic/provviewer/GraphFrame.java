@@ -99,7 +99,9 @@ public class GraphFrame extends javax.swing.JFrame {
         mergeGraphButtom = new javax.swing.JMenuItem();
         exportGraphButton = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        temporalMicrosecondsButton = new javax.swing.JCheckBoxMenuItem();
         temporalMillisecondsButton = new javax.swing.JCheckBoxMenuItem();
+        temporalSecondsButton = new javax.swing.JCheckBoxMenuItem();
         temporalMinutesButton = new javax.swing.JCheckBoxMenuItem();
         temporalHoursButton = new javax.swing.JCheckBoxMenuItem();
         temporalDaysButton = new javax.swing.JCheckBoxMenuItem();
@@ -610,6 +612,14 @@ public class GraphFrame extends javax.swing.JFrame {
 
         jMenu3.setText("Temporal Scale");
 
+        temporalMicrosecondsButton.setText("Microseconds");
+        temporalMicrosecondsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                temporalMicrosecondsButtonActionPerformed(evt);
+            }
+        });
+        jMenu3.add(temporalMicrosecondsButton);
+
         temporalMillisecondsButton.setSelected(true);
         temporalMillisecondsButton.setText("Milliseconds");
         temporalMillisecondsButton.addActionListener(new java.awt.event.ActionListener() {
@@ -618,6 +628,14 @@ public class GraphFrame extends javax.swing.JFrame {
             }
         });
         jMenu3.add(temporalMillisecondsButton);
+
+        temporalSecondsButton.setText("Seconds");
+        temporalSecondsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                temporalSecondsButtonActionPerformed(evt);
+            }
+        });
+        jMenu3.add(temporalSecondsButton);
 
         temporalMinutesButton.setText("Minutes");
         temporalMinutesButton.addActionListener(new java.awt.event.ActionListener() {
@@ -889,41 +907,41 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private void temporalMillisecondsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporalMillisecondsButtonActionPerformed
         // TODO add your handling code here:
-        GuiButtons.TemporalLayoutGranularity(variables, true, false, false, 
-                false, false, Layouts, temporalMillisecondsButton, 
-                temporalMinutesButton, temporalHoursButton, 
+        GuiButtons.TemporalLayoutGranularity(variables, false, true, false, false, false, 
+                false, false, Layouts, temporalMicrosecondsButton, temporalMillisecondsButton, 
+                temporalSecondsButton, temporalMinutesButton, temporalHoursButton, 
                 temporalDaysButton, temporalWeeksButton);        
     }//GEN-LAST:event_temporalMillisecondsButtonActionPerformed
 
     private void temporalHoursButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporalHoursButtonActionPerformed
         // TODO add your handling code here:
-        GuiButtons.TemporalLayoutGranularity(variables, false, false, true, 
-                false, false, Layouts, temporalMillisecondsButton, 
-                temporalMinutesButton, temporalHoursButton, 
+        GuiButtons.TemporalLayoutGranularity(variables, false, false, false, false, true, 
+                false, false, Layouts, temporalMicrosecondsButton, temporalMillisecondsButton, 
+                temporalSecondsButton, temporalMinutesButton, temporalHoursButton, 
                 temporalDaysButton, temporalWeeksButton);
     }//GEN-LAST:event_temporalHoursButtonActionPerformed
 
     private void temporalDaysButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporalDaysButtonActionPerformed
         // TODO add your handling code here:
-        GuiButtons.TemporalLayoutGranularity(variables, false, false, false, 
-                true, false, Layouts, temporalMillisecondsButton, 
-                temporalMinutesButton, temporalHoursButton, 
+        GuiButtons.TemporalLayoutGranularity(variables, false, false, false, false, false, 
+                true, false, Layouts, temporalMicrosecondsButton, temporalMillisecondsButton, 
+                temporalSecondsButton, temporalMinutesButton, temporalHoursButton, 
                 temporalDaysButton, temporalWeeksButton);
     }//GEN-LAST:event_temporalDaysButtonActionPerformed
 
     private void temporalWeeksButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporalWeeksButtonActionPerformed
         // TODO add your handling code here:
-        GuiButtons.TemporalLayoutGranularity(variables, false, false, false, 
-                false, true, Layouts, temporalMillisecondsButton, 
-                temporalMinutesButton, temporalHoursButton, 
+        GuiButtons.TemporalLayoutGranularity(variables, false, false, false, false, false, 
+                false, true, Layouts, temporalMicrosecondsButton, temporalMillisecondsButton, 
+                temporalSecondsButton, temporalMinutesButton, temporalHoursButton, 
                 temporalDaysButton, temporalWeeksButton);
     }//GEN-LAST:event_temporalWeeksButtonActionPerformed
 
     private void temporalMinutesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporalMinutesButtonActionPerformed
         // TODO add your handling code here:
-        GuiButtons.TemporalLayoutGranularity(variables, false, true, false, 
-                false, false, Layouts, temporalMillisecondsButton, 
-                temporalMinutesButton, temporalHoursButton, 
+        GuiButtons.TemporalLayoutGranularity(variables, false, false, false, true, false, 
+                false, false, Layouts, temporalMicrosecondsButton, temporalMillisecondsButton, 
+                temporalSecondsButton, temporalMinutesButton, temporalHoursButton, 
                 temporalDaysButton, temporalWeeksButton);
     }//GEN-LAST:event_temporalMinutesButtonActionPerformed
 
@@ -982,6 +1000,22 @@ public class GraphFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         GuiReadFile.loadSimilarityConfiguration(variables, fileChooser, this);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void temporalMicrosecondsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporalMicrosecondsButtonActionPerformed
+        // TODO add your handling code here:
+        GuiButtons.TemporalLayoutGranularity(variables, true, false, false, false, false, 
+                false, false, Layouts, temporalMicrosecondsButton, temporalMillisecondsButton, 
+                temporalSecondsButton, temporalMinutesButton, temporalHoursButton, 
+                temporalDaysButton, temporalWeeksButton);  
+    }//GEN-LAST:event_temporalMicrosecondsButtonActionPerformed
+
+    private void temporalSecondsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporalSecondsButtonActionPerformed
+        // TODO add your handling code here:
+        GuiButtons.TemporalLayoutGranularity(variables, false, false, true, false, false, 
+                false, false, Layouts, temporalMicrosecondsButton, temporalMillisecondsButton, 
+                temporalSecondsButton, temporalMinutesButton, temporalHoursButton, 
+                temporalDaysButton, temporalWeeksButton);  
+    }//GEN-LAST:event_temporalSecondsButtonActionPerformed
    
     /**
      * Main
@@ -1082,8 +1116,10 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JTextField simStdSize;
     public static javax.swing.JCheckBoxMenuItem temporalDaysButton;
     public static javax.swing.JCheckBoxMenuItem temporalHoursButton;
+    public static javax.swing.JCheckBoxMenuItem temporalMicrosecondsButton;
     private javax.swing.JCheckBoxMenuItem temporalMillisecondsButton;
     public static javax.swing.JCheckBoxMenuItem temporalMinutesButton;
+    public static javax.swing.JCheckBoxMenuItem temporalSecondsButton;
     public static javax.swing.JCheckBoxMenuItem temporalWeeksButton;
     private javax.swing.JCheckBoxMenuItem updateErrorButton;
     private javax.swing.JCheckBoxMenuItem verifyWithinClusterButton;

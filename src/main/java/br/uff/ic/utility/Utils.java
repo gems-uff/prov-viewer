@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -557,5 +558,22 @@ public class Utils {
         }
         
         return clone;
+    }
+    
+    public static double convertTime(double time, boolean nanos, boolean seconds, boolean minutes, boolean hours, boolean days, boolean weeks) {
+        if (days) {
+            return TimeUnit.MILLISECONDS.toDays((long) time);
+        } else if (weeks) {
+            return (int) TimeUnit.MILLISECONDS.toDays((long) time) / 7;
+        } else if (hours) {
+            return TimeUnit.MILLISECONDS.toHours((long) time);
+        } else if (minutes) {
+            return TimeUnit.MILLISECONDS.toMinutes((long) time);
+        } else if (seconds) {
+            return TimeUnit.MILLISECONDS.toSeconds((long) time);
+        } else if (nanos) {
+            return TimeUnit.MILLISECONDS.toMicros((long) time);
+        }
+        return time;
     }
 }
