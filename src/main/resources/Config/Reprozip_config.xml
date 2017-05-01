@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<config
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:noNamespaceSchemaLocation='config.xsd'>
+    <default_layout>TimelineLayout</default_layout>
+    <vertexAttributeFilter>Subtype</vertexAttributeFilter>
+    <layoutAxis_X>ObjectPosition_X</layoutAxis_X>
+    <layoutAxis_Y>ObjectPosition_Y</layoutAxis_Y>
+    <imageLocation></imageLocation>
+    <imageOffset_X>0</imageOffset_X>
+    <imageOffset_Y>0</imageOffset_Y>
+    <spatialLayoutPosition>0.0</spatialLayoutPosition>
+    <zoomLevel>0</zoomLevel>
+    <temporalLayoutscale>1.0</temporalLayoutscale>
+    <temporalLayoutbackbone></temporalLayoutbackbone>
+    <edgetype>
+        <edge>RunStarts</edge>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+    <edgetype>
+        <edge>PerformsFork</edge>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+    <edgetype>
+        <edge>ForkCreates</edge>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+    <edgetype>
+        <edge>PerformsFileAccess</edge>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+    <edgetype>
+        <edge>AccessFile</edge>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+    <edgetype>
+        <edge>ProcessExecution</edge>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+    <edgetype>
+        <edge>ExecutionFile</edge>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+    <vertexvaluefilter>
+        <value>Run</value>
+    </vertexvaluefilter>
+    <vertexvaluefilter>
+        <value>Process</value>
+    </vertexvaluefilter>
+    <vertexvaluefilter>
+        <value>File</value>
+    </vertexvaluefilter>
+    <vertexvaluefilter>
+        <value>Directory</value>
+    </vertexvaluefilter>
+    <vertexvaluefilter>
+        <value>Fork</value>
+    </vertexvaluefilter>
+    <vertexvaluefilter>
+        <value>FileWrites</value>
+    </vertexvaluefilter>
+    <vertexvaluefilter>
+        <value>FileReads</value>
+    </vertexvaluefilter>
+    <vertexvaluefilter>
+        <value>ProcessExecutes</value>
+    </vertexvaluefilter>
+</config>
