@@ -7,6 +7,7 @@ package br.uff.ic.provviewer.GUI;
 
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.Layout.Temporal_Layout;
+import br.uff.ic.provviewer.Layout.Timeline_Layout;
 import br.uff.ic.provviewer.Stroke.EdgeStroke;
 import br.uff.ic.provviewer.Stroke.VertexStroke;
 import br.uff.ic.provviewer.Variables;
@@ -225,7 +226,7 @@ public class GuiFunctions {
      * @param variables 
      */
     public static void ScaleView(Variables variables) {
-        variables.view = new VisualizationViewer<>(variables.layout);
+//        variables.view = new VisualizationViewer<>(variables.layout);
         final ScalingControl scaler = new CrossoverScalingControl();
         scaler.scale(variables.view, 1 / 2.1f, variables.view.getCenter());
     }
@@ -240,9 +241,10 @@ public class GuiFunctions {
         // Choosing layout
         if (variables.initLayout) {
             variables.config.Initialize(variables);
-            variables.layout = new Temporal_Layout<>(variables.graph, variables);
+            variables.newLayout(variables.config.defaultLayout);
+//            variables.layout = new Timeline_Layout<>(variables.graph, variables);
             variables.view = new VisualizationViewer<>(variables.layout);
-            Layouts.setSelectedItem(variables.config.defaultLayout);
+//            Layouts.setSelectedItem(variables.config.defaultLayout);
             variables.initLayout = false;
         }
 

@@ -227,7 +227,7 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         EdgeTypes.setViewportView(edgeFilterList);
 
-        Layouts.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CircleLayout", "FRLayout", "FRLayout2", "TemporalLayout", "SpatialLayout", "TimelineLayout", "ISOMLayout", "KKLayout", "SpringLayout" }));
+        Layouts.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TimelineLayout", "TemporalLayout", "SpatialLayout", "CircleLayout", "FRLayout", "FRLayout2", "ISOMLayout", "KKLayout", "SpringLayout", "DagLayout" }));
         Layouts.setToolTipText("Change the graph layout");
         Layouts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -293,7 +293,7 @@ public class GraphFrame extends javax.swing.JFrame {
         });
 
         vertexFilterList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = { "All Vertices", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });

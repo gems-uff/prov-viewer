@@ -10,7 +10,17 @@ import br.uff.ic.provviewer.GUI.GuiBackground;
 import br.uff.ic.provviewer.Inference.PrologInference;
 import br.uff.ic.provviewer.Input.Config;
 import br.uff.ic.provviewer.Input.SimilarityConfig;
+import br.uff.ic.provviewer.Layout.Spatial_Layout;
+import br.uff.ic.provviewer.Layout.Temporal_Layout;
+import br.uff.ic.provviewer.Layout.Timeline_Layout;
+import edu.uci.ics.jung.algorithms.layout.CircleLayout;
+import edu.uci.ics.jung.algorithms.layout.DAGLayout;
+import edu.uci.ics.jung.algorithms.layout.FRLayout;
+import edu.uci.ics.jung.algorithms.layout.FRLayout2;
+import edu.uci.ics.jung.algorithms.layout.ISOMLayout;
+import edu.uci.ics.jung.algorithms.layout.KKLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
+import edu.uci.ics.jung.algorithms.layout.SpringLayout;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
@@ -48,7 +58,6 @@ public class Variables extends Object {
     
 //    public static String demo = File.separator + "Graph" + File.separator + "Test" + File.separator + "prov-dm-example1.prov-asn";
 //    public static String demo = File.separator + "Graph" + File.separator + "test" + File.separator + "example-blog1.provn";
-//    public static String demo = File.separator + "Graph" + File.separator + "ache.xml"; 
 //    public String configDemo = File.separator + "Config" + File.separator + "PROV_config.xml";
     
 //    public static String demo = File.separator + "Graph" + File.separator + "2D_Provenance.xml";
@@ -66,6 +75,9 @@ public class Variables extends Object {
     
 //    public static String demo = File.separator + "Graph" + File.separator + "Car_Tutorial.xml";
 //    public String configDemo = File.separator + "Config" + File.separator + "Noise_config.xml";
+    
+//    public static String demo = File.separator + "Graph" + File.separator + "ache.xml"; 
+//    public String configDemo = File.separator + "Config" + File.separator + "Reprozip_config.xml";
 
     public GuiBackground guiBackground = new GuiBackground();
     public VisualizationViewer<Object, Edge> view;
@@ -193,5 +205,38 @@ public class Variables extends Object {
             }
         }
         GraphFrame.edgeFilterList.setSelectedIndex(0);
+    }
+    
+    public void newLayout(String layout) {
+        if (layout.equalsIgnoreCase("CircleLayout")) {
+            this.layout = new CircleLayout<>(this.graph);
+        }
+        if (layout.equalsIgnoreCase("FRLayout")) {
+            this.layout = new FRLayout<>(this.graph);
+        }
+        if (layout.equalsIgnoreCase("FRLayout2")) {
+            this.layout = new FRLayout2<>(this.graph);
+        }
+        if (layout.equalsIgnoreCase("ISOMLayout")) {
+            this.layout = new ISOMLayout<>(this.graph);
+        }
+        if (layout.equalsIgnoreCase("KKLayout")) {
+            this.layout = new KKLayout<>(this.graph);
+        }
+        if (layout.equalsIgnoreCase("SpringLayout")) {
+            this.layout = new SpringLayout<>(this.graph);
+        }
+        if (layout.equalsIgnoreCase("DagLayout")) {
+            this.layout = new DAGLayout<>(this.graph);
+        }
+        if (layout.equalsIgnoreCase("TemporalLayout")) {
+            this.layout = new Temporal_Layout<>(this.graph, this);
+        }
+        if (layout.equalsIgnoreCase("SpatialLayout")) {
+            this.layout = new Spatial_Layout<>(this.graph, this);
+        }
+        if (layout.equalsIgnoreCase("TimelineLayout")) {
+            this.layout = new Timeline_Layout<>(this.graph, this);
+        }
     }
 }

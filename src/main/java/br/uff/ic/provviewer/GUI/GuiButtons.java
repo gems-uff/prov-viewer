@@ -8,20 +8,12 @@ package br.uff.ic.provviewer.GUI;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.graph.Edge;
 import static br.uff.ic.provviewer.GraphFrame.StatusFilterBox;
-import br.uff.ic.provviewer.Layout.Spatial_Layout;
 import br.uff.ic.provviewer.Layout.Temporal_Layout;
 import br.uff.ic.provviewer.Layout.Timeline_Layout;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.provviewer.Vertex.ColorScheme.VertexPainter;
 import br.uff.ic.utility.IO.PROVNWriter;
 import br.uff.ic.utility.IO.XMLWriter;
-import edu.uci.ics.jung.algorithms.layout.CircleLayout;
-import edu.uci.ics.jung.algorithms.layout.DAGLayout;
-import edu.uci.ics.jung.algorithms.layout.FRLayout;
-import edu.uci.ics.jung.algorithms.layout.FRLayout2;
-import edu.uci.ics.jung.algorithms.layout.ISOMLayout;
-import edu.uci.ics.jung.algorithms.layout.KKLayout;
-import edu.uci.ics.jung.algorithms.layout.SpringLayout;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
 import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
 import edu.uci.ics.jung.visualization.decorators.EdgeShape;
@@ -176,36 +168,7 @@ public class GuiButtons {
      */
     public static void LayoutSelection(Variables variables, JComboBox Layouts) {
         String layout = (String) Layouts.getSelectedItem();
-        if (layout.equalsIgnoreCase("CircleLayout")) {
-            variables.layout = new CircleLayout<>(variables.graph);
-        }
-        if (layout.equalsIgnoreCase("FRLayout")) {
-            variables.layout = new FRLayout<>(variables.graph);
-        }
-        if (layout.equalsIgnoreCase("FRLayout2")) {
-            variables.layout = new FRLayout2<>(variables.graph);
-        }
-        if (layout.equalsIgnoreCase("ISOMLayout")) {
-            variables.layout = new ISOMLayout<>(variables.graph);
-        }
-        if (layout.equalsIgnoreCase("KKLayout")) {
-            variables.layout = new KKLayout<>(variables.graph);
-        }
-        if (layout.equalsIgnoreCase("SpringLayout")) {
-            variables.layout = new SpringLayout<>(variables.graph);
-        }
-        if (layout.equalsIgnoreCase("DagLayout")) {
-            variables.layout = new DAGLayout<>(variables.graph);
-        }
-        if (layout.equalsIgnoreCase("TemporalLayout")) {
-            variables.layout = new Temporal_Layout<>(variables.graph, variables);
-        }
-        if (layout.equalsIgnoreCase("SpatialLayout")) {
-            variables.layout = new Spatial_Layout<>(variables.graph, variables);
-        }
-        if (layout.equalsIgnoreCase("TimelineLayout")) {
-            variables.layout = new Timeline_Layout<>(variables.graph, variables);
-        }
+        variables.newLayout(layout);
         variables.guiBackground.InitBackground(variables, Layouts);
         variables.view.setGraphLayout(variables.layout);
         variables.view.repaint();
