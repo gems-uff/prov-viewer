@@ -177,34 +177,34 @@ public class GuiButtons {
     public static void LayoutSelection(Variables variables, JComboBox Layouts) {
         String layout = (String) Layouts.getSelectedItem();
         if (layout.equalsIgnoreCase("CircleLayout")) {
-            variables.layout = new CircleLayout<>(variables.layout.getGraph());
+            variables.layout = new CircleLayout<>(variables.graph);
         }
         if (layout.equalsIgnoreCase("FRLayout")) {
-            variables.layout = new FRLayout<>(variables.layout.getGraph());
+            variables.layout = new FRLayout<>(variables.graph);
         }
         if (layout.equalsIgnoreCase("FRLayout2")) {
-            variables.layout = new FRLayout2<>(variables.layout.getGraph());
+            variables.layout = new FRLayout2<>(variables.graph);
         }
         if (layout.equalsIgnoreCase("ISOMLayout")) {
-            variables.layout = new ISOMLayout<>(variables.layout.getGraph());
+            variables.layout = new ISOMLayout<>(variables.graph);
         }
         if (layout.equalsIgnoreCase("KKLayout")) {
-            variables.layout = new KKLayout<>(variables.layout.getGraph());
+            variables.layout = new KKLayout<>(variables.graph);
         }
         if (layout.equalsIgnoreCase("SpringLayout")) {
-            variables.layout = new SpringLayout<>(variables.layout.getGraph());
+            variables.layout = new SpringLayout<>(variables.graph);
         }
         if (layout.equalsIgnoreCase("DagLayout")) {
-            variables.layout = new DAGLayout<>(variables.layout.getGraph());
+            variables.layout = new DAGLayout<>(variables.graph);
         }
         if (layout.equalsIgnoreCase("TemporalLayout")) {
-            variables.layout = new Temporal_Layout<>(variables.layout.getGraph(), variables);
+            variables.layout = new Temporal_Layout<>(variables.graph, variables);
         }
         if (layout.equalsIgnoreCase("SpatialLayout")) {
-            variables.layout = new Spatial_Layout<>(variables.layout.getGraph(), variables);
+            variables.layout = new Spatial_Layout<>(variables.graph, variables);
         }
         if (layout.equalsIgnoreCase("TimelineLayout")) {
-            variables.layout = new Timeline_Layout<>(variables.layout.getGraph(), variables);
+            variables.layout = new Timeline_Layout<>(variables.graph, variables);
         }
         variables.guiBackground.InitBackground(variables, Layouts);
         variables.view.setGraphLayout(variables.layout);
