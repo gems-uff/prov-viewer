@@ -152,7 +152,7 @@ public abstract class Vertex extends GraphObject {
         {
             return "";
         }
-        return "Time: " + this.time;
+        return "Timestamp: " + this.time;
     }
 
     /**
@@ -167,6 +167,10 @@ public abstract class Vertex extends GraphObject {
             return getLabel();
         }
         if(attribute.equalsIgnoreCase("Time"))
+        {
+            return String.valueOf(getTime());
+        }
+        if(attribute.equalsIgnoreCase("Date"))
         {
             return String.valueOf(getTime());
         }
