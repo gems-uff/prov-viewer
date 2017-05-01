@@ -73,6 +73,7 @@ public class Config {
 
     public double width;
     public double height;
+    public String vertexAttributeFilter = "Label";
 
     //Vertex Stroke variables
     public List<String> vertexStrokevariables = new ArrayList<>();
@@ -172,14 +173,14 @@ public class Config {
         InterfaceStatusFilters();
     }
     
-    public void DetectVertexLabels(Collection<Object> vertices) {
-        Map<String, String> labelList = new HashMap<>();
+    public void DetectVertexAttributeFilterValues(Collection<Object> vertices) {
+        Map<String, String> valueList = new HashMap<>();
         Map<String, ColorScheme> newAttributes = new HashMap<>();
         for (Object v : vertices) {
-            labelList.put(((Vertex) v).getLabel(), ((Vertex) v).getLabel());
+            valueList.put(((Vertex) v).getAttributeValue(vertexAttributeFilter), ((Vertex) v).getAttributeValue(vertexAttributeFilter));
         }
 
-        vertexLabelFilter.addAll(labelList.values());
+        vertexLabelFilter.addAll(valueList.values());
         InterfaceVertexFilters();
         GraphFrame.vertexFilterList.setSelectedIndex(0);
     }
@@ -219,6 +220,11 @@ public class Config {
             NodeList nList = doc.getElementsByTagName("vertexSize");
             if (nList != null && nList.getLength() > 0) {
                 vertexSize = Integer.parseInt(nList.item(0).getTextContent());
+            }
+            
+            nList = doc.getElementsByTagName("vertexAttributeFilter");
+            if (nList != null && nList.getLength() > 0) {
+                vertexAttributeFilter = nList.item(0).getTextContent();
             }
 
             //Temporal Layout Backbone

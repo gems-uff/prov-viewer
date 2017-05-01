@@ -10,6 +10,7 @@ import br.uff.ic.utility.graph.Edge;
 import static br.uff.ic.provviewer.GraphFrame.StatusFilterBox;
 import br.uff.ic.provviewer.Layout.Spatial_Layout;
 import br.uff.ic.provviewer.Layout.Temporal_Layout;
+import br.uff.ic.provviewer.Layout.Timeline_Layout;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.provviewer.Vertex.ColorScheme.VertexPainter;
 import br.uff.ic.utility.IO.PROVNWriter;
@@ -189,6 +190,9 @@ public class GuiButtons {
         if (layout.equalsIgnoreCase("SpatialLayout")) {
             variables.layout = new Spatial_Layout<>(variables.layout.getGraph(), variables);
         }
+        if (layout.equalsIgnoreCase("TimelineLayout")) {
+            variables.layout = new Timeline_Layout<>(variables.layout.getGraph(), variables);
+        }
         if (layout.equalsIgnoreCase("ISOMLayout")) {
             variables.layout = new ISOMLayout<>(variables.layout.getGraph());
         }
@@ -227,7 +231,7 @@ public class GuiButtons {
     
     public static void AutoDetectVertexLabels(Variables variables, boolean selected) {
         if(selected)
-            variables.config.DetectVertexLabels(variables.graph.getVertices());
+            variables.config.DetectVertexAttributeFilterValues(variables.graph.getVertices());
     }
 
     public static void VertexLabel(Variables variables, boolean agentLabel, boolean activityLabel, boolean entityLabel, boolean timeLabel, boolean showID) {
