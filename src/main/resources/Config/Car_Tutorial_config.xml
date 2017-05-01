@@ -25,47 +25,47 @@ and open the template in the editor.
         <edgestroke>MAX</edgestroke>
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
-	<edgetype>
+    <edgetype>
         <edge>None</edge>
         <edgestroke>MAX</edgestroke>
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
-	<edgetype>
+    <edgetype>
         <edge>Speed</edge>
         <edgestroke>MAX</edgestroke>
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
-	<edgetype>
+    <edgetype>
         <edge>Time</edge>
         <edgestroke>MAX</edgestroke>
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
-	<edgetype>
+    <edgetype>
         <edge>TurnRate</edge>
         <edgestroke>MAX</edgestroke>
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
-	<edgetype>
+    <edgetype>
         <edge>Flying</edge>
         <edgestroke>MEAN</edgestroke>
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
-	<edgetype>
+    <edgetype>
         <edge>Landing</edge>
         <edgestroke>MEAN</edgestroke>
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
-	<edgetype>
+    <edgetype>
         <edge>Flip</edge>
         <edgestroke>MEAN</edgestroke>
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
-	<edgetype>
+    <edgetype>
         <edge>LostControl</edge>
         <edgestroke>MEAN</edgestroke>
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
-	<edgetype>
+    <edgetype>
         <edge>Crash</edge>
         <edgestroke>MEAN</edgestroke>
         <collapsefunction>SUM</collapsefunction>
@@ -82,61 +82,61 @@ and open the template in the editor.
     <colorscheme>
         <attribute>CurrentGear</attribute>
         <class>ActivityScheme</class>
-		<trafficLightType>type2</trafficLightType>
-		<isInverted>false</isInverted>
+        <trafficLightType>type2</trafficLightType>
+        <isInverted>false</isInverted>
     </colorscheme>
-	<colorscheme>
+    <colorscheme>
         <attribute>Speed</attribute>
         <class>ActivityScheme</class>
-		<trafficLightType>type2</trafficLightType>
-		<isInverted>false</isInverted>
+        <trafficLightType>type2</trafficLightType>
+        <isInverted>false</isInverted>
     </colorscheme>
-	<colorscheme>
+    <colorscheme>
         <attribute>TurnRate</attribute>
         <class>ActivityScheme</class>
-		<trafficLightType>type2</trafficLightType>
-		<isInverted>false</isInverted>
+        <trafficLightType>type2</trafficLightType>
+        <isInverted>false</isInverted>
         <values></values>
         <goodvalue>15</goodvalue>
         <badvalue>10</badvalue>
     </colorscheme>
-	<colorscheme>
+    <colorscheme>
         <attribute>CurrentEnginePower</attribute>
         <class>ActivityScheme</class>
-		<trafficLightType>type2</trafficLightType>
-		<isInverted>false</isInverted>
+        <trafficLightType>type2</trafficLightType>
+        <isInverted>false</isInverted>
     </colorscheme>
-	<colorscheme>
+    <colorscheme>
         <attribute>Throttle</attribute>
         <class>ActivityScheme</class>
-		<trafficLightType>type2</trafficLightType>
-		<isInverted>false</isInverted>
+        <trafficLightType>type2</trafficLightType>
+        <isInverted>false</isInverted>
     </colorscheme>
-	<colorscheme>
+    <colorscheme>
         <attribute>DeltaTime</attribute>
         <class>ActivityScheme</class>
-		<trafficLightType>type2</trafficLightType>
-		<isInverted>true</isInverted>
+        <trafficLightType>type2</trafficLightType>
+        <isInverted>true</isInverted>
     </colorscheme>
-	<colorscheme>
+    <colorscheme>
         <attribute>VelocityVector</attribute>
         <class>ActivityVectorScheme</class>
-		<trafficLightType>type2</trafficLightType>
-		<isInverted>false</isInverted>
+        <trafficLightType>type2</trafficLightType>
+        <isInverted>false</isInverted>
     </colorscheme>
-	<colorscheme>
+    <colorscheme>
         <attribute>AngularVelocity</attribute>
         <class>ActivityVectorScheme</class>
-		<trafficLightType>type2</trafficLightType>
-		<isInverted>false</isInverted>
+        <trafficLightType>type2</trafficLightType>
+        <isInverted>false</isInverted>
     </colorscheme>
-	<colorscheme>
+    <colorscheme>
         <attribute>DragVector</attribute>
         <class>ActivityVectorScheme</class>
-		<trafficLightType>type2</trafficLightType>
-		<isInverted>false</isInverted>
+        <trafficLightType>type2</trafficLightType>
+        <isInverted>false</isInverted>
     </colorscheme>
-	<activitycolor>
+    <activitycolor>
         <attribute>Label</attribute>
         <value>Crash</value>
         <vercolor>
@@ -145,7 +145,7 @@ and open the template in the editor.
             <b>50</b>
         </vercolor>
     </activitycolor>
-	<activitycolor>
+    <activitycolor>
         <attribute>Label</attribute>
         <value>Scraping</value>
         <vercolor>
@@ -154,25 +154,25 @@ and open the template in the editor.
             <b>150</b>
         </vercolor>
     </activitycolor>
-	<activitycolor>
+    <activitycolor>
         <attribute>Label</attribute>
         <value>Flying</value>
         <vercolor>
-			<r>153</r>
+            <r>153</r>
             <g>51</g>
             <b>255</b>
         </vercolor>
     </activitycolor>
-	<activitycolor>
+    <activitycolor>
         <attribute>Label</attribute>
         <value>Landing</value>
         <vercolor>
-			<r>153</r>
+            <r>153</r>
             <g>76</g>
             <b>0</b>
         </vercolor>
     </activitycolor>
-	<activitycolor>
+    <activitycolor>
         <attribute>Label</attribute>
         <value>Brake</value>
         <vercolor>
@@ -181,7 +181,7 @@ and open the template in the editor.
             <b>204</b>
         </vercolor>
     </activitycolor>
-	<activitycolor>
+    <activitycolor>
         <attribute>Label</attribute>
         <value>HandBrake</value>
         <vercolor>
@@ -190,7 +190,7 @@ and open the template in the editor.
             <b>120</b>
         </vercolor>
     </activitycolor>
-	<activitycolor>
+    <activitycolor>
         <attribute>Label</attribute>
         <value>Flip</value>
         <vercolor>
@@ -199,7 +199,7 @@ and open the template in the editor.
             <b>0</b>
         </vercolor>
     </activitycolor>
-	<activitycolor>
+    <activitycolor>
         <attribute>Label</attribute>
         <value>LostControl</value>
         <vercolor>
