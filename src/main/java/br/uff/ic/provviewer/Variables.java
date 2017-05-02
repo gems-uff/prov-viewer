@@ -100,13 +100,15 @@ public class Variables extends Object {
     public SimilarityConfig mergeConfig;
     public SimilarityConfig similarityConfig;
     
-    public boolean TemporalLayoutisMicroseconds = false;
-    public boolean TemporalLayoutisMilliseconds = true;
-    public boolean TemporalLayoutisSeconds = false;
-    public boolean TemporalLayoutisMinutes = false;
-    public boolean TemporalLayoutisHours = false;
-    public boolean TemporalLayoutisDays = false;
-    public boolean TemporalLayoutisWeek = false;
+    public String selectedTimeScale = config.timeScale;
+//    public boolean TemporalLayoutisNanoseconds = false;
+//    public boolean TemporalLayoutisMicroseconds = false;
+//    public boolean TemporalLayoutisMilliseconds = true;
+//    public boolean TemporalLayoutisSeconds = false;
+//    public boolean TemporalLayoutisMinutes = false;
+//    public boolean TemporalLayoutisHours = false;
+//    public boolean TemporalLayoutisDays = false;
+//    public boolean TemporalLayoutisWeek = false;
     public boolean doDerivate = false;
     public boolean removeDerivateOutliers = false;
     public boolean changedOutliersOption = false;

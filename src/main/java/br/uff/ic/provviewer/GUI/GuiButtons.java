@@ -230,7 +230,7 @@ public class GuiButtons {
         }
     }
 
-    public static void TemporalLayoutGranularity(Variables variables, 
+    public static void TemporalLayoutGranularity(String selectedTime, Variables variables, 
             boolean nanoseconds, 
             boolean microseconds, 
             boolean milliseconds, 
@@ -248,14 +248,15 @@ public class GuiButtons {
             JCheckBoxMenuItem temporalHoursButton, 
             JCheckBoxMenuItem temporalDaysButton, 
             JCheckBoxMenuItem temporalWeeksButton) {
-        variables.TemporalLayoutisNanoseconds = nanoseconds;
-        variables.TemporalLayoutisMicroseconds = microseconds;
-        variables.TemporalLayoutisMilliseconds = milliseconds;
-        variables.TemporalLayoutisSeconds = seconds;
-        variables.TemporalLayoutisMinutes = minutes;
-        variables.TemporalLayoutisHours = hours;
-        variables.TemporalLayoutisDays = days;
-        variables.TemporalLayoutisWeek = weeks;
+//        variables.TemporalLayoutisNanoseconds = nanoseconds;
+//        variables.TemporalLayoutisMicroseconds = microseconds;
+//        variables.TemporalLayoutisMilliseconds = milliseconds;
+//        variables.TemporalLayoutisSeconds = seconds;
+//        variables.TemporalLayoutisMinutes = minutes;
+//        variables.TemporalLayoutisHours = hours;
+//        variables.TemporalLayoutisDays = days;
+//        variables.TemporalLayoutisWeek = weeks;
+        variables.selectedTimeScale = selectedTime;
         temporalNanosecondsButton.setSelected(nanoseconds);
         temporalMicrosecondsButton.setSelected(microseconds);
         temporalMillisecondsButton.setSelected(milliseconds);

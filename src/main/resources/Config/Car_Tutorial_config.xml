@@ -10,7 +10,7 @@ and open the template in the editor.
     xsi:noNamespaceSchemaLocation='config.xsd'>
     <default_layout>TimelineLayout</default_layout>
     <vertexSize>30</vertexSize>
-    <!--<vertexAttributeFilter>Label</vertexAttributeFilter>-->
+    <timeScale>Seconds</timeScale>
     <layoutAxis_X>ObjectPosition_X</layoutAxis_X>
     <layoutAxis_Y>ObjectPosition_Z</layoutAxis_Y>
     <imageLocation>/images/CarTutorialMap.png</imageLocation>

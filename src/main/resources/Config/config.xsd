@@ -15,8 +15,8 @@ and open the template in the editor.
         <xs:sequence>
             <!-- Define the vertex size in the graph. Default value is 15 -->
             <xs:element name="vertexSize" type="xs:string"/>
-            <!-- Define the vertex's attribute name for filtering -->
-            <!--<xs:element name="vertexAttributeFilter" type="xs:string"/> -->
+            <!-- Define the timeScale used in the timestamps -->
+            <xs:element name="timeScale" type="xs:string"/> 
             <!-- The default layout used when loading the program -->
             <xs:element name="default_layout" type="xs:string"/>
             <!-- Spatial Layout X axis name -->

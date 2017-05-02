@@ -73,6 +73,7 @@ public class Config {
 
     public double width;
     public double height;
+    public String timeScale = "";
 
     //Vertex Stroke variables
     public List<String> vertexStrokevariables = new ArrayList<>();
@@ -221,10 +222,10 @@ public class Config {
                 vertexSize = Integer.parseInt(nList.item(0).getTextContent());
             }
             
-//            nList = doc.getElementsByTagName("vertexAttributeFilter");
-//            if (nList != null && nList.getLength() > 0) {
-//                vertexAttributeFilter = nList.item(0).getTextContent();
-//            }
+            nList = doc.getElementsByTagName("timeScale");
+            if (nList != null && nList.getLength() > 0) {
+                timeScale = nList.item(0).getTextContent().toLowerCase();
+            }
 
             //Temporal Layout Backbone
             nList = doc.getElementsByTagName("temporalLayoutbackbone");

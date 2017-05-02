@@ -74,7 +74,7 @@ public class Filters {
         variables.filter.filterVerticesAndEdges(variables.view,
                 variables.layout,
                 variables.collapsedGraph,
-                hiddenEdges);
+                hiddenEdges, variables.config.timeScale, variables.selectedTimeScale);
     }
 
     /**
@@ -127,11 +127,11 @@ public class Filters {
     public void filterVerticesAndEdges(VisualizationViewer<Object, Edge> view,
             Layout<Object, Edge> layout,
             DirectedGraph<Object, Edge> collapsedGraph,
-            boolean hiddenEdges) {
+            boolean hiddenEdges, String timeScale, String selectedTimeScale) {
         filteredGraph = collapsedGraph;
 
         EdgeFilter = filterEdges(hiddenEdges);
-        VertexFilter = filterVertex();
+        VertexFilter = filterVertex(timeScale, selectedTimeScale);
 
         filteredGraph = (DirectedGraph<Object, Edge>) EdgeFilter.transform(filteredGraph);
         filteredGraph = (DirectedGraph<Object, Edge>) VertexFilter.transform(filteredGraph);
@@ -203,7 +203,7 @@ public class Filters {
      *
      * @return if the vertex will be hidden
      */
-    private Filter<Object, Edge> filterVertex() {
+    private Filter<Object, Edge> filterVertex(final String timeScale, final String selectedTimeScale) {
 
         Filter<Object, Edge> filterVertex = new VertexPredicateFilter<>(new Predicate<Object>() {
             @Override
@@ -217,7 +217,7 @@ public class Filters {
                 if (vertexAttributeFilter(vertex)) {
                     return false;
                 }
-                return !vertexTemporalFilter(vertex);
+                return !vertexTemporalFilter(vertex, timeScale, selectedTimeScale);
             }
         });
         return filterVertex;
@@ -286,7 +286,7 @@ public class Filters {
      * @param vertex
      * @return if the vertex will be hidden
      */
-    private boolean vertexTemporalFilter(Object vertex) {
+    private boolean vertexTemporalFilter(Object vertex, String timeScale, String selectedTimeScale) {
         if (GraphFrame.TemporalFilterToggle.isSelected()) {
             if (!(vertex instanceof AgentVertex)) {
                 while (vertex instanceof Graph) {
@@ -304,7 +304,7 @@ public class Filters {
 //                } else if (GraphFrame.temporalMinutesButton.isSelected()) {
 //                    time = TimeUnit.MILLISECONDS.toMinutes((long) time);
 //                }
-                time = Utils.convertTime(time, GraphFrame.temporalNanosecondsButton.isSelected(), GraphFrame.temporalMicrosecondsButton.isSelected(), GraphFrame.temporalSecondsButton.isSelected(), GraphFrame.temporalMinutesButton.isSelected(), GraphFrame.temporalHoursButton.isSelected(), GraphFrame.temporalDaysButton.isSelected(), GraphFrame.temporalWeeksButton.isSelected());
+                time = Utils.convertTime(timeScale, time, selectedTimeScale);
 
                 if (Utils.tryParseFloat(GraphFrame.FilterVertexMinValue.getText())) {
                     double minTime = Float.parseFloat(GraphFrame.FilterVertexMinValue.getText());

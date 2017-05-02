@@ -560,22 +560,83 @@ public class Utils {
         return clone;
     }
     
-    public static double convertTime(double time, boolean nanos, boolean micros, boolean seconds, boolean minutes, boolean hours, boolean days, boolean weeks) {
-        if (days) {
-            return TimeUnit.NANOSECONDS.toDays((long) time);
-        } else if (weeks) {
-            return (int) TimeUnit.NANOSECONDS.toDays((long) time) / 7;
-        } else if (hours) {
-            return TimeUnit.NANOSECONDS.toHours((long) time);
-        } else if (minutes) {
-            return TimeUnit.NANOSECONDS.toMinutes((long) time);
-        } else if (seconds) {
-            return TimeUnit.NANOSECONDS.toSeconds((long) time);
-        } else if (micros) {
-            return TimeUnit.NANOSECONDS.toMicros((long) time);
-        } else if (nanos) {
-            return TimeUnit.NANOSECONDS.toNanos((long) time);
+    /**
+     * Function to convert the timestamp to different time scales
+     * @param timeFormat is the original timestamp scale used in the graph XML
+     * @param time is the time we want to convert
+     * @param nanos
+     * @param micros
+     * @param millis
+     * @param seconds
+     * @param minutes
+     * @param hours
+     * @param days
+     * @param weeks
+     * @return 
+     */
+    public static double convertTime(String timeFormat, double time, String timeScale) {
+        TimeUnit t = null;
+//        System.out.println(timeFormat);
+        switch (timeFormat) {
+            case "nanoseconds": t= TimeUnit.NANOSECONDS;
+            break;
+            case "microseconds": 
+                t= TimeUnit.NANOSECONDS;
+                time *=1000;
+                break;
+            case "milliseconds": 
+                t= TimeUnit.MICROSECONDS;
+                time *=1000;
+                break;
+            case "seconds": 
+                t= TimeUnit.MILLISECONDS;
+                time *=1000;
+                break;
+            case "minutes": 
+                t= TimeUnit.SECONDS;
+                time *=60;
+                break;
+            case "hours": 
+                t= TimeUnit.MINUTES;
+                time *=60;
+                break;
+            case "days": 
+                t= TimeUnit.HOURS;
+                time *=24;
+                break;
+            case "weeks": 
+                t= TimeUnit.DAYS;
+                time *=7;
+                break;
         }
-        return time;
+        switch(timeScale) {
+            case "nanoseconds": return t.toNanos((long) time);
+            case "microseconds" : return t.toMicros((long) time);
+            case "milliseconds:" : return t.toMillis((long) time);
+            case "seconds" : return t.toSeconds((long) time);
+            case "minutes": return t.toMinutes((long) time);
+            case "hours": return t.toHours((long) time);
+            case "days": return t.toDays((long) time);
+            case "weeks": return (int) t.toDays((long) time) / 7;
+            default: return time;
+        }
+//        if (days) {
+//            return t.toDays((long) time);
+//        } else if (weeks) {
+//            return (int) t.toDays((long) time) / 7;
+//        } else if (hours) {
+//            return t.toHours((long) time);
+//        } else if (minutes) {
+//            return t.toMinutes((long) time);
+//        } else if (seconds) {
+//            return t.toSeconds((long) time);
+//        } else if (millis) {
+//            return t.toMillis((long) time);
+//        } else if (micros) {
+//            return t.toMicros((long) time);
+//        } else if (nanos) {
+//            return t.toNanos((long) time);
+//        }
+//        return time;
     }
 }

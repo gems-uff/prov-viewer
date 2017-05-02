@@ -915,7 +915,7 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private void temporalMillisecondsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporalMillisecondsButtonActionPerformed
         // TODO add your handling code here:
-        GuiButtons.TemporalLayoutGranularity(variables, false, false, true, false, false, false, 
+        GuiButtons.TemporalLayoutGranularity("milliseconds", variables, false, false, true, false, false, false, 
                 false, false, Layouts, temporalNanosecondsButton, temporalMicrosecondsButton, temporalMillisecondsButton, 
                 temporalSecondsButton, temporalMinutesButton, temporalHoursButton, 
                 temporalDaysButton, temporalWeeksButton);        
@@ -923,7 +923,7 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private void temporalHoursButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporalHoursButtonActionPerformed
         // TODO add your handling code here:
-        GuiButtons.TemporalLayoutGranularity(variables, false, false, false, false, false, true, 
+        GuiButtons.TemporalLayoutGranularity("hours", variables, false, false, false, false, false, true, 
                 false, false, Layouts, temporalNanosecondsButton, temporalMicrosecondsButton, temporalMillisecondsButton, 
                 temporalSecondsButton, temporalMinutesButton, temporalHoursButton, 
                 temporalDaysButton, temporalWeeksButton);
@@ -931,7 +931,7 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private void temporalDaysButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporalDaysButtonActionPerformed
         // TODO add your handling code here:
-        GuiButtons.TemporalLayoutGranularity(variables, false, false, false, false, false, false, 
+        GuiButtons.TemporalLayoutGranularity("days", variables, false, false, false, false, false, false, 
                 true, false, Layouts, temporalNanosecondsButton, temporalMicrosecondsButton, temporalMillisecondsButton, 
                 temporalSecondsButton, temporalMinutesButton, temporalHoursButton, 
                 temporalDaysButton, temporalWeeksButton);
@@ -939,7 +939,7 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private void temporalWeeksButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporalWeeksButtonActionPerformed
         // TODO add your handling code here:
-        GuiButtons.TemporalLayoutGranularity(variables, false, false, false, false, false, false, 
+        GuiButtons.TemporalLayoutGranularity("weeks", variables, false, false, false, false, false, false, 
                 false, true, Layouts, temporalNanosecondsButton, temporalMicrosecondsButton, temporalMillisecondsButton, 
                 temporalSecondsButton, temporalMinutesButton, temporalHoursButton, 
                 temporalDaysButton, temporalWeeksButton);
@@ -947,7 +947,7 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private void temporalMinutesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporalMinutesButtonActionPerformed
         // TODO add your handling code here:
-        GuiButtons.TemporalLayoutGranularity(variables, false, false, false, false, true, false, 
+        GuiButtons.TemporalLayoutGranularity("minutes", variables, false, false, false, false, true, false, 
                 false, false, Layouts, temporalNanosecondsButton, temporalMicrosecondsButton, temporalMillisecondsButton, 
                 temporalSecondsButton, temporalMinutesButton, temporalHoursButton, 
                 temporalDaysButton, temporalWeeksButton);
@@ -1006,7 +1006,7 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private void temporalMicrosecondsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporalMicrosecondsButtonActionPerformed
         // TODO add your handling code here:
-        GuiButtons.TemporalLayoutGranularity(variables, false, true, false, false, false, false, 
+        GuiButtons.TemporalLayoutGranularity("microseconds", variables, false, true, false, false, false, false, 
                 false, false, Layouts, temporalNanosecondsButton, temporalMicrosecondsButton, temporalMillisecondsButton, 
                 temporalSecondsButton, temporalMinutesButton, temporalHoursButton, 
                 temporalDaysButton, temporalWeeksButton);  
@@ -1014,7 +1014,7 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private void temporalSecondsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporalSecondsButtonActionPerformed
         // TODO add your handling code here:
-        GuiButtons.TemporalLayoutGranularity(variables, false, false, false, true, false, false, 
+        GuiButtons.TemporalLayoutGranularity("seconds", variables, false, false, false, true, false, false, 
                 false, false, Layouts, temporalNanosecondsButton, temporalMicrosecondsButton, temporalMillisecondsButton, 
                 temporalSecondsButton, temporalMinutesButton, temporalHoursButton, 
                 temporalDaysButton, temporalWeeksButton);  
@@ -1027,7 +1027,7 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private void temporalNanosecondsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporalNanosecondsButtonActionPerformed
         // TODO add your handling code here:
-        GuiButtons.TemporalLayoutGranularity(variables, true, false, false, false, false, false, 
+        GuiButtons.TemporalLayoutGranularity("nanoseconds", variables, true, false, false, false, false, false, 
                 false, false, Layouts, temporalNanosecondsButton, temporalMicrosecondsButton, temporalMillisecondsButton, 
                 temporalSecondsButton, temporalMinutesButton, temporalHoursButton, 
                 temporalDaysButton, temporalWeeksButton);  
@@ -1133,7 +1133,7 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JCheckBoxMenuItem temporalDaysButton;
     public static javax.swing.JCheckBoxMenuItem temporalHoursButton;
     public static javax.swing.JCheckBoxMenuItem temporalMicrosecondsButton;
-    private javax.swing.JCheckBoxMenuItem temporalMillisecondsButton;
+    public static javax.swing.JCheckBoxMenuItem temporalMillisecondsButton;
     public static javax.swing.JCheckBoxMenuItem temporalMinutesButton;
     public static javax.swing.JCheckBoxMenuItem temporalNanosecondsButton;
     public static javax.swing.JCheckBoxMenuItem temporalSecondsButton;
