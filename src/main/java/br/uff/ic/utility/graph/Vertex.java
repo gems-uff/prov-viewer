@@ -148,10 +148,10 @@ public abstract class Vertex extends GraphObject {
     
     public String printTime()
     {
-        if(this.time.isEmpty())
-        {
-            return "";
-        }
+//        if(this.time.isEmpty())
+//        {
+//            return "";
+//        }
         return "Timestamp: " + this.time;
     }
 
