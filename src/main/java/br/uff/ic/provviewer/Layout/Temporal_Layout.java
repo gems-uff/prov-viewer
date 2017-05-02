@@ -137,7 +137,7 @@ public class Temporal_Layout<V, E> extends ProvViewerLayout<V, E> {
         if (v instanceof Vertex) {
             //Node's X position is defined by the day it was created
             double time = ((Vertex) v).getNormalizedTime();
-            time = Utils.convertTime(time, variables.TemporalLayoutisMicroseconds, variables.TemporalLayoutisSeconds, variables.TemporalLayoutisMinutes, variables.TemporalLayoutisHours, variables.TemporalLayoutisDays, variables.TemporalLayoutisWeek);
+            time = Utils.convertTime(time, variables.TemporalLayoutisNanoseconds, variables.TemporalLayoutisMicroseconds, variables.TemporalLayoutisSeconds, variables.TemporalLayoutisMinutes, variables.TemporalLayoutisHours, variables.TemporalLayoutisDays, variables.TemporalLayoutisWeek);
             
             newXPos = Math.round(time) * XDISTANCE;
             //If node is from the backbone type

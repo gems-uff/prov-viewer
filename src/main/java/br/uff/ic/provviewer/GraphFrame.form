@@ -161,6 +161,17 @@
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>
           <SubComponents>
+            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="temporalNanosecondsButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Nanoseconds"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="temporalNanosecondsButtonActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+              </AuxValues>
+            </MenuItem>
             <MenuItem class="javax.swing.JCheckBoxMenuItem" name="temporalMicrosecondsButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Microseconds"/>

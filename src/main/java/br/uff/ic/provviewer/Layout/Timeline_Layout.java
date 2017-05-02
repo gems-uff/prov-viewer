@@ -110,7 +110,7 @@ public class Timeline_Layout<V, E> extends ProvViewerLayout<V, E> {
     
     protected synchronized void calcPositions(Point2D xyd, double t, double newYPos) {
         double time;//.getTime();
-        time = Utils.convertTime(t, variables.TemporalLayoutisMicroseconds, variables.TemporalLayoutisSeconds, variables.TemporalLayoutisMinutes, variables.TemporalLayoutisHours, variables.TemporalLayoutisDays, variables.TemporalLayoutisWeek);
+        time = Utils.convertTime(t, variables.TemporalLayoutisNanoseconds, variables.TemporalLayoutisMicroseconds, variables.TemporalLayoutisSeconds, variables.TemporalLayoutisMinutes, variables.TemporalLayoutisHours, variables.TemporalLayoutisDays, variables.TemporalLayoutisWeek);
         double newXPos = time;
         xyd.setLocation(newXPos, newYPos);
     }

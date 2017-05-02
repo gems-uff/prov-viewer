@@ -560,19 +560,21 @@ public class Utils {
         return clone;
     }
     
-    public static double convertTime(double time, boolean nanos, boolean seconds, boolean minutes, boolean hours, boolean days, boolean weeks) {
+    public static double convertTime(double time, boolean nanos, boolean micros, boolean seconds, boolean minutes, boolean hours, boolean days, boolean weeks) {
         if (days) {
-            return TimeUnit.MILLISECONDS.toDays((long) time);
+            return TimeUnit.NANOSECONDS.toDays((long) time);
         } else if (weeks) {
-            return (int) TimeUnit.MILLISECONDS.toDays((long) time) / 7;
+            return (int) TimeUnit.NANOSECONDS.toDays((long) time) / 7;
         } else if (hours) {
-            return TimeUnit.MILLISECONDS.toHours((long) time);
+            return TimeUnit.NANOSECONDS.toHours((long) time);
         } else if (minutes) {
-            return TimeUnit.MILLISECONDS.toMinutes((long) time);
+            return TimeUnit.NANOSECONDS.toMinutes((long) time);
         } else if (seconds) {
-            return TimeUnit.MILLISECONDS.toSeconds((long) time);
+            return TimeUnit.NANOSECONDS.toSeconds((long) time);
+        } else if (micros) {
+            return TimeUnit.NANOSECONDS.toMicros((long) time);
         } else if (nanos) {
-            return TimeUnit.MILLISECONDS.toMicros((long) time);
+            return TimeUnit.NANOSECONDS.toNanos((long) time);
         }
         return time;
     }

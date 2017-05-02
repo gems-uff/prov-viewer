@@ -291,15 +291,16 @@ public class Filters {
                 double timeDate = ((Vertex) vertex).getTime();
                 double time = ((Vertex) vertex).getNormalizedTime();
 
-                if (GraphFrame.temporalDaysButton.isSelected()) {
-                    time = TimeUnit.MILLISECONDS.toDays((long) time);
-                } else if (GraphFrame.temporalWeeksButton.isSelected()) {
-                    time = (int) TimeUnit.MILLISECONDS.toDays((long) time) / 7;
-                } else if (GraphFrame.temporalHoursButton.isSelected()) {
-                    time = TimeUnit.MILLISECONDS.toHours((long) time);
-                } else if (GraphFrame.temporalMinutesButton.isSelected()) {
-                    time = TimeUnit.MILLISECONDS.toMinutes((long) time);
-                }
+//                if (GraphFrame.temporalDaysButton.isSelected()) {
+//                    time = TimeUnit.MILLISECONDS.toDays((long) time);
+//                } else if (GraphFrame.temporalWeeksButton.isSelected()) {
+//                    time = (int) TimeUnit.MILLISECONDS.toDays((long) time) / 7;
+//                } else if (GraphFrame.temporalHoursButton.isSelected()) {
+//                    time = TimeUnit.MILLISECONDS.toHours((long) time);
+//                } else if (GraphFrame.temporalMinutesButton.isSelected()) {
+//                    time = TimeUnit.MILLISECONDS.toMinutes((long) time);
+//                }
+                time = Utils.convertTime(time, GraphFrame.temporalNanosecondsButton.isSelected(), GraphFrame.temporalMicrosecondsButton.isSelected(), GraphFrame.temporalSecondsButton.isSelected(), GraphFrame.temporalMinutesButton.isSelected(), GraphFrame.temporalHoursButton.isSelected(), GraphFrame.temporalDaysButton.isSelected(), GraphFrame.temporalWeeksButton.isSelected());
 
                 if (Utils.tryParseFloat(GraphFrame.FilterVertexMinValue.getText())) {
                     double minTime = Float.parseFloat(GraphFrame.FilterVertexMinValue.getText());
