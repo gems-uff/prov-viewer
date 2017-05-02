@@ -74,7 +74,7 @@ public class Filters {
         variables.filter.filterVerticesAndEdges(variables.view,
                 variables.layout,
                 variables.collapsedGraph,
-                hiddenEdges, variables.config.vertexAttributeFilter);
+                hiddenEdges);
     }
 
     /**
@@ -127,11 +127,11 @@ public class Filters {
     public void filterVerticesAndEdges(VisualizationViewer<Object, Edge> view,
             Layout<Object, Edge> layout,
             DirectedGraph<Object, Edge> collapsedGraph,
-            boolean hiddenEdges, String vertexAttributeFilter) {
+            boolean hiddenEdges) {
         filteredGraph = collapsedGraph;
 
         EdgeFilter = filterEdges(hiddenEdges);
-        VertexFilter = filterVertex(vertexAttributeFilter);
+        VertexFilter = filterVertex();
 
         filteredGraph = (DirectedGraph<Object, Edge>) EdgeFilter.transform(filteredGraph);
         filteredGraph = (DirectedGraph<Object, Edge>) VertexFilter.transform(filteredGraph);
@@ -203,7 +203,7 @@ public class Filters {
      *
      * @return if the vertex will be hidden
      */
-    private Filter<Object, Edge> filterVertex(final String vertexAttributeFilter) {
+    private Filter<Object, Edge> filterVertex() {
 
         Filter<Object, Edge> filterVertex = new VertexPredicateFilter<>(new Predicate<Object>() {
             @Override
@@ -214,7 +214,7 @@ public class Filters {
                 if (vertexLonelyFilter(vertex)) {
                     return false;
                 }
-                if (vertexAttributeFilter(vertex, vertexAttributeFilter)) {
+                if (vertexAttributeFilter(vertex)) {
                     return false;
                 }
                 return !vertexTemporalFilter(vertex);
@@ -259,7 +259,7 @@ public class Filters {
         return false;
     }
     
-    private boolean vertexAttributeFilter(Object vertex, String vertexAttributeFilter) {
+    private boolean vertexAttributeFilter(Object vertex) {
         List filtersL = GraphFrame.vertexFilterList.getSelectedValuesList();
         for (Object filtersL1 : filtersL) {
             String filter = (String) filtersL1;
@@ -267,7 +267,11 @@ public class Filters {
                 return false;
             }
             if(vertex instanceof Vertex) {
-                if (((Vertex)vertex).getAttributeValue(vertexAttributeFilter).contains(filter)) {
+                String name;
+                String value;
+                name = filter.split(": ")[0];
+                value = filter.split(": ")[1];
+                if (((Vertex)vertex).getAttributeValue(name).equalsIgnoreCase(value)) {
                     return false;
                 }
             }

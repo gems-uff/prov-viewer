@@ -73,7 +73,6 @@ public class Config {
 
     public double width;
     public double height;
-    public String vertexAttributeFilter = "Label";
 
     //Vertex Stroke variables
     public List<String> vertexStrokevariables = new ArrayList<>();
@@ -173,17 +172,17 @@ public class Config {
         InterfaceStatusFilters();
     }
     
-    public void DetectVertexAttributeFilterValues(Collection<Object> vertices) {
-        Map<String, String> valueList = new HashMap<>();
-        Map<String, ColorScheme> newAttributes = new HashMap<>();
-        for (Object v : vertices) {
-            valueList.put(((Vertex) v).getAttributeValue(vertexAttributeFilter), ((Vertex) v).getAttributeValue(vertexAttributeFilter));
-        }
-
-        vertexLabelFilter.addAll(valueList.values());
-        InterfaceVertexFilters();
-        GraphFrame.vertexFilterList.setSelectedIndex(0);
-    }
+//    public void DetectVertexAttributeFilterValues(Collection<Object> vertices) {
+//        Map<String, String> valueList = new HashMap<>();
+//        Map<String, ColorScheme> newAttributes = new HashMap<>();
+//        for (Object v : vertices) {
+//            valueList.put(((Vertex) v).getAttributeValue(vertexAttributeFilter), ((Vertex) v).getAttributeValue(vertexAttributeFilter));
+//        }
+//
+//        vertexLabelFilter.addAll(valueList.values());
+//        InterfaceVertexFilters();
+//        GraphFrame.vertexFilterList.setSelectedIndex(0);
+//    }
 
     /**
      * Method to configure the tool
@@ -222,10 +221,10 @@ public class Config {
                 vertexSize = Integer.parseInt(nList.item(0).getTextContent());
             }
             
-            nList = doc.getElementsByTagName("vertexAttributeFilter");
-            if (nList != null && nList.getLength() > 0) {
-                vertexAttributeFilter = nList.item(0).getTextContent();
-            }
+//            nList = doc.getElementsByTagName("vertexAttributeFilter");
+//            if (nList != null && nList.getLength() > 0) {
+//                vertexAttributeFilter = nList.item(0).getTextContent();
+//            }
 
             //Temporal Layout Backbone
             nList = doc.getElementsByTagName("temporalLayoutbackbone");
@@ -281,14 +280,16 @@ public class Config {
             }
             
             //Vertex Label Filters
-            nList = doc.getElementsByTagName("vertexvaluefilter");
+            nList = doc.getElementsByTagName("vertexAttributeFilter");
 
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
                     String vertexFilter = new String();
-                    vertexFilter = eElement.getElementsByTagName("value").item(0).getTextContent();
+                    vertexFilter = eElement.getElementsByTagName("name").item(0).getTextContent();
+                    vertexFilter += ": ";
+                    vertexFilter += eElement.getElementsByTagName("value").item(0).getTextContent();
                     vertexLabelFilter.add(vertexFilter);
                 }
             }

@@ -89,7 +89,6 @@ public class GraphFrame extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         autoDetectEdgesCheckBox = new javax.swing.JCheckBoxMenuItem();
         autoDetectAttributeCheckBox = new javax.swing.JCheckBoxMenuItem();
-        autoDetectVertexFilters = new javax.swing.JCheckBoxMenuItem();
         displayAgentLabelButton = new javax.swing.JCheckBoxMenuItem();
         displayActivityLabelButton = new javax.swing.JCheckBoxMenuItem();
         displayEntityLabelButton = new javax.swing.JCheckBoxMenuItem();
@@ -418,26 +417,14 @@ public class GraphFrame extends javax.swing.JFrame {
         ToolMenuLayout.setVerticalGroup(
             ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ToolMenuLayout.createSequentialGroup()
-                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ToolMenuLayout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(FilterNodeAgentButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(FilterEdgeAgentButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(FilterNodeEntityButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(FilterNodeLonelyButton))
-                    .addGroup(ToolMenuLayout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ShowEdgeTextButton)
-                            .addComponent(DisplayEdges)
-                            .addComponent(DisplayVertices))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(EdgeTypes, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(VertexLabels, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(30, 30, 30)
+                .addComponent(FilterNodeAgentButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(FilterEdgeAgentButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(FilterNodeEntityButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(FilterNodeLonelyButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(ToolMenuLayout.createSequentialGroup()
                 .addContainerGap()
@@ -485,6 +472,16 @@ public class GraphFrame extends javax.swing.JFrame {
                                 .addComponent(FilterVertexMaxValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(simStdInc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel3)))))
+            .addGroup(ToolMenuLayout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ShowEdgeTextButton)
+                    .addComponent(DisplayEdges)
+                    .addComponent(DisplayVertices))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(EdgeTypes, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(VertexLabels, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
         );
 
         getContentPane().add(ToolMenu, java.awt.BorderLayout.PAGE_END);
@@ -534,14 +531,6 @@ public class GraphFrame extends javax.swing.JFrame {
             }
         });
         jMenu1.add(autoDetectAttributeCheckBox);
-
-        autoDetectVertexFilters.setText("Auto Detect Vertex Filters");
-        autoDetectVertexFilters.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                autoDetectVertexFiltersActionPerformed(evt);
-            }
-        });
-        jMenu1.add(autoDetectVertexFilters);
 
         displayAgentLabelButton.setText("Display Agent Vertex Label");
         displayAgentLabelButton.addActionListener(new java.awt.event.ActionListener() {
@@ -997,11 +986,6 @@ public class GraphFrame extends javax.swing.JFrame {
         GuiButtons.Filter(variables);
     }//GEN-LAST:event_vertexFilterListValueChanged
 
-    private void autoDetectVertexFiltersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoDetectVertexFiltersActionPerformed
-        // TODO add your handling code here:
-        GuiButtons.AutoDetectVertexLabels(variables, autoDetectVertexFilters.getState());
-    }//GEN-LAST:event_autoDetectVertexFiltersActionPerformed
-
     private void dbscanEpsilonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dbscanEpsilonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_dbscanEpsilonActionPerformed
@@ -1119,7 +1103,6 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JRadioButtonMenuItem attributeDisplaySimConfig;
     private javax.swing.JCheckBoxMenuItem autoDetectAttributeCheckBox;
     private javax.swing.JCheckBoxMenuItem autoDetectEdgesCheckBox;
-    private javax.swing.JCheckBoxMenuItem autoDetectVertexFilters;
     public static javax.swing.JTextField dbscanEpsilon;
     private javax.swing.JCheckBoxMenuItem displayActivityLabelButton;
     private javax.swing.JCheckBoxMenuItem displayAgentLabelButton;

@@ -8,9 +8,9 @@ and open the template in the editor.
 <config
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
     xsi:noNamespaceSchemaLocation='config.xsd'>
-    <default_layout>SpatialLayout</default_layout>
+    <default_layout>TimelineLayout</default_layout>
     <vertexSize>30</vertexSize>
-    <vertexAttributeFilter>Label</vertexAttributeFilter>
+    <!--<vertexAttributeFilter>Label</vertexAttributeFilter>-->
     <layoutAxis_X>ObjectPosition_X</layoutAxis_X>
     <layoutAxis_Y>ObjectPosition_Z</layoutAxis_Y>
     <imageLocation>/images/CarTutorialMap.png</imageLocation>
@@ -70,15 +70,18 @@ and open the template in the editor.
         <edgestroke>MEAN</edgestroke>
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
-    <vertexlabelfilter>
-        <vertexlabel>Driving</vertexlabel>
-    </vertexlabelfilter>
-    <vertexlabelfilter>
-        <vertexlabel>ChangedGear</vertexlabel>
-    </vertexlabelfilter>
-    <vertexlabelfilter>
-        <vertexlabel>Landing</vertexlabel>
-    </vertexlabelfilter>
+    <vertexAttributeFilter>
+        <name>Label</name>
+        <value>Driving</value>
+    </vertexAttributeFilter>
+    <vertexAttributeFilter>
+        <name>Label</name>
+        <value>ChangedGear</value>
+    </vertexAttributeFilter>
+    <vertexAttributeFilter>
+        <name>Label</name>
+        <value>Landing</value>
+    </vertexAttributeFilter>
     <colorscheme>
         <attribute>CurrentGear</attribute>
         <class>ActivityScheme</class>
