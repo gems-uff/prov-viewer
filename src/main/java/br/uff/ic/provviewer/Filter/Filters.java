@@ -153,6 +153,11 @@ public class Filters {
 
         filteredGraph = (DirectedGraph<Object, Edge>) EdgeFilter.transform(filteredGraph);
         filteredGraph = (DirectedGraph<Object, Edge>) VertexFilter.transform(filteredGraph);
+        
+        // Filter Lonely Vertices. Had to be seperated otherwise it would not work
+        VertexFilter = filterLonelyVertex();
+        filteredGraph = (DirectedGraph<Object, Edge>) VertexFilter.transform(filteredGraph);
+        
         layout.setGraph(filteredGraph);
         view.repaint();
     }
@@ -229,13 +234,23 @@ public class Filters {
                 if (vertexTypeFilter(vertex)) {
                     return false;
                 }
-                if (vertexLonelyFilter(vertex)) {
-                    return false;
-                }
+//                if (vertexLonelyFilter(vertex)) {
+//                    return false;
+//                }
                 if (vertexAttributeFilter(vertex)) {
                     return false;
                 }
                 return !vertexTemporalFilter(vertex, timeScale, selectedTimeScale);
+            }
+        });
+        return filterVertex;
+    }
+    private Filter<Object, Edge> filterLonelyVertex() {
+
+        Filter<Object, Edge> filterVertex = new VertexPredicateFilter<>(new Predicate<Object>() {
+            @Override
+            public boolean evaluate(Object vertex) {
+                return !vertexLonelyFilter(vertex);
             }
         });
         return filterVertex;
@@ -313,15 +328,6 @@ public class Filters {
                 double timeDate = ((Vertex) vertex).getTime();
                 double time = ((Vertex) vertex).getNormalizedTime();
 
-//                if (GraphFrame.temporalDaysButton.isSelected()) {
-//                    time = TimeUnit.MILLISECONDS.toDays((long) time);
-//                } else if (GraphFrame.temporalWeeksButton.isSelected()) {
-//                    time = (int) TimeUnit.MILLISECONDS.toDays((long) time) / 7;
-//                } else if (GraphFrame.temporalHoursButton.isSelected()) {
-//                    time = TimeUnit.MILLISECONDS.toHours((long) time);
-//                } else if (GraphFrame.temporalMinutesButton.isSelected()) {
-//                    time = TimeUnit.MILLISECONDS.toMinutes((long) time);
-//                }
                 time = Utils.convertTime(timeScale, time, selectedTimeScale);
 
                 if (Utils.tryParseFloat(GraphFrame.FilterVertexMinValue.getText())) {
