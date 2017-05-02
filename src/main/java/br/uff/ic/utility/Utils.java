@@ -35,9 +35,9 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * @author Kohwalter
  */
 public class Utils {
-    
+
     Color[] colors = new Color[17];
-    
+
     public static Color getColor(int i) {
         int size = 15;
         int index = i % size;
@@ -53,7 +53,7 @@ public class Utils {
         colors[6] = new Color(128, 0, 0); // Brown
         colors[7] = new Color(128, 128, 0); // olive
 //        colors[10] = new Color(0, 128, 0); // Green
-        colors[8] = new Color(210,105,30); // Chocolate
+        colors[8] = new Color(210, 105, 30); // Chocolate
 //        colors[12] = new Color(0, 128, 128); // Teal
         colors[9] = new Color(0, 0, 128); // Navy
         colors[10] = new Color(255, 128, 128); // Pink
@@ -64,9 +64,11 @@ public class Utils {
 
         return colors[index];
     }
+
     /**
      * Method to export the graph in an xml format
-     * @param graph is the desired graph to be exported 
+     *
+     * @param graph is the desired graph to be exported
      * @param fileName is the name of the file (without extension)
      */
     public static void exportGraph(DirectedGraph<Object, Edge> graph, String fileName) {
@@ -76,9 +78,9 @@ public class Utils {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(NoiseGraph.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
+
     /**
      * Method to check if it is possible to parse the value to float
      *
@@ -97,25 +99,25 @@ public class Utils {
 //        } catch (NumberFormatException nfe) { 
 //            return false;
 //        }
-        if(value.isEmpty())
+        if (value.isEmpty()) {
             return false;
-        else if(value == null)
+        } else if (value == null) {
             return false;
-        else if(value.equalsIgnoreCase(""))
+        } else if (value.equalsIgnoreCase("")) {
             return false;
-        else if(value.equalsIgnoreCase("NaN"))
+        } else if (value.equalsIgnoreCase("NaN")) {
             return false;
-        else {
+        } else {
             try {
                 String v = new BigDecimal(value).toPlainString();
                 Float.parseFloat(v);
                 return true;
 //                return v.matches(("[+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+)"));
-            } catch (NumberFormatException nfe) { 
+            } catch (NumberFormatException nfe) {
                 return false;
             }
         }
-            
+
     }
 
     /**
@@ -192,7 +194,7 @@ public class Utils {
     public static boolean FloatEqualTo(float f1, float f2, float epsilon) {
         return Math.abs(f1 - f2) <= epsilon;
     }
-    
+
     public static boolean DoubleEqualTo(double f1, double f2, double epsilon) {
         return Math.abs(f1 - f2) <= epsilon;
     }
@@ -254,14 +256,15 @@ public class Utils {
      */
     public static boolean tryParseDate(String value) {
 //        System.out.println("tryParseDate: " + value);
-        if(value.isEmpty())
+        if (value.isEmpty()) {
             return false;
-        else if(value == null)
+        } else if (value == null) {
             return false;
-        else if(value.equalsIgnoreCase(""))
+        } else if (value.equalsIgnoreCase("")) {
             return false;
-        else if(value.equalsIgnoreCase("NaN"))
+        } else if (value.equalsIgnoreCase("NaN")) {
             return false;
+        }
         try {
             SimpleDateFormat simpleDateFormat;
             simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
@@ -364,6 +367,7 @@ public class Utils {
 
     /**
      * Method to remove the infinity numbers from an arrayList
+     *
      * @param allNumbers is the arrayList of float
      * @return the same arrayList without the infinity numbers
      */
@@ -379,6 +383,7 @@ public class Utils {
 
     /**
      * Method to remove outliers from a list
+     *
      * @param allNumbers is the arrayList of float
      * @return the same arrayList without the outliers
      */
@@ -419,47 +424,49 @@ public class Utils {
 
         return normalNumbers;
     }
-    
+
     /**
      * Method to compute the standard deviation
+     *
      * @param list is the list of float values
      * @return the stdev
      */
-    public static float stdev(Float[] list){
+    public static float stdev(Float[] list) {
         float mean = 0.0F;
         mean = mean(list);
         return stdev(list, mean);
     }
-    
+
     /**
      * Method to compute the standard deviation when the mean is already known
+     *
      * @param list is the list of float values
      * @param mean is the known mean of the list
      * @return the stdev
      */
-    public static float stdev(Float[] list, float mean){
-        float num=0.0f;
+    public static float stdev(Float[] list, float mean) {
+        float num = 0.0f;
         float numi = 0.0f;
         float deno = 0.0f;
 
-        for (int i = 0; i < list.length; i++){
-             numi = (float) Math.pow((list[i] - mean), 2);
-             num += numi;
-             deno = list.length - 1;  
+        for (int i = 0; i < list.length; i++) {
+            numi = (float) Math.pow((list[i] - mean), 2);
+            num += numi;
+            deno = list.length - 1;
         }
 
+        float stdevResult = (float) Math.sqrt(num / deno);
 
-        float stdevResult = (float) Math.sqrt(num/deno);
-        
 //        float v = (float) ((int) stdevResult * 10000) * 0.0001f;
         return stdevResult;
     }
-    
+
     /**
      * Computes the standard deviation for the attribute
      *
      * @param vertices the list of vertices
-     * @param attribute the attribute in which we want to calculate the standard deviation
+     * @param attribute the attribute in which we want to calculate the standard
+     * deviation
      * @return the standard deviation
      */
     public static float std(Collection<Object> vertices, String attribute) {
@@ -474,52 +481,56 @@ public class Utils {
         floatArray = Utils.listToFloatArray(values);
         return stdev(floatArray);
     }
-    
+
     /**
      * Method to compute the mean of a list
+     *
      * @param list is the list
      * @return the mean of the list
      */
     public static float mean(Float[] list) {
         float mean = 0.0F;
         float sum = 0.0F;
-        for (int i = 0; i < list.length; i++){
-            sum += list[i];            
+        for (int i = 0; i < list.length; i++) {
+            sum += list[i];
         }
         mean = sum / list.length;
-        
+
         return mean;
     }
-    
+
     /**
      * Method to find the minimum value of a list
+     *
      * @param list is the list of values
      * @return the minimum value of the list
      */
     public static float minimumValue(Float[] list) {
         float min = Float.POSITIVE_INFINITY;
-        for (int i=0; i < list.length; i++){
-            min = Math.min(min, list[i]);            
+        for (int i = 0; i < list.length; i++) {
+            min = Math.min(min, list[i]);
         }
-        
-        
+
         return min;
     }
+
     /**
      * Method to find the maximum value of a list
+     *
      * @param list is the list of values
      * @return the maximum value of the list
      */
     public static float maximumValue(Float[] list) {
         float max = Float.NEGATIVE_INFINITY;
-        for (int i=0; i < list.length; i++){
-            max = Math.max(max, list[i]);            
+        for (int i = 0; i < list.length; i++) {
+            max = Math.max(max, list[i]);
         }
         return max;
     }
-    
+
     /**
      * Method to convert a list of objects to an arraylist of double
+     *
      * @param values is the list of objects to be convertable
      * @return the arraylist of double
      */
@@ -531,9 +542,9 @@ public class Utils {
 //        }
 //        return doubleArray;
 //    }
-    
     /**
      * Method to convert a list of objects to an arraylist of double
+     *
      * @param values is the list of objects to be convertable
      * @return the arraylist of double
      */
@@ -548,6 +559,7 @@ public class Utils {
 
     /**
      * Method to clone a graph
+     *
      * @param graph The graph to be cloned
      * @return a clone of the graph
      */
@@ -556,87 +568,77 @@ public class Utils {
         for (Edge e : graph.getEdges()) {
             clone.addEdge(e, e.getSource(), e.getTarget());
         }
-        
+
         return clone;
     }
-    
+
     /**
      * Function to convert the timestamp to different time scales
+     *
      * @param timeFormat is the original timestamp scale used in the graph XML
      * @param time is the time we want to convert
-     * @param nanos
-     * @param micros
-     * @param millis
-     * @param seconds
-     * @param minutes
-     * @param hours
-     * @param days
-     * @param weeks
-     * @return 
+     * @param timeScale is the current timescale being used
+     * @return the converted value
      */
     public static double convertTime(String timeFormat, double time, String timeScale) {
-        TimeUnit t = null;
-//        System.out.println(timeFormat);
+        TimeUnit t;
+
+        // Convert the number to a lower scale being used to avoid losing the decimals
         switch (timeFormat) {
-            case "nanoseconds": t= TimeUnit.NANOSECONDS;
-            break;
-            case "microseconds": 
-                t= TimeUnit.NANOSECONDS;
-                time *=1000;
+            case "nanoseconds":
+                t = TimeUnit.NANOSECONDS;
                 break;
-            case "milliseconds": 
-                t= TimeUnit.MICROSECONDS;
-                time *=1000;
+            case "microseconds":
+                t = TimeUnit.NANOSECONDS;
+                time *= 1000;
                 break;
-            case "seconds": 
-                t= TimeUnit.MILLISECONDS;
-                time *=1000;
+            case "milliseconds":
+                t = TimeUnit.MICROSECONDS;
+                time *= 1000;
                 break;
-            case "minutes": 
-                t= TimeUnit.SECONDS;
-                time *=60;
+            case "seconds":
+                t = TimeUnit.MILLISECONDS;
+                time *= 1000;
                 break;
-            case "hours": 
-                t= TimeUnit.MINUTES;
-                time *=60;
+            case "minutes":
+                t = TimeUnit.SECONDS;
+                time *= 60;
                 break;
-            case "days": 
-                t= TimeUnit.HOURS;
-                time *=24;
+            case "hours":
+                t = TimeUnit.MINUTES;
+                time *= 60;
                 break;
-            case "weeks": 
-                t= TimeUnit.DAYS;
-                time *=7;
+            case "days":
+                t = TimeUnit.HOURS;
+                time *= 24;
+                break;
+            case "weeks":
+                t = TimeUnit.DAYS;
+                time *= 7;
+                break;
+            default:
+                t = TimeUnit.NANOSECONDS;
                 break;
         }
-        switch(timeScale) {
-            case "nanoseconds": return t.toNanos((long) time);
-            case "microseconds" : return t.toMicros((long) time);
-            case "milliseconds:" : return t.toMillis((long) time);
-            case "seconds" : return t.toSeconds((long) time);
-            case "minutes": return t.toMinutes((long) time);
-            case "hours": return t.toHours((long) time);
-            case "days": return t.toDays((long) time);
-            case "weeks": return (int) t.toDays((long) time) / 7;
-            default: return time;
+        switch (timeScale) {
+            case "nanoseconds":
+                return t.toNanos((long) time);
+            case "microseconds":
+                return t.toMicros((long) time);
+            case "milliseconds:":
+                return t.toMillis((long) time);
+            case "seconds":
+                return t.toSeconds((long) time);
+            case "minutes":
+                return t.toMinutes((long) time);
+            case "hours":
+                return t.toHours((long) time);
+            case "days":
+                return t.toDays((long) time);
+            case "weeks":
+                return (int) t.toDays((long) time) / 7;
+            default:
+                return time;
         }
-//        if (days) {
-//            return t.toDays((long) time);
-//        } else if (weeks) {
-//            return (int) t.toDays((long) time) / 7;
-//        } else if (hours) {
-//            return t.toHours((long) time);
-//        } else if (minutes) {
-//            return t.toMinutes((long) time);
-//        } else if (seconds) {
-//            return t.toSeconds((long) time);
-//        } else if (millis) {
-//            return t.toMillis((long) time);
-//        } else if (micros) {
-//            return t.toMicros((long) time);
-//        } else if (nanos) {
-//            return t.toNanos((long) time);
-//        }
-//        return time;
     }
 }
