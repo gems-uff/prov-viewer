@@ -9,7 +9,6 @@ and open the template in the editor.
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
     xsi:noNamespaceSchemaLocation='config.xsd'>
     <default_layout>TimelineLayout</default_layout>
-    <vertexAttributeFilter>Subtype</vertexAttributeFilter>
     <layoutAxis_X>ObjectPosition_X</layoutAxis_X>
     <layoutAxis_Y>ObjectPosition_Y</layoutAxis_Y>
     <imageLocation></imageLocation>
@@ -55,27 +54,35 @@ and open the template in the editor.
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
     <vertexvaluefilter>
+        <name>subtype</name>
         <value>Run</value>
     </vertexvaluefilter>
     <vertexvaluefilter>
+        <name>subtype</name>
         <value>Process</value>
     </vertexvaluefilter>
     <vertexvaluefilter>
+        <name>subtype</name>
         <value>File</value>
     </vertexvaluefilter>
     <vertexvaluefilter>
+        <name>subtype</name>
         <value>Directory</value>
     </vertexvaluefilter>
     <vertexvaluefilter>
+        <name>subtype</name>
         <value>Fork</value>
     </vertexvaluefilter>
     <vertexvaluefilter>
+        <name>subtype</name>
         <value>FileWrites</value>
     </vertexvaluefilter>
     <vertexvaluefilter>
+        <name>subtype</name>
         <value>FileReads</value>
     </vertexvaluefilter>
     <vertexvaluefilter>
+        <name>subtype</name>
         <value>ProcessExecutes</value>
     </vertexvaluefilter>
 </config>
