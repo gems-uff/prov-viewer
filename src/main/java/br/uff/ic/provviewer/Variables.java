@@ -101,14 +101,6 @@ public class Variables extends Object {
     public SimilarityConfig similarityConfig;
     
     public String selectedTimeScale = config.timeScale;
-//    public boolean TemporalLayoutisNanoseconds = false;
-//    public boolean TemporalLayoutisMicroseconds = false;
-//    public boolean TemporalLayoutisMilliseconds = true;
-//    public boolean TemporalLayoutisSeconds = false;
-//    public boolean TemporalLayoutisMinutes = false;
-//    public boolean TemporalLayoutisHours = false;
-//    public boolean TemporalLayoutisDays = false;
-//    public boolean TemporalLayoutisWeek = false;
     public boolean doDerivate = false;
     public boolean removeDerivateOutliers = false;
     public boolean changedOutliersOption = false;
@@ -213,31 +205,34 @@ public class Variables extends Object {
         if (layout.equalsIgnoreCase("CircleLayout")) {
             this.layout = new CircleLayout<>(this.graph);
         }
-        if (layout.equalsIgnoreCase("FRLayout")) {
+        else if (layout.equalsIgnoreCase("FRLayout")) {
             this.layout = new FRLayout<>(this.graph);
         }
-        if (layout.equalsIgnoreCase("FRLayout2")) {
+        else if (layout.equalsIgnoreCase("FRLayout2")) {
             this.layout = new FRLayout2<>(this.graph);
         }
-        if (layout.equalsIgnoreCase("ISOMLayout")) {
+        else if (layout.equalsIgnoreCase("ISOMLayout")) {
             this.layout = new ISOMLayout<>(this.graph);
         }
-        if (layout.equalsIgnoreCase("KKLayout")) {
+        else if (layout.equalsIgnoreCase("KKLayout")) {
             this.layout = new KKLayout<>(this.graph);
         }
-        if (layout.equalsIgnoreCase("SpringLayout")) {
+        else if (layout.equalsIgnoreCase("SpringLayout")) {
             this.layout = new SpringLayout<>(this.graph);
         }
-        if (layout.equalsIgnoreCase("DagLayout")) {
+        else if (layout.equalsIgnoreCase("DagLayout")) {
             this.layout = new DAGLayout<>(this.graph);
         }
-        if (layout.equalsIgnoreCase("TemporalLayout")) {
+        else if (layout.equalsIgnoreCase("TemporalLayout")) {
             this.layout = new Temporal_Layout<>(this.graph, this);
         }
-        if (layout.equalsIgnoreCase("SpatialLayout")) {
+        else if (layout.equalsIgnoreCase("SpatialLayout")) {
             this.layout = new Spatial_Layout<>(this.graph, this);
         }
-        if (layout.equalsIgnoreCase("TimelineLayout")) {
+        else if (layout.equalsIgnoreCase("TimelineLayout")) {
+            this.layout = new Timeline_Layout<>(this.graph, this);
+        }
+        else {
             this.layout = new Timeline_Layout<>(this.graph, this);
         }
     }
