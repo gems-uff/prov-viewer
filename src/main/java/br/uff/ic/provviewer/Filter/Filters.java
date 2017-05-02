@@ -80,7 +80,7 @@ public class Filters {
             }
         });
     }
-    
+
     /**
      * Method for filtering the Graph
      *
@@ -104,7 +104,7 @@ public class Filters {
     public void Filters(Variables variables) {
         Filters(variables, true);
     }
-    
+
     /**
      * Method to apply filters after an operation
      *
@@ -141,6 +141,8 @@ public class Filters {
      * @param collapsedGraph DirectedGraph<Object,Edge> collapsedGraph
      * @param hiddenEdges Boolean (filter original edges that composes a
      * collapsed one or not?)
+     * @param timeScale is the default time scale from the config.xml file
+     * @param selectedTimeScale is the time scale selected in the interface
      */
     public void filterVerticesAndEdges(VisualizationViewer<Object, Edge> view,
             Layout<Object, Edge> layout,
@@ -153,11 +155,11 @@ public class Filters {
 
         filteredGraph = (DirectedGraph<Object, Edge>) EdgeFilter.transform(filteredGraph);
         filteredGraph = (DirectedGraph<Object, Edge>) VertexFilter.transform(filteredGraph);
-        
+
         // Filter Lonely Vertices. Had to be seperated otherwise it would not work
         VertexFilter = filterLonelyVertex();
         filteredGraph = (DirectedGraph<Object, Edge>) VertexFilter.transform(filteredGraph);
-        
+
         layout.setGraph(filteredGraph);
         view.repaint();
     }
@@ -189,6 +191,7 @@ public class Filters {
 
     /**
      * Edge filter to show only edges from the selected type or label
+     *
      * @param edge
      * @return if the edge will be hidden
      */
@@ -245,6 +248,12 @@ public class Filters {
         });
         return filterVertex;
     }
+
+    /**
+     * Function to hide vertices without any visible edge
+     *
+     * @return if the vertex will be hidden or not
+     */
     private Filter<Object, Edge> filterLonelyVertex() {
 
         Filter<Object, Edge> filterVertex = new VertexPredicateFilter<>(new Predicate<Object>() {
@@ -259,7 +268,7 @@ public class Filters {
     /**
      * Vertex filter for filtering lonely vertices (vertices without edges)
      *
-     * @param vertex
+     * @param vertex is the vertex being evaluated
      * @return if the vertex will be hidden
      */
     private boolean vertexLonelyFilter(Object vertex) {
@@ -275,7 +284,7 @@ public class Filters {
     /**
      * Vertex filter to filter vertices of the selected type
      *
-     * @param vertex
+     * @param vertex is the vertex being evaluated
      * @return if the vertex will be hidden
      */
     private boolean vertexTypeFilter(Object vertex) {
@@ -291,7 +300,14 @@ public class Filters {
         }
         return false;
     }
-    
+
+    /**
+     * Filter to hide all vertices that has the selected attribute with the
+     * selected value
+     *
+     * @param vertex is the vertex being evaluated
+     * @return true to show the vertex and false to hide it
+     */
     private boolean vertexAttributeFilter(Object vertex) {
         List filtersL = GraphFrame.vertexFilterList.getSelectedValuesList();
         for (Object filtersL1 : filtersL) {
@@ -299,12 +315,12 @@ public class Filters {
             if (filter.equalsIgnoreCase("All Vertices")) {
                 return false;
             }
-            if(vertex instanceof Vertex) {
+            if (vertex instanceof Vertex) {
                 String name;
                 String value;
                 name = filter.split(": ")[0];
                 value = filter.split(": ")[1];
-                if (((Vertex)vertex).getAttributeValue(name).equalsIgnoreCase(value)) {
+                if (((Vertex) vertex).getAttributeValue(name).equalsIgnoreCase(value)) {
                     return false;
                 }
             }
