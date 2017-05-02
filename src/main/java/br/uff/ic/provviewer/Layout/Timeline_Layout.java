@@ -2,7 +2,6 @@ package br.uff.ic.provviewer.Layout;
 
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.Utils;
-import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
@@ -13,7 +12,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.ConcurrentModificationException;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Template for a temporal graph layout. Lines represent each agent and his
@@ -111,7 +109,6 @@ public class Timeline_Layout<V, E> extends ProvViewerLayout<V, E> {
     protected synchronized void calcPositions(Point2D xyd, double t, double newYPos) {
         double time;//.getTime();
         time = Utils.convertTime(variables.config.timeScale, t, variables.selectedTimeScale);
-        System.out.println(time);
         double newXPos = time;
         xyd.setLocation(newXPos, newYPos);
     }
