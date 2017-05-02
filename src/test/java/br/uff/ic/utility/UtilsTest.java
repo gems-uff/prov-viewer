@@ -32,7 +32,7 @@ public class UtilsTest {
      */
     @Test
     public void testTryParseFloat() {
-        System.out.println("tryParseFloat");
+//        System.out.println("tryParseFloat");
         boolean result = Utils.tryParseFloat("");
         assertEquals(false, result);
         result = Utils.tryParseFloat("1");
@@ -61,7 +61,7 @@ public class UtilsTest {
      */
     @Test
     public void testConvertFloat() {
-        System.out.println("convertFloat");
+//        System.out.println("convertFloat");
         Utils instance = new Utils();
         double result = instance.convertFloat("1");
         assertEquals(1, result, 0.0);
@@ -88,7 +88,7 @@ public class UtilsTest {
      */
     @Test
     public void testTryParseInt() {
-        System.out.println("tryParseInt");
+//        System.out.println("tryParseInt");
         boolean result = Utils.tryParseInt("");
         assertEquals(false, result);
         result = Utils.tryParseInt("1");
@@ -114,7 +114,7 @@ public class UtilsTest {
      */
     @Test
     public void testConvertInt() {
-        System.out.println("convertInt");
+//        System.out.println("convertInt");
         Utils instance = new Utils();
         int result = instance.convertInt("1");
         assertEquals(1, result);
@@ -133,7 +133,7 @@ public class UtilsTest {
      */
     @Test
     public void testRoundToInt() {
-        System.out.println("roundToInt");
+//        System.out.println("roundToInt");
         Utils instance = new Utils();
         float result = instance.roundToInt("0");
         assertEquals(0, result, 0.0);
@@ -158,7 +158,7 @@ public class UtilsTest {
      */
     @Test
     public void testFloatEqualTo() {
-        System.out.println("FloatEqualTo");
+//        System.out.println("FloatEqualTo");
         float left = 0.0F;
         float right = 0.0F;
         float epsilon = 0.0F;

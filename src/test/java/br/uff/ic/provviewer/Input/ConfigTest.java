@@ -43,7 +43,7 @@ public class ConfigTest {
      */
     @Test
     public void testInitialize_0args() {
-        System.out.println("Initialize");
+//        System.out.println("Initialize");
         Config instance = new Config();
         instance.Initialize(new Variables());
     }
@@ -53,7 +53,7 @@ public class ConfigTest {
      */
     @Test
     public void testComputeCoordScale() {
-        System.out.println("ComputeCoordScale");
+//        System.out.println("ComputeCoordScale");
         Config instance = new Config();
         instance.ComputeCoordScale();
     }
@@ -63,7 +63,7 @@ public class ConfigTest {
      */
     @Test
     public void testInitialize_File() {
-        System.out.println("Initialize");
+//        System.out.println("Initialize");
         testFiles("Angry_Robots_config.xml");
         testFiles("SDM_config.xml");
         testFiles("PROV_config.xml");
@@ -74,7 +74,7 @@ public class ConfigTest {
     }
     
     public void testFiles(String path) {
-        System.out.println("File: " + path);
+//        System.out.println("File: " + path);
         String demoPath = File.separator + "Config" + File.separator + path;
         File fXmlFile = new File(BasePath.getBasePathForClass(Config.class) + demoPath);
         Config instance = new Config();

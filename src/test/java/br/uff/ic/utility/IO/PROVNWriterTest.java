@@ -38,7 +38,7 @@ public class PROVNWriterTest {
      */
     @Test
     public void testSaveToProvn() throws Exception {
-        System.out.println("saveToProvn");
+//        System.out.println("saveToProvn");
         testFiles("bundles1.provn");
         testFiles("bundles2.provn");
         testFiles("container0.provn");

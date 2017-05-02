@@ -41,9 +41,9 @@ public class XMLWriterTest {
      */
     @Test
     public void testSaveToXML() throws Exception {
-        System.out.println("saveToXML");
-        System.out.println("File: " + Variables.demo);
-        File f = new File(BasePath.getBasePathForClass(GuiRun.class) + Variables.demo);
+//        System.out.println("saveToXML");
+//        System.out.println("File: " + Variables.demo);
+        File f = new File(BasePath.getBasePathForClass(GuiRun.class) + File.separator + "Graph" + File.separator + "Car_Tutorial.xml");
         UnityReader file = new UnityReader(f);
         file.readFile();
         DirectedGraph<Object, Edge> g = new DirectedSparseMultigraph<Object, Edge>();

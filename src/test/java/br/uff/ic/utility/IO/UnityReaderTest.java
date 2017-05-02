@@ -35,7 +35,7 @@ public class UnityReaderTest {
      */
     @Test
     public void testReadFile() throws Exception {
-        System.out.println("readFile");
+//        System.out.println("readFile");
 //        testFiles(Variables.demo);
         testFiles(File.separator + "Graph" + File.separator + "Car_Tutorial.xml");
         testFiles(File.separator + "Graph" + File.separator + "Angry_Robots.xml");
@@ -54,7 +54,7 @@ public class UnityReaderTest {
      */
     @Test
     public void testReadVertex() throws Exception {
-        System.out.println("readVertex");
+//        System.out.println("readVertex");
         File f = new File(BasePath.getBasePathForClass(GuiRun.class) + Variables.demo);
         UnityReader instance = new UnityReader(f);
         instance.readVertex();
@@ -65,7 +65,7 @@ public class UnityReaderTest {
      */
     @Test
     public void testReadEdge() throws Exception {
-        System.out.println("readEdge");
+//        System.out.println("readEdge");
         File f = new File(BasePath.getBasePathForClass(GuiRun.class) + Variables.demo);
         UnityReader instance = new UnityReader(f);
         instance.readEdge();

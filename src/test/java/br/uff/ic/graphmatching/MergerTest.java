@@ -51,7 +51,7 @@ public class MergerTest {
      */
     @Test
     public void testMerging() throws FileNotFoundException, URISyntaxException, IOException {
-        System.out.println("Matching");
+//        System.out.println("Matching");
         DirectedGraph<Object, Edge> graph_01 = graphFile("Graph_to_Merge_01.xml");
         DirectedGraph<Object, Edge> graph_02 = graphFile("Graph_to_Merge_02.xml");
         Map<String, AttributeErrorMargin> restrictionList = restriction();
@@ -70,8 +70,8 @@ public class MergerTest {
             resultVertices += ((Vertex)v).getID() + " || ";
         };
         
-        System.out.println("Edges: " + resultEdges);
-        System.out.println("Vertices: " + resultVertices);
+//        System.out.println("Edges: " + resultEdges);
+//        System.out.println("Vertices: " + resultVertices);
 //        assertEquals(expResult, result);
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");

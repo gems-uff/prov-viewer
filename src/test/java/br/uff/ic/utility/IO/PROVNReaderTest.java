@@ -37,7 +37,7 @@ public class PROVNReaderTest {
      */
     @Test
     public void testReadFile() throws Exception {
-        System.out.println("readFile");
+//        System.out.println("readFile");
         testFiles("bundles1.provn");
         testFiles("bundles2.provn");
         testFiles("container0.provn");
@@ -78,7 +78,7 @@ public class PROVNReaderTest {
      */
     @Test
     public void testRead() throws Exception {
-        System.out.println("Read");
+//        System.out.println("Read");
         String line = "wasGeneratedBy(e2, a1, -, [ex:fct=\\\"save\\\"])";
         PROVNReader instance = new PROVNReader(null);
         instance.Read(line);
