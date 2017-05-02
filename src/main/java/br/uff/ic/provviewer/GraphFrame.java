@@ -270,7 +270,7 @@ public class GraphFrame extends javax.swing.JFrame {
         });
 
         SimilarityInference.setText("Similarity Collapse");
-        SimilarityInference.setToolTipText("Collapse vertices by the Similarity Algorithm using the marked Edge Type below");
+        SimilarityInference.setToolTipText("Collapse vertices using the Similarity Algorithm Make sure to load the configuration file before collapsing or selecting the \"Attribute Status Config\" option in the \"Similarity Collapse\" menu");
         SimilarityInference.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SimilarityInferenceActionPerformed(evt);
@@ -743,6 +743,7 @@ public class GraphFrame extends javax.swing.JFrame {
         jMenu5.add(verifyWithinClusterButton);
 
         jMenuItem2.setText("Similarity Configuration");
+        jMenuItem2.setToolTipText("Loads the configuration file for the Similarity Collapse");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -752,6 +753,12 @@ public class GraphFrame extends javax.swing.JFrame {
 
         attributeDisplaySimConfig.setSelected(true);
         attributeDisplaySimConfig.setText("Use Attribute Status Config");
+        attributeDisplaySimConfig.setToolTipText("Will use the current attribute display schema being used to color the vertices for the similarity algorithm, evaluating only the displayed attribute");
+        attributeDisplaySimConfig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                attributeDisplaySimConfigActionPerformed(evt);
+            }
+        });
         jMenu5.add(attributeDisplaySimConfig);
 
         MenuBar.add(jMenu5);
@@ -1056,6 +1063,10 @@ public class GraphFrame extends javax.swing.JFrame {
                 temporalSecondsButton, temporalMinutesButton, temporalHoursButton, 
                 temporalDaysButton, temporalWeeksButton);  
     }//GEN-LAST:event_temporalNanosecondsButtonActionPerformed
+
+    private void attributeDisplaySimConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_attributeDisplaySimConfigActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_attributeDisplaySimConfigActionPerformed
    
     /**
      * Main

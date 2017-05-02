@@ -298,6 +298,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Similarity Configuration"/>
+                <Property name="toolTipText" type="java.lang.String" value="Loads the configuration file for the Similarity Collapse"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem2ActionPerformed"/>
@@ -307,7 +308,11 @@
               <Properties>
                 <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Use Attribute Status Config"/>
+                <Property name="toolTipText" type="java.lang.String" value="Will use the current attribute display schema being used to color the vertices for the similarity algorithm, evaluating only the displayed attribute"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="attributeDisplaySimConfigActionPerformed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
               </AuxValues>
@@ -753,7 +758,7 @@
         <Component class="javax.swing.JButton" name="SimilarityInference">
           <Properties>
             <Property name="text" type="java.lang.String" value="Similarity Collapse"/>
-            <Property name="toolTipText" type="java.lang.String" value="Collapse vertices by the Similarity Algorithm using the marked Edge Type below"/>
+            <Property name="toolTipText" type="java.lang.String" value="Collapse vertices using the Similarity Algorithm Make sure to load the configuration file before collapsing or selecting the &quot;Attribute Status Config&quot; option in the &quot;Similarity Collapse&quot; menu"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SimilarityInferenceActionPerformed"/>
