@@ -8,16 +8,22 @@ and open the template in the editor.
 <config
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
     xsi:noNamespaceSchemaLocation='config.xsd'>
+    <vertexSize></vertexSize>
+    <timeScale>Nanoseconds</timeScale>
     <default_layout>TimelineLayout</default_layout>
-    <layoutAxis_X>ObjectPosition_X</layoutAxis_X>
-    <layoutAxis_Y>ObjectPosition_Y</layoutAxis_Y>
-    <imageLocation></imageLocation>
-    <imageOffset_X>0</imageOffset_X>
-    <imageOffset_Y>0</imageOffset_Y>
-    <spatialLayoutPosition>0.0</spatialLayoutPosition>
-    <zoomLevel>0</zoomLevel>
-    <temporalLayoutscale>1.0</temporalLayoutscale>
-    <temporalLayoutbackbone></temporalLayoutbackbone>
+    <spatialLayout>
+        <layoutAxis_X></layoutAxis_X>
+        <layoutAxis_Y></layoutAxis_Y>
+        <imageLocation></imageLocation>
+        <imageOffset_X></imageOffset_X>
+        <imageOffset_Y></imageOffset_Y>
+        <spatialLayoutPosition></spatialLayoutPosition>
+        <zoomLevel></zoomLevel>
+    </spatialLayout>
+    <temporalLayout>
+        <temporalLayoutbackbone></temporalLayoutbackbone>
+        <temporalLayoutscale></temporalLayoutscale>
+    </temporalLayout>
     <edgetype>
         <edge>RunStarts</edge>
         <edgestroke>MAX</edgestroke>
@@ -53,36 +59,36 @@ and open the template in the editor.
         <edgestroke>MAX</edgestroke>
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
-    <vertexvaluefilter>
+    <vertexAttributeFilter>
         <name>subtype</name>
         <value>Run</value>
-    </vertexvaluefilter>
-    <vertexvaluefilter>
+    </vertexAttributeFilter>
+    <vertexAttributeFilter>
         <name>subtype</name>
         <value>Process</value>
-    </vertexvaluefilter>
-    <vertexvaluefilter>
+    </vertexAttributeFilter>
+    <vertexAttributeFilter>
         <name>subtype</name>
         <value>File</value>
-    </vertexvaluefilter>
-    <vertexvaluefilter>
+    </vertexAttributeFilter>
+    <vertexAttributeFilter>
         <name>subtype</name>
         <value>Directory</value>
-    </vertexvaluefilter>
-    <vertexvaluefilter>
+    </vertexAttributeFilter>
+    <vertexAttributeFilter>
         <name>subtype</name>
         <value>Fork</value>
-    </vertexvaluefilter>
-    <vertexvaluefilter>
+    </vertexAttributeFilter>
+    <vertexAttributeFilter>
         <name>subtype</name>
         <value>FileWrites</value>
-    </vertexvaluefilter>
-    <vertexvaluefilter>
+    </vertexAttributeFilter>
+    <vertexAttributeFilter>
         <name>subtype</name>
         <value>FileReads</value>
-    </vertexvaluefilter>
-    <vertexvaluefilter>
+    </vertexAttributeFilter>
+    <vertexAttributeFilter>
         <name>subtype</name>
         <value>ProcessExecutes</value>
-    </vertexvaluefilter>
+    </vertexAttributeFilter>
 </config>

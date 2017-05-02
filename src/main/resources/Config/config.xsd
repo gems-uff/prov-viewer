@@ -15,28 +15,14 @@ and open the template in the editor.
         <xs:sequence>
             <!-- Define the vertex size in the graph. Default value is 15 -->
             <xs:element name="vertexSize" type="xs:string"/>
-            <!-- Define the timeScale used in the timestamps -->
+            <!-- Define the timeScale used in the timestamps: Nanoseconds, Microseconds, Milliseconds, Seconds, Minutes, Hours, Days, Weeks, SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss") -->
             <xs:element name="timeScale" type="xs:string"/> 
             <!-- The default layout used when loading the program -->
             <xs:element name="default_layout" type="xs:string"/>
-            <!-- Spatial Layout X axis name -->
-            <xs:element name="layoutAxis_X" type="xs:string"/>
-            <!-- Spatial Layout Y axis name -->
-            <xs:element name="layoutAxis_Y" type="xs:string"/>
-            <!-- Spatial Layout Background Image location -->
-            <xs:element name="imageLocation" type="xs:string"/>
-            <!-- Spatial Layout Camera X position -->
-            <xs:element name="imageOffset_X" type="xs:string"/>
-            <!-- Spatial Layout Camera Y position -->
-            <xs:element name="imageOffset_Y" type="xs:string"/>
-            <!-- Spatial Layout Camera's upper left corner of the screen position in relation to the camera -->
-            <xs:element name="spatialLayoutPosition" type="xs:string"/>
-            <!-- Spatial Layout parameter used for Google Maps or OpenStreetMap image. Set value to zero if not using Google Maps image -->
-            <xs:element name="zoomLevel" type="xs:string"/>
-            <!-- Temporal Layout backbone vertex type -->
-            <xs:element name="temporalLayoutbackbone" type="xs:string"/>
-            <!-- Temporal Layout scale -->
-            <xs:element name="temporalLayoutscale" type="xs:string"/>
+            <!--Temporal layout parameters-->
+            <xs:element name="temporalLayout" type="temporalLayout" minOccurs="1" maxOccurs="1"/>
+            <!--Spatial layout parameters-->
+            <xs:element name="spatialLayout" type="spatialLayout" minOccurs="1" maxOccurs="1"/>
             <!-- List of all edges and their configuration values -->
             <xs:element name="edgetype" type="edgetype" minOccurs="0" maxOccurs="unbounded"/>
             <!-- List of all vertices labels for filtering -->
@@ -54,6 +40,34 @@ and open the template in the editor.
     <xs:simpleType name="stringlist">
         <xs:list itemType="xs:string"/>
     </xs:simpleType>
+    
+    <xs:complexType name="temporalLayout">
+        <xs:sequence>
+            <!-- Temporal Layout backbone vertex type -->
+            <xs:element name="temporalLayoutbackbone" type="xs:string"/>
+            <!-- Temporal Layout scale -->
+            <xs:element name="temporalLayoutscale" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="spatialLayout">
+        <xs:sequence>
+            <!-- Spatial Layout X axis name -->
+            <xs:element name="layoutAxis_X" type="xs:string"/>
+            <!-- Spatial Layout Y axis name -->
+            <xs:element name="layoutAxis_Y" type="xs:string"/>
+            <!-- Spatial Layout Background Image location -->
+            <xs:element name="imageLocation" type="xs:string"/>
+            <!-- Spatial Layout Camera X position -->
+            <xs:element name="imageOffset_X" type="xs:string"/>
+            <!-- Spatial Layout Camera Y position -->
+            <xs:element name="imageOffset_Y" type="xs:string"/>
+            <!-- Spatial Layout Camera's upper left corner of the screen position in relation to the camera -->
+            <xs:element name="spatialLayoutPosition" type="xs:string"/>
+            <!-- Spatial Layout parameter used for Google Maps or OpenStreetMap image. Set value to zero if not using Google Maps image -->
+            <xs:element name="zoomLevel" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
         
     <!-- Edge Type -->
     <xs:complexType name="edgetype">

@@ -29,7 +29,7 @@ public class ConfigTest {
     
     @BeforeClass
     public static void setUpClass() {
-        File graphFile = new File(BasePath.getBasePathForClass(GuiRun.class) + Variables.demo);
+        File graphFile = new File(BasePath.getBasePathForClass(GuiRun.class) + File.separator + "Graph" + File.separator + "Car_Tutorial.xml");
         final DirectedGraph<Object, Edge> graph = GuiReadFile.getGraph(graphFile);
         GraphFrame frame = new GraphFrame(graph);
     }

@@ -218,7 +218,7 @@ public class Config {
 
             doc.getDocumentElement().normalize();
             NodeList nList = doc.getElementsByTagName("vertexSize");
-            if (nList != null && nList.getLength() > 0) {
+            if (nList != null && nList.getLength() > 0 && !nList.item(0).getTextContent().equalsIgnoreCase("")) {
                 vertexSize = Integer.parseInt(nList.item(0).getTextContent());
             }
             
@@ -226,20 +226,26 @@ public class Config {
             if (nList != null && nList.getLength() > 0) {
                 timeScale = nList.item(0).getTextContent().toLowerCase();
             }
-
-            //Temporal Layout Backbone
-            nList = doc.getElementsByTagName("temporalLayoutbackbone");
-            layoutSpecialVertexType = nList.item(0).getTextContent();
-            
-            // To avoid empty backbone
-            if(layoutSpecialVertexType.equalsIgnoreCase(""))
-                layoutSpecialVertexType = "Default";
             
             nList = doc.getElementsByTagName("default_layout");
             if(nList.item(0) != null) {
                 defaultLayout = nList.item(0).getTextContent();
             }
+
+            // Temporal Layout parameters
+            nList = doc.getElementsByTagName("temporalLayoutbackbone");
+            layoutSpecialVertexType = nList.item(0).getTextContent();
+            nList = doc.getElementsByTagName("temporalLayoutscale");
+            if(nList.item(0).getTextContent().equals(""))
+                scale = 1;
+            else
+                scale = Double.parseDouble(nList.item(0).getTextContent());
+            // To avoid empty backbone
+            if(layoutSpecialVertexType.equalsIgnoreCase(""))
+                layoutSpecialVertexType = "Default";
             
+            
+            // Spatial Layout parameters
             nList = doc.getElementsByTagName("layoutAxis_X");
             layoutAxis_X = nList.item(0).getTextContent();
             nList = doc.getElementsByTagName("layoutAxis_Y");
@@ -247,18 +253,32 @@ public class Config {
             nList = doc.getElementsByTagName("imageLocation");
             imageLocation = nList.item(0).getTextContent();
             nList = doc.getElementsByTagName("imageOffset_X");
-            imageOffsetX = Double.parseDouble(nList.item(0).getTextContent());
+            if(nList.item(0).getTextContent().equals(""))
+                imageOffsetX = 0;
+            else
+                imageOffsetX = Double.parseDouble(nList.item(0).getTextContent());
+            
             nList = doc.getElementsByTagName("imageOffset_Y");
-            imageOffsetY = Double.parseDouble(nList.item(0).getTextContent());
+            if(nList.item(0).getTextContent().equals(""))
+                imageOffsetY = 0;
+            else
+                imageOffsetY = Double.parseDouble(nList.item(0).getTextContent());
+            
             nList = doc.getElementsByTagName("spatialLayoutPosition");
-            spatialLayoutPosition = Double.parseDouble(nList.item(0).getTextContent());
+            if(nList.item(0).getTextContent().equals(""))
+                spatialLayoutPosition = 0;
+            else
+                spatialLayoutPosition = Double.parseDouble(nList.item(0).getTextContent());
+            
             nList = doc.getElementsByTagName("zoomLevel");
-            googleZoomLevel = Double.parseDouble(nList.item(0).getTextContent());
+            if(nList.item(0).getTextContent().equals(""))
+                googleZoomLevel = 0;
+            else
+                googleZoomLevel = Double.parseDouble(nList.item(0).getTextContent());
             if(googleZoomLevel != 0)
                 orthogonal = false;
             
-            nList = doc.getElementsByTagName("temporalLayoutscale");
-            scale = Double.parseDouble(nList.item(0).getTextContent());
+            
 
             ComputeCoordScale();
             //Edge Types
