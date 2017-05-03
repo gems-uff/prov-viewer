@@ -127,13 +127,8 @@ public class GuiReadFile {
             int returnVal = fileChooser.showOpenDialog(graphFrame);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 loadGraph(variables, GuiReadFile.getGraph(fileChooser.getSelectedFile()));
+                variables.originalGraphPath = fileChooser.getSelectedFile().getName();
                 GuiInitialization.NormalizeTime(variables);
-//                variables.file = fileChooser.getSelectedFile();
-//                variables.graph = GuiReadFile.getGraph(variables.file);
-//                variables.collapsedGraph = variables.graph;
-//                variables.collapser.Filters(variables);
-//                variables.view.repaint();
-//                variables.initialGraph = false;
             } else {
                 System.out.println("File access cancelled by user.");
             }
@@ -195,10 +190,10 @@ public class GuiReadFile {
         int returnVal = fileChooser.showOpenDialog(graphFrame);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             DirectedGraph<Object, Edge> fileGraph = GuiReadFile.getGraph(fileChooser.getSelectedFile());
-//            Map<String, AttributeErrorMargin> restrictionList = defaultRestriction(); 
-//            GraphMerger merger = new GraphMerger();
-//            DirectedGraph<Object, Edge> mergedGraph = merger.Merging(variables.graph, fileGraph, restrictionList, similarityThreshold, defaultErrorMargin);
-            GraphMerger merger = new GraphMerger();
+            variables.mergingWithGraphPath = fileChooser.getSelectedFile().getName();
+            System.out.println("Original File: " + variables.originalGraphPath);
+            System.out.println("Merging File: " + variables.mergingWithGraphPath);
+            GraphMerger merger = new GraphMerger(variables.originalGraphPath, variables.mergingWithGraphPath);
             DirectedGraph<Object, Edge> mergedGraph = merger.Merging(variables.graph, fileGraph, variables.mergeConfig.getRestrictionList(), variables.mergeConfig.getVocabulary(), variables.mergeConfig.getSimilarityThreshold(), variables.mergeConfig.getDefaultError(), variables.mergeConfig.getDefaultWeight());
             
             loadGraph(variables, mergedGraph);

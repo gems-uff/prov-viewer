@@ -25,9 +25,9 @@ package br.uff.ic.graphmatching;
 
 import br.uff.ic.graphmatching.Heuristics.SimpleHeuristic;
 import br.uff.ic.utility.AttributeErrorMargin;
+import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.Vocabulary;
 import br.uff.ic.utility.graph.Edge;
-import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import java.util.Collection;
 import java.util.Map;
@@ -38,6 +38,18 @@ import java.util.Map;
  */
 public class GraphMerger {
     
+    private String graph01;
+    private String graph02;
+    
+    
+    public GraphMerger(String g01, String g02) {
+        graph01 = g01;
+        graph02 = g02;
+    }
+    public GraphMerger() {
+        graph01 = "Graph_01";
+        graph02 = "Graph_02";
+    }
     /**
      * 
      * @param graph_01
@@ -171,10 +183,10 @@ public class GraphMerger {
             DirectedGraph<Object, Edge> graph_02, 
             GraphMatching combiner) {
         // Correct IDs
-        updateVertexIDs(graph_01, "Graph_01");
-        updateVertexIDs(graph_02, "Graph_02");
-        updateEdgeIDs(graph_01, "Graph_01");
-        updateEdgeIDs(graph_02, "Graph_02");
+        Utils.updateVertexIDs(graph_01, graph01);
+        Utils.updateVertexIDs(graph_02, graph02);
+        Utils.updateEdgeIDs(graph_01, graph01);
+        Utils.updateEdgeIDs(graph_02, graph02);
         
         // Matching Heuristic
         MatchingHeuristic heuristic = new SimpleHeuristic();
@@ -189,27 +201,5 @@ public class GraphMerger {
         combiner.addEdges(updatedG2edges);
         
         return combiner.getCombinedGraph();
-    }
-    
-    /**
-     * 
-     * @param graph
-     * @param ID 
-     */
-    public void updateVertexIDs(DirectedGraph<Object, Edge> graph, String ID) {
-        for (Object v : graph.getVertices()) {
-            ((Vertex)v).setID(ID + "_" + ((Vertex)v).getID());
-        }
-    }
-    
-    /**
-     * 
-     * @param graph
-     * @param ID 
-     */
-    public void updateEdgeIDs(DirectedGraph<Object, Edge> graph, String ID) {
-        for (Edge e : graph.getEdges()) {
-            e.setID(ID + "_" + e.getID());
-        }
     }
 }

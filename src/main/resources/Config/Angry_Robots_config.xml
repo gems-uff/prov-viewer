@@ -99,14 +99,14 @@ THE SOFTWARE.
         <restrictedValue>Player</restrictedValue>
     </colorscheme>
     <colorscheme>
-        <attribute>Graph_01</attribute>
+        <attribute>demo</attribute>
         <class>GraphVisualizationScheme</class>
         <values></values>
         <goodvalue></goodvalue>
         <badvalue></badvalue>
     </colorscheme>
     <colorscheme>
-        <attribute>Graph_02</attribute>
+        <attribute>Graph_to_Merge_02.xml</attribute>
         <class>GraphVisualizationScheme</class>
         <values></values>
         <goodvalue></goodvalue>

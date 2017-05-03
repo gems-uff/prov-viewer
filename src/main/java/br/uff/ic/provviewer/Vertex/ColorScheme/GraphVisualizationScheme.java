@@ -47,7 +47,7 @@ public class GraphVisualizationScheme extends ColorScheme {
     public Paint Execute(Object v, final Variables variables) {
         if (((Vertex)v).getID().contains("(Merged)"))
             return new Color(200, 200, 200);
-        else if (((Vertex)v).getID().contains(this.attribute))
+        else if (((Vertex)v).getAttributeValue("GraphFile").contains(this.attribute))
             return new Color(0, 255, 0);
         else
 //            return ((Vertex) v).getColor();

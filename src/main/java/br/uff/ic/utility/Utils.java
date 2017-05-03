@@ -659,4 +659,38 @@ public class Utils {
                 return time;
         }
     }
+    
+    /**
+     * 
+     * @param graph
+     * @param graphFileName 
+     */
+    public static void updateVertexIDs(DirectedGraph<Object, Edge> graph, String graphFileName) {
+        // Instead of changing ID, make an attribute with value as the graph file name
+        for (Object v : graph.getVertices()) {
+            ((Vertex)v).setID(graphFileName + "_" + ((Vertex)v).getID());
+            GraphAttribute att = ((Vertex)v).getAttribute("GraphFile");
+            if(att == null) {
+                att = new GraphAttribute("GraphFile", graphFileName);
+                ((Vertex)v).addAttribute(att);
+            }
+            else if(!att.getValue().contains(graphFileName)) {
+                att.updateAttribute(graphFileName);
+                ((Vertex)v).addAttribute(att);
+            }
+        }
+    }
+    
+    /**
+     * 
+     * @param graph
+     * @param graphFileName 
+     */
+    public static void updateEdgeIDs(DirectedGraph<Object, Edge> graph, String graphFileName) {
+        for (Edge e : graph.getEdges()) {
+            e.setID(graphFileName + "_" + e.getID());
+            GraphAttribute att = new GraphAttribute("GraphFile", graphFileName);
+            e.addAttribute(att);
+        }
+    }
 }

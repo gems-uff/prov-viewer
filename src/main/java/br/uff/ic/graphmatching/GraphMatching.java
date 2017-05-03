@@ -233,16 +233,20 @@ public class GraphMatching {
 
         // Check all v1 attributes
         for (GraphAttribute attribute : v1.getAttributes()) {
-            attributes.put(attribute.getName(), attribute.getName());
-            similarity = compareAttributes(attribute, v2, similarity);
+            if(!attribute.getName().equalsIgnoreCase("GraphFile")) {
+                attributes.put(attribute.getName(), attribute.getName());
+                similarity = compareAttributes(attribute, v2, similarity);
+            }
         }
 
         // Now check all v2 attributes
         for (GraphAttribute attribute : v2.getAttributes()) {
+            if(!attribute.getName().equalsIgnoreCase("GraphFile")) {
             // Do not check the same attributes already verified when checking v1
-            if (!attributes.containsKey(attribute.getName())) {
-                attributes.put(attribute.getName(), attribute.getName());
-                similarity = compareAttributes(attribute, v1, similarity);
+                if (!attributes.containsKey(attribute.getName())) {
+                    attributes.put(attribute.getName(), attribute.getName());
+                    similarity = compareAttributes(attribute, v1, similarity);
+                }
             }
         }
 
