@@ -29,6 +29,7 @@ import br.uff.ic.provviewer.GUI.GuiBackground;
 import br.uff.ic.provviewer.Inference.PrologInference;
 import br.uff.ic.provviewer.Input.Config;
 import br.uff.ic.provviewer.Input.SimilarityConfig;
+import br.uff.ic.provviewer.Layout.ProvCircleLayout;
 import br.uff.ic.provviewer.Layout.Spatial_Layout;
 import br.uff.ic.provviewer.Layout.Temporal_Layout;
 import br.uff.ic.provviewer.Layout.Timeline_Layout;
@@ -251,6 +252,9 @@ public class Variables extends Object {
         }
         else if (layout.equalsIgnoreCase("TimelineLayout")) {
             this.layout = new Timeline_Layout<>(this.graph, this);
+        }
+        else if (layout.equalsIgnoreCase("ProvCircleLayout")) {
+            this.layout = new ProvCircleLayout<>(this.graph, this);
         }
         else {
             this.layout = new Timeline_Layout<>(this.graph, this);
