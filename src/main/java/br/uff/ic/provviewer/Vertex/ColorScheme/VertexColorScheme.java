@@ -31,19 +31,26 @@ import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
 import java.awt.Color;
 import java.awt.Paint;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author Kohwalter
  */
-public class DefaultScheme extends ColorScheme {
+public class VertexColorScheme extends ColorScheme {
+    public List<AttValueColor> activityVC = new ArrayList<>();
+    public List<AttValueColor> entityVC = new ArrayList<>();
+    public List<AttValueColor> agentVC = new ArrayList<>();
 
-    public DefaultScheme(String attribute) {
+    public VertexColorScheme(String attribute, List<AttValueColor> aVC, List<AttValueColor> eVC, List<AttValueColor> agVC) {
         super(attribute);
+        activityVC.addAll(aVC);
+        entityVC.addAll(eVC);
+        agentVC.addAll(agVC);
     }
 
-    public DefaultScheme(boolean isZeroWhite, boolean isInverted, String attribute, String empty, String g, String y, boolean l) {
+    public VertexColorScheme(boolean isZeroWhite, boolean isInverted, String attribute, String empty, String g, String y, boolean l) {
         super(isZeroWhite, isInverted, attribute, empty, g, y, l);
     }
 
@@ -56,13 +63,13 @@ public class DefaultScheme extends ColorScheme {
 //        else
 //            return ((Vertex) v).getColor();
         if (v instanceof ActivityVertex) {
-            return getDefaultColor(variables.config.activityVC, v);
+            return getDefaultColor(this.activityVC, v);
         }
         else if (v instanceof EntityVertex) {
-            return getDefaultColor(variables.config.entityVC, v);
+            return getDefaultColor(this.entityVC, v);
         }
         else
-            return getDefaultColor(variables.config.agentVC, v);
+            return getDefaultColor(this.agentVC, v);
     }
     
     public Paint getDefaultColor(List<AttValueColor> avc, Object v) {

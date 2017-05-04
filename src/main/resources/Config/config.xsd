@@ -51,7 +51,7 @@ THE SOFTWARE.
             <!-- List of all special vertices that has different stroke -->
             <xs:element name="vertexstroke" type="vertexstroke" minOccurs="0" maxOccurs="unbounded"/>
             <!-- List of types of activity vertex and their configuration values -->
-            <xs:element name="activitycolor" type="activitycolor" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="vertexcolor" type="vertexcolor" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
   
@@ -107,8 +107,6 @@ THE SOFTWARE.
     <xs:complexType name="vertexAttributeFilter">
         <xs:sequence>
             <xs:element name="name" type="xs:string"/>
-        </xs:sequence>
-        <xs:sequence>
             <xs:element name="value" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
@@ -136,6 +134,14 @@ THE SOFTWARE.
         </xs:sequence>
     </xs:complexType>
     
+    <xs:complexType name="vertexcolor">
+        <xs:sequence>
+            <xs:element name="generalname" type="xs:string"/>
+            <xs:element name="activitycolor" type="activitycolor" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="entitycolor" type="entitycolor" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="agentcolor" type="agentcolor" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
     <!-- Activity Vertex Type -->
     <xs:complexType name="activitycolor">
         <xs:sequence>
@@ -144,14 +150,28 @@ THE SOFTWARE.
             <xs:element name="vercolor" type="color"/>
         </xs:sequence>
     </xs:complexType>
-        
-    <!-- Color Type -->
-    <xs:complexType name="color">
-        <xs:sequence minOccurs="0" maxOccurs="unbounded">
-            <xs:element name="r" type="xs:integer"/>
-            <xs:element name="g" type="xs:integer"/>
-            <xs:element name="b" type="xs:integer"/>
+    <xs:complexType name="entitycolor">
+        <xs:sequence>
+            <xs:element name="attribute" type="xs:string"/>
+            <xs:element name="value" type="xs:string"/>
+            <xs:element name="vercolor" type="color"/>
         </xs:sequence>
     </xs:complexType>
+    <xs:complexType name="agentcolor">
+        <xs:sequence>
+            <xs:element name="attribute" type="xs:string"/>
+            <xs:element name="value" type="xs:string"/>
+            <xs:element name="vercolor" type="color"/>
+        </xs:sequence>
+    </xs:complexType>
+        
+<!-- Color Type -->
+<xs:complexType name="color">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="r" type="xs:integer"/>
+        <xs:element name="g" type="xs:integer"/>
+        <xs:element name="b" type="xs:integer"/>
+    </xs:sequence>
+</xs:complexType>
 
 </xs:schema>
