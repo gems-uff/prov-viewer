@@ -47,36 +47,81 @@ THE SOFTWARE.
         <edge>RunStarts</edge>
         <edgestroke>MAX</edgestroke>
         <collapsefunction>SUM</collapsefunction>
+        <edgeColor>
+            <r>255</r>
+            <g>255</g>
+            <b>0</b>
+        </edgeColor>
+    </edgetype>
+    <edgetype>
+        <edge>UserRuns</edge>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+        <edgeColor>
+            <r>255</r>
+            <g>255</g>
+            <b>0</b>
+        </edgeColor>
     </edgetype>
     <edgetype>
         <edge>PerformsFork</edge>
         <edgestroke>MAX</edgestroke>
         <collapsefunction>SUM</collapsefunction>
+        <edgeColor>
+            <r>0</r>
+            <g>255</g>
+            <b>255</b>
+        </edgeColor>
     </edgetype>
     <edgetype>
         <edge>ForkCreates</edge>
         <edgestroke>MAX</edgestroke>
         <collapsefunction>SUM</collapsefunction>
+        <edgeColor>
+            <r>0</r>
+            <g>255</g>
+            <b>255</b>
+        </edgeColor>
     </edgetype>
     <edgetype>
         <edge>PerformsFileAccess</edge>
         <edgestroke>MAX</edgestroke>
         <collapsefunction>SUM</collapsefunction>
+        <edgeColor>
+            <r>255</r>
+            <g>0</g>
+            <b>255</b>
+        </edgeColor>
     </edgetype>
     <edgetype>
         <edge>AccessFile</edge>
         <edgestroke>MAX</edgestroke>
         <collapsefunction>SUM</collapsefunction>
+        <edgeColor>
+            <r>255</r>
+            <g>0</g>
+            <b>255</b>
+        </edgeColor>
     </edgetype>
     <edgetype>
         <edge>ProcessExecution</edge>
         <edgestroke>MAX</edgestroke>
         <collapsefunction>SUM</collapsefunction>
+        <edgeColor>
+            <r>0</r>
+            <g>0</g>
+            <b>255</b>
+        </edgeColor>
     </edgetype>
     <edgetype>
         <edge>ExecutionFile</edge>
         <edgestroke>MAX</edgestroke>
         <collapsefunction>SUM</collapsefunction>
+        <edgeColor>
+            <r>0</r>
+            <g>0</g>
+            <b>255</b>
+        </edgeColor>
     </edgetype>
     <vertexAttributeFilter>
         <name>subtype</name>

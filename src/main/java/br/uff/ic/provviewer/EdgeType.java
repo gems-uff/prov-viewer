@@ -23,6 +23,8 @@
  */
 package br.uff.ic.provviewer;
 
+import java.awt.Color;
+
 /**
  * Class to define the parameters for each edge type
  * @author Kohwalter
@@ -36,6 +38,7 @@ public class EdgeType {
     public int count;
     public float total;
     public boolean isInverted;
+    public Color edgeColor;
     
     /**
      * Empty constructor
@@ -49,6 +52,7 @@ public class EdgeType {
         this.count = 0;
         this.total = 0;
         this.isInverted = false;
+        this.edgeColor = new Color(0 , 0, 0);
     }
     
     /**

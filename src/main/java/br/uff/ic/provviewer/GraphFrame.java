@@ -119,6 +119,7 @@ public class GraphFrame extends javax.swing.JFrame {
         displayTimeLabel = new javax.swing.JCheckBoxMenuItem();
         displayID = new javax.swing.JCheckBoxMenuItem();
         PantoVertex = new javax.swing.JMenuItem();
+        useEdgeTypeColor = new javax.swing.JCheckBoxMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         mergeGraphButtom = new javax.swing.JMenuItem();
@@ -604,6 +605,14 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu1.add(PantoVertex);
 
+        useEdgeTypeColor.setText("Use Edge Type Color");
+        useEdgeTypeColor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                useEdgeTypeColorActionPerformed(evt);
+            }
+        });
+        jMenu1.add(useEdgeTypeColor);
+
         MenuBar.add(jMenu1);
 
         jMenu2.setText("Merge");
@@ -1067,6 +1076,11 @@ public class GraphFrame extends javax.swing.JFrame {
     private void attributeDisplaySimConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_attributeDisplaySimConfigActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_attributeDisplaySimConfigActionPerformed
+
+    private void useEdgeTypeColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useEdgeTypeColorActionPerformed
+        // TODO add your handling code here:
+        variables.view.repaint();
+    }//GEN-LAST:event_useEdgeTypeColorActionPerformed
    
     /**
      * Main
@@ -1174,6 +1188,7 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JCheckBoxMenuItem temporalSecondsButton;
     public static javax.swing.JCheckBoxMenuItem temporalWeeksButton;
     private javax.swing.JCheckBoxMenuItem updateErrorButton;
+    public static javax.swing.JCheckBoxMenuItem useEdgeTypeColor;
     private javax.swing.JCheckBoxMenuItem verifyWithinClusterButton;
     public static javax.swing.JList vertexFilterList;
     // End of variables declaration//GEN-END:variables

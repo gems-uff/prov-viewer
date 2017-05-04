@@ -98,6 +98,8 @@ THE SOFTWARE.
             <xs:element name="collapsefunction" type="xs:string"/>
             <!-- Define if the color scheme for the edge is inverted (Inverted: Red = positive values, Green = negative values) -->
             <xs:element name="isInverted" type="xs:string"/>
+            <!--Define the special color for this edge type-->
+            <xs:element name="edgeColor" type="color"/>
         </xs:sequence>
     </xs:complexType>
     

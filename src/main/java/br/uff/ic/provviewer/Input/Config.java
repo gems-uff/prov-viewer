@@ -31,6 +31,7 @@ import br.uff.ic.provviewer.Vertex.ColorScheme.ColorScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.DefaultScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.DefaultVertexColorScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.ProvScheme;
+import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
 import java.awt.Color;
@@ -137,6 +138,7 @@ public class Config {
 
     public void DetectEdges(Collection<Edge> edges) {
         Map<String, EdgeType> newEdges = new HashMap<>();
+        int colorCount = 0;
         for (Edge edge : edges) {
             boolean isNewType = true;
             boolean isNewLabel = true;
@@ -153,6 +155,8 @@ public class Config {
                 newEdge.type = edge.getType();
                 newEdge.stroke = "MAX";
                 newEdge.collapse = "SUM";
+                newEdge.edgeColor = Utils.getColor(colorCount);
+                colorCount++;
                 newEdges.put(newEdge.type, newEdge);
             }
             if (isNewLabel) {
@@ -160,6 +164,8 @@ public class Config {
                 newEdge.type = edge.getLabel();
                 newEdge.stroke = "MAX";
                 newEdge.collapse = "SUM";
+                newEdge.edgeColor = Utils.getColor(colorCount);
+                colorCount++;
                 newEdges.put(newEdge.type, newEdge);
             }
         }
@@ -315,7 +321,17 @@ public class Config {
                         if (!eElement.getElementsByTagName("isInverted").item(0).getTextContent().isEmpty())
                             etype.isInverted = Boolean.parseBoolean(eElement.getElementsByTagName("isInverted").item(0).getTextContent()); 
                     }
-                        edgetype.add(etype);
+                    Color color;
+                    if(eElement.getElementsByTagName("r").item(0) != null) {
+                        int r = Integer.parseInt(eElement.getElementsByTagName("r").item(0).getTextContent());
+                        int g = Integer.parseInt(eElement.getElementsByTagName("g").item(0).getTextContent());
+                        int b = Integer.parseInt(eElement.getElementsByTagName("b").item(0).getTextContent());
+                        color = new Color(r, g, b);
+                    }
+                    else
+                        color = new Color(0, 0, 0);
+                    etype.edgeColor = color;
+                    edgetype.add(etype);
                 }
             }
             

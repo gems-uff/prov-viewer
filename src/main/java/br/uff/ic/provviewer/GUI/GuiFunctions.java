@@ -23,6 +23,8 @@
  */
 package br.uff.ic.provviewer.GUI;
 
+import br.uff.ic.provviewer.EdgeType;
+import br.uff.ic.provviewer.GraphFrame;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.Stroke.EdgeStroke;
 import br.uff.ic.provviewer.Stroke.VertexStroke;
@@ -295,6 +297,13 @@ public class GuiFunctions {
         Transformer edgePainter = new Transformer<Edge, Paint>() {
             @Override
             public Paint transform(Edge edge) {
+                if(GraphFrame.useEdgeTypeColor.isSelected()){
+                    for(EdgeType e : variables.config.edgetype) {
+                        if(e.type.equalsIgnoreCase(edge.getType())) {
+                            return e.edgeColor;
+                        }
+                    }  
+                }
                 return edge.getColor(variables);
             }
         };
