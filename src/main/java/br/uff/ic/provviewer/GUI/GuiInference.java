@@ -25,7 +25,6 @@ package br.uff.ic.provviewer.GUI;
 
 import br.uff.ic.graphmatching.GraphMatching;
 import br.uff.ic.provviewer.GraphFrame;
-import br.uff.ic.provviewer.xmlToProlog.XMLConverter;
 import br.uff.ic.utility.IO.BasePath;
 import static br.uff.ic.provviewer.GraphFrame.StatusFilterBox;
 import br.uff.ic.provviewer.Inference.AutomaticInference;
@@ -77,14 +76,14 @@ public class GuiInference {
      * @param file
      * @param demo
      */
-    public static void GeneratePrologFacts(boolean initialGraph, File file, String demo) {
-        if (initialGraph) {
-            file = new File(BasePath.getBasePathForClass(GuiInference.class) + demo);
-            initialGraph = false;
-        }
-        ConvertXML(file);
-        System.out.println("Finished Converting to Prolog");
-    }
+//    public static void GeneratePrologFacts(boolean initialGraph, File file, String demo) {
+//        if (initialGraph) {
+//            file = new File(BasePath.getBasePathForClass(GuiInference.class) + demo);
+//            initialGraph = false;
+//        }
+//        ConvertXML(file);
+//        System.out.println("Finished Converting to Prolog");
+//    }
 
     /**
      * Method to convert the XML to prolog facts
@@ -92,10 +91,10 @@ public class GuiInference {
      * @deprecated Prolog is no longer used
      * @param file the XML file for conversion
      */
-    private static void ConvertXML(File file) {
-        XMLConverter xmlConv = new XMLConverter();
-        xmlConv.ConvertXMLtoProlog(file);
-    }
+//    private static void ConvertXML(File file) {
+//        XMLConverter xmlConv = new XMLConverter();
+//        xmlConv.ConvertXMLtoProlog(file);
+//    }
 
     /**
      * Method to apply the similarity collapse in the graph
