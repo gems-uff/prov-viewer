@@ -291,7 +291,7 @@ public class GuiFunctions {
     public static void GraphPaint(final Variables variables) {
 
         // Vertex Paint
-        VertexPainter.VertexPainter("Default", variables.view, variables);
+        VertexPainter.VertexPainter("Prov", variables.view, variables);
         
          // Edge Paint
         Transformer edgePainter = new Transformer<Edge, Paint>() {
