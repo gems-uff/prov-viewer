@@ -21,54 +21,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+package br.uff.ic.utility;
 
-package br.uff.ic.utility.graph;
-
-import br.uff.ic.provviewer.Variables;
-import br.uff.ic.utility.AttValueColor;
-import java.awt.Color;
 import java.awt.Paint;
-import java.util.List;
 
 /**
- * Subclass for Vertex named after PROV nomenclature and type
  *
  * @author Kohwalter
  */
-public class ActivityVertex extends Vertex {
-
-
-    /**
-     * Constructor
-     *
-     * @param id This param is used by JUNG for collapsed vertices and tooltips.
-     */
-    public ActivityVertex(String id) {
-        super(id, "", "");
-    }
-    
-    public ActivityVertex(String id, String label, String date) {
-        super(id, label, date);
-    }
-
-    /**
-     * Constructor overload
-     *
-     * @param array for TSV Reader
-     */
-    public ActivityVertex(String[] array) {
-        super(array[0], array[1], array[2]);
-    }
-
-
-    @Override
-    public Paint getColor() {
-        return new Color(159, 177, 252);
-    }
-    
-
-    @Override
-    public String getNodeType() {
-        return "Activity";
-    }
+public class AttValueColor {
+    public String name;
+    public String value;
+    public Paint color;
 }

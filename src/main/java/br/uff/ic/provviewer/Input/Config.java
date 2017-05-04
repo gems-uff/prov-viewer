@@ -31,11 +31,11 @@ import br.uff.ic.provviewer.Vertex.ColorScheme.ColorScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.DefaultScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.DefaultVertexColorScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.ProvScheme;
+import br.uff.ic.utility.AttValueColor;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
 import java.awt.Color;
-import java.awt.Paint;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -100,9 +100,9 @@ public class Config {
 
     //ActivityVertex
     //All 3 arrays must have the same size
-    public List<String> actVerAtt = new ArrayList<>();
-    public List<String> actVerValue = new ArrayList<>();
-    public List<Paint> actVerColor = new ArrayList<>();
+    public List<AttValueColor> activityVC = new ArrayList<>();
+    public List<AttValueColor> entityVC = new ArrayList<>();
+    public List<AttValueColor> agentVC = new ArrayList<>();
 
     /**
      * Method to configure the tool for the first time using the default graph
@@ -224,9 +224,9 @@ public class Config {
             layoutSpecialVertexType = "";
             scale = 1.0;
             vertexStrokevariables = new ArrayList<>();
-            actVerAtt = new ArrayList<>();
-            actVerValue = new ArrayList<>();
-            actVerColor = new ArrayList<>();
+            activityVC = new ArrayList<>();
+            entityVC = new ArrayList<>();
+            agentVC = new ArrayList<>();
 
             EdgeType allEdges = new EdgeType();
             allEdges.type = "All Edges";
@@ -452,13 +452,46 @@ public class Config {
                 Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
-                    actVerAtt.add(eElement.getElementsByTagName("attribute").item(0).getTextContent());
-                    actVerValue.add(eElement.getElementsByTagName("value").item(0).getTextContent());
+                    AttValueColor avc = new AttValueColor();
+                    avc.name = eElement.getElementsByTagName("attribute").item(0).getTextContent();
+                    avc.value = eElement.getElementsByTagName("value").item(0).getTextContent();
                     int r = Integer.parseInt(eElement.getElementsByTagName("r").item(0).getTextContent());
                     int g = Integer.parseInt(eElement.getElementsByTagName("g").item(0).getTextContent());
                     int b = Integer.parseInt(eElement.getElementsByTagName("b").item(0).getTextContent());
-                    Paint color = new Color(r, g, b);
-                    actVerColor.add(color);
+                    avc.color = new Color(r, g, b);
+                    activityVC.add(avc);
+                }
+            }
+            //Activity Variables
+            nList = doc.getElementsByTagName("entitycolor");
+            for (int temp = 0; temp < nList.getLength(); temp++) {
+                Node nNode = nList.item(temp);
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element eElement = (Element) nNode;
+                    AttValueColor avc = new AttValueColor();
+                    avc.name = eElement.getElementsByTagName("attribute").item(0).getTextContent();
+                    avc.value = eElement.getElementsByTagName("value").item(0).getTextContent();
+                    int r = Integer.parseInt(eElement.getElementsByTagName("r").item(0).getTextContent());
+                    int g = Integer.parseInt(eElement.getElementsByTagName("g").item(0).getTextContent());
+                    int b = Integer.parseInt(eElement.getElementsByTagName("b").item(0).getTextContent());
+                    avc.color = new Color(r, g, b);
+                    entityVC.add(avc);
+                }
+            }
+            //Agent Variables
+            nList = doc.getElementsByTagName("agentcolor");
+            for (int temp = 0; temp < nList.getLength(); temp++) {
+                Node nNode = nList.item(temp);
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element eElement = (Element) nNode;
+                    AttValueColor avc = new AttValueColor();
+                    avc.name = eElement.getElementsByTagName("attribute").item(0).getTextContent();
+                    avc.value = eElement.getElementsByTagName("value").item(0).getTextContent();
+                    int r = Integer.parseInt(eElement.getElementsByTagName("r").item(0).getTextContent());
+                    int g = Integer.parseInt(eElement.getElementsByTagName("g").item(0).getTextContent());
+                    int b = Integer.parseInt(eElement.getElementsByTagName("b").item(0).getTextContent());
+                    avc.color = new Color(r, g, b);
+                    agentVC.add(avc);
                 }
             }
         } catch (Exception e) {

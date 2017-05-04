@@ -25,9 +25,13 @@
 package br.uff.ic.provviewer.Vertex.ColorScheme;
 
 import br.uff.ic.provviewer.Variables;
+import br.uff.ic.utility.AttValueColor;
 import br.uff.ic.utility.graph.ActivityVertex;
+import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
+import java.awt.Color;
 import java.awt.Paint;
+import java.util.List;
 
 /**
  *
@@ -46,10 +50,27 @@ public class DefaultScheme extends ColorScheme {
     @Override
     public Paint Execute(Object v, final Variables variables) {
         this.variables = variables;
+//        if (v instanceof ActivityVertex) {
+//            return ((ActivityVertex) v).getDefaultColor(variables);
+//        }
+//        else
+//            return ((Vertex) v).getColor();
         if (v instanceof ActivityVertex) {
-            return ((ActivityVertex) v).getDefaultColor(variables);
+            return getDefaultColor(variables.config.activityVC, v);
+        }
+        else if (v instanceof EntityVertex) {
+            return getDefaultColor(variables.config.entityVC, v);
         }
         else
-            return ((Vertex) v).getColor();
+            return getDefaultColor(variables.config.agentVC, v);
+    }
+    
+    public Paint getDefaultColor(List<AttValueColor> avc, Object v) {
+        for (int i = 0; i < avc.size(); i++) {
+            if (((Vertex)v).getAttributeValue(avc.get(i).name).equalsIgnoreCase(avc.get(i).value)) {
+                return avc.get(i).color;
+            }
+        }
+        return ((Vertex) v).getColor();
     }
 }
