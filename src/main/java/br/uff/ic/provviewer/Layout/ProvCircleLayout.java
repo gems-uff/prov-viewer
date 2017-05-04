@@ -27,7 +27,6 @@ import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
-import edu.uci.ics.jung.algorithms.layout.AbstractLayout;
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -139,18 +138,18 @@ public class ProvCircleLayout<V, E> extends ProvViewerLayout<V, E> {
             for (V v : vertex_ordered_list) {
                 Point2D coord = transform(v);
 
-                double angle = (2 * Math.PI * i) / vertex_ordered_list.size();
+                double angle = (2 * Math.PI * i) / (vertex_ordered_list.size()+ 5);
                 if(v instanceof EntityVertex) {
-                    coord.setLocation(Math.cos(angle) * radius * 1.25 + width / 2,
-                        Math.sin(angle) * radius * 1.25 + height / 2);
+                    coord.setLocation(Math.cos(angle) * radius * 1 + width / 2,
+                        Math.sin(angle) * radius * 1 + height / 2);
                 }
                 else if(v instanceof AgentVertex) {
                     coord.setLocation(Math.cos(angle) * radius * 0.75 + width / 2,
                         Math.sin(angle) * radius * 0.75 + height / 2);
                 }
                 else {
-                    coord.setLocation(Math.cos(angle) * radius + width / 2,
-                        Math.sin(angle) * radius + height / 2);
+                    coord.setLocation(Math.cos(angle) * radius * 1.25 + width / 2,
+                        Math.sin(angle) * radius * 1.25 + height / 2);
                 }
                 CircleVertexData data = getCircleData(v);
                 data.setAngle(angle);
