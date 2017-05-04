@@ -32,6 +32,7 @@ import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.provviewer.Vertex.ColorScheme.VertexPainter;
 import br.uff.ic.utility.IO.PROVNWriter;
 import br.uff.ic.utility.IO.XMLWriter;
+import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
 import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
 import edu.uci.ics.jung.visualization.decorators.EdgeShape;
@@ -116,7 +117,22 @@ public class GuiButtons {
         }
         //Select the node and its neighbors to be collapsed
         if (variables.layout.getGraph().getNeighbors(node) != null) {
-            Collection picked = new HashSet(variables.layout.getGraph().getNeighbors(node));
+            Collection picked = new HashSet();
+            for(Object v : variables.layout.getGraph().getNeighbors(node)) {
+                if(v instanceof Graph) {
+                    boolean hasAgent = false;
+                    for (Object g : ((Graph) v).getVertices()) {
+                        if(g instanceof AgentVertex) {
+                            hasAgent = true;
+                        }
+                    }
+                    if(!hasAgent)
+                        picked.add(v);
+                }
+                else if(!(v instanceof AgentVertex))
+                    picked.add(v);
+            }
+//            Collection picked = new HashSet(variables.layout.getGraph().getNeighbors(node));
             picked.add(node);
             if (!(node instanceof AgentVertex)) {
                 picked.removeAll(picked);
