@@ -730,18 +730,19 @@
         <Component class="javax.swing.JComboBox" name="Layouts">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="11">
+              <StringArray count="12">
                 <StringItem index="0" value="TimelineLayout"/>
                 <StringItem index="1" value="TemporalLayout"/>
                 <StringItem index="2" value="SpatialLayout"/>
                 <StringItem index="3" value="ProvCircleLayout"/>
-                <StringItem index="4" value="CircleLayout"/>
-                <StringItem index="5" value="FRLayout"/>
-                <StringItem index="6" value="FRLayout2"/>
-                <StringItem index="7" value="ISOMLayout"/>
-                <StringItem index="8" value="KKLayout"/>
-                <StringItem index="9" value="SpringLayout"/>
-                <StringItem index="10" value="DagLayout"/>
+                <StringItem index="4" value="ProvCircleLayout2"/>
+                <StringItem index="5" value="CircleLayout"/>
+                <StringItem index="6" value="FRLayout"/>
+                <StringItem index="7" value="FRLayout2"/>
+                <StringItem index="8" value="ISOMLayout"/>
+                <StringItem index="9" value="KKLayout"/>
+                <StringItem index="10" value="SpringLayout"/>
+                <StringItem index="11" value="DagLayout"/>
               </StringArray>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Change the graph layout"/>

@@ -27,7 +27,6 @@ import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.Graph;
-import edu.uci.ics.jung.visualization.subLayout.GraphCollapser;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -58,12 +57,12 @@ public class Collapser {
         //Reset graph to the original version
         variables.layout.setGraph(variables.graph);
         variables.collapsedGraph = variables.graph;
-        variables.gCollapser = new GraphCollapser(variables.graph);
+        variables.initGraphCollapser();
         //Remove collapsed edges, otherwise they will be invisible when Reset
-        for (Object node : variables.graph.getVertices()) {
-            RemoveCollapsedEdges(variables, node);
-        }
-        variables.ComputeEdgeTypeValues();
+//        for (Object node : variables.graph.getVertices()) {
+//            RemoveCollapsedEdges(variables, node);
+//        }
+//        variables.ComputeEdgeTypeValues();
         variables.filter.RemoveFilters(variables);
     }
 
@@ -129,7 +128,7 @@ public class Collapser {
     public void RefreshGraph(Variables variables)
     {
         CollapseEdges(variables);
-        variables.ComputeEdgeTypeValues();
+//        variables.ComputeEdgeTypeValues();
         variables.filter.RemoveFilters(variables);
         variables.view.repaint();
 //        System.out.println("#Vertices: " + variables.collapsedGraph.getVertexCount());
@@ -143,106 +142,25 @@ public class Collapser {
     // TODO: Change how edge collapse works
     // probably it is better to override the original Collapse function from JUNG
     public void CollapseEdges(final Variables variables) {
-        Graph newGraph = variables.layout.getGraph();
-//        Map<String, Edge> addEdges = new HashMap<String, Edge>();
-        Collection<Edge> addEdges = new ArrayList<>();
-        Collection<Edge> removeEdges = new ArrayList<>();
-        
-        checkEdges(variables, addEdges, removeEdges);
-        //Add collapsed edges in the graph
-        for (Edge edge : addEdges) {
-//            System.out.println(edge.getEdgeInfluence());
-            newGraph.addEdge(edge, edge.getSource(), edge.getTarget());
-        }
-        //Remove old collapsed edges
-        for (Edge edge : removeEdges) {
-            newGraph.removeEdge(edge);
-        }
-        variables.layout.setGraph(newGraph);
+//        Graph newGraph = variables.layout.getGraph();
+////        Map<String, Edge> addEdges = new HashMap<String, Edge>();
+//        Collection<Edge> addEdges = new ArrayList<>();
+//        Collection<Edge> removeEdges = new ArrayList<>();
+//        
+//        checkEdges(variables, addEdges, removeEdges);
+//        //Add collapsed edges in the graph
+//        for (Edge edge : addEdges) {
+////            System.out.println(edge.getEdgeInfluence());
+//            newGraph.addEdge(edge, edge.getSource(), edge.getTarget());
+//        }
+//        //Remove old collapsed edges
+//        for (Edge edge : removeEdges) {
+//            newGraph.removeEdge(edge);
+//        }
+//        variables.layout.setGraph(newGraph);
 //        variables.view.repaint();
     }
     
-    /**
-     * Method underdevelopment to solve a bug with collapsing edges depending on the order of the collapse
-     * Use checkEdges method instead
-     * @param variables
-     * @param addEdges
-     * @param removeEdges 
-     */
-    public void checkEdges_Prototype(final Variables variables, Map<String, Edge> addEdges, Collection<Edge> removeEdges) {
-        for (Edge e1 : variables.layout.getGraph().getEdges()) {
-            boolean collapse = false;
-            Object target = e1.getTarget();
-            Object source = e1.getSource();
-            float value = e1.getValue();
-            int count = 0;
-            for (Edge e2 : variables.layout.getGraph().getEdges()) {
-                if(!e1.getID().equalsIgnoreCase(e2.getID())) {
-                    if(e1.getType().equalsIgnoreCase(e2.getType())) {
-                        if(e1.getLabel().equalsIgnoreCase(e2.getLabel())) {
-                            boolean targetSameGraph = false;
-                            //check if there is any graph_vertex.
-                            for (Object g : variables.layout.getGraph().getVertices()) {
-                                if (g instanceof Graph) {
-                                    //If the graph has the target vertex, then the graph is the target
-                                    if (((Graph) g).containsVertex(e1.getTarget()) 
-                                            && ((Graph) g).containsVertex(e2.getTarget())) {
-                                        targetSameGraph = true;
-                                        target = g;
-                                    }
-                                }
-                            }
-                            if ((e1.getTarget().equals(e2.getTarget())) || targetSameGraph) {
-                                if (e1.isCollapased()) {
-                                    removeEdges.add(e1);
-                                }
-                                else if (e2.isCollapased()) {
-                                    removeEdges.add(e2);
-                                }
-                                else {
-                                    value += e2.getValue();
-                                    e1.setHide(true);
-                                    e2.setHide(true);
-                                    collapse = true;
-                                    count++;
-                                }
-                            } // if SAME TARGET
-                        } // if LABEL
-                    } // if TYPE
-                }// if ID
-                
-            } // end for e2
-            
-            if (collapse) {
-                if (!e1.addInfluence(variables)) {
-                    value = value / count;
-                }
-                String influence;
-
-                influence = e1.getLabel();
-                //Create collpased edge and add it in the graph                        
-                Edge edge;
-                
-                for (Object g : variables.layout.getGraph().getVertices()) {
-                    if (g instanceof Graph) {
-                        //If the graph has the target vertex, then the graph is the target
-                        if (((Graph) g).containsVertex(e1.getSource()))
-                            source = g;
-                    }
-                }
-                edge = CollapsedEdgeType(target, source, influence, Float.toString(value));
-//                if (target == null) {
-//                    target = e1.getTarget();
-//                    edge = CollapsedEdgeType(target, e1.getSource(), influence, Float.toString(value));
-//                } else {
-//                    edge = CollapsedEdgeType(target, e1.getSource(), influence, Float.toString(value));
-//                }
-            
-                edge.setCollapse(true);
-                addEdges.put(target + " " + source + " " + influence, edge);
-            }
-        } // end for e1
-    }
     public void checkEdges(final Variables variables, Collection<Edge> addEdges, Collection<Edge> removeEdges){
         for (Object node : variables.layout.getGraph().getVertices()) {
             //Only need to collapse if the node is a graph
@@ -355,20 +273,20 @@ public class Collapser {
             if (v instanceof Graph) {
                 //TODO: Save current filters state
                 //Add all filters to not lose edges/information
-                variables.filter.AddFilters(variables);
-                RemoveCollapsedEdges(variables, v);
+//                variables.filter.AddFilters(variables);
+//                RemoveCollapsedEdges(variables, v);
                 //Expand the vertex
                 variables.collapsedGraph = (DirectedGraph<Object, Edge>) variables.gCollapser.expand(variables.layout.getGraph(), (Graph) v);
                 variables.view.getRenderContext().getParallelEdgeIndexFunction().reset();
                 variables.layout.setGraph(variables.collapsedGraph);
                 //TODO: Load filters state
                 //Remove filters to clean the visualization
-                variables.filter.RemoveFilters(variables);
+//                variables.filter.RemoveFilters(variables);
 //                Filters(variables);
             }
         }
         variables.view.getPickedVertexState().clear();
-        variables.ComputeEdgeTypeValues();
+//        variables.ComputeEdgeTypeValues();
         variables.view.repaint();
         CollapseEdges(variables);
     }

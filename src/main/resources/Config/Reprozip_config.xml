@@ -27,7 +27,7 @@ THE SOFTWARE.
 <config
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
     xsi:noNamespaceSchemaLocation='config.xsd'>
-    <vertexSize></vertexSize>
+    <vertexSize>20</vertexSize>
     <timeScale>Nanoseconds</timeScale>
     <default_layout>TimelineLayout</default_layout>
     <spatialLayout>
@@ -243,8 +243,8 @@ THE SOFTWARE.
     <vertexcolor>
         <generalname>Package</generalname>
         <entitycolor>
-            <attribute>subtype</attribute>
-            <value>File</value>
+            <attribute>package</attribute>
+            <value>libc6</value>
             <vercolor>
                 <r>0</r>
                 <g>255</g>
@@ -252,11 +252,38 @@ THE SOFTWARE.
             </vercolor>
         </entitycolor>
         <entitycolor>
-            <attribute>subtype</attribute>
-            <value>Directory</value>
+            <attribute>package</attribute>
+            <value>coreutils</value>
             <vercolor>
                 <r>0</r>
                 <g>0</g>
+                <b>255</b>
+            </vercolor>
+        </entitycolor>
+        <entitycolor>
+            <attribute>package</attribute>
+            <value>bash</value>
+            <vercolor>
+                <r>255</r>
+                <g>0</g>
+                <b>0</b>
+            </vercolor>
+        </entitycolor>
+        <entitycolor>
+            <attribute>package</attribute>
+            <value>libtinfo5</value>
+            <vercolor>
+                <r>255</r>
+                <g>255</g>
+                <b>0</b>
+            </vercolor>
+        </entitycolor>
+        <entitycolor>
+            <attribute>package</attribute>
+            <value>libncurses5</value>
+            <vercolor>
+                <r>0</r>
+                <g>255</g>
                 <b>255</b>
             </vercolor>
         </entitycolor>

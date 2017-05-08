@@ -252,7 +252,7 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         EdgeTypes.setViewportView(edgeFilterList);
 
-        Layouts.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TimelineLayout", "TemporalLayout", "SpatialLayout", "ProvCircleLayout", "CircleLayout", "FRLayout", "FRLayout2", "ISOMLayout", "KKLayout", "SpringLayout", "DagLayout" }));
+        Layouts.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TimelineLayout", "TemporalLayout", "SpatialLayout", "ProvCircleLayout", "ProvCircleLayout2", "CircleLayout", "FRLayout", "FRLayout2", "ISOMLayout", "KKLayout", "SpringLayout", "DagLayout" }));
         Layouts.setToolTipText("Change the graph layout");
         Layouts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

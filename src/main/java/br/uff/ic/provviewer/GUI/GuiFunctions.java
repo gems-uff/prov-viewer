@@ -40,7 +40,6 @@ import edu.uci.ics.jung.visualization.Layer;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.CrossoverScalingControl;
 import edu.uci.ics.jung.visualization.control.ScalingControl;
-import edu.uci.ics.jung.visualization.subLayout.GraphCollapser;
 import edu.uci.ics.jung.visualization.util.PredicatedParallelEdgeIndexFunction;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -228,7 +227,7 @@ public class GuiFunctions {
      * @param variables 
      */
     public static void PanCameraToFirstVertex(Variables variables) {
-        Vertex first = (Vertex) variables.graph.getVertices().iterator().next();
+        Vertex first = (Vertex) variables.layout.getGraph().getVertices().iterator().next();
         variables.view.getGraphLayout();
         Point2D q = variables.view.getGraphLayout().transform(first);
         Point2D lvc
@@ -268,7 +267,7 @@ public class GuiFunctions {
         ScaleView(variables);
         PanCameraToFirstVertex(variables);
 
-        variables.gCollapser = new GraphCollapser(variables.graph);
+        variables.initGraphCollapser();
 
         final PredicatedParallelEdgeIndexFunction eif = PredicatedParallelEdgeIndexFunction.getInstance();
         eif.setPredicate(new Predicate() {

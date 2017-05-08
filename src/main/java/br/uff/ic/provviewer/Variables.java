@@ -26,13 +26,14 @@ package br.uff.ic.provviewer;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.Filter.Filters;
 import br.uff.ic.provviewer.GUI.GuiBackground;
-import br.uff.ic.provviewer.Inference.PrologInference;
 import br.uff.ic.provviewer.Input.Config;
 import br.uff.ic.provviewer.Input.SimilarityConfig;
 import br.uff.ic.provviewer.Layout.ProvCircleLayout;
+import br.uff.ic.provviewer.Layout.ProvCircleLayout2;
 import br.uff.ic.provviewer.Layout.Spatial_Layout;
 import br.uff.ic.provviewer.Layout.Temporal_Layout;
 import br.uff.ic.provviewer.Layout.Timeline_Layout;
+import br.uff.ic.utility.GraphCollapser;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.DAGLayout;
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
@@ -44,7 +45,6 @@ import edu.uci.ics.jung.algorithms.layout.SpringLayout;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
-import edu.uci.ics.jung.visualization.subLayout.GraphCollapser;
 import java.io.File;
 import java.util.Collection;
 import java.util.HashSet;
@@ -67,8 +67,8 @@ public class Variables extends Object {
 //    public static String demo = File.separator + "Graph" + File.separator + "Graph_to_Merge_01.xml";
 //    public String configDemo = File.separator + "Config" + File.separator + "Angry_Robots_config.xml";
     
-    public static String demo = "Graph" + File.separator + "Car_Tutorial.xml";   
-    public String configDemo = "Config" + File.separator + "Car_Tutorial_config.xml";
+//    public static String demo = "Graph" + File.separator + "Car_Tutorial.xml";   
+//    public String configDemo = "Config" + File.separator + "Car_Tutorial_config.xml";
     
 //    public static String demo = File.separator + "Graph" + File.separator + "rio_city_bus_example.xml";
 //    public static String demo = File.separator + "Graph" + File.separator + "bus_linha5.xml";
@@ -97,8 +97,8 @@ public class Variables extends Object {
 //    public static String demo = File.separator + "Graph" + File.separator + "Car_Tutorial.xml";
 //    public String configDemo = File.separator + "Config" + File.separator + "Noise_config.xml";
     
-//    public static String demo = File.separator + "Graph" + File.separator + "1-decision-tree.xml"; 
-//    public String configDemo = File.separator + "Config" + File.separator + "Reprozip_config.xml";
+    public static String demo = File.separator + "Graph" + File.separator + "bash-count.xml"; 
+    public String configDemo = File.separator + "Config" + File.separator + "Reprozip_config.xml";
 
     public GuiBackground guiBackground = new GuiBackground();
     public VisualizationViewer<Object, Edge> view;
@@ -112,7 +112,6 @@ public class Variables extends Object {
     public final Set exclusions = new HashSet();
     public boolean initLayout = true;
     public Filters filter = new Filters();
-    public PrologInference testProlog = new PrologInference();
     public boolean prologIsInitialized = false;
     public File file;
     public DefaultModalGraphMouse mouse = new DefaultModalGraphMouse();
@@ -256,8 +255,15 @@ public class Variables extends Object {
         else if (layout.equalsIgnoreCase("ProvCircleLayout")) {
             this.layout = new ProvCircleLayout<>(this.graph, this);
         }
+        else if (layout.equalsIgnoreCase("ProvCircleLayout2")) {
+            this.layout = new ProvCircleLayout2<>(this.graph, this);
+        }
         else {
             this.layout = new Timeline_Layout<>(this.graph, this);
         }
+    }
+    
+    public void initGraphCollapser() {
+        gCollapser = new GraphCollapser(this.graph); 
     }
 }
