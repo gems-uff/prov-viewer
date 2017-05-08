@@ -598,7 +598,7 @@ public class Utils {
      * @param timeScale is the current timescale being used
      * @return the converted value
      */
-    public static double convertTime(String timeFormat, double time, String timeScale) {
+    public static long convertTime(String timeFormat, double time, String timeScale) {
         TimeUnit t;
 
         // Convert the number to a lower scale being used to avoid losing the decimals
@@ -607,32 +607,32 @@ public class Utils {
                 t = TimeUnit.NANOSECONDS;
                 break;
             case "microseconds":
-                t = TimeUnit.NANOSECONDS;
-                time *= 1000;
+                t = TimeUnit.MICROSECONDS;
+//                time *= 1000;
                 break;
             case "milliseconds":
-                t = TimeUnit.MICROSECONDS;
-                time *= 1000;
+                t = TimeUnit.MILLISECONDS;
+//                time *= 1000;
                 break;
             case "seconds":
-                t = TimeUnit.MILLISECONDS;
-                time *= 1000;
+                t = TimeUnit.SECONDS;
+//                time *= 1000;
                 break;
             case "minutes":
-                t = TimeUnit.SECONDS;
-                time *= 60;
+                t = TimeUnit.MINUTES;
+//                time *= 60;
                 break;
             case "hours":
-                t = TimeUnit.MINUTES;
-                time *= 60;
+                t = TimeUnit.HOURS;
+//                time *= 60;
                 break;
             case "days":
-                t = TimeUnit.HOURS;
-                time *= 24;
+                t = TimeUnit.DAYS;
+//                time *= 24;
                 break;
             case "weeks":
                 t = TimeUnit.DAYS;
-                time *= 7;
+                time = time / 7;
                 break;
             default:
                 t = TimeUnit.NANOSECONDS;
@@ -656,7 +656,7 @@ public class Utils {
             case "weeks":
                 return (int) t.toDays((long) time) / 7;
             default:
-                return time;
+                return (long) time;
         }
     }
     
