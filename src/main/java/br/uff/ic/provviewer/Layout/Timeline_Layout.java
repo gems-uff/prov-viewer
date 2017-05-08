@@ -103,7 +103,7 @@ public class Timeline_Layout<V, E> extends ProvViewerLayout<V, E> {
                     }
                     //TODO make agent lose priority to appear after the activity
                 } else {
-                    return -1;
+                    return 0;
                 }
             }
         };

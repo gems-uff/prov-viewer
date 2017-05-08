@@ -44,6 +44,8 @@ public abstract class Vertex extends GraphObject {
     private double normalizedTime;
     private String time;                            // prov:startTime
                                                     // Refactor for datetime type
+    private String timeFormat;
+    private String timeScale;
     
     /**
      * Constructor without attributes
@@ -58,6 +60,8 @@ public abstract class Vertex extends GraphObject {
         setLabel(label);
         this.time = time;
         this.attributes  = new HashMap<>();
+        timeFormat = "nanoseconds";
+        timeScale = "nanoseconds";
     }
     
     /**
@@ -72,6 +76,8 @@ public abstract class Vertex extends GraphObject {
         setLabel(label);
         this.time = time;
         this.attributes.putAll(attributes);
+        timeFormat = "nanoseconds";
+        timeScale = "nanoseconds";
     }
 
     /**
@@ -168,14 +174,9 @@ public abstract class Vertex extends GraphObject {
     
     public String printTime()
     {
-//        if(this.time.isEmpty())
-//        {
-//            return "";
-//        }
-        return "Timestamp: " + Utils.convertTime(timeFormat, this.getNormalizedTime(), timeScale) + " " + timeScale;
+        return "Timestamp: " + Utils.convertTime(timeFormat, this.getNormalizedTime(), timeScale) + " (" + timeScale + ")";
     }
-    String timeFormat = "nanoseconds";
-    String timeScale = "nanoseconds";
+    
     public void setTimeScalePrint(String timeFormat, String timeScale) {
         this.timeFormat = timeFormat;
         this.timeScale = timeScale;

@@ -643,7 +643,7 @@ public class Utils {
                 return t.toNanos((long) time);
             case "microseconds":
                 return t.toMicros((long) time);
-            case "milliseconds:":
+            case "milliseconds":
                 return t.toMillis((long) time);
             case "seconds":
                 return t.toSeconds((long) time);
