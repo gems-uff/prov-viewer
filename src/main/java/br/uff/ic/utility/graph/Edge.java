@@ -209,27 +209,34 @@ public class Edge extends GraphObject {
      * @return (String) influence
      */
     public String getEdgeTooltip() {
-        String atts = "";
-        if (!this.attributes.values().isEmpty()) {
-            atts = "<br>" + this.printAttributes();
-        }
-
-        String v = this.value;
-        String l = getLabel();
-        String t = "(" + this.type + ")";
-
-        if ("0".equals(this.value)) {
-            v = "";
-        }
-        if ("".equals(getLabel())) {
-            l = "";
-            t = this.type;
-        }
-        if (getLabel().contentEquals(this.type)) {
-            l = "";
-            t = this.type;
-        }
-        return v + " " + l + " " + t + " " + atts;
+        return "<br>ID: " + this.id
+                + "<br>Label: " + getLabel()
+                + "<br>Value: " + getValue()
+                + "<br>Type: " + getType()
+                + "<br>" + printAttributes()
+                + "<br><b>Source: " + getSource() + "</b>"
+                + "<br><b>Target: " + getTarget() + "</b>";
+//        String atts = "";
+//        if (!this.attributes.values().isEmpty()) {
+//            atts = "<br>" + this.printAttributes();
+//        }
+//
+//        String v = this.value;
+//        String l = getLabel();
+//        String t = "(" + this.type + ")";
+//
+//        if ("0".equals(this.value)) {
+//            v = "";
+//        }
+//        if ("".equals(getLabel())) {
+//            l = "";
+//            t = this.type;
+//        }
+//        if (getLabel().contentEquals(this.type)) {
+//            l = "";
+//            t = this.type;
+//        }
+//        return v + " " + l + " " + t + " " + atts;
 
 //        return v + " " + getLabel() + " (" + this.type + ")" + atts;
     }
@@ -384,7 +391,7 @@ public class Edge extends GraphObject {
      */
     public boolean addInfluence(Variables variables) {
         for (EdgeType edgetype : variables.config.edgetype) {
-            if (this.getEdgeTooltip().contains(edgetype.type)) {
+            if (this.getType().contains(edgetype.type)) {
                 if (edgetype.collapse.equalsIgnoreCase("AVERAGE")) {
                     return false;
                 }
