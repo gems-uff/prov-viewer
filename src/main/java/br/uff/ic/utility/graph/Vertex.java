@@ -111,18 +111,14 @@ public abstract class Vertex extends GraphObject {
      *
      * @return (int) date
      */
-    public float getTime() {    
+    public double getTime() {    
 //        String[] day = this.time.split(":");
         if(Utils.tryParseFloat(this.time))
-            return (Float.parseFloat(this.time));
+            return (Double.parseDouble(this.time));
         else if(Utils.tryParseDate(this.time))
         {
-//            System.out.println("Time Milliseconds: " + (float) Utils.convertStringDateToDouble(this.time));
             double milliseconds =  Utils.convertStringDateToFloat(this.time);
-//            int weeks = (int) (milliseconds / (1000*60*60*24*7));
-//            long days = TimeUnit.MILLISECONDS.toDays((long) milliseconds);
-//            long hours = TimeUnit.MILLISECONDS.toHours((long) milliseconds);
-            return (float) milliseconds;
+            return milliseconds;
         }
         else
             return -1;
@@ -176,7 +172,13 @@ public abstract class Vertex extends GraphObject {
 //        {
 //            return "";
 //        }
-        return "Timestamp: " + this.time;
+        return "Timestamp: " + Utils.convertTime(timeFormat, this.getNormalizedTime(), timeScale) + " " + timeScale;
+    }
+    String timeFormat = "nanoseconds";
+    String timeScale = "nanoseconds";
+    public void setTimeScalePrint(String timeFormat, String timeScale) {
+        this.timeFormat = timeFormat;
+        this.timeScale = timeScale;
     }
 
     /**
@@ -215,7 +217,7 @@ public abstract class Vertex extends GraphObject {
     public float getAttributeValueFloat(String attribute) {
         if(attribute.equalsIgnoreCase("Time"))
         {
-            return getTime();
+            return (float)getTime();
         }
         if(attributes.get(attribute) == null) {
 //            System.out.println("If getAttributeValue equals NULL: " + attributes.get(attribute).getValue());
