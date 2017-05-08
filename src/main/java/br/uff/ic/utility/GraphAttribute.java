@@ -114,7 +114,7 @@ public class GraphAttribute {
             this.maxValue = Math.max(this.maxValue, Utils.convertFloat(value));
                 
         } else {
-            if(!this.value.equalsIgnoreCase(value))
+            if(!this.value.equalsIgnoreCase(value) && !(this.value.contains(value)))
                 this.value += ", " + value;
         }
         originalValues.add(value);
