@@ -81,11 +81,11 @@ public class GraphUtils {
     // TO DO: Get the mean of slopes if there are more than 1 vertex with the attribute
     // TO DO: Allow for jumping vertices until finding the vertex with the same attribute (e.g., skip an entity between two activities)
     public static float getSlope(Object node, ColorScheme colorScheme) {
-        float slope = Float.NEGATIVE_INFINITY;
+        double slope = Double.NEGATIVE_INFINITY;
         for (Edge e : colorScheme.variables.graph.getOutEdges(node)) {
             if (!((Vertex) e.getTarget()).getAttributeValue(colorScheme.attribute).contentEquals("Unknown")) {
                 float attValue = ((Vertex) node).getAttributeValueFloat(colorScheme.attribute) - ((Vertex) e.getTarget()).getAttributeValueFloat(colorScheme.attribute);
-                float time = ((Vertex) node).getTime() - ((Vertex) e.getTarget()).getTime();
+                double time = ((Vertex) node).getTime() - ((Vertex) e.getTarget()).getTime();
                 if (time != 0) {
                     slope = attValue / time;
                 } else if ((attValue != 0) && (time == 0)) {
@@ -95,6 +95,6 @@ public class GraphUtils {
                 }
             }
         }
-        return slope;
+        return (float) slope;
     }
 }
