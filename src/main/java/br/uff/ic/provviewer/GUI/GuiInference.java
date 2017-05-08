@@ -52,51 +52,6 @@ import javax.swing.JToggleButton;
 public class GuiInference {
 
     /**
-     * Method to enable the prolog functions
-     *
-     * @deprecated Prolog is no longer used
-     * @param prolog is the prolog implementation for the automatic inference
-     * @param prologIsInitialized is the boolean to check if the prolog can be
-     * activated
-     * @param InitPrologButton is the boolean to check if the prolog can be
-     * activated
-     */
-    public static void InitializeProlog(PrologInference prolog, boolean prologIsInitialized, JToggleButton InitPrologButton) {
-        if (InitPrologButton.isSelected() && !prologIsInitialized) {
-            prologIsInitialized = true;
-            prolog.Init();
-        }
-    }
-
-    /**
-     * Method to generate the prolog facts using the XML-Inference
-     *
-     * @deprecated Prolog is no longer used
-     * @param initialGraph
-     * @param file
-     * @param demo
-     */
-//    public static void GeneratePrologFacts(boolean initialGraph, File file, String demo) {
-//        if (initialGraph) {
-//            file = new File(BasePath.getBasePathForClass(GuiInference.class) + demo);
-//            initialGraph = false;
-//        }
-//        ConvertXML(file);
-//        System.out.println("Finished Converting to Prolog");
-//    }
-
-    /**
-     * Method to convert the XML to prolog facts
-     *
-     * @deprecated Prolog is no longer used
-     * @param file the XML file for conversion
-     */
-//    private static void ConvertXML(File file) {
-//        XMLConverter xmlConv = new XMLConverter();
-//        xmlConv.ConvertXMLtoProlog(file);
-//    }
-
-    /**
      * Method to apply the similarity collapse in the graph
      *
      * @param variables
@@ -154,7 +109,6 @@ public class GuiInference {
      * Function to apply one of the three similarity clustering algorithms
      *
      * @param attribute is the attribute used in the distance metric
-     * @param graph is the graph that we want to apply the clustering
      * @param updateError is the parameter value to define which algorithm will
      * be used
      * @param verifyWithinCluster is the parameter value to define which
