@@ -21,20 +21,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package br.uff.ic.provviewer.Layout;
 
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.Utils;
+import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
+import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.Graph;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.ConcurrentModificationException;
 import java.util.List;
 
 /**
@@ -46,6 +46,10 @@ import java.util.List;
  * @param <E> JUNG's E (Edge) type
  */
 public class Timeline_Layout<V, E> extends ProvViewerLayout<V, E> {
+
+    private List<V> vertex_ordered_list;
+    private List<V> entity_ordered_list;
+    private DirectedGraph<V, E> graph;
 
     public Timeline_Layout(Graph<V, E> g, Variables variables) {
         super(g, variables);
@@ -61,129 +65,91 @@ public class Timeline_Layout<V, E> extends ProvViewerLayout<V, E> {
         doInit();
     }
 
+    public void setVertexOrder(Comparator<V> comparator) {
+        if (vertex_ordered_list == null) {
+//            vertex_ordered_list = new ArrayList<V>(getGraph().getVertices());
+            vertex_ordered_list = new ArrayList<>();
+            entity_ordered_list = new ArrayList<>();
+            for (V v : getGraph().getVertices()) {
+                if(v instanceof EntityVertex) {
+                    entity_ordered_list.add(v);
+                }
+                else
+                    vertex_ordered_list.add(v);
+            }
+        }
+        Collections.sort(vertex_ordered_list, comparator);
+        Collections.sort(entity_ordered_list, comparator);
+    }
+
     private Graph<V, E> layout_graph;
 
     /**
      * Initialize layout
      */
     private void doInit() {
-        layout_graph = getGraph();
-        //Compute position for all node-types (minus Agent)
-        for (V v : layout_graph.getVertices()) {
-            calcPositions(v);
-        }
-        //Check if there are nodes at the same place, if so apply repulsion
-//         for(V v3 : layout_graph.getVertices()) 
-//         {
-//         calcRepulsion(v3);
-//         }
-    }
-
-    /**
-     * Calculate each entity and activity vertex position in the layout
-     *
-     * @param v Activity or entity vertex
-     */
-    protected synchronized void calcPositions(V v) {
-        Point2D xyd = transform(v);
-        double newXPos = 0;
-        double newYPos = 0;
-
-        // Use the middle vertex atribute for position
-        if (v instanceof Graph) {
-            int i = ((Graph) v).getVertexCount();
-           
-            //Sort vertices by ID
-            List sorted = new ArrayList(((Graph) v).getVertices());
-            Comparator comparator = new Comparator<Object>() {
-                @Override
-                public int compare(Object c1, Object c2) {
-                    if(!(c1 instanceof Graph) && !(c2 instanceof Graph))
-                        return ((Vertex)c1).getID().compareTo(((Vertex)c2).getID());
-                    else
-                        return 0;
+        Comparator comparator = new Comparator<Object>() {
+            @Override
+            public int compare(Object c1, Object c2) {
+                if (!(c1 instanceof Graph) && !(c2 instanceof Graph)) {
+                    ((Vertex) c1).setTimeScalePrint(variables.config.timeScale, variables.selectedTimeScale);
+                    ((Vertex) c2).setTimeScalePrint(variables.config.timeScale, variables.selectedTimeScale);
+                    double c1t = Utils.convertTime(variables.config.timeScale, ((Vertex) c1).getNormalizedTime(), variables.selectedTimeScale);
+                    double c2t = Utils.convertTime(variables.config.timeScale, ((Vertex) c2).getNormalizedTime(), variables.selectedTimeScale);
+                    if (c1t != c2t) {
+                        return Double.compare(c1t, c2t);
+                    } else {
+                        return ((Vertex) c1).getNodeType().compareTo(((Vertex) c2).getNodeType());
+                    }
+                    //TODO make agent lose priority to appear after the activity
+                } else {
+                    return -1;
                 }
-            };
-            Collections.sort(sorted, comparator);
-//             End sorting;
-            Vertex middle;
-            Object middleVertex = sorted.toArray()[(int) (i * 0.5)];
-            while (middleVertex instanceof Graph) {
-                middleVertex = ((Graph)middleVertex).getVertices().toArray()[0];
             }
-            middle = (Vertex) middleVertex;
-            calcPositions(xyd, ((Vertex) v).getNormalizedTime(), 0);
-        }
-        else {
-            // Use vertex atribute for position
+        };
+        setVertexOrder(comparator);
+        graph = (DirectedGraph<V, E>) variables.graph;
+        int i = 0;
+        int agentY = 0;
+        double yPos = 0;
+        double xPos = 0;
+        int entityXPos = (int) (vertex_ordered_list.size() * 0.5 - (entity_ordered_list.size() * 0.5));
+        int scale = 2 * variables.config.vertexSize;
+        entityXPos = entityXPos * scale;
+        for (V v : vertex_ordered_list) {
+            Point2D coord = transform(v);
             if (v instanceof AgentVertex) {
-                calcPositions(xyd, ((Vertex) v).getNormalizedTime(), 20);
-            }
-            else if (v instanceof EntityVertex) {
-                calcPositions(xyd, ((Vertex) v).getNormalizedTime(), -20);
-            }
-            else {
-                calcPositions(xyd, ((Vertex) v).getNormalizedTime(), 0);
-            }
-        }
-        
-                
-    }
-    
-    protected synchronized void calcPositions(Point2D xyd, double t, double newYPos) {
-        double time;//.getTime();
-        time = Utils.convertTime(variables.config.timeScale, t, variables.selectedTimeScale);
-        double newXPos = time;
-        xyd.setLocation(newXPos, newYPos);
-    }
-    
-   
-
-    double variation = 1.0;
-
-    //Check if 2 nodes are at the same position, if so add an offset
-    /**
-     * Method to check if there is any other vertex at the same position of this
-     * one (x,y)
-     *
-     * @param v1 Vertex used to check if there is any other vertex at the same
-     * position
-     */
-    protected synchronized void calcRepulsion(V v1) {
-        //Only Process and Artifact types can have the same position, so lets check
-        try {
-            for (V v2 : layout_graph.getVertices()) {
-                //A check to see if we are not comparing him with himself
-                if (v1 != v2) {
-                    Point2D p1 = transform(v1);
-                    Point2D p2 = transform(v2);
-                    if (p1 == null || p2 == null) {
-                        continue;
-                    }
-                    //Need to check both X and Y positions
-                    if (Equals(p1.getX(), p2.getX()) && Equals(p1.getY(), p2.getY())) {
-                        p1.setLocation(p1.getX(), p1.getY() - variation);
-                        //p2.setLocation(p2.getX(), p2.getY() + variation);
-                        //Need to check again in case another node is at the same new position
-                        calcRepulsion(v1);
+                yPos = agentY;
+                agentY = agentY + scale;
+                i = i + scale;
+                xPos = i;
+            } else if (v instanceof ActivityVertex) {
+                if (graph.getInEdges(v) != null) {
+                    for (E neighbor : graph.getInEdges(v)) {
+                        //if the edge link to an Agent-node
+                        if (graph.getSource(neighbor) instanceof AgentVertex) {
+                            Point2D agentPos = transform(graph.getSource(neighbor));
+                            yPos = agentPos.getY();
+                        }
+                        i = i + scale;
+                        xPos = i;
                     }
                 }
+            } else {
+                yPos = 0;
+                i = i + scale;
+                xPos = i;
             }
-        } catch (ConcurrentModificationException cme) {
+            coord.setLocation(xPos, yPos);
         }
-    }
-
-    private double EPSILON = 1.0;
-
-    /**
-     * Check if a and b are equals
-     *
-     * @param a double
-     * @param b double
-     * @return if both values are equal
-     */
-    protected boolean Equals(double a, double b) {
-        return Math.abs(a - b) < EPSILON;
+        for(V v : entity_ordered_list) {
+            Point2D coord = transform(v);
+            // Position then in the middle
+            xPos = entityXPos;
+            entityXPos = entityXPos + scale;
+            yPos = -10 * scale;
+            coord.setLocation(xPos, yPos);
+        }
     }
 
     /**
