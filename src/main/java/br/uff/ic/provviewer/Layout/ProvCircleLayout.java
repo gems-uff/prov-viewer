@@ -115,7 +115,7 @@ public class ProvCircleLayout<V, E> extends ProvViewerLayout<V, E> {
                 @Override
                 public int compare(Object c1, Object c2) {
                     if(!(c1 instanceof Graph) && !(c2 instanceof Graph))
-                        return Float.compare(((Vertex)c1).getTime(),(((Vertex)c2).getTime()));
+                        return Double.compare(((Vertex)c1).getTime(),(((Vertex)c2).getTime()));
                     else
                         return 0;
                 }
