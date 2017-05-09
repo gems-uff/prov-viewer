@@ -147,6 +147,10 @@ public class Edge extends GraphObject {
         return id;
     }
 
+    /**
+     * Set the edge ID
+     * @param t is the new value
+     */
     public void setID(String t) {
         id = t;
     }
@@ -160,6 +164,10 @@ public class Edge extends GraphObject {
         return source;
     }
 
+    /**
+     * Set the edge's source
+     * @param t is the new source
+     */
     public void setSource(Object t) {
         source = t;
     }
@@ -173,12 +181,16 @@ public class Edge extends GraphObject {
         return target;
     }
 
+    /**
+     * Set the edge's target/destionation
+     * @param t  is the new target
+     */
     public void setTarget(Object t) {
         target = t;
     }
 
     /**
-     * Method for returning the edge value
+     * Method for returning the edge's numeric value (converted from String)
      *
      * @return (float) edge influence value
      */
@@ -192,9 +204,18 @@ public class Edge extends GraphObject {
         }
     }
 
+    /**
+     * Returns the edge's value as the original String instead of converting to numeric
+     * @return 
+     */
     public String getStringValue() {
         return this.value;
     }
+    
+    /**
+     * Updates the edge's value
+     * @param t  is the string with the new value
+     */
     public void setValue(String t) {
         this.value = t;
     }
@@ -219,31 +240,6 @@ public class Edge extends GraphObject {
                 + "<br>Value: " + getValue()
                 + "<br>Type: " + getType()
                 + "<br>" + printAttributes();
-//                + "<br><b>Source: " + getSource() + "</b>"
-//                + "<br><b>Target: " + getTarget() + "</b>";
-//        String atts = "";
-//        if (!this.attributes.values().isEmpty()) {
-//            atts = "<br>" + this.printAttributes();
-//        }
-//
-//        String v = this.value;
-//        String l = getLabel();
-//        String t = "(" + this.type + ")";
-//
-//        if ("0".equals(this.value)) {
-//            v = "";
-//        }
-//        if ("".equals(getLabel())) {
-//            l = "";
-//            t = this.type;
-//        }
-//        if (getLabel().contentEquals(this.type)) {
-//            l = "";
-//            t = this.type;
-//        }
-//        return v + " " + l + " " + t + " " + atts;
-
-//        return v + " " + getLabel() + " (" + this.type + ")" + atts;
     }
 
     /**
@@ -320,17 +316,6 @@ public class Edge extends GraphObject {
      */
     public Paint getColor(Variables variables) {
         float v = getValue();
-
-//        if(this.label.equalsIgnoreCase("Neutral"))
-//        {
-//            if(((Vertex)this.source).getDate() < 85)
-//                return new Color(255, 0, 0);
-//            if(((Vertex)this.source).getDate() < 150)
-//                return new Color(0, 255, 0);
-//            if(((Vertex)this.source).getDate() < 300)
-//                return new Color(0, 0, 255);
-//        }     
-        // Return blue if neutral edge (value = 0)
         if (v == 0) {
             return defaultColor;
         } else {
@@ -359,6 +344,14 @@ public class Edge extends GraphObject {
         }
     }
 
+    /**
+     * Method that calculates the green gradient based on the edge's value and the maximum and minimum for the same edge type
+     * @param value is the edge's value
+     * @param min is the minimum value for the edge type
+     * @param max is the maximum value for the edge type
+     * @param isInverted tells if the color gradient will be increasing or decreasing
+     * @return 
+     */
     public Paint compareValueGreen(float value, double min, double max, boolean isInverted) {
         if(!isInverted) {
             int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
@@ -372,6 +365,14 @@ public class Edge extends GraphObject {
         }
     }
 
+    /**
+     * Method that calculates the red gradient based on the edge's value and the maximum and minimum for the same edge type
+     * @param value is the edge's value
+     * @param min is the minimum value for the edge type
+     * @param max is the maximum value for the edge type
+     * @param isInverted tells if the color gradient will be increasing or decreasing
+     * @return 
+     */
     public Paint compareValueRed(float value, double min, double max, boolean isInverted) {
         if(!isInverted) {
             int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
@@ -405,6 +406,11 @@ public class Edge extends GraphObject {
         return true;
     }
     
+    /**
+     * Function to merge two edges
+     * @param edge is the edge that we want to merge with
+     * @return the updated edge after merging with "edge"
+     */
     public Edge merge(Edge edge) {
         this.updateAllAttributes(edge.getAttributes());
         this.setValue(Float.toString(this.getValue() + edge.getValue()));
