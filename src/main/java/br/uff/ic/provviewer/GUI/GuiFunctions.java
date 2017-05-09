@@ -36,10 +36,12 @@ import br.uff.ic.utility.graph.Vertex;
 import br.uff.ic.provviewer.Vertex.VertexShape;
 import br.uff.ic.utility.graph.ActivityVertex;
 import edu.uci.ics.jung.graph.Graph;
+import edu.uci.ics.jung.graph.util.Pair;
 import edu.uci.ics.jung.visualization.Layer;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.CrossoverScalingControl;
 import edu.uci.ics.jung.visualization.control.ScalingControl;
+import edu.uci.ics.jung.visualization.picking.PickedState;
 import edu.uci.ics.jung.visualization.util.PredicatedParallelEdgeIndexFunction;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -302,6 +304,19 @@ public class GuiFunctions {
                             return e.edgeColor;
                         }
                     }  
+                }
+                PickedState<Object> picked_state = variables.view.getPickedVertexState();
+                if(!picked_state.getPicked().isEmpty()) {
+                    for( Object v : picked_state.getPicked()) {
+                        Pair endpoints = variables.layout.getGraph().getEndpoints(edge);
+                        if(endpoints.getFirst().equals(v)) {
+                            return edge.getColor(variables);
+                        }
+                        else if(endpoints.getSecond().equals(v)) {
+                            return edge.getColor(variables);
+                        }
+                    }
+                    return new Color(edge.getColor(variables).getRed(), edge.getColor(variables).getGreen(), edge.getColor(variables).getBlue(), 50);
                 }
                 return edge.getColor(variables);
             }
