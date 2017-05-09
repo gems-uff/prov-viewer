@@ -64,22 +64,24 @@ public class Edge extends GraphObject {
      * @param target
      * @param source
      */
-    public Edge(String id, String influence, String type, String value,
+    public Edge(String id, String type, String value,
             String label, Map<String, GraphAttribute> attributes, Object target, Object source) {
         this.id = id;
         this.source = source;
         this.target = target;
         this.type = type;
-        if (influence.equalsIgnoreCase("") || (influence == null) || influence.equalsIgnoreCase("Neutral")) {
-            setLabel("Neutral");
-            this.value = "0";
-        } else {
-            setLabel(influence);
-            this.value = value;
-        }
+//        if (influence.equalsIgnoreCase("") || (influence == null) || influence.equalsIgnoreCase("Neutral")) {
+//            setLabel("Neutral");
+//            this.value = "0";
+//        } else {
+//            setLabel(influence);
+//            this.value = value;
+//        }
         setLabel(label);
+        this.value = value;
         hide = false;
         collapsed = false;
+        this.attributes = new HashMap<>();
         this.attributes.putAll(attributes);
     }
 
@@ -190,6 +192,9 @@ public class Edge extends GraphObject {
         }
     }
 
+    public String getStringValue() {
+        return this.value;
+    }
     public void setValue(String t) {
         this.value = t;
     }
@@ -213,9 +218,9 @@ public class Edge extends GraphObject {
                 + "<br>Label: " + getLabel()
                 + "<br>Value: " + getValue()
                 + "<br>Type: " + getType()
-                + "<br>" + printAttributes()
-                + "<br><b>Source: " + getSource() + "</b>"
-                + "<br><b>Target: " + getTarget() + "</b>";
+                + "<br>" + printAttributes();
+//                + "<br><b>Source: " + getSource() + "</b>"
+//                + "<br><b>Target: " + getTarget() + "</b>";
 //        String atts = "";
 //        if (!this.attributes.values().isEmpty()) {
 //            atts = "<br>" + this.printAttributes();
@@ -398,5 +403,15 @@ public class Edge extends GraphObject {
             }
         }
         return true;
+    }
+    
+    public Edge merge(Edge edge) {
+        this.updateAllAttributes(edge.getAttributes());
+        this.setValue(Float.toString(this.getValue() + edge.getValue()));
+        this.id = this.id + ", " + edge.id;
+        if(!this.getLabel().contains(edge.getLabel()))
+            this.setLabel(this.getLabel() + ", " + edge.getLabel());
+        edge.setHide(true);
+        return this;
     }
 }
