@@ -45,6 +45,12 @@ public class GraphCollapser {
         return (Graph) originalGraph.getClass().newInstance();
     }
 
+    /**
+     * Method to collapse vertices into a single graph-vertex. It also collapses the edges, summarizing them
+     * @param inGraph
+     * @param clusterGraph
+     * @return the collapsed graph
+     */
     public Graph collapse(Graph inGraph, Graph clusterGraph) {
         if (clusterGraph.getVertexCount() < 2) {
             return inGraph;
@@ -93,6 +99,16 @@ public class GraphCollapser {
         return graph;
     }
 
+    /**
+     * Method to determine if there are other edges from the same type that goes to a cluster vertex. If there are any, then it will create a summarized edge and hide the original edges
+     * @param collapsedEdges is a map that contains the processed edges
+     * @param mergedEdges is a map that contains the summarized edges
+     * @param e is the current edge
+     * @param type is the edge type
+     * @param source is the source hashcode
+     * @param target is the target hashcode
+     * @return the edge to be added in the graph
+     */
     private Object hasEdge(Map<String, Object> collapsedEdges, Map<String, Object> mergedEdges, Object e, String type, int source, int target) {
         String key = type + " " + source + " " + target;
         if(collapsedEdges.containsKey(key)) {
@@ -126,6 +142,12 @@ public class GraphCollapser {
         }
 //        collapsedEdges.put(key, e);
     }
+    /**
+     * Method to expand the cluster-vertex
+     * @param inGraph
+     * @param clusterGraph
+     * @return the graph without the selected cluster-vertex
+     */
     public Graph expand(Graph inGraph, Graph clusterGraph) {
         Graph graph = inGraph;
         try {
