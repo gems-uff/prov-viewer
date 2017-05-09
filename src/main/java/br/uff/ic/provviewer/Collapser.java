@@ -273,7 +273,7 @@ public class Collapser {
             if (v instanceof Graph) {
                 //TODO: Save current filters state
                 //Add all filters to not lose edges/information
-//                variables.filter.AddFilters(variables);
+                variables.filter.AddFilters(variables);
 //                RemoveCollapsedEdges(variables, v);
                 //Expand the vertex
                 variables.collapsedGraph = (DirectedGraph<Object, Edge>) variables.gCollapser.expand(variables.layout.getGraph(), (Graph) v);
@@ -281,7 +281,7 @@ public class Collapser {
                 variables.layout.setGraph(variables.collapsedGraph);
                 //TODO: Load filters state
                 //Remove filters to clean the visualization
-//                variables.filter.RemoveFilters(variables);
+                variables.filter.RemoveFilters(variables);
 //                Filters(variables);
             }
         }
