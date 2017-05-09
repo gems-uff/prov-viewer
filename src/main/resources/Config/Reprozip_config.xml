@@ -157,6 +157,7 @@ THE SOFTWARE.
     </vertexAttributeFilter>
     <vertexcolor>
         <generalname>Subtype</generalname>
+        <isAutomatic>False</isAutomatic>
         <activitycolor>
             <attribute>subtype</attribute>
             <value>Run</value>
@@ -242,50 +243,9 @@ THE SOFTWARE.
     
     <vertexcolor>
         <generalname>Package</generalname>
+        <isAutomatic>True</isAutomatic>
         <entitycolor>
             <attribute>package</attribute>
-            <value>libc6</value>
-            <vercolor>
-                <r>0</r>
-                <g>255</g>
-                <b>0</b>
-            </vercolor>
-        </entitycolor>
-        <entitycolor>
-            <attribute>package</attribute>
-            <value>coreutils</value>
-            <vercolor>
-                <r>0</r>
-                <g>0</g>
-                <b>255</b>
-            </vercolor>
-        </entitycolor>
-        <entitycolor>
-            <attribute>package</attribute>
-            <value>bash</value>
-            <vercolor>
-                <r>255</r>
-                <g>0</g>
-                <b>0</b>
-            </vercolor>
-        </entitycolor>
-        <entitycolor>
-            <attribute>package</attribute>
-            <value>libtinfo5</value>
-            <vercolor>
-                <r>255</r>
-                <g>255</g>
-                <b>0</b>
-            </vercolor>
-        </entitycolor>
-        <entitycolor>
-            <attribute>package</attribute>
-            <value>libncurses5</value>
-            <vercolor>
-                <r>0</r>
-                <g>255</g>
-                <b>255</b>
-            </vercolor>
         </entitycolor>
     </vertexcolor>
 </config>

@@ -134,15 +134,27 @@ THE SOFTWARE.
         </xs:sequence>
     </xs:complexType>
     
+    <!--Vertex Color Schema that colors the vertices with the attribute that has the specified value with the specified color-->
+    <!--An automatic version is also avaiable by using the isAutomatic = True parameter where it is only necessary to specify the attribute for each vertex type-->
     <xs:complexType name="vertexcolor">
         <xs:sequence>
+            <!--Defines the name of this color schema in the interface-->
             <xs:element name="generalname" type="xs:string"/>
+            <!--Defines if this color schema will use automatic value detection (isAutomatic = True) or if the user will manually inform the values and their colors (isAutomatic = False)-->
+            <xs:element name="isAutomatic" type="xs:boolean"/>
+            <!--List for the activities attributes and their respective values. Use one entry for each tuple (attribute name, attribute value)--> 
+            <!--If you desire to have different values for the same attribute, then create a new entry-->
             <xs:element name="activitycolor" type="activitycolor" minOccurs="0" maxOccurs="unbounded"/>
+            <!--List for the entities attributes and their respective values. Use one entry for each tuple (attribute name, attribute value)--> 
+            <!--If you desire to have different values for the same attribute, then create a new entry-->
             <xs:element name="entitycolor" type="entitycolor" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence><!--List for the agents attributes and their respective values. Use one entry for each tuple (attribute name, attribute value)--> 
+            <!--If you desire to have different values for the same attribute, then create a new entry-->
             <xs:element name="agentcolor" type="agentcolor" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
-    <!-- Activity Vertex Type -->
+    
+    <!--Parameters used in VertexColor for Activities>-->
     <xs:complexType name="activitycolor">
         <xs:sequence>
             <xs:element name="attribute" type="xs:string"/>
@@ -150,6 +162,8 @@ THE SOFTWARE.
             <xs:element name="vercolor" type="color"/>
         </xs:sequence>
     </xs:complexType>
+    
+    <!--Parameters used in VertexColor for Entities-->
     <xs:complexType name="entitycolor">
         <xs:sequence>
             <xs:element name="attribute" type="xs:string"/>
@@ -157,6 +171,8 @@ THE SOFTWARE.
             <xs:element name="vercolor" type="color"/>
         </xs:sequence>
     </xs:complexType>
+    
+    <!--Parameters used in VertexColor for Agents-->
     <xs:complexType name="agentcolor">
         <xs:sequence>
             <xs:element name="attribute" type="xs:string"/>

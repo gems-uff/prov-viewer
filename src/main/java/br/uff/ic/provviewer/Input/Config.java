@@ -197,6 +197,14 @@ public class Config {
         vertexModes.addAll(newAttributes.values());
         InterfaceStatusFilters();
     }
+    
+    public Collection<String> DetectAllPossibleValuesFromAttribute(Collection<Object> vertices, String attribute) {
+        Map<String, String> attributeList = new HashMap<>();
+        for (Object v : vertices) {
+            attributeList.put(((Vertex) v).getAttributeValue(attribute), ((Vertex) v).getAttributeValue(attribute));
+        }
+        return attributeList.values();
+    }
 
 //    public void DetectVertexAttributeFilterValues(Collection<Object> vertices) {
 //        Map<String, String> valueList = new HashMap<>();
@@ -448,7 +456,7 @@ public class Config {
 
                 }
             }
-            VertexColorScheme defaultScheme;
+            VertexColorScheme vertexColorScheme;
             nList = doc.getElementsByTagName("vertexcolor");
             for (int i = 0; i < nList.getLength(); i++) {
                 Node nNode = nList.item(i);
@@ -460,6 +468,7 @@ public class Config {
                     Element e = (Element) nNode;
                     NodeList innerList;
                     String generalname = e.getElementsByTagName("generalname").item(0).getTextContent();
+                    String isAutomatic = e.getElementsByTagName("isAutomatic").item(0).getTextContent();
                     //Activity Variables
                     innerList = e.getElementsByTagName("activitycolor");
                     for (int j = 0; j < innerList.getLength(); j++) {
@@ -484,11 +493,13 @@ public class Config {
                             Element eElement = (Element) innerNode;
                             AttValueColor avc = new AttValueColor();
                             avc.name = eElement.getElementsByTagName("attribute").item(0).getTextContent();
-                            avc.value = eElement.getElementsByTagName("value").item(0).getTextContent();
-                            int r = Integer.parseInt(eElement.getElementsByTagName("r").item(0).getTextContent());
-                            int g = Integer.parseInt(eElement.getElementsByTagName("g").item(0).getTextContent());
-                            int b = Integer.parseInt(eElement.getElementsByTagName("b").item(0).getTextContent());
-                            avc.color = new Color(r, g, b);
+                            if(eElement.getElementsByTagName("value").getLength() > 0 && eElement.getElementsByTagName("value").item(0).getTextContent() != "") {
+                                avc.value = eElement.getElementsByTagName("value").item(0).getTextContent();
+                                int r = Integer.parseInt(eElement.getElementsByTagName("r").item(0).getTextContent());
+                                int g = Integer.parseInt(eElement.getElementsByTagName("g").item(0).getTextContent());
+                                int b = Integer.parseInt(eElement.getElementsByTagName("b").item(0).getTextContent());
+                                avc.color = new Color(r, g, b);
+                            }
                             entityVC.add(avc);
                         }
                     }
@@ -508,8 +519,8 @@ public class Config {
                             agentVC.add(avc);
                         }
                     }
-                    defaultScheme = new VertexColorScheme(generalname,activityVC ,entityVC, agentVC);
-                    vertexModes.add(defaultScheme);
+                    vertexColorScheme = new VertexColorScheme(generalname,activityVC ,entityVC, agentVC, Boolean.parseBoolean(isAutomatic));
+                    vertexModes.add(vertexColorScheme);
                 }
             }
         } catch (Exception e) {

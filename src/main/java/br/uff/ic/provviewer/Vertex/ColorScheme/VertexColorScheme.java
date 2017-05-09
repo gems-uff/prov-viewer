@@ -26,12 +26,14 @@ package br.uff.ic.provviewer.Vertex.ColorScheme;
 
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.AttValueColor;
+import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
 import java.awt.Color;
 import java.awt.Paint;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -42,34 +44,68 @@ public class VertexColorScheme extends ColorScheme {
     public List<AttValueColor> activityVC = new ArrayList<>();
     public List<AttValueColor> entityVC = new ArrayList<>();
     public List<AttValueColor> agentVC = new ArrayList<>();
+    public List<AttValueColor> automaticActivityVC = new ArrayList<>();
+    public List<AttValueColor> automaticEntityVC = new ArrayList<>();
+    public List<AttValueColor> automaticAgentVC = new ArrayList<>();
+    private boolean isInitialized = false;
+    private boolean isAutomatic = false;
 
-    public VertexColorScheme(String attribute, List<AttValueColor> aVC, List<AttValueColor> eVC, List<AttValueColor> agVC) {
-        super(attribute);
+    public VertexColorScheme(String filterName, List<AttValueColor> aVC, List<AttValueColor> eVC, List<AttValueColor> agVC, boolean isAutomatic) {
+        super(filterName);
         activityVC.addAll(aVC);
         entityVC.addAll(eVC);
         agentVC.addAll(agVC);
+        this.isAutomatic = isAutomatic;
     }
 
     public VertexColorScheme(boolean isZeroWhite, boolean isInverted, String attribute, String empty, String g, String y, boolean l) {
         super(isZeroWhite, isInverted, attribute, empty, g, y, l);
     }
+    
+    private void automaticInitialization(List<AttValueColor> list, String attribute, int i){
+        Collection<String> values = variables.config.DetectAllPossibleValuesFromAttribute(variables.graph.getVertices(), attribute);
+        for (String value : values) {
+            AttValueColor avc = new AttValueColor();
+            avc.name = attribute;
+            avc.value = value;
+            avc.color = Utils.getColor(++i);
+            list.add(avc);
+        }
+    }
+    
+    private Paint determineColor(Object v, List<AttValueColor> activity, List<AttValueColor> entity, List<AttValueColor> agent) {
+        if (v instanceof ActivityVertex) {
+            return getDefaultColor(activity, v);
+        }
+        else if (v instanceof EntityVertex) {
+            return getDefaultColor(entity, v);
+        }
+        else
+            return getDefaultColor(agent, v);
+    }
 
     @Override
     public Paint Execute(Object v, final Variables variables) {
         this.variables = variables;
-//        if (v instanceof ActivityVertex) {
-//            return ((ActivityVertex) v).getDefaultColor(variables);
-//        }
-//        else
-//            return ((Vertex) v).getColor();
-        if (v instanceof ActivityVertex) {
-            return getDefaultColor(this.activityVC, v);
-        }
-        else if (v instanceof EntityVertex) {
-            return getDefaultColor(this.entityVC, v);
+        if(isAutomatic) {
+            if(!isInitialized){
+                // Need to automatically populate the lists
+                int i = 0;
+                for(AttValueColor attname : activityVC) {
+                    automaticInitialization(automaticActivityVC, attname.name, i);
+                }
+                for(AttValueColor attname : entityVC) {
+                    automaticInitialization(automaticEntityVC, attname.name, i);
+                }
+                for(AttValueColor attname : agentVC) {
+                    automaticInitialization(automaticAgentVC, attname.name, i);
+                }
+                isInitialized = true;
+            }
+            return determineColor(v, automaticActivityVC, automaticEntityVC, automaticAgentVC);
         }
         else
-            return getDefaultColor(this.agentVC, v);
+            return determineColor(v, activityVC, entityVC, agentVC);
     }
     
     public Paint getDefaultColor(List<AttValueColor> avc, Object v) {
