@@ -112,4 +112,16 @@ public class GraphObject extends Object{
         }
         return attributeList;
     }
+    
+    public void updateAllAttributes(Collection<GraphAttribute> v2) {
+        for (GraphAttribute att : v2) {
+            if (attributes.containsKey(att.getName())) {
+                GraphAttribute temporary = attributes.get(att.getName());
+                temporary.updateAttribute(att.getAverageValue());
+                attributes.put(att.getName(), temporary);
+            } else {
+                attributes.put(att.getName(), new GraphAttribute(att.getName(), att.getAverageValue()));
+            }
+        }
+    }
 }
