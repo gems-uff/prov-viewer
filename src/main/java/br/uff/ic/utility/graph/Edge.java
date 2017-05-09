@@ -314,7 +314,7 @@ public class Edge extends GraphObject {
      * @param variables
      * @return
      */
-    public Paint getColor(Variables variables) {
+    public Color getColor(Variables variables) {
         float v = getValue();
         if (v == 0) {
             return defaultColor;
@@ -352,7 +352,7 @@ public class Edge extends GraphObject {
      * @param isInverted tells if the color gradient will be increasing or decreasing
      * @return 
      */
-    public Paint compareValueGreen(float value, double min, double max, boolean isInverted) {
+    public Color compareValueGreen(float value, double min, double max, boolean isInverted) {
         if(!isInverted) {
             int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
             proportion = Math.max(proportion, 0);
@@ -373,7 +373,7 @@ public class Edge extends GraphObject {
      * @param isInverted tells if the color gradient will be increasing or decreasing
      * @return 
      */
-    public Paint compareValueRed(float value, double min, double max, boolean isInverted) {
+    public Color compareValueRed(float value, double min, double max, boolean isInverted) {
         if(!isInverted) {
             int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
             proportion = Math.min(proportion, 510);
