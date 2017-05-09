@@ -252,8 +252,14 @@ public abstract class ColorScheme {
             } else {
                 Collections.sort(derivateValues);
             }
-            this.derivateMax = derivateValues.get(derivateValues.size() - 1);
-            this.derivateMin = derivateValues.get(0);
+            if(derivateValues.size() >=1) {
+                this.derivateMax = derivateValues.get(derivateValues.size() - 1);
+                this.derivateMin = derivateValues.get(0);
+            }
+            else {
+                this.derivateMax = 0;
+                this.derivateMin = 0;
+            }
             computedMinMax = true;
         }
     }
