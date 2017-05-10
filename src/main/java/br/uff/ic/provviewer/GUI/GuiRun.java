@@ -23,12 +23,7 @@
  */
 package br.uff.ic.provviewer.GUI;
 
-import br.uff.ic.utility.IO.BasePath;
-import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.GraphFrame;
-import br.uff.ic.provviewer.Variables;
-import edu.uci.ics.jung.graph.DirectedGraph;
-import java.io.File;
 
 /**
  * Class to run the application
@@ -41,15 +36,12 @@ public class GuiRun {
      */
     public static void Run()
     {
-        System.out.println("Graph: " + BasePath.getBasePathForClass(GuiRun.class) + Variables.demo);
-        File graphFile = new File(BasePath.getBasePathForClass(GuiRun.class) + Variables.demo);
-        final DirectedGraph<Object, Edge> graph = GuiReadFile.getGraph(graphFile);
         
         java.awt.EventQueue.invokeLater(new Runnable() {
                 
             @Override
                 public void run() {
-                    new GraphFrame(graph).setVisible(true);
+                    new GraphFrame().setVisible(true);
                 }
             });
     }

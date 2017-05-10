@@ -31,7 +31,9 @@ import br.uff.ic.provviewer.GUI.GuiInitialization;
 import br.uff.ic.provviewer.GUI.GuiInference;
 import br.uff.ic.provviewer.GUI.GuiReadFile;
 import br.uff.ic.provviewer.GUI.GuiRun;
+import br.uff.ic.utility.IO.BasePath;
 import edu.uci.ics.jung.graph.DirectedGraph;
+import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -48,7 +50,22 @@ public class GraphFrame extends javax.swing.JFrame {
      * Creates new form GraphFrame
      * @param graph 
      */
+    public GraphFrame() {
+        variables = new Variables();
+        System.out.println("Graph: " + BasePath.getBasePathForClass(GuiRun.class) + variables.demo);
+        File graphFile = new File(BasePath.getBasePathForClass(GuiRun.class) + variables.demo);
+        DirectedGraph<Object, Edge> graph = GuiReadFile.getGraph(graphFile);
+        initComponents();
+        GuiInitialization.initGraphComponent(variables, graph, this, Layouts, 
+                displayAgentLabelButton.getState(), 
+                displayActivityLabelButton.getState(), 
+                displayEntityLabelButton.getState(), 
+                displayTimeLabel.getState(), 
+                displayID.getState());       
+    }
+    
     public GraphFrame(DirectedGraph<Object, Edge> graph) {
+        variables = new Variables();
         initComponents();
         GuiInitialization.initGraphComponent(variables, graph, this, Layouts, 
                 displayAgentLabelButton.getState(), 
@@ -252,7 +269,7 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         EdgeTypes.setViewportView(edgeFilterList);
 
-        Layouts.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TimelineLayout", "TemporalLayout", "SpatialLayout", "ProvCircleLayout", "ProvCircleLayout2", "CircleLayout", "FRLayout", "FRLayout2", "ISOMLayout", "KKLayout", "SpringLayout", "DagLayout" }));
+        Layouts.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TimelineLayout", "HierarchyLayout", "TemporalLayout", "SpatialLayout", "ProvCircleLayout", "ProvCircleLayout2", "CircleLayout", "FRLayout", "FRLayout2", "ISOMLayout", "KKLayout", "SpringLayout", "DagLayout" }));
         Layouts.setToolTipText("Change the graph layout");
         Layouts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
