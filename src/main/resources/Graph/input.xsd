@@ -32,6 +32,8 @@ THE SOFTWARE.
     <!-- Configuration Type -->
     <xs:complexType name="provdata">
         <xs:sequence>
+            <!--Defines if the graph edges are using the left to right (edgesLeftToRight = true) orientation or not (edgesLeftToRight = False)-->
+            <xs:element name="edgesLeftToRight" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
             <!-- List of all vertices and their configuration values -->
             <xs:element name="vertices" type="vertices" minOccurs="1" maxOccurs="1"/>
             <!-- List of all edges and their configuration values -->

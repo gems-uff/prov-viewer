@@ -44,6 +44,7 @@ import org.w3c.dom.NodeList;
  */
 public class UnityReader extends XMLReader{
 
+    boolean isProvenanceGraph;
     public UnityReader(File fXmlFile) throws URISyntaxException, IOException {
         super(fXmlFile);
     }
@@ -60,7 +61,12 @@ public class UnityReader extends XMLReader{
     
     public void readVertex()
     {
+        isProvenanceGraph = true;
         NodeList nList;
+        nList = doc.getElementsByTagName("edgesLeftToRight");
+        if (nList != null && nList.getLength() > 0 && !nList.item(0).getTextContent().equalsIgnoreCase("")) {
+            isProvenanceGraph = Boolean.parseBoolean(nList.item(0).getTextContent());
+        }
 
         //Read all vertices
         nList = doc.getElementsByTagName("vertex");
@@ -142,8 +148,13 @@ public class UnityReader extends XMLReader{
                 String value = eElement.getElementsByTagName("value").item(0).getTextContent();
                 String source = eElement.getElementsByTagName("sourceID").item(0).getTextContent();
                 String target = eElement.getElementsByTagName("targetID").item(0).getTextContent();
-                if(nodes.containsKey(source) && nodes.containsKey(target))
-                    addEdge(id, type, label, value, target, source);
+                if(nodes.containsKey(source) && nodes.containsKey(target)) {
+                    if(isProvenanceGraph)
+                        addEdge(id, type, label, value, target, source);
+                    else
+                        addEdge(id, type, label, value, source, target);
+                }
+                    
             }
         }
     }
