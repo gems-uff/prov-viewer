@@ -189,16 +189,16 @@ public abstract class Vertex extends GraphObject {
      * @return 
      */
     public String getAttributeValue(String attribute) {
-        if(attribute.equalsIgnoreCase("Label"))
-        {
+        if(attribute.equalsIgnoreCase("Label")) {
             return getLabel();
         }
-        if(attribute.equalsIgnoreCase("Time"))
-        {
+        if(attribute.equalsIgnoreCase("Time")) {
             return String.valueOf(getTime());
         }
-        if(attribute.equalsIgnoreCase("Date"))
-        {
+        if(attribute.equalsIgnoreCase("Timestamp")) {
+            return String.valueOf(getTime());
+        }
+        if(attribute.equalsIgnoreCase("Date")) {
             return String.valueOf(getTime());
         }
         GraphAttribute aux = attributes.get(attribute);
@@ -216,9 +216,14 @@ public abstract class Vertex extends GraphObject {
      * @return 
      */
     public float getAttributeValueFloat(String attribute) {
-        if(attribute.equalsIgnoreCase("Time"))
-        {
-            return (float)getTime();
+        if(attribute.equalsIgnoreCase("Time"))         {
+            return (float)getNormalizedTime();
+        }
+        if(attribute.equalsIgnoreCase("Timestamp")) {
+            return (float)getNormalizedTime();
+        }
+        if(attribute.equalsIgnoreCase("Date")) {
+            return (float)getNormalizedTime();
         }
         if(attributes.get(attribute) == null) {
 //            System.out.println("If getAttributeValue equals NULL: " + attributes.get(attribute).getValue());
