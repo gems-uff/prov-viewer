@@ -45,13 +45,13 @@ import java.util.List;
  * @param <V> JUNG's V (Vertex) type
  * @param <E> JUNG's E (Edge) type
  */
-public class Timeline_Layout<V, E> extends ProvViewerLayout<V, E> {
+public class Hierarchy_Layout<V, E> extends ProvViewerLayout<V, E> {
 
     private List<V> vertex_ordered_list;
     private List<V> entity_ordered_list;
     private DirectedGraph<V, E> graph;
 
-    public Timeline_Layout(Graph<V, E> g, Variables variables) {
+    public Hierarchy_Layout(Graph<V, E> g, Variables variables) {
         super(g, variables);
     }
 
@@ -120,19 +120,20 @@ public class Timeline_Layout<V, E> extends ProvViewerLayout<V, E> {
             Point2D coord = transform(v);
             if (v instanceof AgentVertex) {
                 yPos = agentY;
-                agentY = agentY + scale;
-                i = i + scale;
-                xPos = i;
+                agentY = agentY + 2 * scale;
+//                i = i + scale;
+                xPos = i - scale;
             } else if (v instanceof ActivityVertex) {
                 if (graph.getOutEdges(v) != null) {
                     for (E neighbor : graph.getOutEdges(v)) {
                         //if the edge link to an Agent-node
                         if (graph.getDest(neighbor) instanceof AgentVertex) {
                             Point2D agentPos = transform(graph.getDest(neighbor));
-                            yPos = agentPos.getY();
+                            yPos = agentPos.getY() + scale;
                         }
-                        i = i + scale;
+                        
                         xPos = i;
+                        i = i + scale;
                     }
                 }
             } else {
