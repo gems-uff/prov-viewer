@@ -600,7 +600,8 @@ public class Utils {
      */
     public static long convertTime(String timeFormat, double time, String timeScale) {
         TimeUnit t;
-
+        if(time == -1)
+            return (long) time;
         // Convert the number to a lower scale being used to avoid losing the decimals
         switch (timeFormat) {
             case "nanoseconds":
