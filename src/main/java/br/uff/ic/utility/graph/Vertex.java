@@ -192,21 +192,13 @@ public abstract class Vertex extends GraphObject {
         if(attribute.equalsIgnoreCase("Label")) {
             return getLabel();
         }
-        if(attribute.equalsIgnoreCase("Time")) {
-            return String.valueOf(getTime());
-        }
-        if(attribute.equalsIgnoreCase("Timestamp")) {
-            return String.valueOf(getTime());
-        }
-        if(attribute.equalsIgnoreCase("Date")) {
-            return String.valueOf(getTime());
-        }
         GraphAttribute aux = attributes.get(attribute);
         if(aux != null) {
             return aux.getAverageValue();
         }
         else {
-            return "Unknown";
+            return deltaAttributeValue(attribute);
+//            return "Unknown";
         }
     }
     
@@ -226,15 +218,80 @@ public abstract class Vertex extends GraphObject {
             return (float)getNormalizedTime();
         }
         if(attributes.get(attribute) == null) {
-//            System.out.println("If getAttributeValue equals NULL: " + attributes.get(attribute).getValue());
-            return Float.NaN;
+            return deltaAttributeFloatValue(attribute);
         }
-            
-        if(Utils.tryParseFloat(attributes.get(attribute).getAverageValue())) {
-            return Utils.convertFloat(attributes.get(attribute).getAverageValue());
+        return getAttFloatValue(attribute);
+    }
+    
+    /**
+     * Method that gets both attributes in the string and subtracts them. I.e.: First_Attribute - Second_Attribute
+     * @param attribute must be a string with both atributes separared by " - ". Example: "First_Attribute - Second_Attribute"
+     * @return the delta
+     */
+    private float deltaAttributeFloatValue(String attribute) {
+        String[] atts = attribute.split(" - ");
+        if(atts.length == 2)
+            return getAttFloatValue(atts[0]) - getAttFloatValue(atts[1]);
+        else
+            return Float.NaN;
+    }
+    
+    /**
+     * Method that returns the delta from the two attributes or Unknown if any attribute is invalid
+     * @param attribute must be a string with both atributes separared by " - ". Example: "First_Attribute - Second_Attribute"
+     * @return the delta as a String
+     */
+    private String deltaAttributeValue(String attribute) {
+        if(attribute.equalsIgnoreCase("Label")) {
+            return getLabel();
+        }
+        if(attribute.equalsIgnoreCase("Time")) {
+            return String.valueOf(getTime());
+        }
+        if(attribute.equalsIgnoreCase("Timestamp")) {
+            return String.valueOf(getTime());
+        }
+        if(attribute.equalsIgnoreCase("Date")) {
+            return String.valueOf(getTime());
+        }
+        
+        String[] atts = attribute.split(" - ");
+        if(atts.length == 2) {
+            if("Unknown".equals(getAttributeValue(atts[0])) || "Unknown".equals(getAttributeValue(atts[1]))) return "Unknown";
+            else {
+                String delta = Float.toString(getAttFloatValue(atts[0]) - getAttFloatValue(atts[1]));
+                return delta;
+            }
+        }
+        else
+            return "Unknown";
+    }
+    
+    /**
+     * Method that returns the float value of the attribute. If it is not convertable, then it returns Float.NaN
+     * @param attribute the attribute that we want to get the value from
+     * @return the float value or Float.NaN if it is not possible to convert to float
+     */
+    private float getAttFloatValue(String attribute) {
+        if(attribute.equalsIgnoreCase("Time"))         {
+            return (float)getNormalizedTime();
+        }
+        if(attribute.equalsIgnoreCase("Timestamp")) {
+            return (float)getNormalizedTime();
+        }
+        if(attribute.equalsIgnoreCase("Date")) {
+            return (float)getNormalizedTime();
+        }
+        if(attributes.get(attribute) != null) {
+            if(Utils.tryParseFloat(attributes.get(attribute).getAverageValue())) {
+                return Utils.convertFloat(attributes.get(attribute).getAverageValue());
+            }
+            else {
+                
+                return Float.NaN;
+            }
         }
         else {
-//            System.out.println("Else getAttributeValue: " + attributes.get(attribute).getValue());
             return Float.NaN;
         }
     }
