@@ -63,7 +63,7 @@ public class UnityReader extends XMLReader{
     {
         isProvenanceGraph = true;
         NodeList nList;
-        nList = doc.getElementsByTagName("edgesLeftToRight");
+        nList = doc.getElementsByTagName("edgesRightToLeft");
         if (nList != null && nList.getLength() > 0 && !nList.item(0).getTextContent().equalsIgnoreCase("")) {
             isProvenanceGraph = Boolean.parseBoolean(nList.item(0).getTextContent());
         }
