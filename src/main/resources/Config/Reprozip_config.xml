@@ -123,6 +123,26 @@ THE SOFTWARE.
             <b>255</b>
         </edgeColor>
     </edgetype>
+    <colorscheme>
+        <attribute>Timestamp</attribute>
+        <class>ActivityScheme</class>
+        <trafficLightType>type1</trafficLightType>
+        <isInverted>True</isInverted>
+    </colorscheme>
+    <colorscheme>
+        <attribute>1-linear-svm.xml</attribute>
+        <class>GraphVisualizationScheme</class>
+        <values></values>
+        <goodvalue></goodvalue>
+        <badvalue></badvalue>
+    </colorscheme>
+    <colorscheme>
+        <attribute>1-decision-tree.xml</attribute>
+        <class>GraphVisualizationScheme</class>
+        <values></values>
+        <goodvalue></goodvalue>
+        <badvalue></badvalue>
+    </colorscheme>
     <vertexAttributeFilter>
         <name>subtype</name>
         <value>Run</value>

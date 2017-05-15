@@ -106,6 +106,12 @@ THE SOFTWARE.
         <value>Landing</value>
     </vertexAttributeFilter>
     <colorscheme>
+        <attribute>Time - DeltaTime</attribute>
+        <class>ActivityScheme</class>
+        <trafficLightType>type2</trafficLightType>
+        <isInverted>false</isInverted>
+    </colorscheme>
+    <colorscheme>
         <attribute>CurrentGear</attribute>
         <class>ActivityScheme</class>
         <trafficLightType>type2</trafficLightType>
