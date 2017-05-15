@@ -52,11 +52,12 @@ public class GuiTooltip {
      * Called when initializing the application's components (GuiInitialization)
      * @param variables is the global variables from Prov Viewer
      */
-    public static void Tooltip(Variables variables) {
+    public static void Tooltip(final Variables variables) {
         // Vertex Tooltips
         variables.view.setVertexToolTipTransformer(new ToStringLabeller() {
             @Override
             public String transform(Object v) {
+                ((Vertex) v).setTimeScalePrint(variables.config.timeScale, variables.selectedTimeScale);
                 if (v instanceof Graph) {
                     return "<html>" + GraphTooltip(v) + "</html>";
                 }
