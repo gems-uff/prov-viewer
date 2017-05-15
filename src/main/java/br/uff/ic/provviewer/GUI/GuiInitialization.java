@@ -120,8 +120,8 @@ public class GuiInitialization {
 
         // Normalize time
         for (Object v : vertices) {
-            if (((Vertex) v).getTime() != -1) {
-                ((Vertex) v).setNormalizedTime((((Vertex) v).getTime() - minTime) + 1);
+            if (((Vertex) v).getTime() >= 0) {
+                ((Vertex) v).setNormalizedTime((((Vertex) v).getTime() - minTime));
             } else {
                 ((Vertex) v).setNormalizedTime(-1);
             }
