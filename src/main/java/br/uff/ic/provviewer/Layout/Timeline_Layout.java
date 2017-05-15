@@ -92,10 +92,8 @@ public class Timeline_Layout<V, E> extends ProvViewerLayout<V, E> {
             @Override
             public int compare(Object c1, Object c2) {
                 if (!(c1 instanceof Graph) && !(c2 instanceof Graph)) {
-                    ((Vertex) c1).setTimeScalePrint(variables.config.timeScale, variables.selectedTimeScale);
-                    ((Vertex) c2).setTimeScalePrint(variables.config.timeScale, variables.selectedTimeScale);
-                    double c1t = Utils.convertTime(variables.config.timeScale, ((Vertex) c1).getNormalizedTime(), variables.selectedTimeScale);
-                    double c2t = Utils.convertTime(variables.config.timeScale, ((Vertex) c2).getNormalizedTime(), variables.selectedTimeScale);
+                    double c1t = ((Vertex) c1).getTime();
+                    double c2t = ((Vertex) c2).getTime();
                     if (c1t != c2t) {
                         return Double.compare(c1t, c2t);
                     } else {
