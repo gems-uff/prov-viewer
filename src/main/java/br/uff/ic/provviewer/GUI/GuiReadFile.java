@@ -113,6 +113,7 @@ public class GuiReadFile {
         variables.filter.Filters(variables);
         variables.view.repaint();
         variables.initialGraph = false;
+        GuiInitialization.NormalizeTime(variables);
     }
 
     /**
@@ -128,7 +129,6 @@ public class GuiReadFile {
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 loadGraph(variables, GuiReadFile.getGraph(fileChooser.getSelectedFile()));
                 variables.originalGraphPath = fileChooser.getSelectedFile().getName();
-                GuiInitialization.NormalizeTime(variables);
             } else {
                 System.out.println("File access cancelled by user.");
             }
@@ -197,6 +197,7 @@ public class GuiReadFile {
             DirectedGraph<Object, Edge> mergedGraph = merger.Merging(variables.graph, fileGraph, variables.mergeConfig.getRestrictionList(), variables.mergeConfig.getVocabulary(), variables.mergeConfig.getSimilarityThreshold(), variables.mergeConfig.getDefaultError(), variables.mergeConfig.getDefaultWeight());
             
             loadGraph(variables, mergedGraph);
+            System.out.println("Merging Complete!");
         } else {
             System.out.println("File access cancelled by user.");
         }
