@@ -108,15 +108,6 @@ public class Utils {
     public static boolean tryParseFloat(String value) {
         value = value.replace(" ", "");
         value = value.replace(",", ".");
-//        try {
-////            Float.parseFloat(value);
-//            Float.valueOf(value.trim());
-//            value.matches(("[+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+)"));
-//
-//            return true;
-//        } catch (NumberFormatException nfe) { 
-//            return false;
-//        }
         if (value.isEmpty()) {
             return false;
         } else if (value == null) {
@@ -130,7 +121,6 @@ public class Utils {
                 String v = new BigDecimal(value).toPlainString();
                 Float.parseFloat(v);
                 return true;
-//                return v.matches(("[+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+)"));
             } catch (NumberFormatException nfe) {
                 return false;
             }
@@ -694,4 +684,32 @@ public class Utils {
             e.addAttribute(att);
         }
     }
+    
+        /**
+     * Method to normalize vertex's timestamps to start from 0
+     * @param graph
+     * @param overwriteTime
+     */
+    public static void NormalizeTime(DirectedGraph<Object, Edge> graph, boolean overwriteTime) {
+        Collection<Object> vertices = graph.getVertices();
+        double minTime = Double.POSITIVE_INFINITY;
+        for (Object v : vertices) {
+            if (((Vertex) v).getTime() != -1) {
+                minTime = Math.min(minTime, ((Vertex) v).getTime());
+            }
+        }
+        // Normalize time
+        for (Object v : vertices) {
+            if (((Vertex) v).getTime() >= 0) {
+                double normalized = ((Vertex) v).getTime() - minTime;
+                ((Vertex) v).setNormalizedTime(normalized);
+                if (overwriteTime && minTime != 0) {
+                    ((Vertex) v).setTime(Double.toString(normalized));
+                }
+            } else {
+                ((Vertex) v).setNormalizedTime(-1);
+            }
+        }
+    }
+
 }

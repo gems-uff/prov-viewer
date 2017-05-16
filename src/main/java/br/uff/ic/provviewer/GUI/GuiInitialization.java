@@ -29,6 +29,7 @@ import br.uff.ic.provviewer.Filter.Filters;
 import br.uff.ic.provviewer.Filter.PreFilters;
 import br.uff.ic.provviewer.GraphFrame;
 import br.uff.ic.provviewer.Variables;
+import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
@@ -70,7 +71,7 @@ public class GuiInitialization {
         GuiFunctions.GraphPaint(variables);
         GuiFunctions.VertexShape(variables);
         InitFilters(variables);
-        NormalizeTime(variables);
+        Utils.NormalizeTime(variables.graph, false);
         
         ToolTipManager.sharedInstance().setInitialDelay(10);
         ToolTipManager.sharedInstance().setDismissDelay(50000);
@@ -105,27 +106,5 @@ public class GuiInitialization {
         variables.filter.Filters(variables);
     }
 
-    /**
-     * Method to normalize vertex's timestamps to start from 0
-     * @param variables 
-     */
-    public static void NormalizeTime(Variables variables) {
-        Collection<Object> vertices = variables.graph.getVertices();
-        double minTime = Double.POSITIVE_INFINITY;
-        for (Object v : vertices) {
-            if (((Vertex) v).getTime() != -1) {
-                minTime = Math.min(minTime, ((Vertex) v).getTime());
-            }
-        }
-
-        // Normalize time
-        for (Object v : vertices) {
-            if (((Vertex) v).getTime() >= 0) {
-                ((Vertex) v).setNormalizedTime((((Vertex) v).getTime() - minTime));
-            } else {
-                ((Vertex) v).setNormalizedTime(-1);
-            }
-        }
-    }
 
 }

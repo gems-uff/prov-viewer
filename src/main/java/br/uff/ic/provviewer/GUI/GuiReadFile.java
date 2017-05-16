@@ -33,6 +33,7 @@ import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.AttributeErrorMargin;
 import br.uff.ic.utility.IO.InputReader;
 import br.uff.ic.utility.IO.PROVNReader;
+import br.uff.ic.utility.Utils;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import java.io.File;
@@ -113,7 +114,7 @@ public class GuiReadFile {
         variables.filter.Filters(variables);
         variables.view.repaint();
         variables.initialGraph = false;
-        GuiInitialization.NormalizeTime(variables);
+        Utils.NormalizeTime(variables.graph, false);
     }
 
     /**

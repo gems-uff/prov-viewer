@@ -187,6 +187,8 @@ public class GraphMerger {
         Utils.updateVertexIDs(graph_02, graph02);
         Utils.updateEdgeIDs(graph_01, graph01);
         Utils.updateEdgeIDs(graph_02, graph02);
+        Utils.NormalizeTime(graph_01, true);
+        Utils.NormalizeTime(graph_02, true);
         
         // Matching Heuristic
         MatchingHeuristic heuristic = new SimpleHeuristic();
