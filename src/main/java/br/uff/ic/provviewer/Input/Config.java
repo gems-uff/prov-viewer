@@ -204,20 +204,7 @@ public class Config {
         InterfaceStatusFilters();
     }
     
-    public Collection<String> DetectAllPossibleValuesFromAttribute(Collection<Object> vertices, String attribute) {
-        Map<String, String> attributeList = new HashMap<>();
-        for (Object v : vertices) {
-            String value = ((Vertex) v).getAttributeValue(attribute);
-            if(!value.contains("Unknown")) {
-                String[] values = value.split(", ");
-                for(String s : values) {
-                    attributeList.put(s, s);
-                }
-//                attributeList.put(((Vertex) v).getAttributeValue(attribute), ((Vertex) v).getAttributeValue(attribute));
-            }
-        }
-        return attributeList.values();
-    }
+    
 
 //    public void DetectVertexAttributeFilterValues(Collection<Object> vertices) {
 //        Map<String, String> valueList = new HashMap<>();

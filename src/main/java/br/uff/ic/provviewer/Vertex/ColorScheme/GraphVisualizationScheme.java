@@ -25,6 +25,7 @@
 package br.uff.ic.provviewer.Vertex.ColorScheme;
 
 import br.uff.ic.provviewer.Variables;
+import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.Vertex;
 import java.awt.Color;
 import java.awt.Paint;
@@ -49,7 +50,7 @@ public class GraphVisualizationScheme extends ColorScheme {
     @Override
     public Paint Execute(Object v, final Variables variables) {
         if(!isInitialized) {
-            Collection<String> values = variables.config.DetectAllPossibleValuesFromAttribute(variables.graph.getVertices(), "GraphFile");
+            Collection<String> values = Utils.DetectAllPossibleValuesFromAttribute(variables.graph.getVertices(), "GraphFile");
             totalNumberGraphs = values.size();
             isInitialized = true;
         }

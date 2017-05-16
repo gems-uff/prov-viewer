@@ -61,7 +61,7 @@ public class VertexColorScheme extends ColorScheme {
     }
     
     private void automaticInitialization(List<AttValueColor> list, String attribute, int i){
-        Collection<String> values = variables.config.DetectAllPossibleValuesFromAttribute(variables.graph.getVertices(), attribute);
+        Collection<String> values = Utils.DetectAllPossibleValuesFromAttribute(variables.graph.getVertices(), attribute);
         for (String value : values) {
             AttValueColor avc = new AttValueColor();
             avc.name = attribute;

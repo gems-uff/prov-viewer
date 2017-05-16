@@ -40,6 +40,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -710,6 +712,26 @@ public class Utils {
                 ((Vertex) v).setNormalizedTime(-1);
             }
         }
+    }
+    
+    /**
+     * Method to detect all values for the ATTRIBUTE that appears in the graph
+     * @param vertices
+     * @param attribute
+     * @return 
+     */
+    public static Collection<String> DetectAllPossibleValuesFromAttribute(Collection<Object> vertices, String attribute) {
+        Map<String, String> attributeList = new HashMap<>();
+        for (Object v : vertices) {
+            String value = ((Vertex) v).getAttributeValue(attribute);
+            if(!value.contains("Unknown")) {
+                String[] values = value.split(", ");
+                for(String s : values) {
+                    attributeList.put(s, s);
+                }
+            }
+        }
+        return attributeList.values();
     }
 
 }
