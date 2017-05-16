@@ -28,8 +28,12 @@ import br.uff.ic.graphmatching.MatchingHeuristic;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
-import java.util.Collection;
+import edu.uci.ics.jung.graph.Graph;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,11 +42,26 @@ import java.util.Map;
  */
 public class SimpleHeuristic implements MatchingHeuristic{
 
+    @Override
     public void MatchGraphs(DirectedGraph<Object, Edge> graph_01, DirectedGraph<Object, Edge> graph_02, GraphMatching combiner) {
-        Collection<Object> g1_vertices = graph_01.getVertices();
-        Collection<Object> g2_vertices = graph_02.getVertices();
-        Map<String, Object> v1List = new HashMap<String, Object>();
-        Map<String, Object> v2List = new HashMap<String, Object>();
+        List<Object> g1_vertices = new ArrayList(graph_01.getVertices());
+        List<Object> g2_vertices = new ArrayList(graph_02.getVertices());
+        Map<String, Object> v1List = new HashMap<>();
+        Map<String, Object> v2List = new HashMap<>();
+        Comparator comparator = new Comparator<Object>() {
+            @Override
+            public int compare(Object c1, Object c2) {
+                if (!(c1 instanceof Graph) && !(c2 instanceof Graph)) {
+                    double c1t = ((Vertex) c1).getTime();
+                    double c2t = ((Vertex) c2).getTime();
+                    return Double.compare(c1t, c2t);
+                } else {
+                    return 0;
+                }
+            }
+        };
+        Collections.sort(g1_vertices, comparator);
+        Collections.sort(g2_vertices, comparator);
         
         for (Object v1 : g1_vertices) {
             for (Object v2 : g2_vertices) {
@@ -53,6 +72,7 @@ public class SimpleHeuristic implements MatchingHeuristic{
                         v1List.put(((Vertex)v1).getID(), v1);
                         v2List.put(((Vertex)v2).getID(), v2);
                     }
+                    break;
                 }
             }
         }
