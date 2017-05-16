@@ -64,7 +64,7 @@ public class Utils {
 //        colors[1] = new Color(255, 0, 0); // Red
 //        colors[2] = new Color(0, 255, 0); // Lime/Green
         colors[1] = new Color(0, 0, 255); // Blue
-        colors[2] = new Color(255, 255, 0); // Yellow
+        colors[2] = new Color(153, 153, 0); // Yellow-Mostard
         colors[3] = new Color(0, 255, 255); // Cyan/Aqua
         colors[4] = new Color(255, 0, 255); // Magenta
         colors[5] = new Color(128, 128, 128); // Gray
