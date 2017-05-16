@@ -30,7 +30,6 @@ import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
-import java.awt.Color;
 import java.awt.Paint;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -47,7 +46,6 @@ public class VertexColorScheme extends ColorScheme {
     public List<AttValueColor> automaticActivityVC = new ArrayList<>();
     public List<AttValueColor> automaticEntityVC = new ArrayList<>();
     public List<AttValueColor> automaticAgentVC = new ArrayList<>();
-    private boolean isInitialized = false;
     private boolean isAutomatic = false;
 
     public VertexColorScheme(String filterName, List<AttValueColor> aVC, List<AttValueColor> eVC, List<AttValueColor> agVC, boolean isAutomatic) {

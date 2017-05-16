@@ -57,6 +57,8 @@ public abstract class ColorScheme {
     public Variables variables;
     public double derivateMax = Double.NEGATIVE_INFINITY;
     public double derivateMin = Double.POSITIVE_INFINITY;
+    
+    boolean isInitialized = false;
 
     /**
      * This constructor is used by the Default color scheme
@@ -109,6 +111,10 @@ public abstract class ColorScheme {
         this.restrictedValue = rV;
         this.isZeroWhite = isWhite;
         this.isInverted = isInverted;
+    }
+    
+    public void resetInitialization() {
+        isInitialized = false;
     }
 
     public String GetName() {
