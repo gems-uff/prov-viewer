@@ -42,10 +42,11 @@ public abstract class Vertex extends GraphObject {
 
     private String id;                              // prov:id
     private double normalizedTime;
-    private String time;                            // prov:startTime
+//    private String time;                            // prov:startTime
                                                     // Refactor for datetime type
     private String timeFormat;
     private String timeScale;
+    private String timeLabel = "Timestamp";
     
     /**
      * Constructor without attributes
@@ -58,8 +59,10 @@ public abstract class Vertex extends GraphObject {
     public Vertex(String id, String label, String time) {
         this.id = id;
         setLabel(label);
-        this.time = time;
+//        this.time = time;
+        GraphAttribute t = new GraphAttribute(timeLabel, time);
         this.attributes  = new HashMap<>();
+        this.attributes.put(t.getName(), t);
         timeFormat = "nanoseconds";
         timeScale = "nanoseconds";
     }
@@ -74,8 +77,9 @@ public abstract class Vertex extends GraphObject {
     public Vertex(String id, String label, String time, Map<String, GraphAttribute> attributes) {
         this.id = id;
         setLabel(label);
-        this.time = time;
         this.attributes.putAll(attributes);
+        GraphAttribute t = new GraphAttribute(timeLabel, time);
+        this.attributes.put(t.getName(), t);
         timeFormat = "nanoseconds";
         timeScale = "nanoseconds";
     }
@@ -119,11 +123,12 @@ public abstract class Vertex extends GraphObject {
      */
     public double getTime() {    
 //        String[] day = this.time.split(":");
-        if(Utils.tryParseFloat(this.time))
-            return (Double.parseDouble(this.time));
-        else if(Utils.tryParseDate(this.time))
+        String time = this.attributes.get(timeLabel).getAverageValue();
+        if(Utils.tryParseFloat(time))
+            return (Double.parseDouble(time));
+        else if(Utils.tryParseDate(time))
         {
-            double milliseconds =  Utils.convertStringDateToFloat(this.time);
+            double milliseconds =  Utils.convertStringDateToFloat(time);
             return milliseconds;
         }
         else
@@ -135,16 +140,18 @@ public abstract class Vertex extends GraphObject {
      * @return time
      */
     public String getTimeString() {    
-        return this.time;
+        return this.attributes.get(timeLabel).getAverageValue();
     }
     
     /**
      * Method to set the value of the variable time
      * @param t is the new value
      */
-    public void setTime(String t){
-        this.time = t;
-    }
+//    public void setTime(String t){
+//        GraphAttribute time = this.attributes.get(timeLabel);
+//        time.updateAttribute(t);.setValue(t);
+//        this.time = t;
+//    }
 
     
     /**
@@ -154,7 +161,7 @@ public abstract class Vertex extends GraphObject {
      * @return (String) the day of the week (mon, tue, wed, ...)
      */
     public String getDayName() {
-        String[] day = this.time.split(":");
+        String[] day = this.attributes.get(timeLabel).getAverageValue().split(":");
         return day[1];
     }
     
@@ -174,7 +181,8 @@ public abstract class Vertex extends GraphObject {
     
     public String printTime()
     {
-        return "Timestamp: " + Utils.convertTime(timeFormat, this.getNormalizedTime(), timeScale) + " (" + timeScale + ")";
+        double nt = this.getTime();
+        return "Timestamp: " + Utils.convertTime(timeFormat, nt, timeScale) + " (" + timeScale + ")";
     }
     
     public void setTimeScalePrint(String timeFormat, String timeScale) {

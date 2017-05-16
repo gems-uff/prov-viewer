@@ -35,8 +35,8 @@ public class GraphAttribute {
 
     private String name;
     private String value;
-    private float minValue;
-    private float maxValue;
+    private double minValue;
+    private double maxValue;
     private int quantity;
     private Collection<String> originalValues;
   
@@ -50,9 +50,10 @@ public class GraphAttribute {
         this.value = value;
         this.quantity = 1;
         if (Utils.tryParseFloat(value)){
-            this.minValue = Utils.convertFloat(value.trim());
-            this.maxValue = Utils.convertFloat(value.trim());
-            float v = ((int) (Utils.convertFloat(value.trim()) * 10000)) * 0.0001f;
+            this.minValue = Utils.convertDouble(value.trim());
+            this.maxValue = Utils.convertDouble(value.trim());
+            double v = Utils.convertDouble(value.trim());
+//            double v = ((int) (Utils.convertDouble(value.trim()) * 10000)) * 0.0001f;
             this.value = String.valueOf(v);
         }
         else {
@@ -149,7 +150,7 @@ public class GraphAttribute {
      * @return 
      */
     public String getMin() {
-        return Float.toString(this.minValue);
+        return Double.toString(this.minValue);
     }
 
     /**
@@ -157,7 +158,7 @@ public class GraphAttribute {
      * @return max value
      */
     public String getMax() {
-        return Float.toString(this.maxValue);
+        return Double.toString(this.maxValue);
     }
 
     /**

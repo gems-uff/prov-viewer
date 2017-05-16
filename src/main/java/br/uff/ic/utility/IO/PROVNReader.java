@@ -162,7 +162,9 @@ public class PROVNReader extends InputReader {
 
             GraphAttribute optAtt = new GraphAttribute("startTime", startTime);
             node.addAttribute(optAtt);
-            node.setTime(startTime);
+            GraphAttribute time = new GraphAttribute("Timestamp", startTime);
+            node.addAttribute(time);
+//            node.setTime(startTime);
         }
         if (attributes.length > 2) {
             String endTime = attributes[2];

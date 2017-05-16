@@ -31,6 +31,11 @@ THE SOFTWARE.
     <default_error>5%</default_error>
     <default_weight>1</default_weight>
     <attributeErrorList>
+        <name>Timestamp</name>
+        <value>25%</value>
+        <weight>1</weight>
+    </attributeErrorList>
+    <attributeErrorList>
         <name>ObjectPosition_X</name>
         <value>5%</value>
         <weight>1</weight>

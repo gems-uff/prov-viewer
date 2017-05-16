@@ -57,10 +57,10 @@ public class GuiTooltip {
         variables.view.setVertexToolTipTransformer(new ToStringLabeller() {
             @Override
             public String transform(Object v) {
-                ((Vertex) v).setTimeScalePrint(variables.config.timeScale, variables.selectedTimeScale);
                 if (v instanceof Graph) {
                     return "<html>" + GraphTooltip(v) + "</html>";
                 }
+                ((Vertex) v).setTimeScalePrint(variables.config.timeScale, variables.selectedTimeScale);
                 return "<html>" + v.toString() + "</html>";
             }
         });
@@ -105,7 +105,7 @@ public class GuiTooltip {
         return "<b>Summarized Vertex" + "</b>" + "<br>" + nodeTypes
                 + "<br>IDs: " + ids.values().toString() + "<br>"
                 + "<b>Labels: " + labels.values().toString() + "</b>"
-                + " <br>" + "Times: " + times.values().toString()
+                + " <br>" + "Original Timestamps: " + times.values().toString()
                 + " <br>" + PrintAttributes(attributes);
     }
 
