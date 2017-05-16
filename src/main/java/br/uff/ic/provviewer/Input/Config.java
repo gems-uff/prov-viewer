@@ -116,6 +116,12 @@ public class Config {
         Initialize(fXmlFile);
 
     }
+    
+    public void resetVertexModeInitializations() {
+        for (ColorScheme vm : vertexModes) {
+            vm.resetInitialization();
+        }
+    }
 
     /**
      * Method to compute the graph scale for the Spatial Layout
@@ -201,7 +207,14 @@ public class Config {
     public Collection<String> DetectAllPossibleValuesFromAttribute(Collection<Object> vertices, String attribute) {
         Map<String, String> attributeList = new HashMap<>();
         for (Object v : vertices) {
-            attributeList.put(((Vertex) v).getAttributeValue(attribute), ((Vertex) v).getAttributeValue(attribute));
+            String value = ((Vertex) v).getAttributeValue(attribute);
+            if(!value.contains("Unknown")) {
+                String[] values = value.split(", ");
+                for(String s : values) {
+                    attributeList.put(s, s);
+                }
+//                attributeList.put(((Vertex) v).getAttributeValue(attribute), ((Vertex) v).getAttributeValue(attribute));
+            }
         }
         return attributeList.values();
     }
