@@ -28,12 +28,15 @@ import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.graph.Vertex;
 import java.awt.Color;
 import java.awt.Paint;
+import java.util.Collection;
 
 /**
  *
  * @author Kohwalter
  */
 public class GraphVisualizationScheme extends ColorScheme {
+    int totalNumberGraphs = 2;
+    
 
     public GraphVisualizationScheme(String attribute) {
         super(attribute);
@@ -45,7 +48,15 @@ public class GraphVisualizationScheme extends ColorScheme {
 
     @Override
     public Paint Execute(Object v, final Variables variables) {
-        if (((Vertex)v).getID().contains("(Merged)"))
+        if(!isInitialized) {
+            Collection<String> values = variables.config.DetectAllPossibleValuesFromAttribute(variables.graph.getVertices(), "GraphFile");
+            totalNumberGraphs = values.size();
+            isInitialized = true;
+        }
+        String graphs = ((Vertex)v).getAttributeValue("GraphFile");
+        String[] graphFiles = graphs.split(", ");
+        
+        if (graphFiles.length == totalNumberGraphs)
             return new Color(200, 200, 200);
         else if (((Vertex)v).getAttributeValue("GraphFile").contains(this.attribute))
             return new Color(0, 255, 0);
