@@ -95,23 +95,7 @@ public class TimelineGraphs_Layout<V, E> extends ProvViewerLayout<V, E> {
         for(int i = 0; i < values.size(); i++) {
             counts.add(0);
         }
-        Comparator comparator = new Comparator<Object>() {
-            @Override
-            public int compare(Object c1, Object c2) {
-                if (!(c1 instanceof Graph) && !(c2 instanceof Graph)) {
-                    double c1t = ((Vertex) c1).getTime();
-                    double c2t = ((Vertex) c2).getTime();
-                    if (c1t != c2t) {
-                        return Double.compare(c1t, c2t);
-                    } else {
-                        return ((Vertex) c1).getNodeType().compareTo(((Vertex) c2).getNodeType());
-                    }
-                } else {
-                    return 0;
-                }
-            }
-        };
-        setVertexOrder(comparator);
+        setVertexOrder(Utils.getVertexTimeComparator());
         graph = (DirectedGraph<V, E>) variables.graph;
         int i = 0;
         int agentY = 0;

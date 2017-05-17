@@ -29,6 +29,7 @@ import br.uff.ic.utility.graph.Vertex;
 import br.uff.ic.utility.graphgenerator.NoiseGraph;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
+import edu.uci.ics.jung.graph.Graph;
 import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
@@ -38,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -732,6 +734,27 @@ public class Utils {
             }
         }
         return attributeList.values();
+    }
+    
+    public static Comparator getVertexTimeComparator() {
+        Comparator comparator = new Comparator<Object>() {
+            @Override
+            public int compare(Object c1, Object c2) {
+                if (!(c1 instanceof Graph) && !(c2 instanceof Graph)) {
+                    double c1t = ((Vertex) c1).getTime();
+                    double c2t = ((Vertex) c2).getTime();
+                    if (c1t != c2t) {
+                        return Double.compare(c1t, c2t);
+                    } else {
+                        return ((Vertex) c2).getNodeType().compareTo(((Vertex) c1).getNodeType());
+                    }
+                    //TODO make agent lose priority to appear after the activity
+                } else {
+                    return 0;
+                }
+            }
+        };
+        return comparator;
     }
 
 }

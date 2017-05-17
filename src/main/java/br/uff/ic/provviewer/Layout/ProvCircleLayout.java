@@ -24,9 +24,9 @@
 package br.uff.ic.provviewer.Layout;
 
 import br.uff.ic.provviewer.Variables;
+import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.graph.EntityVertex;
-import br.uff.ic.utility.graph.Vertex;
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -109,22 +109,11 @@ public class ProvCircleLayout<V, E> extends ProvViewerLayout<V, E> {
 
     public void initialize() {
         Dimension d = getSize();
-        
-        // Sort vertices by their timestamp
-        Comparator comparator = new Comparator<Object>() {
-                @Override
-                public int compare(Object c1, Object c2) {
-                    if(!(c1 instanceof Graph) && !(c2 instanceof Graph))
-                        return Double.compare(((Vertex)c1).getTime(),(((Vertex)c2).getTime()));
-                    else
-                        return 0;
-                }
-            };
 
         if (d != null) {
             if (vertex_ordered_list == null) {
 //                setVertexOrder(new ArrayList<V>(getGraph().getVertices()));
-                setVertexOrder(comparator);
+                setVertexOrder(Utils.getVertexTimeComparator());
             }
 
             double height = d.getHeight();

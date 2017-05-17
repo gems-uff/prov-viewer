@@ -28,7 +28,6 @@ import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.graph.EntityVertex;
-import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.Graph;
 import java.awt.geom.Point2D;
@@ -88,24 +87,8 @@ public class Timeline_Layout<V, E> extends ProvViewerLayout<V, E> {
      * Initialize layout
      */
     private void doInit() {
-        Comparator comparator = new Comparator<Object>() {
-            @Override
-            public int compare(Object c1, Object c2) {
-                if (!(c1 instanceof Graph) && !(c2 instanceof Graph)) {
-                    double c1t = ((Vertex) c1).getTime();
-                    double c2t = ((Vertex) c2).getTime();
-                    if (c1t != c2t) {
-                        return Double.compare(c1t, c2t);
-                    } else {
-                        return ((Vertex) c1).getNodeType().compareTo(((Vertex) c2).getNodeType());
-                    }
-                    //TODO make agent lose priority to appear after the activity
-                } else {
-                    return 0;
-                }
-            }
-        };
-        setVertexOrder(comparator);
+        
+        setVertexOrder(Utils.getVertexTimeComparator());
         graph = (DirectedGraph<V, E>) variables.graph;
         int i = 0;
         int agentY = 0;
