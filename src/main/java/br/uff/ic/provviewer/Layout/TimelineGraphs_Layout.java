@@ -117,8 +117,7 @@ public class TimelineGraphs_Layout<V, E> extends ProvViewerLayout<V, E> {
             }
             
             // Sync the X position if we have a common vertex node for multiple graphs
-            String graphs = ((Vertex)v).getAttributeValue("GraphFile");
-            String[] graphFiles = graphs.split(", ");
+            String[] graphFiles = ((Vertex)v).getAttributeValues("GraphFile");
             if (graphFiles.length > 1) {
                 // Find the max position so we can sync the rest
                 int max = 0;

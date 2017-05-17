@@ -54,8 +54,7 @@ public class GraphVisualizationScheme extends ColorScheme {
             totalNumberGraphs = values.size();
             isInitialized = true;
         }
-        String graphs = ((Vertex)v).getAttributeValue("GraphFile");
-        String[] graphFiles = graphs.split(", ");
+        String[] graphFiles = ((Vertex)v).getAttributeValues("GraphFile");
         
         if (graphFiles.length == totalNumberGraphs)
             return new Color(200, 200, 200);

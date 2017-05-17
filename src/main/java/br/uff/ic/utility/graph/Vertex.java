@@ -210,6 +210,16 @@ public abstract class Vertex extends GraphObject {
     }
     
     /**
+     * Method to return the values in an attribute that were separated by a comma
+     * @param attribute is the attribute that we want to get the values
+     * @return an array with the values
+     */
+    public String[] getAttributeValues(String attribute) {
+        String values = this.getAttributeValue(attribute);
+        return values.split(", ");
+    }
+    
+    /**
      * Method to return the attribute value as float
      * @param attribute
      * @return 
