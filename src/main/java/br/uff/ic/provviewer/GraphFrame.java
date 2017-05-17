@@ -135,8 +135,9 @@ public class GraphFrame extends javax.swing.JFrame {
         displayEntityLabelButton = new javax.swing.JCheckBoxMenuItem();
         displayTimeLabel = new javax.swing.JCheckBoxMenuItem();
         displayID = new javax.swing.JCheckBoxMenuItem();
-        PantoVertex = new javax.swing.JMenuItem();
         useEdgeTypeColor = new javax.swing.JCheckBoxMenuItem();
+        isStrokeByValueButton = new javax.swing.JCheckBoxMenuItem();
+        PantoVertex = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         mergeGraphButtom = new javax.swing.JMenuItem();
@@ -614,14 +615,6 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu1.add(displayID);
 
-        PantoVertex.setText("Pan to vertex");
-        PantoVertex.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PantoVertexActionPerformed(evt);
-            }
-        });
-        jMenu1.add(PantoVertex);
-
         useEdgeTypeColor.setText("Use Edge Type Color");
         useEdgeTypeColor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -629,6 +622,23 @@ public class GraphFrame extends javax.swing.JFrame {
             }
         });
         jMenu1.add(useEdgeTypeColor);
+
+        isStrokeByValueButton.setSelected(true);
+        isStrokeByValueButton.setText("Edge Size based on its Value");
+        isStrokeByValueButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                isStrokeByValueButtonActionPerformed(evt);
+            }
+        });
+        jMenu1.add(isStrokeByValueButton);
+
+        PantoVertex.setText("Pan to vertex");
+        PantoVertex.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PantoVertexActionPerformed(evt);
+            }
+        });
+        jMenu1.add(PantoVertex);
 
         MenuBar.add(jMenu1);
 
@@ -1098,6 +1108,12 @@ public class GraphFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         variables.view.repaint();
     }//GEN-LAST:event_useEdgeTypeColorActionPerformed
+
+    private void isStrokeByValueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isStrokeByValueButtonActionPerformed
+        // TODO add your handling code here:
+        variables.isStrokeByValue = isStrokeByValueButton.getState();
+        variables.view.repaint();
+    }//GEN-LAST:event_isStrokeByValueButtonActionPerformed
    
     /**
      * Main
@@ -1180,6 +1196,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem exportGraphButton;
     private javax.swing.JFileChooser fileChooser;
     public static javax.swing.JCheckBox isSTDeps;
+    public static javax.swing.JCheckBoxMenuItem isStrokeByValueButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

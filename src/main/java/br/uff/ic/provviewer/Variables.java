@@ -127,6 +127,7 @@ public class Variables extends Object {
     public boolean doDerivate = false;
     public boolean removeDerivateOutliers = false;
     public boolean changedOutliersOption = false;
+    public boolean isStrokeByValue = false;
     
     public String layout_spatial = "Spatial";
     public String layout_temporal = "Temporal";
