@@ -31,6 +31,7 @@ import br.uff.ic.provviewer.Vertex.ColorScheme.ColorScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.VertexColorScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.DefaultVertexColorScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.ProvScheme;
+import br.uff.ic.provviewer.Vertex.ColorScheme.VertexGraphGrayScaleScheme;
 import br.uff.ic.utility.AttValueColor;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.Edge;
@@ -381,6 +382,8 @@ public class Config {
             //Default mode is always set, no matter the config.xml
             ProvScheme provScheme = new ProvScheme("Prov");
             vertexModes.add(provScheme);
+            VertexGraphGrayScaleScheme graphScheme = new VertexGraphGrayScaleScheme("Graph");
+            vertexModes.add(graphScheme);
 
             nList = doc.getElementsByTagName("colorscheme");
             for (int temp = 0; temp < nList.getLength(); temp++) {
