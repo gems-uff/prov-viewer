@@ -147,11 +147,10 @@ public abstract class Vertex extends GraphObject {
      * Method to set the value of the variable time
      * @param t is the new value
      */
-//    public void setTime(String t){
-//        GraphAttribute time = this.attributes.get(timeLabel);
-//        time.updateAttribute(t);.setValue(t);
-//        this.time = t;
-//    }
+    public void setTime(String t){
+        GraphAttribute time = new GraphAttribute(timeLabel, t);
+        this.attributes.put(timeLabel, time);
+    }
 
     
     /**
