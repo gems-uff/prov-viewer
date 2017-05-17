@@ -27,6 +27,7 @@ import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.graph.Edge;
 import static br.uff.ic.provviewer.GraphFrame.StatusFilterBox;
 import br.uff.ic.provviewer.Layout.Temporal_Layout;
+import br.uff.ic.provviewer.Layout.TimelineGraphs_Timestamp_Layout;
 import br.uff.ic.provviewer.Layout.Timeline_Layout;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.provviewer.Vertex.ColorScheme.VertexPainter;
@@ -208,16 +209,21 @@ public class GuiButtons {
         variables.view.repaint();
     }
     
+    /**
+     * Method to update the layouts that use the vertex's time as X position since the user can alter the timescale
+     * @param variables
+     * @param Layouts 
+     */
     public static void UpdateTemporalLayout(Variables variables, JComboBox Layouts) {
         String layout = (String) Layouts.getSelectedItem();
-        if (layout.equalsIgnoreCase("TemporalLayout")) {
+        if (layout.equalsIgnoreCase(variables.layout_temporal)) {
             variables.layout = new Temporal_Layout<>(variables.layout.getGraph(), variables);
             variables.guiBackground.InitBackground(variables, Layouts);
             variables.view.setGraphLayout(variables.layout);
             variables.view.repaint();
         }
-        if (layout.equalsIgnoreCase("TimelineLayout")) {
-            variables.layout = new Timeline_Layout<>(variables.layout.getGraph(), variables);
+        if (layout.equalsIgnoreCase(variables.layout_timeline_timestamp)) {
+            variables.layout = new TimelineGraphs_Timestamp_Layout<>(variables.layout.getGraph(), variables);
             variables.guiBackground.InitBackground(variables, Layouts);
             variables.view.setGraphLayout(variables.layout);
             variables.view.repaint();
@@ -282,14 +288,6 @@ public class GuiButtons {
             JCheckBoxMenuItem temporalHoursButton, 
             JCheckBoxMenuItem temporalDaysButton, 
             JCheckBoxMenuItem temporalWeeksButton) {
-//        variables.TemporalLayoutisNanoseconds = nanoseconds;
-//        variables.TemporalLayoutisMicroseconds = microseconds;
-//        variables.TemporalLayoutisMilliseconds = milliseconds;
-//        variables.TemporalLayoutisSeconds = seconds;
-//        variables.TemporalLayoutisMinutes = minutes;
-//        variables.TemporalLayoutisHours = hours;
-//        variables.TemporalLayoutisDays = days;
-//        variables.TemporalLayoutisWeek = weeks;
         variables.selectedTimeScale = selectedTime;
         temporalNanosecondsButton.setSelected(nanoseconds);
         temporalMicrosecondsButton.setSelected(microseconds);

@@ -34,6 +34,8 @@ import br.uff.ic.provviewer.Layout.Spatial_Layout;
 import br.uff.ic.provviewer.Layout.Temporal_Layout;
 import br.uff.ic.provviewer.Layout.Timeline_Layout;
 import br.uff.ic.provviewer.Layout.Hierarchy_Layout;
+import br.uff.ic.provviewer.Layout.TimelineGraphs_Layout;
+import br.uff.ic.provviewer.Layout.TimelineGraphs_Timestamp_Layout;
 import br.uff.ic.utility.GraphCollapser;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.DAGLayout;
@@ -125,6 +127,23 @@ public class Variables extends Object {
     public boolean doDerivate = false;
     public boolean removeDerivateOutliers = false;
     public boolean changedOutliersOption = false;
+    
+    public String layout_spatial = "Spatial";
+    public String layout_temporal = "Temporal";
+    public String layout_hierarchy = "Hierarchy";
+    public String layout_timeline = "Timeline";
+    public String layout_timeline_timestamp = "Timeline(Timestamp)";
+    public String layout_timeline_graphs = "Timeline(Multiple Graphs)";
+    public String layout_provcircle = "ProvCircle";
+    public String layout_provcircle2 = "ProvCircle2";
+    public String layout_circle = "Circle";
+    public String layout_fr = "FR";
+    public String layout_fr2 = "FR2";
+    public String layout_kk = "KK";
+    public String layout_ISOM = "ISOM";
+    public String layout_spring = "Spring";
+    public String layout_dag = "DAG";
+
     
     /**
      * Return the max value between 2 values
@@ -223,43 +242,49 @@ public class Variables extends Object {
     }
     
     public void newLayout(String layout) {
-        if (layout.equalsIgnoreCase("CircleLayout")) {
+        if (layout.equalsIgnoreCase(layout_circle)) {
             this.layout = new CircleLayout<>(this.graph);
         }
-        else if (layout.equalsIgnoreCase("FRLayout")) {
+        else if (layout.equalsIgnoreCase(layout_fr)) {
             this.layout = new FRLayout<>(this.graph);
         }
-        else if (layout.equalsIgnoreCase("FRLayout2")) {
+        else if (layout.equalsIgnoreCase(layout_fr2)) {
             this.layout = new FRLayout2<>(this.graph);
         }
-        else if (layout.equalsIgnoreCase("ISOMLayout")) {
+        else if (layout.equalsIgnoreCase(layout_ISOM)) {
             this.layout = new ISOMLayout<>(this.graph);
         }
-        else if (layout.equalsIgnoreCase("KKLayout")) {
+        else if (layout.equalsIgnoreCase(layout_kk)) {
             this.layout = new KKLayout<>(this.graph);
         }
-        else if (layout.equalsIgnoreCase("SpringLayout")) {
+        else if (layout.equalsIgnoreCase(layout_spring)) {
             this.layout = new SpringLayout<>(this.graph);
         }
-        else if (layout.equalsIgnoreCase("DagLayout")) {
+        else if (layout.equalsIgnoreCase(layout_dag)) {
             this.layout = new DAGLayout<>(this.graph);
         }
-        else if (layout.equalsIgnoreCase("TemporalLayout")) {
+        else if (layout.equalsIgnoreCase(layout_temporal)) {
             this.layout = new Temporal_Layout<>(this.graph, this);
         }
-        else if (layout.equalsIgnoreCase("SpatialLayout")) {
+        else if (layout.equalsIgnoreCase(layout_spatial)) {
             this.layout = new Spatial_Layout<>(this.graph, this);
         }
-        else if (layout.equalsIgnoreCase("TimelineLayout")) {
+        else if (layout.equalsIgnoreCase(layout_timeline)) {
             this.layout = new Timeline_Layout<>(this.graph, this);
         }
-        else if (layout.equalsIgnoreCase("ProvCircleLayout")) {
+        else if (layout.equalsIgnoreCase(layout_timeline_timestamp)) {
+            this.layout = new TimelineGraphs_Timestamp_Layout<>(this.graph, this);
+        }
+        else if (layout.equalsIgnoreCase(layout_timeline_graphs)) {
+            this.layout = new TimelineGraphs_Layout<>(this.graph, this);
+        }
+        else if (layout.equalsIgnoreCase(layout_provcircle)) {
             this.layout = new ProvCircleLayout<>(this.graph, this);
         }
-        else if (layout.equalsIgnoreCase("ProvCircleLayout2")) {
+        else if (layout.equalsIgnoreCase(layout_provcircle2)) {
             this.layout = new ProvCircleLayout2<>(this.graph, this);
         }
-        else if (layout.equalsIgnoreCase("HierarchyLayout")) {
+        else if (layout.equalsIgnoreCase(layout_hierarchy)) {
             this.layout = new Hierarchy_Layout<>(this.graph, this);
         }
         else {

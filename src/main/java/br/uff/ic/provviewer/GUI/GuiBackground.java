@@ -104,7 +104,7 @@ public class GuiBackground {
         Graphics2D g2d = (Graphics2D) g.create();
         AffineTransform oldXform = g2d.getTransform();
         SetTransform(g2d, variables);
-        if (Layouts.getSelectedItem().equals("SpatialLayout")) {
+        if (Layouts.getSelectedItem().equals(variables.layout_spatial)) {
             DrawImage(g2d, variables, icon, (int) offsetX, (int) offsetY);
         } else {
             DrawImage(g2d, variables, whiteIcon, (int) offsetX, (int) offsetY);
