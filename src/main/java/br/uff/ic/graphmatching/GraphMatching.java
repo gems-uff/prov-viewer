@@ -339,11 +339,11 @@ public class GraphMatching {
         Vertex combinedVertex = null;
 
         if (v1 instanceof ActivityVertex) {
-            combinedVertex = new ActivityVertex(v1.getID(), v1.getLabel(), v1.getTimeString());
+            combinedVertex = new ActivityVertex(v1.getID() + ", " + v2.getID(), v1.getLabel(), v1.getTimeString());
         } else if (v1 instanceof EntityVertex) {
-            combinedVertex = new EntityVertex(v1.getID(), v1.getLabel(), v1.getTimeString());
+            combinedVertex = new EntityVertex(v1.getID() + ", " + v2.getID(), v1.getLabel(), v1.getTimeString());
         } else {
-            combinedVertex = new AgentVertex(v1.getID(), v1.getLabel(), v1.getTimeString());
+            combinedVertex = new AgentVertex(v1.getID() + ", " + v2.getID(), v1.getLabel(), v1.getTimeString());
         }
 
         // Add all attributes from v1
@@ -361,8 +361,8 @@ public class GraphMatching {
         }
 
         // Update ID and Label
-        combinedVertex.setID(combinedVertex.getID().replace(" (Merged)", ""));
-        combinedVertex.setID(combinedVertex.getID() + "_" + v2.getID() + " (Merged)");
+//        combinedVertex.setID(combinedVertex.getID().replace(" (Merged)", ""));
+//        combinedVertex.setID(combinedVertex.getID() + "_" + v2.getID() + " (Merged)");
         if(!combinedVertex.getLabel().equalsIgnoreCase(v2.getLabel()))
             combinedVertex.setLabel(combinedVertex.getLabel() + "_" + v2.getLabel());        
 
