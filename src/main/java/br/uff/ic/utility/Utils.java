@@ -736,6 +736,10 @@ public class Utils {
         return attributeList.values();
     }
     
+    /**
+     * Method to return a comparator that compares two vertices based on their timestamps
+     * @return the comparator
+     */
     public static Comparator getVertexTimeComparator() {
         Comparator comparator = new Comparator<Object>() {
             @Override
@@ -755,6 +759,20 @@ public class Utils {
             }
         };
         return comparator;
+    }
+    
+    /**
+     * Method that return a grayscale color from the grayscale gradient
+     * @param value is the current value that we want the color
+     * @param max is the maximum possible value that the previous value can assume
+     * @return the gray color corresponding to the value, which is based on value/max
+     */
+    public static Color getGrayscaleColor(int value, int max)
+    {
+        if(max == 0)
+            max = 1;
+      int rgbNum = 255 - (int) ((value / max) * 255.0);
+      return new Color (rgbNum,rgbNum,rgbNum);
     }
 
 }
