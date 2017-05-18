@@ -36,6 +36,11 @@ THE SOFTWARE.
         <weight>1</weight>
     </attributeErrorList>
     <attributeErrorList>
+        <name>ObjectID</name>
+        <value>100%</value>
+        <weight>0</weight>
+    </attributeErrorList>
+    <attributeErrorList>
         <name>ObjectPosition_X</name>
         <value>5%</value>
         <weight>1</weight>

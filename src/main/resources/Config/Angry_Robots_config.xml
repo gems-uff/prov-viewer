@@ -100,7 +100,7 @@ THE SOFTWARE.
         <restrictedValue>Player</restrictedValue>
     </colorscheme>
     <colorscheme>
-        <attribute>demo</attribute>
+        <attribute>Graph_to_Merge_01.xml</attribute>
         <class>GraphVisualizationScheme</class>
         <values></values>
         <goodvalue></goodvalue>
@@ -108,6 +108,13 @@ THE SOFTWARE.
     </colorscheme>
     <colorscheme>
         <attribute>Graph_to_Merge_02.xml</attribute>
+        <class>GraphVisualizationScheme</class>
+        <values></values>
+        <goodvalue></goodvalue>
+        <badvalue></badvalue>
+    </colorscheme>
+    <colorscheme>
+        <attribute>Graph_to_Merge_03.xml</attribute>
         <class>GraphVisualizationScheme</class>
         <values></values>
         <goodvalue></goodvalue>
