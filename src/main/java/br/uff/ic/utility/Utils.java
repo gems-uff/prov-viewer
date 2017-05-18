@@ -656,14 +656,16 @@ public class Utils {
     }
     
     /**
-     * 
+     * @deprecated 
      * @param graph
      * @param graphFileName 
      */
     public static void updateVertexIDs(DirectedGraph<Object, Edge> graph, String graphFileName) {
         // Instead of changing ID, make an attribute with value as the graph file name
         for (Object v : graph.getVertices()) {
-            ((Vertex)v).setID(graphFileName + "_" + ((Vertex)v).getID());
+            if(!((Vertex)v).getID().contains(graphFileName)) {
+                ((Vertex)v).setID(graphFileName + "_" + ((Vertex)v).getID());
+            }
             GraphAttribute att = ((Vertex)v).getAttribute("GraphFile");
             if(att == null) {
                 att = new GraphAttribute("GraphFile", graphFileName);
@@ -677,7 +679,7 @@ public class Utils {
     }
     
     /**
-     * 
+     * @deprecated 
      * @param graph
      * @param graphFileName 
      */
