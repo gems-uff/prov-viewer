@@ -95,8 +95,12 @@ public class UnityReader extends XMLReader{
                 }
                 
                 NodeList aList = eElement.getElementsByTagName("attribute");
+                boolean hasGraphFile = false;
                 for(int i = 0; i < aList.getLength(); i++){
                     GraphAttribute att;
+                    if(eElement.getElementsByTagName("name").item(i).getTextContent().equalsIgnoreCase("GraphFile")) {
+                        hasGraphFile = true;
+                    }
                     if(eElement.getElementsByTagName("min").item(i) != null && eElement.getElementsByTagName("max").item(i) != null && eElement.getElementsByTagName("quantity").item(i) != null) {
                         if(eElement.getElementsByTagName("originalValues").item(i) !=null) {
                             Node valuesList;
@@ -122,7 +126,10 @@ public class UnityReader extends XMLReader{
                         eElement.getElementsByTagName("value").item(i).getTextContent());
                     node.addAttribute(att);
                 }
-                
+                if(!hasGraphFile) {
+                    GraphAttribute att = new GraphAttribute("GraphFile", file.getName());
+                    node.addAttribute(att);
+                }
                 //String details = eElement.getElementsByTagName("details").item(0).getTextContent();
                 //node.SetDetail(details);
                 
