@@ -43,8 +43,8 @@ public class GraphMerger {
     
     
     public GraphMerger(String g01, String g02) {
-        graph01 = g01;
-        graph02 = g02;
+        graph01 = "(" + g01 + ")";
+        graph02 = "(" + g02 + ")";
     }
     public GraphMerger() {
         graph01 = "Graph_01";
@@ -183,10 +183,10 @@ public class GraphMerger {
             DirectedGraph<Object, Edge> graph_02, 
             GraphMatching combiner) {
         // Correct IDs
-        Utils.updateVertexIDs(graph_01, graph01);
-        Utils.updateVertexIDs(graph_02, graph02);
-        Utils.updateEdgeIDs(graph_01, graph01);
-        Utils.updateEdgeIDs(graph_02, graph02);
+//        Utils.updateVertexIDs(graph_01, graph01);
+//        Utils.updateVertexIDs(graph_02, graph02);
+//        Utils.updateEdgeIDs(graph_01, graph01);
+//        Utils.updateEdgeIDs(graph_02, graph02);
         Utils.NormalizeTime(graph_01, true);
         Utils.NormalizeTime(graph_02, true);
         

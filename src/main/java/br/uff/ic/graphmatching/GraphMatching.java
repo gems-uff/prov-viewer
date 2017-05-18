@@ -259,9 +259,11 @@ public class GraphMatching {
             }
             size = size + (1 * weight);
         }
-        
-//        System.out.println("Similarity: " + similarity);
-//        System.out.println("Size: " + size);
+//        if(v1.getLabel().equalsIgnoreCase("Player") && v2.getLabel().equalsIgnoreCase("Player")) {
+//            System.out.println(v1.getID() + " " + v2.getID());
+//            System.out.println("Similarity: " + similarity);
+//            System.out.println("Size: " + size);
+//        }
         similarity = similarity / size;
 
 //        System.out.println("Match Similarity between " + v1.getID() + " and " + v2.getID() + ": " + similarity);
