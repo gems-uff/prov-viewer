@@ -137,6 +137,7 @@ public class GraphFrame extends javax.swing.JFrame {
         displayID = new javax.swing.JCheckBoxMenuItem();
         useEdgeTypeColor = new javax.swing.JCheckBoxMenuItem();
         isStrokeByValueButton = new javax.swing.JCheckBoxMenuItem();
+        isVertexSizeBasedOnGraphsButton = new javax.swing.JCheckBoxMenuItem();
         PantoVertex = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -632,6 +633,15 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu1.add(isStrokeByValueButton);
 
+        isVertexSizeBasedOnGraphsButton.setSelected(true);
+        isVertexSizeBasedOnGraphsButton.setText("Use Vertex Size based on Graphs");
+        isVertexSizeBasedOnGraphsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                isVertexSizeBasedOnGraphsButtonActionPerformed(evt);
+            }
+        });
+        jMenu1.add(isVertexSizeBasedOnGraphsButton);
+
         PantoVertex.setText("Pan to vertex");
         PantoVertex.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1114,6 +1124,11 @@ public class GraphFrame extends javax.swing.JFrame {
         variables.isStrokeByValue = isStrokeByValueButton.getState();
         variables.view.repaint();
     }//GEN-LAST:event_isStrokeByValueButtonActionPerformed
+
+    private void isVertexSizeBasedOnGraphsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isVertexSizeBasedOnGraphsButtonActionPerformed
+        // TODO add your handling code here:
+        GuiFunctions.VertexShape(variables, isVertexSizeBasedOnGraphsButton.getState());
+    }//GEN-LAST:event_isVertexSizeBasedOnGraphsButtonActionPerformed
    
     /**
      * Main
@@ -1197,6 +1212,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JFileChooser fileChooser;
     public static javax.swing.JCheckBox isSTDeps;
     public static javax.swing.JCheckBoxMenuItem isStrokeByValueButton;
+    private javax.swing.JCheckBoxMenuItem isVertexSizeBasedOnGraphsButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

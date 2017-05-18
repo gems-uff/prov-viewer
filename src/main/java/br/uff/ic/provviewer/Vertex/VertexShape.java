@@ -21,12 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package br.uff.ic.provviewer.Vertex;
 
 import br.uff.ic.utility.GraphUtils;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.graph.EntityVertex;
+import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.decorators.EllipseVertexShapeTransformer;
 import java.awt.Shape;
@@ -40,7 +40,9 @@ import java.awt.geom.Ellipse2D;
  */
 public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
 
+    boolean isVertexSizeBasedOnGraphs = true;
     int defaultSize = 15;
+
     public VertexShape() {
         setSizeTransformer(new VertexSize<V>(defaultSize));
     }
@@ -48,6 +50,12 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
     public VertexShape(int vertexSize) {
         defaultSize = vertexSize;
         setSizeTransformer(new VertexSize<V>(vertexSize));
+    }
+    
+    public VertexShape(int vertexSize, boolean isBasedOnGraphs) {
+        defaultSize = vertexSize;
+        setSizeTransformer(new VertexSize<V>(vertexSize));
+        isVertexSizeBasedOnGraphs = isBasedOnGraphs;
     }
 
     /**
@@ -58,19 +66,38 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
      */
     @Override
     public Shape transform(V v) {
-        if (v instanceof Graph) {
-            int graphSize = GraphUtils.getCollapsedVertexSize(v);
-            Object vertex;
-            vertex = GraphUtils.hasAgentVertex(v);      
-
-            v = (V) vertex;
-            setSizeTransformer(new VertexSize<V>(defaultSize + graphSize));
-        }
+        if (isVertexSizeBasedOnGraphs)
+            return multipleGraphShape(v);
         else
+            return defaultShape(v);
+    }
+
+    /**
+     * Method that defines the default vertex shape
+     *
+     * @param v is the vertex
+     * @return the vertex shape
+     */
+    private Shape defaultShape(V v) {
+        if (v instanceof Graph) {
+            vertexGraphSizeTransformer(v);
+        } else {
             setSizeTransformer(new VertexSize<V>(defaultSize));
-        
+        }
+
+        return provShape(v, defaultSize);
+    }
+
+    /**
+     * Method that defines the prov shapes for the vertices
+     *
+     * @param v is the vertex
+     * @param size is the size that we want for the vertex
+     * @return the vertex shape
+     */
+    private Shape provShape(V v, int size) {
         if (v instanceof EntityVertex) {
-            return new Ellipse2D.Float(-7, -7, defaultSize, defaultSize);
+            return new Ellipse2D.Float(-7, -7, size, size);
         }
         if (v instanceof AgentVertex) {
             return factory.getRegularPolygon(v, 5);
@@ -78,5 +105,38 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
         {
             return factory.getRegularPolygon(v, 4);
         }
+    }
+
+    /**
+     * Default Method for setting the vertex-graph size transformer
+     *
+     * @param v is the graph vertex
+     */
+    private void vertexGraphSizeTransformer(V v) {
+        int graphSize = GraphUtils.getCollapsedVertexSize(v);
+        Object vertex;
+        vertex = GraphUtils.hasAgentVertex(v);
+        setSizeTransformer(new VertexSize<V>(defaultSize + graphSize));
+    }
+
+    /**
+     * Method to define the vertex size based on the number of graphs it belongs
+     *
+     * @param v is the vertex
+     * @return the vertex shape
+     */
+    private Shape multipleGraphShape(V v) {
+
+        int numberOfGraphs;
+        int vertexSize = defaultSize;
+        if (v instanceof Graph) {
+            vertexGraphSizeTransformer(v);
+        } else {
+            String[] graphs = ((Vertex) v).getAttributeValues("GraphFile");
+            numberOfGraphs = graphs.length;
+            vertexSize = defaultSize * numberOfGraphs;
+            setSizeTransformer(new VertexSize<V>(vertexSize));
+        }
+        return provShape(v, vertexSize);
     }
 }

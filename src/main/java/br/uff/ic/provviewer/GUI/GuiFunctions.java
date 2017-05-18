@@ -63,11 +63,21 @@ import org.apache.commons.collections15.Transformer;
 public class GuiFunctions {
 
     /**
-     * Method to define the vertex shape
+     * Method to define the vertex shape using the default shapes
      * @param variables
      */
     public static void VertexShape(Variables variables) {
         variables.view.getRenderContext().setVertexShapeTransformer(new VertexShape(variables.config.vertexSize));
+    }
+    
+    /**
+     * Method to define the vertex shape
+     * @param variables
+     * @param isDefaultShape
+     */
+    public static void VertexShape(Variables variables, boolean isVertexSizeBasedOnGraphs) {
+        variables.view.getRenderContext().setVertexShapeTransformer(new VertexShape(variables.config.vertexSize, isVertexSizeBasedOnGraphs));
+        variables.view.repaint();
     }
 
     /**
