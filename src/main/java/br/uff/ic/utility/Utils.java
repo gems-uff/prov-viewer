@@ -539,6 +539,23 @@ public class Utils {
         }
         return max;
     }
+    
+    /**
+     * Method to find the maximum value in the graph from an attribute
+     * @param nodes is the list of vertices
+     * @param attribute is the attribute that we want to find the maximum value
+     * @return the maximum value of attribute
+     */
+    public static double findMaximumAttributeValue(Collection<Object> nodes, String attribute) {
+        ArrayList<Float> derivateValues = new ArrayList<>();
+        double max = Double.NEGATIVE_INFINITY;
+        for (Object node : nodes) {
+            if (!((Vertex) node).getAttributeValue(attribute).contentEquals("Unknown")) {
+                max = Math.max(max, ((Vertex) node).getAttributeValueFloat(attribute));
+            }
+        }
+        return max;
+    }
 
     /**
      * Method to convert a list of objects to an arraylist of double
