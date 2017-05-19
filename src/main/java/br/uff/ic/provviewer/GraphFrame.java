@@ -91,12 +91,9 @@ public class GraphFrame extends javax.swing.JFrame {
         Expand = new javax.swing.JButton();
         Collapse = new javax.swing.JButton();
         MouseModes = new javax.swing.JComboBox();
-        FilterNodeAgentButton = new javax.swing.JCheckBox();
-        FilterNodeLonelyButton = new javax.swing.JCheckBox();
         DisplayEdges = new javax.swing.JLabel();
         EdgeLineShapeSelection = new javax.swing.JComboBox();
         StatusFilterBox = new javax.swing.JComboBox();
-        ShowEdgeTextButton = new javax.swing.JCheckBox();
         AttributeStatus = new javax.swing.JLabel();
         EdgeStyle = new javax.swing.JLabel();
         MouseModeLabel = new javax.swing.JLabel();
@@ -104,9 +101,7 @@ public class GraphFrame extends javax.swing.JFrame {
         edgeFilterList = new javax.swing.JList();
         Layouts = new javax.swing.JComboBox();
         GraphLayout = new javax.swing.JLabel();
-        FilterEdgeAgentButton = new javax.swing.JCheckBox();
         SimilarityInference = new javax.swing.JButton();
-        FilterNodeEntityButton = new javax.swing.JCheckBox();
         FilterVertexMinValue = new javax.swing.JTextField();
         FilterVertexMaxValue = new javax.swing.JTextField();
         TemporalFilterToggle = new javax.swing.JToggleButton();
@@ -130,15 +125,22 @@ public class GraphFrame extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         autoDetectEdgesCheckBox = new javax.swing.JCheckBoxMenuItem();
         autoDetectAttributeCheckBox = new javax.swing.JCheckBoxMenuItem();
-        displayAgentLabelButton = new javax.swing.JCheckBoxMenuItem();
-        displayActivityLabelButton = new javax.swing.JCheckBoxMenuItem();
-        displayEntityLabelButton = new javax.swing.JCheckBoxMenuItem();
-        displayTimeLabel = new javax.swing.JCheckBoxMenuItem();
-        displayID = new javax.swing.JCheckBoxMenuItem();
         useEdgeTypeColor = new javax.swing.JCheckBoxMenuItem();
         isStrokeByValueButton = new javax.swing.JCheckBoxMenuItem();
         isVertexSizeBasedOnGraphsButton = new javax.swing.JCheckBoxMenuItem();
         PantoVertex = new javax.swing.JMenuItem();
+        displayEdgeTextButton = new javax.swing.JMenu();
+        displayID = new javax.swing.JCheckBoxMenuItem();
+        displayTimeLabel = new javax.swing.JCheckBoxMenuItem();
+        displayActivityLabelButton = new javax.swing.JCheckBoxMenuItem();
+        displayAgentLabelButton = new javax.swing.JCheckBoxMenuItem();
+        displayEntityLabelButton = new javax.swing.JCheckBoxMenuItem();
+        displayEdgeText = new javax.swing.JCheckBoxMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        hideAgentVerticesButton = new javax.swing.JCheckBoxMenuItem();
+        hideEntityVerticesButton = new javax.swing.JCheckBoxMenuItem();
+        hideLonelyVerticesButton = new javax.swing.JCheckBoxMenuItem();
+        hideAgentEdgesButton = new javax.swing.JCheckBoxMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         mergeGraphButtom = new javax.swing.JMenuItem();
@@ -210,22 +212,6 @@ public class GraphFrame extends javax.swing.JFrame {
             }
         });
 
-        FilterNodeAgentButton.setText("Agents Vertices");
-        FilterNodeAgentButton.setToolTipText("Filter all agent vertices");
-        FilterNodeAgentButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FilterNodeAgentButtonActionPerformed(evt);
-            }
-        });
-
-        FilterNodeLonelyButton.setText("Lonely Vertices");
-        FilterNodeLonelyButton.setToolTipText("Filter all vertices without neighbors");
-        FilterNodeLonelyButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FilterNodeLonelyButtonActionPerformed(evt);
-            }
-        });
-
         DisplayEdges.setText("Display Edge");
 
         EdgeLineShapeSelection.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "QuadCurve", "Line" }));
@@ -241,14 +227,6 @@ public class GraphFrame extends javax.swing.JFrame {
         StatusFilterBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 StatusFilterBoxActionPerformed(evt);
-            }
-        });
-
-        ShowEdgeTextButton.setText("Edge Text");
-        ShowEdgeTextButton.setToolTipText("Display the Edge's type");
-        ShowEdgeTextButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ShowEdgeTextButtonActionPerformed(evt);
             }
         });
 
@@ -281,27 +259,11 @@ public class GraphFrame extends javax.swing.JFrame {
 
         GraphLayout.setText("Graph Layout");
 
-        FilterEdgeAgentButton.setText("Agent Edge");
-        FilterEdgeAgentButton.setToolTipText("Filter all edges that connect to an agent");
-        FilterEdgeAgentButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FilterEdgeAgentButtonActionPerformed(evt);
-            }
-        });
-
         SimilarityInference.setText("Similarity Collapse");
         SimilarityInference.setToolTipText("Collapse vertices using the Similarity Algorithm Make sure to load the configuration file before collapsing or selecting the \"Attribute Status Config\" option in the \"Similarity Collapse\" menu");
         SimilarityInference.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SimilarityInferenceActionPerformed(evt);
-            }
-        });
-
-        FilterNodeEntityButton.setText("Entity Vertices");
-        FilterNodeEntityButton.setToolTipText("Filter all entity vertices");
-        FilterNodeEntityButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FilterNodeEntityButtonActionPerformed(evt);
             }
         });
 
@@ -390,26 +352,15 @@ public class GraphFrame extends javax.swing.JFrame {
         ToolMenuLayout.setHorizontalGroup(
             ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ToolMenuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(FilterNodeAgentButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(ShowEdgeTextButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(FilterNodeLonelyButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(FilterNodeEntityButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(FilterEdgeAgentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(128, 128, 128)
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(DisplayEdges, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(EdgeTypes, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ToolMenuLayout.createSequentialGroup()
-                        .addComponent(DisplayVertices, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(96, 96, 96))
-                    .addGroup(ToolMenuLayout.createSequentialGroup()
-                        .addComponent(VertexLabels, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(VertexLabels, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                    .addComponent(DisplayVertices, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(CollapseAgent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Collapse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -436,9 +387,9 @@ public class GraphFrame extends javax.swing.JFrame {
                         .addComponent(FilterVertexMinValue, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(FilterVertexMaxValue))
-                    .addComponent(StatusFilterBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(AttributeStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(TemporalFilterToggle, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(StatusFilterBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(TemporalFilterToggle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(ToolMenuLayout.createSequentialGroup()
@@ -460,16 +411,6 @@ public class GraphFrame extends javax.swing.JFrame {
         );
         ToolMenuLayout.setVerticalGroup(
             ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ToolMenuLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(FilterNodeAgentButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FilterEdgeAgentButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FilterNodeEntityButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FilterNodeLonelyButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(ToolMenuLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -517,9 +458,8 @@ public class GraphFrame extends javax.swing.JFrame {
                                 .addComponent(simStdInc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel3)))))
             .addGroup(ToolMenuLayout.createSequentialGroup()
-                .addGap(5, 5, 5)
+                .addGap(9, 9, 9)
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ShowEdgeTextButton)
                     .addComponent(DisplayEdges)
                     .addComponent(DisplayVertices))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -576,46 +516,6 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu1.add(autoDetectAttributeCheckBox);
 
-        displayAgentLabelButton.setText("Display Agent Vertex Label");
-        displayAgentLabelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                displayAgentLabelButtonActionPerformed(evt);
-            }
-        });
-        jMenu1.add(displayAgentLabelButton);
-
-        displayActivityLabelButton.setText("Display Activity Vertex Label");
-        displayActivityLabelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                displayActivityLabelButtonActionPerformed(evt);
-            }
-        });
-        jMenu1.add(displayActivityLabelButton);
-
-        displayEntityLabelButton.setText("Display Entity Vertex Label");
-        displayEntityLabelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                displayEntityLabelButtonActionPerformed(evt);
-            }
-        });
-        jMenu1.add(displayEntityLabelButton);
-
-        displayTimeLabel.setText("Display Time");
-        displayTimeLabel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                displayTimeLabelActionPerformed(evt);
-            }
-        });
-        jMenu1.add(displayTimeLabel);
-
-        displayID.setText("Display ID");
-        displayID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                displayIDActionPerformed(evt);
-            }
-        });
-        jMenu1.add(displayID);
-
         useEdgeTypeColor.setText("Use Edge Type Color");
         useEdgeTypeColor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -651,6 +551,96 @@ public class GraphFrame extends javax.swing.JFrame {
         jMenu1.add(PantoVertex);
 
         MenuBar.add(jMenu1);
+
+        displayEdgeTextButton.setText("Display");
+        displayEdgeTextButton.setToolTipText("");
+
+        displayID.setText("Display ID");
+        displayID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                displayIDActionPerformed(evt);
+            }
+        });
+        displayEdgeTextButton.add(displayID);
+
+        displayTimeLabel.setText("Display Time");
+        displayTimeLabel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                displayTimeLabelActionPerformed(evt);
+            }
+        });
+        displayEdgeTextButton.add(displayTimeLabel);
+
+        displayActivityLabelButton.setText("Display Activity Vertex Label");
+        displayActivityLabelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                displayActivityLabelButtonActionPerformed(evt);
+            }
+        });
+        displayEdgeTextButton.add(displayActivityLabelButton);
+
+        displayAgentLabelButton.setText("Display Agent Vertex Label");
+        displayAgentLabelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                displayAgentLabelButtonActionPerformed(evt);
+            }
+        });
+        displayEdgeTextButton.add(displayAgentLabelButton);
+
+        displayEntityLabelButton.setText("Display Entity Vertex Label");
+        displayEntityLabelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                displayEntityLabelButtonActionPerformed(evt);
+            }
+        });
+        displayEdgeTextButton.add(displayEntityLabelButton);
+
+        displayEdgeText.setText("Display Edge Text");
+        displayEdgeText.setToolTipText("Display Edge Text in the format of \"type (label)\"");
+        displayEdgeText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                displayEdgeTextActionPerformed(evt);
+            }
+        });
+        displayEdgeTextButton.add(displayEdgeText);
+
+        MenuBar.add(displayEdgeTextButton);
+
+        jMenu6.setText("Hide");
+
+        hideAgentVerticesButton.setText("Hide Agent Vertices");
+        hideAgentVerticesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hideAgentVerticesButtonActionPerformed(evt);
+            }
+        });
+        jMenu6.add(hideAgentVerticesButton);
+
+        hideEntityVerticesButton.setText("Hide Entity Vertices");
+        hideEntityVerticesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hideEntityVerticesButtonActionPerformed(evt);
+            }
+        });
+        jMenu6.add(hideEntityVerticesButton);
+
+        hideLonelyVerticesButton.setText("Hide Lonely Vertices");
+        hideLonelyVerticesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hideLonelyVerticesButtonActionPerformed(evt);
+            }
+        });
+        jMenu6.add(hideLonelyVerticesButton);
+
+        hideAgentEdgesButton.setText("Hide Agent Edges");
+        hideAgentEdgesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hideAgentEdgesButtonActionPerformed(evt);
+            }
+        });
+        jMenu6.add(hideAgentEdgesButton);
+
+        MenuBar.add(jMenu6);
 
         jMenu2.setText("Merge");
 
@@ -811,7 +801,7 @@ public class GraphFrame extends javax.swing.JFrame {
 
         setJMenuBar(MenuBar);
 
-        setSize(new java.awt.Dimension(1076, 743));
+        setSize(new java.awt.Dimension(1126, 743));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     /**
@@ -857,24 +847,6 @@ public class GraphFrame extends javax.swing.JFrame {
 
    /**
          * ================================================
-         * Filtering agent vertices
-         * ================================================
-         */
-    private void FilterNodeAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterNodeAgentButtonActionPerformed
-        GuiButtons.Filter(variables);
-    }//GEN-LAST:event_FilterNodeAgentButtonActionPerformed
-
-   /**
-         * ================================================
-         * Filtering lonely vertices
-         * ================================================
-         */
-    private void FilterNodeLonelyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterNodeLonelyButtonActionPerformed
-        GuiButtons.Filter(variables);
-    }//GEN-LAST:event_FilterNodeLonelyButtonActionPerformed
-
-   /**
-         * ================================================
          * Edge Shape: Make it to be a line instead of quadratic curves
          * ================================================
          */
@@ -890,14 +862,6 @@ public class GraphFrame extends javax.swing.JFrame {
     private void StatusFilterBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StatusFilterBoxActionPerformed
         GuiButtons.StatusFilter(variables);
     }//GEN-LAST:event_StatusFilterBoxActionPerformed
-    /**
-         * ================================================
-         * Show edge text button
-         * ================================================
-         */
-    private void ShowEdgeTextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowEdgeTextButtonActionPerformed
-        GuiButtons.EdgeTextDisplay(variables, ShowEdgeTextButton.isSelected());        
-    }//GEN-LAST:event_ShowEdgeTextButtonActionPerformed
 
    
     private void edgeFilterListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_edgeFilterListValueChanged
@@ -919,10 +883,6 @@ public class GraphFrame extends javax.swing.JFrame {
     private void OpenGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenGraphActionPerformed
         GuiReadFile.openGraphFile(variables, fileChooser, this, Layouts);
     }//GEN-LAST:event_OpenGraphActionPerformed
-
-    private void FilterEdgeAgentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterEdgeAgentButtonActionPerformed
-        GuiButtons.Filter(variables);
-    }//GEN-LAST:event_FilterEdgeAgentButtonActionPerformed
 
     private void SimilarityInferenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SimilarityInferenceActionPerformed
         GuiInference.SimilarityCollapse(variables, updateErrorButton.getState(), verifyWithinClusterButton.getState());
@@ -974,11 +934,6 @@ public class GraphFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         GuiButtons.VertexLabel(variables, displayAgentLabelButton.getState(), displayActivityLabelButton.getState(), displayEntityLabelButton.getState(), displayTimeLabel.getState(), displayID.getState());
     }//GEN-LAST:event_displayTimeLabelActionPerformed
-
-    private void FilterNodeEntityButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterNodeEntityButtonActionPerformed
-        // TODO add your handling code here:
-        GuiButtons.Filter(variables);
-    }//GEN-LAST:event_FilterNodeEntityButtonActionPerformed
 
     private void mergeGraphButtomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mergeGraphButtomActionPerformed
         // TODO add your handling code here:
@@ -1129,6 +1084,27 @@ public class GraphFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         GuiFunctions.VertexShape(variables, isVertexSizeBasedOnGraphsButton.getState());
     }//GEN-LAST:event_isVertexSizeBasedOnGraphsButtonActionPerformed
+
+    private void displayEdgeTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayEdgeTextActionPerformed
+        // TODO add your handling code here:
+        GuiButtons.EdgeTextDisplay(variables, displayEdgeText.isSelected());
+    }//GEN-LAST:event_displayEdgeTextActionPerformed
+
+    private void hideAgentVerticesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hideAgentVerticesButtonActionPerformed
+        GuiButtons.Filter(variables);
+    }//GEN-LAST:event_hideAgentVerticesButtonActionPerformed
+
+    private void hideEntityVerticesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hideEntityVerticesButtonActionPerformed
+        GuiButtons.Filter(variables);
+    }//GEN-LAST:event_hideEntityVerticesButtonActionPerformed
+
+    private void hideLonelyVerticesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hideLonelyVerticesButtonActionPerformed
+        GuiButtons.Filter(variables);
+    }//GEN-LAST:event_hideLonelyVerticesButtonActionPerformed
+
+    private void hideAgentEdgesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hideAgentEdgesButtonActionPerformed
+        GuiButtons.Filter(variables);
+    }//GEN-LAST:event_hideAgentEdgesButtonActionPerformed
    
     /**
      * Main
@@ -1176,10 +1152,6 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem Exit;
     private javax.swing.JButton Expand;
     private javax.swing.JMenu FileMenu;
-    public static javax.swing.JCheckBox FilterEdgeAgentButton;
-    public static javax.swing.JCheckBox FilterNodeAgentButton;
-    public static javax.swing.JCheckBox FilterNodeEntityButton;
-    public static javax.swing.JCheckBox FilterNodeLonelyButton;
     public static javax.swing.JTextField FilterVertexMaxValue;
     public static javax.swing.JTextField FilterVertexMinValue;
     private javax.swing.JLabel GraphLayout;
@@ -1191,7 +1163,6 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem OpenGraph;
     private javax.swing.JMenuItem PantoVertex;
     private javax.swing.JButton Reset;
-    private javax.swing.JCheckBox ShowEdgeTextButton;
     private javax.swing.JButton SimilarityInference;
     public static javax.swing.JComboBox StatusFilterBox;
     public static javax.swing.JToggleButton TemporalFilterToggle;
@@ -1203,6 +1174,8 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JTextField dbscanEpsilon;
     private javax.swing.JCheckBoxMenuItem displayActivityLabelButton;
     private javax.swing.JCheckBoxMenuItem displayAgentLabelButton;
+    private javax.swing.JCheckBoxMenuItem displayEdgeText;
+    private javax.swing.JMenu displayEdgeTextButton;
     private javax.swing.JCheckBoxMenuItem displayEntityLabelButton;
     private javax.swing.JCheckBoxMenuItem displayID;
     private javax.swing.JCheckBoxMenuItem displayTimeLabel;
@@ -1210,6 +1183,10 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JList edgeFilterList;
     private javax.swing.JMenuItem exportGraphButton;
     private javax.swing.JFileChooser fileChooser;
+    public static javax.swing.JCheckBoxMenuItem hideAgentEdgesButton;
+    public static javax.swing.JCheckBoxMenuItem hideAgentVerticesButton;
+    public static javax.swing.JCheckBoxMenuItem hideEntityVerticesButton;
+    public static javax.swing.JCheckBoxMenuItem hideLonelyVerticesButton;
     public static javax.swing.JCheckBox isSTDeps;
     public static javax.swing.JCheckBoxMenuItem isStrokeByValueButton;
     private javax.swing.JCheckBoxMenuItem isVertexSizeBasedOnGraphsButton;
@@ -1222,6 +1199,7 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JMenu jMenu3;
     public static javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem mergeGraphButtom;

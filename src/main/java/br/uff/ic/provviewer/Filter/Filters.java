@@ -125,10 +125,10 @@ public class Filters {
     public void RemoveFilters(Variables variables) {
         GraphFrame.edgeFilterList.setSelectedIndex(0);
         GraphFrame.vertexFilterList.setSelectedIndex(0);
-        GraphFrame.FilterEdgeAgentButton.setSelected(false);
-        GraphFrame.FilterNodeAgentButton.setSelected(false);
-        GraphFrame.FilterNodeEntityButton.setSelected(false);
-        GraphFrame.FilterNodeLonelyButton.setSelected(false);
+        GraphFrame.hideAgentEdgesButton.setSelected(false);
+        GraphFrame.hideAgentVerticesButton.setSelected(false);
+        GraphFrame.hideEntityVerticesButton.setSelected(false);
+        GraphFrame.hideLonelyVerticesButton.setSelected(false);
         GraphFrame.TemporalFilterToggle.setSelected(false);
         Filters(variables);
     }
@@ -216,7 +216,7 @@ public class Filters {
      * @return if the edge will be hidden
      */
     private boolean edgeAgentFilter(Edge edge) {
-        if (GraphFrame.FilterEdgeAgentButton.isSelected()) {
+        if (GraphFrame.hideAgentEdgesButton.isSelected()) {
             if (filteredGraph.getDest(edge) instanceof AgentVertex) {
                 return true;
             }
@@ -272,7 +272,7 @@ public class Filters {
      * @return if the vertex will be hidden
      */
     private boolean vertexLonelyFilter(Object vertex) {
-        if (GraphFrame.FilterNodeLonelyButton.isSelected()) {
+        if (GraphFrame.hideLonelyVerticesButton.isSelected()) {
             final Graph test = filteredGraph;
             if (test.getNeighborCount(vertex) == 0) {
                 return true;
@@ -288,12 +288,12 @@ public class Filters {
      * @return if the vertex will be hidden
      */
     private boolean vertexTypeFilter(Object vertex) {
-        if (GraphFrame.FilterNodeAgentButton.isSelected()) {
+        if (GraphFrame.hideAgentVerticesButton.isSelected()) {
             if (vertex instanceof AgentVertex) {
                 return true;
             }
         }
-        if (GraphFrame.FilterNodeEntityButton.isSelected()) {
+        if (GraphFrame.hideEntityVerticesButton.isSelected()) {
             if (vertex instanceof EntityVertex) {
                 return true;
             }
