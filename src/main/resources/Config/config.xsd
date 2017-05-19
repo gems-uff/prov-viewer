@@ -38,6 +38,10 @@ THE SOFTWARE.
             <xs:element name="timeScale" type="xs:string"/> 
             <!-- The default layout used when loading the program -->
             <xs:element name="default_layout" type="xs:string"/>
+            <!-- Parameter to define if the Edge's Label should be a factor when considering if two edges should be merged -->
+            <!--If set as True, then both edges will only be merged if their Labels, Types, Source, and Target are the same-->
+            <!--If set as False then both edges will only be merged if their Types, Source, and Target are the same-->
+            <xs:element name="considerEdgeLabelForMerge" type="xs:boolean"/>
             <!--Temporal layout parameters-->
             <xs:element name="temporalLayout" type="temporalLayout" minOccurs="1" maxOccurs="1"/>
             <!--Spatial layout parameters-->

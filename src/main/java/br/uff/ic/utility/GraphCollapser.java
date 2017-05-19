@@ -35,9 +35,11 @@ public class GraphCollapser {
 
     private static final Logger logger = Logger.getLogger(GraphCollapser.class.getClass().getName());
     private Graph originalGraph;
+    boolean considerEdgeLabelForMerge;
 
-    public GraphCollapser(Graph originalGraph) {
+    public GraphCollapser(Graph originalGraph, boolean considerEdgeLabelForMerge) {
         this.originalGraph = originalGraph;
+        this.considerEdgeLabelForMerge = considerEdgeLabelForMerge;
 
     }
 
@@ -83,11 +85,11 @@ public class GraphCollapser {
             // don't add edges whose endpoints are both in the cluster
             if (cluster.containsAll(endpoints) == false) {
                 if (cluster.contains(endpoints.getFirst())) {
-                        Object edge = hasEdge(collapsedEdges, mergedEdges, e, ((Edge)e).getType(), cluster.hashCode(), endpoints.getSecond().hashCode());
+                        Object edge = hasEdge(collapsedEdges, mergedEdges, e, ((Edge)e).getLabel(), ((Edge)e).getType(), cluster.hashCode(), endpoints.getSecond().hashCode());
                         graph.addEdge(edge, clusterGraph, endpoints.getSecond(), inGraph.getEdgeType(e));
                         graph.addEdge(e, clusterGraph, endpoints.getSecond(), inGraph.getEdgeType(e));
                 } else if (cluster.contains(endpoints.getSecond())) {
-                        Object edge = hasEdge(collapsedEdges, mergedEdges, e, ((Edge)e).getType(), endpoints.getFirst().hashCode(), cluster.hashCode());
+                        Object edge = hasEdge(collapsedEdges, mergedEdges, e, ((Edge)e).getLabel(), ((Edge)e).getType(), endpoints.getFirst().hashCode(), cluster.hashCode());
                         graph.addEdge(edge, endpoints.getFirst(), clusterGraph, inGraph.getEdgeType(e));
                         graph.addEdge(e, endpoints.getFirst(), clusterGraph, inGraph.getEdgeType(e));
                 } else {
@@ -109,15 +111,20 @@ public class GraphCollapser {
      * @param target is the target hashcode
      * @return the edge to be added in the graph
      */
-    private Object hasEdge(Map<String, Object> collapsedEdges, Map<String, Object> mergedEdges, Object e, String type, int source, int target) {
-        String key = type + " " + source + " " + target;
+    private Object hasEdge(Map<String, Object> collapsedEdges, Map<String, Object> mergedEdges, Object e, String label, String type, int source, int target) {
+        String key;
+        if(considerEdgeLabelForMerge)
+            key = label + " " + type + " " + source + " " + target;
+        else
+            key = type + " " + source + " " + target;
+        
         if(collapsedEdges.containsKey(key)) {
             ((Edge)e).setHide(true);
             Object edge = collapsedEdges.get(key);
             ((Edge)edge).setHide(true);
             // If first time, create the edge
             if(!mergedEdges.containsKey(key)) {
-                Edge newEdge = new Edge(((Edge)edge).getID(), ((Edge)edge).getType(), ((Edge)edge).getStringValue(), "(Merged) " + ((Edge)edge).getLabel(), ((Edge)edge).attributes, ((Edge)edge).getTarget(), ((Edge)edge).getSource());
+                Edge newEdge = new Edge(((Edge)edge).getID(), ((Edge)edge).getType(), ((Edge)edge).getStringValue(), ((Edge)edge).getLabel(), ((Edge)edge).attributes, ((Edge)edge).getTarget(), ((Edge)edge).getSource());
                 newEdge = newEdge.merge((Edge) e);
                 mergedEdges.put(key, newEdge);
                 return newEdge;

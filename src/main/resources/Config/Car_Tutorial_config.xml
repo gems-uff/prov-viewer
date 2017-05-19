@@ -30,6 +30,7 @@ THE SOFTWARE.
     <default_layout>TimelineLayout</default_layout>
     <vertexSize>30</vertexSize>
     <timeScale>Seconds</timeScale>
+    <considerEdgeLabelForMerge>False</considerEdgeLabelForMerge>
     <spatialLayout>
         <layoutAxis_X>ObjectPosition_X</layoutAxis_X>
         <layoutAxis_Y>ObjectPosition_Z</layoutAxis_Y>

@@ -95,6 +95,7 @@ public class Config {
     public double width;
     public double height;
     public String timeScale = "";
+    public boolean considerEdgeLabelForMerge = false;
 
     //Vertex Stroke variables
     public List<String> vertexStrokevariables = new ArrayList<>();
@@ -263,6 +264,10 @@ public class Config {
             nList = doc.getElementsByTagName("default_layout");
             if (nList.item(0) != null) {
                 defaultLayout = nList.item(0).getTextContent();
+            }
+            nList = doc.getElementsByTagName("considerEdgeLabelForMerge");
+            if (nList.item(0) != null) {
+                considerEdgeLabelForMerge = Boolean.parseBoolean(nList.item(0).getTextContent());
             }
 
             // Temporal Layout parameters
