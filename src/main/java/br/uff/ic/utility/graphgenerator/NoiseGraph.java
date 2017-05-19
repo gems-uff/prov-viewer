@@ -181,8 +181,8 @@ public class NoiseGraph {
             noise = createMonotonicNoise(edge);
         }
         String edgeID = "Noise_Edge_" + id_counter; 
-        Edge noiseEdge_1 = new Edge(edgeID + "_1", edge.getType(), edge.getLabel(), "", edge.getTarget(), noise);
-        Edge noiseEdge_2 = new Edge(edgeID + "_2", edge.getType(), edge.getLabel(), "", noise, edge.getSource());
+        Edge noiseEdge_1 = new Edge(edgeID + "_1", edge.getTarget(), noise);
+        Edge noiseEdge_2 = new Edge(edgeID + "_2", noise, edge.getSource());
         
         noiseGraph.addEdge(noiseEdge_1, noiseEdge_1.getSource(), noiseEdge_1.getTarget());
         noiseGraph.addEdge(noiseEdge_2, noiseEdge_2.getSource(), noiseEdge_2.getTarget());

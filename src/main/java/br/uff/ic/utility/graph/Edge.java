@@ -51,6 +51,26 @@ public class Edge extends GraphObject {
     private String influenceName = "Influence";
 
     /**
+     * Constructor for testing purposes since it construct a mostly blank edge
+     * @param id is the edge ID
+     * @param target is the target vertex
+     * @param source is the source vertex
+     */
+    public Edge(String id, Object target, Object source) {
+        this.id = id;
+        this.source = source;
+        this.target = target;
+        this.type = "";
+        setLabel("");
+        hide = false;
+        collapsed = false;
+        this.attributes = new HashMap<>();
+        GraphAttribute att = new GraphAttribute(influenceName, "");
+        this.attributes.put(att.getName(), att);
+        this.attributes.putAll(attributes);
+    }
+    
+    /**
      * Constructor
      *
      * @param id
