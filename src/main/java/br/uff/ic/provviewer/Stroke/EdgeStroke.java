@@ -27,7 +27,6 @@ package br.uff.ic.provviewer.Stroke;
 import br.uff.ic.provviewer.EdgeType;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.Variables;
-import br.uff.ic.utility.graph.Vertex;
 import java.awt.BasicStroke;
 import java.awt.Stroke;
 
@@ -42,6 +41,7 @@ public class EdgeStroke {
      * Defines neutral edges stroke
      *
      * @param edge The edge to be analyzed
+     * @param isStrokeByValue define if we want to use the stroke size based on the edge's value (TRUE) or by the #graphs it belongs (FALSE)
      * @return Stroke (neutral edges are dashed, others are not)
      */
     public static Stroke EdgeStroke(Edge edge, boolean isStrokeByValue) {
