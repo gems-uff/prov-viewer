@@ -70,6 +70,8 @@ THE SOFTWARE.
             <xs:element name="sourceID" type="xs:string"/>
             <!-- Target vertex's unique ID -->
             <xs:element name="targetID" type="xs:string"/>
+            <!-- Edges Attributes -->
+            <xs:element name="attributes" type="attributes" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
     
@@ -85,7 +87,7 @@ THE SOFTWARE.
             <!-- Vertex Date of Creation/Appearance -->
             <xs:element name="date" type="xs:string"/>
             <!-- Vertex Attributes -->
-            <xs:element name="attributes" type="attributes" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="attributes" type="attributes" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
     
