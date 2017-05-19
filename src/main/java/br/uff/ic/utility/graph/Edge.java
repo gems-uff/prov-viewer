@@ -42,20 +42,18 @@ public class Edge extends GraphObject {
     private String id;
     private Object source;
     private Object target;
-    //private String influence;      // Influence type (i.e. Damage)
-    private String value;          // Influence Value (i.e. 5.0)
     private final String type;           // Edge type (prov edges)
     //used to hide this edge when collapsing a group of edges
     private boolean hide;
     //used to say this edge is a temporary one
     private boolean collapsed;
     private Color defaultColor = new Color(0, 255, 255);
+    private String influenceName = "Influence";
 
     /**
      * Constructor
      *
      * @param id
-     * @param influence
      * @param type
      * @param value
      * @param label
@@ -69,18 +67,12 @@ public class Edge extends GraphObject {
         this.source = source;
         this.target = target;
         this.type = type;
-//        if (influence.equalsIgnoreCase("") || (influence == null) || influence.equalsIgnoreCase("Neutral")) {
-//            setLabel("Neutral");
-//            this.value = "0";
-//        } else {
-//            setLabel(influence);
-//            this.value = value;
-//        }
         setLabel(label);
-        this.value = value;
         hide = false;
         collapsed = false;
         this.attributes = new HashMap<>();
+        GraphAttribute att = new GraphAttribute(influenceName, value);
+        this.attributes.put(att.getName(), att);
         this.attributes.putAll(attributes);
     }
 
@@ -101,14 +93,14 @@ public class Edge extends GraphObject {
         this.type = type;
         if (label.equalsIgnoreCase("") || label == null || "-".equals(label) || label.equalsIgnoreCase("Neutral")) {
             setLabel("Neutral");
-            this.value = "0";
-        } else {
-            this.value = value;
+            value = "0";
         }
         setLabel(label);
         hide = false;
         collapsed = false;
         this.attributes = new HashMap<>();
+        GraphAttribute att = new GraphAttribute(influenceName, value);
+        this.attributes.put(att.getName(), att);
     }
 
     /**
@@ -130,11 +122,13 @@ public class Edge extends GraphObject {
         } else {
             setLabel(influence);
         }
-        this.value = "0";
+        influence = "0";
         this.type = getLabel();
         hide = false;
         collapsed = false;
         this.attributes = new HashMap<>();
+        GraphAttribute att = new GraphAttribute(influenceName, influence);
+        this.attributes.put(att.getName(), att);
     }
 
     /**
@@ -194,10 +188,10 @@ public class Edge extends GraphObject {
      * @return (float) edge influence value
      */
     public float getValue() {
-        if (Utils.tryParseFloat(this.value)) {
-            return Float.parseFloat(this.value);
-        } else if (Utils.tryParseFloat(this.value.split(" ")[0])) {
-            return Float.parseFloat(this.value.split(" ")[0]);
+        if (Utils.tryParseFloat(this.getAttributeValue(influenceName))) {
+            return Float.parseFloat(this.getAttributeValue(influenceName));
+        } else if (Utils.tryParseFloat(this.getAttributeValue(influenceName).split(" ")[0])) {
+            return Float.parseFloat(this.getAttributeValue(influenceName).split(" ")[0]);
         } else {
             return 0;
         }
@@ -208,7 +202,7 @@ public class Edge extends GraphObject {
      * @return 
      */
     public String getStringValue() {
-        return this.value;
+        return this.getAttributeValue(influenceName);
     }
     
     /**
@@ -216,7 +210,7 @@ public class Edge extends GraphObject {
      * @param t  is the string with the new value
      */
     public void setValue(String t) {
-        this.value = t;
+        this.getAttribute(influenceName).setValue(t);
     }
 
     /**
@@ -236,7 +230,7 @@ public class Edge extends GraphObject {
     public String getEdgeTooltip() {
         return "<br>ID: " + this.id
                 + "<br>Label: " + getLabel()
-                + "<br>Value: " + getValue()
+//                + "<br>Value: " + getValue()
                 + "<br>Type: " + getType()
                 + "<br>" + printAttributes();
     }
@@ -411,12 +405,13 @@ public class Edge extends GraphObject {
      * @return the updated edge after merging with "edge"
      */
     public Edge merge(Edge edge) {
-        this.updateAllAttributes(edge.getAttributes());
-        this.setValue(Float.toString(this.getValue() + edge.getValue()));
-        this.id = this.id + ", " + edge.id;
-        if(!this.getLabel().contains(edge.getLabel()))
-            this.setLabel(this.getLabel() + ", " + edge.getLabel());
-        edge.setHide(true);
+        if(this.getType().equalsIgnoreCase(edge.getType())) {
+            this.updateAllAttributes(edge.getAttributes());
+            this.id = this.id + ", " + edge.id;
+            if(!this.getLabel().contains(edge.getLabel()))
+                this.setLabel(this.getLabel() + ", " + edge.getLabel());
+            edge.setHide(true);
+        }
         return this;
     }
 }
