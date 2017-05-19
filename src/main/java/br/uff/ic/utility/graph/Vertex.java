@@ -214,6 +214,7 @@ public abstract class Vertex extends GraphObject {
      * @param attribute is the attribute that we want to get the values
      * @return an array with the values
      */
+    @Override
     public String[] getAttributeValues(String attribute) {
         String values = this.getAttributeValue(attribute);
         return values.split(", ");

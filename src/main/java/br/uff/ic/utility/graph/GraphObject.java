@@ -124,4 +124,9 @@ public class GraphObject extends Object{
             }
         }
     }
+    
+    public String[] getAttributeValues(String attribute) {
+        String values = this.attributes.get(attribute).getAverageValue();
+        return values.split(", ");
+    }
 }
