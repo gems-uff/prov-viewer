@@ -29,7 +29,6 @@ import br.uff.ic.provviewer.EdgeType;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.Utils;
 import java.awt.Color;
-import java.awt.Paint;
 import java.util.HashMap;
 import java.util.Map;
 
