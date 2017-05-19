@@ -786,12 +786,13 @@ public class Utils {
      * @param max is the maximum possible value that the previous value can assume
      * @return the gray color corresponding to the value, which is based on value/max
      */
-    public static Color getGrayscaleColor(int value, int max)
+    public static Color getGrayscaleColor(float value, float max)
     {
         if(max == 0)
             max = 1;
-      int rgbNum = 255 - (int) ((value / max) * 255.0);
-      return new Color (rgbNum,rgbNum,rgbNum);
+        float gray = value / max * 191;
+        int rgbNum = 255 - (int) gray;
+        return new Color (rgbNum,rgbNum,rgbNum);
     }
 
 }
