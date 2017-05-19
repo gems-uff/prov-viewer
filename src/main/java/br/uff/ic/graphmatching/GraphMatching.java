@@ -483,7 +483,7 @@ public class GraphMatching {
                                     edgeList.remove(e1.getID());
                                     edgeList.remove(e2.getID());
                                     // Merge E1 with E2
-                                    Edge mergedEdge = new Edge(((Edge)e1).getID(), ((Edge)e1).getType(), ((Edge)e1).getStringValue(), "(Merged) " + ((Edge)e1).getLabel(), ((Edge)e1).attributes, ((Edge)e1).getTarget(), ((Edge)e1).getSource());
+                                    Edge mergedEdge = new Edge(((Edge)e1).getID(), ((Edge)e1).getType(), ((Edge)e1).getStringValue(), ((Edge)e1).getLabel(), ((Edge)e1).attributes, ((Edge)e1).getTarget(), ((Edge)e1).getSource());
                                     mergedEdge.merge(e2);
                                     edgeList.put(mergedEdge.getID(), mergedEdge);
                                     duplicateEdges.put(e1.getID(), e1);
