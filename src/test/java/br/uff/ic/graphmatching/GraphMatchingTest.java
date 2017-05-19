@@ -118,6 +118,9 @@ public class GraphMatchingTest {
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         
+        epsilon = new AttributeErrorMargin("Timestamp", "0", 0);
+        restrictionList.put("Timestamp", epsilon);
+        
         GraphMatching instance = new GraphMatching(restrictionList, vocabulary.getVocabulary(), threshold);
         boolean result = instance.isSimilar(v1, v2);
         assertEquals(expResult, result);
@@ -230,6 +233,9 @@ public class GraphMatchingTest {
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         
+        epsilon = new AttributeErrorMargin("Timestamp", "0", 0);
+        restrictionList.put("Timestamp", epsilon);
+        
         GraphMatching instance = new GraphMatching(restrictionList, threshold);
         boolean result = instance.isSimilar(v1, v2);
         assertEquals(expResult, result);
@@ -276,7 +282,7 @@ public class GraphMatchingTest {
         
         GraphMatching instance = new GraphMatching(null, 0.0f);
         
-        Vertex expResult = new ActivityVertex(v1.getID() + "_" + v2.getID() + " (Merged)", v1.getLabel() + "_" + v2.getLabel(), v1.getTimeString());
+        Vertex expResult = new ActivityVertex(v1.getID() + ", " + v2.getID(), v1.getLabel() + "_" + v2.getLabel(), v1.getTimeString());
         GraphAttribute aResult;
         
         aResult = new GraphAttribute("a1", "Asd, edf");
@@ -306,6 +312,8 @@ public class GraphMatchingTest {
         
         aResult = new GraphAttribute("a6", "6");
         expResult.addAttribute(aResult);
+        
+        expResult.attributes.get("Timestamp").updateAttribute("0");
         
         Vertex result = instance.combineVertices(v1, v2);
         assertEquals(expResult.toString(), result.toString());
