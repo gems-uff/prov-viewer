@@ -87,15 +87,6 @@
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
               </AuxValues>
             </MenuItem>
-            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="isVertexSizeBasedOnGraphsButton">
-              <Properties>
-                <Property name="selected" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" value="Use Vertex Size based on Graphs"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="isVertexSizeBasedOnGraphsButtonActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="PantoVertex">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Pan to vertex"/>
@@ -109,7 +100,6 @@
         <Menu class="javax.swing.JMenu" name="displayEdgeTextButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Display"/>
-            <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JCheckBoxMenuItem" name="displayID">
@@ -468,7 +458,14 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="-2" pref="128" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="vertexShapeComboBox" pref="109" max="32767" attributes="0"/>
+                      <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="vertexShapeBasedOnAttribute" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="DisplayEdges" min="-2" pref="89" max="-2" attributes="0"/>
                       <Component id="EdgeTypes" min="-2" pref="130" max="-2" attributes="0"/>
@@ -610,11 +607,20 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="DisplayEdges" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="DisplayVertices" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="EdgeTypes" pref="0" max="32767" attributes="0"/>
                       <Component id="VertexLabels" pref="0" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="vertexShapeComboBox" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="vertexShapeBasedOnAttribute" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
           </Group>
@@ -943,6 +949,42 @@
             <Property name="text" type="java.lang.String" value="Eps Increase"/>
             <Property name="toolTipText" type="java.lang.String" value="Defines the epsilon increase before reaching the minimum cluster size (used when VE is true)"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="vertexShapeComboBox">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="3">
+                <StringItem index="0" value="Default"/>
+                <StringItem index="1" value="Graphs"/>
+                <StringItem index="2" value="Attribute"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="vertexShapeComboBoxActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel4">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Vertex Shape"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel5">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Vertex Attribute"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="vertexShapeBasedOnAttribute">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Timestamp"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="vertexShapeBasedOnAttributeActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

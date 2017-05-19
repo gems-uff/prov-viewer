@@ -313,5 +313,9 @@ public class GuiButtons {
         StatusFilter(variables);
         
     }
+    
+    public static void selectVertexShape(Variables variables, String selectedMode, String attribute) {
+        GuiFunctions.VertexShape(variables, selectedMode, attribute);
+    }
 
 }

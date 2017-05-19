@@ -117,6 +117,10 @@ public class GraphFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        vertexShapeComboBox = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        vertexShapeBasedOnAttribute = new javax.swing.JTextField();
         MenuBar = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
         OpenConfig = new javax.swing.JMenuItem();
@@ -127,7 +131,6 @@ public class GraphFrame extends javax.swing.JFrame {
         autoDetectAttributeCheckBox = new javax.swing.JCheckBoxMenuItem();
         useEdgeTypeColor = new javax.swing.JCheckBoxMenuItem();
         isStrokeByValueButton = new javax.swing.JCheckBoxMenuItem();
-        isVertexSizeBasedOnGraphsButton = new javax.swing.JCheckBoxMenuItem();
         PantoVertex = new javax.swing.JMenuItem();
         displayEdgeTextButton = new javax.swing.JMenu();
         displayID = new javax.swing.JCheckBoxMenuItem();
@@ -347,12 +350,36 @@ public class GraphFrame extends javax.swing.JFrame {
         jLabel3.setText("Eps Increase");
         jLabel3.setToolTipText("Defines the epsilon increase before reaching the minimum cluster size (used when VE is true)");
 
+        vertexShapeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Default", "Graphs", "Attribute" }));
+        vertexShapeComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vertexShapeComboBoxActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Vertex Shape");
+
+        jLabel5.setText("Vertex Attribute");
+
+        vertexShapeBasedOnAttribute.setText("Timestamp");
+        vertexShapeBasedOnAttribute.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vertexShapeBasedOnAttributeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ToolMenuLayout = new javax.swing.GroupLayout(ToolMenu);
         ToolMenu.setLayout(ToolMenuLayout);
         ToolMenuLayout.setHorizontalGroup(
             ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ToolMenuLayout.createSequentialGroup()
-                .addGap(128, 128, 128)
+                .addContainerGap()
+                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(vertexShapeComboBox, 0, 109, Short.MAX_VALUE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(vertexShapeBasedOnAttribute))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(DisplayEdges, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(EdgeTypes, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -461,11 +488,19 @@ public class GraphFrame extends javax.swing.JFrame {
                 .addGap(9, 9, 9)
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(DisplayEdges)
-                    .addComponent(DisplayVertices))
+                    .addComponent(DisplayVertices)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(EdgeTypes, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(VertexLabels, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addComponent(VertexLabels, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(ToolMenuLayout.createSequentialGroup()
+                        .addComponent(vertexShapeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(vertexShapeBasedOnAttribute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         getContentPane().add(ToolMenu, java.awt.BorderLayout.PAGE_END);
@@ -533,15 +568,6 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu1.add(isStrokeByValueButton);
 
-        isVertexSizeBasedOnGraphsButton.setSelected(true);
-        isVertexSizeBasedOnGraphsButton.setText("Use Vertex Size based on Graphs");
-        isVertexSizeBasedOnGraphsButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                isVertexSizeBasedOnGraphsButtonActionPerformed(evt);
-            }
-        });
-        jMenu1.add(isVertexSizeBasedOnGraphsButton);
-
         PantoVertex.setText("Pan to vertex");
         PantoVertex.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -553,7 +579,6 @@ public class GraphFrame extends javax.swing.JFrame {
         MenuBar.add(jMenu1);
 
         displayEdgeTextButton.setText("Display");
-        displayEdgeTextButton.setToolTipText("");
 
         displayID.setText("Display ID");
         displayID.addActionListener(new java.awt.event.ActionListener() {
@@ -1080,11 +1105,6 @@ public class GraphFrame extends javax.swing.JFrame {
         variables.view.repaint();
     }//GEN-LAST:event_isStrokeByValueButtonActionPerformed
 
-    private void isVertexSizeBasedOnGraphsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isVertexSizeBasedOnGraphsButtonActionPerformed
-        // TODO add your handling code here:
-        GuiFunctions.VertexShape(variables, isVertexSizeBasedOnGraphsButton.getState());
-    }//GEN-LAST:event_isVertexSizeBasedOnGraphsButtonActionPerformed
-
     private void displayEdgeTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayEdgeTextActionPerformed
         // TODO add your handling code here:
         GuiButtons.EdgeTextDisplay(variables, displayEdgeText.isSelected());
@@ -1105,6 +1125,14 @@ public class GraphFrame extends javax.swing.JFrame {
     private void hideAgentEdgesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hideAgentEdgesButtonActionPerformed
         GuiButtons.Filter(variables);
     }//GEN-LAST:event_hideAgentEdgesButtonActionPerformed
+
+    private void vertexShapeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vertexShapeComboBoxActionPerformed
+        GuiButtons.selectVertexShape(variables, (String) vertexShapeComboBox.getSelectedItem(), vertexShapeBasedOnAttribute.getText());
+    }//GEN-LAST:event_vertexShapeComboBoxActionPerformed
+
+    private void vertexShapeBasedOnAttributeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vertexShapeBasedOnAttributeActionPerformed
+        GuiButtons.selectVertexShape(variables, (String) vertexShapeComboBox.getSelectedItem(), vertexShapeBasedOnAttribute.getText());
+    }//GEN-LAST:event_vertexShapeBasedOnAttributeActionPerformed
    
     /**
      * Main
@@ -1189,11 +1217,12 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JCheckBoxMenuItem hideLonelyVerticesButton;
     public static javax.swing.JCheckBox isSTDeps;
     public static javax.swing.JCheckBoxMenuItem isStrokeByValueButton;
-    private javax.swing.JCheckBoxMenuItem isVertexSizeBasedOnGraphsButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     public static javax.swing.JMenu jMenu3;
@@ -1219,5 +1248,7 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JCheckBoxMenuItem useEdgeTypeColor;
     private javax.swing.JCheckBoxMenuItem verifyWithinClusterButton;
     public static javax.swing.JList vertexFilterList;
+    private javax.swing.JTextField vertexShapeBasedOnAttribute;
+    public static javax.swing.JComboBox<String> vertexShapeComboBox;
     // End of variables declaration//GEN-END:variables
 }

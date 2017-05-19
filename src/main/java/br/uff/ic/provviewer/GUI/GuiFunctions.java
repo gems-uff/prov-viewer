@@ -73,10 +73,16 @@ public class GuiFunctions {
     /**
      * Method to define the vertex shape
      * @param variables
-     * @param isDefaultShape
+     * @param isVertexSizeBasedOnGraphs
      */
-    public static void VertexShape(Variables variables, boolean isVertexSizeBasedOnGraphs) {
-        variables.view.getRenderContext().setVertexShapeTransformer(new VertexShape(variables.config.vertexSize, isVertexSizeBasedOnGraphs));
+//    public static void VertexShape(Variables variables, boolean isVertexSizeBasedOnGraphs) {
+////        variables.view.getRenderContext().setVertexShapeTransformer(new VertexShape(variables.config.vertexSize, isVertexSizeBasedOnGraphs));
+//        variables.view.getRenderContext().setVertexShapeTransformer(new VertexShape(variables.config.vertexSize, "Timestamp", variables.graph.getVertices()));
+//        variables.view.repaint();
+//    }
+    
+    public static void VertexShape(Variables variables, String selectedMode, String attribute) {
+        variables.view.getRenderContext().setVertexShapeTransformer(new VertexShape(variables.config.vertexSize, selectedMode, attribute, variables.graph.getVertices()));
         variables.view.repaint();
     }
 

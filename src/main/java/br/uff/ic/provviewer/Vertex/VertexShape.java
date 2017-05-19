@@ -24,6 +24,7 @@
 package br.uff.ic.provviewer.Vertex;
 
 import br.uff.ic.utility.GraphUtils;
+import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
@@ -31,6 +32,7 @@ import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.decorators.EllipseVertexShapeTransformer;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
+import java.util.Collection;
 
 /**
  * Class that defines each vertex type shape
@@ -40,22 +42,22 @@ import java.awt.geom.Ellipse2D;
  */
 public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
 
-    boolean isVertexSizeBasedOnGraphs = true;
     int defaultSize = 15;
-
-    public VertexShape() {
-        setSizeTransformer(new VertexSize<V>(defaultSize));
-    }
+    String attribute = "Timestamp";
+    String selectedShape = "Prov";
+    int max;
 
     public VertexShape(int vertexSize) {
         defaultSize = vertexSize;
         setSizeTransformer(new VertexSize<V>(vertexSize));
     }
     
-    public VertexShape(int vertexSize, boolean isBasedOnGraphs) {
+    public VertexShape(int vertexSize, String selectedMode, String att, Collection<Object> vertices) {
         defaultSize = vertexSize;
+        selectedShape = selectedMode;
         setSizeTransformer(new VertexSize<V>(vertexSize));
-        isVertexSizeBasedOnGraphs = isBasedOnGraphs;
+        attribute = att;
+        max = (int) Utils.findMaximumAttributeValue(vertices, attribute);
     }
 
     /**
@@ -66,10 +68,16 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
      */
     @Override
     public Shape transform(V v) {
-        if (isVertexSizeBasedOnGraphs)
-            return multipleGraphShape(v);
-        else
-            return defaultShape(v);
+        switch (selectedShape) {
+            case "Prov":
+                return defaultShape(v);
+            case "Graphs":
+                return multipleGraphShape(v);
+            case "Attribute":
+                return attributeValueShape(v);
+            default:
+                return defaultShape(v);
+        }
     }
 
     /**
@@ -135,6 +143,20 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
             String[] graphs = ((Vertex) v).getAttributeValues("GraphFile");
             numberOfGraphs = graphs.length;
             vertexSize = defaultSize * numberOfGraphs;
+            setSizeTransformer(new VertexSize<V>(vertexSize));
+        }
+        return provShape(v, vertexSize);
+    }
+    
+    private Shape attributeValueShape(V v) {
+
+        double value;
+        int vertexSize = defaultSize;
+        if (v instanceof Graph) {
+            vertexGraphSizeTransformer(v);
+        } else {
+            value = ((Vertex)v).getAttributeValueFloat(attribute);
+            vertexSize = (int) (defaultSize * (1 + (value * 5 / max)));
             setSizeTransformer(new VertexSize<V>(vertexSize));
         }
         return provShape(v, vertexSize);
