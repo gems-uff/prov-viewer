@@ -294,6 +294,6 @@ public class Variables extends Object {
     }
     
     public void initGraphCollapser() {
-        gCollapser = new GraphCollapser(this.graph); 
+        gCollapser = new GraphCollapser(this.graph, this.config.considerEdgeLabelForMerge); 
     }
 }
