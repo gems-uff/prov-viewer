@@ -131,49 +131,10 @@ public final class XMLWriter {
                 Element data = doc.createElement("date");
                 data.setTextContent(((Vertex) vertexList.toArray()[i]).getTimeString());
                 vertex.appendChild(data);
-
-                Element atts = doc.createElement("attributes");
-                vertex.appendChild(atts);
-
+                
                 Object[] attributes = null;
                 attributes = ((Vertex) vertexList.toArray()[i]).attributes.values().toArray();
-
-                for (int j = 0; j < attributes.length; j++) {
-                    Element att = doc.createElement("attribute");
-                    atts.appendChild(att);
-                    
-                    Element name = doc.createElement("name");
-                    name.setTextContent(((GraphAttribute) attributes[j]).getName());
-                    att.appendChild(name);
-                    
-                    Element value = doc.createElement("value");
-                    value.setTextContent(((GraphAttribute) attributes[j]).getValue());
-                    att.appendChild(value);
-                    if(Integer.parseInt(((GraphAttribute) attributes[j]).getQuantity()) > 1) {
-                        Element min = doc.createElement("min");
-                        min.setTextContent(((GraphAttribute) attributes[j]).getMin());
-                        att.appendChild(min);
-
-                        Element max = doc.createElement("max");
-                        max.setTextContent(((GraphAttribute) attributes[j]).getMax());
-                        att.appendChild(max);
-
-                        Element quantity = doc.createElement("quantity");
-                        quantity.setTextContent(((GraphAttribute) attributes[j]).getQuantity());
-                        att.appendChild(quantity);
-
-                        Element values = doc.createElement("originalValues");
-                        att.appendChild(values);
-                        Object[] originalValues = null;
-                        originalValues = ((GraphAttribute) attributes[j]).getValues().toArray();
-                        for(Object s : originalValues) {
-                            Element originalValue = doc.createElement("originalValue");
-                            originalValue.setTextContent((String)s);
-                            values.appendChild(originalValue);
-                        }
-                    }
-                }
-
+                addAttributes(doc, vertex, attributes);
             }
 
             Element edges = doc.createElement("edges");
@@ -205,6 +166,10 @@ public final class XMLWriter {
                 Element target = doc.createElement("targetID");
                 target.setTextContent(((Vertex) ((Edge) edgeList.toArray()[i]).getTarget()).getID());
                 edge.appendChild(target);
+                
+                Object[] attributes = null;
+                attributes = ((Edge) edgeList.toArray()[i]).attributes.values().toArray();
+                addAttributes(doc, edge, attributes);
             }
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -219,6 +184,49 @@ public final class XMLWriter {
 //            System.out.println("XML File was created: " + path);
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+    }
+    
+    private void addAttributes(Document doc, Element graphObject, Object[] attributes) {
+        Element atts = doc.createElement("attributes");
+        graphObject.appendChild(atts);
+
+        
+
+        for (int j = 0; j < attributes.length; j++) {
+            Element att = doc.createElement("attribute");
+            atts.appendChild(att);
+
+            Element name = doc.createElement("name");
+            name.setTextContent(((GraphAttribute) attributes[j]).getName());
+            att.appendChild(name);
+
+            Element value = doc.createElement("value");
+            value.setTextContent(((GraphAttribute) attributes[j]).getValue());
+            att.appendChild(value);
+            if(Integer.parseInt(((GraphAttribute) attributes[j]).getQuantity()) > 1) {
+                Element min = doc.createElement("min");
+                min.setTextContent(((GraphAttribute) attributes[j]).getMin());
+                att.appendChild(min);
+
+                Element max = doc.createElement("max");
+                max.setTextContent(((GraphAttribute) attributes[j]).getMax());
+                att.appendChild(max);
+
+                Element quantity = doc.createElement("quantity");
+                quantity.setTextContent(((GraphAttribute) attributes[j]).getQuantity());
+                att.appendChild(quantity);
+
+                Element values = doc.createElement("originalValues");
+                att.appendChild(values);
+                Object[] originalValues = null;
+                originalValues = ((GraphAttribute) attributes[j]).getValues().toArray();
+                for(Object s : originalValues) {
+                    Element originalValue = doc.createElement("originalValue");
+                    originalValue.setTextContent((String)s);
+                    values.appendChild(originalValue);
+                }
+            }
         }
     }
 }
