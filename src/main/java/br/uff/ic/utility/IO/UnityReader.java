@@ -27,7 +27,9 @@ package br.uff.ic.utility.IO;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.GraphAttribute;
+import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.EntityVertex;
+import br.uff.ic.utility.graph.GraphObject;
 import br.uff.ic.utility.graph.Vertex;
 import java.io.File;
 import java.io.IOException;
@@ -59,6 +61,9 @@ public class UnityReader extends XMLReader{
         readEdge();
     }
     
+    /**
+     * Method to read a vertex
+     */
     public void readVertex()
     {
         isProvenanceGraph = true;
@@ -93,51 +98,74 @@ public class UnityReader extends XMLReader{
                 {
                     node = new AgentVertex(id, label, date);
                 }
-                
-                NodeList aList = eElement.getElementsByTagName("attribute");
-                boolean hasGraphFile = false;
-                for(int i = 0; i < aList.getLength(); i++){
-                    GraphAttribute att;
-                    if(eElement.getElementsByTagName("name").item(i).getTextContent().equalsIgnoreCase("GraphFile")) {
-                        hasGraphFile = true;
-                    }
-                    if(eElement.getElementsByTagName("min").item(i) != null && eElement.getElementsByTagName("max").item(i) != null && eElement.getElementsByTagName("quantity").item(i) != null) {
-                        if(eElement.getElementsByTagName("originalValues").item(i) !=null) {
-                            Node valuesList;
-                            valuesList = eElement.getElementsByTagName("originalValues").item(i);
-                            Element e = (Element) valuesList;
-                            Collection<String> oValues = new ArrayList<String>(); 
-                            for(int j = 0; j < Integer.valueOf(eElement.getElementsByTagName("quantity").item(i).getTextContent()); j++) {
-                                oValues.add(e.getElementsByTagName("originalValue").item(j).getTextContent());
-                            }
-                            att = new GraphAttribute(eElement.getElementsByTagName("name").item(i).getTextContent(),
-                            eElement.getElementsByTagName("value").item(i).getTextContent(),
-                            eElement.getElementsByTagName("min").item(i).getTextContent(),
-                            eElement.getElementsByTagName("max").item(i).getTextContent(),
-                            eElement.getElementsByTagName("quantity").item(i).getTextContent(), oValues);
-                        } else
-                            att = new GraphAttribute(eElement.getElementsByTagName("name").item(i).getTextContent(),
-                            eElement.getElementsByTagName("value").item(i).getTextContent(),
-                            eElement.getElementsByTagName("min").item(i).getTextContent(),
-                            eElement.getElementsByTagName("max").item(i).getTextContent(),
-                            eElement.getElementsByTagName("quantity").item(i).getTextContent());
-                    } else
-                        att = new GraphAttribute(eElement.getElementsByTagName("name").item(i).getTextContent(),
-                        eElement.getElementsByTagName("value").item(i).getTextContent());
-                    node.addAttribute(att);
-                }
-                if(!hasGraphFile) {
-                    GraphAttribute att = new GraphAttribute("GraphFile", file.getName());
-                    node.addAttribute(att);
-                }
-                //String details = eElement.getElementsByTagName("details").item(0).getTextContent();
-                //node.SetDetail(details);
-                
+                readAttribute(eElement, node);
                 addNode(node);
             }
         }
     }
     
+    /**
+     * Method to read the attributes from the graph object (can be either an edge or a vertex)
+     * @param element
+     * @param node 
+     */
+    public void readAttribute(Element element, GraphObject node) {
+        NodeList attributesList = element.getElementsByTagName("attributes");
+        if(attributesList.getLength() > 0) {
+            Node nNode = attributesList.item(0);
+            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) nNode;
+                NodeList aList = element.getElementsByTagName("attribute");
+                boolean hasGraphFile = false;
+                for (int i = 0; i < aList.getLength(); i++) {
+                    GraphAttribute att;
+                    if (eElement.getElementsByTagName("name").item(i).getTextContent().equalsIgnoreCase("GraphFile")) {
+                        hasGraphFile = true;
+                    }
+                    if (eElement.getElementsByTagName("min").item(i) != null 
+                            && eElement.getElementsByTagName("max").item(i) != null 
+                            && eElement.getElementsByTagName("quantity").item(i) != null) {
+                        if (eElement.getElementsByTagName("originalValues").item(i) != null) {
+                            Node valuesList;
+                            valuesList = eElement.getElementsByTagName("originalValues").item(i);
+                            Element e = (Element) valuesList;
+                            Collection<String> oValues = new ArrayList<String>();
+                            for (int j = 0; j < Integer.valueOf(eElement.getElementsByTagName("quantity").item(i).getTextContent()); j++) {
+                                oValues.add(e.getElementsByTagName("originalValue").item(j).getTextContent());
+                            }
+                            att = new GraphAttribute(eElement.getElementsByTagName("name").item(i).getTextContent(),
+                                    eElement.getElementsByTagName("value").item(i).getTextContent(),
+                                    eElement.getElementsByTagName("min").item(i).getTextContent(),
+                                    eElement.getElementsByTagName("max").item(i).getTextContent(),
+                                    eElement.getElementsByTagName("quantity").item(i).getTextContent(), oValues);
+                        } else {
+                            att = new GraphAttribute(eElement.getElementsByTagName("name").item(i).getTextContent(),
+                                    eElement.getElementsByTagName("value").item(i).getTextContent(),
+                                    eElement.getElementsByTagName("min").item(i).getTextContent(),
+                                    eElement.getElementsByTagName("max").item(i).getTextContent(),
+                                    eElement.getElementsByTagName("quantity").item(i).getTextContent());
+                        }
+                    } else {
+                        att = new GraphAttribute(eElement.getElementsByTagName("name").item(i).getTextContent(),
+                                eElement.getElementsByTagName("value").item(i).getTextContent());
+                    }
+                    node.addAttribute(att);
+                }
+                if (!hasGraphFile) {
+                    GraphAttribute att = new GraphAttribute("GraphFile", file.getName());
+                    node.addAttribute(att);
+                }
+            }
+        }
+        else {
+            GraphAttribute att = new GraphAttribute("GraphFile", file.getName());
+            node.addAttribute(att);
+        }
+    }
+    
+    /**
+     * Method to read an edge
+     */
     public void readEdge()
     {
         NodeList nList;
@@ -155,13 +183,19 @@ public class UnityReader extends XMLReader{
                 String value = eElement.getElementsByTagName("value").item(0).getTextContent();
                 String source = eElement.getElementsByTagName("sourceID").item(0).getTextContent();
                 String target = eElement.getElementsByTagName("targetID").item(0).getTextContent();
+                Edge edge;
+                
                 if(nodes.containsKey(source) && nodes.containsKey(target)) {
                     if(isProvenanceGraph)
-                        addEdge(id, type, label, value, target, source);
+                        edge = new Edge(id, type, label, value, nodes.get(target), nodes.get(source));
+//                        addEdge(id, type, label, value, target, source);
                     else
-                        addEdge(id, type, label, value, source, target);
-                }
-                    
+                        edge = new Edge(id, type, label, value, nodes.get(source), nodes.get(target));
+//                        addEdge(id, type, label, value, source, target);
+                    readAttribute(eElement, edge);
+                    addEdge(edge);
+                } 
+                
             }
         }
     }
