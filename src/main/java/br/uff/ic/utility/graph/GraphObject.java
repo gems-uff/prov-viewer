@@ -100,6 +100,10 @@ public class GraphObject extends Object{
         this.attributes.putAll(atts);
     }
     
+    /**
+     * method that returns a Map of the attributes
+     * @return the attributes map
+     */
     public Map<String, String> attributeList()
     {
         Map<String, String> attributeList = new HashMap<>();
@@ -113,6 +117,10 @@ public class GraphObject extends Object{
         return attributeList;
     }
     
+    /**
+     * Method to merge all the exixting attributes with another collection of attributes
+     * @param v2 is the collection that contains the attribute values that we want to "merge" with
+     */
     public void updateAllAttributes(Collection<GraphAttribute> v2) {
         for (GraphAttribute att : v2) {
             if (attributes.containsKey(att.getName())) {
@@ -125,8 +133,32 @@ public class GraphObject extends Object{
         }
     }
     
+    /**
+     * Method to returns all the values from an attribute that are separated by a comma
+     * @param attribute is the attribute that we want the values
+     * @return an array with the values
+     */
     public String[] getAttributeValues(String attribute) {
         String values = this.attributes.get(attribute).getAverageValue();
         return values.split(", ");
+    }
+    
+    /**
+     * Method to return the attribute value (not necessarily a number)
+     * If the attribute does not exist, returns "Unknown"
+     * @param attribute is the attribute that we want the value
+     * @return the attribute's value
+     */
+    public String getAttributeValue(String attribute) {
+        if(attribute.equalsIgnoreCase("Label")) {
+            return getLabel();
+        }
+        GraphAttribute aux = attributes.get(attribute);
+        if(aux != null) {
+            return aux.getAverageValue();
+        }
+        else {
+            return "Unknown";
+        }
     }
 }

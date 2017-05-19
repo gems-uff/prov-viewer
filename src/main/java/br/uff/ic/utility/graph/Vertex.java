@@ -195,6 +195,7 @@ public abstract class Vertex extends GraphObject {
      * @param attribute
      * @return 
      */
+    @Override
     public String getAttributeValue(String attribute) {
         if(attribute.equalsIgnoreCase("Label")) {
             return getLabel();
