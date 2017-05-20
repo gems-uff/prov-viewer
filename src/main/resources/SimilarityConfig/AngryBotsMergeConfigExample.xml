@@ -28,11 +28,11 @@ THE SOFTWARE.
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
     xsi:noNamespaceSchemaLocation='similarityConfig.xsd'>
     <similarityThreshold>0.95f</similarityThreshold>
-    <default_error>5%</default_error>
+    <default_error>25%</default_error>
     <default_weight>1</default_weight>
     <attributeErrorList>
         <name>Timestamp</name>
-        <value>25%</value>
+        <value>10</value>
         <weight>1</weight>
     </attributeErrorList>
     <attributeErrorList>
@@ -42,17 +42,17 @@ THE SOFTWARE.
     </attributeErrorList>
     <attributeErrorList>
         <name>ObjectPosition_X</name>
-        <value>5%</value>
+        <value>5</value>
         <weight>1</weight>
     </attributeErrorList>
     <attributeErrorList>
         <name>ObjectPosition_Y</name>
-        <value>5%</value>
+        <value>5</value>
         <weight>1</weight>
     </attributeErrorList>
     <attributeErrorList>
         <name>ObjectPosition_Z</name>
-        <value>5%</value>
+        <value>5</value>
         <weight>1</weight>
     </attributeErrorList>
 
