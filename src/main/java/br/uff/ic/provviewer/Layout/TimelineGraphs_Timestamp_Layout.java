@@ -99,7 +99,7 @@ public class TimelineGraphs_Timestamp_Layout<V, E> extends ProvViewerLayout<V, E
         double xPos = 0;
         int yGraphOffset = 0;
         int entityXPos = (int) (vertex_ordered_list.size() * 0.5 - (entity_ordered_list.size() * 0.5));
-        int scale = (int) (2 * variables.config.vertexSize + (values.size() * 0.25 * variables.config.vertexSize));
+        int scale = (int) (3 * variables.config.vertexSize);
         entityXPos = entityXPos * scale;
         for (V v : vertex_ordered_list) {
             int time = (int) ((Vertex) v).getNormalizedTime();
@@ -108,7 +108,7 @@ public class TimelineGraphs_Timestamp_Layout<V, E> extends ProvViewerLayout<V, E
             int j = 0;
             for(String g : values) {
                 if(((Vertex)v).getAttributeValue("GraphFile").contains(g)) {
-                    yGraphOffset = (int) (variables.config.vertexSize * 0.25 * j);
+                    yGraphOffset = (int) (variables.config.vertexSize * j);
                     break;
                 }
                 j++;
