@@ -149,6 +149,7 @@ public class GraphFrame extends javax.swing.JFrame {
         hideEntityVerticesButton = new javax.swing.JCheckBoxMenuItem();
         hideLonelyVerticesButton = new javax.swing.JCheckBoxMenuItem();
         hideAgentEdgesButton = new javax.swing.JCheckBoxMenuItem();
+        hideMergedVerticesButton = new javax.swing.JCheckBoxMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         mergeGraphButtom = new javax.swing.JMenuItem();
@@ -714,6 +715,14 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu6.add(hideAgentEdgesButton);
 
+        hideMergedVerticesButton.setText("Hide Vertices in Common from All Graphs");
+        hideMergedVerticesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hideMergedVerticesButtonActionPerformed(evt);
+            }
+        });
+        jMenu6.add(hideMergedVerticesButton);
+
         MenuBar.add(jMenu6);
 
         jMenu2.setText("Merge");
@@ -1198,6 +1207,11 @@ public class GraphFrame extends javax.swing.JFrame {
         variables.isEdgeColorByGraphs = !isColorByEdgeValueButton.getState();
         variables.view.repaint();
     }//GEN-LAST:event_isColorByEdgeValueButtonActionPerformed
+
+    private void hideMergedVerticesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hideMergedVerticesButtonActionPerformed
+        // TODO add your handling code here:
+        GuiButtons.Filter(variables);
+    }//GEN-LAST:event_hideMergedVerticesButtonActionPerformed
    
     /**
      * Main
@@ -1280,6 +1294,7 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JCheckBoxMenuItem hideAgentVerticesButton;
     public static javax.swing.JCheckBoxMenuItem hideEntityVerticesButton;
     public static javax.swing.JCheckBoxMenuItem hideLonelyVerticesButton;
+    public static javax.swing.JCheckBoxMenuItem hideMergedVerticesButton;
     private javax.swing.JCheckBoxMenuItem isColorByEdgeValueButton;
     public static javax.swing.JCheckBox isSTDeps;
     public static javax.swing.JCheckBoxMenuItem isStrokeByValueButton;

@@ -92,7 +92,7 @@ public class Filters {
         variables.filter.filterVerticesAndEdges(variables.view,
                 variables.layout,
                 variables.collapsedGraph,
-                hiddenEdges, variables.config.timeScale, variables.selectedTimeScale);
+                hiddenEdges, variables.config.timeScale, variables.selectedTimeScale, variables.numberOfGraphs);
     }
 
     /**
@@ -147,11 +147,11 @@ public class Filters {
     public void filterVerticesAndEdges(VisualizationViewer<Object, Edge> view,
             Layout<Object, Edge> layout,
             DirectedGraph<Object, Edge> collapsedGraph,
-            boolean hiddenEdges, String timeScale, String selectedTimeScale) {
+            boolean hiddenEdges, String timeScale, String selectedTimeScale, int numberOfGraphs) {
         filteredGraph = collapsedGraph;
 
         EdgeFilter = filterEdges(hiddenEdges);
-        VertexFilter = filterVertex(timeScale, selectedTimeScale);
+        VertexFilter = filterVertex(timeScale, selectedTimeScale, numberOfGraphs);
 
         filteredGraph = (DirectedGraph<Object, Edge>) EdgeFilter.transform(filteredGraph);
         filteredGraph = (DirectedGraph<Object, Edge>) VertexFilter.transform(filteredGraph);
@@ -229,12 +229,12 @@ public class Filters {
      *
      * @return if the vertex will be hidden
      */
-    private Filter<Object, Edge> filterVertex(final String timeScale, final String selectedTimeScale) {
+    private Filter<Object, Edge> filterVertex(final String timeScale, final String selectedTimeScale, final int numberOfGraphs) {
 
         Filter<Object, Edge> filterVertex = new VertexPredicateFilter<>(new Predicate<Object>() {
             @Override
             public boolean evaluate(Object vertex) {
-                if (vertexTypeFilter(vertex)) {
+                if (vertexTypeFilter(vertex, numberOfGraphs)) {
                     return false;
                 }
 //                if (vertexLonelyFilter(vertex)) {
@@ -287,7 +287,7 @@ public class Filters {
      * @param vertex is the vertex being evaluated
      * @return if the vertex will be hidden
      */
-    private boolean vertexTypeFilter(Object vertex) {
+    private boolean vertexTypeFilter(Object vertex, int numberOfGraphs) {
         if (GraphFrame.hideAgentVerticesButton.isSelected()) {
             if (vertex instanceof AgentVertex) {
                 return true;
@@ -297,6 +297,10 @@ public class Filters {
             if (vertex instanceof EntityVertex) {
                 return true;
             }
+        }
+        if (GraphFrame.hideMergedVerticesButton.isSelected()) {
+            if(((Vertex)vertex).getAttributeValues("GraphFile").length == numberOfGraphs)
+                return true;
         }
         return false;
     }
