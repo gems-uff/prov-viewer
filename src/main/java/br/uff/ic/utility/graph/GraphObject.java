@@ -34,8 +34,8 @@ import java.util.Map;
  * @author Kohwalter
  */
 public class GraphObject extends Object{
-    private String label;                           // prov:label
     public Map<String, GraphAttribute> attributes;
+    private String label = "Label";
     
     /**
      * Get method to return one specific attribute
@@ -57,11 +57,12 @@ public class GraphObject extends Object{
     }
     
     public String getLabel(){
-        return this.label;
+        return this.attributes.get(label).getAverageValue();
     }
     
     public void setLabel(String t){
-        this.label = t;
+        GraphAttribute time = new GraphAttribute(label, t);
+        this.attributes.put(label, time);
     }
     
     /**

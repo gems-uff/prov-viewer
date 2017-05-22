@@ -62,13 +62,13 @@ public class Edge extends GraphObject {
         this.source = source;
         this.target = target;
         this.type = "";
-        setLabel("");
         hide = false;
         collapsed = false;
         this.attributes = new HashMap<>();
         GraphAttribute att = new GraphAttribute(influenceName, "");
         this.attributes.put(att.getName(), att);
         this.attributes.putAll(attributes);
+        setLabel("");
     }
     
     /**
@@ -88,13 +88,13 @@ public class Edge extends GraphObject {
         this.source = source;
         this.target = target;
         this.type = type;
-        setLabel(label);
         hide = false;
         collapsed = false;
         this.attributes = new HashMap<>();
         GraphAttribute att = new GraphAttribute(influenceName, value);
         this.attributes.put(att.getName(), att);
         this.attributes.putAll(attributes);
+        setLabel(label);
     }
 
     /**
@@ -116,12 +116,12 @@ public class Edge extends GraphObject {
             setLabel("Neutral");
             value = "0";
         }
-        setLabel(label);
         hide = false;
         collapsed = false;
         this.attributes = new HashMap<>();
         GraphAttribute att = new GraphAttribute(influenceName, value);
         this.attributes.put(att.getName(), att);
+        setLabel(label);
     }
 
     /**
@@ -138,11 +138,6 @@ public class Edge extends GraphObject {
         this.id = id;
         this.source = source;
         this.target = target;
-        if (influence.equalsIgnoreCase("")) {
-            setLabel("Neutral");
-        } else {
-            setLabel(influence);
-        }
         influence = "0";
         this.type = getLabel();
         hide = false;
@@ -150,6 +145,11 @@ public class Edge extends GraphObject {
         this.attributes = new HashMap<>();
         GraphAttribute att = new GraphAttribute(influenceName, influence);
         this.attributes.put(att.getName(), att);
+        if (influence.equalsIgnoreCase("")) {
+            setLabel("Neutral");
+        } else {
+            setLabel(influence);
+        }
     }
 
     /**
