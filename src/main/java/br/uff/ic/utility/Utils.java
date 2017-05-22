@@ -845,5 +845,33 @@ public class Utils {
         int rgbNum = 255 - (int) gray;
         return new Color (rgbNum,rgbNum,rgbNum);
     }
+    
+    /**
+     * Method to determine if the string has a minus sign in the beginning
+     * @param s is the string that we want to know if it has a minus sign
+     * @return TRUE if it has a minus sign and FALSE if it does not have it
+     */
+    public static boolean getMinusSign(String s) {
+        String sign = s.substring(0, 1);
+        boolean isReverse = false;
+        
+        if("-".equals(sign)) {
+            isReverse = true;
+        }
+        return isReverse;
+    }
+    
+    /**
+     * Method to remove the minus sign in the beginning of the string (if it has it)
+     * @param s the string that we want to remove the minus sign
+     * @return the string without the minus sign
+     */
+    public static String removeMinusSign(String s) {
+        String sign = s.substring(0, 1);
+        if("-".equals(sign)) {
+            return s.substring(1);
+        }
+        return s;
+    }
 
 }
