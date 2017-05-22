@@ -76,6 +76,7 @@ public class GuiInitialization {
         ToolTipManager.sharedInstance().setInitialDelay(10);
         ToolTipManager.sharedInstance().setDismissDelay(50000);
         GraphFrame.vertexFilterList.setSelectedIndex(0);
+        variables.updateNumberOfGraphs();
     }
 
     /**
