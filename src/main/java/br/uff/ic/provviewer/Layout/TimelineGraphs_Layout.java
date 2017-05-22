@@ -31,6 +31,8 @@ import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.Graph;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Template for a temporal graph layout. Lines represent each agent and his
@@ -64,13 +66,18 @@ public class TimelineGraphs_Layout<V, E> extends ProvViewerLayout<V, E> {
         x_att = Utils.removeMinusSign(x_att);
         
 //        Collection<String> values = Utils.DetectAllPossibleValuesFromAttribute(variables.graph.getVertices(), "GraphFile");
-        ArrayList<Integer> counts = new ArrayList<>();
-        for(int i = 0; i < variables.numberOfGraphs; i++) {
-            counts.add(0);
+//        ArrayList<Integer> counts = new ArrayList<>();
+//        for(int i = 0; i < variables.numberOfGraphs; i++) {
+//            counts.add(0);
+//        }
+        Map<String, Integer> counts = new HashMap<>();
+        for (String gs : variables.graphNames) {
+            counts.put(gs, 0);
         }
-        
+//        int counter = 0;
         setVertexOrder(Utils.getVertexAttributeComparator(x_att));
-        
+        int previous_Value = 0;
+        int previous_yOffset = 0;
         int i = 0;
         int agentY = 0;
         double yPos = 0;
@@ -83,20 +90,24 @@ public class TimelineGraphs_Layout<V, E> extends ProvViewerLayout<V, E> {
             yPos = 0;
             Point2D coord = transform(v);
             int j = 0;
-            for(String g : variables.graphNames) {
+            String[] graphFiles = ((Vertex)v).getAttributeValues("GraphFile");
+            
+            int k = 0;
+            for(String g : counts.keySet()) {
                 if(((Vertex)v).getAttributeValue("GraphFile").contains(g)) {
-                    yGraphOffset = (int) (variables.config.vertexSize * 0.5 * j);
+                    yGraphOffset = (int) (variables.config.vertexSize * k);
                     break;
                 }
-                j++;
+                k++;
             }
-            syncPosition(counts, v);
 
             if (v instanceof AgentVertex) {
                 yPos = agentY;
-                agentY = agentY + scale;
-                i = counts.get(j) * scale;
-                counts.set(j, counts.get(j) + 1);
+                agentY = agentY + variables.numberOfGraphs * scale;
+//                j = counts.get(graphFiles[0]);
+//                i = j * scale;
+//                counts.put(graphFiles[0], j + 1);
+                i = i + scale;
                 xPos = i;
             } else if (v instanceof ActivityVertex) {
                 if (layout_graph.getOutEdges(v) != null) {
@@ -106,19 +117,29 @@ public class TimelineGraphs_Layout<V, E> extends ProvViewerLayout<V, E> {
                             Point2D agentPos = transform(layout_graph.getDest(neighbor));
                             yPos = agentPos.getY();
                         }
-                        i = counts.get(j) * scale;
-                        counts.set(j, counts.get(j) + 1);
+//                        j = counts.get(graphFiles[0]);
+//                        i = j * scale;
+//                        counts.put(graphFiles[0], j + 1);
+                        if(previous_Value != (int)((Vertex)v).getAttributeValueFloat(x_att))
+                            i = i + scale;
+                        else if(previous_yOffset == yGraphOffset)
+                            i = (int) (i + (scale * 0.25));
                         xPos = i;
                     }
                 }
             } else {
                 yPos = 0;
-                i = counts.get(j) * scale;
-                counts.set(j, counts.get(j) + 1);
+//                j = counts.get(graphFiles[0]);
+//                i = j * scale;
+//                counts.put(graphFiles[0], j + 1);
+                i = i + scale;
                 xPos = i;
             }
             yPos = yPos + yGraphOffset;
             coord.setLocation(xPos, yPos);
+            previous_Value = (int) ((Vertex)v).getAttributeValueFloat(x_att);
+            previous_yOffset = yGraphOffset;
+//            syncPosition(counts, v);
         }
         for(V v : entity_ordered_list) {
             Point2D coord = transform(v);
@@ -130,34 +151,23 @@ public class TimelineGraphs_Layout<V, E> extends ProvViewerLayout<V, E> {
         }
     }
     
-    private void syncPosition(ArrayList<Integer> counts, V v) {
+    /**
+     * Method to syncronize the graph lines when reaching a "merged" vertex
+     * @param counts
+     * @param v 
+     */
+    private void syncPosition(Map<String, Integer> counts, V v) {
         // Sync the X position if we have a common vertex node for multiple graphs
             String[] graphFiles = ((Vertex)v).getAttributeValues("GraphFile");
             if (graphFiles.length > 1) {
                 // Find the max position so we can sync the rest
                 int max = 0;
                 for (String gFile : graphFiles) {
-                    int w = 0;
-                    for(String g : variables.graphNames) {
-                        if(((Vertex)v).getAttributeValue("GraphFile").contains(gFile)) {
-                            max = Math.max(counts.get(w), max);
-                            break;
-                        }
-                        w++;
-                    }
-                    
+                    max = Math.max(counts.get(gFile), max);
                 }
                 // Sync the positions with the previous found max
                 for (String gFile : graphFiles) {
-                    int w = 0;
-                    for(String g : variables.graphNames) {
-                        int z = 0;
-                        if(((Vertex)v).getAttributeValue("GraphFile").contains(gFile)) {
-                            counts.set(z, max);
-                            break;
-                        }
-                        z++;
-                    }
+                    counts.put(gFile, max);
                 }
             }
     }
