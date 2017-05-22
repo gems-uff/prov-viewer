@@ -67,7 +67,7 @@ public class Variables extends Object {
     public String originalGraphPath = "demo";
 
 //    public static String demo = File.separator + "Graph" + File.separator + "Merge_Test.xml";
-//    public static String demo = File.separator + "Graph" + File.separator + "Angry_Robots_paperCIG.xml";
+//    public static String demo = File.separator + "Graph" + File.separator + "AngryBots_3_Merge.xml";
 //    public static String demo = File.separator + "Graph" + File.separator + "Angry_Robots.xml";
 //    public static String demo = File.separator + "Graph" + File.separator + "Graph_to_Merge_01.xml";
 //    public String configDemo = File.separator + "Config" + File.separator + "Angry_Robots_config.xml";
@@ -136,6 +136,7 @@ public class Variables extends Object {
     public String layout_temporal = "Temporal";
     public String layout_hierarchy = "Hierarchy";
     public String layout_timeline = "Timeline";
+    public String layout_timeline_graphs = "Timeline (Graphs)";
     public String layout_One_Dimensional = "One Dimensional";
     public String layout_Two_Dimensional = "Two Dimensional";
     public String layout_provcircle = "ProvCircle";
@@ -290,6 +291,9 @@ public class Variables extends Object {
         }
         else if (layout.equalsIgnoreCase(layout_timeline)) {
             this.layout = new Timeline_Layout<>(this.graph, this);
+        }
+        else if (layout.equalsIgnoreCase(layout_timeline_graphs)) {
+            this.layout = new TimelineGraphs_Layout<>(this.graph, this);
         }
         else if (layout.equalsIgnoreCase(layout_One_Dimensional)) {
             this.layout = new OneDimensional_Layout<>(this.graph, this);
