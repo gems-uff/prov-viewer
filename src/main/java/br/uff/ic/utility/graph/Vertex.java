@@ -26,6 +26,7 @@ package br.uff.ic.utility.graph;
 
 import br.uff.ic.utility.GraphAttribute;
 import br.uff.ic.utility.Utils;
+import static br.uff.ic.utility.Utils.isItTime;
 import java.awt.BasicStroke;
 import java.awt.Paint;
 import java.awt.Stroke;
@@ -227,13 +228,7 @@ public abstract class Vertex extends GraphObject {
      * @return 
      */
     public float getAttributeValueFloat(String attribute) {
-        if(attribute.equalsIgnoreCase("Time"))         {
-            return (float)getNormalizedTime();
-        }
-        if(attribute.equalsIgnoreCase("Timestamp")) {
-            return (float)getNormalizedTime();
-        }
-        if(attribute.equalsIgnoreCase("Date")) {
+        if(isItTime(attribute)) {
             return (float)getNormalizedTime();
         }
         if(attributes.get(attribute) == null) {
@@ -241,6 +236,8 @@ public abstract class Vertex extends GraphObject {
         }
         return getAttFloatValue(attribute);
     }
+    
+    
     
     /**
      * Method that gets both attributes in the string and subtracts them. I.e.: First_Attribute - Second_Attribute
@@ -264,13 +261,7 @@ public abstract class Vertex extends GraphObject {
         if(attribute.equalsIgnoreCase("Label")) {
             return getLabel();
         }
-        if(attribute.equalsIgnoreCase("Time")) {
-            return String.valueOf(getTime());
-        }
-        if(attribute.equalsIgnoreCase("Timestamp")) {
-            return String.valueOf(getTime());
-        }
-        if(attribute.equalsIgnoreCase("Date")) {
+        if(isItTime(attribute)) {
             return String.valueOf(getTime());
         }
         
@@ -292,13 +283,7 @@ public abstract class Vertex extends GraphObject {
      * @return the float value or Float.NaN if it is not possible to convert to float
      */
     private float getAttFloatValue(String attribute) {
-        if(attribute.equalsIgnoreCase("Time"))         {
-            return (float)getNormalizedTime();
-        }
-        if(attribute.equalsIgnoreCase("Timestamp")) {
-            return (float)getNormalizedTime();
-        }
-        if(attribute.equalsIgnoreCase("Date")) {
+        if(isItTime(attribute)) {
             return (float)getNormalizedTime();
         }
         if(attributes.get(attribute) != null) {
