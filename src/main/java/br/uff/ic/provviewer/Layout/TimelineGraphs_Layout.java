@@ -65,9 +65,9 @@ public class TimelineGraphs_Layout<V, E> extends ProvViewerLayout<V, E> {
         String x_att = variables.layout_attribute_X;
         x_att = Utils.removeMinusSign(x_att);
         
-        Collection<String> values = Utils.DetectAllPossibleValuesFromAttribute(variables.graph.getVertices(), "GraphFile");
+//        Collection<String> values = Utils.DetectAllPossibleValuesFromAttribute(variables.graph.getVertices(), "GraphFile");
         ArrayList<Integer> counts = new ArrayList<>();
-        for(int i = 0; i < values.size(); i++) {
+        for(int i = 0; i < variables.numberOfGraphs; i++) {
             counts.add(0);
         }
         setVertexOrder(Utils.getVertexAttributeComparator(x_att));
@@ -77,12 +77,12 @@ public class TimelineGraphs_Layout<V, E> extends ProvViewerLayout<V, E> {
         double xPos = 0;
         int yGraphOffset = 0;
         int entityXPos = (int) (vertex_ordered_list.size() * 0.5 - (entity_ordered_list.size() * 0.5));
-        int scale = (int) (2 * variables.config.vertexSize * values.size() * 0.25);
+        int scale = (int) (2 * variables.config.vertexSize * variables.numberOfGraphs * 0.25);
         entityXPos = entityXPos * scale;
         for (V v : vertex_ordered_list) {
             Point2D coord = transform(v);
             int j = 0;
-            for(String g : values) {
+            for(String g : variables.graphNames) {
                 if(((Vertex)v).getAttributeValue("GraphFile").contains(g)) {
                     yGraphOffset = (int) (variables.config.vertexSize * 0.25 * j);
                     break;
@@ -97,7 +97,7 @@ public class TimelineGraphs_Layout<V, E> extends ProvViewerLayout<V, E> {
                 int max = 0;
                 for (String gFile : graphFiles) {
                     int w = 0;
-                    for(String g : values) {
+                    for(String g : variables.graphNames) {
                         if(((Vertex)v).getAttributeValue("GraphFile").contains(gFile)) {
                             max = Math.max(counts.get(w), max);
                             break;
@@ -109,7 +109,7 @@ public class TimelineGraphs_Layout<V, E> extends ProvViewerLayout<V, E> {
                 // Sync the positions with the previous found max
                 for (String gFile : graphFiles) {
                     int w = 0;
-                    for(String g : values) {
+                    for(String g : variables.graphNames) {
                         int z = 0;
                         if(((Vertex)v).getAttributeValue("GraphFile").contains(gFile)) {
                             counts.set(z, max);

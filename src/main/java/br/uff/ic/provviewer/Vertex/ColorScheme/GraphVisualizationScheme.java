@@ -50,8 +50,8 @@ public class GraphVisualizationScheme extends ColorScheme {
     @Override
     public Paint Execute(Object v, final Variables variables) {
         if(!isInitialized) {
-            Collection<String> values = Utils.DetectAllPossibleValuesFromAttribute(variables.graph.getVertices(), "GraphFile");
-            totalNumberGraphs = values.size();
+//            Collection<String> values = Utils.DetectAllPossibleValuesFromAttribute(variables.graph.getVertices(), "GraphFile");
+            totalNumberGraphs = variables.numberOfGraphs;
             isInitialized = true;
         }
         String[] graphFiles = ((Vertex)v).getAttributeValues("GraphFile");

@@ -38,6 +38,7 @@ import br.uff.ic.provviewer.Layout.TimelineGraphs_Layout;
 import br.uff.ic.provviewer.Layout.OneDimensional_Layout;
 import br.uff.ic.provviewer.Layout.TwoDimensional_Layout;
 import br.uff.ic.utility.GraphCollapser;
+import br.uff.ic.utility.Utils;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.DAGLayout;
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
@@ -128,7 +129,8 @@ public class Variables extends Object {
     public boolean doDerivate = false;
     public boolean removeDerivateOutliers = false;
     public boolean changedOutliersOption = false;
-    public boolean isStrokeByValue = false;
+    public boolean isEdgeStrokeByValue = true;
+    public boolean isEdgeColorByGraphs = false;
     
     public String layout_spatial = "Spatial";
     public String layout_temporal = "Temporal";
@@ -148,6 +150,18 @@ public class Variables extends Object {
     
     public String layout_attribute_X = "Timestamp";
     public String layout_attribute_Y = "Timestamp";
+    public int numberOfGraphs = 1;
+    public Collection<String> graphNames;
+    
+    
+    /**
+     * Method that updates the number of graphs that comprises the current graph
+     * Should be called everytime after a graph is loaded: File Open / Merge Graph
+     */
+    public void updateNumberOfGraphs() {
+        numberOfGraphs = Utils.DetectAllPossibleValuesFromAttribute(graph.getVertices(), "GraphFile").size();
+        graphNames = Utils.DetectAllPossibleValuesFromAttribute(graph.getVertices(), "GraphFile");
+    }
 
     
     /**

@@ -29,6 +29,7 @@ import br.uff.ic.provviewer.EdgeType;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.Utils;
 import java.awt.Color;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -328,30 +329,35 @@ public class Edge extends GraphObject {
      * @return
      */
     public Color getColor(Variables variables) {
-        float v = getValue();
-        if (v == 0) {
-            return defaultColor;
+        if(variables.isEdgeColorByGraphs) {
+            String[] graphs = getAttributeValues("GraphFile");
+            return Utils.getGrayscaleColor(graphs.length, variables.numberOfGraphs);
         } else {
-            int j = 0;
-            for (int i = 0; i < variables.config.edgetype.size(); i++) {
-                if (this.getLabel().contains(variables.config.edgetype.get(i).type)) {
-                    j = i;
-                }
-            }
-            // TODO add inverted color scheme for increase in value to be red and decrease to be green
-            if (variables.config.edgetype.get(j).isInverted) {
-                if (v > 0) {
-                    return compareValueRed(v, 0, variables.config.edgetype.get(j).max, variables.config.edgetype.get(j).isInverted);
-                } else {
-                    return compareValueGreen(v, variables.config.edgetype.get(j).min, 0, variables.config.edgetype.get(j).isInverted);
-                }
+            float v = getValue();
+            if (v == 0) {
+                return defaultColor;
             } else {
-            // DO
-                // else
-                if (v > 0) {
-                    return compareValueGreen(v, 0, variables.config.edgetype.get(j).max, variables.config.edgetype.get(j).isInverted);
+                int j = 0;
+                for (int i = 0; i < variables.config.edgetype.size(); i++) {
+                    if (this.getLabel().contains(variables.config.edgetype.get(i).type)) {
+                        j = i;
+                    }
+                }
+                // TODO add inverted color scheme for increase in value to be red and decrease to be green
+                if (variables.config.edgetype.get(j).isInverted) {
+                    if (v > 0) {
+                        return compareValueRed(v, 0, variables.config.edgetype.get(j).max, variables.config.edgetype.get(j).isInverted);
+                    } else {
+                        return compareValueGreen(v, variables.config.edgetype.get(j).min, 0, variables.config.edgetype.get(j).isInverted);
+                    }
                 } else {
-                    return compareValueRed(v, variables.config.edgetype.get(j).min, 0, variables.config.edgetype.get(j).isInverted);
+                // DO
+                    // else
+                    if (v > 0) {
+                        return compareValueGreen(v, 0, variables.config.edgetype.get(j).max, variables.config.edgetype.get(j).isInverted);
+                    } else {
+                        return compareValueRed(v, variables.config.edgetype.get(j).min, 0, variables.config.edgetype.get(j).isInverted);
+                    }
                 }
             }
         }

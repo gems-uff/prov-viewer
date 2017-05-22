@@ -67,7 +67,7 @@ public class OneDimensional_Layout<V, E> extends ProvViewerLayout<V, E> {
         x_att = Utils.removeMinusSign(x_att);
         boolean isReverse_X = Utils.getMinusSign(x_att);
 
-        Collection<String> values = Utils.DetectAllPossibleValuesFromAttribute(variables.graph.getVertices(), "GraphFile");
+//        Collection<String> values = Utils.DetectAllPossibleValuesFromAttribute(variables.graph.getVertices(), "GraphFile");
         setVertexOrder();
         int i = 0;
         int agentY = 0;
@@ -87,7 +87,7 @@ public class OneDimensional_Layout<V, E> extends ProvViewerLayout<V, E> {
             }
             Point2D coord = transform(v);
             int j = 0;
-            for(String g : values) {
+            for(String g : variables.graphNames) {
                 if(((Vertex)v).getAttributeValue("GraphFile").contains(g)) {
                     yGraphOffset = (int) (variables.config.vertexSize * j);
                     break;

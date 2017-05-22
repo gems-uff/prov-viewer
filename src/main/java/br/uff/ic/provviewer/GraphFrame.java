@@ -135,6 +135,7 @@ public class GraphFrame extends javax.swing.JFrame {
         autoDetectAttributeCheckBox = new javax.swing.JCheckBoxMenuItem();
         useEdgeTypeColor = new javax.swing.JCheckBoxMenuItem();
         isStrokeByValueButton = new javax.swing.JCheckBoxMenuItem();
+        isColorByEdgeValueButton = new javax.swing.JCheckBoxMenuItem();
         PantoVertex = new javax.swing.JMenuItem();
         displayEdgeTextButton = new javax.swing.JMenu();
         displayID = new javax.swing.JCheckBoxMenuItem();
@@ -606,6 +607,15 @@ public class GraphFrame extends javax.swing.JFrame {
             }
         });
         jMenu1.add(isStrokeByValueButton);
+
+        isColorByEdgeValueButton.setSelected(true);
+        isColorByEdgeValueButton.setText("Edge Color based on its Value");
+        isColorByEdgeValueButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                isColorByEdgeValueButtonActionPerformed(evt);
+            }
+        });
+        jMenu1.add(isColorByEdgeValueButton);
 
         PantoVertex.setText("Pan to vertex");
         PantoVertex.addActionListener(new java.awt.event.ActionListener() {
@@ -1140,7 +1150,7 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private void isStrokeByValueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isStrokeByValueButtonActionPerformed
         // TODO add your handling code here:
-        variables.isStrokeByValue = isStrokeByValueButton.getState();
+        variables.isEdgeStrokeByValue = isStrokeByValueButton.getState();
         variables.view.repaint();
     }//GEN-LAST:event_isStrokeByValueButtonActionPerformed
 
@@ -1182,6 +1192,12 @@ public class GraphFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         variables.layout_attribute_Y = layoutAttributeName_Y_Text.getText();
     }//GEN-LAST:event_layoutAttributeName_Y_TextActionPerformed
+
+    private void isColorByEdgeValueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isColorByEdgeValueButtonActionPerformed
+        // TODO add your handling code here:
+        variables.isEdgeColorByGraphs = !isColorByEdgeValueButton.getState();
+        variables.view.repaint();
+    }//GEN-LAST:event_isColorByEdgeValueButtonActionPerformed
    
     /**
      * Main
@@ -1264,6 +1280,7 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JCheckBoxMenuItem hideAgentVerticesButton;
     public static javax.swing.JCheckBoxMenuItem hideEntityVerticesButton;
     public static javax.swing.JCheckBoxMenuItem hideLonelyVerticesButton;
+    private javax.swing.JCheckBoxMenuItem isColorByEdgeValueButton;
     public static javax.swing.JCheckBox isSTDeps;
     public static javax.swing.JCheckBoxMenuItem isStrokeByValueButton;
     private javax.swing.JButton jButton1;

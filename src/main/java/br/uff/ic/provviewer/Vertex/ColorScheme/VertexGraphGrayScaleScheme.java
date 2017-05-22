@@ -44,11 +44,11 @@ public class VertexGraphGrayScaleScheme extends ColorScheme {
     @Override
     public Paint Execute(Object v, final Variables variables) {
         this.variables = variables;
-        Collection<String> values = Utils.DetectAllPossibleValuesFromAttribute(variables.graph.getVertices(), "GraphFile");
+//        Collection<String> values = Utils.DetectAllPossibleValuesFromAttribute(variables.graph.getVertices(), "GraphFile");
 //        ComputeValue(variables.graph, true);
         if (!(v instanceof Graph)) {
             String[] graphs = ((Vertex)v).getAttributeValues("GraphFile");
-            return Utils.getGrayscaleColor(graphs.length, values.size());
+            return Utils.getGrayscaleColor(graphs.length, variables.numberOfGraphs);
         }
         return ((Vertex) v).getColor();
     }

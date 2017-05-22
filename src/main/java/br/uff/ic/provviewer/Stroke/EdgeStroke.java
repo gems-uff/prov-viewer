@@ -95,7 +95,7 @@ public class EdgeStroke {
      * @return Stroke
      */
     public static Stroke StrokeByType(Edge edge, Variables variables) {
-        if(variables.isStrokeByValue) {
+        if(variables.isEdgeStrokeByValue) {
             for (EdgeType edgetype : variables.config.edgetype) {
                 if (edge.getLabel().contains(edgetype.type)) {
                     if (edgetype.stroke.equalsIgnoreCase("MAX")) {
@@ -107,6 +107,6 @@ public class EdgeStroke {
                 }
             }
         }
-        return EdgeStroke(edge, variables.isStrokeByValue);
+        return EdgeStroke(edge, variables.isEdgeStrokeByValue);
     }
 }
