@@ -60,7 +60,6 @@ public class Hierarchy_Layout<V, E> extends ProvViewerLayout<V, E> {
      */
     private void doInit() {
         setVertexOrder(Utils.getVertexAttributeComparator(variables.layout_attribute_X));
-        graph = (DirectedGraph<V, E>) variables.graph;
         int i = 0;
         int agentY = 0;
         double yPos = 0;

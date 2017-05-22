@@ -32,8 +32,10 @@ import edu.uci.ics.jung.graph.Graph;
 import java.awt.geom.Point2D;
 
 /**
- * Template for a temporal graph layout. Lines represent each agent and his
- * activities. Columns represent passage of time
+ * Layout to display vertices in a timeline fashion
+ * Each agent will have its own line
+ * The X displacement is fixed and not based on an attribute value
+ * Vertices are ordered by their Attribute's value
  *
  * @author Kohwalter
  * @param <V> JUNG's V (Vertex) type
@@ -61,7 +63,6 @@ public class Timeline_Layout<V, E> extends ProvViewerLayout<V, E> {
     private void doInit() {
         
         setVertexOrder(Utils.getVertexAttributeComparator(variables.layout_attribute_X));
-        graph = (DirectedGraph<V, E>) variables.graph;
         int i = 0;
         int agentY = 0;
         double yPos = 0;

@@ -69,7 +69,6 @@ public class TimelineGraphs_Layout<V, E> extends ProvViewerLayout<V, E> {
             counts.add(0);
         }
         setVertexOrder(Utils.getVertexAttributeComparator(variables.layout_attribute_X));
-        graph = (DirectedGraph<V, E>) variables.graph;
         int i = 0;
         int agentY = 0;
         double yPos = 0;
