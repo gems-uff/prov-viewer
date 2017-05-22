@@ -28,7 +28,6 @@ import br.uff.ic.utility.graph.Edge;
 import static br.uff.ic.provviewer.GraphFrame.StatusFilterBox;
 import br.uff.ic.provviewer.Layout.Temporal_Layout;
 import br.uff.ic.provviewer.Layout.Timeline_AttributeValue_Layout;
-import br.uff.ic.provviewer.Layout.Timeline_Layout;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.provviewer.Vertex.ColorScheme.VertexPainter;
 import br.uff.ic.utility.IO.PROVNWriter;
@@ -222,7 +221,7 @@ public class GuiButtons {
             variables.view.setGraphLayout(variables.layout);
             variables.view.repaint();
         }
-        if (layout.equalsIgnoreCase(variables.layout_timeline_timestamp)) {
+        if (layout.equalsIgnoreCase(variables.layout_timeline_AttributeValue)) {
             variables.layout = new Timeline_AttributeValue_Layout<>(variables.layout.getGraph(), variables);
             variables.guiBackground.InitBackground(variables, Layouts);
             variables.view.setGraphLayout(variables.layout);
