@@ -61,8 +61,10 @@ public class Timeline_Layout<V, E> extends ProvViewerLayout<V, E> {
      * Initialize layout
      */
     private void doInit() {
+        String x_att = variables.layout_attribute_X;
+        x_att = Utils.removeMinusSign(x_att);
         
-        setVertexOrder(Utils.getVertexAttributeComparator(variables.layout_attribute_X));
+        setVertexOrder(Utils.getVertexAttributeComparator(x_att));
         int i = 0;
         int agentY = 0;
         double yPos = 0;

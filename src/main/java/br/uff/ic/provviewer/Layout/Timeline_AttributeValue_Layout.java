@@ -63,7 +63,10 @@ public class Timeline_AttributeValue_Layout<V, E> extends ProvViewerLayout<V, E>
      * Initialize layout
      */
     private void doInit() {
-        
+        String x_att = variables.layout_attribute_X;
+        x_att = Utils.removeMinusSign(x_att);
+        boolean isReverse_X = Utils.getMinusSign(x_att);
+
         Collection<String> values = Utils.DetectAllPossibleValuesFromAttribute(variables.graph.getVertices(), "GraphFile");
         setVertexOrder();
         int i = 0;
@@ -76,11 +79,11 @@ public class Timeline_AttributeValue_Layout<V, E> extends ProvViewerLayout<V, E>
         entityXPos = entityXPos * scale;
         for (V v : vertex_ordered_list) {
             int attValue;
-            if(Utils.isItTime(variables.layout_attribute_X)) {
+            if(Utils.isItTime(x_att)) {
                 attValue = (int) ((Vertex) v).getNormalizedTime();
                 attValue = (int) Utils.convertTime(variables.config.timeScale, attValue, variables.selectedTimeScale) * scale;
             } else {
-                attValue = (int) ((Vertex) v).getAttributeValueFloat(variables.layout_attribute_X);
+                attValue = (int) ((Vertex) v).getAttributeValueFloat(x_att);
             }
             Point2D coord = transform(v);
             int j = 0;
@@ -114,6 +117,9 @@ public class Timeline_AttributeValue_Layout<V, E> extends ProvViewerLayout<V, E>
                 xPos = i;
             }
             yPos = yPos + yGraphOffset;
+            if (isReverse_X) {
+                xPos *= -1;
+            }
             coord.setLocation(xPos, yPos);
         }
         for(V v : entity_ordered_list) {

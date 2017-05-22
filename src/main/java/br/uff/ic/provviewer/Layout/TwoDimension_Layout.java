@@ -62,18 +62,26 @@ public class TwoDimension_Layout<V, E> extends ProvViewerLayout<V, E> {
         setVertexOrder();
         String x_att = variables.layout_attribute_X;
         String y_att = variables.layout_attribute_Y;
+        boolean isReverse_X;
+        boolean isReverse_Y;
+
+        isReverse_X = Utils.getMinusSign(x_att);
+        isReverse_Y = Utils.getMinusSign(y_att);
+        x_att = Utils.removeMinusSign(x_att);
+        y_att = Utils.removeMinusSign(y_att);
+
 //        int yGraphOffset = 0;
         int scale = (int) (1 * variables.config.vertexSize);
         for (V v : vertex_ordered_list) {
             int attValue_x;
             int attValue_y;
-            if(Utils.isItTime(x_att)) {
+            if (Utils.isItTime(x_att)) {
                 attValue_x = (int) ((Vertex) v).getNormalizedTime();
                 attValue_x = (int) Utils.convertTime(variables.config.timeScale, attValue_x, variables.selectedTimeScale);
             } else {
                 attValue_x = (int) ((Vertex) v).getAttributeValueFloat(x_att);
             }
-            if(Utils.isItTime(y_att)) {
+            if (Utils.isItTime(y_att)) {
                 attValue_y = (int) ((Vertex) v).getNormalizedTime();
                 attValue_y = (int) Utils.convertTime(variables.config.timeScale, attValue_y, variables.selectedTimeScale);
             } else {
@@ -88,6 +96,13 @@ public class TwoDimension_Layout<V, E> extends ProvViewerLayout<V, E> {
 //                }
 //                j++;
 //            }
+            if (isReverse_X) {
+                attValue_x *= -1;
+            }
+            if (isReverse_Y) {
+                attValue_y *= -1;
+            }
+
             coord.setLocation(attValue_x * scale, attValue_y * scale * -1);
         }
     }

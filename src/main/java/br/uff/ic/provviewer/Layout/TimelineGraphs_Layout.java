@@ -62,13 +62,15 @@ public class TimelineGraphs_Layout<V, E> extends ProvViewerLayout<V, E> {
      * Initialize layout
      */
     private void doInit() {
+        String x_att = variables.layout_attribute_X;
+        x_att = Utils.removeMinusSign(x_att);
         
         Collection<String> values = Utils.DetectAllPossibleValuesFromAttribute(variables.graph.getVertices(), "GraphFile");
         ArrayList<Integer> counts = new ArrayList<>();
         for(int i = 0; i < values.size(); i++) {
             counts.add(0);
         }
-        setVertexOrder(Utils.getVertexAttributeComparator(variables.layout_attribute_X));
+        setVertexOrder(Utils.getVertexAttributeComparator(x_att));
         int i = 0;
         int agentY = 0;
         double yPos = 0;
