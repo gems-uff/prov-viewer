@@ -792,8 +792,8 @@
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="15">
                 <StringItem index="0" value="Timeline"/>
-                <StringItem index="1" value="Timeline(Timestamp)"/>
-                <StringItem index="2" value="Timeline(Multiple Graphs)"/>
+                <StringItem index="1" value="One Dimensional"/>
+                <StringItem index="2" value="Two Dimensional"/>
                 <StringItem index="3" value="Hierarchy"/>
                 <StringItem index="4" value="Temporal"/>
                 <StringItem index="5" value="Spatial"/>

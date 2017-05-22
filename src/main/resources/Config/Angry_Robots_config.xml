@@ -83,6 +83,22 @@ THE SOFTWARE.
         <edgestroke>MEAN</edgestroke>
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
+    <vertexAttributeFilter>
+        <name>ObjectName</name>
+        <value>Player</value>
+    </vertexAttributeFilter>
+    <vertexAttributeFilter>
+        <name>ObjectTag</name>
+        <value>Player</value>
+    </vertexAttributeFilter>
+    <vertexAttributeFilter>
+        <name>ObjectTag</name>
+        <value>Enemy</value>
+    </vertexAttributeFilter>
+    <vertexAttributeFilter>
+        <name>GraphFile</name>
+        <value>Graph_To_Merge_01.xml</value>
+    </vertexAttributeFilter>
     <colorscheme>
         <attribute>Health</attribute>
         <class>ActivityScheme</class>

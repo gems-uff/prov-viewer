@@ -43,9 +43,9 @@ import java.util.Collection;
  * @param <V> JUNG's V (Vertex) type
  * @param <E> JUNG's E (Edge) type
  */
-public class Timeline_AttributeValue_Layout<V, E> extends ProvViewerLayout<V, E> {
+public class OneDimensional_Layout<V, E> extends ProvViewerLayout<V, E> {
 
-    public Timeline_AttributeValue_Layout(Graph<V, E> g, Variables variables) {
+    public OneDimensional_Layout(Graph<V, E> g, Variables variables) {
         super(g, variables);
     }
 

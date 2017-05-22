@@ -37,7 +37,7 @@ import java.util.Collection;
 /**
  * Template for a temporal graph layout. Lines represent each agent and his
  * activities. Columns represent passage of time
- *
+ * @deprecated 
  * @author Kohwalter
  * @param <V> JUNG's V (Vertex) type
  * @param <E> JUNG's E (Edge) type

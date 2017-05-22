@@ -35,7 +35,8 @@ import br.uff.ic.provviewer.Layout.Temporal_Layout;
 import br.uff.ic.provviewer.Layout.Timeline_Layout;
 import br.uff.ic.provviewer.Layout.Hierarchy_Layout;
 import br.uff.ic.provviewer.Layout.TimelineGraphs_Layout;
-import br.uff.ic.provviewer.Layout.Timeline_AttributeValue_Layout;
+import br.uff.ic.provviewer.Layout.OneDimensional_Layout;
+import br.uff.ic.provviewer.Layout.TwoDimensional_Layout;
 import br.uff.ic.utility.GraphCollapser;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.DAGLayout;
@@ -133,8 +134,8 @@ public class Variables extends Object {
     public String layout_temporal = "Temporal";
     public String layout_hierarchy = "Hierarchy";
     public String layout_timeline = "Timeline";
-    public String layout_timeline_timestamp = "Timeline(Timestamp)";
-    public String layout_timeline_graphs = "Timeline(Multiple Graphs)";
+    public String layout_One_Dimensional = "One Dimensional";
+    public String layout_Two_Dimensional = "Two Dimensional";
     public String layout_provcircle = "ProvCircle";
     public String layout_provcircle2 = "ProvCircle2";
     public String layout_circle = "Circle";
@@ -276,11 +277,11 @@ public class Variables extends Object {
         else if (layout.equalsIgnoreCase(layout_timeline)) {
             this.layout = new Timeline_Layout<>(this.graph, this);
         }
-        else if (layout.equalsIgnoreCase(layout_timeline_timestamp)) {
-            this.layout = new Timeline_AttributeValue_Layout<>(this.graph, this);
+        else if (layout.equalsIgnoreCase(layout_One_Dimensional)) {
+            this.layout = new OneDimensional_Layout<>(this.graph, this);
         }
-        else if (layout.equalsIgnoreCase(layout_timeline_graphs)) {
-            this.layout = new TimelineGraphs_Layout<>(this.graph, this);
+        else if (layout.equalsIgnoreCase(layout_Two_Dimensional)) {
+            this.layout = new TwoDimensional_Layout<>(this.graph, this);
         }
         else if (layout.equalsIgnoreCase(layout_provcircle)) {
             this.layout = new ProvCircleLayout<>(this.graph, this);

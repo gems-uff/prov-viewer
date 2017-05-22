@@ -38,9 +38,9 @@ import java.awt.geom.Point2D;
  * @param <V> JUNG's V (Vertex) type
  * @param <E> JUNG's E (Edge) type
  */
-public class TwoDimension_Layout<V, E> extends ProvViewerLayout<V, E> {
+public class TwoDimensional_Layout<V, E> extends ProvViewerLayout<V, E> {
 
-    public TwoDimension_Layout(Graph<V, E> g, Variables variables) {
+    public TwoDimensional_Layout(Graph<V, E> g, Variables variables) {
         super(g, variables);
     }
 
