@@ -27,7 +27,6 @@ import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
-import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.Graph;
 import java.awt.geom.Point2D;
 
@@ -78,11 +77,11 @@ public class Hierarchy_Layout<V, E> extends ProvViewerLayout<V, E> {
 //                i = i + scale;
                 xPos = i - scale;
             } else if (v instanceof ActivityVertex) {
-                if (graph.getOutEdges(v) != null) {
-                    for (E neighbor : graph.getOutEdges(v)) {
+                if (layout_graph.getOutEdges(v) != null) {
+                    for (E neighbor : layout_graph.getOutEdges(v)) {
                         //if the edge link to an Agent-node
-                        if (graph.getDest(neighbor) instanceof AgentVertex) {
-                            Point2D agentPos = transform(graph.getDest(neighbor));
+                        if (layout_graph.getDest(neighbor) instanceof AgentVertex) {
+                            Point2D agentPos = transform(layout_graph.getDest(neighbor));
                             yPos = agentPos.getY() + scale;
                         }
                         

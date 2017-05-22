@@ -27,6 +27,7 @@ import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.graph.EntityVertex;
 import edu.uci.ics.jung.algorithms.layout.AbstractLayout;
 import edu.uci.ics.jung.algorithms.util.IterativeContext;
+import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.Graph;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,12 +44,19 @@ public abstract class ProvViewerLayout<V, E> extends AbstractLayout<V, E> implem
     public Variables variables;
     public List<V> vertex_ordered_list;
     public List<V> entity_ordered_list;
+    public Graph<V, E> layout_graph;
+ 
+    public ProvViewerLayout(Graph<V, E> g, Variables variables) {
+        super(g);
+        this.variables = variables;
+        layout_graph = (DirectedGraph<V, E>) variables.graph;
+    }
     
     public void setVertexOrder(Comparator<V> comparator) {
         if (vertex_ordered_list == null) {
             vertex_ordered_list = new ArrayList<>();
             entity_ordered_list = new ArrayList<>();
-            for (V v : getGraph().getVertices()) {
+            for (V v : graph.getVertices()) {
                 if(v instanceof EntityVertex) {
                     entity_ordered_list.add(v);
                 }
@@ -64,7 +72,7 @@ public abstract class ProvViewerLayout<V, E> extends AbstractLayout<V, E> implem
         if (vertex_ordered_list == null) {
             vertex_ordered_list = new ArrayList<>();
             entity_ordered_list = new ArrayList<>();
-            for (V v : getGraph().getVertices()) {
+            for (V v : graph.getVertices()) {
                 if(v instanceof EntityVertex) {
                     entity_ordered_list.add(v);
                 }
@@ -85,10 +93,5 @@ public abstract class ProvViewerLayout<V, E> extends AbstractLayout<V, E> implem
                     + "all vertices of the graph");
         }
         this.vertex_ordered_list = vertex_list;
-    }
-    
-    public ProvViewerLayout(Graph<V, E> g, Variables variables) {
-        super(g);
-        this.variables = variables;
     }
 }
