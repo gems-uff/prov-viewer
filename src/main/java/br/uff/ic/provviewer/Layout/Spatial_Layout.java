@@ -61,15 +61,15 @@ public class Spatial_Layout<V, E> extends ProvViewerLayout<V, E> {
         doInit();
     }
 
-    private Graph<V, E> layout_graph;
+//    private Graph<V, E> layout_graph;
 
     /**
      * Initialize layout
      */
     private void doInit() {
-        layout_graph = getGraph();
+//        layout_graph = getGraph();
         //Compute position for all node-types (minus Agent)
-        for (V v2 : layout_graph.getVertices()) {
+        for (V v2 : getGraph().getVertices()) {
             calcPositions(v2);
         }
         //Check if there are nodes at the same place, if so apply repulsion
@@ -171,7 +171,7 @@ public class Spatial_Layout<V, E> extends ProvViewerLayout<V, E> {
         //Only Process and Artifact types can have the same position, so lets check
         if ((v1 instanceof ActivityVertex) || (v1 instanceof EntityVertex)) {
             try {
-                for (V v2 : layout_graph.getVertices()) {
+                for (V v2 : getGraph().getVertices()) {
                     //A check to see if we are not comparing him with himself
                     if (v1 != v2) {
                         Point2D p1 = transform(v1);
