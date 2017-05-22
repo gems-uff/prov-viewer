@@ -486,10 +486,7 @@
                               <Component id="Reset" min="-2" pref="113" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="isSTDeps" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="isSTDeps" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
@@ -533,21 +530,20 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="EdgeStyle" max="32767" attributes="0"/>
-                              <Component id="GraphLayout" alignment="0" max="32767" attributes="0"/>
-                              <Component id="MouseModeLabel" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="GraphLayout" alignment="0" max="32767" attributes="0"/>
+                          <Component id="MouseModeLabel" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel6" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="EdgeStyle" min="-2" pref="75" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="layoutAttributeNameText" max="32767" attributes="0"/>
+                      <Component id="layoutAttributeName_Y_Text" max="32767" attributes="0"/>
+                      <Component id="layoutAttributeName_X_Text" max="32767" attributes="0"/>
                       <Component id="MouseModes" max="32767" attributes="0"/>
                       <Component id="Layouts" max="32767" attributes="0"/>
                       <Component id="EdgeLineShapeSelection" alignment="1" max="32767" attributes="0"/>
@@ -564,6 +560,28 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="Collapse" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="StatusFilterBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="simEpsilon" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="Expand" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="TemporalFilterToggle" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="simStdSize" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="layoutAttributeName_X_Text" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                  <Component id="CollapseAgent" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="AttributeStatus" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="SimilarityInference" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="MouseModes" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="MouseModeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -574,50 +592,32 @@
                                       <Component id="GraphLayout" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="Collapse" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="StatusFilterBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="simEpsilon" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="Expand" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="TemporalFilterToggle" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="simStdSize" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="layoutAttributeNameText" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                          <Component id="CollapseAgent" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="AttributeStatus" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="SimilarityInference" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                          <Component id="Reset" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="FilterVertexMinValue" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="FilterVertexMaxValue" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="simStdInc" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="EdgeLineShapeSelection" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="EdgeStyle" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                  <Component id="Reset" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="FilterVertexMinValue" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="FilterVertexMaxValue" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="simStdInc" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                  <Component id="layoutAttributeName_Y_Text" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="dbscanEpsilon" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="isSTDeps" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="dbscanEpsilon" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="isSTDeps" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                  <Component id="EdgeLineShapeSelection" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="EdgeStyle" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -1011,17 +1011,30 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="vertexShapeBasedOnAttributeActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="layoutAttributeNameText">
+        <Component class="javax.swing.JTextField" name="layoutAttributeName_X_Text">
           <Properties>
             <Property name="text" type="java.lang.String" value="Timestamp"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="layoutAttributeNameTextActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="layoutAttributeName_X_TextActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Layout Attribute"/>
+            <Property name="text" type="java.lang.String" value="Layout X coord"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="layoutAttributeName_Y_Text">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Timestamp"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="layoutAttributeName_Y_TextActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel7">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Layout Y coord"/>
           </Properties>
         </Component>
       </SubComponents>
