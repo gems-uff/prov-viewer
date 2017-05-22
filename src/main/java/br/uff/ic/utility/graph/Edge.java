@@ -112,16 +112,17 @@ public class Edge extends GraphObject {
         this.source = source;
         this.target = target;
         this.type = type;
-        if (label.equalsIgnoreCase("") || label == null || "-".equals(label) || label.equalsIgnoreCase("Neutral")) {
-            setLabel("Neutral");
-            value = "0";
-        }
         hide = false;
         collapsed = false;
         this.attributes = new HashMap<>();
         GraphAttribute att = new GraphAttribute(influenceName, value);
         this.attributes.put(att.getName(), att);
         setLabel(label);
+        if (label.equalsIgnoreCase("") || label == null || "-".equals(label) || label.equalsIgnoreCase("Neutral")) {
+            setLabel("Neutral");
+            value = "0";
+        }
+        
     }
 
     /**
