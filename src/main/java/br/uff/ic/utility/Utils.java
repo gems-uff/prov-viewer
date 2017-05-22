@@ -756,6 +756,24 @@ public class Utils {
     }
     
     /**
+     * Method that determines if the provided attribute is a timestamp/date/time type of attribute
+     * @param attribute the attribute we want to check
+     * @return TRUE if it is Time/Timestamp/Date or FALSE if not
+     */
+    public static boolean isItTime(String attribute) {
+        if(attribute.equalsIgnoreCase("Time"))         {
+            return true;
+        }
+        if(attribute.equalsIgnoreCase("Timestamp")) {
+            return true;
+        }
+        if(attribute.equalsIgnoreCase("Date")) {
+            return true;
+        }
+        return false;
+    }
+    
+    /**
      * Method to return a comparator that compares two vertices based on their timestamps
      * @return the comparator
      */
@@ -766,6 +784,39 @@ public class Utils {
                 if (!(c1 instanceof Graph) && !(c2 instanceof Graph)) {
                     double c1t = ((Vertex) c1).getTime();
                     double c2t = ((Vertex) c2).getTime();
+                    if (c1t != c2t) {
+                        return Double.compare(c1t, c2t);
+                    } else {
+                        return ((Vertex) c2).getNodeType().compareTo(((Vertex) c1).getNodeType());
+                    }
+                    //TODO make agent lose priority to appear after the activity
+                } else {
+                    return 0;
+                }
+            }
+        };
+        return comparator;
+    }
+    
+    /**
+     * Generic comparator
+     * @param attribute Is the attribute that we want to sort
+     * @return the comparator for the given attribute
+     */
+    public static Comparator getVertexAttributeComparator(final String attribute) {
+        Comparator comparator = new Comparator<Object>() {
+            @Override
+            public int compare(Object c1, Object c2) {
+                if (!(c1 instanceof Graph) && !(c2 instanceof Graph)) {
+                    double c1t;
+                    double c2t;
+                    if(isItTime(attribute)) {
+                        c1t = ((Vertex) c1).getTime();
+                        c2t = ((Vertex) c2).getTime();
+                    } else {
+                        c1t = ((Vertex) c1).getAttributeValueFloat(attribute);
+                        c2t = ((Vertex) c2).getAttributeValueFloat(attribute);
+                    }
                     if (c1t != c2t) {
                         return Double.compare(c1t, c2t);
                     } else {
