@@ -35,7 +35,7 @@ import br.uff.ic.provviewer.Layout.Temporal_Layout;
 import br.uff.ic.provviewer.Layout.Timeline_Layout;
 import br.uff.ic.provviewer.Layout.Hierarchy_Layout;
 import br.uff.ic.provviewer.Layout.TimelineGraphs_Layout;
-import br.uff.ic.provviewer.Layout.TimelineGraphs_Timestamp_Layout;
+import br.uff.ic.provviewer.Layout.Timeline_AttributeValue_Layout;
 import br.uff.ic.utility.GraphCollapser;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.DAGLayout;
@@ -144,6 +144,9 @@ public class Variables extends Object {
     public String layout_ISOM = "ISOM";
     public String layout_spring = "Spring";
     public String layout_dag = "DAG";
+    
+    public String layout_attribute_X = "Timestamp";
+    public String layout_attribute_Y = "Timestamp";
 
     
     /**
@@ -274,7 +277,7 @@ public class Variables extends Object {
             this.layout = new Timeline_Layout<>(this.graph, this);
         }
         else if (layout.equalsIgnoreCase(layout_timeline_timestamp)) {
-            this.layout = new TimelineGraphs_Timestamp_Layout<>(this.graph, this);
+            this.layout = new Timeline_AttributeValue_Layout<>(this.graph, this);
         }
         else if (layout.equalsIgnoreCase(layout_timeline_graphs)) {
             this.layout = new TimelineGraphs_Layout<>(this.graph, this);

@@ -27,14 +27,9 @@ import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
-import br.uff.ic.utility.graph.EntityVertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.Graph;
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 /**
  * Template for a temporal graph layout. Lines represent each agent and his
@@ -45,10 +40,6 @@ import java.util.List;
  * @param <E> JUNG's E (Edge) type
  */
 public class Hierarchy_Layout<V, E> extends ProvViewerLayout<V, E> {
-
-    private List<V> vertex_ordered_list;
-    private List<V> entity_ordered_list;
-    private DirectedGraph<V, E> graph;
 
     public Hierarchy_Layout(Graph<V, E> g, Variables variables) {
         super(g, variables);
@@ -64,30 +55,11 @@ public class Hierarchy_Layout<V, E> extends ProvViewerLayout<V, E> {
         doInit();
     }
 
-    public void setVertexOrder(Comparator<V> comparator) {
-        if (vertex_ordered_list == null) {
-//            vertex_ordered_list = new ArrayList<V>(getGraph().getVertices());
-            vertex_ordered_list = new ArrayList<>();
-            entity_ordered_list = new ArrayList<>();
-            for (V v : getGraph().getVertices()) {
-                if(v instanceof EntityVertex) {
-                    entity_ordered_list.add(v);
-                }
-                else
-                    vertex_ordered_list.add(v);
-            }
-        }
-        Collections.sort(vertex_ordered_list, comparator);
-        Collections.sort(entity_ordered_list, comparator);
-    }
-
-    private Graph<V, E> layout_graph;
-
     /**
      * Initialize layout
      */
     private void doInit() {
-        setVertexOrder(Utils.getVertexTimeComparator());
+        setVertexOrder(Utils.getVertexAttributeComparator(variables.layout_attribute_X));
         graph = (DirectedGraph<V, E>) variables.graph;
         int i = 0;
         int agentY = 0;

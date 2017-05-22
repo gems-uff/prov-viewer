@@ -4,7 +4,7 @@
 
     <groupId>uff</groupId>
     <artifactId>prov-viewer</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.2_Beta</version>
     <packaging>jar</packaging>
     <!--<name>Prov Viewer</name>--> 
     <!--<url>http://maven.apache.org</url> --> 

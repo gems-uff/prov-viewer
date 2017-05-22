@@ -27,16 +27,11 @@ import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
-import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.Graph;
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 /**
  * Template for a temporal graph layout. Lines represent each agent and his
@@ -46,13 +41,9 @@ import java.util.List;
  * @param <V> JUNG's V (Vertex) type
  * @param <E> JUNG's E (Edge) type
  */
-public class TimelineGraphs_Timestamp_Layout<V, E> extends ProvViewerLayout<V, E> {
+public class Timeline_AttributeValue_Layout<V, E> extends ProvViewerLayout<V, E> {
 
-    private List<V> vertex_ordered_list;
-    private List<V> entity_ordered_list;
-    private DirectedGraph<V, E> graph;
-
-    public TimelineGraphs_Timestamp_Layout(Graph<V, E> g, Variables variables) {
+    public Timeline_AttributeValue_Layout(Graph<V, E> g, Variables variables) {
         super(g, variables);
     }
 
@@ -66,32 +57,13 @@ public class TimelineGraphs_Timestamp_Layout<V, E> extends ProvViewerLayout<V, E
         doInit();
     }
 
-    public void setVertexOrder(Comparator<V> comparator) {
-        if (vertex_ordered_list == null) {
-//            vertex_ordered_list = new ArrayList<V>(getGraph().getVertices());
-            vertex_ordered_list = new ArrayList<>();
-            entity_ordered_list = new ArrayList<>();
-            for (V v : getGraph().getVertices()) {
-                if(v instanceof EntityVertex) {
-                    entity_ordered_list.add(v);
-                }
-                else
-                    vertex_ordered_list.add(v);
-            }
-        }
-        Collections.sort(vertex_ordered_list, comparator);
-        Collections.sort(entity_ordered_list, comparator);
-    }
-
-    private Graph<V, E> layout_graph;
-
     /**
      * Initialize layout
      */
     private void doInit() {
         
         Collection<String> values = Utils.DetectAllPossibleValuesFromAttribute(variables.graph.getVertices(), "GraphFile");
-        setVertexOrder(Utils.getVertexTimeComparator());
+        setVertexOrder();
         graph = (DirectedGraph<V, E>) variables.graph;
         int i = 0;
         int agentY = 0;
@@ -102,8 +74,13 @@ public class TimelineGraphs_Timestamp_Layout<V, E> extends ProvViewerLayout<V, E
         int scale = (int) (3 * variables.config.vertexSize);
         entityXPos = entityXPos * scale;
         for (V v : vertex_ordered_list) {
-            int time = (int) ((Vertex) v).getNormalizedTime();
-            time = (int) Utils.convertTime(variables.config.timeScale, time, variables.selectedTimeScale) * scale;
+            int attValue;
+            if(Utils.isItTime(variables.layout_attribute_X)) {
+                attValue = (int) ((Vertex) v).getNormalizedTime();
+                attValue = (int) Utils.convertTime(variables.config.timeScale, attValue, variables.selectedTimeScale) * scale;
+            } else {
+                attValue = (int) ((Vertex) v).getAttributeValueFloat(variables.layout_attribute_X);
+            }
             Point2D coord = transform(v);
             int j = 0;
             for(String g : values) {
@@ -116,7 +93,7 @@ public class TimelineGraphs_Timestamp_Layout<V, E> extends ProvViewerLayout<V, E
             if (v instanceof AgentVertex) {
                 yPos = agentY;
                 agentY = agentY + scale;
-                i = time + scale;
+                i = attValue + scale;
                 xPos = i;
             } else if (v instanceof ActivityVertex) {
                 if (graph.getOutEdges(v) != null) {
@@ -126,13 +103,13 @@ public class TimelineGraphs_Timestamp_Layout<V, E> extends ProvViewerLayout<V, E
                             Point2D agentPos = transform(graph.getDest(neighbor));
                             yPos = agentPos.getY();
                         }
-                        i = time + scale;
+                        i = attValue + scale;
                         xPos = i;
                     }
                 }
             } else {
                 yPos = 0;
-                i = time + scale;
+                i = attValue + scale;
                 xPos = i;
             }
             yPos = yPos + yGraphOffset;

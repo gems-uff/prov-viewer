@@ -25,7 +25,6 @@ package br.uff.ic.provviewer.Layout;
 
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.Utils;
-import br.uff.ic.utility.graph.Vertex;
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -43,15 +42,17 @@ import edu.uci.ics.jung.graph.Graph;
 /**
  *
  * @author Kohwalter
+ * @param <V>
+ * @param <E>
  */
 public class ProvCircleLayout2<V, E> extends ProvViewerLayout<V, E> {
 
     private double radius;
-    private List<V> vertex_ordered_list;
 
     Map<V, CircleVertexData> circleVertexDataMap
             = LazyMap.decorate(new HashMap<V, CircleVertexData>(),
                     new Factory<CircleVertexData>() {
+                @Override
                 public CircleVertexData create() {
                     return new CircleVertexData();
                 }
@@ -59,6 +60,8 @@ public class ProvCircleLayout2<V, E> extends ProvViewerLayout<V, E> {
 
     /**
      * Creates an instance for the specified graph.
+     * @param g
+     * @param variables
      */
     public ProvCircleLayout2(Graph<V, E> g, Variables variables) {
         super(g, variables);
@@ -66,6 +69,7 @@ public class ProvCircleLayout2<V, E> extends ProvViewerLayout<V, E> {
 
     /**
      * Returns the radius of the circle.
+     * @return 
      */
     public double getRadius() {
         return radius;
@@ -74,6 +78,7 @@ public class ProvCircleLayout2<V, E> extends ProvViewerLayout<V, E> {
     /**
      * Sets the radius of the circle. Must be called before {@code initialize()}
      * is called.
+     * @param radius
      */
     public void setRadius(double radius) {
         this.radius = radius;
@@ -82,30 +87,22 @@ public class ProvCircleLayout2<V, E> extends ProvViewerLayout<V, E> {
     /**
      * Sets the order of the vertices in the layout according to the ordering
      * specified by {@code comparator}.
+     * @param comparator
      */
+    @Override
     public void setVertexOrder(Comparator<V> comparator) {
         if (vertex_ordered_list == null) {
-            vertex_ordered_list = new ArrayList<V>(getGraph().getVertices());
+            vertex_ordered_list = new ArrayList<>(getGraph().getVertices());
         }
         Collections.sort(vertex_ordered_list, comparator);
     }
 
-    /**
-     * Sets the order of the vertices in the layout according to the ordering of
-     * {@code vertex_list}.
-     */
-    public void setVertexOrder(List<V> vertex_list) {
-        if (!vertex_list.containsAll(getGraph().getVertices())) {
-            throw new IllegalArgumentException("Supplied list must include "
-                    + "all vertices of the graph");
-        }
-        this.vertex_ordered_list = vertex_list;
-    }
-
+    @Override
     public void reset() {
         initialize();
     }
 
+    @Override
     public void initialize() {
         Dimension d = getSize();
 

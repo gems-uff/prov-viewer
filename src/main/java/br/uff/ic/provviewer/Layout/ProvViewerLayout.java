@@ -24,9 +24,14 @@
 package br.uff.ic.provviewer.Layout;
 
 import br.uff.ic.provviewer.Variables;
+import br.uff.ic.utility.graph.EntityVertex;
 import edu.uci.ics.jung.algorithms.layout.AbstractLayout;
 import edu.uci.ics.jung.algorithms.util.IterativeContext;
 import edu.uci.ics.jung.graph.Graph;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  *
@@ -36,6 +41,51 @@ import edu.uci.ics.jung.graph.Graph;
  */
 public abstract class ProvViewerLayout<V, E> extends AbstractLayout<V, E> implements IterativeContext {
     public Variables variables;
+    public List<V> vertex_ordered_list;
+    public List<V> entity_ordered_list;
+    
+    public void setVertexOrder(Comparator<V> comparator) {
+        if (vertex_ordered_list == null) {
+            vertex_ordered_list = new ArrayList<>();
+            entity_ordered_list = new ArrayList<>();
+            for (V v : getGraph().getVertices()) {
+                if(v instanceof EntityVertex) {
+                    entity_ordered_list.add(v);
+                }
+                else
+                    vertex_ordered_list.add(v);
+            }
+        }
+        Collections.sort(vertex_ordered_list, comparator);
+        Collections.sort(entity_ordered_list, comparator);
+    }
+    
+    public void setVertexOrder() {
+        if (vertex_ordered_list == null) {
+            vertex_ordered_list = new ArrayList<>();
+            entity_ordered_list = new ArrayList<>();
+            for (V v : getGraph().getVertices()) {
+                if(v instanceof EntityVertex) {
+                    entity_ordered_list.add(v);
+                }
+                else
+                    vertex_ordered_list.add(v);
+            }
+        }
+    }
+    
+    /**
+     * Sets the order of the vertices in the layout according to the ordering of
+     * {@code vertex_list}.
+     * @param vertex_list
+     */
+    public void setVertexOrder(List<V> vertex_list) {
+        if (!vertex_list.containsAll(getGraph().getVertices())) {
+            throw new IllegalArgumentException("Supplied list must include "
+                    + "all vertices of the graph");
+        }
+        this.vertex_ordered_list = vertex_list;
+    }
     
     public ProvViewerLayout(Graph<V, E> g, Variables variables) {
         super(g);
