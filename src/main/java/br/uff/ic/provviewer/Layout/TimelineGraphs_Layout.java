@@ -68,27 +68,70 @@ public class TimelineGraphs_Layout<V, E> extends ProvViewerLayout<V, E> {
         for(int i = 0; i < variables.numberOfGraphs; i++) {
             counts.add(0);
         }
+        
         setVertexOrder(Utils.getVertexAttributeComparator(x_att));
+        
         int i = 0;
         int agentY = 0;
         double yPos = 0;
         double xPos = 0;
         int yGraphOffset = 0;
-        int entityXPos = (int) (vertex_ordered_list.size() * 0.5 - (entity_ordered_list.size() * 0.5));
-        int scale = (int) (2 * variables.config.vertexSize * variables.numberOfGraphs * 0.25);
+        int entityXPos = (int) (vertex_ordered_list.size() * 0.5 - (entity_ordered_list.size() * 0.75));
+        int scale = 2 * variables.config.vertexSize;
         entityXPos = entityXPos * scale;
         for (V v : vertex_ordered_list) {
+            yPos = 0;
             Point2D coord = transform(v);
             int j = 0;
             for(String g : variables.graphNames) {
                 if(((Vertex)v).getAttributeValue("GraphFile").contains(g)) {
-                    yGraphOffset = (int) (variables.config.vertexSize * 0.25 * j);
+                    yGraphOffset = (int) (variables.config.vertexSize * 0.5 * j);
                     break;
                 }
                 j++;
             }
-            
-            // Sync the X position if we have a common vertex node for multiple graphs
+            syncPosition(counts, v);
+
+            if (v instanceof AgentVertex) {
+                yPos = agentY;
+                agentY = agentY + scale;
+                i = counts.get(j) * scale;
+                counts.set(j, counts.get(j) + 1);
+                xPos = i;
+            } else if (v instanceof ActivityVertex) {
+                if (layout_graph.getOutEdges(v) != null) {
+                    for (E neighbor : layout_graph.getOutEdges(v)) {
+                        //if the edge link to an Agent-node
+                        if (layout_graph.getDest(neighbor) instanceof AgentVertex) {
+                            Point2D agentPos = transform(layout_graph.getDest(neighbor));
+                            yPos = agentPos.getY();
+                        }
+                        i = counts.get(j) * scale;
+                        counts.set(j, counts.get(j) + 1);
+                        xPos = i;
+                    }
+                }
+            } else {
+                yPos = 0;
+                i = counts.get(j) * scale;
+                counts.set(j, counts.get(j) + 1);
+                xPos = i;
+            }
+            yPos = yPos + yGraphOffset;
+            coord.setLocation(xPos, yPos);
+        }
+        for(V v : entity_ordered_list) {
+            Point2D coord = transform(v);
+            // Position then in the middle
+            xPos = entityXPos;
+            entityXPos = entityXPos + scale;
+            yPos = -10 * scale;
+            coord.setLocation(xPos, yPos);
+        }
+    }
+    
+    private void syncPosition(ArrayList<Integer> counts, V v) {
+        // Sync the X position if we have a common vertex node for multiple graphs
             String[] graphFiles = ((Vertex)v).getAttributeValues("GraphFile");
             if (graphFiles.length > 1) {
                 // Find the max position so we can sync the rest
@@ -117,43 +160,6 @@ public class TimelineGraphs_Layout<V, E> extends ProvViewerLayout<V, E> {
                     }
                 }
             }
-            
-            if (v instanceof AgentVertex) {
-                yPos = agentY;
-                agentY = agentY + scale;
-                i = counts.get(j) + scale;
-                counts.set(j, counts.get(j) + 1);
-                xPos = i;
-            } else if (v instanceof ActivityVertex) {
-                if (layout_graph.getOutEdges(v) != null) {
-                    for (E neighbor : layout_graph.getOutEdges(v)) {
-                        //if the edge link to an Agent-node
-                        if (layout_graph.getDest(neighbor) instanceof AgentVertex) {
-                            Point2D agentPos = transform(layout_graph.getDest(neighbor));
-                            yPos = agentPos.getY();
-                        }
-                        i = counts.get(j) + scale;
-                        counts.set(j, counts.get(j) + 1);
-                        xPos = i;
-                    }
-                }
-            } else {
-                yPos = 0;
-                i = counts.get(j) + scale;
-                counts.set(j, counts.get(j) + 1);
-                xPos = i;
-            }
-            yPos = yPos + yGraphOffset;
-            coord.setLocation(xPos, yPos);
-        }
-        for(V v : entity_ordered_list) {
-            Point2D coord = transform(v);
-            // Position then in the middle
-            xPos = entityXPos;
-            entityXPos = entityXPos + scale;
-            yPos = -10 * scale;
-            coord.setLocation(xPos, yPos);
-        }
     }
 
     /**
