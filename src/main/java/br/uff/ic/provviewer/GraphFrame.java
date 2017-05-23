@@ -137,6 +137,7 @@ public class GraphFrame extends javax.swing.JFrame {
         isStrokeByValueButton = new javax.swing.JCheckBoxMenuItem();
         isColorByEdgeValueButton = new javax.swing.JCheckBoxMenuItem();
         PantoVertex = new javax.swing.JMenuItem();
+        allowVariableLayoutButton = new javax.swing.JCheckBoxMenuItem();
         displayEdgeTextButton = new javax.swing.JMenu();
         displayID = new javax.swing.JCheckBoxMenuItem();
         displayTimeLabel = new javax.swing.JCheckBoxMenuItem();
@@ -625,6 +626,14 @@ public class GraphFrame extends javax.swing.JFrame {
             }
         });
         jMenu1.add(PantoVertex);
+
+        allowVariableLayoutButton.setText("Allow Layouts to Change by Filters");
+        allowVariableLayoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                allowVariableLayoutButtonActionPerformed(evt);
+            }
+        });
+        jMenu1.add(allowVariableLayoutButton);
 
         MenuBar.add(jMenu1);
 
@@ -1212,6 +1221,12 @@ public class GraphFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         GuiButtons.Filter(variables);
     }//GEN-LAST:event_hideMergedVerticesButtonActionPerformed
+
+    private void allowVariableLayoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allowVariableLayoutButtonActionPerformed
+        // TODO add your handling code here:
+//        variables.allowVariableLayout = allowVariableLayoutButton.getState();
+        GuiButtons.setVariableLayouts(variables, allowVariableLayoutButton.getState(), Layouts);
+    }//GEN-LAST:event_allowVariableLayoutButtonActionPerformed
    
     /**
      * Main
@@ -1275,6 +1290,7 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JToggleButton TemporalFilterToggle;
     private javax.swing.JPanel ToolMenu;
     private javax.swing.JScrollPane VertexLabels;
+    private javax.swing.JCheckBoxMenuItem allowVariableLayoutButton;
     public static javax.swing.JRadioButtonMenuItem attributeDisplaySimConfig;
     private javax.swing.JCheckBoxMenuItem autoDetectAttributeCheckBox;
     private javax.swing.JCheckBoxMenuItem autoDetectEdgesCheckBox;

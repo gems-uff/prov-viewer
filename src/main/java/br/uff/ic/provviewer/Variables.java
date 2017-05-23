@@ -75,8 +75,8 @@ public class Variables extends Object {
 //    public static String demo = File.separator + "Graph" + File.separator + "Graph_to_Merge_01.xml";
 //    public String configDemo = File.separator + "Config" + File.separator + "Angry_Robots_config.xml";
     
-    public static String demo = "Graph" + File.separator + "Car_Tutorial.xml";   
-    public String configDemo = "Config" + File.separator + "Car_Tutorial_config.xml";
+//    public static String demo = "Graph" + File.separator + "Car_Tutorial.xml";   
+//    public String configDemo = "Config" + File.separator + "Car_Tutorial_config.xml";
     
 //    public static String demo = File.separator + "Graph" + File.separator + "rio_city_bus_example.xml";
 //    public static String demo = File.separator + "Graph" + File.separator + "bus_linha5.xml";
@@ -105,8 +105,8 @@ public class Variables extends Object {
 //    public static String demo = File.separator + "Graph" + File.separator + "Car_Tutorial.xml";
 //    public String configDemo = File.separator + "Config" + File.separator + "Noise_config.xml";
     
-//    public static String demo = File.separator + "Graph" + File.separator + "bash-count.xml"; 
-//    public String configDemo = File.separator + "Config" + File.separator + "Reprozip_config.xml";
+    public static String demo = File.separator + "Graph" + File.separator + "bash-count.xml"; 
+    public String configDemo = File.separator + "Config" + File.separator + "Reprozip_config.xml";
 
     public GuiBackground guiBackground = new GuiBackground();
     public VisualizationViewer<Object, Edge> view;
@@ -158,6 +158,7 @@ public class Variables extends Object {
     public Collection<String> graphNames;
     public boolean highlightVertexOutliers = true;
     public ThresholdValues outliersThresholds;
+    public boolean allowVariableLayout = false;
     
     
     /**
@@ -267,56 +268,61 @@ public class Variables extends Object {
     }
     
     public void newLayout(String layout) {
+        DirectedGraph<Object, Edge> displayGraph;
+        if(this.layout != null && this.allowVariableLayout)
+            displayGraph = (DirectedGraph<Object, Edge>) this.layout.getGraph();
+        else
+            displayGraph = this.graph;
         if (layout.equalsIgnoreCase(layout_circle)) {
-            this.layout = new CircleLayout<>(this.graph);
+            this.layout = new CircleLayout<>(displayGraph);
         }
         else if (layout.equalsIgnoreCase(layout_fr)) {
-            this.layout = new FRLayout<>(this.graph);
+            this.layout = new FRLayout<>(displayGraph);
         }
         else if (layout.equalsIgnoreCase(layout_fr2)) {
-            this.layout = new FRLayout2<>(this.graph);
+            this.layout = new FRLayout2<>(displayGraph);
         }
         else if (layout.equalsIgnoreCase(layout_ISOM)) {
-            this.layout = new ISOMLayout<>(this.graph);
+            this.layout = new ISOMLayout<>(displayGraph);
         }
         else if (layout.equalsIgnoreCase(layout_kk)) {
-            this.layout = new KKLayout<>(this.graph);
+            this.layout = new KKLayout<>(displayGraph);
         }
         else if (layout.equalsIgnoreCase(layout_spring)) {
-            this.layout = new SpringLayout<>(this.graph);
+            this.layout = new SpringLayout<>(displayGraph);
         }
         else if (layout.equalsIgnoreCase(layout_dag)) {
-            this.layout = new DAGLayout<>(this.graph);
+            this.layout = new DAGLayout<>(displayGraph);
         }
         else if (layout.equalsIgnoreCase(layout_temporal)) {
-            this.layout = new Temporal_Layout<>(this.graph, this);
+            this.layout = new Temporal_Layout<>(displayGraph, this);
         }
         else if (layout.equalsIgnoreCase(layout_spatial)) {
-            this.layout = new Spatial_Layout<>(this.graph, this);
+            this.layout = new Spatial_Layout<>(displayGraph, this);
         }
         else if (layout.equalsIgnoreCase(layout_timeline)) {
-            this.layout = new Timeline_Layout<>(this.graph, this);
+            this.layout = new Timeline_Layout<>(displayGraph, this);
         }
         else if (layout.equalsIgnoreCase(layout_timeline_graphs)) {
-            this.layout = new TimelineGraphs_Layout<>(this.graph, this);
+            this.layout = new TimelineGraphs_Layout<>(displayGraph, this);
         }
         else if (layout.equalsIgnoreCase(layout_One_Dimensional)) {
-            this.layout = new OneDimensional_Layout<>(this.graph, this);
+            this.layout = new OneDimensional_Layout<>(displayGraph, this);
         }
         else if (layout.equalsIgnoreCase(layout_Two_Dimensional)) {
-            this.layout = new TwoDimensional_Layout<>(this.graph, this);
+            this.layout = new TwoDimensional_Layout<>(displayGraph, this);
         }
         else if (layout.equalsIgnoreCase(layout_provcircle)) {
-            this.layout = new ProvCircleLayout<>(this.graph, this);
+            this.layout = new ProvCircleLayout<>(displayGraph, this);
         }
         else if (layout.equalsIgnoreCase(layout_provcircle2)) {
-            this.layout = new ProvCircleLayout2<>(this.graph, this);
+            this.layout = new ProvCircleLayout2<>(displayGraph, this);
         }
         else if (layout.equalsIgnoreCase(layout_hierarchy)) {
-            this.layout = new Hierarchy_Layout<>(this.graph, this);
+            this.layout = new Hierarchy_Layout<>(displayGraph, this);
         }
         else {
-            this.layout = new Timeline_Layout<>(this.graph, this);
+            this.layout = new Timeline_Layout<>(displayGraph, this);
         }
     }
     

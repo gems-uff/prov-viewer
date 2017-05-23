@@ -208,6 +208,12 @@ public class GuiButtons {
         variables.view.repaint();
     }
     
+    public static void setVariableLayouts(Variables variables, boolean b, JComboBox Layouts) {
+       variables.allowVariableLayout = b;
+       if(!variables.allowVariableLayout)
+           LayoutSelection(variables, Layouts);
+    }
+    
     /**
      * Method to update the layouts that use the vertex's time as X position since the user can alter the timescale
      * @param variables
