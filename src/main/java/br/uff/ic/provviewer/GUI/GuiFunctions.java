@@ -25,6 +25,7 @@ package br.uff.ic.provviewer.GUI;
 
 import br.uff.ic.provviewer.EdgeType;
 import br.uff.ic.provviewer.GraphFrame;
+import static br.uff.ic.provviewer.GraphFrame.StatusFilterBox;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.Stroke.EdgeStroke;
 import br.uff.ic.provviewer.Stroke.VertexStroke;
@@ -34,7 +35,11 @@ import br.uff.ic.provviewer.Vertex.ColorScheme.VertexPainter;
 import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
 import br.uff.ic.provviewer.Vertex.VertexShape;
+import br.uff.ic.utility.GraphUtils;
+import br.uff.ic.utility.ThresholdValues;
+import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.ActivityVertex;
+import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Pair;
 import edu.uci.ics.jung.visualization.Layer;
@@ -48,6 +53,7 @@ import java.awt.Color;
 import java.awt.Paint;
 import java.awt.Stroke;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -105,6 +111,13 @@ public class GuiFunctions {
         Transformer<Object, Paint> drawPaint = new Transformer<Object, Paint>() {
             @Override
             public Paint transform(Object v) {
+                if(variables.highlightVertexOutliers) {
+                    if(v instanceof Vertex) {
+                        float value = ((Vertex) v).getAttributeValueFloat(variables.outliersThresholds.attributeName);
+                        if(value <= variables.outliersThresholds.lowerThreshold || value >= variables.outliersThresholds.upperThreshold)
+                            return new Color(255, 0, 0);
+                    }
+                }
 //                if(v instanceof Vertex) {
 //                    float value = ((Vertex) v).getAttributeValueFloat("Cluster");
 //                    if( value != value)
@@ -309,7 +322,7 @@ public class GuiFunctions {
 
         // Vertex Paint
         VertexPainter.VertexPainter("Prov", variables.view, variables);
-        
+        StatusFilterBox.setSelectedItem("Prov");
          // Edge Paint
         Transformer edgePainter = new Transformer<Edge, Paint>() {
             @Override
@@ -341,4 +354,9 @@ public class GuiFunctions {
         variables.view.getRenderContext().setArrowDrawPaintTransformer(edgePainter);
         variables.view.getRenderContext().setArrowFillPaintTransformer(edgePainter);
     }
+    
+    public static void highlightOutliers(Variables variables, String attribute) {
+        ArrayList<Float> values = GraphUtils.getAttributeValuesFromVertices(variables.graph, attribute);
+        variables.outliersThresholds = Utils.calculateOutliers(values, attribute);
+    } 
 }

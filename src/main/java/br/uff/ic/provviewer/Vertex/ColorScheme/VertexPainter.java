@@ -83,19 +83,14 @@ public class VertexPainter {
             @Override
             public Paint transform(Object v) {
                 int j = 0;
-                for (ColorScheme vm : variables.config.vertexModes) {
-                    if (mode.equalsIgnoreCase((String) GraphFrame.StatusFilterBox.getItemAt(j))) {
-                        if (v instanceof Graph) {
-                            Object vertex;
-                            vertex = GraphUtils.hasAgentVertex(v); 
-                            return vm.Execute(vertex, variables);
-                        } else {
-                            return vm.Execute(v, variables);
-                        }
-                    }
-                    j++;
+                ColorScheme vm = variables.config.vertexModes.get(mode);
+                if (v instanceof Graph) {
+                    Object vertex;
+                    vertex = GraphUtils.hasAgentVertex(v); 
+                    return vm.Execute(vertex, variables);
+                } else {
+                    return vm.Execute(v, variables);
                 }
-                return new Color(0, 0, 0);
             }
         };
         view.getRenderContext().setVertexFillPaintTransformer(vertexPainter);

@@ -67,7 +67,7 @@ public class Config {
     public List<String> vertexLabelFilter = new ArrayList<>();
 
     //Modes
-    public Collection<ColorScheme> vertexModes = new ArrayList<>();
+    public Map<String, ColorScheme> vertexModes = new HashMap<>();
 
     //Temporal Layout
     public String layoutSpecialVertexType;
@@ -120,7 +120,7 @@ public class Config {
     }
     
     public void resetVertexModeInitializations() {
-        for (ColorScheme vm : vertexModes) {
+        for (ColorScheme vm : vertexModes.values()) {
             vm.resetInitialization();
         }
     }
@@ -190,19 +190,23 @@ public class Config {
             attributeList.putAll(((Vertex) v).attributeList());
         }
         for (String att : attributeList.values()) {
-            boolean isNew = true;
-            for (ColorScheme color : vertexModes) {
-                if (att.equalsIgnoreCase(color.attribute) && color.restrictedAttribute == null) {
-                    isNew = false;
-                }
-            }
-            if (isNew) {
+//            boolean isNew = true;
+            if(!vertexModes.containsKey(att)) {
                 DefaultVertexColorScheme attMode = new DefaultVertexColorScheme(att);
                 newAttributes.put(att, attMode);
             }
+//            for (ColorScheme color : vertexModes.values()) {
+//                if (att.equalsIgnoreCase(color.attribute) && color.restrictedAttribute == null) {
+//                    isNew = false;
+//                }
+//            }
+//            if (isNew) {
+//                DefaultVertexColorScheme attMode = new DefaultVertexColorScheme(att);
+//                newAttributes.put(att, attMode);
+//            }
         }
 
-        vertexModes.addAll(newAttributes.values());
+        vertexModes.putAll(newAttributes);//.addAll(newAttributes.values());
         InterfaceStatusFilters();
     }
     
@@ -229,7 +233,7 @@ public class Config {
         try {
             edgetype = new ArrayList<>();
             vertexLabelFilter = new ArrayList<>();
-            vertexModes = new ArrayList<>();
+            vertexModes = new HashMap<>();
             layoutSpecialVertexType = "";
             scale = 1.0;
             vertexStrokevariables = new ArrayList<>();
@@ -386,9 +390,9 @@ public class Config {
             //Vertex Color Schemes
             //Default mode is always set, no matter the config.xml
             ProvScheme provScheme = new ProvScheme("Prov");
-            vertexModes.add(provScheme);
+            vertexModes.put("Prov", provScheme);
             VertexGraphGrayScaleScheme graphScheme = new VertexGraphGrayScaleScheme("Graph");
-            vertexModes.add(graphScheme);
+            vertexModes.put("GraphFiles", graphScheme);
 
             nList = doc.getElementsByTagName("colorscheme");
             for (int temp = 0; temp < nList.getLength(); temp++) {
@@ -455,11 +459,11 @@ public class Config {
                     if (restricted) {
                         Constructor con = cl.getConstructor(boolean.class, boolean.class, String.class, String.class, String.class, String.class, boolean.class, String.class, String.class);
                         ColorScheme attMode = (ColorScheme) con.newInstance(isZeroWhite, isInverted, attribute, values, maxvalue, minvalue, limited, restrictedAttribute, restrictedValue);
-                        vertexModes.add(attMode);
+                        vertexModes.put(attribute, attMode);
                     } else {
                         Constructor con = cl.getConstructor(boolean.class, boolean.class, String.class, String.class, String.class, String.class, boolean.class);
                         ColorScheme attMode = (ColorScheme) con.newInstance(isZeroWhite, isInverted, attribute, values, maxvalue, minvalue, limited);
-                        vertexModes.add(attMode);
+                        vertexModes.put(attribute, attMode);
                     }
 
                 }
@@ -528,7 +532,7 @@ public class Config {
                         }
                     }
                     vertexColorScheme = new VertexColorScheme(generalname,activityVC ,entityVC, agentVC, Boolean.parseBoolean(isAutomatic));
-                    vertexModes.add(vertexColorScheme);
+                    vertexModes.put(generalname, vertexColorScheme);
                 }
             }
         } catch (Exception e) {
@@ -571,7 +575,7 @@ public class Config {
     private void InterfaceStatusFilters() {
         String[] items = new String[vertexModes.size()];
         int j = 0;
-        for (ColorScheme mode : vertexModes) {
+        for (ColorScheme mode : vertexModes.values()) {
             items[j] = mode.GetName();
             j++;
         }
