@@ -30,7 +30,6 @@ import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.Graph;
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,7 +37,6 @@ import java.util.Map;
  * Template for a temporal graph layout. Lines represent each agent and his
  * activities. Columns represent passage of time
  *
- * @deprecated
  * @author Kohwalter
  * @param <V> JUNG's V (Vertex) type
  * @param <E> JUNG's E (Edge) type
