@@ -391,8 +391,8 @@ public class Config {
             //Default mode is always set, no matter the config.xml
             ProvScheme provScheme = new ProvScheme("Prov");
             vertexModes.put("Prov", provScheme);
-            VertexGraphGrayScaleScheme graphScheme = new VertexGraphGrayScaleScheme("Graph");
-            vertexModes.put("GraphFiles", graphScheme);
+            VertexGraphGrayScaleScheme graphScheme = new VertexGraphGrayScaleScheme("GraphFile");
+            vertexModes.put("GraphFile", graphScheme);
 
             nList = doc.getElementsByTagName("colorscheme");
             for (int temp = 0; temp < nList.getLength(); temp++) {

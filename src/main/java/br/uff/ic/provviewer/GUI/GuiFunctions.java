@@ -36,10 +36,8 @@ import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
 import br.uff.ic.provviewer.Vertex.VertexShape;
 import br.uff.ic.utility.GraphUtils;
-import br.uff.ic.utility.ThresholdValues;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.ActivityVertex;
-import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Pair;
 import edu.uci.ics.jung.visualization.Layer;
@@ -114,8 +112,9 @@ public class GuiFunctions {
                 if(variables.highlightVertexOutliers) {
                     if(v instanceof Vertex) {
                         float value = ((Vertex) v).getAttributeValueFloat(variables.outliersThresholds.attributeName);
-                        if(value <= variables.outliersThresholds.lowerThreshold || value >= variables.outliersThresholds.upperThreshold)
+                        if(value < variables.outliersThresholds.lowerThreshold || value > variables.outliersThresholds.upperThreshold) {
                             return new Color(255, 0, 0);
+                        }
                     }
                 }
 //                if(v instanceof Vertex) {
@@ -355,8 +354,4 @@ public class GuiFunctions {
         variables.view.getRenderContext().setArrowFillPaintTransformer(edgePainter);
     }
     
-    public static void highlightOutliers(Variables variables, String attribute) {
-        ArrayList<Float> values = GraphUtils.getAttributeValuesFromVertices(variables.graph, attribute);
-        variables.outliersThresholds = Utils.calculateOutliers(values, attribute);
-    } 
 }

@@ -62,7 +62,7 @@ public class VertexStroke {
             }
 //            float value = ((Vertex)v).getAttributeValueFloat("Cluster");
 //            if(value != value)
-                return new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
+                return new BasicStroke(1.5f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
 //            else
 //                return new BasicStroke(5.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
         }

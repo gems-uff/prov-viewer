@@ -399,14 +399,30 @@ public class Utils {
      * @param allNumbers is the arrayList of float
      * @return the same arrayList without the outliers
      */
-    public static ArrayList<Float> removeOutLierAnalysis(ArrayList<Float> allNumbers) {
+    public static ArrayList<Float> removeOutLierAnalysis(ArrayList<Float> allNumbers, String att) {
         if (allNumbers.isEmpty()) {
             return null;
         }
-
         ArrayList<Float> normalNumbers = new ArrayList<>();
+
+        ThresholdValues thresholds = calculateOutliers(allNumbers, att);
+
+        for (float number : allNumbers) {
+            if ((thresholds.lowerThreshold <= number) && (number <= thresholds.upperThreshold)) {
+                normalNumbers.add(number);
+            }
+        }
+
+        return normalNumbers;
+    }
+    
+    /**
+     * Method to calculate the upper and lower outliers thresholds from a sequence of numbers
+     * @param allNumbers contains the numbers
+     * @return the lower and upper thresholds for outlier detection
+     */
+    public static ThresholdValues calculateOutliers(ArrayList<Float> allNumbers, String att) {
         Collections.sort(allNumbers);
-//        double mean;
         float q1;
         float q3;
         if (allNumbers.size() % 2 == 0) {
@@ -427,14 +443,7 @@ public class Utils {
         float iqr = q3 - q1;
         float lowerThreshold = q1 - iqr * 1.5f;
         float upperThreshold = q3 + iqr * 1.5f;
-
-        for (float number : allNumbers) {
-            if ((lowerThreshold <= number) && (number <= upperThreshold)) {
-                normalNumbers.add(number);
-            }
-        }
-
-        return normalNumbers;
+        return new ThresholdValues(att, lowerThreshold, upperThreshold);
     }
 
     /**

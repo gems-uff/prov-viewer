@@ -30,7 +30,10 @@ import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
+import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.Graph;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  *
@@ -96,5 +99,16 @@ public class GraphUtils {
             }
         }
         return (float) slope;
+    }
+    
+    public static ArrayList<Float> getAttributeValuesFromVertices(DirectedGraph<Object, Edge> graph, String attribute) {
+        Collection<Object> nodes = graph.getVertices();
+            ArrayList<Float> values = new ArrayList<>();
+            for (Object node : nodes) {
+                if (!((Vertex) node).getAttributeValue(attribute).contentEquals("Unknown")) {
+                    values.add(((Vertex) node).getAttributeValueFloat(attribute));
+                }
+            }
+            return values;
     }
 }

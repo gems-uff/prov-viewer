@@ -25,7 +25,6 @@
 package br.uff.ic.provviewer.Vertex.ColorScheme;
 
 import br.uff.ic.utility.graph.Edge;
-import br.uff.ic.provviewer.GraphFrame;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.GraphUtils;
 import br.uff.ic.utility.graph.ActivityVertex;
@@ -79,6 +78,8 @@ public class VertexPainter {
     }
 
     public static void VertexPainter(final String mode, VisualizationViewer<Object, Edge> view, final Variables variables) {
+        variables.highlightVertexOutliers = true;
+        variables.highlightOutliers(mode);
         Transformer vertexPainter = new Transformer<Object, Paint>() {
             @Override
             public Paint transform(Object v) {

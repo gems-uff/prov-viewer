@@ -38,6 +38,8 @@ import br.uff.ic.provviewer.Layout.TimelineGraphs_Layout;
 import br.uff.ic.provviewer.Layout.OneDimensional_Layout;
 import br.uff.ic.provviewer.Layout.TwoDimensional_Layout;
 import br.uff.ic.utility.GraphCollapser;
+import br.uff.ic.utility.GraphUtils;
+import br.uff.ic.utility.ThresholdValues;
 import br.uff.ic.utility.Utils;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.DAGLayout;
@@ -51,6 +53,7 @@ import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -153,6 +156,8 @@ public class Variables extends Object {
     public String layout_attribute_Y = "Timestamp";
     public int numberOfGraphs = 1;
     public Collection<String> graphNames;
+    public boolean highlightVertexOutliers = true;
+    public ThresholdValues outliersThresholds;
     
     
     /**
@@ -318,4 +323,21 @@ public class Variables extends Object {
     public void initGraphCollapser() {
         gCollapser = new GraphCollapser(this.graph, this.config.considerEdgeLabelForMerge); 
     }
+    
+    /**
+     * Method to set the parameters for Highlighting the outliers during a display mode
+     * The actual highlighting happnes at GuiFunctions Stroke method
+     * @param attribute is the attribute that we are using to display the values
+     */
+    public void highlightOutliers(String attribute) {
+        if(this.highlightVertexOutliers) {
+            ArrayList<Float> values = GraphUtils.getAttributeValuesFromVertices(this.graph, attribute);
+            if(!values.isEmpty())
+                this.outliersThresholds = Utils.calculateOutliers(values, attribute);
+            else {
+                this.outliersThresholds = new ThresholdValues("", 0, 0);
+                this.highlightVertexOutliers = false;
+            }
+        }
+    } 
 }

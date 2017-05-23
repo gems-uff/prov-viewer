@@ -254,7 +254,7 @@ public abstract class ColorScheme {
             }
             derivateValues = Utils.removeInfinity(derivateValues);
             if (variables.removeDerivateOutliers) {
-                derivateValues = Utils.removeOutLierAnalysis(derivateValues);
+                derivateValues = Utils.removeOutLierAnalysis(derivateValues, this.attribute);
             } else {
                 Collections.sort(derivateValues);
             }
@@ -289,7 +289,7 @@ public abstract class ColorScheme {
             }
             derivateValues = Utils.removeInfinity(derivateValues);
             if (variables.removeDerivateOutliers) {
-                derivateValues = Utils.removeOutLierAnalysis(derivateValues);
+                derivateValues = Utils.removeOutLierAnalysis(derivateValues, this.attribute);
             } else {
                 Collections.sort(derivateValues);
             }
