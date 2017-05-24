@@ -84,6 +84,7 @@ public class GuiButtons {
      */
     public static void Reset(Variables variables) {
         variables.collapser.ResetGraph(variables);
+        variables.config.resetVertexModeInitializations();
     }
 
     /**
