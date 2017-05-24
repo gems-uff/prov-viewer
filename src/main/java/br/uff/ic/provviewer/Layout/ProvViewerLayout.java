@@ -68,6 +68,22 @@ public abstract class ProvViewerLayout<V, E> extends AbstractLayout<V, E> implem
         Collections.sort(entity_ordered_list, comparator);
     }
     
+    public void setVertexOrder(Comparator<V> comparator, Comparator<V> comparatorEntity) {
+        if (vertex_ordered_list == null) {
+            vertex_ordered_list = new ArrayList<>();
+            entity_ordered_list = new ArrayList<>();
+            for (V v : graph.getVertices()) {
+                if(v instanceof EntityVertex) {
+                    entity_ordered_list.add(v);
+                }
+                else
+                    vertex_ordered_list.add(v);
+            }
+        }
+        Collections.sort(vertex_ordered_list, comparator);
+        Collections.sort(entity_ordered_list, comparatorEntity);
+    }
+    
     public void setVertexOrder() {
         if (vertex_ordered_list == null) {
             vertex_ordered_list = new ArrayList<>();
