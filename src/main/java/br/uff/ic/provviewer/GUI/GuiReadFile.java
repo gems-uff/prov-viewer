@@ -138,6 +138,7 @@ public class GuiReadFile {
             GraphFrame.edgeFilterList.setSelectedIndex(0);
             GraphFrame.vertexFilterList.setSelectedIndex(0);
             PanCameraToFirstVertex(variables);
+            variables.config.resetVertexModeInitializations();
         }
     }
     
