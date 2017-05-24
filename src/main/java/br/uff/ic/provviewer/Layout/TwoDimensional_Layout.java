@@ -57,7 +57,7 @@ public class TwoDimensional_Layout<V, E> extends ProvViewerLayout<V, E> {
      * Initialize layout
      */
     private void doInit() {
-//        Collection<String> values = Utils.DetectAllPossibleValuesFromAttribute(variables.graph.getVertices(), "GraphFile");
+
         setVertexOrder();
         String x_att = variables.layout_attribute_X;
         String y_att = variables.layout_attribute_Y;
@@ -68,8 +68,7 @@ public class TwoDimensional_Layout<V, E> extends ProvViewerLayout<V, E> {
         isReverse_Y = Utils.getMinusSign(y_att);
         x_att = Utils.removeMinusSign(x_att);
         y_att = Utils.removeMinusSign(y_att);
-
-//        int yGraphOffset = 0;
+        
         int scale = (int) (1 * variables.config.vertexSize);
         for (V v : vertex_ordered_list) {
             int attValue_x;
@@ -87,14 +86,7 @@ public class TwoDimensional_Layout<V, E> extends ProvViewerLayout<V, E> {
                 attValue_y = (int) ((Vertex) v).getAttributeValueFloat(y_att);
             }
             Point2D coord = transform(v);
-//            int j = 0;
-//            for(String g : values) {
-//                if(((Vertex)v).getAttributeValue("GraphFile").contains(g)) {
-//                    yGraphOffset = (int) (variables.config.vertexSize * j);
-//                    break;
-//                }
-//                j++;
-//            }
+
             if (isReverse_X) {
                 attValue_x *= -1;
             }
