@@ -96,20 +96,28 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="isColorByEdgeValueButtonActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="PantoVertex">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Pan to vertex"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PantoVertexActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JCheckBoxMenuItem" name="allowVariableLayoutButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Allow Layouts to Change by Filters"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="allowVariableLayoutButtonActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="vertexBorderByGraphButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Vertex Border based on Graph"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="vertexBorderByGraphButtonActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="PantoVertex">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Pan to vertex"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PantoVertexActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

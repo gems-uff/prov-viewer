@@ -75,8 +75,8 @@ public class Variables extends Object {
 //    public static String demo = File.separator + "Graph" + File.separator + "Graph_to_Merge_01.xml";
 //    public String configDemo = File.separator + "Config" + File.separator + "Angry_Robots_config.xml";
     
-//    public static String demo = "Graph" + File.separator + "Car_Tutorial.xml";   
-//    public String configDemo = "Config" + File.separator + "Car_Tutorial_config.xml";
+    public static String demo = "Graph" + File.separator + "Car_Tutorial.xml";   
+    public String configDemo = "Config" + File.separator + "Car_Tutorial_config.xml";
     
 //    public static String demo = File.separator + "Graph" + File.separator + "rio_city_bus_example.xml";
 //    public static String demo = File.separator + "Graph" + File.separator + "bus_linha5.xml";
@@ -105,8 +105,8 @@ public class Variables extends Object {
 //    public static String demo = File.separator + "Graph" + File.separator + "Car_Tutorial.xml";
 //    public String configDemo = File.separator + "Config" + File.separator + "Noise_config.xml";
     
-    public static String demo = File.separator + "Graph" + File.separator + "bash-count.xml"; 
-    public String configDemo = File.separator + "Config" + File.separator + "Reprozip_config.xml";
+//    public static String demo = File.separator + "Graph" + File.separator + "bash-count.xml"; 
+//    public String configDemo = File.separator + "Config" + File.separator + "Reprozip_config.xml";
 
     public GuiBackground guiBackground = new GuiBackground();
     public VisualizationViewer<Object, Edge> view;
@@ -157,8 +157,10 @@ public class Variables extends Object {
     public int numberOfGraphs = 1;
     public Collection<String> graphNames;
     public boolean highlightVertexOutliers = true;
+    public boolean vertexBorderByGraphs = false;
     public ThresholdValues outliersThresholds;
     public boolean allowVariableLayout = false;
+    public int edgeAlpha = 25;
     
     
     /**

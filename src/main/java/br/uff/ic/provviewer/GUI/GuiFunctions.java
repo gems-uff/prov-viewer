@@ -35,6 +35,7 @@ import br.uff.ic.provviewer.Vertex.ColorScheme.VertexPainter;
 import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
 import br.uff.ic.provviewer.Vertex.VertexShape;
+import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.ActivityVertex;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Pair;
@@ -106,12 +107,24 @@ public class GuiFunctions {
         Transformer<Object, Paint> drawPaint = new Transformer<Object, Paint>() {
             @Override
             public Paint transform(Object v) {
-                if(variables.highlightVertexOutliers) {
-                    if(v instanceof Vertex) {
+                if(v instanceof Vertex) {
+                    if(variables.highlightVertexOutliers) {
                         float value = ((Vertex) v).getAttributeValueFloat(variables.outliersThresholds.attributeName);
                         if(value < variables.outliersThresholds.lowerThreshold || value > variables.outliersThresholds.upperThreshold) {
                             return new Color(255, 0, 0);
                         }
+                    }
+                    if(variables.vertexBorderByGraphs) {
+                        String graphs = ((Vertex) v).getAttributeValue("GraphFile");
+                        int i = 0;
+                        if(((Vertex) v).getAttributeValues("GraphFile").length == variables.numberOfGraphs)
+                            return Color.LIGHT_GRAY;
+                        for(Object g : variables.graphNames.toArray()) {
+                            if(graphs.contains((String) g))
+                                break;
+                            i++;
+                        }
+                        return Utils.getColor(i);
                     }
                 }
 //                if(v instanceof Vertex) {
@@ -341,7 +354,7 @@ public class GuiFunctions {
                             return edge.getColor(variables);
                         }
                     }
-                    return new Color(edge.getColor(variables).getRed(), edge.getColor(variables).getGreen(), edge.getColor(variables).getBlue(), 50);
+                    return new Color(edge.getColor(variables).getRed(), edge.getColor(variables).getGreen(), edge.getColor(variables).getBlue(), variables.edgeAlpha);
                 }
                 return edge.getColor(variables);
             }

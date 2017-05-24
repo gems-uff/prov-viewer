@@ -136,8 +136,9 @@ public class GraphFrame extends javax.swing.JFrame {
         useEdgeTypeColor = new javax.swing.JCheckBoxMenuItem();
         isStrokeByValueButton = new javax.swing.JCheckBoxMenuItem();
         isColorByEdgeValueButton = new javax.swing.JCheckBoxMenuItem();
-        PantoVertex = new javax.swing.JMenuItem();
         allowVariableLayoutButton = new javax.swing.JCheckBoxMenuItem();
+        vertexBorderByGraphButton = new javax.swing.JCheckBoxMenuItem();
+        PantoVertex = new javax.swing.JMenuItem();
         displayEdgeTextButton = new javax.swing.JMenu();
         displayID = new javax.swing.JCheckBoxMenuItem();
         displayTimeLabel = new javax.swing.JCheckBoxMenuItem();
@@ -619,14 +620,6 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu1.add(isColorByEdgeValueButton);
 
-        PantoVertex.setText("Pan to vertex");
-        PantoVertex.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PantoVertexActionPerformed(evt);
-            }
-        });
-        jMenu1.add(PantoVertex);
-
         allowVariableLayoutButton.setText("Allow Layouts to Change by Filters");
         allowVariableLayoutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -634,6 +627,22 @@ public class GraphFrame extends javax.swing.JFrame {
             }
         });
         jMenu1.add(allowVariableLayoutButton);
+
+        vertexBorderByGraphButton.setText("Vertex Border based on Graph");
+        vertexBorderByGraphButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vertexBorderByGraphButtonActionPerformed(evt);
+            }
+        });
+        jMenu1.add(vertexBorderByGraphButton);
+
+        PantoVertex.setText("Pan to vertex");
+        PantoVertex.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PantoVertexActionPerformed(evt);
+            }
+        });
+        jMenu1.add(PantoVertex);
 
         MenuBar.add(jMenu1);
 
@@ -1227,6 +1236,12 @@ public class GraphFrame extends javax.swing.JFrame {
 //        variables.allowVariableLayout = allowVariableLayoutButton.getState();
         GuiButtons.setVariableLayouts(variables, allowVariableLayoutButton.getState(), Layouts);
     }//GEN-LAST:event_allowVariableLayoutButtonActionPerformed
+
+    private void vertexBorderByGraphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vertexBorderByGraphButtonActionPerformed
+        // TODO add your handling code here:
+        variables.vertexBorderByGraphs = vertexBorderByGraphButton.getState();
+        variables.view.repaint();
+    }//GEN-LAST:event_vertexBorderByGraphButtonActionPerformed
    
     /**
      * Main
@@ -1348,6 +1363,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem updateErrorButton;
     public static javax.swing.JCheckBoxMenuItem useEdgeTypeColor;
     private javax.swing.JCheckBoxMenuItem verifyWithinClusterButton;
+    private javax.swing.JCheckBoxMenuItem vertexBorderByGraphButton;
     public static javax.swing.JList vertexFilterList;
     private javax.swing.JTextField vertexShapeBasedOnAttribute;
     public static javax.swing.JComboBox<String> vertexShapeComboBox;
