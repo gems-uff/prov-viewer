@@ -61,28 +61,35 @@ public class Utils {
     Color[] colors = new Color[17];
 
     public static Color getColor(int i) {
-        int size = 15;
+        int size = 25; // Array max position + 1
         int index = i % size;
         Color[] colors = new Color[size];
         colors[0] = new Color(0, 0, 0); // Black
-//        colors[1] = new Color(255, 0, 0); // Red
-//        colors[2] = new Color(0, 255, 0); // Lime/Green
         colors[1] = new Color(0, 0, 255); // Blue
         colors[2] = new Color(153, 153, 0); // Yellow-Mostard
         colors[3] = new Color(0, 255, 255); // Cyan/Aqua
         colors[4] = new Color(255, 0, 255); // Magenta
         colors[5] = new Color(128, 128, 128); // Gray
-        colors[6] = new Color(128, 0, 0); // Brown
+        colors[6] = new Color(128, 0, 0); // Brown / Maroon
         colors[7] = new Color(128, 128, 0); // olive
-//        colors[10] = new Color(0, 128, 0); // Green
         colors[8] = new Color(210, 105, 30); // Chocolate
-//        colors[12] = new Color(0, 128, 128); // Teal
         colors[9] = new Color(0, 0, 128); // Navy
         colors[10] = new Color(255, 128, 128); // Pink
         colors[11] = new Color(255, 128, 0); // Orange
-        colors[12] = new Color(192, 192, 192); // Silver
+        colors[12] = new Color(192, 192, 192); // Silver / Light-Gray
         colors[13] = new Color(70, 130, 180); // Steel blue
         colors[14] = new Color(184, 134, 11); // Dark golden rod
+        // Similar colors...
+        colors[15] = new Color(0, 128, 128); // Teal
+        colors[16] = new Color(0, 128, 0); // Green
+        colors[17] = new Color(255, 0, 0); // Red
+        colors[18] = new Color(0, 255, 0); // Lime/Green
+        colors[19] = new Color(245, 245, 220); // Beige
+        colors[20] = new Color(128, 0, 128); // Purple
+        colors[21] = new Color(218,112,214); // Orchid
+        colors[22] = new Color(210,105,30); // Chocolate
+        colors[23] = new Color(240,255,255); // Azure
+        colors[24] = new Color(255,20,147); // Deep-Pink
 
         return colors[index];
     }
@@ -817,11 +824,15 @@ public class Utils {
             @Override
             public int compare(Object c1, Object c2) {
                 if (!(c1 instanceof Graph) && !(c2 instanceof Graph)) {
-                    double c1t;
-                    double c2t;
+                    double c1t = 0;
+                    double c2t = 0;
                     if(isItTime(attribute)) {
                         c1t = ((Vertex) c1).getTime();
                         c2t = ((Vertex) c2).getTime();
+                    } else if(!tryParseFloat(((Vertex) c1).getAttributeValue(attribute))){
+                        String c1v = ((Vertex) c1).getAttributeValue(attribute);
+                        String c2v = ((Vertex) c2).getAttributeValue(attribute);
+                        return c1v.compareTo(c2v);
                     } else {
                         c1t = ((Vertex) c1).getAttributeValueFloat(attribute);
                         c2t = ((Vertex) c2).getAttributeValueFloat(attribute);
