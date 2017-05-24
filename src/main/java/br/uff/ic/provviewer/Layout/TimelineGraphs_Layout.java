@@ -41,7 +41,7 @@ import java.util.Map;
  * @param <V> JUNG's V (Vertex) type
  * @param <E> JUNG's E (Edge) type
  */
-public class TimelineGraphs_Layout<V, E> extends ProvViewerLayout<V, E> {
+public class TimelineGraphs_Layout<V, E> extends ProvViewerTimelineLayout<V, E> {
 
     public TimelineGraphs_Layout(Graph<V, E> g, Variables variables) {
         super(g, variables);
@@ -61,7 +61,7 @@ public class TimelineGraphs_Layout<V, E> extends ProvViewerLayout<V, E> {
      * Initialize layout
      */
     private void doInit() {
-        String x_att = variables.layout_attribute_X;
+
         Map<String, Integer> counts = new HashMap<>();
         int previous_Value = 0;
         int previous_yOffset = 0;
@@ -71,10 +71,10 @@ public class TimelineGraphs_Layout<V, E> extends ProvViewerLayout<V, E> {
         double xPos = 0;
         int yGraphOffset = 0;
         int entityXPos;
-        int scale = 2 * variables.config.vertexSize;
 
         x_att = Utils.removeMinusSign(x_att);
-        setVertexOrder(Utils.getVertexAttributeComparator(x_att));
+        y_att = Utils.removeMinusSign(y_att);
+        setVertexOrder(Utils.getVertexAttributeComparator(x_att), Utils.getVertexAttributeComparator(y_att));
         entityXPos = (int) (vertex_ordered_list.size() * 0.5 - (entity_ordered_list.size() * 0.75));
         
         for (String gs : variables.graphNames) {
@@ -84,18 +84,9 @@ public class TimelineGraphs_Layout<V, E> extends ProvViewerLayout<V, E> {
         entityXPos = entityXPos * scale;
         for (V v : vertex_ordered_list) {
             yPos = 0;
+            int attValue = (int) ((Vertex) v).getAttributeValueFloat(x_att);
             Point2D coord = transform(v);
-            int j = 0;
-            String[] graphFiles = ((Vertex) v).getAttributeValues("GraphFile");
-
-            int k = 0;
-            for (String g : counts.keySet()) {
-                if (((Vertex) v).getAttributeValue("GraphFile").contains(g)) {
-                    yGraphOffset = (int) (variables.config.vertexSize * k);
-                    break;
-                }
-                k++;
-            }
+            yGraphOffset = getYGraphOffSet(v);
 
             if (v instanceof AgentVertex) {
                 yPos = agentY;
@@ -110,7 +101,7 @@ public class TimelineGraphs_Layout<V, E> extends ProvViewerLayout<V, E> {
                             Point2D agentPos = transform(layout_graph.getDest(neighbor));
                             yPos = agentPos.getY();
                         }
-                        if (previous_Value != (int) ((Vertex) v).getAttributeValueFloat(x_att)) {
+                        if (previous_Value != attValue) {
                             i = i + scale;
                         } else if (previous_yOffset == yGraphOffset) {
                             i = (int) (i + (scale * 0.25));
@@ -125,17 +116,10 @@ public class TimelineGraphs_Layout<V, E> extends ProvViewerLayout<V, E> {
             }
             yPos = yPos + yGraphOffset;
             coord.setLocation(xPos, yPos);
-            previous_Value = (int) ((Vertex) v).getAttributeValueFloat(x_att);
+            previous_Value = attValue;
             previous_yOffset = yGraphOffset;
         }
-        for (V v : entity_ordered_list) {
-            Point2D coord = transform(v);
-            // Position then in the middle
-            xPos = entityXPos;
-            entityXPos = entityXPos + scale;
-            yPos = -10 * scale;
-            coord.setLocation(xPos, yPos);
-        }
+        positionEntitiesTimelineGraphs(entityXPos);
     }
 
     /**

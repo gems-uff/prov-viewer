@@ -40,7 +40,7 @@ import java.awt.geom.Point2D;
  * @param <V> JUNG's V (Vertex) type
  * @param <E> JUNG's E (Edge) type
  */
-public class Timeline_Layout<V, E> extends ProvViewerLayout<V, E> {
+public class Timeline_Layout<V, E> extends ProvViewerTimelineLayout<V, E> {
 
     public Timeline_Layout(Graph<V, E> g, Variables variables) {
         super(g, variables);
@@ -60,16 +60,17 @@ public class Timeline_Layout<V, E> extends ProvViewerLayout<V, E> {
      * Initialize layout
      */
     private void doInit() {
-        String x_att = variables.layout_attribute_X;
+
         x_att = Utils.removeMinusSign(x_att);
+        y_att = Utils.removeMinusSign(y_att);
         
-        setVertexOrder(Utils.getVertexAttributeComparator(x_att));
+        setVertexOrder(Utils.getVertexAttributeComparator(x_att), Utils.getVertexAttributeComparator(y_att));
         int i = 0;
         int agentY = 0;
         double yPos = 0;
         double xPos = 0;
         int entityXPos = (int) (vertex_ordered_list.size() * 0.5 - (entity_ordered_list.size() * 0.5));
-        int scale = 2 * variables.config.vertexSize;
+
         entityXPos = entityXPos * scale;
         for (V v : vertex_ordered_list) {
             Point2D coord = transform(v);
@@ -97,14 +98,8 @@ public class Timeline_Layout<V, E> extends ProvViewerLayout<V, E> {
             }
             coord.setLocation(xPos, yPos);
         }
-        for(V v : entity_ordered_list) {
-            Point2D coord = transform(v);
-            // Position then in the middle
-            xPos = entityXPos;
-            entityXPos = entityXPos + scale;
-            yPos = -10 * scale;
-            coord.setLocation(xPos, yPos);
-        }
+        positionEntitiesTimeline(entityXPos);
+
     }
 
     /**

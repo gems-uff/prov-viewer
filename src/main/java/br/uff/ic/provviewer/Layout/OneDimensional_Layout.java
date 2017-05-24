@@ -41,7 +41,7 @@ import java.awt.geom.Point2D;
  * @param <V> JUNG's V (Vertex) type
  * @param <E> JUNG's E (Edge) type
  */
-public class OneDimensional_Layout<V, E> extends ProvViewerLayout<V, E> {
+public class OneDimensional_Layout<V, E> extends ProvViewerTimelineLayout<V, E> {
 
     public OneDimensional_Layout(Graph<V, E> g, Variables variables) {
         super(g, variables);
@@ -61,37 +61,34 @@ public class OneDimensional_Layout<V, E> extends ProvViewerLayout<V, E> {
      * Initialize layout
      */
     private void doInit() {
-        String x_att = variables.layout_attribute_X;
+
         x_att = Utils.removeMinusSign(x_att);
+        y_att = Utils.removeMinusSign(y_att);
         boolean isReverse_X = Utils.getMinusSign(x_att);
 
-//        Collection<String> values = Utils.DetectAllPossibleValuesFromAttribute(variables.graph.getVertices(), "GraphFile");
-        setVertexOrder();
+//        setVertexOrder();
+        setVertexOrder(Utils.getVertexAttributeComparator(x_att), Utils.getVertexAttributeComparator(y_att));
         int i = 0;
         int agentY = 0;
         double yPos = 0;
         double xPos = 0;
         int yGraphOffset = 0;
         int entityXPos = (int) (vertex_ordered_list.size() * 0.5 - (entity_ordered_list.size() * 0.5));
-        int scale = (int) (3 * variables.config.vertexSize);
+        scale = (int) (3 * variables.config.vertexSize);
         entityXPos = entityXPos * scale;
         for (V v : vertex_ordered_list) {
+            yPos = 0;
             int attValue;
+            Point2D coord = transform(v);
+            yGraphOffset = getYGraphOffSet(v);
+            
             if(Utils.isItTime(x_att)) {
                 attValue = (int) ((Vertex) v).getNormalizedTime();
                 attValue = (int) Utils.convertTime(variables.config.timeScale, attValue, variables.selectedTimeScale) * scale;
             } else {
                 attValue = (int) ((Vertex) v).getAttributeValueFloat(x_att);
             }
-            Point2D coord = transform(v);
-            int j = 0;
-            for(String g : variables.graphNames) {
-                if(((Vertex)v).getAttributeValue("GraphFile").contains(g)) {
-                    yGraphOffset = (int) (variables.config.vertexSize * j);
-                    break;
-                }
-                j++;
-            }
+
             if (v instanceof AgentVertex) {
                 yPos = agentY;
                 agentY = agentY + scale;
@@ -120,14 +117,7 @@ public class OneDimensional_Layout<V, E> extends ProvViewerLayout<V, E> {
             }
             coord.setLocation(xPos, yPos);
         }
-        for(V v : entity_ordered_list) {
-            Point2D coord = transform(v);
-            // Position then in the middle
-            xPos = entityXPos;
-            entityXPos = entityXPos + scale;
-            yPos = -10 * scale;
-            coord.setLocation(xPos, yPos);
-        }
+        positionEntitiesTimeline(entityXPos);
     }
 
     /**
