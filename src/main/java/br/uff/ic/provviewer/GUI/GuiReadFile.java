@@ -172,11 +172,10 @@ public class GuiReadFile {
             File file = fileChooser.getSelectedFile();
             variables.similarityConfig = new SimilarityConfig();
             variables.similarityConfig.readFile(file);
+            GraphFrame.attributeDisplaySimConfig.setSelected(false);
             
             // For Debug
             System.out.println("Similarity Config Loaded");
-            System.out.println(variables.similarityConfig.getDefaultError());
-            System.out.println(variables.similarityConfig.getSimilarityThreshold());
 
         } else {
             System.out.println("File access cancelled by user.");
