@@ -170,6 +170,7 @@ public class Variables extends Object {
     public void updateNumberOfGraphs() {
         numberOfGraphs = Utils.DetectAllPossibleValuesFromAttribute(graph.getVertices(), "GraphFile").size();
         graphNames = Utils.DetectAllPossibleValuesFromAttribute(graph.getVertices(), "GraphFile");
+        this.config.detectGraphVisualizationModes(this.graphNames);
     }
 
     

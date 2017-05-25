@@ -30,6 +30,7 @@ import br.uff.ic.provviewer.Variables;
 import br.uff.ic.provviewer.Vertex.ColorScheme.ColorScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.VertexColorScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.DefaultVertexColorScheme;
+import br.uff.ic.provviewer.Vertex.ColorScheme.GraphVisualizationScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.ProvScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.VertexGraphGrayScaleScheme;
 import br.uff.ic.utility.AttValueColor;
@@ -183,6 +184,17 @@ public class Config {
 
     }
 
+    public void detectGraphVisualizationModes(Collection<String> graphs) {
+        Map<String, ColorScheme> newGraphModes = new HashMap<>();
+        for(String g : graphs) {
+            if(!vertexModes.containsKey(g)) {
+                GraphVisualizationScheme graphMode = new GraphVisualizationScheme(g);
+                newGraphModes.put(g, graphMode);
+            }
+        }
+        vertexModes.putAll(newGraphModes);
+        InterfaceStatusFilters();
+    }
     public void DetectVertexModes(Collection<Object> vertices) {
         Map<String, String> attributeList = new HashMap<>();
         Map<String, ColorScheme> newAttributes = new HashMap<>();
