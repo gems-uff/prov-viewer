@@ -129,20 +129,7 @@ THE SOFTWARE.
         <trafficLightType>type1</trafficLightType>
         <isInverted>True</isInverted>
     </colorscheme>
-    <colorscheme>
-        <attribute>1-linear-svm.xml</attribute>
-        <class>GraphVisualizationScheme</class>
-        <values></values>
-        <goodvalue></goodvalue>
-        <badvalue></badvalue>
-    </colorscheme>
-    <colorscheme>
-        <attribute>1-decision-tree.xml</attribute>
-        <class>GraphVisualizationScheme</class>
-        <values></values>
-        <goodvalue></goodvalue>
-        <badvalue></badvalue>
-    </colorscheme>
+    
     <vertexAttributeFilter>
         <name>subtype</name>
         <value>Run</value>
@@ -174,6 +161,14 @@ THE SOFTWARE.
     <vertexAttributeFilter>
         <name>subtype</name>
         <value>ProcessExecutes</value>
+    </vertexAttributeFilter>
+    <vertexAttributeFilter>
+        <name>subtype</name>
+        <value>Thread</value>
+    </vertexAttributeFilter>
+    <vertexAttributeFilter>
+        <name>subtype</name>
+        <value>User</value>
     </vertexAttributeFilter>
     <vertexcolor>
         <generalname>Subtype</generalname>
@@ -262,7 +257,7 @@ THE SOFTWARE.
     </vertexcolor>
     
     <vertexcolor>
-        <generalname>Package</generalname>
+        <generalname>package</generalname>
         <isAutomatic>True</isAutomatic>
         <entitycolor>
             <attribute>package</attribute>
