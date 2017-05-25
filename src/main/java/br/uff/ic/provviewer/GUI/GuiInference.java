@@ -137,6 +137,8 @@ public class GuiInference {
             Map<String, AttributeErrorMargin> restrictionList = new HashMap<>();
             AttributeErrorMargin epsilon;
             eps = std * simEpsilonModifier; // The epsilon used by the algorithm
+            if(eps != eps)
+                eps = 1;
             System.out.println("Eps used: " + eps);
             epsilon = new AttributeErrorMargin(attribute, String.valueOf(eps));
             restrictionList.put(attribute, epsilon);
@@ -155,12 +157,6 @@ public class GuiInference {
                 simInc = Float.parseFloat(GraphFrame.simStdInc.getText());
             }
             infer = new AutomaticInference(combiner, variables.graph, simSize, simInc, simEpsilonModifier);
-//            if(verifyWithinCluster) { // True True
-//                infer = new AutomaticInference(combiner, graph, TT_size, TT_increase, TT_qnt);
-//            }
-//            else { // True False
-//                infer = new AutomaticInference(combiner, graph, TF_size, TF_increase, TF_qnt);
-//            }
         } else {
             infer = new AutomaticInference(combiner, variables.graph);
         }
