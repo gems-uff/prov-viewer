@@ -173,6 +173,7 @@ public class GraphFrame extends javax.swing.JFrame {
         verifyWithinClusterButton = new javax.swing.JCheckBoxMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         attributeDisplaySimConfig = new javax.swing.JRadioButtonMenuItem();
+        similarityConsiderNeighborsButton = new javax.swing.JCheckBoxMenuItem();
 
         fileChooser.setCurrentDirectory(new java.io.File("D:\\SVN\\Prov_Viewer\\prov-viewer\\src\\main\\resources"));
         fileChooser.setDialogTitle("This is my open dialog");
@@ -898,6 +899,16 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu5.add(attributeDisplaySimConfig);
 
+        similarityConsiderNeighborsButton.setSelected(true);
+        similarityConsiderNeighborsButton.setText("Consider only Neighbors");
+        similarityConsiderNeighborsButton.setToolTipText("The neighborhood will be based on the graph's links (edges) if selected. Otherwise all vertices will be considered neighbors (used for clustering disconsidering the edges)");
+        similarityConsiderNeighborsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                similarityConsiderNeighborsButtonActionPerformed(evt);
+            }
+        });
+        jMenu5.add(similarityConsiderNeighborsButton);
+
         MenuBar.add(jMenu5);
 
         setJMenuBar(MenuBar);
@@ -1242,6 +1253,11 @@ public class GraphFrame extends javax.swing.JFrame {
         variables.vertexBorderByGraphs = vertexBorderByGraphButton.getState();
         variables.view.repaint();
     }//GEN-LAST:event_vertexBorderByGraphButtonActionPerformed
+
+    private void similarityConsiderNeighborsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_similarityConsiderNeighborsButtonActionPerformed
+        // TODO add your handling code here:
+        variables.considerOnlyNeighborsSimilarityCollapse = similarityConsiderNeighborsButton.getState();
+    }//GEN-LAST:event_similarityConsiderNeighborsButtonActionPerformed
    
     /**
      * Main
@@ -1352,6 +1368,7 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JTextField simEpsilon;
     public static javax.swing.JTextField simStdInc;
     public static javax.swing.JTextField simStdSize;
+    private javax.swing.JCheckBoxMenuItem similarityConsiderNeighborsButton;
     public static javax.swing.JCheckBoxMenuItem temporalDaysButton;
     public static javax.swing.JCheckBoxMenuItem temporalHoursButton;
     public static javax.swing.JCheckBoxMenuItem temporalMicrosecondsButton;

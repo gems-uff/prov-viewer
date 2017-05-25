@@ -169,7 +169,7 @@ public class GuiInference {
         if(GraphFrame.attributeDisplaySimConfig.isSelected()) {
             infer.setSingleAttributeOptimization(attribute, eps);
         }
-        ArrayList<ConcurrentHashMap<String, Object>> clusters = infer.applySimilarity(updateError, verifyWithinCluster);
+        ArrayList<ConcurrentHashMap<String, Object>> clusters = infer.applySimilarity(updateError, verifyWithinCluster, variables.considerOnlyNeighborsSimilarityCollapse);
         return clusters;
     }
 

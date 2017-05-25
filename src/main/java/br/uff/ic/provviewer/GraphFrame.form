@@ -443,6 +443,16 @@
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
               </AuxValues>
             </MenuItem>
+            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="similarityConsiderNeighborsButton">
+              <Properties>
+                <Property name="selected" type="boolean" value="true"/>
+                <Property name="text" type="java.lang.String" value="Consider only Neighbors"/>
+                <Property name="toolTipText" type="java.lang.String" value="The neighborhood will be based on the graph&apos;s links (edges) if selected. Otherwise all vertices will be considered neighbors (used for clustering disconsidering the edges)"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="similarityConsiderNeighborsButtonActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
       </SubComponents>

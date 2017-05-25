@@ -127,6 +127,7 @@ public class Variables extends Object {
     public boolean initialGraph = true;
     public SimilarityConfig mergeConfig;
     public SimilarityConfig similarityConfig;
+    public boolean considerOnlyNeighborsSimilarityCollapse = true;
     
     public String selectedTimeScale = config.timeScale;
     public boolean doDerivate = false;
