@@ -25,10 +25,8 @@ package br.uff.ic.provviewer.GUI;
 
 import br.uff.ic.graphmatching.GraphMatching;
 import br.uff.ic.provviewer.GraphFrame;
-import br.uff.ic.utility.IO.BasePath;
 import static br.uff.ic.provviewer.GraphFrame.StatusFilterBox;
 import br.uff.ic.provviewer.Inference.AutomaticInference;
-import br.uff.ic.provviewer.Inference.PrologInference;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.AttributeErrorMargin;
 import br.uff.ic.utility.Dbscan;
@@ -37,12 +35,10 @@ import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import javax.swing.JToggleButton;
 
 /**
  * Class responsible for the PROLOG implementation
