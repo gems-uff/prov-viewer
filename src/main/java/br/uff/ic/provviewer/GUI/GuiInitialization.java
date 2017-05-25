@@ -30,10 +30,8 @@ import br.uff.ic.provviewer.Filter.PreFilters;
 import br.uff.ic.provviewer.GraphFrame;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.Utils;
-import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
-import java.util.Collection;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.ToolTipManager;
@@ -62,6 +60,7 @@ public class GuiInitialization {
         variables.initConfig = true;
         variables.graph = graph;
         variables.collapsedGraph = variables.graph;
+        variables.updateNumberOfGraphs();
         GuiFunctions.SetView(variables, Layouts, graphFrame);
         variables.guiBackground.InitBackground(variables, Layouts);
         GuiFunctions.MouseInteraction(variables);
@@ -76,7 +75,7 @@ public class GuiInitialization {
         ToolTipManager.sharedInstance().setInitialDelay(10);
         ToolTipManager.sharedInstance().setDismissDelay(50000);
         GraphFrame.vertexFilterList.setSelectedIndex(0);
-        variables.updateNumberOfGraphs();
+        
     }
 
     /**
