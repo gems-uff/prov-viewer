@@ -99,9 +99,10 @@ public class GuiReadFile {
             File file = fileChooser.getSelectedFile();
             variables.config.Initialize(file);
             variables.initConfig = true;
-//            variables.guiBackground.g2d.dispose();
             variables.guiBackground = new GuiBackground();
             variables.guiBackground.InitBackground(variables, Layouts);
+            GraphFrame.edgeFilterList.setSelectedIndex(0);
+            GraphFrame.vertexFilterList.setSelectedIndex(0);
 
         } else {
             System.out.println("File access cancelled by user.");
