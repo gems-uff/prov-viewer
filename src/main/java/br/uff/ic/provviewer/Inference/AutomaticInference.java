@@ -390,11 +390,16 @@ public class AutomaticInference {
     }
     
     private double isSimilarSingleAttribute(Object p, Object q) {
-
-        double dx = ((Vertex)p).getAttributeValueFloat(attribute) - ((Vertex)q).getAttributeValueFloat(attribute);
-
-        double distance = Math.sqrt(dx * dx);
-
+        double distance = Double.POSITIVE_INFINITY;
+        if(Utils.tryParseFloat(((Vertex)p).getAttributeValue(attribute))) {
+            double dx = ((Vertex)p).getAttributeValueFloat(attribute) - ((Vertex)q).getAttributeValueFloat(attribute);
+            distance = Math.sqrt(dx * dx);
+        } else {
+            String v1 = ((Vertex)p).getAttributeValue(attribute);
+            String v2 = ((Vertex)q).getAttributeValue(attribute);
+            if(v1.equalsIgnoreCase(v2) && !v1.equalsIgnoreCase("Unknown"))
+                distance = 0;
+        }
         return distance;
     }
     
