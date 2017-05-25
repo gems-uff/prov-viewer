@@ -244,7 +244,7 @@ public class AutomaticInference {
     public ArrayList<ConcurrentHashMap<String, Object>> applySimilarity(boolean updateError, boolean verifyWithinCluster) {
         return applySimilarity(updateError, verifyWithinCluster, false);
     }
-    public ArrayList<ConcurrentHashMap<String, Object>> applySimilarity(boolean updateError, boolean verifyWithinCluster, boolean isClustering) {
+    public ArrayList<ConcurrentHashMap<String, Object>> applySimilarity(boolean updateError, boolean verifyWithinCluster, boolean isConsideringOnlyDirectNeighbors) {
         isUpdating = updateError;
         isRestrictingVariation = verifyWithinCluster;
         
@@ -254,10 +254,10 @@ public class AutomaticInference {
                 ConcurrentHashMap<String, Object> c = new ConcurrentHashMap<>();
                 c.put(((Vertex) p).getID(), p);
                 ArrayList<Object> n;
-                if(isClustering)
-                    n = getNeighboursEntireGraph(p, c);
-                else
+                if(isConsideringOnlyDirectNeighbors)
                     n = getNeighbours(p, c);
+                else
+                    n = getNeighboursEntireGraph(p, c);
                 expandCluster(p, n, c, c);
                 resultList.add(c);
             }
