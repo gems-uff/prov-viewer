@@ -241,8 +241,10 @@ public class AutomaticInference {
 //        return clusters;
 //    }
     
-    
     public ArrayList<ConcurrentHashMap<String, Object>> applySimilarity(boolean updateError, boolean verifyWithinCluster) {
+        return applySimilarity(updateError, verifyWithinCluster, false);
+    }
+    public ArrayList<ConcurrentHashMap<String, Object>> applySimilarity(boolean updateError, boolean verifyWithinCluster, boolean isClustering) {
         isUpdating = updateError;
         isRestrictingVariation = verifyWithinCluster;
         
@@ -251,7 +253,11 @@ public class AutomaticInference {
                 visited(p);
                 ConcurrentHashMap<String, Object> c = new ConcurrentHashMap<>();
                 c.put(((Vertex) p).getID(), p);
-                ArrayList<Object> n = getNeighbours(p, c);
+                ArrayList<Object> n;
+                if(isClustering)
+                    n = getNeighboursEntireGraph(p, c);
+                else
+                    n = getNeighbours(p, c);
                 expandCluster(p, n, c, c);
                 resultList.add(c);
             }
@@ -287,6 +293,40 @@ public class AutomaticInference {
         return a;
     }
     
+    /**
+     * Method to do normal clustering, dicarding vertex linkage
+     * @param current is the current vertex
+     * @param cg
+     * @return 
+     */
+    private ArrayList<Object> getNeighboursEntireGraph(Object current, ConcurrentHashMap<String, Object> cg) {
+        ArrayList<Object> neighbor = new ArrayList<>();
+        Collection<Object> points = graph.getVertices();
+        for(Object point : points) {
+            // TODO: Revert to original getDistance
+            if(!point.equals(current)) {
+                if(testing) {
+                    if(getDistanceSingleAttribute(current, point, cg)) {
+                        neighbor.add(point);
+                    }
+                }
+                else {
+                    if(getDistance(current, point, cg)) {
+                        neighbor.add(point);
+                    }
+                }
+            }
+            
+        }
+        return neighbor;
+    }
+    
+    /**
+     * Method to do the similarity collapse considering only the vertex neighbors
+     * @param current
+     * @param cg
+     * @return 
+     */
     private ArrayList<Object> getNeighbours(Object current, ConcurrentHashMap<String, Object> cg) {
         ArrayList<Object> neighbor = new ArrayList<>();
         Collection<Object> points = graph.getNeighbors(current);
