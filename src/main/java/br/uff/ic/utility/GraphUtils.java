@@ -29,11 +29,14 @@ import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.EntityVertex;
+import br.uff.ic.utility.graph.GraphVertex;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.Graph;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -110,5 +113,75 @@ public class GraphUtils {
                 }
             }
             return values;
+    }
+    
+    public static GraphVertex CreateVertexGraph(Object v) {
+        Map<String, String> ids = new HashMap<>();
+        Map<String, GraphAttribute> attributes = new HashMap<>(); 
+        CreateVertexGraph(v, ids, attributes);
+        return new GraphVertex(ids, attributes);
+    }
+    /**
+     * Recursive method to generate the tooltip. 
+     * It considers Graph vertices inside the collapsed vertex.
+     * @param v is the current vertex for the tooltip
+     * @param ids is all computed ids for the tooltip
+     * @param attributes is the attribute list for the tooltip
+     * @return 
+     */
+    public static void CreateVertexGraph(Object v, 
+            Map<String, String> ids,
+            Map<String, GraphAttribute> attributes){
+        
+        Collection vertices = ((Graph) v).getVertices();
+        for (Object vertex : vertices) {
+            if (!(vertex instanceof Graph))
+            {
+                ids.put(((Vertex) vertex).getID(), ((Vertex) vertex).getID());
+
+                if (vertex instanceof AgentVertex) {
+                    if(attributes.containsKey("Agents")) {
+                        int agents = (int) Float.parseFloat(attributes.get("Agents").getValue());
+                        agents++;
+                        attributes.get("Agents").setValue(Integer.toString(agents));
+                    } else {
+                        GraphAttribute att = new GraphAttribute("Agents", Integer.toString(1));
+                        attributes.put(att.getName(), att);
+                    }
+                } else if (vertex instanceof ActivityVertex) {
+                    if(attributes.containsKey("Activities")) {
+                        int agents = (int) Float.parseFloat(attributes.get("Activities").getValue());
+                        agents++;
+                        attributes.get("Activities").setValue(Integer.toString(agents));
+                    } else {
+                        GraphAttribute att = new GraphAttribute("Activities", Integer.toString(1));
+                        attributes.put(att.getName(), att);
+                    }
+                } else if (vertex instanceof EntityVertex) {
+                    if(attributes.containsKey("Entities")) {
+                        int agents = (int) Float.parseFloat(attributes.get("Entities").getValue());
+                        agents++;
+                        attributes.get("Entities").setValue(Integer.toString(agents));
+                    } else {
+                        GraphAttribute att = new GraphAttribute("Entities", Integer.toString(1));
+                        attributes.put(att.getName(), att);
+                    }
+                }
+                
+                for (GraphAttribute att : ((Vertex) vertex).getAttributes()) {
+                    if (attributes.containsKey(att.getName())) {
+                        GraphAttribute temporary = attributes.get(att.getName());
+                        temporary.updateAttribute(att.getAverageValue());
+                        attributes.put(att.getName(), temporary);
+                    } else {
+                        attributes.put(att.getName(), new GraphAttribute(att.getName(), att.getAverageValue()));
+                    }
+                }
+            }
+            else //(vertex instanceof Graph) 
+            {
+                CreateVertexGraph(vertex, ids, attributes);
+            }
+        }
     }
 }

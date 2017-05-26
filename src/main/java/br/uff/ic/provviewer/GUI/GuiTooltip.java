@@ -26,9 +26,11 @@ package br.uff.ic.provviewer.GUI;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.GraphAttribute;
 import br.uff.ic.provviewer.Variables;
+import br.uff.ic.utility.GraphUtils;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.graph.EntityVertex;
+import br.uff.ic.utility.graph.GraphVertex;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
@@ -42,9 +44,9 @@ import org.apache.commons.collections15.Transformer;
  * @author Kohwalter
  */
 public class GuiTooltip {
-    static int agents = 0;
-    static int activities = 0;
-    static int entities = 0;
+//    static int agents = 0;
+//    static int activities = 0;
+//    static int entities = 0;
     Map<String, GraphAttribute> attributes;
 
     /**
@@ -80,18 +82,31 @@ public class GuiTooltip {
      * @return a string that is the tooltip
      */
     public static String GraphTooltip(Object v) {
+        return GraphUtils.CreateVertexGraph(v).toString();
+//        return PrintVertexGraph(v, ids, labels, times, attributes);
+    }
+    
+    /**
+     * Method to print the Graph-Vertex
+     * This is no longer used
+     * @deprecated 
+     * @param v
+     * @param ids
+     * @param labels
+     * @param times
+     * @param attributes
+     * @return 
+     */
+    public static String PrintVertexGraph(Object v, 
+            Map<String, String> ids,
+            Map<String, String> labels,
+            Map<String, String> times,
+            Map<String, GraphAttribute> attributes){
         String nodeTypes = "";
-        Map<String, String> ids = new HashMap<>();
-        Map<String, String> labels = new HashMap<>();
-        Map<String, String> times = new HashMap<>();
-        Map<String, GraphAttribute> attributes = new HashMap<>(); 
+        int agents = 0;
+        int activities = 0;
+        int entities = 0;
         
-        agents = 0;
-        activities = 0;
-        entities = 0;
-        
-        GraphTooltip(v, ids, labels, times, attributes);
-
         if (agents > 0) {
             nodeTypes = "Agents: " + agents + "<br>";
         }
@@ -109,53 +124,7 @@ public class GuiTooltip {
                 + " <br>" + PrintAttributes(attributes);
     }
 
-    /**
-     * Recursive method to generate the tooltip. 
-     * It considers Graph vertices inside the collapsed vertex.
-     * @param v is the current vertex for the tooltip
-     * @param ids is all computed ids for the tooltip
-     * @param labels is all computed labels for the tooltip
-     * @param times is all computed times for the tooltip
-     * @param attributes is the attribute list for the tooltip
-     */
-    public static void GraphTooltip(Object v, 
-            Map<String, String> ids,
-            Map<String, String> labels,
-            Map<String, String> times,
-            Map<String, GraphAttribute> attributes){
-        
-        Collection vertices = ((Graph) v).getVertices();
-        for (Object vertex : vertices) {
-            if (!(vertex instanceof Graph))
-            {
-                ids.put(((Vertex) vertex).getID(), ((Vertex) vertex).getID());
-                labels.put(((Vertex) vertex).getLabel(), ((Vertex) vertex).getLabel());
-                times.put(((Vertex) vertex).getTimeString(), ((Vertex) vertex).getTimeString());
-                
-                if (vertex instanceof AgentVertex) {
-                    agents++;
-                } else if (vertex instanceof ActivityVertex) {
-                    activities++;
-                } else if (vertex instanceof EntityVertex) {
-                    entities++;
-                }
-                
-                for (GraphAttribute att : ((Vertex) vertex).getAttributes()) {
-                    if (attributes.containsKey(att.getName())) {
-                        GraphAttribute temporary = attributes.get(att.getName());
-                        temporary.updateAttribute(att.getAverageValue());
-                        attributes.put(att.getName(), temporary);
-                    } else {
-                        attributes.put(att.getName(), new GraphAttribute(att.getName(), att.getAverageValue()));
-                    }
-                }
-            }
-            else //(vertex instanceof Graph) 
-            {
-                GraphTooltip(vertex, ids, labels, times, attributes);
-            }
-        }
-    }
+    
     
     /**
      * Prints the tooltip attributes
