@@ -207,7 +207,7 @@ public class GraphMatching {
     public void setRestrictionList(Map<String, AttributeErrorMargin> list) {
 //        attributeList.clear();
 //        attributeList.putAll(list);
-        attributeList = new HashMap<String,AttributeErrorMargin>(list);
+        attributeList = new HashMap<>(list);
     }
     
 
@@ -233,21 +233,21 @@ public class GraphMatching {
 
         // Check all v1 attributes
         for (GraphAttribute attribute : v1.getAttributes()) {
-            if(!attribute.getName().equalsIgnoreCase("GraphFile")) {
-                attributes.put(attribute.getName(), attribute.getName());
-                similarity = compareAttributes(attribute, v2, similarity);
-            }
+//            if(!attribute.getName().equalsIgnoreCase("GraphFile")) {
+            attributes.put(attribute.getName(), attribute.getName());
+            similarity = compareAttributes(attribute, v2, similarity);
+//            }
         }
 
         // Now check all v2 attributes
         for (GraphAttribute attribute : v2.getAttributes()) {
-            if(!attribute.getName().equalsIgnoreCase("GraphFile")) {
+//            if(!attribute.getName().equalsIgnoreCase("GraphFile")) {
             // Do not check the same attributes already verified when checking v1
-                if (!attributes.containsKey(attribute.getName())) {
-                    attributes.put(attribute.getName(), attribute.getName());
-                    similarity = compareAttributes(attribute, v1, similarity);
-                }
+            if (!attributes.containsKey(attribute.getName())) {
+                attributes.put(attribute.getName(), attribute.getName());
+                similarity = compareAttributes(attribute, v1, similarity);
             }
+//            }
         }
 
         // Compute the number of attributes, considering their weights, for the similarity check
@@ -471,7 +471,7 @@ public class GraphMatching {
         // Code to combine similar edges from edgeList
         Collection<Edge> values = new ArrayList<>();
         values.addAll(edgeList.values());
-        duplicateEdges = new HashMap<String, Edge>();
+        duplicateEdges = new HashMap<>();
         
         for (Edge e1 : values) {
             for (Edge e2 : values) {
