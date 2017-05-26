@@ -471,7 +471,7 @@ public class Config {
                     if (restricted) {
                         Constructor con = cl.getConstructor(boolean.class, boolean.class, String.class, String.class, String.class, String.class, boolean.class, String.class, String.class);
                         ColorScheme attMode = (ColorScheme) con.newInstance(isZeroWhite, isInverted, attribute, values, maxvalue, minvalue, limited, restrictedAttribute, restrictedValue);
-                        vertexModes.put(attribute, attMode);
+                        vertexModes.put(attribute + "(" + restrictedValue + ")", attMode);
                     } else {
                         Constructor con = cl.getConstructor(boolean.class, boolean.class, String.class, String.class, String.class, String.class, boolean.class);
                         ColorScheme attMode = (ColorScheme) con.newInstance(isZeroWhite, isInverted, attribute, values, maxvalue, minvalue, limited);
