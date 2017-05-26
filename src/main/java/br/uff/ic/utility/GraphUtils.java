@@ -119,7 +119,7 @@ public class GraphUtils {
         Map<String, String> ids = new HashMap<>();
         Map<String, GraphAttribute> attributes = new HashMap<>(); 
         CreateVertexGraph(v, ids, attributes);
-        return new GraphVertex(ids, attributes);
+        return new GraphVertex(ids, attributes, (Graph) v);
     }
     /**
      * Recursive method to generate the tooltip. 
