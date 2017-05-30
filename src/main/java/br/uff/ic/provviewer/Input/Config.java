@@ -26,6 +26,7 @@ package br.uff.ic.provviewer.Input;
 import br.uff.ic.utility.IO.BasePath;
 import br.uff.ic.provviewer.EdgeType;
 import br.uff.ic.provviewer.GraphFrame;
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.provviewer.Vertex.ColorScheme.ColorScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.VertexColorScheme;
@@ -254,12 +255,12 @@ public class Config {
             agentVC = new ArrayList<>();
 
             EdgeType allEdges = new EdgeType();
-            allEdges.type = "All Edges";
+            allEdges.type = VariableNames.FilterAllEdges;
             allEdges.stroke = "MAX";
             allEdges.collapse = "SUM";
             edgetype.add(allEdges);
 
-            String allvertices = "All Vertices";
+            String allvertices = VariableNames.FilterAllVertices;
             vertexLabelFilter.add(allvertices);
 
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -403,8 +404,8 @@ public class Config {
             //Default mode is always set, no matter the config.xml
             ProvScheme provScheme = new ProvScheme("Prov");
             vertexModes.put("Prov", provScheme);
-            VertexGraphGrayScaleScheme graphScheme = new VertexGraphGrayScaleScheme("GraphFile");
-            vertexModes.put("GraphFile", graphScheme);
+            VertexGraphGrayScaleScheme graphScheme = new VertexGraphGrayScaleScheme(VariableNames.GraphFile);
+            vertexModes.put(VariableNames.GraphFile, graphScheme);
 
             nList = doc.getElementsByTagName("colorscheme");
             for (int temp = 0; temp < nList.getLength(); temp++) {

@@ -28,6 +28,7 @@ import br.uff.ic.utility.graph.Edge;
 import static br.uff.ic.provviewer.GraphFrame.StatusFilterBox;
 import br.uff.ic.provviewer.Layout.Temporal_Layout;
 import br.uff.ic.provviewer.Layout.OneDimensional_Layout;
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.provviewer.Vertex.ColorScheme.VertexPainter;
 import br.uff.ic.utility.IO.PROVNWriter;
@@ -94,10 +95,10 @@ public class GuiButtons {
      */
     public static void MouseModes(DefaultModalGraphMouse mouse, JComboBox MouseModes) {
         String mode = (String) MouseModes.getSelectedItem();
-        if (mode.equalsIgnoreCase("Picking")) {
+        if (mode.equalsIgnoreCase(VariableNames.MouseModePicking)) {
             mouse.setMode(ModalGraphMouse.Mode.PICKING);
         }
-        if (mode.equalsIgnoreCase("Transforming")) {
+        if (mode.equalsIgnoreCase(VariableNames.MouseModeTransforming)) {
             mouse.setMode(ModalGraphMouse.Mode.TRANSFORMING);
         }
     }
@@ -122,7 +123,7 @@ public class GuiButtons {
             for(Object v : variables.layout.getGraph().getNeighbors(node)) {
                 if(v instanceof GraphVertex) {
                     boolean hasAgent = false;
-                    if(((GraphVertex)v).hasAttribute("Agents"))
+                    if(((GraphVertex)v).hasAttribute(VariableNames.CollapsedVertexAgentAttribute))
                         hasAgent = true;
                     if(!hasAgent)
                         picked.add(v);
@@ -154,10 +155,10 @@ public class GuiButtons {
      */
     public static void EdgeLineMode(JComboBox EdgeLineShapeSelection, Variables variables) {
         String mode = (String) EdgeLineShapeSelection.getSelectedItem();
-        if (mode.equalsIgnoreCase("QuadCurve")) {
+        if (mode.equalsIgnoreCase(VariableNames.EdgeModeQuadCurve)) {
             variables.view.getRenderContext().setEdgeShapeTransformer(new EdgeShape.QuadCurve<Object, Edge>());
         }
-        if (mode.equalsIgnoreCase("Line")) {
+        if (mode.equalsIgnoreCase(VariableNames.EdgeModeLine)) {
             variables.view.getRenderContext().setEdgeShapeTransformer(new EdgeShape.Line<Object, Edge>());
         }
         variables.view.repaint();

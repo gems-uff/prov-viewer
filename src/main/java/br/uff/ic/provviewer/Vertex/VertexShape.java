@@ -23,6 +23,7 @@
  */
 package br.uff.ic.provviewer.Vertex;
 
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.utility.GraphUtils;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.ActivityVertex;
@@ -105,12 +106,12 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
      * @return the vertex shape
      */
     private Shape provShape(V v, int size) {
-        if (v instanceof AgentVertex || ((Vertex)v).hasAttribute("Agents")) {
+        if (v instanceof AgentVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexAgentAttribute)) {
             return factory.getRegularPolygon(v, 5);
-        } else if (v instanceof ActivityVertex|| ((Vertex)v).hasAttribute("Activities")) {{//activity vertex
+        } else if (v instanceof ActivityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexActivityAttribute)) {{//activity vertex
             return factory.getRegularPolygon(v, 4);
         }
-        } else if (v instanceof EntityVertex|| ((Vertex)v).hasAttribute("Entities")) {
+        } else if (v instanceof EntityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) {
             return new Ellipse2D.Float(-7, -7, size, size);
         } else // Unknown
             return factory.getRegularPolygon(v, 3);
@@ -136,7 +137,7 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
 
         int numberOfGraphs;
         int vertexSize;
-        String[] graphs = ((Vertex) v).getAttributeValues("GraphFile");
+        String[] graphs = ((Vertex) v).getAttributeValues(VariableNames.GraphFile);
         numberOfGraphs = graphs.length;
         vertexSize = (int) (defaultSize * numberOfGraphs * 0.5);
         setSizeTransformer(new VertexSize<V>(vertexSize));

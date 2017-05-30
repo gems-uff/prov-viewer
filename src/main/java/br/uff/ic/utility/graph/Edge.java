@@ -26,6 +26,7 @@ package br.uff.ic.utility.graph;
 
 import br.uff.ic.utility.GraphAttribute;
 import br.uff.ic.provviewer.EdgeType;
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.Utils;
 import java.awt.Color;
@@ -313,7 +314,7 @@ public class Edge extends GraphObject {
      */
     @Override
     public String toString() {
-        String font = "<html><font size=\"3\", font color=\"blue\">";
+        String font = VariableNames.FontConfiguration;
         if (getLabel().isEmpty()) {
             return font + this.type;
         } else if (getLabel().equals(this.type)) {
@@ -331,7 +332,7 @@ public class Edge extends GraphObject {
      */
     public Color getColor(Variables variables) {
         if(variables.isEdgeColorByGraphs) {
-            String[] graphs = getAttributeValues("GraphFile");
+            String[] graphs = getAttributeValues(VariableNames.GraphFile);
             return Utils.getGrayscaleColor(graphs.length, variables.numberOfGraphs);
         } else {
             float v = getValue();

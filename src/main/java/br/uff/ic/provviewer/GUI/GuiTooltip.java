@@ -23,6 +23,7 @@
  */
 package br.uff.ic.provviewer.GUI;
 
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.GraphAttribute;
 import br.uff.ic.provviewer.Variables;
@@ -57,7 +58,7 @@ public class GuiTooltip {
         variables.view.setEdgeToolTipTransformer(new Transformer<Edge, String>() {
             @Override
             public String transform(Edge n) {
-                return "<html><font size=\"4\">" + n.getEdgeTooltip() + "</html>";
+                return VariableNames.EdgeTooltipFontConfiguration + n.getEdgeTooltip() + "</html>";
             }
         });
     }

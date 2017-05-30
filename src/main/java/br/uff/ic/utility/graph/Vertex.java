@@ -24,6 +24,7 @@
 
 package br.uff.ic.utility.graph;
 
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.utility.GraphAttribute;
 import br.uff.ic.utility.Utils;
 import static br.uff.ic.utility.Utils.isItTime;
@@ -268,14 +269,14 @@ public abstract class Vertex extends GraphObject {
         
         String[] atts = attribute.split(" - ");
         if(atts.length == 2) {
-            if("Unknown".equals(getAttributeValue(atts[0])) || "Unknown".equals(getAttributeValue(atts[1]))) return "Unknown";
+            if(VariableNames.UnknownValue.equals(getAttributeValue(atts[0])) || VariableNames.UnknownValue.equals(getAttributeValue(atts[1]))) return VariableNames.UnknownValue;
             else {
                 String delta = Float.toString(getAttFloatValue(atts[0]) - getAttFloatValue(atts[1]));
                 return delta;
             }
         }
         else
-            return "Unknown";
+            return VariableNames.UnknownValue;
     }
     
     /**

@@ -24,6 +24,7 @@
 
 package br.uff.ic.utility;
 
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.provviewer.Vertex.ColorScheme.ColorScheme;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
@@ -89,7 +90,7 @@ public class GraphUtils {
     public static float getSlope(Object node, ColorScheme colorScheme) {
         double slope = Double.NEGATIVE_INFINITY;
         for (Edge e : colorScheme.variables.graph.getOutEdges(node)) {
-            if (!((Vertex) e.getTarget()).getAttributeValue(colorScheme.attribute).contentEquals("Unknown")) {
+            if (!((Vertex) e.getTarget()).getAttributeValue(colorScheme.attribute).contentEquals(VariableNames.UnknownValue)) {
                 float attValue = ((Vertex) node).getAttributeValueFloat(colorScheme.attribute) - ((Vertex) e.getTarget()).getAttributeValueFloat(colorScheme.attribute);
                 double time = ((Vertex) node).getTime() - ((Vertex) e.getTarget()).getTime();
                 if (time != 0) {
@@ -108,7 +109,7 @@ public class GraphUtils {
         Collection<Object> nodes = graph.getVertices();
             ArrayList<Float> values = new ArrayList<>();
             for (Object node : nodes) {
-                if (!((Vertex) node).getAttributeValue(attribute).contentEquals("Unknown")) {
+                if (!((Vertex) node).getAttributeValue(attribute).contentEquals(VariableNames.UnknownValue)) {
                     values.add(((Vertex) node).getAttributeValueFloat(attribute));
                 }
             }
@@ -140,30 +141,30 @@ public class GraphUtils {
                 ids.put(((Vertex) vertex).getID(), ((Vertex) vertex).getID());
 
                 if (vertex instanceof AgentVertex) {
-                    if(attributes.containsKey("Agents")) {
-                        int agents = (int) Float.parseFloat(attributes.get("Agents").getValue());
+                    if(attributes.containsKey(VariableNames.CollapsedVertexAgentAttribute)) {
+                        int agents = (int) Float.parseFloat(attributes.get(VariableNames.CollapsedVertexAgentAttribute).getValue());
                         agents++;
-                        attributes.get("Agents").setValue(Integer.toString(agents));
+                        attributes.get(VariableNames.CollapsedVertexAgentAttribute).setValue(Integer.toString(agents));
                     } else {
-                        GraphAttribute att = new GraphAttribute("Agents", Integer.toString(1));
+                        GraphAttribute att = new GraphAttribute(VariableNames.CollapsedVertexAgentAttribute, Integer.toString(1));
                         attributes.put(att.getName(), att);
                     }
                 } else if (vertex instanceof ActivityVertex) {
-                    if(attributes.containsKey("Activities")) {
-                        int agents = (int) Float.parseFloat(attributes.get("Activities").getValue());
+                    if(attributes.containsKey(VariableNames.CollapsedVertexActivityAttribute)) {
+                        int agents = (int) Float.parseFloat(attributes.get(VariableNames.CollapsedVertexActivityAttribute).getValue());
                         agents++;
-                        attributes.get("Activities").setValue(Integer.toString(agents));
+                        attributes.get(VariableNames.CollapsedVertexActivityAttribute).setValue(Integer.toString(agents));
                     } else {
-                        GraphAttribute att = new GraphAttribute("Activities", Integer.toString(1));
+                        GraphAttribute att = new GraphAttribute(VariableNames.CollapsedVertexActivityAttribute, Integer.toString(1));
                         attributes.put(att.getName(), att);
                     }
                 } else if (vertex instanceof EntityVertex) {
-                    if(attributes.containsKey("Entities")) {
-                        int agents = (int) Float.parseFloat(attributes.get("Entities").getValue());
+                    if(attributes.containsKey(VariableNames.CollapsedVertexEntityAttribute)) {
+                        int agents = (int) Float.parseFloat(attributes.get(VariableNames.CollapsedVertexEntityAttribute).getValue());
                         agents++;
-                        attributes.get("Entities").setValue(Integer.toString(agents));
+                        attributes.get(VariableNames.CollapsedVertexEntityAttribute).setValue(Integer.toString(agents));
                     } else {
-                        GraphAttribute att = new GraphAttribute("Entities", Integer.toString(1));
+                        GraphAttribute att = new GraphAttribute(VariableNames.CollapsedVertexEntityAttribute, Integer.toString(1));
                         attributes.put(att.getName(), att);
                     }
                 }

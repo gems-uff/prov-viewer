@@ -29,6 +29,7 @@ import static br.uff.ic.provviewer.GraphFrame.StatusFilterBox;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.Stroke.EdgeStroke;
 import br.uff.ic.provviewer.Stroke.VertexStroke;
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.provviewer.Vertex.ColorScheme.VertexPainter;
@@ -72,16 +73,11 @@ public class GuiFunctions {
     }
 
     /**
-     * Method to define the vertex shape
-     *
+     * Method to define the Vertex Shape
      * @param variables
-     * @param isVertexSizeBasedOnGraphs
+     * @param selectedMode
+     * @param attribute 
      */
-//    public static void VertexShape(Variables variables, boolean isVertexSizeBasedOnGraphs) {
-////        variables.view.getRenderContext().setVertexShapeTransformer(new VertexShape(variables.config.vertexSize, isVertexSizeBasedOnGraphs));
-//        variables.view.getRenderContext().setVertexShapeTransformer(new VertexShape(variables.config.vertexSize, "Timestamp", variables.graph.getVertices()));
-//        variables.view.repaint();
-//    }
     public static void VertexShape(Variables variables, String selectedMode, String attribute) {
         variables.view.getRenderContext().setVertexShapeTransformer(new VertexShape(variables.config.vertexSize, selectedMode, attribute, variables.graph.getVertices()));
         variables.view.repaint();
@@ -114,9 +110,9 @@ public class GuiFunctions {
                         }
                     }
                     if (variables.vertexBorderByGraphs) {
-                        String graphs = ((Vertex) v).getAttributeValue("GraphFile");
+                        String graphs = ((Vertex) v).getAttributeValue(VariableNames.GraphFile);
                         int i = 0;
-                        if (((Vertex) v).getAttributeValues("GraphFile").length == variables.numberOfGraphs) {
+                        if (((Vertex) v).getAttributeValues(VariableNames.GraphFile).length == variables.numberOfGraphs) {
                             return Color.LIGHT_GRAY;
                         }
                         for (Object g : variables.graphNames.toArray()) {
@@ -166,7 +162,7 @@ public class GuiFunctions {
 
             @Override
             public String transform(Object v) {
-                String font = "<html><font size=\"4\", font color=\"blue\">";
+                String font = VariableNames.FontConfiguration;
                 if (v instanceof GraphVertex) {
                     boolean hasActivity = false;
                     boolean hasAgent = false;
@@ -191,13 +187,13 @@ public class GuiFunctions {
                         }
                     }
                     if (hasAgent && agentLabel) {
-                        return font + agentName + " (Summarized)";
+                        return font + agentName + VariableNames.SummarizedLabelString;
                     }
                     if (hasActivity && activityLabel) {
-                        return font + activityName + " (Summarized)";
+                        return font + activityName + VariableNames.SummarizedLabelString;
                     }
                     if (entityLabel) {
-                        return font + entityName + " (Summarized)";
+                        return font + entityName + VariableNames.SummarizedLabelString;
                     }
                     if (showID) {
                         return font + ((Vertex) v).getID();
@@ -318,8 +314,8 @@ public class GuiFunctions {
     public static void GraphPaint(final Variables variables) {
 
         // Vertex Paint
-        VertexPainter.VertexPainter("Prov", variables.view, variables);
-        StatusFilterBox.setSelectedItem("Prov");
+        VertexPainter.VertexPainter(VariableNames.DefaultVertexPainter, variables.view, variables);
+        StatusFilterBox.setSelectedItem(VariableNames.DefaultVertexPainter);
         // Edge Paint
         Transformer edgePainter = new Transformer<Edge, Paint>() {
             @Override

@@ -24,6 +24,7 @@
 
 package br.uff.ic.utility.graph;
 
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.utility.GraphAttribute;
 import java.util.Collection;
 import java.util.HashMap;
@@ -159,7 +160,7 @@ public class GraphObject extends Object{
             return aux.getAverageValue();
         }
         else {
-            return "Unknown";
+            return VariableNames.UnknownValue;
         }
     }
 }

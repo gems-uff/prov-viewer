@@ -25,6 +25,7 @@
 package br.uff.ic.provviewer.Stroke;
 
 import br.uff.ic.provviewer.EdgeType;
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.Variables;
 import java.awt.BasicStroke;
@@ -53,7 +54,7 @@ public class EdgeStroke {
         float size = 1;
         if(!isStrokeByValue) {
 //            Vertex target = (Vertex) edge.getTarget();
-            String[] graphs = edge.getAttributeValues("GraphFile");
+            String[] graphs = edge.getAttributeValues(VariableNames.GraphFile);
             size = 1 + (graphs.length - 1) * 2;
         }
         return new BasicStroke(size, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, null, 0.0f);

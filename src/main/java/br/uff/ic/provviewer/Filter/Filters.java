@@ -25,6 +25,7 @@ package br.uff.ic.provviewer.Filter;
 
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.GraphFrame;
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.AgentVertex;
@@ -199,7 +200,7 @@ public class Filters {
         List filtersL = GraphFrame.edgeFilterList.getSelectedValuesList();
         for (Object filtersL1 : filtersL) {
             String filter = (String) filtersL1;
-            if (filter.equalsIgnoreCase("All Edges")) {
+            if (filter.equalsIgnoreCase(VariableNames.FilterAllEdges)) {
                 return false;
             }
             if (edge.getLabel().contains(filter) || edge.getType().contains(filter)) {
@@ -299,7 +300,7 @@ public class Filters {
             }
         }
         if (GraphFrame.hideMergedVerticesButton.isSelected()) {
-            if(((Vertex)vertex).getAttributeValues("GraphFile").length == numberOfGraphs)
+            if(((Vertex)vertex).getAttributeValues(VariableNames.GraphFile).length == numberOfGraphs)
                 return true;
         }
         return false;
@@ -316,7 +317,7 @@ public class Filters {
         List filtersL = GraphFrame.vertexFilterList.getSelectedValuesList();
         for (Object filtersL1 : filtersL) {
             String filter = (String) filtersL1;
-            if (filter.equalsIgnoreCase("All Vertices")) {
+            if (filter.equalsIgnoreCase(VariableNames.FilterAllVertices)) {
                 return false;
             }
             if (vertex instanceof Vertex) {

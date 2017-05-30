@@ -24,6 +24,7 @@
 package br.uff.ic.provviewer.Inference;
 
 import br.uff.ic.graphmatching.GraphMatching;
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.utility.AttributeErrorMargin;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.Edge;
@@ -397,7 +398,7 @@ public class AutomaticInference {
         } else {
             String v1 = ((Vertex)p).getAttributeValue(attribute);
             String v2 = ((Vertex)q).getAttributeValue(attribute);
-            if(v1.equalsIgnoreCase(v2) && !v1.equalsIgnoreCase("Unknown"))
+            if(v1.equalsIgnoreCase(v2) && !v1.equalsIgnoreCase(VariableNames.UnknownValue))
                 distance = 0;
         }
         return distance;
