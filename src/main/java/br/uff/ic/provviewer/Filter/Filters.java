@@ -342,9 +342,6 @@ public class Filters {
     private boolean vertexTemporalFilter(Object vertex, String timeScale, String selectedTimeScale) {
         if (GraphFrame.TemporalFilterToggle.isSelected()) {
             if (!(vertex instanceof AgentVertex)) {
-                while (vertex instanceof Graph) {
-                    vertex = ((Graph) vertex).getVertices().toArray()[0];
-                }
                 double timeDate = ((Vertex) vertex).getTime();
                 double time = ((Vertex) vertex).getNormalizedTime();
 
