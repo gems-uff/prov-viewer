@@ -25,6 +25,7 @@ package br.uff.ic.provviewer.Vertex;
 
 import br.uff.ic.utility.GraphUtils;
 import br.uff.ic.utility.Utils;
+import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.GraphVertex;
@@ -61,7 +62,7 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
     }
 
     /**
-     * Create the vertex shape using VertexShapeFactory<V> factory;
+     * Create the vertex shape using VertexShapeFactory factory;
      *
      * @param v JUNG's V (Vertex) type
      * @return Shape
@@ -104,15 +105,15 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
      * @return the vertex shape
      */
     private Shape provShape(V v, int size) {
-        if (v instanceof EntityVertex) {
-            return new Ellipse2D.Float(-7, -7, size, size);
-        }
-        if (v instanceof AgentVertex) {
+        if (v instanceof AgentVertex || ((Vertex)v).hasAttribute("Agents")) {
             return factory.getRegularPolygon(v, 5);
-        } else//activity vertex 
-        {
+        } else if (v instanceof ActivityVertex|| ((Vertex)v).hasAttribute("Activities")) {{//activity vertex
             return factory.getRegularPolygon(v, 4);
         }
+        } else if (v instanceof EntityVertex|| ((Vertex)v).hasAttribute("Entities")) {
+            return new Ellipse2D.Float(-7, -7, size, size);
+        } else // Unknown
+            return factory.getRegularPolygon(v, 3);
     }
 
     /**
@@ -122,8 +123,6 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
      */
     private void vertexGraphSizeTransformer(V v) {
         int graphSize = GraphUtils.getCollapsedVertexSize(v);
-        Object vertex;
-        vertex = GraphUtils.hasAgentVertex(v);
         setSizeTransformer(new VertexSize<V>(defaultSize + graphSize));
     }
 
@@ -136,7 +135,7 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
     private Shape multipleGraphShape(V v) {
 
         int numberOfGraphs;
-        int vertexSize = defaultSize;
+        int vertexSize;
         String[] graphs = ((Vertex) v).getAttributeValues("GraphFile");
         numberOfGraphs = graphs.length;
         vertexSize = (int) (defaultSize * numberOfGraphs * 0.5);
@@ -147,7 +146,7 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
     private Shape attributeValueShape(V v) {
 
         double value;
-        int vertexSize = defaultSize;
+        int vertexSize;
         value = ((Vertex)v).getAttributeValueFloat(attribute);
         vertexSize = (int) (defaultSize * (1 + (value * 5 / max)));
         setSizeTransformer(new VertexSize<V>(vertexSize));
