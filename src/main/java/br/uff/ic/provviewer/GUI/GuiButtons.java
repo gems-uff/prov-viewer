@@ -32,6 +32,7 @@ import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.provviewer.Vertex.ColorScheme.VertexPainter;
 import br.uff.ic.utility.IO.PROVNWriter;
 import br.uff.ic.utility.IO.XMLWriter;
+import br.uff.ic.utility.graph.GraphVertex;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
 import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
@@ -120,13 +121,10 @@ public class GuiButtons {
         if (variables.layout.getGraph().getNeighbors(node) != null) {
             Collection picked = new HashSet();
             for(Object v : variables.layout.getGraph().getNeighbors(node)) {
-                if(v instanceof Graph) {
+                if(v instanceof GraphVertex) {
                     boolean hasAgent = false;
-                    for (Object g : ((Graph) v).getVertices()) {
-                        if(g instanceof AgentVertex) {
-                            hasAgent = true;
-                        }
-                    }
+                    if(((GraphVertex)v).hasAttribute("Agents"))
+                        hasAgent = true;
                     if(!hasAgent)
                         picked.add(v);
                 }
