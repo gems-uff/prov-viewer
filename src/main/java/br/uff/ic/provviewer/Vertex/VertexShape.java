@@ -27,6 +27,7 @@ import br.uff.ic.utility.GraphUtils;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.graph.EntityVertex;
+import br.uff.ic.utility.graph.GraphVertex;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.decorators.EllipseVertexShapeTransformer;
@@ -87,7 +88,7 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
      * @return the vertex shape
      */
     private Shape defaultShape(V v) {
-        if (v instanceof Graph) {
+        if (v instanceof GraphVertex) {
             vertexGraphSizeTransformer(v);
         } else {
             setSizeTransformer(new VertexSize<V>(defaultSize));
@@ -137,14 +138,10 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
 
         int numberOfGraphs;
         int vertexSize = defaultSize;
-        if (v instanceof Graph) {
-            vertexGraphSizeTransformer(v);
-        } else {
-            String[] graphs = ((Vertex) v).getAttributeValues("GraphFile");
-            numberOfGraphs = graphs.length;
-            vertexSize = defaultSize * numberOfGraphs;
-            setSizeTransformer(new VertexSize<V>(vertexSize));
-        }
+        String[] graphs = ((Vertex) v).getAttributeValues("GraphFile");
+        numberOfGraphs = graphs.length;
+        vertexSize = (int) (defaultSize * numberOfGraphs * 0.5);
+        setSizeTransformer(new VertexSize<V>(vertexSize));
         return provShape(v, vertexSize);
     }
     
@@ -152,13 +149,9 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
 
         double value;
         int vertexSize = defaultSize;
-        if (v instanceof Graph) {
-            vertexGraphSizeTransformer(v);
-        } else {
-            value = ((Vertex)v).getAttributeValueFloat(attribute);
-            vertexSize = (int) (defaultSize * (1 + (value * 5 / max)));
-            setSizeTransformer(new VertexSize<V>(vertexSize));
-        }
+        value = ((Vertex)v).getAttributeValueFloat(attribute);
+        vertexSize = (int) (defaultSize * (1 + (value * 5 / max)));
+        setSizeTransformer(new VertexSize<V>(vertexSize));
         return provShape(v, vertexSize);
     }
 }
