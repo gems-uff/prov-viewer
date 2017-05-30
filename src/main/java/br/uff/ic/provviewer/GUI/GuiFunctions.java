@@ -37,7 +37,7 @@ import br.uff.ic.utility.graph.Vertex;
 import br.uff.ic.provviewer.Vertex.VertexShape;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.ActivityVertex;
-import edu.uci.ics.jung.graph.Graph;
+import br.uff.ic.utility.graph.GraphVertex;
 import edu.uci.ics.jung.graph.util.Pair;
 import edu.uci.ics.jung.visualization.Layer;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
@@ -50,9 +50,6 @@ import java.awt.Color;
 import java.awt.Paint;
 import java.awt.Stroke;
 import java.awt.geom.Point2D;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import org.apache.commons.collections15.Predicate;
@@ -60,20 +57,23 @@ import org.apache.commons.collections15.Transformer;
 
 /**
  * Class responsible for main (GUI) graph functions
+ *
  * @author Kohwalter
  */
 public class GuiFunctions {
 
     /**
      * Method to define the vertex shape using the default shapes
+     *
      * @param variables
      */
     public static void VertexShape(Variables variables) {
         variables.view.getRenderContext().setVertexShapeTransformer(new VertexShape(variables.config.vertexSize));
     }
-    
+
     /**
      * Method to define the vertex shape
+     *
      * @param variables
      * @param isVertexSizeBasedOnGraphs
      */
@@ -82,7 +82,6 @@ public class GuiFunctions {
 //        variables.view.getRenderContext().setVertexShapeTransformer(new VertexShape(variables.config.vertexSize, "Timestamp", variables.graph.getVertices()));
 //        variables.view.repaint();
 //    }
-    
     public static void VertexShape(Variables variables, String selectedMode, String attribute) {
         variables.view.getRenderContext().setVertexShapeTransformer(new VertexShape(variables.config.vertexSize, selectedMode, attribute, variables.graph.getVertices()));
         variables.view.repaint();
@@ -90,7 +89,8 @@ public class GuiFunctions {
 
     /**
      * Method to define the vertex and edge borders/stroke
-     * @param variables 
+     *
+     * @param variables
      */
     public static void Stroke(final Variables variables) {
         // Vertex Stroke
@@ -101,27 +101,28 @@ public class GuiFunctions {
             }
         };
         variables.view.getRenderContext().setVertexStrokeTransformer(nodeStrokeTransformer);
-        
-                
+
         // Change Stroke color
         Transformer<Object, Paint> drawPaint = new Transformer<Object, Paint>() {
             @Override
             public Paint transform(Object v) {
-                if(v instanceof Vertex) {
-                    if(variables.highlightVertexOutliers) {
+                if (v instanceof Vertex) {
+                    if (variables.highlightVertexOutliers) {
                         float value = ((Vertex) v).getAttributeValueFloat(variables.outliersThresholds.attributeName);
-                        if(value < variables.outliersThresholds.lowerThreshold || value > variables.outliersThresholds.upperThreshold) {
+                        if (value < variables.outliersThresholds.lowerThreshold || value > variables.outliersThresholds.upperThreshold) {
                             return new Color(255, 0, 0);
                         }
                     }
-                    if(variables.vertexBorderByGraphs) {
+                    if (variables.vertexBorderByGraphs) {
                         String graphs = ((Vertex) v).getAttributeValue("GraphFile");
                         int i = 0;
-                        if(((Vertex) v).getAttributeValues("GraphFile").length == variables.numberOfGraphs)
+                        if (((Vertex) v).getAttributeValues("GraphFile").length == variables.numberOfGraphs) {
                             return Color.LIGHT_GRAY;
-                        for(Object g : variables.graphNames.toArray()) {
-                            if(graphs.contains((String) g))
+                        }
+                        for (Object g : variables.graphNames.toArray()) {
+                            if (graphs.contains((String) g)) {
                                 break;
+                            }
                             i++;
                         }
                         return Utils.getColor(i);
@@ -138,8 +139,7 @@ public class GuiFunctions {
             }
         };
         variables.view.getRenderContext().setVertexDrawPaintTransformer(drawPaint);
-        
-        
+
         // Edge Stroke
         variables.ComputeEdgeTypeValues();
         Transformer<Edge, Stroke> edgeStrokeTransformer = new Transformer<Edge, Stroke>() {
@@ -153,7 +153,8 @@ public class GuiFunctions {
 
     /**
      * Method to display labels for vertices
-     * @param variables 
+     *
+     * @param variables
      * @param agentLabel interface check-box state agent label
      * @param activityLabel interface check-box state activity label
      * @param entityLabel interface check-box state for entity label
@@ -166,95 +167,78 @@ public class GuiFunctions {
             @Override
             public String transform(Object v) {
                 String font = "<html><font size=\"4\", font color=\"blue\">";
-                if (v instanceof Graph) {
+                if (v instanceof GraphVertex) {
                     boolean hasActivity = false;
                     boolean hasAgent = false;
                     String agentName = "";
                     String activityName = "";
                     String entityName = "";
 //                    boolean hasEntity = false;
-                    for (Object vertex : ((Graph) v).getVertices()) {
+                    for (Object vertex : ((GraphVertex) v).clusterGraph.getVertices()) {
                         if (vertex instanceof AgentVertex && agentLabel) {
                             return font + ((Vertex) vertex).getLabel();
                         }
                         if (vertex instanceof ActivityVertex) {
                             hasActivity = true;
-                            activityName = ((Vertex)vertex).getLabel();
+                            activityName = ((Vertex) vertex).getLabel();
                         }
                         if (vertex instanceof AgentVertex) {
                             hasAgent = true;
-                            agentName = ((Vertex)vertex).getLabel();
+                            agentName = ((Vertex) vertex).getLabel();
                         }
                         if (vertex instanceof EntityVertex) {
-                            entityName = ((Vertex)vertex).getLabel();
+                            entityName = ((Vertex) vertex).getLabel();
                         }
                     }
-                    if(hasAgent && agentLabel)
+                    if (hasAgent && agentLabel) {
                         return font + agentName + " (Summarized)";
-                    if(hasActivity && activityLabel)
+                    }
+                    if (hasActivity && activityLabel) {
                         return font + activityName + " (Summarized)";
-                    if(entityLabel)
+                    }
+                    if (entityLabel) {
                         return font + entityName + " (Summarized)";
-                    if(showID) {
-                        Map<String, String> ids = new HashMap<>();
-                        GraphVertexGetID(ids, v);
-                        return font + ids.values().toString();
+                    }
+                    if (showID) {
+                        return font + ((Vertex) v).getID();
                     }
                 }
                 // Agent
                 if (v instanceof AgentVertex && agentLabel) {
                     return font + ((Vertex) v).getLabel();
-                } 
-                // Entity
+                } // Entity
                 // Label + Time
                 else if ((v instanceof EntityVertex) && entityLabel && timeLabel) {
                     return font + String.valueOf((int) ((Vertex) v).getTime()) + " : " + ((Vertex) v).getLabel();
-                }
-                // Time
+                } // Time
                 else if ((v instanceof EntityVertex) && timeLabel) {
                     return font + String.valueOf((int) ((Vertex) v).getTime());
-                } 
-                // Label
+                } // Label
                 else if ((v instanceof EntityVertex) && entityLabel) {
                     return font + ((Vertex) v).getLabel();
-                }
-                // Activity
+                } // Activity
                 // Label + Time
                 else if ((v instanceof ActivityVertex) && activityLabel && timeLabel) {
                     return font + String.valueOf((int) ((Vertex) v).getTime()) + " : " + ((Vertex) v).getLabel();
-                }
-                // Time
+                } // Time
                 else if ((v instanceof ActivityVertex) && timeLabel) {
                     return font + String.valueOf((int) ((Vertex) v).getTime());
-                } 
-                // Label
+                } // Label
                 else if ((v instanceof ActivityVertex) && activityLabel) {
                     return font + ((Vertex) v).getLabel();
-                }
-                else if(showID)
+                } else if (showID) {
                     return font + ((Vertex) v).getID();
-                
-                return "";
-            }
-
-            private void GraphVertexGetID(Map<String, String> ids, Object v) {
-                
-                Collection vertices = ((Graph) v).getVertices();
-                for (Object vertex : vertices) {
-                    if (!(vertex instanceof Graph))
-                    {
-                        ids.put(((Vertex) vertex).getID(), ((Vertex) vertex).getID());
-                    }
-                    else
-                        GraphVertexGetID(ids, vertex);
                 }
+
+                return "";
             }
         });
     }
 
     /**
      * Method to enable mouse interactions
-     * @param variables 
+     *
+     * @param variables
      */
     public static void MouseInteraction(Variables variables) {
         // via mouse Commands: t for translate, p for picking
@@ -264,7 +248,8 @@ public class GuiFunctions {
 
     /**
      * Method to pan the camera to the first vertex in the graph
-     * @param variables 
+     *
+     * @param variables
      */
     public static void PanCameraToFirstVertex(Variables variables) {
         Vertex first = (Vertex) variables.layout.getGraph().getVertices().iterator().next();
@@ -279,7 +264,8 @@ public class GuiFunctions {
 
     /**
      * Method to scale back the camera zoom
-     * @param variables 
+     *
+     * @param variables
      */
     public static void ScaleView(Variables variables) {
 //        variables.view = new VisualizationViewer<>(variables.layout);
@@ -289,6 +275,7 @@ public class GuiFunctions {
 
     /**
      * Method to initialize the View
+     *
      * @param variables
      * @param Layouts is the GUI layout chooser
      * @param graphFrame is the tool's main frame
@@ -325,32 +312,32 @@ public class GuiFunctions {
 
     /**
      * Method to paint vertices and edges according to their values
-     * @param variables 
+     *
+     * @param variables
      */
     public static void GraphPaint(final Variables variables) {
 
         // Vertex Paint
         VertexPainter.VertexPainter("Prov", variables.view, variables);
         StatusFilterBox.setSelectedItem("Prov");
-         // Edge Paint
+        // Edge Paint
         Transformer edgePainter = new Transformer<Edge, Paint>() {
             @Override
             public Paint transform(Edge edge) {
-                if(GraphFrame.useEdgeTypeColor.isSelected()){
-                    for(EdgeType e : variables.config.edgetype) {
-                        if(e.type.equalsIgnoreCase(edge.getType())) {
+                if (GraphFrame.useEdgeTypeColor.isSelected()) {
+                    for (EdgeType e : variables.config.edgetype) {
+                        if (e.type.equalsIgnoreCase(edge.getType())) {
                             return e.edgeColor;
                         }
-                    }  
+                    }
                 }
                 PickedState<Object> picked_state = variables.view.getPickedVertexState();
-                if(!picked_state.getPicked().isEmpty()) {
-                    for( Object v : picked_state.getPicked()) {
+                if (!picked_state.getPicked().isEmpty()) {
+                    for (Object v : picked_state.getPicked()) {
                         Pair endpoints = variables.layout.getGraph().getEndpoints(edge);
-                        if(endpoints.getFirst().equals(v)) {
+                        if (endpoints.getFirst().equals(v)) {
                             return edge.getColor(variables);
-                        }
-                        else if(endpoints.getSecond().equals(v)) {
+                        } else if (endpoints.getSecond().equals(v)) {
                             return edge.getColor(variables);
                         }
                     }
@@ -363,5 +350,5 @@ public class GuiFunctions {
         variables.view.getRenderContext().setArrowDrawPaintTransformer(edgePainter);
         variables.view.getRenderContext().setArrowFillPaintTransformer(edgePainter);
     }
-    
+
 }
