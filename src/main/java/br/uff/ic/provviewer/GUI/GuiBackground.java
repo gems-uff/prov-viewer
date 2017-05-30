@@ -23,6 +23,7 @@
  */
 package br.uff.ic.provviewer.GUI;
 
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.utility.IO.BasePath;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.GoogleMapsAPIProjection;
@@ -104,7 +105,7 @@ public class GuiBackground {
         Graphics2D g2d = (Graphics2D) g.create();
         AffineTransform oldXform = g2d.getTransform();
         SetTransform(g2d, variables);
-        if (Layouts.getSelectedItem().equals(variables.layout_spatial)) {
+        if (Layouts.getSelectedItem().equals(VariableNames.layout_spatial)) {
             DrawImage(g2d, variables, icon, (int) offsetX, (int) offsetY);
         } else {
             DrawImage(g2d, variables, whiteIcon, (int) offsetX, (int) offsetY);

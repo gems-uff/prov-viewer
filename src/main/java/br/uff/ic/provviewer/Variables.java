@@ -136,22 +136,6 @@ public class Variables extends Object {
     public boolean isEdgeStrokeByValue = true;
     public boolean isEdgeColorByGraphs = false;
     
-    public String layout_spatial = "Spatial";
-    public String layout_temporal = "Temporal";
-    public String layout_hierarchy = "Hierarchy";
-    public String layout_timeline = "Timeline";
-    public String layout_timeline_graphs = "Timeline (Graphs)";
-    public String layout_One_Dimensional = "One Dimensional";
-    public String layout_Two_Dimensional = "Two Dimensional";
-    public String layout_provcircle = "ProvCircle";
-    public String layout_provcircle2 = "ProvCircle2";
-    public String layout_circle = "Circle";
-    public String layout_fr = "FR";
-    public String layout_fr2 = "FR2";
-    public String layout_kk = "KK";
-    public String layout_ISOM = "ISOM";
-    public String layout_spring = "Spring";
-    public String layout_dag = "DAG";
     
     public String layout_attribute_X = "Timestamp";
     public String layout_attribute_Y = "Timestamp";
@@ -169,8 +153,8 @@ public class Variables extends Object {
      * Should be called everytime after a graph is loaded: File Open / Merge Graph
      */
     public void updateNumberOfGraphs() {
-        numberOfGraphs = Utils.DetectAllPossibleValuesFromAttribute(graph.getVertices(), "GraphFile").size();
-        graphNames = Utils.DetectAllPossibleValuesFromAttribute(graph.getVertices(), "GraphFile");
+        numberOfGraphs = Utils.DetectAllPossibleValuesFromAttribute(graph.getVertices(), VariableNames.GraphFile).size();
+        graphNames = Utils.DetectAllPossibleValuesFromAttribute(graph.getVertices(), VariableNames.GraphFile);
         this.config.detectGraphVisualizationModes(this.graphNames);
     }
 
@@ -277,52 +261,52 @@ public class Variables extends Object {
             displayGraph = (DirectedGraph<Object, Edge>) this.layout.getGraph();
         else
             displayGraph = this.graph;
-        if (layout.equalsIgnoreCase(layout_circle)) {
+        if (layout.equalsIgnoreCase(VariableNames.layout_circle)) {
             this.layout = new CircleLayout<>(displayGraph);
         }
-        else if (layout.equalsIgnoreCase(layout_fr)) {
+        else if (layout.equalsIgnoreCase(VariableNames.layout_fr)) {
             this.layout = new FRLayout<>(displayGraph);
         }
-        else if (layout.equalsIgnoreCase(layout_fr2)) {
+        else if (layout.equalsIgnoreCase(VariableNames.layout_fr2)) {
             this.layout = new FRLayout2<>(displayGraph);
         }
-        else if (layout.equalsIgnoreCase(layout_ISOM)) {
+        else if (layout.equalsIgnoreCase(VariableNames.layout_ISOM)) {
             this.layout = new ISOMLayout<>(displayGraph);
         }
-        else if (layout.equalsIgnoreCase(layout_kk)) {
+        else if (layout.equalsIgnoreCase(VariableNames.layout_kk)) {
             this.layout = new KKLayout<>(displayGraph);
         }
-        else if (layout.equalsIgnoreCase(layout_spring)) {
+        else if (layout.equalsIgnoreCase(VariableNames.layout_spring)) {
             this.layout = new SpringLayout<>(displayGraph);
         }
-        else if (layout.equalsIgnoreCase(layout_dag)) {
+        else if (layout.equalsIgnoreCase(VariableNames.layout_dag)) {
             this.layout = new DAGLayout<>(displayGraph);
         }
-        else if (layout.equalsIgnoreCase(layout_temporal)) {
+        else if (layout.equalsIgnoreCase(VariableNames.layout_temporal)) {
             this.layout = new Temporal_Layout<>(displayGraph, this);
         }
-        else if (layout.equalsIgnoreCase(layout_spatial)) {
+        else if (layout.equalsIgnoreCase(VariableNames.layout_spatial)) {
             this.layout = new Spatial_Layout<>(displayGraph, this);
         }
-        else if (layout.equalsIgnoreCase(layout_timeline)) {
+        else if (layout.equalsIgnoreCase(VariableNames.layout_timeline)) {
             this.layout = new Timeline_Layout<>(displayGraph, this);
         }
-        else if (layout.equalsIgnoreCase(layout_timeline_graphs)) {
+        else if (layout.equalsIgnoreCase(VariableNames.layout_timeline_graphs)) {
             this.layout = new TimelineGraphs_Layout<>(displayGraph, this);
         }
-        else if (layout.equalsIgnoreCase(layout_One_Dimensional)) {
+        else if (layout.equalsIgnoreCase(VariableNames.layout_One_Dimensional)) {
             this.layout = new OneDimensional_Layout<>(displayGraph, this);
         }
-        else if (layout.equalsIgnoreCase(layout_Two_Dimensional)) {
+        else if (layout.equalsIgnoreCase(VariableNames.layout_Two_Dimensional)) {
             this.layout = new TwoDimensional_Layout<>(displayGraph, this);
         }
-        else if (layout.equalsIgnoreCase(layout_provcircle)) {
+        else if (layout.equalsIgnoreCase(VariableNames.layout_provcircle)) {
             this.layout = new ProvCircleLayout<>(displayGraph, this);
         }
-        else if (layout.equalsIgnoreCase(layout_provcircle2)) {
+        else if (layout.equalsIgnoreCase(VariableNames.layout_provcircle2)) {
             this.layout = new ProvCircleLayout2<>(displayGraph, this);
         }
-        else if (layout.equalsIgnoreCase(layout_hierarchy)) {
+        else if (layout.equalsIgnoreCase(VariableNames.layout_hierarchy)) {
             this.layout = new Hierarchy_Layout<>(displayGraph, this);
         }
         else {

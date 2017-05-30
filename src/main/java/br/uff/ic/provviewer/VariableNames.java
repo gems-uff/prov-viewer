@@ -43,4 +43,21 @@ public class VariableNames {
     public static String DefaultVertexPainter = "Prov";
     public static String EdgeTooltipFontConfiguration = "<html><font size=\"4\">";
     public static String UnknownValue = "Unknown";
+    
+    public static String layout_timeline = "Timeline";
+    public static String layout_circle = "Circle";
+    public static String layout_hierarchy = "Hierarchy";
+    public static String layout_provcircle2 = "ProvCircle2";
+    public static String layout_Two_Dimensional = "Two Dimensional";
+    public static String layout_ISOM = "ISOM";
+    public static String layout_provcircle = "ProvCircle";
+    public static String layout_kk = "KK";
+    public static String layout_spring = "Spring";
+    public static String layout_temporal = "Temporal";
+    public static String layout_fr2 = "FR2";
+    public static String layout_dag = "DAG";
+    public static String layout_One_Dimensional = "One Dimensional";
+    public static String layout_timeline_graphs = "Timeline (Graphs)";
+    public static String layout_spatial = "Spatial";
+    public static String layout_fr = "FR";
 }

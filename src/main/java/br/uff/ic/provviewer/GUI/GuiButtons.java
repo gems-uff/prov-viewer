@@ -221,13 +221,13 @@ public class GuiButtons {
      */
     public static void UpdateTemporalLayout(Variables variables, JComboBox Layouts) {
         String layout = (String) Layouts.getSelectedItem();
-        if (layout.equalsIgnoreCase(variables.layout_temporal)) {
+        if (layout.equalsIgnoreCase(VariableNames.layout_temporal)) {
             variables.layout = new Temporal_Layout<>(variables.layout.getGraph(), variables);
             variables.guiBackground.InitBackground(variables, Layouts);
             variables.view.setGraphLayout(variables.layout);
             variables.view.repaint();
         }
-        if (layout.equalsIgnoreCase(variables.layout_One_Dimensional)) {
+        if (layout.equalsIgnoreCase(VariableNames.layout_One_Dimensional)) {
             variables.layout = new OneDimensional_Layout<>(variables.layout.getGraph(), variables);
             variables.guiBackground.InitBackground(variables, Layouts);
             variables.view.setGraphLayout(variables.layout);
