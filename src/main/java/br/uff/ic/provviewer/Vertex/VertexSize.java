@@ -24,7 +24,7 @@
 
 package br.uff.ic.provviewer.Vertex;
 
-import edu.uci.ics.jung.graph.Graph;
+import br.uff.ic.utility.graph.GraphVertex;
 import org.apache.commons.collections15.Transformer;
 
 /**
@@ -54,7 +54,7 @@ public class VertexSize<V> implements Transformer<V, Integer> {
      */
     @Override
     public Integer transform(V v) {
-        if (v instanceof Graph) {
+        if (v instanceof GraphVertex) {
             return (size * 2);
         }
         return size;
