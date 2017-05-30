@@ -25,6 +25,7 @@ package br.uff.ic.utility.graph;
 
 import br.uff.ic.utility.GraphAttribute;
 import edu.uci.ics.jung.graph.Graph;
+import java.awt.Color;
 import java.awt.Paint;
 import java.util.Map;
 
@@ -41,7 +42,7 @@ public class GraphVertex extends Vertex{
 
     @Override
     public Paint getColor() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return Color.PINK;
     }
 
     @Override

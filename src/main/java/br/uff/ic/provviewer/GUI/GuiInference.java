@@ -55,12 +55,12 @@ public class GuiInference {
      * @param verifyWithinCluster
      */
     public static void SimilarityCollapse(Variables variables, boolean updateError, boolean verifyWithinCluster) {
-        GuiButtons.Reset(variables);
+//        GuiButtons.Reset(variables);
         System.out.println("VE: " + updateError);
         System.out.println("IC: " + verifyWithinCluster);
         ArrayList<ConcurrentHashMap<String, Object>> list;
         list = ColorSchemeCollapse((String) StatusFilterBox.getSelectedItem(), variables, updateError, verifyWithinCluster);
-        MarkClusters(list, variables);
+//        MarkClusters(list, variables);
         variables.collapser.CollapseIrrelevant(variables, printCollapseGroups(list));
         System.out.println("Finished Collapsing");
 //        }
@@ -74,7 +74,7 @@ public class GuiInference {
     public static void DBSCANCollapse(Variables variables) {
         GuiButtons.Reset(variables);
         ArrayList<ConcurrentHashMap<String, Object>> list = DBSCAN((String) StatusFilterBox.getSelectedItem(), variables.graph);
-        MarkClusters(list, variables);
+//        MarkClusters(list, variables);
         variables.collapser.CollapseIrrelevant(variables, printCollapseGroups(list));
         System.out.println("Finished Collapsing");
 
@@ -93,9 +93,9 @@ public class GuiInference {
             if (subGraph.size() > 0) {
                 for (Object v1 : subGraph.values()) {
                     String id1 = ((Vertex) v1).getID();
-                    collapseList += "," + id1;
+                    collapseList += " / " + id1;
                 }
-                collapseList += " ";
+                collapseList += " + ";
             }
         }
         return collapseList;
@@ -122,7 +122,7 @@ public class GuiInference {
         // -----------------------------
         // Standard Deviation
         // -----------------------------
-        float std = Utils.std(variables.graph.getVertices(), attribute);
+        float std = Utils.std(variables.layout.getGraph().getVertices(), attribute);
 
         // -----------------------------
         // Similarity configuration
@@ -156,9 +156,9 @@ public class GuiInference {
             if (Utils.tryParseFloat(GraphFrame.simStdInc.getText())) {
                 simInc = Float.parseFloat(GraphFrame.simStdInc.getText());
             }
-            infer = new AutomaticInference(combiner, variables.graph, simSize, simInc, simEpsilonModifier);
+            infer = new AutomaticInference(combiner, (DirectedGraph<Object, Edge>) variables.layout.getGraph(), simSize, simInc, simEpsilonModifier);
         } else {
-            infer = new AutomaticInference(combiner, variables.graph);
+            infer = new AutomaticInference(combiner, (DirectedGraph<Object, Edge>) variables.layout.getGraph());
         }
 
         // Set "ErrorTest" since it uses only one attribute for faster computation

@@ -24,6 +24,7 @@
 package br.uff.ic.provviewer;
 
 import br.uff.ic.utility.graph.Edge;
+import br.uff.ic.utility.graph.GraphVertex;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.Graph;
@@ -92,7 +93,7 @@ public class Collapser {
         //If selected more than 1 vertex
         if (picked.size() > 1) {
             //Graph inGraph = layout.getGraph();
-            Graph clusterGraph = variables.gCollapser.getClusterGraph(variables.layout.getGraph(), picked);
+            GraphVertex clusterGraph = variables.gCollapser.getClusterGraph(variables.layout.getGraph(), picked);
 
             variables.collapsedGraph = (DirectedGraph<Object, Edge>) variables.gCollapser.collapse(variables.layout.getGraph(), clusterGraph);
             //Compute the collapsed vertex position from each vertex in it
@@ -141,12 +142,12 @@ public class Collapser {
         //for each selected vertex
         for (Object v : picked) {
             //if vertex is a collapsed graph (multiple vertices)
-            if (v instanceof Graph) {
+            if (v instanceof GraphVertex) {
                 //TODO: Save current filters state
                 //Add all filters to not lose edges/information
                 variables.filter.AddFilters(variables);
                 //Expand the vertex
-                variables.collapsedGraph = (DirectedGraph<Object, Edge>) variables.gCollapser.expand(variables.layout.getGraph(), (Graph) v);
+                variables.collapsedGraph = (DirectedGraph<Object, Edge>) variables.gCollapser.expand(variables.layout.getGraph(), (GraphVertex) v);
                 variables.view.getRenderContext().getParallelEdgeIndexFunction().reset();
                 variables.layout.setGraph(variables.collapsedGraph);
                 //TODO: Load filters state
@@ -167,7 +168,7 @@ public class Collapser {
         List<String> collapsegroup = new ArrayList<>();
         List<String> used = new ArrayList<>();
 
-        String[] elements = list.split(" ");
+        String[] elements = list.split(" + ");
 
         collapsegroup.addAll(Arrays.asList(elements));
         //Sort list by decreasing order of string.length
@@ -179,22 +180,25 @@ public class Collapser {
         };
         Collections.sort(collapsegroup, comparator);
 
-        Object[] nodes = new Object[variables.graph.getVertexCount()];
-        nodes = (variables.graph.getVertices()).toArray();
+        Object[] nodes = new Object[variables.layout.getGraph().getVertexCount()];
+        nodes = (variables.layout.getGraph().getVertices()).toArray();
 
         //For each elements of collapses
         for (String collapsegroup1 : collapsegroup) {
 //            System.out.println("Current Group = " + collapsegroup1);
+            String cg1 = collapsegroup1.replace(" +", "");
+//            System.out.println("Current Group = " + cg1);
 //            String group = "";
-            String[] vertexlist = collapsegroup1.split(",");
+            String[] vertexlist = cg1.split(" / ");
             //For each vertex in the elements
             for (String vertexlist1 : vertexlist) {
                 //If vertex was not processed yet
-                if (!used.contains(vertexlist1)) {
-                    used.add(vertexlist1);
+                String vl1 = vertexlist1.replace("/ ", "");
+                if (!used.contains(vl1)) {
+                    used.add(vl1);
                     //Find the vertex in the graph by its ID
                     for (Object node1 : nodes) {
-                        if (((Vertex) (node1)).getID().equalsIgnoreCase(vertexlist1)) {
+                        if (((Vertex) (node1)).getID().equalsIgnoreCase(vl1)) {
                             Vertex node = (Vertex) node1;
                             selected.add(node);
 //                            group += "," + vertexlist1;

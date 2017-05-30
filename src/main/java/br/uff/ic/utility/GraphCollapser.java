@@ -24,6 +24,7 @@
 package br.uff.ic.utility;
 
 import br.uff.ic.utility.graph.Edge;
+import br.uff.ic.utility.graph.GraphVertex;
 import java.util.Collection;
 import java.util.logging.Logger;
 import edu.uci.ics.jung.graph.Graph;
@@ -53,8 +54,8 @@ public class GraphCollapser {
      * @param clusterGraph
      * @return the collapsed graph
      */
-    public Graph collapse(Graph inGraph, Graph clusterGraph) {
-        if (clusterGraph.getVertexCount() < 2) {
+    public Graph collapse(Graph inGraph, GraphVertex clusterGraph) {
+        if (clusterGraph.clusterGraph.getVertexCount() < 2) {
             return inGraph;
         }
         Graph graph = inGraph;
@@ -64,7 +65,7 @@ public class GraphCollapser {
             ex.printStackTrace();
         }
 
-        Collection cluster = clusterGraph.getVertices();
+        Collection cluster = clusterGraph.clusterGraph.getVertices();
         Map<String, Object> collapsedEdges = new HashMap<>();
         Map<String, Object> mergedEdges = new HashMap<>();
 
@@ -76,6 +77,8 @@ public class GraphCollapser {
             }
         }
         // add the clusterGraph as a vertex
+//        GraphVertex gv = GraphUtils.CreateVertexGraph(clusterGraph);
+//        graph.addVertex(gv);
         graph.addVertex(clusterGraph);
 
         //add all edges from the inGraph, unless both endpoints of
@@ -87,17 +90,16 @@ public class GraphCollapser {
                 if (cluster.contains(endpoints.getFirst())) {
                         Object edge = hasEdge(collapsedEdges, mergedEdges, e, ((Edge)e).getLabel(), ((Edge)e).getType(), cluster.hashCode(), endpoints.getSecond().hashCode());
                         graph.addEdge(edge, clusterGraph, endpoints.getSecond(), inGraph.getEdgeType(e));
-                        graph.addEdge(e, clusterGraph, endpoints.getSecond(), inGraph.getEdgeType(e));
+//                        graph.addEdge(e, clusterGraph, endpoints.getSecond(), inGraph.getEdgeType(e));
                 } else if (cluster.contains(endpoints.getSecond())) {
                         Object edge = hasEdge(collapsedEdges, mergedEdges, e, ((Edge)e).getLabel(), ((Edge)e).getType(), endpoints.getFirst().hashCode(), cluster.hashCode());
                         graph.addEdge(edge, endpoints.getFirst(), clusterGraph, inGraph.getEdgeType(e));
-                        graph.addEdge(e, endpoints.getFirst(), clusterGraph, inGraph.getEdgeType(e));
+//                        graph.addEdge(e, endpoints.getFirst(), clusterGraph, inGraph.getEdgeType(e));
                 } else {
                     graph.addEdge(e, endpoints.getFirst(), endpoints.getSecond(), inGraph.getEdgeType(e));
                 }
             }
         }
-        
         return graph;
     }
 
@@ -149,28 +151,29 @@ public class GraphCollapser {
         }
 //        collapsedEdges.put(key, e);
     }
+    
     /**
      * Method to expand the cluster-vertex
      * @param inGraph
      * @param clusterGraph
      * @return the graph without the selected cluster-vertex
      */
-    public Graph expand(Graph inGraph, Graph clusterGraph) {
+    public Graph expand(Graph inGraph, GraphVertex clusterGraph) {
         Graph graph = inGraph;
         try {
             graph = createGraph();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        Collection cluster = clusterGraph.getVertices();
+        Collection cluster = clusterGraph.clusterGraph.getVertices();
         logger.fine("cluster to expand is " + cluster);
 
         // put all clusterGraph vertices and edges into the new Graph
         for (Object v : cluster) {
             graph.addVertex(v);
-            for (Object edge : clusterGraph.getIncidentEdges(v)) {
-                Pair endpoints = clusterGraph.getEndpoints(edge);
-                graph.addEdge(edge, endpoints.getFirst(), endpoints.getSecond(), clusterGraph.getEdgeType(edge));
+            for (Object edge : clusterGraph.clusterGraph.getIncidentEdges(v)) {
+                Pair endpoints = clusterGraph.clusterGraph.getEndpoints(edge);
+                graph.addEdge(edge, endpoints.getFirst(), endpoints.getSecond(), clusterGraph.clusterGraph.getEdgeType(edge));
             }
         }
         // add all the vertices from the current graph except for
@@ -226,9 +229,9 @@ public class GraphCollapser {
             return vertex;
         }
         for (Object v : vertices) {
-            if (v instanceof Graph) {
-                Graph g = (Graph) v;
-                if (contains(g, vertex)) {
+            if (v instanceof GraphVertex) {
+                GraphVertex g = (GraphVertex) v;
+                if (contains(g.clusterGraph, vertex)) {
                     return v;
                 }
             }
@@ -249,7 +252,7 @@ public class GraphCollapser {
         return contained;
     }
 
-    public Graph getClusterGraph(Graph inGraph, Collection picked) {
+    public GraphVertex getClusterGraph(Graph inGraph, Collection picked) {
         Graph clusterGraph;
         try {
             clusterGraph = createGraph();
@@ -274,6 +277,9 @@ public class GraphCollapser {
                 }
             }
         }
-        return clusterGraph;
+        
+        GraphVertex gv = GraphUtils.CreateVertexGraph(clusterGraph);
+        return gv;
+//        return clusterGraph;
     }
 }

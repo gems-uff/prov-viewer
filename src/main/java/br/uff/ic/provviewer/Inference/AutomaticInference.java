@@ -252,7 +252,7 @@ public class AutomaticInference {
             if(!isVisited(p)) {
                 visited(p);
                 ConcurrentHashMap<String, Object> c = new ConcurrentHashMap<>();
-                c.put(((Vertex) p).getID(), p);
+                    c.put(((Vertex) p).getID(), p);
                 ArrayList<Object> n;
                 if(isConsideringOnlyDirectNeighbors)
                     n = getNeighbours(p, c);
@@ -273,7 +273,7 @@ public class AutomaticInference {
             if(!isVisited(point)) {
                 visited(point);
 //                c.add(point);
-                c.put(((Vertex) point).getID(), point);
+                    c.put(((Vertex) point).getID(), point);
                 ArrayList<Object> n2 = getNeighbours(point, cg);
                 n = merge(n, n2);
             }

@@ -25,6 +25,7 @@ package br.uff.ic.utility;
 
 import br.uff.ic.utility.IO.XMLWriter;
 import br.uff.ic.utility.graph.Edge;
+import br.uff.ic.utility.graph.GraphVertex;
 import br.uff.ic.utility.graph.Vertex;
 import br.uff.ic.utility.graphgenerator.NoiseGraph;
 import edu.uci.ics.jung.graph.DirectedGraph;
@@ -501,10 +502,10 @@ public class Utils {
         ArrayList<Float> values = new ArrayList<>();
         for (Object v1 : vertices) {
             float val = ((Vertex) v1).getAttributeValueFloat(attribute);
-            if (!(val != val)) {
-                values.add(val);
+                if (!(val != val)) {
+                    values.add(val);
+                }
             }
-        }
         Float[] floatArray = new Float[values.size()];
         floatArray = Utils.listToFloatArray(values);
         return stdev(floatArray);
@@ -797,7 +798,7 @@ public class Utils {
         Comparator comparator = new Comparator<Object>() {
             @Override
             public int compare(Object c1, Object c2) {
-                if (!(c1 instanceof Graph) && !(c2 instanceof Graph)) {
+//                if (!(c1 instanceof Graph) && !(c2 instanceof Graph)) {
                     double c1t = ((Vertex) c1).getTime();
                     double c2t = ((Vertex) c2).getTime();
                     if (c1t != c2t) {
@@ -806,9 +807,9 @@ public class Utils {
                         return ((Vertex) c2).getNodeType().compareTo(((Vertex) c1).getNodeType());
                     }
                     //TODO make agent lose priority to appear after the activity
-                } else {
-                    return 0;
-                }
+//                } else {
+//                    return 0;
+//                }
             }
         };
         return comparator;
@@ -823,7 +824,7 @@ public class Utils {
         Comparator comparator = new Comparator<Object>() {
             @Override
             public int compare(Object c1, Object c2) {
-                if (!(c1 instanceof Graph) && !(c2 instanceof Graph)) {
+//                if (!(c1 instanceof Graph) && !(c2 instanceof Graph)) {
                     double c1t = 0;
                     double c2t = 0;
                     if(isItTime(attribute)) {
@@ -843,9 +844,9 @@ public class Utils {
                         return ((Vertex) c2).getNodeType().compareTo(((Vertex) c1).getNodeType());
                     }
                     //TODO make agent lose priority to appear after the activity
-                } else {
-                    return 0;
-                }
+//                } else {
+//                    return 0;
+//                }
             }
         };
         return comparator;
