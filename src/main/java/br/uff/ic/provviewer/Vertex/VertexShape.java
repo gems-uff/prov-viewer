@@ -29,7 +29,6 @@ import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.GraphVertex;
 import br.uff.ic.utility.graph.Vertex;
-import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.decorators.EllipseVertexShapeTransformer;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
