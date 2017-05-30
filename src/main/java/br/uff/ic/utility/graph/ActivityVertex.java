@@ -24,11 +24,8 @@
 
 package br.uff.ic.utility.graph;
 
-import br.uff.ic.provviewer.Variables;
-import br.uff.ic.utility.AttValueColor;
 import java.awt.Color;
 import java.awt.Paint;
-import java.util.List;
 
 /**
  * Subclass for Vertex named after PROV nomenclature and type
