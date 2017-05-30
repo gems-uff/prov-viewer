@@ -207,6 +207,7 @@ public class GuiButtons {
         variables.guiBackground.InitBackground(variables, Layouts);
         variables.view.setGraphLayout(variables.layout);
         variables.view.repaint();
+        GuiFunctions.PanCameraToFirstVertex(variables);
     }
     
     public static void setVariableLayouts(Variables variables, boolean b, JComboBox Layouts) {
