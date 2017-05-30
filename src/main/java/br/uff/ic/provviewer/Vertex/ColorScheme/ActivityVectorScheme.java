@@ -24,6 +24,7 @@
 
 package br.uff.ic.provviewer.Vertex.ColorScheme;
 
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.Vertex;
@@ -43,8 +44,8 @@ public class ActivityVectorScheme extends ColorScheme {
     @Override
     public Paint Execute(Object v, final Variables variables) {
         String vecValue;
-        if (v instanceof ActivityVertex) {
-            vecValue = ((ActivityVertex) v).getAttributeValue(this.attribute);
+        if (v instanceof ActivityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexActivityAttribute)) {
+            vecValue = ((Vertex) v).getAttributeValue(this.attribute);
             vecValue = vecValue.replace("(", "");
             vecValue = vecValue.replace(")", "");
             vecValue = vecValue.replace(" ", "");

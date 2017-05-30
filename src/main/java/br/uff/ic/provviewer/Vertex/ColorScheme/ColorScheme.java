@@ -83,6 +83,8 @@ public abstract class ColorScheme {
      * goes to to a String[] variable and is split with " " due to how XML list
      * works
      *
+     * @param isWhite
+     * @param isInverted
      * @param attribute
      * @param value
      * @param max
@@ -208,8 +210,6 @@ public abstract class ColorScheme {
 
     public Paint GetMinMaxColor(Object v) {
         if (!((Vertex) v).getAttributeValue(this.attribute).contentEquals("Unknown")) {
-            // 
-//            boolean isDerivate = true;
             if (variables.doDerivate) {
                 float slope = GraphUtils.getSlope(v, this);
                 if (slope == Float.NEGATIVE_INFINITY) {
@@ -220,7 +220,7 @@ public abstract class ColorScheme {
                     slope = (float) this.derivateMax;
                 }
                 return this.CompareValue(slope, this.derivateMin, this.derivateMax, isInverted);
-            } //
+            }
             else if (!limited) {
                 return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.min, this.max, isInverted);
             } else {

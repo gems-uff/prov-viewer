@@ -24,6 +24,7 @@
 
 package br.uff.ic.provviewer.Vertex.ColorScheme;
 
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
@@ -43,7 +44,7 @@ public class EntityMultiScheme extends ColorScheme {
     @Override
     public Paint Execute(Object v, final Variables variables) {
         this.variables = variables;
-        if (v instanceof EntityVertex) {
+        if (v instanceof EntityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) {
             return GetAttributeColor(((EntityVertex) v).getAttributeValue(this.attribute));
         }
         return ((Vertex) v).getColor();

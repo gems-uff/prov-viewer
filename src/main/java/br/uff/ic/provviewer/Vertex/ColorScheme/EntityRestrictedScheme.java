@@ -24,6 +24,7 @@
 
 package br.uff.ic.provviewer.Vertex.ColorScheme;
 
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
@@ -43,7 +44,7 @@ public class EntityRestrictedScheme extends ColorScheme {
     public Paint Execute(Object v, final Variables variables) {
         this.variables = variables;
         ComputeRestrictedValue(variables.graph, true, this.restrictedAttribute, this.restrictedValue);
-        if ((v instanceof EntityVertex) && ((EntityVertex) v).getAttributeValue(this.restrictedAttribute).equalsIgnoreCase(this.restrictedValue)) {
+        if (((v instanceof EntityVertex) || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) && ((EntityVertex) v).getAttributeValue(this.restrictedAttribute).equalsIgnoreCase(this.restrictedValue)) {
             return this.GetMinMaxColor(v);
         }
         return ((Vertex) v).getColor();

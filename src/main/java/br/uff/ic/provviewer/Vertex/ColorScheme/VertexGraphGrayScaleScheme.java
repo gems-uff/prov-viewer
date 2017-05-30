@@ -24,12 +24,12 @@
 
 package br.uff.ic.provviewer.Vertex.ColorScheme;
 
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.Graph;
 import java.awt.Paint;
-import java.util.Collection;
 
 /**
  *
@@ -44,10 +44,8 @@ public class VertexGraphGrayScaleScheme extends ColorScheme {
     @Override
     public Paint Execute(Object v, final Variables variables) {
         this.variables = variables;
-//        Collection<String> values = Utils.DetectAllPossibleValuesFromAttribute(variables.graph.getVertices(), "GraphFile");
-//        ComputeValue(variables.graph, true);
         if (!(v instanceof Graph)) {
-            String[] graphs = ((Vertex)v).getAttributeValues("GraphFile");
+            String[] graphs = ((Vertex)v).getAttributeValues(VariableNames.GraphFile);
             return Utils.getGrayscaleColor(graphs.length, variables.numberOfGraphs);
         }
         return ((Vertex) v).getColor();

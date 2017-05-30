@@ -24,6 +24,7 @@
 
 package br.uff.ic.provviewer.Vertex.ColorScheme;
 
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.AttValueColor;
 import br.uff.ic.utility.Utils;
@@ -72,10 +73,10 @@ public class VertexColorScheme extends ColorScheme {
     }
     
     private Paint determineColor(Object v, List<AttValueColor> activity, List<AttValueColor> entity, List<AttValueColor> agent) {
-        if (v instanceof ActivityVertex) {
+        if (v instanceof ActivityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexActivityAttribute)) {
             return getDefaultColor(activity, v);
         }
-        else if (v instanceof EntityVertex) {
+        else if (v instanceof EntityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) {
             return getDefaultColor(entity, v);
         }
         else

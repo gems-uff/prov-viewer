@@ -24,12 +24,11 @@
 
 package br.uff.ic.provviewer.Vertex.ColorScheme;
 
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.provviewer.Variables;
-import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.Vertex;
 import java.awt.Color;
 import java.awt.Paint;
-import java.util.Collection;
 
 /**
  *
@@ -50,15 +49,14 @@ public class GraphVisualizationScheme extends ColorScheme {
     @Override
     public Paint Execute(Object v, final Variables variables) {
         if(!isInitialized) {
-//            Collection<String> values = Utils.DetectAllPossibleValuesFromAttribute(variables.graph.getVertices(), "GraphFile");
             totalNumberGraphs = variables.numberOfGraphs;
             isInitialized = true;
         }
-        String[] graphFiles = ((Vertex)v).getAttributeValues("GraphFile");
+        String[] graphFiles = ((Vertex)v).getAttributeValues(VariableNames.GraphFile);
         
         if (graphFiles.length == totalNumberGraphs)
             return new Color(200, 200, 200);
-        else if (((Vertex)v).getAttributeValue("GraphFile").contains(this.attribute))
+        else if (((Vertex)v).getAttributeValue(VariableNames.GraphFile).contains(this.attribute))
             return new Color(0, 255, 0);
         else
 //            return ((Vertex) v).getColor();

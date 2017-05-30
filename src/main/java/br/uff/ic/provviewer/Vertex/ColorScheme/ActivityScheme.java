@@ -24,6 +24,7 @@
 
 package br.uff.ic.provviewer.Vertex.ColorScheme;
 
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.Vertex;
@@ -43,7 +44,7 @@ public class ActivityScheme extends ColorScheme {
     public Paint Execute(Object v, final Variables variables) {
         this.variables = variables;
         ComputeValue(variables.graph, true);
-        if (v instanceof ActivityVertex) {
+        if (v instanceof ActivityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexActivityAttribute)) {
             return this.GetMinMaxColor(v);
         }
         return ((Vertex) v).getColor();

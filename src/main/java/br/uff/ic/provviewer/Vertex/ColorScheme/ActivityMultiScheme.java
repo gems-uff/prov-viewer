@@ -24,6 +24,7 @@
 
 package br.uff.ic.provviewer.Vertex.ColorScheme;
 
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.Vertex;
@@ -43,13 +44,17 @@ public class ActivityMultiScheme extends ColorScheme {
     @Override
     public Paint Execute(Object v, final Variables variables) {
         this.variables = variables;
-        if (v instanceof ActivityVertex) {
+        if (v instanceof ActivityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexActivityAttribute)) {
             return GetAttributeColor(((ActivityVertex) v).getAttributeValue(this.attribute));
         }
         return ((Vertex) v).getColor();
     }
 
-    //Method to return 7 dif types of colors depending on the value
+    /**
+     * Method to return 7 dif types of colors depending on the value
+     * @param value
+     * @return 
+     */
     public Paint GetAttributeColor(String value) {
         for (int i = 0; i < this.value.length; i++) {
             if (value.equalsIgnoreCase(this.value[i])) {
