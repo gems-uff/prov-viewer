@@ -25,12 +25,10 @@ package br.uff.ic.utility;
 
 import br.uff.ic.utility.IO.XMLWriter;
 import br.uff.ic.utility.graph.Edge;
-import br.uff.ic.utility.graph.GraphVertex;
 import br.uff.ic.utility.graph.Vertex;
 import br.uff.ic.utility.graphgenerator.NoiseGraph;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
-import edu.uci.ics.jung.graph.Graph;
 import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
@@ -246,7 +244,7 @@ public class Utils {
      */
     public static XMLGregorianCalendar stringToXMLGregorianCalendar(String time) {
         try {
-            XMLGregorianCalendar result = null;
+            XMLGregorianCalendar result;
             Date date;
             SimpleDateFormat simpleDateFormat;
             GregorianCalendar gregorianCalendar;
@@ -405,6 +403,7 @@ public class Utils {
      * Method to remove outliers from a list
      *
      * @param allNumbers is the arrayList of float
+     * @param att
      * @return the same arrayList without the outliers
      */
     public static ArrayList<Float> removeOutLierAnalysis(ArrayList<Float> allNumbers, String att) {
@@ -427,6 +426,7 @@ public class Utils {
     /**
      * Method to calculate the upper and lower outliers thresholds from a sequence of numbers
      * @param allNumbers contains the numbers
+     * @param att
      * @return the lower and upper thresholds for outlier detection
      */
     public static ThresholdValues calculateOutliers(ArrayList<Float> allNumbers, String att) {
@@ -461,7 +461,7 @@ public class Utils {
      * @return the stdev
      */
     public static float stdev(Float[] list) {
-        float mean = 0.0F;
+        float mean;
         mean = mean(list);
         return stdev(list, mean);
     }
@@ -475,11 +475,11 @@ public class Utils {
      */
     public static float stdev(Float[] list, float mean) {
         float num = 0.0f;
-        float numi = 0.0f;
+        float numi;
         float deno = 0.0f;
 
-        for (int i = 0; i < list.length; i++) {
-            numi = (float) Math.pow((list[i] - mean), 2);
+        for (Float list1 : list) {
+            numi = (float) Math.pow(list1 - mean, 2);
             num += numi;
             deno = list.length - 1;
         }
@@ -518,10 +518,10 @@ public class Utils {
      * @return the mean of the list
      */
     public static float mean(Float[] list) {
-        float mean = 0.0F;
+        float mean;
         float sum = 0.0F;
-        for (int i = 0; i < list.length; i++) {
-            sum += list[i];
+        for (Float list1 : list) {
+            sum += list1;
         }
         mean = sum / list.length;
 
@@ -536,8 +536,8 @@ public class Utils {
      */
     public static float minimumValue(Float[] list) {
         float min = Float.POSITIVE_INFINITY;
-        for (int i = 0; i < list.length; i++) {
-            min = Math.min(min, list[i]);
+        for (Float list1 : list) {
+            min = Math.min(min, list1);
         }
 
         return min;
@@ -551,8 +551,8 @@ public class Utils {
      */
     public static float maximumValue(Float[] list) {
         float max = Float.NEGATIVE_INFINITY;
-        for (int i = 0; i < list.length; i++) {
-            max = Math.max(max, list[i]);
+        for (Float list1 : list) {
+            max = Math.max(max, list1);
         }
         return max;
     }
@@ -564,7 +564,6 @@ public class Utils {
      * @return the maximum value of attribute
      */
     public static double findMaximumAttributeValue(Collection<Object> nodes, String attribute) {
-        ArrayList<Float> derivateValues = new ArrayList<>();
         double max = Double.NEGATIVE_INFINITY;
         for (Object node : nodes) {
             if (!((Vertex) node).getAttributeValue(attribute).contentEquals("Unknown")) {
@@ -574,20 +573,6 @@ public class Utils {
         return max;
     }
 
-    /**
-     * Method to convert a list of objects to an arraylist of double
-     *
-     * @param values is the list of objects to be convertable
-     * @return the arraylist of double
-     */
-//    public static Double[] listToDoubleArray(ArrayList<Double> values) {
-//        Double[] doubleArray = new Double[values.size()];
-//        int i = 0;
-//        for (Double f : values) {
-//            doubleArray[i++] = (f != null ? f : Double.NaN);
-//        }
-//        return doubleArray;
-//    }
     /**
      * Method to convert a list of objects to an arraylist of double
      *
@@ -610,7 +595,7 @@ public class Utils {
      * @return a clone of the graph
      */
     public static DirectedGraph<Object, Edge> copyGraph(DirectedGraph<Object, Edge> graph) {
-        DirectedGraph<Object, Edge> clone = new DirectedSparseMultigraph<>();;
+        DirectedGraph<Object, Edge> clone = new DirectedSparseMultigraph<>();
         for (Edge e : graph.getEdges()) {
             clone.addEdge(e, e.getSource(), e.getTarget());
         }
@@ -637,27 +622,21 @@ public class Utils {
                 break;
             case "microseconds":
                 t = TimeUnit.MICROSECONDS;
-//                time *= 1000;
                 break;
             case "milliseconds":
                 t = TimeUnit.MILLISECONDS;
-//                time *= 1000;
                 break;
             case "seconds":
                 t = TimeUnit.SECONDS;
-//                time *= 1000;
                 break;
             case "minutes":
                 t = TimeUnit.MINUTES;
-//                time *= 60;
                 break;
             case "hours":
                 t = TimeUnit.HOURS;
-//                time *= 60;
                 break;
             case "days":
                 t = TimeUnit.DAYS;
-//                time *= 24;
                 break;
             case "weeks":
                 t = TimeUnit.DAYS;
@@ -686,42 +665,6 @@ public class Utils {
                 return (int) t.toDays((long) time) / 7;
             default:
                 return (long) time;
-        }
-    }
-    
-    /**
-     * @deprecated 
-     * @param graph
-     * @param graphFileName 
-     */
-    public static void updateVertexIDs(DirectedGraph<Object, Edge> graph, String graphFileName) {
-        // Instead of changing ID, make an attribute with value as the graph file name
-        for (Object v : graph.getVertices()) {
-            if(!((Vertex)v).getID().contains(graphFileName)) {
-                ((Vertex)v).setID(graphFileName + "_" + ((Vertex)v).getID());
-            }
-            GraphAttribute att = ((Vertex)v).getAttribute("GraphFile");
-            if(att == null) {
-                att = new GraphAttribute("GraphFile", graphFileName);
-                ((Vertex)v).addAttribute(att);
-            }
-            else if(!att.getValue().contains(graphFileName)) {
-                att.updateAttribute(graphFileName);
-                ((Vertex)v).addAttribute(att);
-            }
-        }
-    }
-    
-    /**
-     * @deprecated 
-     * @param graph
-     * @param graphFileName 
-     */
-    public static void updateEdgeIDs(DirectedGraph<Object, Edge> graph, String graphFileName) {
-        for (Edge e : graph.getEdges()) {
-            e.setID(graphFileName + "_" + e.getID());
-            GraphAttribute att = new GraphAttribute("GraphFile", graphFileName);
-            e.addAttribute(att);
         }
     }
     
@@ -798,7 +741,6 @@ public class Utils {
         Comparator comparator = new Comparator<Object>() {
             @Override
             public int compare(Object c1, Object c2) {
-//                if (!(c1 instanceof Graph) && !(c2 instanceof Graph)) {
                     double c1t = ((Vertex) c1).getTime();
                     double c2t = ((Vertex) c2).getTime();
                     if (c1t != c2t) {
@@ -807,9 +749,6 @@ public class Utils {
                         return ((Vertex) c2).getNodeType().compareTo(((Vertex) c1).getNodeType());
                     }
                     //TODO make agent lose priority to appear after the activity
-//                } else {
-//                    return 0;
-//                }
             }
         };
         return comparator;
@@ -824,7 +763,6 @@ public class Utils {
         Comparator comparator = new Comparator<Object>() {
             @Override
             public int compare(Object c1, Object c2) {
-//                if (!(c1 instanceof Graph) && !(c2 instanceof Graph)) {
                     double c1t = 0;
                     double c2t = 0;
                     if(isItTime(attribute)) {
@@ -844,9 +782,6 @@ public class Utils {
                         return ((Vertex) c2).getNodeType().compareTo(((Vertex) c1).getNodeType());
                     }
                     //TODO make agent lose priority to appear after the activity
-//                } else {
-//                    return 0;
-//                }
             }
         };
         return comparator;
