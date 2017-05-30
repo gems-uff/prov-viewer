@@ -30,7 +30,6 @@ import br.uff.ic.provviewer.GraphFrame;
 import br.uff.ic.provviewer.Input.SimilarityConfig;
 import br.uff.ic.utility.IO.UnityReader;
 import br.uff.ic.provviewer.Variables;
-import br.uff.ic.utility.AttributeErrorMargin;
 import br.uff.ic.utility.IO.InputReader;
 import br.uff.ic.utility.IO.PROVNReader;
 import br.uff.ic.utility.Utils;
@@ -39,8 +38,6 @@ import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
@@ -53,9 +50,6 @@ import org.apache.commons.io.FilenameUtils;
  * @author Kohwalter
  */
 public class GuiReadFile {
-    
-    static float similarityThreshold = 0.95f;
-    static String defaultErrorMargin = "5%";
 
     /**
      * Method to read the graph from the XML file
@@ -210,25 +204,5 @@ public class GuiReadFile {
         GraphFrame.vertexFilterList.setSelectedIndex(0);
         PanCameraToFirstVertex(variables);
         variables.config.resetVertexModeInitializations();
-    }
-    
-    /**
-     * Changed to use the AngryBotsMergeConfigExample.xml
-     * @deprecated
-     * @return 
-     */
-    private static Map<String, AttributeErrorMargin> defaultRestriction(){
-        Map<String, AttributeErrorMargin> restrictionList = new HashMap<String, AttributeErrorMargin>();
-        AttributeErrorMargin epsilon;
-        
-        epsilon = new AttributeErrorMargin("ObjectPosition_X", "5%");
-        restrictionList.put("ObjectPosition_X", epsilon);
-        
-        epsilon = new AttributeErrorMargin("ObjectPosition_Y", "5%");
-        restrictionList.put("ObjectPosition_Y", epsilon);
-        
-        epsilon = new AttributeErrorMargin("ObjectPosition_Z", "5%");
-        restrictionList.put("ObjectPosition_Z", epsilon);
-        return restrictionList;
     }
 }
