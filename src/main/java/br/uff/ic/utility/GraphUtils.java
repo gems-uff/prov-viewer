@@ -71,9 +71,9 @@ public class GraphUtils {
 
     public static int getCollapsedVertexSize(Object v) {
         int graphSize = 0;
-        if (v instanceof Graph) {
-            for (Object vertex : ((Graph) v).getVertices()) {
-                if (vertex instanceof Graph) {
+        if (v instanceof GraphVertex) {
+            for (Object vertex : ((GraphVertex) v).clusterGraph.getVertices()) {
+                if (vertex instanceof GraphVertex) {
                     graphSize = graphSize + getCollapsedVertexSize(vertex);
                 } else {
                     graphSize++;
