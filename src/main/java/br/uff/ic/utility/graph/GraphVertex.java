@@ -38,6 +38,7 @@ public class GraphVertex extends Vertex{
     public GraphVertex(Map<String, String> id, Map<String, GraphAttribute> attributes, Graph v) {
         super(id.keySet().toString(), attributes.get("Label").getValue(), attributes.get("Timestamp").getAverageValue(), attributes);
         clusterGraph = v;
+        this.setNormalizedTime();
     }
 
     @Override
@@ -50,4 +51,12 @@ public class GraphVertex extends Vertex{
         return "Summarized Vertex";
     }
     
+    private void setNormalizedTime() {
+        double normalizedTime = 0;
+        for(Object v : clusterGraph.getVertices()) {
+            normalizedTime += ((Vertex)v).getNormalizedTime();
+        }
+        normalizedTime = normalizedTime / clusterGraph.getVertexCount();
+        this.setNormalizedTime(normalizedTime);
+    }
 }
