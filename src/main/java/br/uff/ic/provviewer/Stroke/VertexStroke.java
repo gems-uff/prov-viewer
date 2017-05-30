@@ -28,7 +28,6 @@ import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.algorithms.layout.Layout;
-import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.picking.PickedState;
 import java.awt.BasicStroke;
@@ -80,9 +79,9 @@ public class VertexStroke {
      */
     public static Stroke VertexStroke(Object v, VisualizationViewer<Object, Edge> view, Layout<Object, Edge> layout, Variables variables) {
         float[] dash = null;
-        if (v instanceof Graph) {
-            return new BasicStroke(0);
-        }
+//        if (v instanceof Graph) {
+//            return new BasicStroke(0);
+//        }
 
         if (v instanceof Vertex) {
             if (!variables.config.vertexStrokevariables.isEmpty()) {
