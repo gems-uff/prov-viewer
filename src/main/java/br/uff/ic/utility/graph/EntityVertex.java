@@ -24,6 +24,7 @@
 
 package br.uff.ic.utility.graph;
 
+import br.uff.ic.provviewer.VariableNames;
 import java.awt.Color;
 import java.awt.Paint;
 
@@ -53,7 +54,7 @@ public class EntityVertex extends Vertex {
 
     @Override
     public Paint getColor() {
-        return new Color(255, 252, 135);
+        return VariableNames.EntityColor;
     }
 
     @Override

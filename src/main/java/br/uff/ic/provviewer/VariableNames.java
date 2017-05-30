@@ -23,6 +23,8 @@
  */
 package br.uff.ic.provviewer;
 
+import java.awt.Color;
+
 /**
  *
  * @author Kohwalter
@@ -60,4 +62,8 @@ public class VariableNames {
     public static String layout_timeline_graphs = "Timeline (Graphs)";
     public static String layout_spatial = "Spatial";
     public static String layout_fr = "FR";
+    
+    public static Color AgentColor = new Color(254, 211, 127);
+    public static Color ActivityColor = new Color(159, 177, 252);
+    public static Color EntityColor = new Color(255, 252, 135);
 }

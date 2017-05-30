@@ -24,6 +24,7 @@
 
 package br.uff.ic.utility.graph;
 
+import br.uff.ic.provviewer.VariableNames;
 import java.awt.Color;
 import java.awt.Paint;
 
@@ -58,7 +59,7 @@ public class AgentVertex extends Vertex {
 
     @Override
     public Paint getColor() {
-        return new Color(254, 211, 127);
+        return VariableNames.AgentColor;
     }
 
     @Override

@@ -23,9 +23,9 @@
  */
 package br.uff.ic.utility.graph;
 
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.utility.GraphAttribute;
 import edu.uci.ics.jung.graph.Graph;
-import java.awt.Color;
 import java.awt.Paint;
 import java.util.Map;
 
@@ -33,8 +33,10 @@ import java.util.Map;
  *
  * @author Kohwalter
  */
-public class GraphVertex extends Vertex{
+public class GraphVertex extends Vertex {
+
     public Graph clusterGraph;
+
     public GraphVertex(Map<String, String> id, Map<String, GraphAttribute> attributes, Graph v) {
         super(id.keySet().toString(), attributes.get("Label").getValue(), attributes.get("Timestamp").getAverageValue(), attributes);
         clusterGraph = v;
@@ -43,18 +45,24 @@ public class GraphVertex extends Vertex{
 
     @Override
     public Paint getColor() {
-        return Color.PINK;
+        if (this.hasAttribute(VariableNames.CollapsedVertexAgentAttribute)) {
+            return VariableNames.AgentColor;
+        } else if (this.hasAttribute(VariableNames.CollapsedVertexActivityAttribute)) {
+            return VariableNames.ActivityColor;
+        } else {
+            return VariableNames.EntityColor;
+        }
     }
 
     @Override
     public String getNodeType() {
         return "Summarized Vertex";
     }
-    
+
     private void setNormalizedTime() {
         double normalizedTime = 0;
-        for(Object v : clusterGraph.getVertices()) {
-            normalizedTime += ((Vertex)v).getNormalizedTime();
+        for (Object v : clusterGraph.getVertices()) {
+            normalizedTime += ((Vertex) v).getNormalizedTime();
         }
         normalizedTime = normalizedTime / clusterGraph.getVertexCount();
         this.setNormalizedTime(normalizedTime);
