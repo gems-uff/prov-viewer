@@ -26,6 +26,8 @@ package br.uff.ic.utility;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Class to define a vertex-graph attribute (collapsed vertices)
@@ -114,9 +116,21 @@ public class GraphAttribute {
             this.minValue = Math.min(this.minValue, Utils.convertFloat(value));
             this.maxValue = Math.max(this.maxValue, Utils.convertFloat(value));
                 
-        } else {
-            if(!this.value.equalsIgnoreCase(value) && !(this.value.contains(value)))
-                this.value += ", " + value;
+        } else { // This value is a String
+            if(!this.value.equalsIgnoreCase(value) && !(this.value.contains(value))) {
+                String[] currentValues = this.value.split(", ");
+                String[] newValues = value.split(", ");
+                Map<String, String> updatedValues = new HashMap<>();
+                for(String s : currentValues) 
+                    updatedValues.put(s, s);
+                for(String s : newValues) 
+                    updatedValues.put(s, s);
+                this.value = "";
+                for(String s : updatedValues.values())
+                    this.value += ", " + s;
+                
+                this.value = this.value.replaceFirst(", ", "");
+            }
         }
         originalValues.add(value);
     }
