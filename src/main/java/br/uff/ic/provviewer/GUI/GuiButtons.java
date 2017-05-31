@@ -60,6 +60,11 @@ public class GuiButtons {
     public static void Exit() {
         System.exit(0);
     }
+    
+    public static void Delete(Variables variables){
+        Collection picked = new HashSet(variables.view.getPickedVertexState().getPicked());
+        GuiFunctions.DeleteVertices(variables, picked);
+    }
 
     /**
      * Method to expand a previously collapsed vertex

@@ -39,6 +39,9 @@ import br.uff.ic.provviewer.Vertex.VertexShape;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.GraphVertex;
+import edu.uci.ics.jung.graph.DirectedGraph;
+import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
+import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Pair;
 import edu.uci.ics.jung.visualization.Layer;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
@@ -51,6 +54,7 @@ import java.awt.Color;
 import java.awt.Paint;
 import java.awt.Stroke;
 import java.awt.geom.Point2D;
+import java.util.Collection;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import org.apache.commons.collections15.Predicate;
@@ -345,6 +349,19 @@ public class GuiFunctions {
         variables.view.getRenderContext().setEdgeDrawPaintTransformer(edgePainter);
         variables.view.getRenderContext().setArrowDrawPaintTransformer(edgePainter);
         variables.view.getRenderContext().setArrowFillPaintTransformer(edgePainter);
+    }
+    
+    public static void DeleteVertices(Variables variables, Collection picked){
+        DirectedGraph<Object, Edge> graph = new DirectedSparseMultigraph<>();
+        for(Edge edge : variables.layout.getGraph().getEdges()) {
+            graph.addEdge(edge, edge.getTarget(), edge.getSource());
+        }
+        for (Object v : picked) {
+            graph.removeVertex(v);
+        }
+        variables.layout.setGraph(graph);
+        variables.view.getPickedVertexState().clear();
+        variables.view.repaint();
     }
 
 }
