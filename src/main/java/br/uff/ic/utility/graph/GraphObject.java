@@ -163,4 +163,16 @@ public class GraphObject extends Object{
             return VariableNames.UnknownValue;
         }
     }
+    
+    /**
+     * Method that returns TRUE if the vertex has the attribute and FALSE if it does not
+     * @param att is the name of the attribute we want to query
+     * @return if the vertex has the attribute
+     */
+    public boolean hasAttribute(String att) {
+        if(this.attributes.containsKey(att))
+            return true;
+        else
+            return false;
+    }
 }
