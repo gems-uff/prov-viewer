@@ -629,7 +629,7 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu1.add(allowVariableLayoutButton);
 
-        vertexBorderByGraphButton.setText("Vertex Border based on Graph");
+        vertexBorderByGraphButton.setText("Vertex Border Color based on Graph");
         vertexBorderByGraphButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 vertexBorderByGraphButtonActionPerformed(evt);
