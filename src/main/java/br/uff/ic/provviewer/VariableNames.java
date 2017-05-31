@@ -66,4 +66,5 @@ public class VariableNames {
     public static Color AgentColor = new Color(254, 211, 127);
     public static Color ActivityColor = new Color(159, 177, 252);
     public static Color EntityColor = new Color(255, 252, 135);
+    public static String MergedEdgeAttribute = "Merged_Edge";
 }
