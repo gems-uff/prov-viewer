@@ -125,7 +125,8 @@ public class GraphFrame extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         layoutAttributeName_Y_Text = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        DeleteSelectedVerticesButton = new javax.swing.JButton();
+        UndoDeletionButton = new javax.swing.JButton();
         MenuBar = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
         OpenConfig = new javax.swing.JMenuItem();
@@ -396,10 +397,17 @@ public class GraphFrame extends javax.swing.JFrame {
 
         jLabel7.setText("Layout Y coord");
 
-        jButton2.setText("Delete");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        DeleteSelectedVerticesButton.setText("Delete");
+        DeleteSelectedVerticesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                DeleteSelectedVerticesButtonActionPerformed(evt);
+            }
+        });
+
+        UndoDeletionButton.setText("Undo");
+        UndoDeletionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UndoDeletionButtonActionPerformed(evt);
             }
         });
 
@@ -409,11 +417,13 @@ public class GraphFrame extends javax.swing.JFrame {
             ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ToolMenuLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(vertexShapeComboBox, 0, 109, Short.MAX_VALUE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(vertexShapeBasedOnAttribute))
+                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(vertexShapeComboBox, 0, 109, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel5)
+                        .addComponent(vertexShapeBasedOnAttribute))
+                    .addComponent(UndoDeletionButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(DisplayEdges, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -428,7 +438,7 @@ public class GraphFrame extends javax.swing.JFrame {
                     .addComponent(Collapse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Expand, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Reset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(DeleteSelectedVerticesButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ToolMenuLayout.createSequentialGroup()
@@ -518,7 +528,7 @@ public class GraphFrame extends javax.swing.JFrame {
                                 .addComponent(FilterVertexMinValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(FilterVertexMaxValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(simStdInc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButton2))
+                                .addComponent(DeleteSelectedVerticesButton))
                             .addComponent(jLabel3)
                             .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(layoutAttributeName_Y_Text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -533,7 +543,7 @@ public class GraphFrame extends javax.swing.JFrame {
                             .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(EdgeLineShapeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(EdgeStyle)))
-                        .addContainerGap())
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(ToolMenuLayout.createSequentialGroup()
                         .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(DisplayEdges)
@@ -547,12 +557,11 @@ public class GraphFrame extends javax.swing.JFrame {
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(vertexShapeBasedOnAttribute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ToolMenuLayout.createSequentialGroup()
-                                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(EdgeTypes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                    .addComponent(VertexLabels, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                                .addContainerGap())))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(UndoDeletionButton))
+                            .addComponent(EdgeTypes, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(VertexLabels, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                .addContainerGap())
         );
 
         getContentPane().add(ToolMenu, java.awt.BorderLayout.PAGE_END);
@@ -1267,10 +1276,15 @@ public class GraphFrame extends javax.swing.JFrame {
         variables.considerOnlyNeighborsSimilarityCollapse = similarityConsiderNeighborsButton.getState();
     }//GEN-LAST:event_similarityConsiderNeighborsButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void DeleteSelectedVerticesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteSelectedVerticesButtonActionPerformed
         // TODO add your handling code here:
         GuiButtons.Delete(variables);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_DeleteSelectedVerticesButtonActionPerformed
+
+    private void UndoDeletionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UndoDeletionButtonActionPerformed
+        // TODO add your handling code here:
+        GuiButtons.UndoDeletion(variables);
+    }//GEN-LAST:event_UndoDeletionButtonActionPerformed
    
     /**
      * Main
@@ -1310,6 +1324,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JLabel AttributeStatus;
     private javax.swing.JButton Collapse;
     private javax.swing.JButton CollapseAgent;
+    private javax.swing.JButton DeleteSelectedVerticesButton;
     private javax.swing.JLabel DisplayEdges;
     private javax.swing.JLabel DisplayVertices;
     private javax.swing.JComboBox EdgeLineShapeSelection;
@@ -1333,6 +1348,7 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JComboBox StatusFilterBox;
     public static javax.swing.JToggleButton TemporalFilterToggle;
     private javax.swing.JPanel ToolMenu;
+    private javax.swing.JButton UndoDeletionButton;
     private javax.swing.JScrollPane VertexLabels;
     private javax.swing.JCheckBoxMenuItem allowVariableLayoutButton;
     public static javax.swing.JRadioButtonMenuItem attributeDisplaySimConfig;
@@ -1359,7 +1375,6 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JCheckBox isSTDeps;
     public static javax.swing.JCheckBoxMenuItem isStrokeByValueButton;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

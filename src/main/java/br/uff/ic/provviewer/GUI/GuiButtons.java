@@ -65,6 +65,10 @@ public class GuiButtons {
         Collection picked = new HashSet(variables.view.getPickedVertexState().getPicked());
         GuiFunctions.DeleteVertices(variables, picked);
     }
+    
+    public static void UndoDeletion(Variables variables){
+        GuiFunctions.UndoLastDeletion(variables);
+    }
 
     /**
      * Method to expand a previously collapsed vertex

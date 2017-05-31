@@ -36,6 +36,7 @@ import br.uff.ic.provviewer.Vertex.ColorScheme.VertexPainter;
 import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
 import br.uff.ic.provviewer.Vertex.VertexShape;
+import br.uff.ic.utility.StackElementUndoDeletion;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.GraphVertex;
@@ -352,16 +353,37 @@ public class GuiFunctions {
     }
     
     public static void DeleteVertices(Variables variables, Collection picked){
+        StackElementUndoDeletion element = new StackElementUndoDeletion();
         DirectedGraph<Object, Edge> graph = new DirectedSparseMultigraph<>();
         for(Edge edge : variables.layout.getGraph().getEdges()) {
-            graph.addEdge(edge, edge.getTarget(), edge.getSource());
+            graph.addEdge(edge, edge.getSource(), edge.getTarget());
         }
         for (Object v : picked) {
+            // Add each vertex to the stack element
+            element.vertices.add(v);
+            // Add all edges from that vertex in the stack element
+            for(Edge e : graph.getInEdges(v))
+                element.edges.add(e);
+            for(Edge e : graph.getOutEdges(v))
+                element.edges.add(e);
             graph.removeVertex(v);
         }
+        // Add to the stack
+        variables.undoDeletion.push(element);
         variables.layout.setGraph(graph);
         variables.view.getPickedVertexState().clear();
         variables.view.repaint();
+    }
+    
+    public static void UndoLastDeletion(Variables variables) {
+        if(!variables.undoDeletion.isEmpty()) {
+            DirectedGraph<Object, Edge> graph = (DirectedGraph<Object, Edge>) variables.layout.getGraph();
+            StackElementUndoDeletion element = variables.undoDeletion.pop();
+            for(Edge e : element.edges)
+                graph.addEdge(e, e.getSource(), e.getTarget());
+            variables.layout.setGraph(graph);
+            variables.view.repaint();
+        }
     }
 
 }
