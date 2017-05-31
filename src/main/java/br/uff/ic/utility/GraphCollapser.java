@@ -245,8 +245,8 @@ public class GraphCollapser {
             return true;
         }
         for (Object v : inGraph.getVertices()) {
-            if (v instanceof Graph) {
-                contained |= contains((Graph) v, vertex);
+            if (v instanceof GraphVertex) {
+                contained |= contains((Graph) ((GraphVertex)v).clusterGraph, vertex);
             }
         }
         return contained;
