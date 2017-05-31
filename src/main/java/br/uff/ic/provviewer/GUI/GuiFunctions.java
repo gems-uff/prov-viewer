@@ -362,9 +362,7 @@ public class GuiFunctions {
             // Add each vertex to the stack element
             element.vertices.add(v);
             // Add all edges from that vertex in the stack element
-            for(Edge e : graph.getInEdges(v))
-                element.edges.add(e);
-            for(Edge e : graph.getOutEdges(v))
+            for(Edge e : graph.getIncidentEdges(v))
                 element.edges.add(e);
             graph.removeVertex(v);
         }
