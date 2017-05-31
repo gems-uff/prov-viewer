@@ -439,6 +439,8 @@ public class Edge extends GraphObject {
             if(!this.getLabel().contains(edge.getLabel()))
                 this.setLabel(this.getLabel() + ", " + edge.getLabel());
             edge.setHide(true);
+            GraphAttribute merged = new GraphAttribute(VariableNames.MergedEdgeAttribute, "true");
+            this.addAttribute(merged);
         }
         return this;
     }
