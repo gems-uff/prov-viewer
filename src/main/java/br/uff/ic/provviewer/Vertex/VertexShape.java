@@ -24,6 +24,7 @@
 package br.uff.ic.provviewer.Vertex;
 
 import br.uff.ic.provviewer.VariableNames;
+import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.GraphUtils;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.ActivityVertex;
@@ -48,18 +49,21 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
     String attribute = "Timestamp";
     String selectedShape = "Prov";
     int max;
+    Variables variables;
 
-    public VertexShape(int vertexSize) {
+    public VertexShape(int vertexSize, Variables v) {
         defaultSize = vertexSize;
         setSizeTransformer(new VertexSize<V>(vertexSize));
+        variables = v;
     }
     
-    public VertexShape(int vertexSize, String selectedMode, String att, Collection<Object> vertices) {
+    public VertexShape(int vertexSize, String selectedMode, String att, Collection<Object> vertices, Variables v) {
         defaultSize = vertexSize;
         selectedShape = selectedMode;
         setSizeTransformer(new VertexSize<V>(vertexSize));
         attribute = att;
         max = (int) Utils.findMaximumAttributeValue(vertices, attribute);
+        variables = v;
     }
 
     /**
@@ -124,6 +128,7 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
      */
     private void vertexGraphSizeTransformer(V v) {
         int graphSize = GraphUtils.getCollapsedVertexSize(v);
+        float gsize = defaultSize * (1 + 2 * (graphSize - 1) / variables.numberOfGraphs);
         setSizeTransformer(new VertexSize<V>(defaultSize + graphSize));
     }
 

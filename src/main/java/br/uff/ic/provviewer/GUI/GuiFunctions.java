@@ -69,7 +69,7 @@ public class GuiFunctions {
      * @param variables
      */
     public static void VertexShape(Variables variables) {
-        variables.view.getRenderContext().setVertexShapeTransformer(new VertexShape(variables.config.vertexSize));
+        variables.view.getRenderContext().setVertexShapeTransformer(new VertexShape(variables.config.vertexSize, variables));
     }
 
     /**
@@ -79,7 +79,7 @@ public class GuiFunctions {
      * @param attribute 
      */
     public static void VertexShape(Variables variables, String selectedMode, String attribute) {
-        variables.view.getRenderContext().setVertexShapeTransformer(new VertexShape(variables.config.vertexSize, selectedMode, attribute, variables.graph.getVertices()));
+        variables.view.getRenderContext().setVertexShapeTransformer(new VertexShape(variables.config.vertexSize, selectedMode, attribute, variables.graph.getVertices(), variables));
         variables.view.repaint();
     }
 
