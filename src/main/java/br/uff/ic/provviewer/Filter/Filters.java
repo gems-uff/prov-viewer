@@ -112,8 +112,10 @@ public class Filters {
      * @param variables
      */
     public void AddFilters(Variables variables) {
-        GraphFrame.edgeFilterList.setSelectionInterval(0, variables.config.edgetype.size() - 1);
-        GraphFrame.vertexFilterList.setSelectionInterval(0, variables.config.vertexLabelFilter.size() - 1);
+        GraphFrame.edgeFilterList.setSelectedIndex(0);
+        GraphFrame.vertexFilterList.setSelectedIndex(0);
+//        GraphFrame.edgeFilterList.setSelectionInterval(0, variables.config.edgetype.size() - 1);
+//        GraphFrame.vertexFilterList.setSelectionInterval(0, variables.config.vertexLabelFilter.size() - 1);
         Filters(variables, false);
     }
 
