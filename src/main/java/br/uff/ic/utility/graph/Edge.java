@@ -68,7 +68,7 @@ public class Edge extends GraphObject {
         this.attributes = new HashMap<>();
         GraphAttribute att = new GraphAttribute(influenceName, "");
         this.attributes.put(att.getName(), att);
-        this.attributes.putAll(attributes);
+//        this.attributes.putAll(attributes);
         setLabel("");
     }
     
@@ -91,10 +91,9 @@ public class Edge extends GraphObject {
         this.type = type;
         hide = false;
         collapsed = false;
-        this.attributes = new HashMap<>();
+        this.attributes = new HashMap<>(attributes);
         GraphAttribute att = new GraphAttribute(influenceName, value);
         this.attributes.put(att.getName(), att);
-        this.attributes.putAll(attributes);
         setLabel(label);
     }
 
@@ -432,14 +431,14 @@ public class Edge extends GraphObject {
      * @param edge is the edge that we want to merge with
      * @return the updated edge after merging with "edge"
      */
-    public Edge merge(Edge edge) {
+    public Edge merge(Edge edge, String mergeCode) {
         if(this.getType().equalsIgnoreCase(edge.getType())) {
             this.updateAllAttributes(edge.getAttributes());
             this.id = this.id + ", " + edge.id;
             if(!this.getLabel().contains(edge.getLabel()))
                 this.setLabel(this.getLabel() + ", " + edge.getLabel());
             edge.setHide(true);
-            GraphAttribute merged = new GraphAttribute(VariableNames.MergedEdgeAttribute, "true");
+            GraphAttribute merged = new GraphAttribute(VariableNames.MergedEdgeAttribute, mergeCode);
             this.addAttribute(merged);
         }
         return this;
