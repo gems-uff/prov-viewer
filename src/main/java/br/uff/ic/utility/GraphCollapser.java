@@ -26,6 +26,7 @@ package br.uff.ic.utility;
 import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.GraphVertex;
+import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import java.util.Collection;
 import java.util.logging.Logger;
@@ -187,24 +188,29 @@ public class GraphCollapser {
                     Object v1 = endpoints.getFirst();
                     Object v2 = endpoints.getSecond();
                     if (cluster.containsAll(endpoints) == false) {
+                        if(!(v1 instanceof GraphVertex) && !(v2 instanceof GraphVertex)){
+                            ((Edge)edge).setHide(false);
+                        }
                         if (clusterGraph.equals(v1)) {
-                            if(!((Edge)edge).hasAttribute(VariableNames.MergedEdgeAttribute)) {
+                            if(!((Edge)edge).getAttributeValue(VariableNames.MergedEdgeAttribute).contentEquals(clusterGraph.getID())) {
                                 // i need a new v1
 //                                Object originalV1 = originalGraph.getEndpoints(edge).getFirst();
                                 Object originalV1 = ((Edge)edge).getSource();
                                 Object newV1 = findVertex(graph, originalV1);
                                 assert newV1 != null : "newV1 for " + originalV1 + " was not found!";
-                                ((Edge)edge).setHide(false);
+                                if(((Edge)edge).getAttributeValue(VariableNames.MergedEdgeAttribute).contentEquals(((Vertex)newV1).getID()))
+                                    ((Edge)edge).setHide(false);
                                 graph.addEdge(edge, newV1, v2, inGraph.getEdgeType(edge));
                              }
                         } else if (clusterGraph.equals(v2)) {
-                            if(!((Edge)edge).hasAttribute(VariableNames.MergedEdgeAttribute)) {
+                            if(!((Edge)edge).getAttributeValue(VariableNames.MergedEdgeAttribute).contentEquals(clusterGraph.getID())) {
                                 // i need a new v2
 //                                Object originalV2 = originalGraph.getEndpoints(edge).getSecond();
                                 Object originalV2 = ((Edge)edge).getTarget();
                                 Object newV2 = findVertex(graph, originalV2);
                                 assert newV2 != null : "newV2 for " + originalV2 + " was not found!";
-                                ((Edge)edge).setHide(false);
+                                if(((Edge)edge).getAttributeValue(VariableNames.MergedEdgeAttribute).contentEquals(((Vertex)newV2).getID()))
+                                    ((Edge)edge).setHide(false);
                                 graph.addEdge(edge, v1, newV2, inGraph.getEdgeType(edge));
                              }
                         } else {
