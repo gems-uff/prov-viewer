@@ -166,6 +166,14 @@ public class Filters {
         layout.setGraph(filteredGraph);
         view.repaint();
     }
+    
+    public void filterHiddenEdges(VisualizationViewer<Object, Edge> view, Layout<Object, Edge> layout) {
+        EdgeFilter = filterEdges(true);
+        filteredGraph = (DirectedGraph<Object, Edge>) layout.getGraph();
+        filteredGraph = (DirectedGraph<Object, Edge>) EdgeFilter.transform(filteredGraph);
+        layout.setGraph(filteredGraph);
+        view.repaint();
+    }
 
     /**
      * Method for filtering edges

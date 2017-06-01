@@ -23,19 +23,15 @@
  */
 package br.uff.ic.utility;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import br.uff.ic.utility.graph.Edge;
 
 /**
  *
  * @author Kohwalter
  */
-public class StackElementUndoDeletion {
-    public Collection<Object> vertices;
-    public Collection<EdgeSourceTarget> edges;
+public class EdgeSourceTarget {
+    public Edge edge;
+    public Object source;
+    public Object target;
     
-    public StackElementUndoDeletion() {
-        vertices = new ArrayList<>();
-        edges = new ArrayList<>();
-    }
 }

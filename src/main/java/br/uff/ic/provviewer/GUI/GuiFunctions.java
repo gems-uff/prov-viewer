@@ -36,6 +36,7 @@ import br.uff.ic.provviewer.Vertex.ColorScheme.VertexPainter;
 import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
 import br.uff.ic.provviewer.Vertex.VertexShape;
+import br.uff.ic.utility.EdgeSourceTarget;
 import br.uff.ic.utility.StackElementUndoDeletion;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.ActivityVertex;
@@ -355,32 +356,50 @@ public class GuiFunctions {
     public static void DeleteVertices(Variables variables, Collection picked){
         StackElementUndoDeletion element = new StackElementUndoDeletion();
         DirectedGraph<Object, Edge> graph = new DirectedSparseMultigraph<>();
+        // Clone the current displayed graph to the "graph" variable
+        variables.filter.AddFilters(variables);
         for(Edge edge : variables.layout.getGraph().getEdges()) {
-            graph.addEdge(edge, edge.getSource(), edge.getTarget());
+            Pair endpoints = variables.layout.getGraph().getEndpoints(edge);
+            Object v1 = endpoints.getFirst();
+            Object v2 = endpoints.getSecond();
+            graph.addEdge(edge, v1, v2);
         }
         for (Object v : picked) {
             // Add each vertex to the stack element
             element.vertices.add(v);
             // Add all edges from that vertex in the stack element
-            for(Edge e : graph.getIncidentEdges(v))
-                element.edges.add(e);
+            for(Edge e : graph.getIncidentEdges(v)) {
+                Pair endpoints = graph.getEndpoints(e);
+                Object v1 = endpoints.getFirst();
+                Object v2 = endpoints.getSecond();
+//                e.setSource(v1);
+//                e.setTarget(v2);
+                EdgeSourceTarget est = new EdgeSourceTarget();
+                est.edge = e;
+                est.source = v1;
+                est.target = v2;
+                element.edges.add(est);
+            }
             graph.removeVertex(v);
         }
         // Add to the stack
         variables.undoDeletion.push(element);
         variables.layout.setGraph(graph);
         variables.view.getPickedVertexState().clear();
-        variables.view.repaint();
+        
+        variables.filter.filterHiddenEdges(variables.view, variables.layout);
+//        variables.view.repaint();
     }
     
     public static void UndoLastDeletion(Variables variables) {
         if(!variables.undoDeletion.isEmpty()) {
             DirectedGraph<Object, Edge> graph = (DirectedGraph<Object, Edge>) variables.layout.getGraph();
             StackElementUndoDeletion element = variables.undoDeletion.pop();
-            for(Edge e : element.edges)
-                graph.addEdge(e, e.getSource(), e.getTarget());
+            for(EdgeSourceTarget e : element.edges)
+                graph.addEdge(e.edge, e.source, e.target);
             variables.layout.setGraph(graph);
-            variables.view.repaint();
+            variables.filter.filterHiddenEdges(variables.view, variables.layout);
+//            variables.view.repaint();
         }
     }
 
