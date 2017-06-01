@@ -23,8 +23,10 @@
  */
 package br.uff.ic.utility;
 
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.GraphVertex;
+import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import java.util.Collection;
 import java.util.logging.Logger;
 import edu.uci.ics.jung.graph.Graph;
@@ -58,7 +60,7 @@ public class GraphCollapser {
         if (clusterGraph.clusterGraph.getVertexCount() < 2) {
             return inGraph;
         }
-        Graph graph = inGraph;
+        Graph<Object, Object> graph = new DirectedSparseMultigraph<>();
         try {
             graph = createGraph();
         } catch (Exception ex) {
@@ -87,14 +89,14 @@ public class GraphCollapser {
             Pair endpoints = inGraph.getEndpoints(e);
             // don't add edges whose endpoints are both in the cluster
             if (cluster.containsAll(endpoints) == false) {
-                if (cluster.contains(endpoints.getFirst())) {
-                        Object edge = hasEdge(collapsedEdges, mergedEdges, e, ((Edge)e).getLabel(), ((Edge)e).getType(), cluster.hashCode(), endpoints.getSecond().hashCode());
+                if (cluster.contains(endpoints.getFirst())) {                   
+                        Object edge = hasEdge(clusterGraph.getID(), collapsedEdges, mergedEdges, e, ((Edge)e).getLabel(), ((Edge)e).getType(), cluster.hashCode(), endpoints.getSecond().hashCode());
                         graph.addEdge(edge, clusterGraph, endpoints.getSecond(), inGraph.getEdgeType(e));
-//                        graph.addEdge(e, clusterGraph, endpoints.getSecond(), inGraph.getEdgeType(e));
+                        graph.addEdge(e, clusterGraph, endpoints.getSecond(), inGraph.getEdgeType(e));
                 } else if (cluster.contains(endpoints.getSecond())) {
-                        Object edge = hasEdge(collapsedEdges, mergedEdges, e, ((Edge)e).getLabel(), ((Edge)e).getType(), endpoints.getFirst().hashCode(), cluster.hashCode());
+                        Object edge = hasEdge(clusterGraph.getID(), collapsedEdges, mergedEdges, e, ((Edge)e).getLabel(), ((Edge)e).getType(), endpoints.getFirst().hashCode(), cluster.hashCode());
                         graph.addEdge(edge, endpoints.getFirst(), clusterGraph, inGraph.getEdgeType(e));
-//                        graph.addEdge(e, endpoints.getFirst(), clusterGraph, inGraph.getEdgeType(e));
+                        graph.addEdge(e, endpoints.getFirst(), clusterGraph, inGraph.getEdgeType(e));
                 } else {
                     graph.addEdge(e, endpoints.getFirst(), endpoints.getSecond(), inGraph.getEdgeType(e));
                 }
@@ -113,7 +115,7 @@ public class GraphCollapser {
      * @param target is the target hashcode
      * @return the edge to be added in the graph
      */
-    private Object hasEdge(Map<String, Object> collapsedEdges, Map<String, Object> mergedEdges, Object e, String label, String type, int source, int target) {
+    private Object hasEdge(String clusterID, Map<String, Object> collapsedEdges, Map<String, Object> mergedEdges, Object e, String label, String type, int source, int target) {
         String key;
         if(considerEdgeLabelForMerge)
             key = label + " " + type + " " + source + " " + target;
@@ -127,29 +129,21 @@ public class GraphCollapser {
             // If first time, create the edge
             if(!mergedEdges.containsKey(key)) {
                 Edge newEdge = new Edge(((Edge)edge).getID(), ((Edge)edge).getType(), ((Edge)edge).getStringValue(), ((Edge)edge).getLabel(), ((Edge)edge).attributes, ((Edge)edge).getTarget(), ((Edge)edge).getSource());
-                newEdge = newEdge.merge((Edge) e);
+                newEdge = newEdge.merge((Edge) e, clusterID);
                 mergedEdges.put(key, newEdge);
                 return newEdge;
             }
             else {
                 // Else update it
-                Edge newEdge = ((Edge)mergedEdges.get(key)).merge((Edge) e);
+                Edge newEdge = ((Edge)mergedEdges.get(key)).merge((Edge) e, clusterID);
                 mergedEdges.put(key, newEdge);
                 return newEdge;
-                // Need to update the summarized edge values
-                // Need to hide e
-//            return true;
             }
         }
         else {
             collapsedEdges.put(key, e);
             return e;
-//            ((Edge)e).setHide(true);
-            // Need to create a single summarized edge
-            // Need to hide e
-//            return false;
         }
-//        collapsedEdges.put(key, e);
     }
     
     /**
@@ -159,7 +153,7 @@ public class GraphCollapser {
      * @return the graph without the selected cluster-vertex
      */
     public Graph expand(Graph inGraph, GraphVertex clusterGraph) {
-        Graph graph = inGraph;
+        Graph<Object, Object> graph = new DirectedSparseMultigraph<>();
         try {
             graph = createGraph();
         } catch (Exception ex) {
@@ -194,9 +188,9 @@ public class GraphCollapser {
                     Object v2 = endpoints.getSecond();
                     if (cluster.containsAll(endpoints) == false) {
                         if (clusterGraph.equals(v1)) {
-                             if(!((Edge)edge).getLabel().contains("(Merged)")) {
+                            if(!((Edge)edge).hasAttribute(VariableNames.MergedEdgeAttribute)) {
                                 // i need a new v1
-    //                            Object originalV1 = originalGraph.getEndpoints(edge).getFirst();
+//                                Object originalV1 = originalGraph.getEndpoints(edge).getFirst();
                                 Object originalV1 = ((Edge)edge).getSource();
                                 Object newV1 = findVertex(graph, originalV1);
                                 assert newV1 != null : "newV1 for " + originalV1 + " was not found!";
@@ -204,9 +198,9 @@ public class GraphCollapser {
                                 graph.addEdge(edge, newV1, v2, inGraph.getEdgeType(edge));
                              }
                         } else if (clusterGraph.equals(v2)) {
-                             if(!((Edge)edge).getLabel().contains("(Merged)")) {
+                            if(!((Edge)edge).hasAttribute(VariableNames.MergedEdgeAttribute)) {
                                 // i need a new v2
-    //                            Object originalV2 = originalGraph.getEndpoints(edge).getSecond();
+//                                Object originalV2 = originalGraph.getEndpoints(edge).getSecond();
                                 Object originalV2 = ((Edge)edge).getTarget();
                                 Object newV2 = findVertex(graph, originalV2);
                                 assert newV2 != null : "newV2 for " + originalV2 + " was not found!";
@@ -280,6 +274,5 @@ public class GraphCollapser {
         
         GraphVertex gv = GraphUtils.CreateVertexGraph(clusterGraph);
         return gv;
-//        return clusterGraph;
     }
 }
