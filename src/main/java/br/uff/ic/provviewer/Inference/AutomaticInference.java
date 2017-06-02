@@ -392,6 +392,8 @@ public class AutomaticInference {
     
     private double isSimilarSingleAttribute(Object p, Object q) {
         double distance = Double.POSITIVE_INFINITY;
+        if(!((Vertex)p).getNodeType().equalsIgnoreCase(((Vertex)q).getNodeType()))
+            return distance;
         if(Utils.tryParseFloat(((Vertex)p).getAttributeValue(attribute))) {
             double dx = ((Vertex)p).getAttributeValueFloat(attribute) - ((Vertex)q).getAttributeValueFloat(attribute);
             distance = Math.sqrt(dx * dx);
