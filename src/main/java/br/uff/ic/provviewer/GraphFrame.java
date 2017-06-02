@@ -89,7 +89,7 @@ public class GraphFrame extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         newVertexLabelTextBox = new javax.swing.JTextField();
         setNewLabelConfirmButton = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        setNewLabelCancelButton = new javax.swing.JButton();
         fileChooser = new javax.swing.JFileChooser();
         ToolMenu = new javax.swing.JPanel();
         CollapseAgent = new javax.swing.JButton();
@@ -133,12 +133,14 @@ public class GraphFrame extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         DeleteSelectedVerticesButton = new javax.swing.JButton();
         UndoDeletionButton = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        PanToGraphButton = new javax.swing.JButton();
         MenuBar = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
         OpenConfig = new javax.swing.JMenuItem();
         OpenGraph = new javax.swing.JMenuItem();
         Exit = new javax.swing.JMenuItem();
+        jMenu7 = new javax.swing.JMenu();
+        RenameVertexLabelMenuButton = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         autoDetectEdgesCheckBox = new javax.swing.JCheckBoxMenuItem();
         autoDetectAttributeCheckBox = new javax.swing.JCheckBoxMenuItem();
@@ -147,7 +149,6 @@ public class GraphFrame extends javax.swing.JFrame {
         isColorByEdgeValueButton = new javax.swing.JCheckBoxMenuItem();
         allowVariableLayoutButton = new javax.swing.JCheckBoxMenuItem();
         vertexBorderByGraphButton = new javax.swing.JCheckBoxMenuItem();
-        PantoVertex = new javax.swing.JMenuItem();
         displayEdgeTextButton = new javax.swing.JMenu();
         displayID = new javax.swing.JCheckBoxMenuItem();
         displayTimeLabel = new javax.swing.JCheckBoxMenuItem();
@@ -196,10 +197,10 @@ public class GraphFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Cancel");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        setNewLabelCancelButton.setText("Cancel");
+        setNewLabelCancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                setNewLabelCancelButtonActionPerformed(evt);
             }
         });
 
@@ -216,7 +217,7 @@ public class GraphFrame extends javax.swing.JFrame {
                         .addGap(10, 10, 10)
                         .addComponent(setNewLabelConfirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3)
+                        .addComponent(setNewLabelCancelButton)
                         .addGap(11, 11, 11)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -230,7 +231,7 @@ public class GraphFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(setNewLabelDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(setNewLabelConfirmButton)
-                    .addComponent(jButton3))
+                    .addComponent(setNewLabelCancelButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -468,11 +469,11 @@ public class GraphFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Rename");
-        jButton2.setToolTipText("Open a Window to rename the Label for Selected Vertices");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        PanToGraphButton.setText("Pan");
+        PanToGraphButton.setToolTipText("Pan the View to the Graph");
+        PanToGraphButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                PanToGraphButtonActionPerformed(evt);
             }
         });
 
@@ -490,7 +491,7 @@ public class GraphFrame extends javax.swing.JFrame {
                     .addGroup(ToolMenuLayout.createSequentialGroup()
                         .addComponent(UndoDeletionButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(PanToGraphButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(DisplayEdges, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -627,7 +628,7 @@ public class GraphFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(UndoDeletionButton)
-                                    .addComponent(jButton2)))
+                                    .addComponent(PanToGraphButton)))
                             .addComponent(EdgeTypes, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(VertexLabels, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
                 .addContainerGap())
@@ -662,6 +663,18 @@ public class GraphFrame extends javax.swing.JFrame {
         FileMenu.add(Exit);
 
         MenuBar.add(FileMenu);
+
+        jMenu7.setText("Edit");
+
+        RenameVertexLabelMenuButton.setText("Rename Vertex Label");
+        RenameVertexLabelMenuButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RenameVertexLabelMenuButtonActionPerformed(evt);
+            }
+        });
+        jMenu7.add(RenameVertexLabelMenuButton);
+
+        MenuBar.add(jMenu7);
 
         jMenu1.setText("Options");
 
@@ -722,14 +735,6 @@ public class GraphFrame extends javax.swing.JFrame {
             }
         });
         jMenu1.add(vertexBorderByGraphButton);
-
-        PantoVertex.setText("Pan to vertex");
-        PantoVertex.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PantoVertexActionPerformed(evt);
-            }
-        });
-        jMenu1.add(PantoVertex);
 
         MenuBar.add(jMenu1);
 
@@ -1250,11 +1255,6 @@ public class GraphFrame extends javax.swing.JFrame {
                 temporalDaysButton, temporalWeeksButton);  
     }//GEN-LAST:event_temporalSecondsButtonActionPerformed
 
-    private void PantoVertexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PantoVertexActionPerformed
-        // TODO add your handling code here:
-        GuiFunctions.PanCameraToFirstVertex(variables);
-    }//GEN-LAST:event_PantoVertexActionPerformed
-
     private void temporalNanosecondsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporalNanosecondsButtonActionPerformed
         // TODO add your handling code here:
         GuiButtons.TemporalLayoutGranularity("nanoseconds", variables, true, false, false, false, false, false, 
@@ -1361,15 +1361,20 @@ public class GraphFrame extends javax.swing.JFrame {
         setNewLabelDialogBox.setVisible(false);
     }//GEN-LAST:event_setNewLabelConfirmButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void PanToGraphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PanToGraphButtonActionPerformed
         // TODO add your handling code here:
-        GuiButtons.ShowVertexRenameLabelWindow(setNewLabelDialogBox);
-    }//GEN-LAST:event_jButton2ActionPerformed
+        GuiFunctions.PanCameraToFirstVertex(variables);
+    }//GEN-LAST:event_PanToGraphButtonActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void setNewLabelCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setNewLabelCancelButtonActionPerformed
         // TODO add your handling code here:
         setNewLabelDialogBox.setVisible(false);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_setNewLabelCancelButtonActionPerformed
+
+    private void RenameVertexLabelMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RenameVertexLabelMenuButtonActionPerformed
+        // TODO add your handling code here:
+        GuiButtons.ShowVertexRenameLabelWindow(setNewLabelDialogBox);
+    }//GEN-LAST:event_RenameVertexLabelMenuButtonActionPerformed
    
     /**
      * Main
@@ -1427,7 +1432,8 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox MouseModes;
     private javax.swing.JMenuItem OpenConfig;
     private javax.swing.JMenuItem OpenGraph;
-    private javax.swing.JMenuItem PantoVertex;
+    private javax.swing.JButton PanToGraphButton;
+    private javax.swing.JMenuItem RenameVertexLabelMenuButton;
     private javax.swing.JButton Reset;
     private javax.swing.JButton SimilarityInference;
     public static javax.swing.JComboBox StatusFilterBox;
@@ -1460,8 +1466,6 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JCheckBox isSTDeps;
     public static javax.swing.JCheckBoxMenuItem isStrokeByValueButton;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1476,6 +1480,7 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JTextField layoutAttributeName_X_Text;
@@ -1483,6 +1488,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem mergeGraphButtom;
     private javax.swing.JTextField newVertexLabelTextBox;
     public static javax.swing.JCheckBoxMenuItem removeOutliersButton;
+    private javax.swing.JButton setNewLabelCancelButton;
     private javax.swing.JButton setNewLabelConfirmButton;
     private javax.swing.JDialog setNewLabelDialogBox;
     public static javax.swing.JTextField simEpsilon;
