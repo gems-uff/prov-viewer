@@ -49,7 +49,7 @@ public class ActivityRestrictedScheme extends ColorScheme {
     public Paint Execute(Object v, final Variables variables) {
         this.variables = variables;
         ComputeRestrictedValue(variables.graph, true, this.restrictedAttribute, this.restrictedValue);
-        if (((v instanceof ActivityVertex)  || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexActivityAttribute)) && ((ActivityVertex) v).getAttributeValue(this.restrictedAttribute).equalsIgnoreCase(this.restrictedValue)) {
+        if (((v instanceof ActivityVertex)  || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexActivityAttribute)) && ((Vertex) v).getAttributeValue(this.restrictedAttribute).equalsIgnoreCase(this.restrictedValue)) {
             return this.GetMinMaxColor(v);
         }
         return ((Vertex) v).getColor();
