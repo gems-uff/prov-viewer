@@ -147,7 +147,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JCheckBoxMenuItem" name="autoDetectAttributeCheckBox">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Auto Detect Attributes"/>
+                <Property name="text" type="java.lang.String" value="Auto Detect Vertex Attributes"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autoDetectAttributeCheckBoxActionPerformed"/>

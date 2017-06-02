@@ -686,7 +686,7 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu1.add(autoDetectEdgesCheckBox);
 
-        autoDetectAttributeCheckBox.setText("Auto Detect Attributes");
+        autoDetectAttributeCheckBox.setText("Auto Detect Vertex Attributes");
         autoDetectAttributeCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 autoDetectAttributeCheckBoxActionPerformed(evt);
