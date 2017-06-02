@@ -46,6 +46,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import org.apache.commons.collections15.Transformer;
 
 /**
@@ -330,6 +332,16 @@ public class GuiButtons {
     
     public static void selectVertexShape(Variables variables, String selectedMode, String attribute) {
         GuiFunctions.VertexShape(variables, selectedMode, attribute);
+    }
+    
+    public static void ShowVertexRenameLabelWindow(JDialog setNewLabelDialogBox) {
+        setNewLabelDialogBox.setVisible(true);
+        setNewLabelDialogBox.toFront();
+        setNewLabelDialogBox.setLocationRelativeTo(null);
+    }
+    public static void UpdateVertexLabel(String newLabel, Variables variables) {
+        Collection picked = new HashSet(variables.view.getPickedVertexState().getPicked());
+        GuiFunctions.RenameSelectedVertexLabel(newLabel, picked);
     }
 
 }

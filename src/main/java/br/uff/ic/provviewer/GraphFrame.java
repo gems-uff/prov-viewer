@@ -37,6 +37,7 @@ import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UnsupportedLookAndFeelException;
+import java.awt.event.MouseEvent;
 
 /**
  * Prov Viewer GUI. Can be used as a Template.
@@ -84,6 +85,11 @@ public class GraphFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        setNewLabelDialogBox = new javax.swing.JDialog();
+        jLabel8 = new javax.swing.JLabel();
+        newVertexLabelTextBox = new javax.swing.JTextField();
+        setNewLabelConfirmButton = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         fileChooser = new javax.swing.JFileChooser();
         ToolMenu = new javax.swing.JPanel();
         CollapseAgent = new javax.swing.JButton();
@@ -127,6 +133,7 @@ public class GraphFrame extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         DeleteSelectedVerticesButton = new javax.swing.JButton();
         UndoDeletionButton = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         MenuBar = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
         OpenConfig = new javax.swing.JMenuItem();
@@ -176,6 +183,56 @@ public class GraphFrame extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         attributeDisplaySimConfig = new javax.swing.JRadioButtonMenuItem();
         similarityConsiderNeighborsButton = new javax.swing.JCheckBoxMenuItem();
+
+        setNewLabelDialogBox.setAlwaysOnTop(true);
+        setNewLabelDialogBox.setMinimumSize(new java.awt.Dimension(257, 153));
+
+        jLabel8.setText("Type the new Label for selected Vertices");
+
+        setNewLabelConfirmButton.setText("OK");
+        setNewLabelConfirmButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                setNewLabelConfirmButtonActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Cancel");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout setNewLabelDialogBoxLayout = new javax.swing.GroupLayout(setNewLabelDialogBox.getContentPane());
+        setNewLabelDialogBox.getContentPane().setLayout(setNewLabelDialogBoxLayout);
+        setNewLabelDialogBoxLayout.setHorizontalGroup(
+            setNewLabelDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(setNewLabelDialogBoxLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(setNewLabelDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(newVertexLabelTextBox)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, setNewLabelDialogBoxLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(setNewLabelConfirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3)
+                        .addGap(11, 11, 11)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        setNewLabelDialogBoxLayout.setVerticalGroup(
+            setNewLabelDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(setNewLabelDialogBoxLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(newVertexLabelTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(setNewLabelDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(setNewLabelConfirmButton)
+                    .addComponent(jButton3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         fileChooser.setCurrentDirectory(new java.io.File("D:\\SVN\\Prov_Viewer\\prov-viewer\\src\\main\\resources"));
         fileChooser.setDialogTitle("This is my open dialog");
@@ -411,19 +468,29 @@ public class GraphFrame extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("Rename");
+        jButton2.setToolTipText("Open a Window to rename the Label for Selected Vertices");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ToolMenuLayout = new javax.swing.GroupLayout(ToolMenu);
         ToolMenu.setLayout(ToolMenuLayout);
         ToolMenuLayout.setHorizontalGroup(
             ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ToolMenuLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(vertexShapeComboBox, 0, 109, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addComponent(jLabel5)
-                        .addComponent(vertexShapeBasedOnAttribute))
-                    .addComponent(UndoDeletionButton))
+                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(vertexShapeComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(vertexShapeBasedOnAttribute)
+                    .addGroup(ToolMenuLayout.createSequentialGroup()
+                        .addComponent(UndoDeletionButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(DisplayEdges, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -558,7 +625,9 @@ public class GraphFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(vertexShapeBasedOnAttribute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(UndoDeletionButton))
+                                .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(UndoDeletionButton)
+                                    .addComponent(jButton2)))
                             .addComponent(EdgeTypes, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(VertexLabels, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
                 .addContainerGap())
@@ -1285,6 +1354,22 @@ public class GraphFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         GuiButtons.UndoDeletion(variables);
     }//GEN-LAST:event_UndoDeletionButtonActionPerformed
+
+    private void setNewLabelConfirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setNewLabelConfirmButtonActionPerformed
+        // TODO add your handling code here:
+        GuiButtons.UpdateVertexLabel(newVertexLabelTextBox.getText(), variables);
+        setNewLabelDialogBox.setVisible(false);
+    }//GEN-LAST:event_setNewLabelConfirmButtonActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        GuiButtons.ShowVertexRenameLabelWindow(setNewLabelDialogBox);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        setNewLabelDialogBox.setVisible(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
    
     /**
      * Main
@@ -1375,6 +1460,8 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JCheckBox isSTDeps;
     public static javax.swing.JCheckBoxMenuItem isStrokeByValueButton;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1382,6 +1469,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     public static javax.swing.JMenu jMenu3;
@@ -1393,7 +1481,10 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JTextField layoutAttributeName_X_Text;
     private javax.swing.JTextField layoutAttributeName_Y_Text;
     private javax.swing.JMenuItem mergeGraphButtom;
+    private javax.swing.JTextField newVertexLabelTextBox;
     public static javax.swing.JCheckBoxMenuItem removeOutliersButton;
+    private javax.swing.JButton setNewLabelConfirmButton;
+    private javax.swing.JDialog setNewLabelDialogBox;
     public static javax.swing.JTextField simEpsilon;
     public static javax.swing.JTextField simStdInc;
     public static javax.swing.JTextField simStdSize;

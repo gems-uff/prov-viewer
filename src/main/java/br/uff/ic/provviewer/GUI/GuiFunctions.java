@@ -372,13 +372,13 @@ public class GuiFunctions {
                 Pair endpoints = graph.getEndpoints(e);
                 Object v1 = endpoints.getFirst();
                 Object v2 = endpoints.getSecond();
-//                e.setSource(v1);
-//                e.setTarget(v2);
                 EdgeSourceTarget est = new EdgeSourceTarget();
                 est.edge = e;
                 est.source = v1;
                 est.target = v2;
                 element.edges.add(est);
+                
+                // Need to insert new edges that connects A to C if the middle vertex was removed
             }
             graph.removeVertex(v);
         }
@@ -397,10 +397,19 @@ public class GuiFunctions {
             StackElementUndoDeletion element = variables.undoDeletion.pop();
             for(EdgeSourceTarget e : element.edges)
                 graph.addEdge(e.edge, e.source, e.target);
+            if(!element.insertedEdges.isEmpty()) {
+                for(EdgeSourceTarget e : element.insertedEdges)
+                    graph.removeEdge(e.edge);
+            }
             variables.layout.setGraph(graph);
             variables.filter.filterHiddenEdges(variables.view, variables.layout);
 //            variables.view.repaint();
         }
+    }
+    
+    public static void RenameSelectedVertexLabel (String newLabel, Collection picked) {
+        for(Object v : picked)
+            ((Vertex)v).setLabel(newLabel);
     }
 
 }
