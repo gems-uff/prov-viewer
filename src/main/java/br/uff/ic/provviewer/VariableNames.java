@@ -45,6 +45,7 @@ public class VariableNames {
     public static String DefaultVertexPainter = "Prov";
     public static String EdgeTooltipFontConfiguration = "<html><font size=\"4\">";
     public static String UnknownValue = "Unknown";
+    public static String time = "Timestamp";
     
     public static String layout_timeline = "Timeline";
     public static String layout_circle = "Circle";
