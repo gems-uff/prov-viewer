@@ -40,10 +40,8 @@ import br.uff.ic.utility.EdgeSourceTarget;
 import br.uff.ic.utility.StackElementUndoDeletion;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.ActivityVertex;
-import br.uff.ic.utility.graph.GraphVertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
-import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Pair;
 import edu.uci.ics.jung.visualization.Layer;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
@@ -56,7 +54,11 @@ import java.awt.Color;
 import java.awt.Paint;
 import java.awt.Stroke;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import org.apache.commons.collections15.Predicate;
@@ -317,6 +319,11 @@ public class GuiFunctions {
         variables.view.getRenderContext().setArrowFillPaintTransformer(edgePainter);
     }
     
+    /**
+     * Method to delete the selected vertices
+     * @param variables
+     * @param picked is the list of vertices to be deleted
+     */
     public static void DeleteVertices(Variables variables, Collection picked){
         StackElementUndoDeletion element = new StackElementUndoDeletion();
         DirectedGraph<Object, Edge> graph = new DirectedSparseMultigraph<>();
@@ -355,6 +362,10 @@ public class GuiFunctions {
 //        variables.view.repaint();
     }
     
+    /**
+     * Method to undo the last deletion
+     * @param variables 
+     */
     public static void UndoLastDeletion(Variables variables) {
         if(!variables.undoDeletion.isEmpty()) {
             DirectedGraph<Object, Edge> graph = (DirectedGraph<Object, Edge>) variables.layout.getGraph();
@@ -371,9 +382,53 @@ public class GuiFunctions {
         }
     }
     
+    /**
+     * Method to change the label of the selected vertices
+     * @param newLabel is the new label
+     * @param picked is the list of selected vertices that will have the new label
+     */
     public static void RenameSelectedVertexLabel (String newLabel, Collection picked) {
         for(Object v : picked)
             ((Vertex)v).setLabel(newLabel);
+    }
+    
+    /**
+     * Method to create "Chronological" Edges linking the activities from each agent to create a sequence based on their timestamps
+     * @param variables 
+     */
+    public static void AddChronologicalEdgesLinkingActivities(Variables variables) {
+        Collection<Object> agents = new HashSet();
+        Collection<Edge> edges = new HashSet();
+        int id = 0;
+        //Get the selected node
+        for (Object z : variables.layout.getGraph().getVertices()) {
+            if(z instanceof AgentVertex)
+                agents.add(z);
+        }
+        
+        for(Object node : agents) {
+            if (variables.graph.getNeighbors(node) != null) {
+                List<Object> neighbors = new ArrayList(variables.graph.getNeighbors(node));
+                
+                Collections.sort(neighbors, Utils.getVertexAttributeComparator(VariableNames.time));
+                Object previousActivity = null;
+                for(Object v : neighbors) {
+                    if(v instanceof ActivityVertex) { 
+                        if(previousActivity != null) {
+                            Edge newEdge = new Edge("CE_" + id, "Chronological", previousActivity, v);
+                            id++;
+                            edges.add(newEdge);
+                        }
+                        previousActivity = v;
+                    }
+                }
+            }
+        }
+        for(Edge e : edges) {
+            variables.graph.addEdge(e, e.getSource(), e.getTarget());
+        }
+        variables.layout.setGraph(variables.graph);
+        variables.view.repaint();
     }
 
 }
