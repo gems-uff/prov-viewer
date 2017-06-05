@@ -98,7 +98,6 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
         } else {
             setSizeTransformer(new VertexSize<V>(defaultSize));
         }
-
         return provShape(v, defaultSize);
     }
 
@@ -113,7 +112,7 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
         if (v instanceof AgentVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexAgentAttribute)) {
             return factory.getRegularPolygon(v, 5);
         } else if (v instanceof ActivityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexActivityAttribute)) {{//activity vertex
-            return factory.getRegularPolygon(v, 4);
+            return factory.getRoundRectangle(v);
         }
         } else if (v instanceof EntityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) {
             return new Ellipse2D.Float(-7, -7, size, size);
@@ -127,9 +126,11 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
      * @param v is the graph vertex
      */
     private void vertexGraphSizeTransformer(V v) {
-        int graphSize = GraphUtils.getCollapsedVertexSize(v);
-        float gsize = defaultSize * (1 + 2 * (graphSize - 1) / variables.numberOfGraphs);
-        setSizeTransformer(new VertexSize<V>(defaultSize + graphSize));
+        float graphSize = GraphUtils.getCollapsedVertexSize(v);
+        float maxVertices = variables.graph.getVertexCount() * 0.25f;
+        graphSize = graphSize / maxVertices;
+        int size = (int) (defaultSize * (1 + graphSize));
+        setSizeTransformer(new VertexSize<V>(size));
     }
 
     /**
@@ -139,12 +140,11 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
      * @return the vertex shape
      */
     private Shape multipleGraphShape(V v) {
-
         int numberOfGraphs;
         int vertexSize;
         String[] graphs = ((Vertex) v).getAttributeValues(VariableNames.GraphFile);
         numberOfGraphs = graphs.length;
-        vertexSize = (int) (defaultSize * numberOfGraphs * 0.5);
+        vertexSize = (int) (defaultSize * (1 + 1.5 * (numberOfGraphs - 1) / variables.numberOfGraphs));
         setSizeTransformer(new VertexSize<V>(vertexSize));
         return provShape(v, vertexSize);
     }
