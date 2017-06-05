@@ -105,7 +105,8 @@ public class Collapser {
                 sumy += p.getY();
             }
             
-            clusterGraph.setLabel(clusterGraph.getLabel() + "<br>" + attribute + ": " + clusterGraph.getAttributeValue(attribute));
+            if(!"".equals(attribute))
+                clusterGraph.setLabel(clusterGraph.getLabel() + "<br>" + attribute + ": " + clusterGraph.getAttributeValue(attribute));
 
             //store position
             Point2D cp = new Point2D.Double(sumx / picked.size(), sumy / picked.size());
