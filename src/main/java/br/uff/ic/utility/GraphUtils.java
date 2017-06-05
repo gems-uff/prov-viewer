@@ -116,11 +116,50 @@ public class GraphUtils {
             return values;
     }
     
+    /**
+     * Method that returns a GraphVertex from the (Graph) v
+     * @param v is the Graph
+     * @return the GraphVertex
+     */
     public static GraphVertex CreateVertexGraph(Object v) {
         Map<String, String> ids = new HashMap<>();
         Map<String, GraphAttribute> attributes = new HashMap<>(); 
         CreateVertexGraph(v, ids, attributes);
         return new GraphVertex(ids, attributes, (Graph) v);
+    }
+    
+    /**
+     * Method to update the attribute value that counts the number of vertices of the specified type
+     * @param attributes is the list of attributes already computed
+     * @param graphVertex is the current GraphVertex
+     * @param type is the type of vertices we are counting (Agents, Activities, Entities)
+     */
+    private static void UpdateVertexTypeQuantityGraphVertex(Map<String, GraphAttribute> attributes, GraphVertex graphVertex, String type) {
+        if(attributes.containsKey(type)) {
+            int qnt = (int) Float.parseFloat(attributes.get(type).getValue());
+            qnt = (int) (qnt + ((Vertex)graphVertex).getAttributeValueFloat(type));
+            attributes.get(type).setValue(Integer.toString(qnt));
+        } else {
+            GraphAttribute att = new GraphAttribute(type, Integer.toString((int) ((Vertex)graphVertex).getAttributeValueFloat(type)));
+            attributes.put(att.getName(), att);
+        }
+    }
+    
+    /**
+     * Method to update the attribute value that counts the number of vertices of the specified type
+     * @param attributes is the list of attributes already computed
+     * @param v is the current vertex
+     * @param type is the type of vertices we are counting (Agents, Activities, Entities)
+     */
+    private static void UpdateVertexTypeQuantity(Map<String, GraphAttribute> attributes, Vertex v, String type) {
+        if(attributes.containsKey(type)) {
+            int qnt = (int) Float.parseFloat(attributes.get(type).getValue());
+            qnt++;
+            attributes.get(type).setValue(Integer.toString(qnt));
+        } else {
+            GraphAttribute att = new GraphAttribute(type, Integer.toString(1));
+            attributes.put(att.getName(), att);
+        }
     }
     /**
      * Recursive method to generate the tooltip. 
@@ -139,41 +178,34 @@ public class GraphUtils {
             if (!(vertex instanceof Graph))
             {
                 ids.put(((Vertex) vertex).getID(), ((Vertex) vertex).getID());
-
-                if (vertex instanceof AgentVertex) {
-                    if(attributes.containsKey(VariableNames.CollapsedVertexAgentAttribute)) {
-                        int agents = (int) Float.parseFloat(attributes.get(VariableNames.CollapsedVertexAgentAttribute).getValue());
-                        agents++;
-                        attributes.get(VariableNames.CollapsedVertexAgentAttribute).setValue(Integer.toString(agents));
-                    } else {
-                        GraphAttribute att = new GraphAttribute(VariableNames.CollapsedVertexAgentAttribute, Integer.toString(1));
-                        attributes.put(att.getName(), att);
+                
+                if(vertex instanceof GraphVertex) {
+                    if(((Vertex)vertex).hasAttribute(VariableNames.CollapsedVertexAgentAttribute)){
+                        UpdateVertexTypeQuantityGraphVertex(attributes, (GraphVertex)vertex, VariableNames.CollapsedVertexAgentAttribute);
                     }
+                    if(((Vertex)vertex).hasAttribute(VariableNames.CollapsedVertexActivityAttribute)){
+                        UpdateVertexTypeQuantityGraphVertex(attributes, (GraphVertex)vertex, VariableNames.CollapsedVertexActivityAttribute);
+                    }
+                    if(((Vertex)vertex).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)){
+                        UpdateVertexTypeQuantityGraphVertex(attributes, (GraphVertex)vertex, VariableNames.CollapsedVertexEntityAttribute);
+                    }
+                }else if (vertex instanceof AgentVertex) {
+                    UpdateVertexTypeQuantity(attributes, (Vertex)vertex, VariableNames.CollapsedVertexAgentAttribute);
                 } else if (vertex instanceof ActivityVertex) {
-                    if(attributes.containsKey(VariableNames.CollapsedVertexActivityAttribute)) {
-                        int agents = (int) Float.parseFloat(attributes.get(VariableNames.CollapsedVertexActivityAttribute).getValue());
-                        agents++;
-                        attributes.get(VariableNames.CollapsedVertexActivityAttribute).setValue(Integer.toString(agents));
-                    } else {
-                        GraphAttribute att = new GraphAttribute(VariableNames.CollapsedVertexActivityAttribute, Integer.toString(1));
-                        attributes.put(att.getName(), att);
-                    }
+                    UpdateVertexTypeQuantity(attributes, (Vertex)vertex, VariableNames.CollapsedVertexActivityAttribute);
                 } else if (vertex instanceof EntityVertex) {
-                    if(attributes.containsKey(VariableNames.CollapsedVertexEntityAttribute)) {
-                        int agents = (int) Float.parseFloat(attributes.get(VariableNames.CollapsedVertexEntityAttribute).getValue());
-                        agents++;
-                        attributes.get(VariableNames.CollapsedVertexEntityAttribute).setValue(Integer.toString(agents));
-                    } else {
-                        GraphAttribute att = new GraphAttribute(VariableNames.CollapsedVertexEntityAttribute, Integer.toString(1));
-                        attributes.put(att.getName(), att);
-                    }
+                    UpdateVertexTypeQuantity(attributes, (Vertex)vertex, VariableNames.CollapsedVertexEntityAttribute);
                 }
                 
                 for (GraphAttribute att : ((Vertex) vertex).getAttributes()) {
                     if (attributes.containsKey(att.getName())) {
-                        GraphAttribute temporary = attributes.get(att.getName());
-                        temporary.updateAttribute(att.getAverageValue());
-                        attributes.put(att.getName(), temporary);
+                        if(!att.getName().equalsIgnoreCase(VariableNames.CollapsedVertexAgentAttribute) 
+                                && !att.getName().equalsIgnoreCase(VariableNames.CollapsedVertexActivityAttribute) 
+                                && !att.getName().equalsIgnoreCase(VariableNames.CollapsedVertexEntityAttribute)) {
+                            GraphAttribute temporary = attributes.get(att.getName());
+                            temporary.updateAttribute(att.getAverageValue());
+                            attributes.put(att.getName(), temporary);
+                        }
                     } else {
                         attributes.put(att.getName(), new GraphAttribute(att.getName(), att.getAverageValue()));
                     }
