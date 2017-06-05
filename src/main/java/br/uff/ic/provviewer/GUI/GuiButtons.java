@@ -115,39 +115,64 @@ public class GuiButtons {
     }
 
     /**
-     * Method to collapse all vertices from each agent
+     * Method to get the selected agent vertices for the collapse
      * @param variables 
      */
     public static void CollapseAgent(Variables variables) {
         PickedInfo<Object> picked_state;
         picked_state = variables.view.getPickedVertexState();
-        Object node = null;
+        Collection<Object> agents = new HashSet();
         //Get the selected node
         for (Object z : variables.layout.getGraph().getVertices()) {
-            if (picked_state.isPicked(z)) {
-                node = z;
-            }
+            if(z instanceof AgentVertex)
+                if (picked_state.isPicked(z))
+                    agents.add(z);
         }
+        CollapseSelectedAgents(variables, agents);
+    }
+    
+    /**
+     * Method that selects all agents for the collapse
+     * @param variables 
+     */
+    public static void CollapseAllAgents(Variables variables) {
+        Collection<Object> agents = new HashSet();
+        //Get the selected node
+        for (Object z : variables.layout.getGraph().getVertices()) {
+            if(z instanceof AgentVertex)
+                agents.add(z);
+        }
+        CollapseSelectedAgents(variables, agents);
+    }
+        
+    /**
+     * Method that do the collapse of the agent's vertices
+     * @param variables
+     * @param agents is the list of agents that we want to be collapsed
+     */
+    private static void CollapseSelectedAgents(Variables variables, Collection<Object> agents) {
         //Select the node and its neighbors to be collapsed
-        if (variables.layout.getGraph().getNeighbors(node) != null) {
-            Collection picked = new HashSet();
-            for(Object v : variables.layout.getGraph().getNeighbors(node)) {
-                if(v instanceof GraphVertex) {
-                    boolean hasAgent = false;
-                    if(((GraphVertex)v).hasAttribute(VariableNames.CollapsedVertexAgentAttribute))
-                        hasAgent = true;
-                    if(!hasAgent)
+        for(Object node : agents) {
+            if (variables.layout.getGraph().getNeighbors(node) != null) {
+                Collection picked = new HashSet();
+                for(Object v : variables.layout.getGraph().getNeighbors(node)) {
+                    if(v instanceof GraphVertex) {
+                        boolean hasAgent = false;
+                        if(((GraphVertex)v).hasAttribute(VariableNames.CollapsedVertexAgentAttribute))
+                            hasAgent = true;
+                        if(!hasAgent)
+                            picked.add(v);
+                    }
+                    else if(!(v instanceof AgentVertex))
                         picked.add(v);
                 }
-                else if(!(v instanceof AgentVertex))
-                    picked.add(v);
+    //            Collection picked = new HashSet(variables.layout.getGraph().getNeighbors(node));
+                picked.add(node);
+                if (!(node instanceof AgentVertex)) {
+                    picked.removeAll(picked);
+                }
+                variables.collapser.Collapse(variables, picked, true, "");
             }
-//            Collection picked = new HashSet(variables.layout.getGraph().getNeighbors(node));
-            picked.add(node);
-            if (!(node instanceof AgentVertex)) {
-                picked.removeAll(picked);
-            }
-            variables.collapser.Collapse(variables, picked, true, "");
         }
     }
 
