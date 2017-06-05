@@ -87,7 +87,7 @@ public class Collapser {
      * @param picked Collection of selected vertices
      * @param refresh
      */
-    public void Collapse(Variables variables, Collection picked, boolean refresh) {
+    public void Collapse(Variables variables, Collection picked, boolean refresh, String attribute) {
         //add all filters to avoid losing information
         variables.filter.AddFilters(variables);
         //If selected more than 1 vertex
@@ -104,6 +104,8 @@ public class Collapser {
                 sumx += p.getX();
                 sumy += p.getY();
             }
+            
+            clusterGraph.setLabel(clusterGraph.getLabel() + "<br>" + attribute + ": " + clusterGraph.getAttributeValue(attribute));
 
             //store position
             Point2D cp = new Point2D.Double(sumx / picked.size(), sumy / picked.size());
@@ -161,7 +163,7 @@ public class Collapser {
         variables.view.repaint();
     }
 
-    public void CollapseIrrelevant(Variables variables, String list) {
+    public void CollapseIrrelevant(Variables variables, String list, String attribute) {
 
         Collection selected = new ArrayList();
         //System.out.println( "L = " + list);
@@ -209,7 +211,7 @@ public class Collapser {
 //            System.out.println("Current Group = " + group);
             //Collapse selected vertices
             if (!selected.isEmpty() && (selected.size() > 1)) {
-                Collapse(variables, selected, false);
+                Collapse(variables, selected, false, attribute);
             } else {
                 //If there is only one vertex, then there is no collapse
                 Iterator itr = selected.iterator();

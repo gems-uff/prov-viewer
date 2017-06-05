@@ -87,7 +87,7 @@ public class GuiButtons {
      */
     public static void Collapse(Variables variables) {
         Collection picked = new HashSet(variables.view.getPickedVertexState().getPicked());
-        variables.collapser.Collapse(variables, picked, true);
+        variables.collapser.Collapse(variables, picked, true, "");
     }
 
     /**
@@ -147,7 +147,7 @@ public class GuiButtons {
             if (!(node instanceof AgentVertex)) {
                 picked.removeAll(picked);
             }
-            variables.collapser.Collapse(variables, picked, true);
+            variables.collapser.Collapse(variables, picked, true, "");
         }
     }
 

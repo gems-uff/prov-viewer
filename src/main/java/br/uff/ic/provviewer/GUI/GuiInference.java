@@ -61,7 +61,7 @@ public class GuiInference {
         ArrayList<ConcurrentHashMap<String, Object>> list;
         list = ColorSchemeCollapse((String) StatusFilterBox.getSelectedItem(), variables, updateError, verifyWithinCluster);
 //        MarkClusters(list, variables);
-        variables.collapser.CollapseIrrelevant(variables, printCollapseGroups(list));
+        variables.collapser.CollapseIrrelevant(variables, printCollapseGroups(list), (String) StatusFilterBox.getSelectedItem());
         System.out.println("Finished Collapsing");
 //        }
     }
@@ -75,7 +75,7 @@ public class GuiInference {
         GuiButtons.Reset(variables);
         ArrayList<ConcurrentHashMap<String, Object>> list = DBSCAN((String) StatusFilterBox.getSelectedItem(), variables.graph);
 //        MarkClusters(list, variables);
-        variables.collapser.CollapseIrrelevant(variables, printCollapseGroups(list));
+        variables.collapser.CollapseIrrelevant(variables, printCollapseGroups(list), (String) StatusFilterBox.getSelectedItem());
         System.out.println("Finished Collapsing");
 
     }
