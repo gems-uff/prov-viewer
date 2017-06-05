@@ -178,12 +178,14 @@ public class GraphFrame extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         doDerivateButton = new javax.swing.JCheckBoxMenuItem();
         removeOutliersButton = new javax.swing.JCheckBoxMenuItem();
+        jMenu8 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
         updateErrorButton = new javax.swing.JCheckBoxMenuItem();
         verifyWithinClusterButton = new javax.swing.JCheckBoxMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         attributeDisplaySimConfig = new javax.swing.JRadioButtonMenuItem();
         similarityConsiderNeighborsButton = new javax.swing.JCheckBoxMenuItem();
+        CollapseAllAgentsButton = new javax.swing.JMenuItem();
 
         setNewLabelDialogBox.setAlwaysOnTop(true);
         setNewLabelDialogBox.setMinimumSize(new java.awt.Dimension(257, 153));
@@ -952,6 +954,8 @@ public class GraphFrame extends javax.swing.JFrame {
 
         MenuBar.add(jMenu4);
 
+        jMenu8.setText("Collapse");
+
         jMenu5.setText("Similarity Collapse");
 
         updateErrorButton.setText("Variable Epsilon (VE)");
@@ -1000,7 +1004,18 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu5.add(similarityConsiderNeighborsButton);
 
-        MenuBar.add(jMenu5);
+        jMenu8.add(jMenu5);
+
+        CollapseAllAgentsButton.setText("Collapse All Agents");
+        CollapseAllAgentsButton.setToolTipText("Collapse all the vertices from each Agent");
+        CollapseAllAgentsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CollapseAllAgentsButtonActionPerformed(evt);
+            }
+        });
+        jMenu8.add(CollapseAllAgentsButton);
+
+        MenuBar.add(jMenu8);
 
         setJMenuBar(MenuBar);
 
@@ -1375,6 +1390,11 @@ public class GraphFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         GuiButtons.ShowVertexRenameLabelWindow(setNewLabelDialogBox);
     }//GEN-LAST:event_RenameVertexLabelMenuButtonActionPerformed
+
+    private void CollapseAllAgentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CollapseAllAgentsButtonActionPerformed
+        // TODO add your handling code here:
+        GuiButtons.CollapseAllAgents(variables);
+    }//GEN-LAST:event_CollapseAllAgentsButtonActionPerformed
    
     /**
      * Main
@@ -1414,6 +1434,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JLabel AttributeStatus;
     private javax.swing.JButton Collapse;
     private javax.swing.JButton CollapseAgent;
+    private javax.swing.JMenuItem CollapseAllAgentsButton;
     private javax.swing.JButton DeleteSelectedVerticesButton;
     private javax.swing.JLabel DisplayEdges;
     private javax.swing.JLabel DisplayVertices;
@@ -1481,6 +1502,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JTextField layoutAttributeName_X_Text;
