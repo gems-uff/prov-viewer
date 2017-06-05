@@ -72,6 +72,20 @@ public class Edge extends GraphObject {
         setLabel("");
     }
     
+    public Edge(String id, String type, Object target, Object source) {
+        this.id = id;
+        this.source = source;
+        this.target = target;
+        this.type = type;
+        hide = false;
+        collapsed = false;
+        this.attributes = new HashMap<>();
+        GraphAttribute att = new GraphAttribute(influenceName, "");
+        this.attributes.put(att.getName(), att);
+//        this.attributes.putAll(attributes);
+        setLabel(type);
+    }
+    
     /**
      * Constructor
      *
