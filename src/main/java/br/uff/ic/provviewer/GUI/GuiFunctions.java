@@ -169,64 +169,28 @@ public class GuiFunctions {
             @Override
             public String transform(Object v) {
                 String font = VariableNames.FontConfiguration;
-                if (v instanceof GraphVertex) {
-                    boolean hasActivity = false;
-                    boolean hasAgent = false;
-                    String agentName = "";
-                    String activityName = "";
-                    String entityName = "";
-//                    boolean hasEntity = false;
-                    for (Object vertex : ((GraphVertex) v).clusterGraph.getVertices()) {
-                        if (vertex instanceof AgentVertex && agentLabel) {
-                            return font + ((Vertex) vertex).getLabel();
-                        }
-                        if (vertex instanceof ActivityVertex) {
-                            hasActivity = true;
-                            activityName = ((Vertex) vertex).getLabel();
-                        }
-                        if (vertex instanceof AgentVertex) {
-                            hasAgent = true;
-                            agentName = ((Vertex) vertex).getLabel();
-                        }
-                        if (vertex instanceof EntityVertex) {
-                            entityName = ((Vertex) vertex).getLabel();
-                        }
-                    }
-                    if (hasAgent && agentLabel) {
-                        return font + agentName + VariableNames.SummarizedLabelString;
-                    }
-                    if (hasActivity && activityLabel) {
-                        return font + activityName + VariableNames.SummarizedLabelString;
-                    }
-                    if (entityLabel) {
-                        return font + entityName + VariableNames.SummarizedLabelString;
-                    }
-                    if (showID) {
-                        return font + ((Vertex) v).getID();
-                    }
-                }
                 // Agent
-                if (v instanceof AgentVertex && agentLabel) {
+                if ((v instanceof AgentVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexAgentAttribute)) && agentLabel) {
                     return font + ((Vertex) v).getLabel();
                 } // Entity
                 // Label + Time
-                else if ((v instanceof EntityVertex) && entityLabel && timeLabel) {
+                else if ((v instanceof EntityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) && entityLabel && timeLabel) {
                     return font + String.valueOf((int) ((Vertex) v).getTime()) + " : " + ((Vertex) v).getLabel();
                 } // Time
-                else if ((v instanceof EntityVertex) && timeLabel) {
+                else if ((v instanceof EntityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) && timeLabel) {
                     return font + String.valueOf((int) ((Vertex) v).getTime());
                 } // Label
-                else if ((v instanceof EntityVertex) && entityLabel) {
+                else if ((v instanceof EntityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) && entityLabel) {
                     return font + ((Vertex) v).getLabel();
                 } // Activity
                 // Label + Time
-                else if ((v instanceof ActivityVertex) && activityLabel && timeLabel) {
+                else if ((v instanceof ActivityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexActivityAttribute)) && activityLabel && timeLabel) {
                     return font + String.valueOf((int) ((Vertex) v).getTime()) + " : " + ((Vertex) v).getLabel();
                 } // Time
-                else if ((v instanceof ActivityVertex) && timeLabel) {
+                else if ((v instanceof ActivityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexActivityAttribute)) && timeLabel) {
                     return font + String.valueOf((int) ((Vertex) v).getTime());
                 } // Label
-                else if ((v instanceof ActivityVertex) && activityLabel) {
+                else if ((v instanceof ActivityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexActivityAttribute)) && activityLabel) {
                     return font + ((Vertex) v).getLabel();
                 } else if (showID) {
                     return font + ((Vertex) v).getID();
