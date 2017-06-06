@@ -42,7 +42,7 @@ public abstract class ProvViewerTimelineLayout<V, E> extends ProvViewerLayout<V,
         super(g, variables);
         x_att = variables.layout_attribute_X;
         y_att = variables.layout_attribute_Y;
-        scale = 2 * variables.config.vertexSize;
+        scale = 4 * variables.config.vertexSize;
     }
     
        
