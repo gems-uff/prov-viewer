@@ -120,6 +120,8 @@ public class GraphMatchingTest {
         
         epsilon = new AttributeErrorMargin("Timestamp", "0", 0);
         restrictionList.put("Timestamp", epsilon);
+        epsilon = new AttributeErrorMargin("Label", "0", 0);
+        restrictionList.put("Label", epsilon);
         
         GraphMatching instance = new GraphMatching(restrictionList, vocabulary.getVocabulary(), threshold);
         boolean result = instance.isSimilar(v1, v2);
@@ -235,6 +237,8 @@ public class GraphMatchingTest {
         
         epsilon = new AttributeErrorMargin("Timestamp", "0", 0);
         restrictionList.put("Timestamp", epsilon);
+        epsilon = new AttributeErrorMargin("Label", "0", 0);
+        restrictionList.put("Label", epsilon);
         
         GraphMatching instance = new GraphMatching(restrictionList, threshold);
         boolean result = instance.isSimilar(v1, v2);
@@ -282,7 +286,7 @@ public class GraphMatchingTest {
         
         GraphMatching instance = new GraphMatching(null, 0.0f);
         
-        Vertex expResult = new ActivityVertex(v1.getID() + ", " + v2.getID(), v1.getLabel() + "_" + v2.getLabel(), v1.getTimeString());
+        Vertex expResult = new ActivityVertex(v1.getID() + ", " + v2.getID(), v1.getLabel() + ", " + v2.getLabel(), v1.getTimeString());
         GraphAttribute aResult;
         
         aResult = new GraphAttribute("a1", "Asd, edf");
@@ -314,8 +318,13 @@ public class GraphMatchingTest {
         expResult.addAttribute(aResult);
         
         expResult.attributes.get("Timestamp").updateAttribute("0");
+        expResult.attributes.get("Label").updateAttribute(v1.getLabel() + ", " + v2.getLabel());
         
         Vertex result = instance.combineVertices(v1, v2);
+        System.out.println("result: " + result.getLabel());
+        System.out.println("expResult: " + expResult.getLabel());
+        System.out.println("result: " + result.toString());
+        System.out.println("expResult: " + expResult.toString());
         assertEquals(expResult.toString(), result.toString());
     }
 //
