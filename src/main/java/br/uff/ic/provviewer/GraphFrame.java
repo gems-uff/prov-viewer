@@ -141,6 +141,7 @@ public class GraphFrame extends javax.swing.JFrame {
         Exit = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         RenameVertexLabelMenuButton = new javax.swing.JMenuItem();
+        linkActivitiesButton = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         autoDetectEdgesCheckBox = new javax.swing.JCheckBoxMenuItem();
         autoDetectAttributeCheckBox = new javax.swing.JCheckBoxMenuItem();
@@ -675,6 +676,14 @@ public class GraphFrame extends javax.swing.JFrame {
             }
         });
         jMenu7.add(RenameVertexLabelMenuButton);
+
+        linkActivitiesButton.setText("Link Activities");
+        linkActivitiesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                linkActivitiesButtonActionPerformed(evt);
+            }
+        });
+        jMenu7.add(linkActivitiesButton);
 
         MenuBar.add(jMenu7);
 
@@ -1395,6 +1404,11 @@ public class GraphFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         GuiButtons.CollapseAllAgents(variables);
     }//GEN-LAST:event_CollapseAllAgentsButtonActionPerformed
+
+    private void linkActivitiesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_linkActivitiesButtonActionPerformed
+        // TODO add your handling code here:
+        GuiFunctions.AddChronologicalEdgesLinkingActivities(variables);
+    }//GEN-LAST:event_linkActivitiesButtonActionPerformed
    
     /**
      * Main
@@ -1507,6 +1521,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JTextField layoutAttributeName_X_Text;
     private javax.swing.JTextField layoutAttributeName_Y_Text;
+    private javax.swing.JMenuItem linkActivitiesButton;
     private javax.swing.JMenuItem mergeGraphButtom;
     private javax.swing.JTextField newVertexLabelTextBox;
     public static javax.swing.JCheckBoxMenuItem removeOutliersButton;

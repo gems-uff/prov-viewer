@@ -415,7 +415,7 @@ public class GuiFunctions {
                 for(Object v : neighbors) {
                     if(v instanceof ActivityVertex) { 
                         if(previousActivity != null) {
-                            Edge newEdge = new Edge("CE_" + id, "Chronological", previousActivity, v);
+                            Edge newEdge = new Edge("CE_" + id, VariableNames.ChronologicalEdge, previousActivity, v);
                             id++;
                             edges.add(newEdge);
                         }

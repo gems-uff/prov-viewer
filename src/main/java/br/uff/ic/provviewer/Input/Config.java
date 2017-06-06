@@ -259,6 +259,13 @@ public class Config {
             allEdges.stroke = "MAX";
             allEdges.collapse = "SUM";
             edgetype.add(allEdges);
+            
+            EdgeType chronological = new EdgeType();
+            chronological.type = VariableNames.ChronologicalEdge;
+            chronological.stroke = "MAX";
+            chronological.collapse = "SUM";
+            edgetype.add(chronological);
+
 
             String allvertices = VariableNames.FilterAllVertices;
             vertexLabelFilter.add(allvertices);
