@@ -365,8 +365,8 @@ public class GraphMatching {
         // Update ID and Label
 //        combinedVertex.setID(combinedVertex.getID().replace(" (Merged)", ""));
 //        combinedVertex.setID(combinedVertex.getID() + "_" + v2.getID() + " (Merged)");
-        if(!combinedVertex.getLabel().equalsIgnoreCase(v2.getLabel()))
-            combinedVertex.setLabel(combinedVertex.getLabel() + "_" + v2.getLabel());        
+//        if(!combinedVertex.getLabel().equalsIgnoreCase(v2.getLabel()))
+//            combinedVertex.setLabel(combinedVertex.getLabel() + "_" + v2.getLabel());        
 
         // TODO: Update time
 //        combinedVertex.setTime(null);
