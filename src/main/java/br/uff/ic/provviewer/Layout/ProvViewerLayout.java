@@ -23,8 +23,10 @@
  */
 package br.uff.ic.provviewer.Layout;
 
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.graph.EntityVertex;
+import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.algorithms.layout.AbstractLayout;
 import edu.uci.ics.jung.algorithms.util.IterativeContext;
 import edu.uci.ics.jung.graph.DirectedGraph;
@@ -73,7 +75,10 @@ public abstract class ProvViewerLayout<V, E> extends AbstractLayout<V, E> implem
             vertex_ordered_list = new ArrayList<>();
             entity_ordered_list = new ArrayList<>();
             for (V v : graph.getVertices()) {
-                if(v instanceof EntityVertex) {
+                if(v instanceof EntityVertex 
+                        || (((Vertex)v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute) 
+                        && !((Vertex)v).hasAttribute(VariableNames.CollapsedVertexAgentAttribute) 
+                        && !((Vertex)v).hasAttribute(VariableNames.CollapsedVertexActivityAttribute))) {
                     entity_ordered_list.add(v);
                 }
                 else
