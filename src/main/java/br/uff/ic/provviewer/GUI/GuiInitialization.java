@@ -28,10 +28,12 @@ import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.Filter.Filters;
 import br.uff.ic.provviewer.Filter.PreFilters;
 import br.uff.ic.provviewer.GraphFrame;
+import br.uff.ic.provviewer.ImproveJUNGPerformance;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.Utils;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
+import java.awt.RenderingHints;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.ToolTipManager;
@@ -71,6 +73,7 @@ public class GuiInitialization {
         GuiFunctions.VertexShape(variables);
         InitFilters(variables);
         Utils.NormalizeTime(variables.graph, false);
+        variables.jungPerformance.init(variables.view);
         
         ToolTipManager.sharedInstance().setInitialDelay(10);
         ToolTipManager.sharedInstance().setDismissDelay(50000);

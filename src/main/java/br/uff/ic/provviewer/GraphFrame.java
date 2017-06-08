@@ -187,6 +187,10 @@ public class GraphFrame extends javax.swing.JFrame {
         attributeDisplaySimConfig = new javax.swing.JRadioButtonMenuItem();
         similarityConsiderNeighborsButton = new javax.swing.JCheckBoxMenuItem();
         CollapseAllAgentsButton = new javax.swing.JMenuItem();
+        jMenu9 = new javax.swing.JMenu();
+        PerformanceAAButton = new javax.swing.JCheckBoxMenuItem();
+        PerformanceArrowHeadsButton = new javax.swing.JCheckBoxMenuItem();
+        PaintInvisibleVerticesButton = new javax.swing.JCheckBoxMenuItem();
 
         setNewLabelDialogBox.setAlwaysOnTop(true);
         setNewLabelDialogBox.setMinimumSize(new java.awt.Dimension(257, 153));
@@ -1026,6 +1030,40 @@ public class GraphFrame extends javax.swing.JFrame {
 
         MenuBar.add(jMenu8);
 
+        jMenu9.setText("Performance");
+
+        PerformanceAAButton.setSelected(true);
+        PerformanceAAButton.setText("Anti aliasing");
+        PerformanceAAButton.setToolTipText("Enable/Disable anti-aliasing");
+        PerformanceAAButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PerformanceAAButtonActionPerformed(evt);
+            }
+        });
+        jMenu9.add(PerformanceAAButton);
+
+        PerformanceArrowHeadsButton.setSelected(true);
+        PerformanceArrowHeadsButton.setText("Show Edge ArrowHeads");
+        PerformanceArrowHeadsButton.setToolTipText("Show/Hide edge arrowheads");
+        PerformanceArrowHeadsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PerformanceArrowHeadsButtonActionPerformed(evt);
+            }
+        });
+        jMenu9.add(PerformanceArrowHeadsButton);
+
+        PaintInvisibleVerticesButton.setSelected(true);
+        PaintInvisibleVerticesButton.setText("Paint invisible Vertices");
+        PaintInvisibleVerticesButton.setToolTipText("Paint/Hide vertices outside the current viewport");
+        PaintInvisibleVerticesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PaintInvisibleVerticesButtonActionPerformed(evt);
+            }
+        });
+        jMenu9.add(PaintInvisibleVerticesButton);
+
+        MenuBar.add(jMenu9);
+
         setJMenuBar(MenuBar);
 
         setSize(new java.awt.Dimension(1126, 743));
@@ -1409,6 +1447,34 @@ public class GraphFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         GuiFunctions.AddChronologicalEdgesLinkingActivities(variables);
     }//GEN-LAST:event_linkActivitiesButtonActionPerformed
+
+    private void PerformanceAAButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PerformanceAAButtonActionPerformed
+        // TODO add your handling code here:
+        if(!PerformanceAAButton.getState())
+            variables.jungPerformance.DisableAntialiasing(variables.view);
+        else
+            variables.jungPerformance.EnableAntialiasing(variables.view);
+        variables.view.repaint();
+    }//GEN-LAST:event_PerformanceAAButtonActionPerformed
+
+    private void PerformanceArrowHeadsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PerformanceArrowHeadsButtonActionPerformed
+        // TODO add your handling code here:
+        if(!PerformanceArrowHeadsButton.getState())
+            variables.jungPerformance.OmitArrowHeads(variables.view);
+        else
+            variables.jungPerformance.EnableArrowHeads(variables.view);
+        variables.view.repaint();
+    }//GEN-LAST:event_PerformanceArrowHeadsButtonActionPerformed
+
+    private void PaintInvisibleVerticesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PaintInvisibleVerticesButtonActionPerformed
+        // TODO add your handling code here:
+        
+        if(!PaintInvisibleVerticesButton.getState())
+            variables.jungPerformance.doNotPaintInvisibleVertices(variables.view);
+        else
+            variables.jungPerformance.PaintInvisibleVertices(variables.view);
+        variables.view.repaint();
+    }//GEN-LAST:event_PaintInvisibleVerticesButtonActionPerformed
    
     /**
      * Main
@@ -1467,7 +1533,10 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox MouseModes;
     private javax.swing.JMenuItem OpenConfig;
     private javax.swing.JMenuItem OpenGraph;
+    private javax.swing.JCheckBoxMenuItem PaintInvisibleVerticesButton;
     private javax.swing.JButton PanToGraphButton;
+    private javax.swing.JCheckBoxMenuItem PerformanceAAButton;
+    private javax.swing.JCheckBoxMenuItem PerformanceArrowHeadsButton;
     private javax.swing.JMenuItem RenameVertexLabelMenuButton;
     private javax.swing.JButton Reset;
     private javax.swing.JButton SimilarityInference;
@@ -1517,6 +1586,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JTextField layoutAttributeName_X_Text;

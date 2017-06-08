@@ -138,7 +138,7 @@ public class Variables extends Object {
     public boolean isEdgeStrokeByValue = true;
     public boolean isEdgeColorByGraphs = false;
     
-    
+    public ImproveJUNGPerformance jungPerformance = new ImproveJUNGPerformance();
     public String layout_attribute_X = "Timestamp";
     public String layout_attribute_Y = "Timestamp";
     public int numberOfGraphs = 1;
@@ -329,7 +329,7 @@ public class Variables extends Object {
     public void highlightOutliers(String attribute) {
         if(this.highlightVertexOutliers) {
             ArrayList<Float> values = GraphUtils.getAttributeValuesFromVertices(this.graph, attribute);
-            if(!values.isEmpty())
+            if(!values.isEmpty() && values.size() > 5)
                 this.outliersThresholds = Utils.calculateOutliers(values, attribute);
             else {
                 this.outliersThresholds = new ThresholdValues("", 0, 0);
