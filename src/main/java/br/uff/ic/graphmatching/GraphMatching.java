@@ -25,6 +25,7 @@ package br.uff.ic.graphmatching;
 
 import br.uff.ic.utility.AttributeErrorMargin;
 import br.uff.ic.utility.GraphAttribute;
+import br.uff.ic.utility.GraphUtils;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
@@ -225,7 +226,7 @@ public class GraphMatching {
         float similarity = 0.0F;
 
         // Compare vertex types: If different types than it is not similar
-        if (!v1.getNodeType().equalsIgnoreCase(v2.getNodeType())) {
+        if (!GraphUtils.isSameVertexTypes(v1, v2)) {
             return false;
         }
 

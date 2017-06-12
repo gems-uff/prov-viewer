@@ -26,6 +26,7 @@ package br.uff.ic.provviewer.Inference;
 import br.uff.ic.graphmatching.GraphMatching;
 import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.utility.AttributeErrorMargin;
+import br.uff.ic.utility.GraphUtils;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
@@ -392,7 +393,8 @@ public class AutomaticInference {
     
     private double isSimilarSingleAttribute(Object p, Object q) {
         double distance = Double.POSITIVE_INFINITY;
-        if(!((Vertex)p).getNodeType().equalsIgnoreCase(((Vertex)q).getNodeType()))
+//        if(!((Vertex)p).getNodeType().equalsIgnoreCase(((Vertex)q).getNodeType()))
+        if (!GraphUtils.isSameVertexTypes((Vertex)p, (Vertex)q))
             return distance;
         if(Utils.tryParseFloat(((Vertex)p).getAttributeValue(attribute))) {
             double dx = ((Vertex)p).getAttributeValueFloat(attribute) - ((Vertex)q).getAttributeValueFloat(attribute);

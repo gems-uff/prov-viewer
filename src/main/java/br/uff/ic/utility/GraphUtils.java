@@ -217,4 +217,41 @@ public class GraphUtils {
             }
         }
     }
+    
+    /**
+     * Method to return if two vertices belongs to the same type or if the graphvertex has the same type inside
+     * @param v1 first vertex
+     * @param v2 second vertex
+     * @return true if they belong to the same type or if the graphVertex has vertices of the same type inside it
+     */
+    public static boolean isSameVertexTypes(Vertex v1, Vertex v2) {
+        if (v1.getNodeType().equalsIgnoreCase(v2.getNodeType())) {
+            return true;
+        }
+        else if(v1 instanceof GraphVertex || v2 instanceof GraphVertex) {
+            if(v1 instanceof GraphVertex) {
+                if(v1.hasAttribute(VariableNames.CollapsedVertexActivityAttribute) && v2 instanceof ActivityVertex) {
+                    return true;
+                }
+                if(v1.hasAttribute(VariableNames.CollapsedVertexAgentAttribute) && v2 instanceof AgentVertex) {
+                    return true;
+                }
+                if(v1.hasAttribute(VariableNames.CollapsedVertexEntityAttribute) && v2 instanceof EntityVertex) {
+                    return true;
+                }
+            }
+            else if(v2 instanceof GraphVertex) {
+                if(v2.hasAttribute(VariableNames.CollapsedVertexActivityAttribute) && v1 instanceof ActivityVertex) {
+                    return true;
+                }
+                if(v2.hasAttribute(VariableNames.CollapsedVertexAgentAttribute) && v1 instanceof AgentVertex) {
+                    return true;
+                }
+                if(v2.hasAttribute(VariableNames.CollapsedVertexEntityAttribute) && v1 instanceof EntityVertex) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
