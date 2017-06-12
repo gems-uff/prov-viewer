@@ -111,7 +111,7 @@ public class GraphAttribute {
      */
     public void updateAttribute(String value) {
         this.quantity++;
-        if (Utils.tryParseFloat(value)) {
+        if (Utils.tryParseFloat(value) && Utils.tryParseFloat(this.value)) {
             this.value = Float.toString(Utils.convertFloat(this.value) + Utils.convertFloat(value));
             this.minValue = Math.min(this.minValue, Utils.convertFloat(value));
             this.maxValue = Math.max(this.maxValue, Utils.convertFloat(value));
