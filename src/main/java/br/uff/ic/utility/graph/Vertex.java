@@ -178,6 +178,7 @@ public abstract class Vertex extends GraphObject {
                 + "<br>ID: " + this.id + "<br>"
                 + "<b>Label: " + getLabel() + "</b>"
                 + " <br>" + printTime()
+                + " <br>"
                 + " <br>" + printAttributes();
     }
     
