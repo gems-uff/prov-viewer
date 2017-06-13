@@ -43,9 +43,10 @@ public class EdgeStroke {
      *
      * @param edge The edge to be analyzed
      * @param isStrokeByValue define if we want to use the stroke size based on the edge's value (TRUE) or by the #graphs it belongs (FALSE)
+     * @param nGraphs is the number of graphFiles
      * @return Stroke (neutral edges are dashed, others are not)
      */
-    public static Stroke EdgeStroke(Edge edge, boolean isStrokeByValue) {
+    public static Stroke EdgeStroke(Edge edge, boolean isStrokeByValue, float nGraphs) {
 //        float[] dash = {5.0f};
 //
 //        if (edge.isNeutral()) {
@@ -55,7 +56,7 @@ public class EdgeStroke {
         if(!isStrokeByValue) {
 //            Vertex target = (Vertex) edge.getTarget();
             String[] graphs = edge.getAttributeValues(VariableNames.GraphFile);
-            size = 1 + (graphs.length - 1) * 2;
+            size = 1 + (((float)graphs.length - 1) / (nGraphs - 1)) * 5;
         }
         return new BasicStroke(size, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, null, 0.0f);
     }
@@ -108,6 +109,6 @@ public class EdgeStroke {
                 }
             }
         }
-        return EdgeStroke(edge, variables.isEdgeStrokeByValue);
+        return EdgeStroke(edge, variables.isEdgeStrokeByValue, variables.numberOfGraphs);
     }
 }
