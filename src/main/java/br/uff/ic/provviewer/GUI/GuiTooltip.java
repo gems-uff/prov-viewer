@@ -58,7 +58,7 @@ public class GuiTooltip {
         variables.view.setEdgeToolTipTransformer(new Transformer<Edge, String>() {
             @Override
             public String transform(Edge n) {
-                return VariableNames.EdgeTooltipFontConfiguration + n.getEdgeTooltip() + "</html>";
+                return VariableNames.EdgeTooltipFontConfiguration + n.getEdgeTooltip(variables.numberOfGraphs) + "</html>";
             }
         });
     }

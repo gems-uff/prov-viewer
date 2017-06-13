@@ -263,11 +263,13 @@ public class Edge extends GraphObject {
      *
      * @return (String) influence
      */
-    public String getEdgeTooltip() {
+    public String getEdgeTooltip(int nGraphs) {
+        float chance = ((float) this.getAttributeValues(VariableNames.GraphFile).length / (float)nGraphs) * 100;
         return "<br>ID: " + this.id
                 + "<br>Label: " + getLabel()
 //                + "<br>Value: " + getValue()
                 + "<br>Type: " + getType()
+                + "<br>Chance: " + String.format("%.02f", chance) + "%"
                 + "<br>" + printAttributes();
     }
 
