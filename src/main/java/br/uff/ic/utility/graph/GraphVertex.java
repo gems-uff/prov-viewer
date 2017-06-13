@@ -25,8 +25,10 @@ package br.uff.ic.utility.graph;
 
 import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.utility.GraphAttribute;
+import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.uci.ics.jung.graph.Graph;
 import java.awt.Paint;
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -41,6 +43,18 @@ public class GraphVertex extends Vertex {
         super(id.keySet().toString(), attributes.get("Label").getValue(), attributes.get("Timestamp").getAverageValue(), attributes);
         clusterGraph = v;
         this.setNormalizedTime();
+    }
+    
+    public GraphVertex(String id, String label, String time) {
+        super(id, label, time);
+        clusterGraph = new DirectedSparseMultigraph<>();
+    }
+    
+    public void setClusterGraph(Collection<Edge> edges, Collection<Vertex> vertices) {
+        for(Vertex v : vertices)
+            clusterGraph.addVertex(v);
+        for (Edge edge : edges)
+            clusterGraph.addEdge(edge, edge.getSource(), edge.getTarget());
     }
 
     @Override
