@@ -56,7 +56,7 @@ public class EdgeStroke {
         if(!isStrokeByValue) {
 //            Vertex target = (Vertex) edge.getTarget();
             String[] graphs = edge.getAttributeValues(VariableNames.GraphFile);
-            size = 1 + (((float)graphs.length - 1) / (nGraphs - 1)) * 5;
+            size = 1 + (((float)graphs.length - 1) / (nGraphs - 1)) * 10;
         }
         return new BasicStroke(size, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, null, 0.0f);
     }
