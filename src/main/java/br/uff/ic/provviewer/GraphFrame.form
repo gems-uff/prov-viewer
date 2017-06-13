@@ -239,7 +239,7 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JCheckBoxMenuItem" name="displayActivityLabelButton">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Display Activity Vertex Label"/>
+                    <Property name="text" type="java.lang.String" value="Display Activity Label"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="displayActivityLabelButtonActionPerformed"/>
@@ -247,7 +247,7 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JCheckBoxMenuItem" name="displayAgentLabelButton">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Display Agent Vertex Label"/>
+                    <Property name="text" type="java.lang.String" value="Display Agent Label"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="displayAgentLabelButtonActionPerformed"/>
@@ -255,7 +255,7 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JCheckBoxMenuItem" name="displayEntityLabelButton">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Display Entity Vertex Label"/>
+                    <Property name="text" type="java.lang.String" value="Display Entity Label"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="displayEntityLabelButtonActionPerformed"/>
@@ -305,7 +305,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JCheckBoxMenuItem" name="hideAgentVerticesButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Hide Agent Vertices"/>
+                <Property name="text" type="java.lang.String" value="Agent Vertices"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hideAgentVerticesButtonActionPerformed"/>
@@ -316,7 +316,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JCheckBoxMenuItem" name="hideEntityVerticesButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Hide Entity Vertices"/>
+                <Property name="text" type="java.lang.String" value="Entity Vertices"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hideEntityVerticesButtonActionPerformed"/>
@@ -327,7 +327,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JCheckBoxMenuItem" name="hideLonelyVerticesButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Hide Lonely Vertices"/>
+                <Property name="text" type="java.lang.String" value="Lonely Vertices"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hideLonelyVerticesButtonActionPerformed"/>
@@ -336,23 +336,23 @@
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
               </AuxValues>
             </MenuItem>
-            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="hideAgentEdgesButton">
+            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="hideMergedVerticesButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Hide Agent Edges"/>
+                <Property name="text" type="java.lang.String" value="Common Vertices from All Graphs"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hideAgentEdgesButtonActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hideMergedVerticesButtonActionPerformed"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
               </AuxValues>
             </MenuItem>
-            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="hideMergedVerticesButton">
+            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="hideAgentEdgesButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Hide Vertices in Common from All Graphs"/>
+                <Property name="text" type="java.lang.String" value="Agent Edges"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hideMergedVerticesButtonActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hideAgentEdgesButtonActionPerformed"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>

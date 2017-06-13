@@ -165,8 +165,8 @@ public class GraphFrame extends javax.swing.JFrame {
         hideAgentVerticesButton = new javax.swing.JCheckBoxMenuItem();
         hideEntityVerticesButton = new javax.swing.JCheckBoxMenuItem();
         hideLonelyVerticesButton = new javax.swing.JCheckBoxMenuItem();
-        hideAgentEdgesButton = new javax.swing.JCheckBoxMenuItem();
         hideMergedVerticesButton = new javax.swing.JCheckBoxMenuItem();
+        hideAgentEdgesButton = new javax.swing.JCheckBoxMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         mergeGraphButtom = new javax.swing.JMenuItem();
@@ -777,7 +777,7 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu10.add(displayTimeLabel);
 
-        displayActivityLabelButton.setText("Display Activity Vertex Label");
+        displayActivityLabelButton.setText("Display Activity Label");
         displayActivityLabelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 displayActivityLabelButtonActionPerformed(evt);
@@ -785,7 +785,7 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu10.add(displayActivityLabelButton);
 
-        displayAgentLabelButton.setText("Display Agent Vertex Label");
+        displayAgentLabelButton.setText("Display Agent Label");
         displayAgentLabelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 displayAgentLabelButtonActionPerformed(evt);
@@ -793,7 +793,7 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu10.add(displayAgentLabelButton);
 
-        displayEntityLabelButton.setText("Display Entity Vertex Label");
+        displayEntityLabelButton.setText("Display Entity Label");
         displayEntityLabelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 displayEntityLabelButtonActionPerformed(evt);
@@ -837,7 +837,7 @@ public class GraphFrame extends javax.swing.JFrame {
 
         jMenu6.setText("Hide");
 
-        hideAgentVerticesButton.setText("Hide Agent Vertices");
+        hideAgentVerticesButton.setText("Agent Vertices");
         hideAgentVerticesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 hideAgentVerticesButtonActionPerformed(evt);
@@ -845,7 +845,7 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu6.add(hideAgentVerticesButton);
 
-        hideEntityVerticesButton.setText("Hide Entity Vertices");
+        hideEntityVerticesButton.setText("Entity Vertices");
         hideEntityVerticesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 hideEntityVerticesButtonActionPerformed(evt);
@@ -853,7 +853,7 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu6.add(hideEntityVerticesButton);
 
-        hideLonelyVerticesButton.setText("Hide Lonely Vertices");
+        hideLonelyVerticesButton.setText("Lonely Vertices");
         hideLonelyVerticesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 hideLonelyVerticesButtonActionPerformed(evt);
@@ -861,21 +861,21 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu6.add(hideLonelyVerticesButton);
 
-        hideAgentEdgesButton.setText("Hide Agent Edges");
-        hideAgentEdgesButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hideAgentEdgesButtonActionPerformed(evt);
-            }
-        });
-        jMenu6.add(hideAgentEdgesButton);
-
-        hideMergedVerticesButton.setText("Hide Vertices in Common from All Graphs");
+        hideMergedVerticesButton.setText("Common Vertices from All Graphs");
         hideMergedVerticesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 hideMergedVerticesButtonActionPerformed(evt);
             }
         });
         jMenu6.add(hideMergedVerticesButton);
+
+        hideAgentEdgesButton.setText("Agent Edges");
+        hideAgentEdgesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hideAgentEdgesButtonActionPerformed(evt);
+            }
+        });
+        jMenu6.add(hideAgentEdgesButton);
 
         MenuBar.add(jMenu6);
 
