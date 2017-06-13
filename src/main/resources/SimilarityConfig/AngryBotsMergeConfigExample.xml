@@ -35,6 +35,11 @@ THE SOFTWARE.
         <value>10</value>
         <weight>1</weight>
     </attributeErrorList>
+	<attributeErrorList>
+        <name>GraphFile</name>
+        <value>10</value>
+        <weight>0</weight>
+    </attributeErrorList>
     <attributeErrorList>
         <name>ObjectID</name>
         <value>100%</value>
