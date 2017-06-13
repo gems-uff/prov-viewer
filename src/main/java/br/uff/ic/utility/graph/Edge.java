@@ -264,12 +264,11 @@ public class Edge extends GraphObject {
      * @return (String) influence
      */
     public String getEdgeTooltip(int nGraphs) {
-        float chance = ((float) this.getAttributeValues(VariableNames.GraphFile).length / (float)nGraphs) * 100;
         return "<br>ID: " + this.id
                 + "<br>Label: " + getLabel()
 //                + "<br>Value: " + getValue()
                 + "<br>Type: " + getType()
-                + "<br>Chance: " + String.format("%.02f", chance) + "%"
+                + "<br>Probability: " + getEdgeProbability(nGraphs)
                 + "<br>" + printAttributes();
     }
 
@@ -458,5 +457,10 @@ public class Edge extends GraphObject {
             this.addAttribute(merged);
         }
         return this;
+    }
+    
+    public String getEdgeProbability(float nGraphs) {
+        float Probability = ((float) this.getAttributeValues(VariableNames.GraphFile).length / (float)nGraphs) * 100;
+        return String.format("%.02f", Probability) + "%";
     }
 }
