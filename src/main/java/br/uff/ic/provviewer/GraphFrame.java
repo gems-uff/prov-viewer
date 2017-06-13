@@ -151,12 +151,15 @@ public class GraphFrame extends javax.swing.JFrame {
         allowVariableLayoutButton = new javax.swing.JCheckBoxMenuItem();
         vertexBorderByGraphButton = new javax.swing.JCheckBoxMenuItem();
         displayEdgeTextButton = new javax.swing.JMenu();
+        jMenu10 = new javax.swing.JMenu();
         displayID = new javax.swing.JCheckBoxMenuItem();
         displayTimeLabel = new javax.swing.JCheckBoxMenuItem();
         displayActivityLabelButton = new javax.swing.JCheckBoxMenuItem();
         displayAgentLabelButton = new javax.swing.JCheckBoxMenuItem();
         displayEntityLabelButton = new javax.swing.JCheckBoxMenuItem();
+        jMenu11 = new javax.swing.JMenu();
         displayEdgeText = new javax.swing.JCheckBoxMenuItem();
+        edgeProbabilityButton = new javax.swing.JCheckBoxMenuItem();
         jMenu6 = new javax.swing.JMenu();
         hideAgentVerticesButton = new javax.swing.JCheckBoxMenuItem();
         hideEntityVerticesButton = new javax.swing.JCheckBoxMenuItem();
@@ -755,13 +758,15 @@ public class GraphFrame extends javax.swing.JFrame {
 
         displayEdgeTextButton.setText("Display");
 
+        jMenu10.setText("Vertex");
+
         displayID.setText("Display ID");
         displayID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 displayIDActionPerformed(evt);
             }
         });
-        displayEdgeTextButton.add(displayID);
+        jMenu10.add(displayID);
 
         displayTimeLabel.setText("Display Time");
         displayTimeLabel.addActionListener(new java.awt.event.ActionListener() {
@@ -769,7 +774,7 @@ public class GraphFrame extends javax.swing.JFrame {
                 displayTimeLabelActionPerformed(evt);
             }
         });
-        displayEdgeTextButton.add(displayTimeLabel);
+        jMenu10.add(displayTimeLabel);
 
         displayActivityLabelButton.setText("Display Activity Vertex Label");
         displayActivityLabelButton.addActionListener(new java.awt.event.ActionListener() {
@@ -777,7 +782,7 @@ public class GraphFrame extends javax.swing.JFrame {
                 displayActivityLabelButtonActionPerformed(evt);
             }
         });
-        displayEdgeTextButton.add(displayActivityLabelButton);
+        jMenu10.add(displayActivityLabelButton);
 
         displayAgentLabelButton.setText("Display Agent Vertex Label");
         displayAgentLabelButton.addActionListener(new java.awt.event.ActionListener() {
@@ -785,7 +790,7 @@ public class GraphFrame extends javax.swing.JFrame {
                 displayAgentLabelButtonActionPerformed(evt);
             }
         });
-        displayEdgeTextButton.add(displayAgentLabelButton);
+        jMenu10.add(displayAgentLabelButton);
 
         displayEntityLabelButton.setText("Display Entity Vertex Label");
         displayEntityLabelButton.addActionListener(new java.awt.event.ActionListener() {
@@ -793,7 +798,11 @@ public class GraphFrame extends javax.swing.JFrame {
                 displayEntityLabelButtonActionPerformed(evt);
             }
         });
-        displayEdgeTextButton.add(displayEntityLabelButton);
+        jMenu10.add(displayEntityLabelButton);
+
+        displayEdgeTextButton.add(jMenu10);
+
+        jMenu11.setText("Edge");
 
         displayEdgeText.setText("Display Edge Text");
         displayEdgeText.setToolTipText("Display Edge Text in the format of \"type (label)\"");
@@ -802,7 +811,18 @@ public class GraphFrame extends javax.swing.JFrame {
                 displayEdgeTextActionPerformed(evt);
             }
         });
-        displayEdgeTextButton.add(displayEdgeText);
+        jMenu11.add(displayEdgeText);
+
+        edgeProbabilityButton.setText("Display Edge Probability");
+        edgeProbabilityButton.setToolTipText("Display the Edge Probability based on the number of graphs it belongs compared to the total number of graphs");
+        edgeProbabilityButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edgeProbabilityButtonActionPerformed(evt);
+            }
+        });
+        jMenu11.add(edgeProbabilityButton);
+
+        displayEdgeTextButton.add(jMenu11);
 
         MenuBar.add(displayEdgeTextButton);
 
@@ -1182,21 +1202,25 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private void displayEntityLabelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayEntityLabelButtonActionPerformed
         // TODO add your handling code here:
+        displayID.setSelected(false);
         GuiButtons.VertexLabel(variables, displayAgentLabelButton.getState(), displayActivityLabelButton.getState(), displayEntityLabelButton.getState(), displayTimeLabel.getState(), displayID.getState());
     }//GEN-LAST:event_displayEntityLabelButtonActionPerformed
 
     private void displayActivityLabelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayActivityLabelButtonActionPerformed
         // TODO add your handling code here:
+        displayID.setSelected(false);
         GuiButtons.VertexLabel(variables, displayAgentLabelButton.getState(), displayActivityLabelButton.getState(), displayEntityLabelButton.getState(), displayTimeLabel.getState(), displayID.getState());
     }//GEN-LAST:event_displayActivityLabelButtonActionPerformed
 
     private void displayAgentLabelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayAgentLabelButtonActionPerformed
         // TODO add your handling code here:
+        displayID.setSelected(false);
         GuiButtons.VertexLabel(variables, displayAgentLabelButton.getState(), displayActivityLabelButton.getState(), displayEntityLabelButton.getState(), displayTimeLabel.getState(), displayID.getState());
     }//GEN-LAST:event_displayAgentLabelButtonActionPerformed
 
     private void displayTimeLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayTimeLabelActionPerformed
         // TODO add your handling code here:
+        displayID.setSelected(false);
         GuiButtons.VertexLabel(variables, displayAgentLabelButton.getState(), displayActivityLabelButton.getState(), displayEntityLabelButton.getState(), displayTimeLabel.getState(), displayID.getState());
     }//GEN-LAST:event_displayTimeLabelActionPerformed
 
@@ -1262,6 +1286,10 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private void displayIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayIDActionPerformed
         // TODO add your handling code here:
+        displayAgentLabelButton.setSelected(false);
+        displayEntityLabelButton.setSelected(false);
+        displayActivityLabelButton.setSelected(false);
+        displayTimeLabel.setSelected(false);
         GuiButtons.VertexLabel(variables, displayAgentLabelButton.getState(), displayActivityLabelButton.getState(), displayEntityLabelButton.getState(), displayTimeLabel.getState(), displayID.getState());
     }//GEN-LAST:event_displayIDActionPerformed
 
@@ -1342,7 +1370,8 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private void displayEdgeTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayEdgeTextActionPerformed
         // TODO add your handling code here:
-        GuiButtons.EdgeTextDisplay(variables, displayEdgeText.isSelected());
+        edgeProbabilityButton.setSelected(false);
+        GuiButtons.EdgeTextDisplay(variables, displayEdgeText.isSelected(), edgeProbabilityButton.isSelected());
     }//GEN-LAST:event_displayEdgeTextActionPerformed
 
     private void hideAgentVerticesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hideAgentVerticesButtonActionPerformed
@@ -1475,6 +1504,12 @@ public class GraphFrame extends javax.swing.JFrame {
             variables.jungPerformance.PaintInvisibleVertices(variables.view);
         variables.view.repaint();
     }//GEN-LAST:event_PaintInvisibleVerticesButtonActionPerformed
+
+    private void edgeProbabilityButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edgeProbabilityButtonActionPerformed
+        // TODO add your handling code here:
+        displayEdgeText.setSelected(false);
+        GuiButtons.EdgeTextDisplay(variables, displayEdgeText.isSelected(), edgeProbabilityButton.isSelected());
+    }//GEN-LAST:event_edgeProbabilityButtonActionPerformed
    
     /**
      * Main
@@ -1559,6 +1594,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem displayTimeLabel;
     private javax.swing.JCheckBoxMenuItem doDerivateButton;
     public static javax.swing.JList edgeFilterList;
+    private javax.swing.JCheckBoxMenuItem edgeProbabilityButton;
     private javax.swing.JMenuItem exportGraphButton;
     private javax.swing.JFileChooser fileChooser;
     public static javax.swing.JCheckBoxMenuItem hideAgentEdgesButton;
@@ -1579,6 +1615,8 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu10;
+    private javax.swing.JMenu jMenu11;
     private javax.swing.JMenu jMenu2;
     public static javax.swing.JMenu jMenu3;
     public static javax.swing.JMenu jMenu4;

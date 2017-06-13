@@ -216,55 +216,78 @@
             <Property name="text" type="java.lang.String" value="Display"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="displayID">
+            <Menu class="javax.swing.JMenu" name="jMenu10">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Display ID"/>
+                <Property name="text" type="java.lang.String" value="Vertex"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="displayIDActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="displayTimeLabel">
+              <SubComponents>
+                <MenuItem class="javax.swing.JCheckBoxMenuItem" name="displayID">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Display ID"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="displayIDActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JCheckBoxMenuItem" name="displayTimeLabel">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Display Time"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="displayTimeLabelActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JCheckBoxMenuItem" name="displayActivityLabelButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Display Activity Vertex Label"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="displayActivityLabelButtonActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JCheckBoxMenuItem" name="displayAgentLabelButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Display Agent Vertex Label"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="displayAgentLabelButtonActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JCheckBoxMenuItem" name="displayEntityLabelButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Display Entity Vertex Label"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="displayEntityLabelButtonActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
+            <Menu class="javax.swing.JMenu" name="jMenu11">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Display Time"/>
+                <Property name="text" type="java.lang.String" value="Edge"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="displayTimeLabelActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="displayActivityLabelButton">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Display Activity Vertex Label"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="displayActivityLabelButtonActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="displayAgentLabelButton">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Display Agent Vertex Label"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="displayAgentLabelButtonActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="displayEntityLabelButton">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Display Entity Vertex Label"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="displayEntityLabelButtonActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="displayEdgeText">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Display Edge Text"/>
-                <Property name="toolTipText" type="java.lang.String" value="Display Edge Text in the format of &quot;type (label)&quot;"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="displayEdgeTextActionPerformed"/>
-              </Events>
-            </MenuItem>
+              <SubComponents>
+                <MenuItem class="javax.swing.JCheckBoxMenuItem" name="displayEdgeText">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Display Edge Text"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Display Edge Text in the format of &quot;type (label)&quot;"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="displayEdgeTextActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JCheckBoxMenuItem" name="edgeProbabilityButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Display Edge Probability"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Display the Edge Probability based on the number of graphs it belongs compared to the total number of graphs"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edgeProbabilityButtonActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu6">

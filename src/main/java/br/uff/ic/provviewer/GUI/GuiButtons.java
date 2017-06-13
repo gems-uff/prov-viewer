@@ -214,9 +214,17 @@ public class GuiButtons {
      * @param variables
      * @param ShowEdgeTextButton 
      */
-    public static void EdgeTextDisplay(Variables variables, Boolean ShowEdgeTextButton) {
+    public static void EdgeTextDisplay(final Variables variables, Boolean ShowEdgeTextButton, Boolean ShowEdgeProbabilityButton) {
         if (ShowEdgeTextButton) {
             variables.view.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller<Edge>());
+        } else if(ShowEdgeProbabilityButton) {
+            variables.view.getRenderContext().setEdgeLabelTransformer(new Transformer<Edge, String>() {
+
+                @Override
+                public String transform(Edge i) {
+                    return VariableNames.FontConfiguration + i.getEdgeProbability(variables.numberOfGraphs);
+                }
+            });
         } else {
             //Show nothing
             variables.view.getRenderContext().setEdgeLabelTransformer(new Transformer<Edge, String>() {
