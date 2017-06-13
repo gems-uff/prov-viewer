@@ -27,7 +27,6 @@ import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.GraphVertex;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
-import edu.uci.ics.jung.graph.Graph;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,25 +58,6 @@ public class Collapser {
         variables.initGraphCollapser();
 //        variables.ComputeEdgeTypeValues();
         variables.filter.RemoveFilters(variables);
-    }
-
-    //
-    /**
-     * Method to remove collapsed edges from the node and un-hide edges
-     *
-     * @param variables Variable type
-     * @param vertex Vertex used to get incident edges
-     */
-    public void RemoveCollapsedEdges(Variables variables, Object vertex) {
-        Graph newGraph = variables.layout.getGraph();
-        List edges = new ArrayList(variables.layout.getGraph().getIncidentEdges(vertex));
-        for (Object edge : edges) {
-            ((Edge) edge).setHide(false);
-            if (((Edge) edge).isCollapased()) {
-                //remove edge
-                newGraph.removeEdge(edge);
-            }
-        }
     }
 
     /**
