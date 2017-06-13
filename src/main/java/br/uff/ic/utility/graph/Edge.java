@@ -30,7 +30,6 @@ import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.Utils;
 import java.awt.Color;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,9 +45,7 @@ public class Edge extends GraphObject {
     private Object target;
     private final String type;           // Edge type (prov edges)
     //used to hide this edge when collapsing a group of edges
-    private boolean hide;
-    //used to say this edge is a temporary one
-    private boolean collapsed;
+//    private boolean hide;
     private Color defaultColor = new Color(0, 255, 255);
     private String influenceName = "Influence";
 
@@ -63,11 +60,12 @@ public class Edge extends GraphObject {
         this.source = source;
         this.target = target;
         this.type = "";
-        hide = false;
-        collapsed = false;
+//        hide = false;
         this.attributes = new HashMap<>();
         GraphAttribute att = new GraphAttribute(influenceName, "");
         this.attributes.put(att.getName(), att);
+        GraphAttribute hide = new GraphAttribute("Hide", "false");
+        this.attributes.put(hide.getName(), hide);
 //        this.attributes.putAll(attributes);
         setLabel("");
     }
@@ -77,11 +75,12 @@ public class Edge extends GraphObject {
         this.source = source;
         this.target = target;
         this.type = type;
-        hide = false;
-        collapsed = false;
+//        hide = false;
         this.attributes = new HashMap<>();
         GraphAttribute att = new GraphAttribute(influenceName, "");
         this.attributes.put(att.getName(), att);
+        GraphAttribute hide = new GraphAttribute("Hide", "false");
+        this.attributes.put(hide.getName(), hide);
 //        this.attributes.putAll(attributes);
         setLabel(type);
     }
@@ -103,11 +102,14 @@ public class Edge extends GraphObject {
         this.source = source;
         this.target = target;
         this.type = type;
-        hide = false;
-        collapsed = false;
+//        hide = false;
         this.attributes = new HashMap<>(attributes);
         GraphAttribute att = new GraphAttribute(influenceName, value);
         this.attributes.put(att.getName(), att);
+//        if(!this.attributes.containsKey("Hide")) {
+            GraphAttribute hide = new GraphAttribute("Hide", "false");
+            this.attributes.put(hide.getName(), hide);
+//        }
         setLabel(label);
     }
 
@@ -126,11 +128,12 @@ public class Edge extends GraphObject {
         this.source = source;
         this.target = target;
         this.type = type;
-        hide = false;
-        collapsed = false;
+//        hide = false;
         this.attributes = new HashMap<>();
         GraphAttribute att = new GraphAttribute(influenceName, value);
         this.attributes.put(att.getName(), att);
+        GraphAttribute hide = new GraphAttribute("Hide", "false");
+        this.attributes.put(hide.getName(), hide);
         setLabel(label);
         if (label.equalsIgnoreCase("") || label == null || "-".equals(label) || label.equalsIgnoreCase("Neutral")) {
             setLabel("Neutral");
@@ -155,11 +158,12 @@ public class Edge extends GraphObject {
         this.target = target;
         influence = "0";
         this.type = getLabel();
-        hide = false;
-        collapsed = false;
+//        hide = false;
         this.attributes = new HashMap<>();
         GraphAttribute att = new GraphAttribute(influenceName, influence);
         this.attributes.put(att.getName(), att);
+        GraphAttribute hide = new GraphAttribute("Hide", "false");
+        this.attributes.put(hide.getName(), hide);
         if (influence.equalsIgnoreCase("")) {
             setLabel("Neutral");
         } else {
@@ -261,6 +265,7 @@ public class Edge extends GraphObject {
     /**
      * Method to get the edge influence + value
      *
+     * @param nGraphs is the number of different graphFiles values
      * @return (String) influence
      */
     public String getEdgeTooltip(int nGraphs) {
@@ -278,17 +283,7 @@ public class Edge extends GraphObject {
      * @return (boolean) if the edge is hidden or not
      */
     public boolean isHidden() {
-        return hide;
-    }
-
-    /**
-     * Method to check if the edge is a collapsed edge (new edge that contains
-     * the information of the collapsed ones)
-     *
-     * @return (boolean) if the edge is collapsed or not
-     */
-    public boolean isCollapased() {
-        return collapsed;
+        return Boolean.parseBoolean(this.attributes.get("Hide").getValue());
     }
 
     /**
@@ -297,16 +292,12 @@ public class Edge extends GraphObject {
      * @param t (boolean) Hide = t
      */
     public void setHide(boolean t) {
-        hide = t;
+        GraphAttribute hide = new GraphAttribute("Hide", Boolean.toString(t));
+        this.attributes.put(hide.getName(), hide);
     }
-
-    /**
-     * Method to set the collapsed parameter
-     *
-     * @param t (boolean) collapsed = t
-     */
-    public void setCollapse(boolean t) {
-        collapsed = t;
+    
+    public String getHide() {
+        return this.attributes.get("Hide").getValue();
     }
 
     /**
@@ -455,6 +446,8 @@ public class Edge extends GraphObject {
             edge.setHide(true);
             GraphAttribute merged = new GraphAttribute(VariableNames.MergedEdgeAttribute, mergeCode);
             this.addAttribute(merged);
+            GraphAttribute hide = new GraphAttribute("Hide", "false");
+            this.addAttribute(hide);
         }
         return this;
     }
