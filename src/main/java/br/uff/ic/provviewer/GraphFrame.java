@@ -823,7 +823,6 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu11.add(edgeFrequencyButton);
 
-        ShowEdgePathProbabilityButton.setSelected(true);
         ShowEdgePathProbabilityButton.setText("Display Path Probability");
         ShowEdgePathProbabilityButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
