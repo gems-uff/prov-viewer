@@ -270,20 +270,29 @@
               <SubComponents>
                 <MenuItem class="javax.swing.JCheckBoxMenuItem" name="displayEdgeText">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Display Edge Text"/>
+                    <Property name="text" type="java.lang.String" value="Display Text"/>
                     <Property name="toolTipText" type="java.lang.String" value="Display Edge Text in the format of &quot;type (label)&quot;"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="displayEdgeTextActionPerformed"/>
                   </Events>
                 </MenuItem>
-                <MenuItem class="javax.swing.JCheckBoxMenuItem" name="edgeProbabilityButton">
+                <MenuItem class="javax.swing.JCheckBoxMenuItem" name="edgeFrequencyButton">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Display Edge Probability"/>
+                    <Property name="text" type="java.lang.String" value="Display Frequency"/>
                     <Property name="toolTipText" type="java.lang.String" value="Display the Edge Probability based on the number of graphs it belongs compared to the total number of graphs"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edgeProbabilityButtonActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edgeFrequencyButtonActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JCheckBoxMenuItem" name="ShowEdgePathProbabilityButton">
+                  <Properties>
+                    <Property name="selected" type="boolean" value="true"/>
+                    <Property name="text" type="java.lang.String" value="Display Path Probability"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ShowEdgePathProbabilityButtonActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>

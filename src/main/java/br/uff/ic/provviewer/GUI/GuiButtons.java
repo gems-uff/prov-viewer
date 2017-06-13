@@ -34,6 +34,7 @@ import br.uff.ic.provviewer.Vertex.ColorScheme.VertexPainter;
 import br.uff.ic.utility.IO.PROVNWriter;
 import br.uff.ic.utility.IO.XMLWriter;
 import br.uff.ic.utility.graph.GraphVertex;
+import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
 import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
 import edu.uci.ics.jung.visualization.decorators.EdgeShape;
@@ -214,7 +215,7 @@ public class GuiButtons {
      * @param variables
      * @param ShowEdgeTextButton 
      */
-    public static void EdgeTextDisplay(final Variables variables, Boolean ShowEdgeTextButton, Boolean ShowEdgeProbabilityButton) {
+    public static void EdgeTextDisplay(final Variables variables, boolean ShowEdgeTextButton, boolean ShowEdgeProbabilityButton, boolean ShowEdgePathProbabilityButton) {
         if (ShowEdgeTextButton) {
             variables.view.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller<Edge>());
         } else if(ShowEdgeProbabilityButton) {
@@ -222,7 +223,20 @@ public class GuiButtons {
 
                 @Override
                 public String transform(Edge i) {
-                    return VariableNames.FontConfiguration + i.getEdgeProbability(variables.numberOfGraphs);
+                    return VariableNames.FontConfiguration + i.getEdgeFrequency(variables.numberOfGraphs);
+                }
+            });
+        } else if(ShowEdgePathProbabilityButton) {
+            variables.view.getRenderContext().setEdgeLabelTransformer(new Transformer<Edge, String>() {
+
+                @Override
+                public String transform(Edge i) {
+                    Object target = i.getTarget();
+                    int sources = variables.layout.getGraph().getInEdges(target).size();
+                    if(sources == 1)
+                        return VariableNames.FontConfiguration + "100%";
+                    else
+                        return VariableNames.FontConfiguration + i.getEdgeFrequency(variables.numberOfGraphs);
                 }
             });
         } else {

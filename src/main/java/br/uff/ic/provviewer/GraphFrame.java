@@ -159,7 +159,8 @@ public class GraphFrame extends javax.swing.JFrame {
         displayEntityLabelButton = new javax.swing.JCheckBoxMenuItem();
         jMenu11 = new javax.swing.JMenu();
         displayEdgeText = new javax.swing.JCheckBoxMenuItem();
-        edgeProbabilityButton = new javax.swing.JCheckBoxMenuItem();
+        edgeFrequencyButton = new javax.swing.JCheckBoxMenuItem();
+        ShowEdgePathProbabilityButton = new javax.swing.JCheckBoxMenuItem();
         jMenu6 = new javax.swing.JMenu();
         hideAgentVerticesButton = new javax.swing.JCheckBoxMenuItem();
         hideEntityVerticesButton = new javax.swing.JCheckBoxMenuItem();
@@ -804,7 +805,7 @@ public class GraphFrame extends javax.swing.JFrame {
 
         jMenu11.setText("Edge");
 
-        displayEdgeText.setText("Display Edge Text");
+        displayEdgeText.setText("Display Text");
         displayEdgeText.setToolTipText("Display Edge Text in the format of \"type (label)\"");
         displayEdgeText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -813,14 +814,23 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu11.add(displayEdgeText);
 
-        edgeProbabilityButton.setText("Display Edge Probability");
-        edgeProbabilityButton.setToolTipText("Display the Edge Probability based on the number of graphs it belongs compared to the total number of graphs");
-        edgeProbabilityButton.addActionListener(new java.awt.event.ActionListener() {
+        edgeFrequencyButton.setText("Display Frequency");
+        edgeFrequencyButton.setToolTipText("Display the Edge Probability based on the number of graphs it belongs compared to the total number of graphs");
+        edgeFrequencyButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edgeProbabilityButtonActionPerformed(evt);
+                edgeFrequencyButtonActionPerformed(evt);
             }
         });
-        jMenu11.add(edgeProbabilityButton);
+        jMenu11.add(edgeFrequencyButton);
+
+        ShowEdgePathProbabilityButton.setSelected(true);
+        ShowEdgePathProbabilityButton.setText("Display Path Probability");
+        ShowEdgePathProbabilityButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ShowEdgePathProbabilityButtonActionPerformed(evt);
+            }
+        });
+        jMenu11.add(ShowEdgePathProbabilityButton);
 
         displayEdgeTextButton.add(jMenu11);
 
@@ -1370,8 +1380,9 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private void displayEdgeTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayEdgeTextActionPerformed
         // TODO add your handling code here:
-        edgeProbabilityButton.setSelected(false);
-        GuiButtons.EdgeTextDisplay(variables, displayEdgeText.isSelected(), edgeProbabilityButton.isSelected());
+        edgeFrequencyButton.setSelected(false);
+        ShowEdgePathProbabilityButton.setSelected(false);
+        GuiButtons.EdgeTextDisplay(variables, displayEdgeText.isSelected(), edgeFrequencyButton.isSelected(),ShowEdgePathProbabilityButton.isSelected());
     }//GEN-LAST:event_displayEdgeTextActionPerformed
 
     private void hideAgentVerticesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hideAgentVerticesButtonActionPerformed
@@ -1505,11 +1516,19 @@ public class GraphFrame extends javax.swing.JFrame {
         variables.view.repaint();
     }//GEN-LAST:event_PaintInvisibleVerticesButtonActionPerformed
 
-    private void edgeProbabilityButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edgeProbabilityButtonActionPerformed
+    private void edgeFrequencyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edgeFrequencyButtonActionPerformed
         // TODO add your handling code here:
         displayEdgeText.setSelected(false);
-        GuiButtons.EdgeTextDisplay(variables, displayEdgeText.isSelected(), edgeProbabilityButton.isSelected());
-    }//GEN-LAST:event_edgeProbabilityButtonActionPerformed
+        ShowEdgePathProbabilityButton.setSelected(false);
+        GuiButtons.EdgeTextDisplay(variables, displayEdgeText.isSelected(), edgeFrequencyButton.isSelected(), ShowEdgePathProbabilityButton.isSelected());
+    }//GEN-LAST:event_edgeFrequencyButtonActionPerformed
+
+    private void ShowEdgePathProbabilityButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowEdgePathProbabilityButtonActionPerformed
+        // TODO add your handling code here:
+        displayEdgeText.setSelected(false);
+        edgeFrequencyButton.setSelected(false);
+        GuiButtons.EdgeTextDisplay(variables, displayEdgeText.isSelected(), edgeFrequencyButton.isSelected(), ShowEdgePathProbabilityButton.isSelected());
+    }//GEN-LAST:event_ShowEdgePathProbabilityButtonActionPerformed
    
     /**
      * Main
@@ -1574,6 +1593,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem PerformanceArrowHeadsButton;
     private javax.swing.JMenuItem RenameVertexLabelMenuButton;
     private javax.swing.JButton Reset;
+    private javax.swing.JCheckBoxMenuItem ShowEdgePathProbabilityButton;
     private javax.swing.JButton SimilarityInference;
     public static javax.swing.JComboBox StatusFilterBox;
     public static javax.swing.JToggleButton TemporalFilterToggle;
@@ -1594,7 +1614,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem displayTimeLabel;
     private javax.swing.JCheckBoxMenuItem doDerivateButton;
     public static javax.swing.JList edgeFilterList;
-    private javax.swing.JCheckBoxMenuItem edgeProbabilityButton;
+    private javax.swing.JCheckBoxMenuItem edgeFrequencyButton;
     private javax.swing.JMenuItem exportGraphButton;
     private javax.swing.JFileChooser fileChooser;
     public static javax.swing.JCheckBoxMenuItem hideAgentEdgesButton;
