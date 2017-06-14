@@ -213,13 +213,16 @@ public class UnityReader extends XMLReader {
                     }
                 }
                 node.addAllAttributes(attributes);
-                System.out.println("Reading vertex: " + id);
+//                System.out.println("Reading vertex: " + id);
                 if (node instanceof GraphVertex) {
-                    System.out.println("Its a GraphVertex!");
-                    NodeList collapsedVertices = eElement.getElementsByTagName("collapsedvertices");
-                    NodeList collapsedEdged = eElement.getElementsByTagName("collapsededges");
+//                    System.out.println("Its a GraphVertex!");
+                    NodeList graph = eElement.getElementsByTagName("Graph");
+                    Node gNode = graph.item(0);
+                    Element graphElement = (Element) gNode;
+                    NodeList collapsedVertices = graphElement.getElementsByTagName("collapsedvertices");
+                    NodeList collapsedEdged = graphElement.getElementsByTagName("collapsededges");
                     Node cVertexNode = collapsedVertices.item(0);
-                    Node cEdgeNode = collapsedEdged.item(0);
+                    Node cEdgeNode = collapsedEdged.item(collapsedEdged.getLength() - 1);
                     if (cVertexNode.getNodeType() == Node.ELEMENT_NODE) {
                         Element cVertexElement = (Element) cVertexNode;
                         Element cEdgeElement = (Element) cEdgeNode;
@@ -232,7 +235,7 @@ public class UnityReader extends XMLReader {
                         readGraph(vList, eList, cv, ce);
                         ((GraphVertex) node).setClusterGraph(ce, cv);
                     }
-                    System.out.println("Finished Reading GraphVertex!");
+//                    System.out.println("Finished Reading GraphVertex!");
                 }
                 vertices.put(node.getID(), node);
             }
@@ -243,6 +246,7 @@ public class UnityReader extends XMLReader {
      * Method to read an edge
      */
     public void readEdges(NodeList nList, Collection<Edge> edges, Map<String, Vertex> vertices) {
+//        System.out.println("Edge list size: " + nList.getLength());
         for (int temp = 0; temp < nList.getLength(); temp++) {
             Node nNode = nList.item(temp);
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
