@@ -23,17 +23,23 @@
  */
 package br.uff.ic.graphmatching;
 
+import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.AttributeErrorMargin;
 import br.uff.ic.utility.GraphAttribute;
+import br.uff.ic.utility.GraphCollapser;
 import br.uff.ic.utility.GraphUtils;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.EntityVertex;
+import br.uff.ic.utility.graph.GraphVertex;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
+import edu.uci.ics.jung.graph.Graph;
+import edu.uci.ics.jung.graph.util.Pair;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -56,6 +62,7 @@ public class GraphMatching {
     private final Map<String, Object> combinedVertexList;
     private Map<String, AttributeErrorMargin> attributeList;  
     private final Map<String, String> vocabulary; 
+    DirectedGraph<Object, Edge> cg = new DirectedSparseMultigraph<>();
     // AttributeErrorMargin.name = the atribute 
     // AttributeErrorMargin.value = error margin
     // AttributeErrorMargin.value for timeDate in milliseconds for the error margin
@@ -298,17 +305,16 @@ public class GraphMatching {
             }
             if (weight != 0) {
                 // Dealing with numeric values
+//                System.out.println(attribute.getName() + ": " + av1 + " / " + av2 + " error: " + errorMargin);
                 if (Utils.tryParseFloat(av1) && Utils.tryParseFloat(av2)) { // && Utils.tryParseFloat(errorMargin)) {
                     if (Utils.tryParseFloat(errorMargin)) {
                         if (Utils.FloatEqualTo(Utils.convertFloat(av1), Utils.convertFloat(av2), Utils.convertFloat(errorMargin))) {
                             similarity = similarity + (1 * weight);
-                            //                        System.out.println(attribute.getName() + ": " + av1 + " / " + av2 + " error: " + errorMargin);
                         }
                     } else if (errorMargin.contains("%")) {
                         errorMargin = errorMargin.replaceAll("%", "");
                         if (Utils.FloatSimilar(Utils.convertFloat(av1), Utils.convertFloat(av2), Utils.convertFloat(errorMargin) * 0.01f)) {
                             similarity = similarity + (1 * weight);
-                            //                        System.out.println(attribute.getName() + ": " + av1 + " / " + av2 + " error: " + errorMargin);
                         }
                     }
                 } // Dealing with a timeDate values
@@ -417,15 +423,11 @@ public class GraphMatching {
 
         for (Edge edge : edges) {
             Edge updatedEdge = edge;
-            boolean source = false;
-            boolean target = false;
             if (combinedVertexList.containsKey(((Vertex)edge.getSource()).getID())) {
                 updatedEdge.setSource(combinedVertexList.get(((Vertex)edge.getSource()).getID()));
-                source = true;
             }
             if (combinedVertexList.containsKey(((Vertex)edge.getTarget()).getID())) {
                 updatedEdge.setTarget(combinedVertexList.get(((Vertex)edge.getTarget()).getID()));
-                target = true;
             }
             // Add the edge
             newEdges.add(updatedEdge);
@@ -522,5 +524,48 @@ public class GraphMatching {
         }
 
         return combinedGraph;
+    }
+    
+    public DirectedGraph<Object, Edge> CG() {
+        return cg;
+    }
+    
+    public void asd(DirectedGraph<Object, Edge> graph_01, DirectedGraph<Object, Edge> graph_02) {
+        for(Edge e : graph_01.getEdges()) {
+            Pair endpoints = graph_01.getEndpoints(e);
+            Object v1 = endpoints.getFirst();
+            Object v2 = endpoints.getSecond();
+            cg.addEdge(e, v1, v2);
+        }
+        for(Edge e : graph_02.getEdges()) {
+           Pair endpoints = graph_02.getEndpoints(e);
+            Object v1 = endpoints.getFirst();
+            Object v2 = endpoints.getSecond();
+            cg.addEdge(e, v1, v2);
+        }
+    }
+    
+    public void combineVertices2(Vertex v1, Vertex v2) {
+        DirectedGraph<Object, Edge> clusterGraph = new DirectedSparseMultigraph<>();
+        Collection picked = new ArrayList();
+        picked.add(v1);
+        picked.add(v2);
+        GraphCollapser gCollapser = new GraphCollapser(cg, false);
+        GraphVertex combinedVertex = gCollapser.getClusterGraph(cg, picked);
+        cg = (DirectedGraph<Object, Edge>) gCollapser.collapse(cg, combinedVertex);
+//        combinedVertexList.put(v1.getID(), combinedVertex);
+//        combinedVertexList.put(v2.getID(), combinedVertex);
+    }
+    
+    private void createMergedVertex(DirectedGraph<Object, Edge> clusterGraph, Vertex v, DirectedGraph<Object, Edge> graph) {
+        clusterGraph.addVertex(v);
+        Collection edges = graph.getIncidentEdges(v);
+        for (Object edge : edges) {
+            Object source = ((Edge)edge).getSource();
+            Object target = ((Edge)edge).getTarget();
+//            if (picked.containsAll(endpoints)) {
+            clusterGraph.addEdge((Edge)edge, source, target, graph.getEdgeType((Edge)edge));
+//            }
+        }
     }
 }

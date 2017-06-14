@@ -38,17 +38,17 @@ import java.util.Map;
  */
 public class GraphMerger {
     
-    private String graph01;
-    private String graph02;
+//    private String graph01;
+//    private String graph02;
     
     
     public GraphMerger(String g01, String g02) {
-        graph01 = "(" + g01 + ")";
-        graph02 = "(" + g02 + ")";
+//        graph01 = "(" + g01 + ")";
+//        graph02 = "(" + g02 + ")";
     }
     public GraphMerger() {
-        graph01 = "Graph_01";
-        graph02 = "Graph_02";
+//        graph01 = "Graph_01";
+//        graph02 = "Graph_02";
     }
     /**
      * 
@@ -194,14 +194,14 @@ public class GraphMerger {
         MatchingHeuristic heuristic = new SimpleHeuristic();
         heuristic.MatchGraphs(graph_01, graph_02, combiner);
         
+        return combiner.CG();
         // After matching all vertices
-        combiner.addVertices(graph_01.getVertices());
-        combiner.addVertices(graph_02.getVertices());
-        Collection<Edge> updatedG1edges = combiner.updateEdges(graph_01.getEdges());
-        Collection<Edge> updatedG2edges = combiner.updateEdges(graph_02.getEdges());
-        combiner.addEdges(updatedG1edges);
-        combiner.addEdges(updatedG2edges);
-        
-        return combiner.getCombinedGraph();
+//        combiner.addVertices(graph_01.getVertices());
+//        combiner.addVertices(graph_02.getVertices());
+//        Collection<Edge> updatedG1edges = combiner.updateEdges(graph_01.getEdges());
+//        Collection<Edge> updatedG2edges = combiner.updateEdges(graph_02.getEdges());
+//        combiner.addEdges(updatedG1edges);
+//        combiner.addEdges(updatedG2edges);
+//        return combiner.getCombinedGraph();
     }
 }

@@ -63,12 +63,15 @@ public class SimpleHeuristic implements MatchingHeuristic{
         Collections.sort(g1_vertices, comparator);
         Collections.sort(g2_vertices, comparator);
         
+        combiner.asd(graph_01, graph_02);
+        
         for (Object v1 : g1_vertices) {
             for (Object v2 : g2_vertices) {
                 if(!(v1List.containsKey(((Vertex)v1).getID())) && !(v2List.containsKey(((Vertex)v2).getID()))) {
                     if(combiner.isSimilar((Vertex)v1, (Vertex)v2)) {
-                        Object cv = combiner.combineVertices ((Vertex)v1, (Vertex)v2);
-                        combiner.addVertex((Vertex)cv);
+//                        Object cv = combiner.combineVertices ((Vertex)v1, (Vertex)v2);
+//                        combiner.addVertex((Vertex)cv);
+                        combiner.combineVertices2((Vertex)v1, (Vertex)v2);
                         v1List.put(((Vertex)v1).getID(), v1);
                         v2List.put(((Vertex)v2).getID(), v2);
                     }
