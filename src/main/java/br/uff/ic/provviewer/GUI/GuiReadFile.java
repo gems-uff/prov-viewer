@@ -28,6 +28,7 @@ import br.uff.ic.utility.graph.Edge;
 import static br.uff.ic.provviewer.GUI.GuiFunctions.PanCameraToFirstVertex;
 import br.uff.ic.provviewer.GraphFrame;
 import br.uff.ic.provviewer.Input.SimilarityConfig;
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.utility.IO.UnityReader;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.IO.InputReader;
@@ -70,15 +71,15 @@ public class GuiReadFile {
             fileReader.readFile();
             
             for (Edge edge : fileReader.getEdges()) {
-                if(edge.hasAttribute("NewTarget") || edge.hasAttribute("NewSource")) {
+                if(edge.hasAttribute(VariableNames.vertexNewTarget) || edge.hasAttribute(VariableNames.vertexNewSource)) {
                     if(fileReader instanceof UnityReader) {
                         Object newTarget = edge.getTarget();
                         Object newSource = edge.getSource();
-                        if(edge.hasAttribute("NewTarget")) {
-                            newTarget = ((UnityReader)fileReader).getNewPointer(edge.getAttributeValue("NewTarget"));
+                        if(edge.hasAttribute(VariableNames.vertexNewTarget)) {
+                            newTarget = ((UnityReader)fileReader).getNewPointer(edge.getAttributeValue(VariableNames.vertexNewTarget));
                         }
-                        if(edge.hasAttribute("NewSource")) {
-                            newSource = ((UnityReader)fileReader).getNewPointer(edge.getAttributeValue("NewSource"));
+                        if(edge.hasAttribute(VariableNames.vertexNewSource)) {
+                            newSource = ((UnityReader)fileReader).getNewPointer(edge.getAttributeValue(VariableNames.vertexNewSource));
                         }
 //                        System.out.println("newSourceID: " + edge.getAttributeValue("NewSource"));
 //                        System.out.println("newTargetID: " + edge.getAttributeValue("NewTarget"));
