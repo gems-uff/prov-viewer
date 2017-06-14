@@ -34,7 +34,10 @@ import org.w3c.dom.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import br.uff.ic.utility.graph.Edge;
+import br.uff.ic.utility.graph.EntityVertex;
+import br.uff.ic.utility.graph.GraphVertex;
 import br.uff.ic.utility.graph.Vertex;
+import edu.uci.ics.jung.graph.Graph;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -104,73 +107,10 @@ public final class XMLWriter {
             Element vertices = doc.createElement("vertices");
             rootElement.appendChild(vertices);
 
-            for (int i = 0; i < vertexList.size(); i++) {
-                Element vertex = doc.createElement("vertex");
-                vertices.appendChild(vertex);
-
-                Element id = doc.createElement("ID");
-                id.setTextContent(((Vertex) vertexList.toArray()[i]).getID());
-                vertex.appendChild(id);
-
-                String vertexType;
-                if (vertexList.toArray()[i] instanceof AgentVertex) {
-                    vertexType = "Agent";
-                } else if (vertexList.toArray()[i] instanceof ActivityVertex) {
-                    vertexType = "Activity";
-                } else {
-                    vertexType = "Entity";
-                }
-                Element type = doc.createElement("type");
-                type.setTextContent(vertexType);
-                vertex.appendChild(type);
-
-                Element label = doc.createElement("label");
-                label.setTextContent(((Vertex) vertexList.toArray()[i]).getLabel());
-                vertex.appendChild(label);
-
-                Element data = doc.createElement("date");
-                data.setTextContent(((Vertex) vertexList.toArray()[i]).getTimeString());
-                vertex.appendChild(data);
-                
-                Object[] attributes = null;
-                attributes = ((Vertex) vertexList.toArray()[i]).attributes.values().toArray();
-                addAttributes(doc, vertex, attributes);
-            }
-
+            writeVerticesFromGraph(doc, vertices, vertexList, "vertex");
             Element edges = doc.createElement("edges");
             rootElement.appendChild(edges);
-            for (int i = 0; i < edgeList.size(); i++) {
-                Element edge = doc.createElement("edge");
-                edges.appendChild(edge);
-
-                Element id = doc.createElement("ID");
-                id.setTextContent(((Edge) edgeList.toArray()[i]).getID());
-                edge.appendChild(id);
-
-                Element type = doc.createElement("type");
-                type.setTextContent(((Edge) edgeList.toArray()[i]).getType());
-                edge.appendChild(type);
-
-                Element label = doc.createElement("label");
-                label.setTextContent(((Edge) edgeList.toArray()[i]).getLabel());
-                edge.appendChild(label);
-
-                Element value = doc.createElement("value");
-                value.setTextContent(Float.toString(((Edge) edgeList.toArray()[i]).getValue()));
-                edge.appendChild(value);
-
-                Element source = doc.createElement("sourceID");
-                source.setTextContent(((Vertex) ((Edge) edgeList.toArray()[i]).getSource()).getID());
-                edge.appendChild(source);
-
-                Element target = doc.createElement("targetID");
-                target.setTextContent(((Vertex) ((Edge) edgeList.toArray()[i]).getTarget()).getID());
-                edge.appendChild(target);
-                
-                Object[] attributes = null;
-                attributes = ((Edge) edgeList.toArray()[i]).attributes.values().toArray();
-                addAttributes(doc, edge, attributes);
-            }
+            writeEdgesFromGraph(doc, edges, edgeList, "edge");
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
@@ -187,12 +127,95 @@ public final class XMLWriter {
         }
     }
     
+    private void writeEdgesFromGraph(Document doc, Element edges, Collection<Edge> eList, String eTag) {
+        for (int i = 0; i < eList.size(); i++) {
+            Element edge = doc.createElement(eTag);
+            edges.appendChild(edge);
+
+            Element id = doc.createElement("ID");
+            id.setTextContent(((Edge) eList.toArray()[i]).getID());
+            edge.appendChild(id);
+
+            Element type = doc.createElement("type");
+            type.setTextContent(((Edge) eList.toArray()[i]).getType());
+            edge.appendChild(type);
+
+            Element label = doc.createElement("label");
+            label.setTextContent(((Edge) eList.toArray()[i]).getLabel());
+            edge.appendChild(label);
+
+            Element value = doc.createElement("value");
+            value.setTextContent(Float.toString(((Edge) eList.toArray()[i]).getValue()));
+            edge.appendChild(value);
+
+            Element source = doc.createElement("sourceID");
+            source.setTextContent(((Vertex) ((Edge) eList.toArray()[i]).getSource()).getID());
+            edge.appendChild(source);
+
+            Element target = doc.createElement("targetID");
+            target.setTextContent(((Vertex) ((Edge) eList.toArray()[i]).getTarget()).getID());
+            edge.appendChild(target);
+
+            Object[] attributes = null;
+            attributes = ((Edge) eList.toArray()[i]).attributes.values().toArray();
+            addAttributes(doc, edge, attributes);
+        }
+    }
+    private void writeVerticesFromGraph(Document doc, Element vertices, Collection<Object> vList, String vTag) {
+        for (int i = 0; i < vList.size(); i++) {
+            Element vertex = doc.createElement(vTag);
+            vertices.appendChild(vertex);
+
+            Element id = doc.createElement("ID");
+            id.setTextContent(((Vertex) vList.toArray()[i]).getID());
+            vertex.appendChild(id);
+
+            String vertexType;
+            if (vList.toArray()[i] instanceof AgentVertex) {
+                vertexType = "Agent";
+            } else if (vList.toArray()[i] instanceof ActivityVertex) {
+                vertexType = "Activity";
+            } else if (vList.toArray()[i] instanceof EntityVertex){
+                vertexType = "Entity";
+            } else {
+                vertexType = "GraphVertex";
+            }
+            Element type = doc.createElement("type");
+            type.setTextContent(vertexType);
+            vertex.appendChild(type);
+
+            Element label = doc.createElement("label");
+            label.setTextContent(((Vertex) vList.toArray()[i]).getLabel());
+            vertex.appendChild(label);
+
+            Element data = doc.createElement("date");
+            data.setTextContent(((Vertex) vList.toArray()[i]).getTimeString());
+            vertex.appendChild(data);
+            Object[] attributes = null;
+            attributes = ((Vertex) vList.toArray()[i]).attributes.values().toArray();
+            addAttributes(doc, vertex, attributes);
+
+            if(vertexType.equalsIgnoreCase("GraphVertex")) {
+                Graph g = ((GraphVertex) vList.toArray()[i]).clusterGraph;
+                readGraph(doc, vertex, g);
+            }
+        }
+    }
+    
+    private void readGraph(Document doc, Element graphObject, Graph g) {
+        Element graph = doc.createElement("Graph");
+        graphObject.appendChild(graph);
+        Element vertices = doc.createElement("collapsedvertices");
+        graph.appendChild(vertices);
+        writeVerticesFromGraph(doc, vertices, g.getVertices(), "collapsedvertex");
+        Element edges = doc.createElement("collapsededges");
+        graph.appendChild(edges);
+        writeEdgesFromGraph(doc, edges, g.getEdges(), "collapsededge");
+    }
     private void addAttributes(Document doc, Element graphObject, Object[] attributes) {
         Element atts = doc.createElement("attributes");
         graphObject.appendChild(atts);
-
         
-
         for (int j = 0; j < attributes.length; j++) {
             Element att = doc.createElement("attribute");
             atts.appendChild(att);
