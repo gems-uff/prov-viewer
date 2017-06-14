@@ -97,16 +97,16 @@ public class GraphCollapser {
                     newTarget = ((Vertex)endpoints.getSecond()).getID();
                     Object edge = hasEdge(clusterGraph.getID(), collapsedEdges, mergedEdges, e, ((Edge)e).getLabel(), ((Edge)e).getType(), clusterGraph.getID(), newTarget, newSource, newTarget);
                     graph.addEdge(edge, clusterGraph, endpoints.getSecond(), inGraph.getEdgeType(e));
-                    ((Edge)e).addAttribute(new GraphAttribute("NewSource", newSource));
-                    ((Edge)e).addAttribute(new GraphAttribute("NewTarget", newTarget));
+                    ((Edge)e).addAttribute(new GraphAttribute(VariableNames.vertexNewSource, newSource));
+                    ((Edge)e).addAttribute(new GraphAttribute(VariableNames.vertexNewTarget, newTarget));
                     graph.addEdge(e, clusterGraph, endpoints.getSecond(), inGraph.getEdgeType(e));
                 } else if (cluster.contains(endpoints.getSecond())) {
                     newSource = ((Vertex)endpoints.getFirst()).getID();
                     newTarget = clusterGraph.getID();
                     Object edge = hasEdge(clusterGraph.getID(), collapsedEdges, mergedEdges, e, ((Edge)e).getLabel(), ((Edge)e).getType(), newSource, clusterGraph.getID(), newSource, newTarget);
                     graph.addEdge(edge, endpoints.getFirst(), clusterGraph, inGraph.getEdgeType(e));
-                    ((Edge)e).addAttribute(new GraphAttribute("NewSource", newSource));
-                    ((Edge)e).addAttribute(new GraphAttribute("NewTarget", newTarget));
+                    ((Edge)e).addAttribute(new GraphAttribute(VariableNames.vertexNewSource, newSource));
+                    ((Edge)e).addAttribute(new GraphAttribute(VariableNames.vertexNewTarget, newTarget));
                     graph.addEdge(e, endpoints.getFirst(), clusterGraph, inGraph.getEdgeType(e));
                 } else {
                     graph.addEdge(e, endpoints.getFirst(), endpoints.getSecond(), inGraph.getEdgeType(e));
@@ -142,8 +142,8 @@ public class GraphCollapser {
             if(!mergedEdges.containsKey(key)) {
                 Edge newEdge = new Edge(((Edge)edge).getID(), ((Edge)edge).getType(), ((Edge)edge).getStringValue(), ((Edge)edge).getLabel(), ((Edge)edge).attributes, ((Edge)edge).getTarget(), ((Edge)edge).getSource());
                 newEdge = newEdge.merge((Edge) e, clusterID);
-                newEdge.addAttribute(new GraphAttribute("NewSource", newSource));
-                newEdge.addAttribute(new GraphAttribute("NewTarget", newTarget));
+                newEdge.addAttribute(new GraphAttribute(VariableNames.vertexNewSource, newSource));
+                newEdge.addAttribute(new GraphAttribute(VariableNames.vertexNewTarget, newTarget));
                 mergedEdges.put(key, newEdge);
                 return newEdge;
             }
@@ -179,7 +179,9 @@ public class GraphCollapser {
         // put all clusterGraph vertices and edges into the new Graph
         for (Object v : cluster) {
             graph.addVertex(v);
+//            System.out.println(((Vertex)v).getID());
             for (Object edge : clusterGraph.clusterGraph.getIncidentEdges(v)) {
+//                System.out.println(((Edge)edge).getID());
                 Pair endpoints = clusterGraph.clusterGraph.getEndpoints(edge);
                 graph.addEdge(edge, endpoints.getFirst(), endpoints.getSecond(), clusterGraph.clusterGraph.getEdgeType(edge));
             }
