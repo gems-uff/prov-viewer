@@ -64,27 +64,4 @@ public class UnityReaderTest {
         UnityReader instance = new UnityReader(f);
         instance.readFile();
     }
-
-    /**
-     * Test of readVertex method, of class UnityReader.
-     */
-    @Test
-    public void testReadVertex() throws Exception {
-//        System.out.println("readVertex");
-        File f = new File(BasePath.getBasePathForClass(GuiRun.class) + File.separator + "Graph" + File.separator + "Car_Tutorial.xml");
-        UnityReader instance = new UnityReader(f);
-        instance.readVertex();
-    }
-
-    /**
-     * Test of readEdge method, of class UnityReader.
-     */
-    @Test
-    public void testReadEdge() throws Exception {
-//        System.out.println("readEdge");
-        File f = new File(BasePath.getBasePathForClass(GuiRun.class) + File.separator + "Graph" + File.separator + "Car_Tutorial.xml");
-        UnityReader instance = new UnityReader(f);
-        instance.readEdge();
-    }
-    
 }
