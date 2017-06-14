@@ -50,11 +50,27 @@ public class GraphVertex extends Vertex {
         clusterGraph = new DirectedSparseMultigraph<>();
     }
     
-    public void setClusterGraph(Collection<Edge> edges, Collection<Vertex> vertices) {
-        for(Vertex v : vertices)
+    public void setClusterGraph(Collection<Edge> edges, Map<String, Vertex> vertices) {
+//        System.out.println("Building the graph for " + this.getID());
+//        System.out.println("Vertices: ");
+        for(Vertex v : vertices.values()) {
             clusterGraph.addVertex(v);
-        for (Edge edge : edges)
-            clusterGraph.addEdge(edge, edge.getSource(), edge.getTarget());
+//            System.out.println(v.getID());
+        }
+//        System.out.println("Edges: ");  
+        for (Edge edge : edges) {
+            Object newTarget = edge.getTarget();
+            Object newSource = edge.getSource();
+            if(edge.hasAttribute(VariableNames.vertexNewTarget)) {
+                newTarget = vertices.get(edge.getAttributeValue(VariableNames.vertexNewTarget));
+            }
+            if(edge.hasAttribute(VariableNames.vertexNewSource)) {
+                newSource = vertices.get(edge.getAttributeValue(VariableNames.vertexNewSource));
+            }
+            clusterGraph.addEdge(edge, newSource, newTarget);
+//            System.out.println("Edge: " + edge.getID() + " Source: " + ((Vertex)newSource).getID() + " Target: " + ((Vertex)newTarget).getID());
+        }
+//        System.out.println("Done Building the Graph: ");
     }
 
     @Override
