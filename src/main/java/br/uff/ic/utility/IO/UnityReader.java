@@ -57,13 +57,12 @@ public class UnityReader extends XMLReader {
         super(fXmlFile);
     }
 
+    /**
+     * Method to read the file
+     */
     @Override
     public void readFile() {
-        //Read all vertices
         readHeader();
-
-        //Read all edges
-//        readEdge();
     }
     
     /**
@@ -143,6 +142,9 @@ public class UnityReader extends XMLReader {
         }
     }
 
+    /**
+     * Method that reads the file Header and then the vertex and edge lists (Graph)
+     */
     public void readHeader() {
         isProvenanceGraph = true;
         NodeList nList;
@@ -224,7 +226,7 @@ public class UnityReader extends XMLReader {
                         Map<String, Vertex> cv = new HashMap<>();
                         Collection<Edge> ce = new ArrayList<>();
                         readGraph(vList, eList, cv, ce);
-                        ((GraphVertex) node).setClusterGraph(ce, cv.values());
+                        ((GraphVertex) node).setClusterGraph(ce, cv);
                     }
                 }
                 vertices.put(node.getID(), node);
@@ -282,40 +284,27 @@ public class UnityReader extends XMLReader {
             }
         }
     }
-    
-//    private Vertex getNode(Map<String, Vertex> n, String source, Map<String, GraphAttribute> attributes, String tag) {
-//        if (n.containsKey(source)) {
-//            return n.get(source);
-//        } else {
-//            GraphVertex gv = (GraphVertex) n.get(attributes.get(tag).getValue());
-//            return findSource(gv, source);
-//        }
-//    }
-    
-//    private Vertex findSource(GraphVertex gv, String source) {
-//        for(Object v : gv.clusterGraph.getVertices()) {
-//            if(v instanceof GraphVertex)
-//                findSource((GraphVertex) v, source);
-//            else if(((Vertex)v).getID().equalsIgnoreCase(source))
-//                return (Vertex) v;
-//        }
-//        return null;
-//    }
 
-    private Vertex findNode(String source, Map<String, Vertex> vertices) {
-        if (vertices.containsKey(source)) {
-            return vertices.get(source);
+    /**
+     * Method to find the original Vertex 
+     * @param ID is the vertex ID we are looking for
+     * @param vertices is the map that contains the vertices with the Key being the vertex's ID
+     * @return the vertex
+     */
+    private Vertex findNode(String ID, Map<String, Vertex> vertices) {
+        if (vertices.containsKey(ID)) {
+            return vertices.get(ID);
         } else {
             for(String ids : vertices.keySet()) {
-                if(ids.contains(source)) { // It might have. Lets break it down to make sure it has the Source
+                if(ids.contains(ID)) { // It might have. Lets break it down to make sure it has the Source
                     String currentID = ids.replace("[", ""); // Remove the GraphVertex ID brankets
                     currentID = currentID.replace("]", "");
                     currentID = currentID.replace(" ", ""); // Remove spaces
                     String[] subIDs = currentID.split(","); // Split each ID that composes the GraphVertex
                     for(String i : subIDs) { // Lets check if each individual ID is the original Source
-                        if(i.equalsIgnoreCase(source)) { // If true then the original vertex is inside this GraphVertex
+                        if(i.equalsIgnoreCase(ID)) { // If true then the original vertex is inside this GraphVertex
                             GraphVertex v = (GraphVertex) vertices.get(ids); // We got the GraphVertex, now need to explore it
-                            return findNode(v.clusterGraph, source);
+                            return findNode(v.clusterGraph, ID);
                         }
                     }
                 }
@@ -323,17 +312,29 @@ public class UnityReader extends XMLReader {
         }
         return null;
     }
-    private Vertex findNode(Graph clusterGraph, String source) {
+    
+    /**
+     * Method to find the vertex inside a GraphVertex
+     * @param clusterGraph is the GraphVertex's clustergraph
+     * @param ID is the vertex's ID that we are looking for
+     * @return the vertex
+     */
+    private Vertex findNode(Graph clusterGraph, String ID) {
         Vertex found = null;
         for(Object v : clusterGraph.getVertices()) {
-            if(((Vertex)v).getID().equalsIgnoreCase(source))
+            if(((Vertex)v).getID().equalsIgnoreCase(ID))
                 return (Vertex) v;
             else if(v instanceof GraphVertex)
-                found = findNode(((GraphVertex)v).clusterGraph, source);
+                found = findNode(((GraphVertex)v).clusterGraph, ID);
         }
         return found;
     }
     
+    /**
+     * Method that returns 
+     * @param id
+     * @return 
+     */
     public Vertex getNewPointer(String id) {
         return nodes.get(id);
     }
