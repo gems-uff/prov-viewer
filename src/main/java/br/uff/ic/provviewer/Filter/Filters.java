@@ -167,8 +167,26 @@ public class Filters {
         view.repaint();
     }
     
+    /**
+     * Method to hide all edges that has the hidden parameter. This is used after an operation to hide the edges that are supposed to be hidden
+     * @param view
+     * @param layout 
+     */
     public void filterHiddenEdges(VisualizationViewer<Object, Edge> view, Layout<Object, Edge> layout) {
         EdgeFilter = filterEdges(true);
+        filteredGraph = (DirectedGraph<Object, Edge>) layout.getGraph();
+        filteredGraph = (DirectedGraph<Object, Edge>) EdgeFilter.transform(filteredGraph);
+        layout.setGraph(filteredGraph);
+        view.repaint();
+    }
+    
+    /**
+     * Method to unhide the edges that are supposed to be hidden to not incur in lost of information
+     * @param view
+     * @param layout 
+     */
+    public void showHiddenEdges(VisualizationViewer<Object, Edge> view, Layout<Object, Edge> layout) {
+        EdgeFilter = filterEdges(false);
         filteredGraph = (DirectedGraph<Object, Edge>) layout.getGraph();
         filteredGraph = (DirectedGraph<Object, Edge>) EdgeFilter.transform(filteredGraph);
         layout.setGraph(filteredGraph);
