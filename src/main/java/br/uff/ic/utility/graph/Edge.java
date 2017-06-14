@@ -64,8 +64,10 @@ public class Edge extends GraphObject {
         this.attributes = new HashMap<>();
         GraphAttribute att = new GraphAttribute(influenceName, "");
         this.attributes.put(att.getName(), att);
-        GraphAttribute hide = new GraphAttribute("Hide", "false");
-        this.attributes.put(hide.getName(), hide);
+        if(!this.hasAttribute("Hide")) {
+            GraphAttribute hide = new GraphAttribute("Hide", "false");
+            this.attributes.put(hide.getName(), hide);
+        }
 //        this.attributes.putAll(attributes);
         setLabel("");
     }
@@ -79,8 +81,10 @@ public class Edge extends GraphObject {
         this.attributes = new HashMap<>();
         GraphAttribute att = new GraphAttribute(influenceName, "");
         this.attributes.put(att.getName(), att);
-        GraphAttribute hide = new GraphAttribute("Hide", "false");
-        this.attributes.put(hide.getName(), hide);
+        if(!this.hasAttribute("Hide")) {
+            GraphAttribute hide = new GraphAttribute("Hide", "false");
+            this.attributes.put(hide.getName(), hide);
+        }
 //        this.attributes.putAll(attributes);
         setLabel(type);
     }
@@ -106,10 +110,10 @@ public class Edge extends GraphObject {
         this.attributes = new HashMap<>(attributes);
         GraphAttribute att = new GraphAttribute(influenceName, value);
         this.attributes.put(att.getName(), att);
-//        if(!this.attributes.containsKey("Hide")) {
+        if(!this.hasAttribute("Hide")) {
             GraphAttribute hide = new GraphAttribute("Hide", "false");
             this.attributes.put(hide.getName(), hide);
-//        }
+        }
         setLabel(label);
     }
 
@@ -132,8 +136,10 @@ public class Edge extends GraphObject {
         this.attributes = new HashMap<>();
         GraphAttribute att = new GraphAttribute(influenceName, value);
         this.attributes.put(att.getName(), att);
-        GraphAttribute hide = new GraphAttribute("Hide", "false");
-        this.attributes.put(hide.getName(), hide);
+        if(!this.hasAttribute("Hide")) {
+            GraphAttribute hide = new GraphAttribute("Hide", "false");
+            this.attributes.put(hide.getName(), hide);
+        }
         setLabel(label);
         if (label.equalsIgnoreCase("") || label == null || "-".equals(label) || label.equalsIgnoreCase("Neutral")) {
             setLabel("Neutral");
