@@ -318,7 +318,7 @@ public class GuiButtons {
     public static void ExportPROVN(Variables variables) {
         PROVNWriter provnWriter = new PROVNWriter(variables.graph.getVertices(), variables.graph.getEdges());
         XMLWriter xmlWriter = new XMLWriter(variables.graph.getVertices(), variables.graph.getEdges());
-        variables.filter.showHiddenEdges(variables.view, variables.layout);
+        variables.filter.showHiddenEdges(variables, variables.view, variables.layout);
         XMLWriter xmlWriter_collapsed = new XMLWriter(variables.layout.getGraph().getVertices(), variables.layout.getGraph().getEdges());
         try {
             provnWriter.saveToProvn("PROVN_Export_Test");
@@ -327,6 +327,7 @@ public class GuiButtons {
         } catch (IOException ex) {
             Logger.getLogger(GuiButtons.class.getName()).log(Level.SEVERE, null, ex);
         }
+        variables.filter.filterHiddenEdges(variables.view, variables.layout);
     }
 
     public static void TemporalLayoutGranularity(String selectedTime, Variables variables, 
