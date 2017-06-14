@@ -213,7 +213,9 @@ public class UnityReader extends XMLReader {
                     }
                 }
                 node.addAllAttributes(attributes);
+                System.out.println("Reading vertex: " + id);
                 if (node instanceof GraphVertex) {
+                    System.out.println("Its a GraphVertex!");
                     NodeList collapsedVertices = eElement.getElementsByTagName("collapsedvertices");
                     NodeList collapsedEdged = eElement.getElementsByTagName("collapsededges");
                     Node cVertexNode = collapsedVertices.item(0);
@@ -221,13 +223,16 @@ public class UnityReader extends XMLReader {
                     if (cVertexNode.getNodeType() == Node.ELEMENT_NODE) {
                         Element cVertexElement = (Element) cVertexNode;
                         Element cEdgeElement = (Element) cEdgeNode;
-                        NodeList vList = cVertexElement.getElementsByTagName("collapsedvertex");
-                        NodeList eList = cEdgeElement.getElementsByTagName("collapsededge");
+//                        NodeList vList = cVertexElement.getElementsByTagName("collapsedvertex");
+//                        NodeList eList = cEdgeElement.getElementsByTagName("collapsededge");
+                        NodeList vList = cVertexElement.getChildNodes();
+                        NodeList eList = cEdgeElement.getChildNodes();
                         Map<String, Vertex> cv = new HashMap<>();
                         Collection<Edge> ce = new ArrayList<>();
                         readGraph(vList, eList, cv, ce);
                         ((GraphVertex) node).setClusterGraph(ce, cv);
                     }
+                    System.out.println("Finished Reading GraphVertex!");
                 }
                 vertices.put(node.getID(), node);
             }
