@@ -33,6 +33,7 @@ import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.IO.InputReader;
 import br.uff.ic.utility.IO.PROVNReader;
 import br.uff.ic.utility.Utils;
+import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import java.io.File;
@@ -69,7 +70,24 @@ public class GuiReadFile {
             fileReader.readFile();
             
             for (Edge edge : fileReader.getEdges()) {
-                g.addEdge(edge, edge.getSource(), edge.getTarget());
+                if(edge.hasAttribute("NewTarget") || edge.hasAttribute("NewSource")) {
+                    if(fileReader instanceof UnityReader) {
+                        Object newTarget = edge.getTarget();
+                        Object newSource = edge.getSource();
+                        if(edge.hasAttribute("NewTarget")) {
+                            newTarget = ((UnityReader)fileReader).getNewPointer(edge.getAttributeValue("NewTarget"));
+                        }
+                        if(edge.hasAttribute("NewSource")) {
+                            newSource = ((UnityReader)fileReader).getNewPointer(edge.getAttributeValue("NewSource"));
+                        }
+//                        System.out.println("newSourceID: " + edge.getAttributeValue("NewSource"));
+//                        System.out.println("newTargetID: " + edge.getAttributeValue("NewTarget"));
+//                        System.out.println("newSource: " + ((Vertex)newSource).getID());
+//                        System.out.println("newTarget: " + ((Vertex)newTarget).getID());
+                        g.addEdge(edge, newSource, newTarget);
+                    }
+                } else
+                    g.addEdge(edge, edge.getSource(), edge.getTarget());
             }
             
         } catch (URISyntaxException ex) {
