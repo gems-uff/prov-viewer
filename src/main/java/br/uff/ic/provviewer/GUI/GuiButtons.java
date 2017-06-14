@@ -316,14 +316,10 @@ public class GuiButtons {
     }
 
     public static void ExportPROVN(Variables variables) {
-//        Collection<Vertex> vertices = new ArrayList<Vertex>();
-//        for(Object v : variables.graph.getVertices()) {
-//            vertices.add((Vertex)v);
-//        }
-//        
         PROVNWriter provnWriter = new PROVNWriter(variables.graph.getVertices(), variables.graph.getEdges());
         XMLWriter xmlWriter = new XMLWriter(variables.graph.getVertices(), variables.graph.getEdges());
-        XMLWriter xmlWriter_collapsed = new XMLWriter(variables.collapsedGraph.getVertices(), variables.graph.getEdges());
+        variables.filter.showHiddenEdges(variables.view, variables.layout);
+        XMLWriter xmlWriter_collapsed = new XMLWriter(variables.layout.getGraph().getVertices(), variables.layout.getGraph().getEdges());
         try {
             provnWriter.saveToProvn("PROVN_Export_Test");
             xmlWriter.saveToXML("XML_Export_Test");
