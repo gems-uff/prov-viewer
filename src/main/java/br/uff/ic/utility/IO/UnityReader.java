@@ -251,11 +251,11 @@ public class UnityReader extends XMLReader {
                 readAttribute(eElement, attributes);
                 String newSource = "Null";
                 String newTarget = "Null";
-                if (attributes.containsKey("NewSource")) {
-                    newSource = attributes.get("NewSource").getValue();
+                if (attributes.containsKey(VariableNames.vertexNewSource)) {
+                    newSource = attributes.get(VariableNames.vertexNewSource).getValue();
                 }
-                if (attributes.containsKey("NewTarget")) {
-                    newTarget = attributes.get("NewTarget").getValue();
+                if (attributes.containsKey(VariableNames.vertexNewTarget)) {
+                    newTarget = attributes.get(VariableNames.vertexNewTarget).getValue();
                 }
                 if ((vertices.containsKey(source) || vertices.containsKey(newSource)) && (vertices.containsKey(target) || vertices.containsKey(newTarget))) {
                     Vertex vs;

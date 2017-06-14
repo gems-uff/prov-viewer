@@ -64,8 +64,8 @@ public class Edge extends GraphObject {
         this.attributes = new HashMap<>();
         GraphAttribute att = new GraphAttribute(influenceName, "");
         this.attributes.put(att.getName(), att);
-        if(!this.hasAttribute("Hide")) {
-            GraphAttribute hide = new GraphAttribute("Hide", "false");
+        if(!this.hasAttribute(VariableNames.edgeHiddenAttribute)) {
+            GraphAttribute hide = new GraphAttribute(VariableNames.edgeHiddenAttribute, "false");
             this.attributes.put(hide.getName(), hide);
         }
 //        this.attributes.putAll(attributes);
@@ -81,8 +81,8 @@ public class Edge extends GraphObject {
         this.attributes = new HashMap<>();
         GraphAttribute att = new GraphAttribute(influenceName, "");
         this.attributes.put(att.getName(), att);
-        if(!this.hasAttribute("Hide")) {
-            GraphAttribute hide = new GraphAttribute("Hide", "false");
+        if(!this.hasAttribute(VariableNames.edgeHiddenAttribute)) {
+            GraphAttribute hide = new GraphAttribute(VariableNames.edgeHiddenAttribute, "false");
             this.attributes.put(hide.getName(), hide);
         }
 //        this.attributes.putAll(attributes);
@@ -110,8 +110,8 @@ public class Edge extends GraphObject {
         this.attributes = new HashMap<>(attributes);
         GraphAttribute att = new GraphAttribute(influenceName, value);
         this.attributes.put(att.getName(), att);
-        if(!this.hasAttribute("Hide")) {
-            GraphAttribute hide = new GraphAttribute("Hide", "false");
+        if(!this.hasAttribute(VariableNames.edgeHiddenAttribute)) {
+            GraphAttribute hide = new GraphAttribute(VariableNames.edgeHiddenAttribute, "false");
             this.attributes.put(hide.getName(), hide);
         }
         setLabel(label);
@@ -136,8 +136,8 @@ public class Edge extends GraphObject {
         this.attributes = new HashMap<>();
         GraphAttribute att = new GraphAttribute(influenceName, value);
         this.attributes.put(att.getName(), att);
-        if(!this.hasAttribute("Hide")) {
-            GraphAttribute hide = new GraphAttribute("Hide", "false");
+        if(!this.hasAttribute(VariableNames.edgeHiddenAttribute)) {
+            GraphAttribute hide = new GraphAttribute(VariableNames.edgeHiddenAttribute, "false");
             this.attributes.put(hide.getName(), hide);
         }
         setLabel(label);
@@ -168,7 +168,7 @@ public class Edge extends GraphObject {
         this.attributes = new HashMap<>();
         GraphAttribute att = new GraphAttribute(influenceName, influence);
         this.attributes.put(att.getName(), att);
-        GraphAttribute hide = new GraphAttribute("Hide", "false");
+        GraphAttribute hide = new GraphAttribute(VariableNames.edgeHiddenAttribute, "false");
         this.attributes.put(hide.getName(), hide);
         if (influence.equalsIgnoreCase("")) {
             setLabel("Neutral");
@@ -289,7 +289,7 @@ public class Edge extends GraphObject {
      * @return (boolean) if the edge is hidden or not
      */
     public boolean isHidden() {
-        return Boolean.parseBoolean(this.attributes.get("Hide").getValue());
+        return Boolean.parseBoolean(this.attributes.get(VariableNames.edgeHiddenAttribute).getValue());
     }
 
     /**
@@ -298,12 +298,12 @@ public class Edge extends GraphObject {
      * @param t (boolean) Hide = t
      */
     public void setHide(boolean t) {
-        GraphAttribute hide = new GraphAttribute("Hide", Boolean.toString(t));
+        GraphAttribute hide = new GraphAttribute(VariableNames.edgeHiddenAttribute, Boolean.toString(t));
         this.attributes.put(hide.getName(), hide);
     }
     
     public String getHide() {
-        return this.attributes.get("Hide").getValue();
+        return this.attributes.get(VariableNames.edgeHiddenAttribute).getValue();
     }
 
     /**
@@ -452,7 +452,7 @@ public class Edge extends GraphObject {
             edge.setHide(true);
             GraphAttribute merged = new GraphAttribute(VariableNames.MergedEdgeAttribute, mergeCode);
             this.addAttribute(merged);
-            GraphAttribute hide = new GraphAttribute("Hide", "false");
+            GraphAttribute hide = new GraphAttribute(VariableNames.edgeHiddenAttribute, "false");
             this.addAttribute(hide);
         }
         return this;

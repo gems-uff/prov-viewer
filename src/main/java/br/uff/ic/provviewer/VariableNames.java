@@ -41,12 +41,15 @@ public class VariableNames {
     public static String MouseModeTransforming = "Transforming";
     public static String EdgeModeQuadCurve = "QuadCurve";
     public static String EdgeModeLine = "Line";
-    public static String FontConfiguration = "<html><font face=\"verdana\", size=\"8\", color=\"black\">";
+    public static String FontConfiguration = "<html><font face=\"verdana\", size=\"4\", color=\"black\">";
     public static String SummarizedLabelString = " (Summarized)";
     public static String DefaultVertexPainter = "Prov";
     public static String EdgeTooltipFontConfiguration = "<html><font size=\"4\">";
     public static String UnknownValue = "Unknown";
     public static String time = "Timestamp";
+    public static String edgeHiddenAttribute = "Hide";
+    public static String vertexNewSource = "NewSource";
+    public static String vertexNewTarget = "NewTarget";
     
     public static String layout_timeline = "Timeline";
     public static String layout_circle = "Circle";
