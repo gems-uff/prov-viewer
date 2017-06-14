@@ -185,9 +185,9 @@ public class Filters {
      * @param view
      * @param layout 
      */
-    public void showHiddenEdges(VisualizationViewer<Object, Edge> view, Layout<Object, Edge> layout) {
+    public void showHiddenEdges(Variables variables, VisualizationViewer<Object, Edge> view, Layout<Object, Edge> layout) {
         EdgeFilter = filterEdges(false);
-        filteredGraph = (DirectedGraph<Object, Edge>) layout.getGraph();
+        filteredGraph = variables.collapsedGraph;
         filteredGraph = (DirectedGraph<Object, Edge>) EdgeFilter.transform(filteredGraph);
         layout.setGraph(filteredGraph);
         view.repaint();
