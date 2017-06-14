@@ -31,6 +31,7 @@ import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.GraphVertex;
 import br.uff.ic.utility.graph.Vertex;
+import edu.uci.ics.jung.graph.Graph;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -64,93 +65,7 @@ public class UnityReader extends XMLReader {
         //Read all edges
 //        readEdge();
     }
-
-    public void readHeader() {
-        isProvenanceGraph = true;
-        NodeList nList;
-        nList = doc.getElementsByTagName("edgesRightToLeft");
-        if (nList != null && nList.getLength() > 0 && !nList.item(0).getTextContent().equalsIgnoreCase("")) {
-            isProvenanceGraph = Boolean.parseBoolean(nList.item(0).getTextContent());
-        }
-        NodeList vList = doc.getElementsByTagName("vertex");
-        NodeList eList = doc.getElementsByTagName("edge");
-        readGraph(vList, eList, nodes, edges);
-    }
-
-    public void readGraph(NodeList vList, NodeList eList, Map<String, Vertex> vertices, Collection<Edge> edges) {
-        readVertices(vList, vertices);
-        readEdges(eList, edges);
-    }
-
-    /**
-     * Method to read a vertex
-     * @param nList
-     * @param vertices
-     */
-    public void readVertices(NodeList nList, Map<String, Vertex> vertices) {
-        for (int temp = 0; temp < nList.getLength(); temp++) {
-            Node nNode = nList.item(temp);
-            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                Element eElement = (Element) nNode;
-                String id = eElement.getElementsByTagName("ID").item(0).getTextContent();
-                String type = eElement.getElementsByTagName("type").item(0).getTextContent();
-                String label = eElement.getElementsByTagName("label").item(0).getTextContent();
-                String date = eElement.getElementsByTagName("date").item(0).getTextContent();
-
-                Map<String, GraphAttribute> attributes = new HashMap<>();
-                readAttribute(eElement, attributes);
-
-                GraphAttribute path = null;
-                GraphAttribute fileName = null;
-                if (hackLabelPathAndFile) {
-                    String[] folders = label.split("/");
-                    String filePath = label.replace(folders[folders.length - 1], "");
-                    String fn = folders[folders.length - 1];
-                    path = new GraphAttribute("Path", filePath);
-                    fileName = new GraphAttribute("FileName", fn);
-                    if (type.equalsIgnoreCase("Entity")) {
-                        label = fn;
-                    }
-                    if (type.equalsIgnoreCase("Activity")) {
-                        label = label.split(":")[0];
-                    }
-                }
-                Vertex node;
-                if (type.equalsIgnoreCase("Activity")) {
-                    node = new ActivityVertex(id, label, date);
-                } else if (type.equalsIgnoreCase("Entity")) {
-                    node = new EntityVertex(id, label, date);
-                } else if (type.equalsIgnoreCase("Agent")) {
-                    node = new AgentVertex(id, label, date);
-                } else {
-                    node = new GraphVertex(id, label, date);
-                }
-//                readAttribute(eElement, node);
-                if (hackLabelPathAndFile) {
-                    if (node instanceof EntityVertex) {
-                        node.addAttribute(path);
-                        node.addAttribute(fileName);
-                    }
-                }
-                node.addAllAttributes(attributes);
-                if (node instanceof GraphVertex) {
-                    NodeList collapsedVertices = eElement.getElementsByTagName("collapsedvertices");
-                    Node cNode = collapsedVertices.item(0);
-                    if (cNode.getNodeType() == Node.ELEMENT_NODE) {
-                        Element cElement = (Element) cNode;
-                        NodeList vList = cElement.getElementsByTagName("collapsedvertex");
-                        NodeList eList = cElement.getElementsByTagName("collapsededge");
-                        Map<String, Vertex> cv = new HashMap<>();
-                        Collection<Edge> ce = new ArrayList<>();
-                        readGraph(vList, eList, cv, ce);
-                        ((GraphVertex) node).setClusterGraph(ce, cv.values());
-                    }
-                }
-                vertices.put(node.getID(), node);
-            }
-        }
-    }
-
+    
     /**
      * Method to read the attributes from the graph object (can be either an
      * edge or a vertex)
@@ -228,10 +143,99 @@ public class UnityReader extends XMLReader {
         }
     }
 
+    public void readHeader() {
+        isProvenanceGraph = true;
+        NodeList nList;
+        nList = doc.getElementsByTagName("edgesRightToLeft");
+        if (nList != null && nList.getLength() > 0 && !nList.item(0).getTextContent().equalsIgnoreCase("")) {
+            isProvenanceGraph = Boolean.parseBoolean(nList.item(0).getTextContent());
+        }
+        NodeList vList = doc.getElementsByTagName("vertex");
+        NodeList eList = doc.getElementsByTagName("edge");
+        readGraph(vList, eList, nodes, edges);
+    }
+
+    public void readGraph(NodeList vList, NodeList eList, Map<String, Vertex> vertices, Collection<Edge> edges) {
+        readVertices(vList, vertices);
+        readEdges(eList, edges, vertices);
+    }
+
+    /**
+     * Method to read a vertex
+     * @param nList
+     * @param vertices
+     */
+    public void readVertices(NodeList nList, Map<String, Vertex> vertices) {
+        for (int temp = 0; temp < nList.getLength(); temp++) {
+            Node nNode = nList.item(temp);
+            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) nNode;
+                String id = eElement.getElementsByTagName("ID").item(0).getTextContent();
+                String type = eElement.getElementsByTagName("type").item(0).getTextContent();
+                String label = eElement.getElementsByTagName("label").item(0).getTextContent();
+                String date = eElement.getElementsByTagName("date").item(0).getTextContent();
+
+                Map<String, GraphAttribute> attributes = new HashMap<>();
+                readAttribute(eElement, attributes);
+
+                GraphAttribute path = null;
+                GraphAttribute fileName = null;
+                if (hackLabelPathAndFile) {
+                    String[] folders = label.split("/");
+                    String filePath = label.replace(folders[folders.length - 1], "");
+                    String fn = folders[folders.length - 1];
+                    path = new GraphAttribute("Path", filePath);
+                    fileName = new GraphAttribute("FileName", fn);
+                    if (type.equalsIgnoreCase("Entity")) {
+                        label = fn;
+                    }
+                    if (type.equalsIgnoreCase("Activity")) {
+                        label = label.split(":")[0];
+                    }
+                }
+                Vertex node;
+                if (type.equalsIgnoreCase("Activity")) {
+                    node = new ActivityVertex(id, label, date);
+                } else if (type.equalsIgnoreCase("Entity")) {
+                    node = new EntityVertex(id, label, date);
+                } else if (type.equalsIgnoreCase("Agent")) {
+                    node = new AgentVertex(id, label, date);
+                } else {
+                    node = new GraphVertex(id, label, date);
+                }
+//                readAttribute(eElement, node);
+                if (hackLabelPathAndFile) {
+                    if (node instanceof EntityVertex) {
+                        node.addAttribute(path);
+                        node.addAttribute(fileName);
+                    }
+                }
+                node.addAllAttributes(attributes);
+                if (node instanceof GraphVertex) {
+                    NodeList collapsedVertices = eElement.getElementsByTagName("collapsedvertices");
+                    NodeList collapsedEdged = eElement.getElementsByTagName("collapsededges");
+                    Node cVertexNode = collapsedVertices.item(0);
+                    Node cEdgeNode = collapsedEdged.item(0);
+                    if (cVertexNode.getNodeType() == Node.ELEMENT_NODE) {
+                        Element cVertexElement = (Element) cVertexNode;
+                        Element cEdgeElement = (Element) cEdgeNode;
+                        NodeList vList = cVertexElement.getElementsByTagName("collapsedvertex");
+                        NodeList eList = cEdgeElement.getElementsByTagName("collapsededge");
+                        Map<String, Vertex> cv = new HashMap<>();
+                        Collection<Edge> ce = new ArrayList<>();
+                        readGraph(vList, eList, cv, ce);
+                        ((GraphVertex) node).setClusterGraph(ce, cv.values());
+                    }
+                }
+                vertices.put(node.getID(), node);
+            }
+        }
+    }
+
     /**
      * Method to read an edge
      */
-    public void readEdges(NodeList nList, Collection<Edge> edges) {
+    public void readEdges(NodeList nList, Collection<Edge> edges, Map<String, Vertex> vertices) {
         for (int temp = 0; temp < nList.getLength(); temp++) {
             Node nNode = nList.item(temp);
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -253,32 +257,19 @@ public class UnityReader extends XMLReader {
                 if (attributes.containsKey("NewTarget")) {
                     newTarget = attributes.get("NewTarget").getValue();
                 }
-                if ((nodes.containsKey(source) || nodes.containsKey(newSource)) && (nodes.containsKey(target) || nodes.containsKey(newTarget))) {
+                if ((vertices.containsKey(source) || vertices.containsKey(newSource)) && (vertices.containsKey(target) || vertices.containsKey(newTarget))) {
                     Vertex vs;
                     Vertex vt;
-                    if (nodes.containsKey(source)) {
-                        vs = nodes.get(source);
-                    } else {
-                        vs = nodes.get(attributes.get("NewSource").getValue());
-//                        vs = getNode(nodes, source, attributes, "NewSource");
-                    }
-                    if (nodes.containsKey(target)) {
-                        vt = nodes.get(target);
-                    } else {
-                        vt = nodes.get(attributes.get("NewTarget").getValue());
-//                        vt = getNode(nodes, target, attributes, "NewTarget");
-                    }
+                    vs = findNode(source, vertices);
+                    vt = findNode(target, vertices);
 
                     if (isProvenanceGraph) {
                         edge = new Edge(id, type, label, value, vt, vs);
-                    } //                        addEdge(id, type, label, value, target, source);
+                    }
                     else {
                         edge = new Edge(id, type, label, value, vs, vt);
                     }
-//                        addEdge(id, type, label, value, source, target);
-//                    readAttribute(eElement, edge);
                     edge.addAllAttributes(attributes);
-//                    addEdge(edge);
                     edges.add(edge);
                 } else {
                     System.out.println("Not possible!");
@@ -292,22 +283,58 @@ public class UnityReader extends XMLReader {
         }
     }
     
-    private Vertex getNode(Map<String, Vertex> n, String source, Map<String, GraphAttribute> attributes, String tag) {
-        if (n.containsKey(source)) {
-            return n.get(source);
-        } else {
-            GraphVertex gv = (GraphVertex) n.get(attributes.get(tag).getValue());
-            return findSource(gv, source);
-        }
-    }
+//    private Vertex getNode(Map<String, Vertex> n, String source, Map<String, GraphAttribute> attributes, String tag) {
+//        if (n.containsKey(source)) {
+//            return n.get(source);
+//        } else {
+//            GraphVertex gv = (GraphVertex) n.get(attributes.get(tag).getValue());
+//            return findSource(gv, source);
+//        }
+//    }
     
-    private Vertex findSource(GraphVertex gv, String source) {
-        for(Object v : gv.clusterGraph.getVertices()) {
-            if(v instanceof GraphVertex)
-                findSource((GraphVertex) v, source);
-            else if(((Vertex)v).getID().equalsIgnoreCase(source))
-                return (Vertex) v;
+//    private Vertex findSource(GraphVertex gv, String source) {
+//        for(Object v : gv.clusterGraph.getVertices()) {
+//            if(v instanceof GraphVertex)
+//                findSource((GraphVertex) v, source);
+//            else if(((Vertex)v).getID().equalsIgnoreCase(source))
+//                return (Vertex) v;
+//        }
+//        return null;
+//    }
+
+    private Vertex findNode(String source, Map<String, Vertex> vertices) {
+        if (vertices.containsKey(source)) {
+            return vertices.get(source);
+        } else {
+            for(String ids : vertices.keySet()) {
+                if(ids.contains(source)) { // It might have. Lets break it down to make sure it has the Source
+                    String currentID = ids.replace("[", ""); // Remove the GraphVertex ID brankets
+                    currentID = currentID.replace("]", "");
+                    currentID = currentID.replace(" ", ""); // Remove spaces
+                    String[] subIDs = currentID.split(","); // Split each ID that composes the GraphVertex
+                    for(String i : subIDs) { // Lets check if each individual ID is the original Source
+                        if(i.equalsIgnoreCase(source)) { // If true then the original vertex is inside this GraphVertex
+                            GraphVertex v = (GraphVertex) vertices.get(ids); // We got the GraphVertex, now need to explore it
+                            return findNode(v.clusterGraph, source);
+                        }
+                    }
+                }
+            }
         }
         return null;
+    }
+    private Vertex findNode(Graph clusterGraph, String source) {
+        Vertex found = null;
+        for(Object v : clusterGraph.getVertices()) {
+            if(((Vertex)v).getID().equalsIgnoreCase(source))
+                return (Vertex) v;
+            else if(v instanceof GraphVertex)
+                found = findNode(((GraphVertex)v).clusterGraph, source);
+        }
+        return found;
+    }
+    
+    public Vertex getNewPointer(String id) {
+        return nodes.get(id);
     }
 }
