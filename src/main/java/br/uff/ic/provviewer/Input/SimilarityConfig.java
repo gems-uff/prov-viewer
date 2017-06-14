@@ -23,6 +23,7 @@
  */
 package br.uff.ic.provviewer.Input;
 
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.utility.AttributeErrorMargin;
 import br.uff.ic.utility.Vocabulary;
 import java.io.File;
@@ -84,6 +85,13 @@ public class SimilarityConfig {
             vocabulary = new Vocabulary();
             defaultError = "0";
             
+            epsilon = new AttributeErrorMargin(VariableNames.CollapsedVertexActivityAttribute, "", 0);
+            restrictionList.put(VariableNames.CollapsedVertexActivityAttribute, epsilon);
+            epsilon = new AttributeErrorMargin(VariableNames.CollapsedVertexAgentAttribute, "", 0);
+            restrictionList.put(VariableNames.CollapsedVertexAgentAttribute, epsilon);
+            epsilon = new AttributeErrorMargin(VariableNames.CollapsedVertexEntityAttribute, "", 0);
+            restrictionList.put(VariableNames.CollapsedVertexEntityAttribute, epsilon);
+                    
             nList = doc.getElementsByTagName("default_error");
             defaultError = nList.item(0).getTextContent();
             nList = doc.getElementsByTagName("default_weight");
