@@ -277,7 +277,7 @@ public class Edge extends GraphObject {
     public String getEdgeTooltip(int nGraphs) {
         return "<br>ID: " + this.id
                 + "<br>Label: " + getLabel()
-//                + "<br>Value: " + getValue()
+                + "<br>"
                 + "<br>Type: " + getType()
                 + "<br>Probability: " + getEdgeFrequency(nGraphs)
                 + "<br>" + printAttributes();
