@@ -279,7 +279,7 @@ public class Edge extends GraphObject {
                 + "<br>Label: " + getLabel()
                 + "<br>"
                 + "<br>Type: " + getType()
-                + "<br>Probability: " + getEdgeFrequency(nGraphs)
+                + "<br>Frequency: " + getEdgeFrequency(nGraphs)
                 + "<br>" + printAttributes();
     }
 
@@ -459,7 +459,10 @@ public class Edge extends GraphObject {
     }
     
     public String getEdgeFrequency(float nGraphs) {
-        float frequency = ((float) this.getAttributeValues(VariableNames.GraphFile).length / (float)nGraphs) * 100;
-        return String.format("%.02f", frequency) + "%";
+        if(this.hasAttribute(VariableNames.GraphFile)) {
+            float frequency = ((float) this.getAttributeValues(VariableNames.GraphFile).length / (float)nGraphs) * 100;
+            return String.format("%.02f", frequency) + "%";
+        } else
+            return "Frequency Unavailable";
     }
 }
