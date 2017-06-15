@@ -35,6 +35,7 @@ import br.uff.ic.utility.IO.PROVNWriter;
 import br.uff.ic.utility.IO.XMLWriter;
 import br.uff.ic.utility.graph.GraphVertex;
 import br.uff.ic.utility.graph.Vertex;
+import edu.uci.ics.jung.graph.util.Pair;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
 import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
 import edu.uci.ics.jung.visualization.decorators.EdgeShape;
@@ -231,7 +232,8 @@ public class GuiButtons {
 
                 @Override
                 public String transform(Edge i) {
-                    Object target = i.getTarget();
+                    Pair endpoints = variables.layout.getGraph().getEndpoints(i);
+                    Object target = endpoints.getSecond();
                     int sources = variables.layout.getGraph().getInEdges(target).size();
                     if(sources == 1)
                         return VariableNames.FontConfiguration + "100%";
