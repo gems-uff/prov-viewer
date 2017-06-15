@@ -23,10 +23,12 @@
  */
 package br.uff.ic.provviewer.Layout;
 
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
+import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.Graph;
 import java.awt.geom.Point2D;
 
@@ -74,7 +76,7 @@ public class Timeline_Layout<V, E> extends ProvViewerTimelineLayout<V, E> {
         entityXPos = entityXPos * scale;
         for (V v : vertex_ordered_list) {
             Point2D coord = transform(v);
-            if (v instanceof AgentVertex) {
+            if (v instanceof AgentVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexAgentAttribute)) {
                 yPos = agentY;
                 agentY = agentY + scale;
                 i = i + scale;
@@ -83,7 +85,7 @@ public class Timeline_Layout<V, E> extends ProvViewerTimelineLayout<V, E> {
                 if (layout_graph.getOutEdges(v) != null) {
                     for (E neighbor : layout_graph.getOutEdges(v)) {
                         //if the edge link to an Agent-node
-                        if (layout_graph.getDest(neighbor) instanceof AgentVertex) {
+                        if (layout_graph.getDest(neighbor) instanceof AgentVertex || ((Vertex)layout_graph.getDest(neighbor)).hasAttribute(VariableNames.CollapsedVertexAgentAttribute)) {
                             Point2D agentPos = transform(layout_graph.getDest(neighbor));
                             yPos = agentPos.getY();
                         }
