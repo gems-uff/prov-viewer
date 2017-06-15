@@ -24,6 +24,7 @@
 
 package br.uff.ic.utility.IO;
 
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.GraphAttribute;
@@ -550,6 +551,7 @@ public class PROVNReader extends InputReader {
     }
 
     public void readAttributes(GraphObject obj, String[] attributes) {
+        boolean hasGraphFile = false;
         if (attributes != null) {
             for (String attList1 : attributes) {
                 String[] att = attList1.split("=");
@@ -559,10 +561,17 @@ public class PROVNReader extends InputReader {
                     } else if ((obj instanceof Edge) && (att[0].contains("value"))) {
                         ((Edge) obj).setValue(att[1]);
                     }
+                    if(att[0].equalsIgnoreCase("GraphFile")) {
+                        hasGraphFile = true;
+                    }
                     GraphAttribute optAtt = new GraphAttribute(att[0], att[1]);
                     obj.addAttribute(optAtt);
                 }
             }
+        }
+        if (!hasGraphFile) {
+            GraphAttribute graphFileAtt = new GraphAttribute(VariableNames.GraphFile, file.getName());
+            obj.addAttribute(graphFileAtt);
         }
     }
 
