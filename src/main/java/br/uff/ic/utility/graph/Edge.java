@@ -141,10 +141,10 @@ public class Edge extends GraphObject {
             this.attributes.put(hide.getName(), hide);
         }
         setLabel(label);
-        if (label.equalsIgnoreCase("") || label == null || "-".equals(label) || label.equalsIgnoreCase("Neutral")) {
-            setLabel("Neutral");
-            value = "0";
-        }
+//        if (label.equalsIgnoreCase("") || label == null || "-".equals(label) || label.equalsIgnoreCase("Neutral")) {
+//            setLabel("Neutral");
+//            value = "0";
+//        }
         
     }
 
