@@ -51,7 +51,7 @@ public class UnityReader extends XMLReader {
 
     boolean isProvenanceGraph;
     boolean hackLabelPathAndFile = false;
-    boolean hackSplitFilePath = true;
+    boolean hackSplitFilePath = false;
 
     public UnityReader(File fXmlFile) throws URISyntaxException, IOException {
         super(fXmlFile);
