@@ -156,9 +156,10 @@ public class Variables extends Object {
      * Should be called everytime after a graph is loaded: File Open / Merge Graph
      */
     public void updateNumberOfGraphs() {
-        numberOfGraphs = Utils.DetectAllPossibleValuesFromAttribute(graph.getVertices(), VariableNames.GraphFile).size();
         graphNames = Utils.DetectAllPossibleValuesFromAttribute(graph.getVertices(), VariableNames.GraphFile);
+        numberOfGraphs = graphNames.size();
         this.config.detectGraphVisualizationModes(this.graphNames);
+        this.config.addGraphFileVertexFilter(this.graphNames);
     }
 
     
