@@ -129,7 +129,7 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
         float graphSize = GraphUtils.getCollapsedVertexSize(v);
         float maxVertices = variables.graph.getVertexCount() * 0.25f;
         graphSize = graphSize / maxVertices;
-        int size = (int) (defaultSize * (1 + graphSize));
+        int size = (int) (defaultSize * (1.1 + 3 * graphSize));
         setSizeTransformer(new VertexSize<V>(size));
     }
 
