@@ -138,6 +138,10 @@ public class GraphFrame extends javax.swing.JFrame {
         FileMenu = new javax.swing.JMenu();
         OpenConfig = new javax.swing.JMenuItem();
         OpenGraph = new javax.swing.JMenuItem();
+        exportGraphPROVNButton = new javax.swing.JMenuItem();
+        exportGraphXMLButton = new javax.swing.JMenuItem();
+        exportCollapsedGraphXML = new javax.swing.JMenuItem();
+        exportDisplayedGraphXML = new javax.swing.JMenuItem();
         Exit = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         RenameVertexLabelMenuButton = new javax.swing.JMenuItem();
@@ -171,7 +175,6 @@ public class GraphFrame extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         mergeGraphButtom = new javax.swing.JMenuItem();
-        exportGraphButton = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         temporalNanosecondsButton = new javax.swing.JCheckBoxMenuItem();
         temporalMicrosecondsButton = new javax.swing.JCheckBoxMenuItem();
@@ -666,6 +669,42 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         FileMenu.add(OpenGraph);
 
+        exportGraphPROVNButton.setText("Export Graph (Prov-N)");
+        exportGraphPROVNButton.setToolTipText("Export the original graph (or the resulting merged graph) in Prov-N format.\nWarning: Data loss is possible due to the format's restrictions");
+        exportGraphPROVNButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportGraphPROVNButtonActionPerformed(evt);
+            }
+        });
+        FileMenu.add(exportGraphPROVNButton);
+
+        exportGraphXMLButton.setText("Export Graph (XML)");
+        exportGraphXMLButton.setToolTipText("Export the original graph (or the resulted merged graph) in Prov Viewer's xml format");
+        exportGraphXMLButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportGraphXMLButtonActionPerformed(evt);
+            }
+        });
+        FileMenu.add(exportGraphXMLButton);
+
+        exportCollapsedGraphXML.setText("Export Collapsed Graph (XML)");
+        exportCollapsedGraphXML.setToolTipText("Export the collapsed graph (with all filters disabled) in Prov Viewer's xml format");
+        exportCollapsedGraphXML.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportCollapsedGraphXMLActionPerformed(evt);
+            }
+        });
+        FileMenu.add(exportCollapsedGraphXML);
+
+        exportDisplayedGraphXML.setText("Export Displayed Graph (XML)");
+        exportDisplayedGraphXML.setToolTipText("Export the current displayed graph (as it is being shown) in Prov Viewer's xml format\nWarning: Hidden information will be lost");
+        exportDisplayedGraphXML.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportDisplayedGraphXMLActionPerformed(evt);
+            }
+        });
+        FileMenu.add(exportDisplayedGraphXML);
+
         Exit.setText("Exit");
         Exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -906,14 +945,6 @@ public class GraphFrame extends javax.swing.JFrame {
             }
         });
         jMenu2.add(mergeGraphButtom);
-
-        exportGraphButton.setText("Export Graph");
-        exportGraphButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exportGraphButtonActionPerformed(evt);
-            }
-        });
-        jMenu2.add(exportGraphButton);
 
         MenuBar.add(jMenu2);
 
@@ -1248,10 +1279,10 @@ public class GraphFrame extends javax.swing.JFrame {
         GuiReadFile.MergeGraph(variables, fileChooser, this, Layouts);
     }//GEN-LAST:event_mergeGraphButtomActionPerformed
 
-    private void exportGraphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportGraphButtonActionPerformed
+    private void exportGraphPROVNButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportGraphPROVNButtonActionPerformed
         // TODO add your handling code here:
-        GuiButtons.ExportPROVN(variables);
-    }//GEN-LAST:event_exportGraphButtonActionPerformed
+        GuiButtons.ExportGraphPROVN(variables);
+    }//GEN-LAST:event_exportGraphPROVNButtonActionPerformed
 
     private void temporalMillisecondsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporalMillisecondsButtonActionPerformed
         // TODO add your handling code here:
@@ -1547,6 +1578,21 @@ public class GraphFrame extends javax.swing.JFrame {
         ShowEdgePathProbabilityButton.setSelected(false);
         GuiButtons.EdgeTextDisplay(variables, displayEdgeLabel.isSelected(), displayEdgeType.isSelected(), edgeFrequencyButton.isSelected(), ShowEdgePathProbabilityButton.isSelected());
     }//GEN-LAST:event_displayEdgeTypeActionPerformed
+
+    private void exportGraphXMLButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportGraphXMLButtonActionPerformed
+        // TODO add your handling code here:
+        GuiButtons.ExportGraphXML(variables);
+    }//GEN-LAST:event_exportGraphXMLButtonActionPerformed
+
+    private void exportCollapsedGraphXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportCollapsedGraphXMLActionPerformed
+        // TODO add your handling code here:
+        GuiButtons.ExportCollapsedGraphXML(variables);
+    }//GEN-LAST:event_exportCollapsedGraphXMLActionPerformed
+
+    private void exportDisplayedGraphXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportDisplayedGraphXMLActionPerformed
+        // TODO add your handling code here:
+        GuiButtons.ExportDisplayedGraphXML(variables);
+    }//GEN-LAST:event_exportDisplayedGraphXMLActionPerformed
    
     /**
      * Main
@@ -1634,7 +1680,10 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem doDerivateButton;
     public static javax.swing.JList edgeFilterList;
     private javax.swing.JCheckBoxMenuItem edgeFrequencyButton;
-    private javax.swing.JMenuItem exportGraphButton;
+    private javax.swing.JMenuItem exportCollapsedGraphXML;
+    private javax.swing.JMenuItem exportDisplayedGraphXML;
+    private javax.swing.JMenuItem exportGraphPROVNButton;
+    private javax.swing.JMenuItem exportGraphXMLButton;
     private javax.swing.JFileChooser fileChooser;
     public static javax.swing.JCheckBoxMenuItem hideAgentEdgesButton;
     public static javax.swing.JCheckBoxMenuItem hideAgentVerticesButton;

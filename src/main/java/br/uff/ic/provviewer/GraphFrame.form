@@ -107,6 +107,42 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="OpenGraphActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="exportGraphPROVNButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Export Graph (Prov-N)"/>
+                <Property name="toolTipText" type="java.lang.String" value="Export the original graph (or the resulting merged graph) in Prov-N format.&#xa;Warning: Data loss is possible due to the format&apos;s restrictions"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportGraphPROVNButtonActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="exportGraphXMLButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Export Graph (XML)"/>
+                <Property name="toolTipText" type="java.lang.String" value="Export the original graph (or the resulted merged graph) in Prov Viewer&apos;s xml format"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportGraphXMLButtonActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="exportCollapsedGraphXML">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Export Collapsed Graph (XML)"/>
+                <Property name="toolTipText" type="java.lang.String" value="Export the collapsed graph (with all filters disabled) in Prov Viewer&apos;s xml format"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportCollapsedGraphXMLActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="exportDisplayedGraphXML">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Export Displayed Graph (XML)"/>
+                <Property name="toolTipText" type="java.lang.String" value="Export the current displayed graph (as it is being shown) in Prov Viewer&apos;s xml format&#xa;Warning: Hidden information will be lost"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportDisplayedGraphXMLActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="Exit">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Exit"/>
@@ -388,14 +424,6 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mergeGraphButtomActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="exportGraphButton">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Export Graph"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportGraphButtonActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
