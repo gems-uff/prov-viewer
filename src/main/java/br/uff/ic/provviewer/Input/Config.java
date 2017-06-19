@@ -583,8 +583,8 @@ public class Config {
     private void InterfaceVertexFilters() {
         //Initialize Interface Filters
         String[] types = new String[vertexLabelFilter.size()];
-        for (int x = 0; x < types.length; x++) {
-            types[x] = vertexLabelFilter.get(x);
+        for (int i = 0; i < types.length; i++) {
+            types[i] = vertexLabelFilter.get(i);
         }
         GraphFrame.vertexFilterList.setListData(types);
     }
@@ -602,5 +602,28 @@ public class Config {
 
         GraphFrame.StatusFilterBox.setModel(
                 new DefaultComboBoxModel(items));
+    }
+
+    /**
+     * Method to automatically add the GraphFile filter in the Vertex Filters menu
+     * @param graphNames 
+     */
+    public void addGraphFileVertexFilter(Collection<String> graphNames) {
+        System.out.println("vList size: " + vertexLabelFilter.size());
+        System.out.println("GNames size: " + graphNames.size());
+        String[] types = new String[vertexLabelFilter.size() + graphNames.size()];
+        for (int i = 0; i < vertexLabelFilter.size(); i++) {
+            types[i] = vertexLabelFilter.get(i);
+            System.out.println(i);
+        }
+        int i = vertexLabelFilter.size();
+        for (String s : graphNames) {
+            System.out.println(i);
+            types[i] = VariableNames.GraphFile + ": " + s;
+            System.out.println(types[i]);
+            i++;
+            
+        }
+        GraphFrame.vertexFilterList.setListData(types);
     }
 }
