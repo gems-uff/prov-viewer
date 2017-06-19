@@ -62,8 +62,8 @@ public class GuiInitialization {
         variables.initConfig = true;
         variables.graph = graph;
         variables.collapsedGraph = variables.graph;
-        variables.updateNumberOfGraphs();
         GuiFunctions.SetView(variables, Layouts, graphFrame);
+        variables.updateNumberOfGraphs();
         variables.guiBackground.InitBackground(variables, Layouts);
         GuiFunctions.MouseInteraction(variables);
         GuiTooltip.Tooltip(variables);
