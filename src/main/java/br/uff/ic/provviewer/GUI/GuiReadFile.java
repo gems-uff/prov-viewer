@@ -40,6 +40,8 @@ import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
@@ -60,6 +62,7 @@ public class GuiReadFile {
      */
     public static DirectedGraph<Object, Edge> getGraph(File graphFile) {
         DirectedGraph<Object, Edge> g = new DirectedSparseMultigraph<>();
+        Map<String, Object> vertices = new HashMap<>();
         try {
             String extension = FilenameUtils.getExtension(graphFile.toPath().toString());
             InputReader fileReader;
@@ -86,9 +89,19 @@ public class GuiReadFile {
 //                        System.out.println("newSource: " + ((Vertex)newSource).getID());
 //                        System.out.println("newTarget: " + ((Vertex)newTarget).getID());
                         g.addEdge(edge, newSource, newTarget);
+                        vertices.put(((Vertex)newSource).getID(), newSource);
+                        vertices.put(((Vertex)newTarget).getID(), newTarget);
                     }
-                } else
+                } else {
                     g.addEdge(edge, edge.getSource(), edge.getTarget());
+                    vertices.put(((Vertex)edge.getSource()).getID(), edge.getSource());
+                    vertices.put(((Vertex)edge.getTarget()).getID(), edge.getTarget());
+                }
+            }
+            // Adds vertices that had no edge connecting then
+            for(Vertex v : fileReader.getNodes()) {
+                if(!vertices.containsKey(v.getID()))
+                    g.addVertex(v);
             }
             
         } catch (URISyntaxException ex) {
