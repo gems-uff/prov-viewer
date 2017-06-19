@@ -329,6 +329,10 @@ public class GuiFunctions {
         DirectedGraph<Object, Edge> graph = new DirectedSparseMultigraph<>();
         // Clone the current displayed graph to the "graph" variable
         variables.filter.AddFilters(variables);
+        // Add all vertices, even lonely ones since it will not be capture if there is no edge connecting it in the next step just as a precation
+        for(Object v : variables.layout.getGraph().getVertices())
+            graph.addVertex(v);
+        
         for(Edge edge : variables.layout.getGraph().getEdges()) {
             Pair endpoints = variables.layout.getGraph().getEndpoints(edge);
             Object v1 = endpoints.getFirst();
