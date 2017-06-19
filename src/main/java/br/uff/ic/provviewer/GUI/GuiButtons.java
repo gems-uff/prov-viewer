@@ -214,11 +214,33 @@ public class GuiButtons {
     /**
      * method to display edge label
      * @param variables
-     * @param ShowEdgeTextButton 
+     * @param ShowEdgeLabelButton 
      */
-    public static void EdgeTextDisplay(final Variables variables, boolean ShowEdgeTextButton, boolean ShowEdgeProbabilityButton, boolean ShowEdgePathProbabilityButton) {
-        if (ShowEdgeTextButton) {
-            variables.view.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller<Edge>());
+    public static void EdgeTextDisplay(final Variables variables, boolean ShowEdgeLabelButton, boolean ShowEdgeTypeButton, boolean ShowEdgeProbabilityButton, boolean ShowEdgePathProbabilityButton) {
+        if (ShowEdgeLabelButton && ShowEdgeTypeButton) {
+            variables.view.getRenderContext().setEdgeLabelTransformer(new Transformer<Edge, String>() {
+
+                @Override
+                public String transform(Edge i) {
+                    return VariableNames.FontConfiguration + i.getType() + " (" + i.getLabel() + ")";
+                }
+            });
+        } else if (ShowEdgeLabelButton) {
+            variables.view.getRenderContext().setEdgeLabelTransformer(new Transformer<Edge, String>() {
+
+                @Override
+                public String transform(Edge i) {
+                    return VariableNames.FontConfiguration + i.getLabel();
+                }
+            });
+        } else if (ShowEdgeTypeButton) {
+        variables.view.getRenderContext().setEdgeLabelTransformer(new Transformer<Edge, String>() {
+
+            @Override
+            public String transform(Edge i) {
+                return VariableNames.FontConfiguration + i.getType();
+            }
+        });
         } else if(ShowEdgeProbabilityButton) {
             variables.view.getRenderContext().setEdgeLabelTransformer(new Transformer<Edge, String>() {
 

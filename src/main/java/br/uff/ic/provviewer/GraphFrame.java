@@ -158,7 +158,8 @@ public class GraphFrame extends javax.swing.JFrame {
         displayAgentLabelButton = new javax.swing.JCheckBoxMenuItem();
         displayEntityLabelButton = new javax.swing.JCheckBoxMenuItem();
         jMenu11 = new javax.swing.JMenu();
-        displayEdgeText = new javax.swing.JCheckBoxMenuItem();
+        displayEdgeLabel = new javax.swing.JCheckBoxMenuItem();
+        displayEdgeType = new javax.swing.JCheckBoxMenuItem();
         edgeFrequencyButton = new javax.swing.JCheckBoxMenuItem();
         ShowEdgePathProbabilityButton = new javax.swing.JCheckBoxMenuItem();
         jMenu6 = new javax.swing.JMenu();
@@ -246,7 +247,7 @@ public class GraphFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        fileChooser.setCurrentDirectory(new java.io.File("D:\\SVN\\Prov_Viewer\\prov-viewer\\src\\main\\resources"));
+        fileChooser.setCurrentDirectory(new java.io.File("C:\\Kohwalter\\GitHub\\prov-viewer\\src\\main\\resources"));
         fileChooser.setDialogTitle("This is my open dialog");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -805,14 +806,23 @@ public class GraphFrame extends javax.swing.JFrame {
 
         jMenu11.setText("Edge");
 
-        displayEdgeText.setText("Display Text");
-        displayEdgeText.setToolTipText("Display Edge Text in the format of \"type (label)\"");
-        displayEdgeText.addActionListener(new java.awt.event.ActionListener() {
+        displayEdgeLabel.setText("Display Label");
+        displayEdgeLabel.setToolTipText("Display Edge's Label. Can be combined with Type");
+        displayEdgeLabel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                displayEdgeTextActionPerformed(evt);
+                displayEdgeLabelActionPerformed(evt);
             }
         });
-        jMenu11.add(displayEdgeText);
+        jMenu11.add(displayEdgeLabel);
+
+        displayEdgeType.setText("Display Type");
+        displayEdgeType.setToolTipText("Display the edge's Type. Can be combined with Label");
+        displayEdgeType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                displayEdgeTypeActionPerformed(evt);
+            }
+        });
+        jMenu11.add(displayEdgeType);
 
         edgeFrequencyButton.setText("Display Frequency");
         edgeFrequencyButton.setToolTipText("Display the Edge Probability based on the number of graphs it belongs compared to the total number of graphs");
@@ -1377,12 +1387,12 @@ public class GraphFrame extends javax.swing.JFrame {
         variables.view.repaint();
     }//GEN-LAST:event_isStrokeByValueButtonActionPerformed
 
-    private void displayEdgeTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayEdgeTextActionPerformed
+    private void displayEdgeLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayEdgeLabelActionPerformed
         // TODO add your handling code here:
         edgeFrequencyButton.setSelected(false);
         ShowEdgePathProbabilityButton.setSelected(false);
-        GuiButtons.EdgeTextDisplay(variables, displayEdgeText.isSelected(), edgeFrequencyButton.isSelected(),ShowEdgePathProbabilityButton.isSelected());
-    }//GEN-LAST:event_displayEdgeTextActionPerformed
+        GuiButtons.EdgeTextDisplay(variables, displayEdgeLabel.isSelected(), displayEdgeType.isSelected(), edgeFrequencyButton.isSelected(),ShowEdgePathProbabilityButton.isSelected());
+    }//GEN-LAST:event_displayEdgeLabelActionPerformed
 
     private void hideAgentVerticesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hideAgentVerticesButtonActionPerformed
         GuiButtons.Filter(variables);
@@ -1517,17 +1527,26 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private void edgeFrequencyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edgeFrequencyButtonActionPerformed
         // TODO add your handling code here:
-        displayEdgeText.setSelected(false);
+        displayEdgeLabel.setSelected(false);
+        displayEdgeType.setSelected(false);
         ShowEdgePathProbabilityButton.setSelected(false);
-        GuiButtons.EdgeTextDisplay(variables, displayEdgeText.isSelected(), edgeFrequencyButton.isSelected(), ShowEdgePathProbabilityButton.isSelected());
+        GuiButtons.EdgeTextDisplay(variables, displayEdgeLabel.isSelected(), displayEdgeType.isSelected(), edgeFrequencyButton.isSelected(), ShowEdgePathProbabilityButton.isSelected());
     }//GEN-LAST:event_edgeFrequencyButtonActionPerformed
 
     private void ShowEdgePathProbabilityButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowEdgePathProbabilityButtonActionPerformed
         // TODO add your handling code here:
-        displayEdgeText.setSelected(false);
+        displayEdgeLabel.setSelected(false);
+        displayEdgeType.setSelected(false);
         edgeFrequencyButton.setSelected(false);
-        GuiButtons.EdgeTextDisplay(variables, displayEdgeText.isSelected(), edgeFrequencyButton.isSelected(), ShowEdgePathProbabilityButton.isSelected());
+        GuiButtons.EdgeTextDisplay(variables, displayEdgeLabel.isSelected(), displayEdgeType.isSelected(), edgeFrequencyButton.isSelected(), ShowEdgePathProbabilityButton.isSelected());
     }//GEN-LAST:event_ShowEdgePathProbabilityButtonActionPerformed
+
+    private void displayEdgeTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayEdgeTypeActionPerformed
+        // TODO add your handling code here:
+        edgeFrequencyButton.setSelected(false);
+        ShowEdgePathProbabilityButton.setSelected(false);
+        GuiButtons.EdgeTextDisplay(variables, displayEdgeLabel.isSelected(), displayEdgeType.isSelected(), edgeFrequencyButton.isSelected(), ShowEdgePathProbabilityButton.isSelected());
+    }//GEN-LAST:event_displayEdgeTypeActionPerformed
    
     /**
      * Main
@@ -1606,8 +1625,9 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JTextField dbscanEpsilon;
     private javax.swing.JCheckBoxMenuItem displayActivityLabelButton;
     private javax.swing.JCheckBoxMenuItem displayAgentLabelButton;
-    private javax.swing.JCheckBoxMenuItem displayEdgeText;
+    private javax.swing.JCheckBoxMenuItem displayEdgeLabel;
     private javax.swing.JMenu displayEdgeTextButton;
+    private javax.swing.JCheckBoxMenuItem displayEdgeType;
     private javax.swing.JCheckBoxMenuItem displayEntityLabelButton;
     private javax.swing.JCheckBoxMenuItem displayID;
     private javax.swing.JCheckBoxMenuItem displayTimeLabel;
