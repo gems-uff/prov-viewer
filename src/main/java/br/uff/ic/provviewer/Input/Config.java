@@ -609,18 +609,13 @@ public class Config {
      * @param graphNames 
      */
     public void addGraphFileVertexFilter(Collection<String> graphNames) {
-        System.out.println("vList size: " + vertexLabelFilter.size());
-        System.out.println("GNames size: " + graphNames.size());
         String[] types = new String[vertexLabelFilter.size() + graphNames.size()];
         for (int i = 0; i < vertexLabelFilter.size(); i++) {
             types[i] = vertexLabelFilter.get(i);
-            System.out.println(i);
         }
         int i = vertexLabelFilter.size();
         for (String s : graphNames) {
-            System.out.println(i);
             types[i] = VariableNames.GraphFile + ": " + s;
-            System.out.println(types[i]);
             i++;
             
         }
