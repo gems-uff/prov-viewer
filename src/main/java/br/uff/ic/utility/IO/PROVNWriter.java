@@ -24,6 +24,7 @@
 
 package br.uff.ic.utility.IO;
 
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.utility.GraphAttribute;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
@@ -95,9 +96,9 @@ public final class PROVNWriter {
 
     public void writeVertices() throws IOException {
         for (Object vertex : vertexList) {
-            if (vertex instanceof AgentVertex) {
+            if (vertex instanceof AgentVertex || ((Vertex)vertex).hasAttribute(VariableNames.CollapsedVertexAgentAttribute)) {
                 newAgent((Vertex) vertex);
-            } else if (vertex instanceof ActivityVertex) {
+            } else if (vertex instanceof ActivityVertex || ((Vertex)vertex).hasAttribute(VariableNames.CollapsedVertexActivityAttribute)) {
                 newActivity((Vertex) vertex);
             } else {
                 newEntity((Vertex) vertex);
