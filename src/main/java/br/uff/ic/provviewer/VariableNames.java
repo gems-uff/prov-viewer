@@ -50,6 +50,7 @@ public class VariableNames {
     public static String edgeHiddenAttribute = "Hide";
     public static String vertexNewSource = "NewSource";
     public static String vertexNewTarget = "NewTarget";
+    public static String similarityAttribute = "Similarity";
     
     public static String layout_timeline = "Timeline";
     public static String layout_circle = "Circle";

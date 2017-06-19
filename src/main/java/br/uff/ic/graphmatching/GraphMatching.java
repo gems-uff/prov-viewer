@@ -23,7 +23,7 @@
  */
 package br.uff.ic.graphmatching;
 
-import br.uff.ic.provviewer.Variables;
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.utility.AttributeErrorMargin;
 import br.uff.ic.utility.GraphAttribute;
 import br.uff.ic.utility.GraphCollapser;
@@ -37,9 +37,7 @@ import br.uff.ic.utility.graph.GraphVertex;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
-import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Pair;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -277,6 +275,7 @@ public class GraphMatching {
 //        System.out.println("Match Similarity between " + v1.getID() + " and " + v2.getID() + ": " + similarity);
         if (similarity >= threshold) {
             isSimilar = true;
+            v1.addAttribute(new GraphAttribute(VariableNames.similarityAttribute, similarity * 100 + "%"));
         }
 
         return isSimilar;
