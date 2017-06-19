@@ -606,7 +606,7 @@ public class Config {
 
     /**
      * Method to automatically add the GraphFile filter in the Vertex Filters menu
-     * @param graphNames 
+     * @param graphNames is the list of GraphFile names
      */
     public void addGraphFileVertexFilter(Collection<String> graphNames) {
         String[] types = new String[vertexLabelFilter.size() + graphNames.size()];
