@@ -110,7 +110,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="exportGraphPROVNButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Export Graph (Prov-N)"/>
-                <Property name="toolTipText" type="java.lang.String" value="Export the original graph (or the resulting merged graph) in Prov-N format.&#xa;Warning: Data loss is possible due to the format&apos;s restrictions"/>
+                <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;Export the original graph (or the resulting merged graph) in Prov-N format.&#xa;&lt;br&gt;&lt;b&gt;Warning: Data loss is possible due to the format&apos;s restrictions&lt;/b&gt;"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportGraphPROVNButtonActionPerformed"/>
@@ -137,7 +137,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="exportDisplayedGraphXML">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Export Displayed Graph (XML)"/>
-                <Property name="toolTipText" type="java.lang.String" value="Export the current displayed graph (as it is being shown) in Prov Viewer&apos;s xml format&#xa;Warning: Hidden information will be lost"/>
+                <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;Export the current displayed graph (as it is being shown) in Prov Viewer&apos;s xml format&#xa;&lt;br&gt;&lt;b&gt;Warning: Hidden information will be lost&lt;/b&gt;"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportDisplayedGraphXMLActionPerformed"/>
@@ -733,8 +733,12 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="VertexLabels" pref="150" max="32767" attributes="0"/>
-                      <Component id="DisplayVertices" max="32767" attributes="0"/>
+                      <Component id="VertexLabels" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="DisplayVertices" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="isAndOperatorButton" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace type="separate" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -813,7 +817,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -885,6 +889,7 @@
                               <Component id="DisplayEdges" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="DisplayVertices" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="isAndOperatorButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -964,6 +969,7 @@
         <Component class="javax.swing.JLabel" name="DisplayEdges">
           <Properties>
             <Property name="text" type="java.lang.String" value="Display Edge"/>
+            <Property name="toolTipText" type="java.lang.String" value="Edge filter: Display only the edges with selected labels"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="EdgeLineShapeSelection">
@@ -1035,7 +1041,6 @@
                     <StringItem index="4" value="Item 5"/>
                   </StringArray>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Edge filter: Display only the edges with selected labels"/>
               </Properties>
               <Events>
                 <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="edgeFilterListValueChanged"/>
@@ -1150,7 +1155,6 @@
                     <StringItem index="4" value="Item 5"/>
                   </StringArray>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Vertex filter: Display only the vertices with selected labels"/>
               </Properties>
               <Events>
                 <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="vertexFilterListValueChanged"/>
@@ -1164,6 +1168,7 @@
         <Component class="javax.swing.JLabel" name="DisplayVertices">
           <Properties>
             <Property name="text" type="java.lang.String" value="Display Vertices"/>
+            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;Vertex filter: Display only the vertices with selected attributes&apos;s values &#xa;&lt;br&gt;&lt;b&gt;AttributeNAME&lt;/b&gt;: &lt;b&gt;VALUE &lt;/b&gt;&#xa;&lt;br&gt;If &lt;b&gt;VALUE&lt;/b&gt; is not specified, then it will only consider if the vertex has the attribute. &#xa;&lt;br&gt;If &lt;b&gt;VALUE&lt;/b&gt; is specified, then it will only consider if the vertex has the attribute with the specified value"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="dbscanEpsilon">
@@ -1183,6 +1188,9 @@
             <Property name="text" type="java.lang.String" value="Use STD eps"/>
             <Property name="toolTipText" type="java.lang.String" value="Define if the Eps will use the defined value or multiply the value to the std of the selected attribute"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="isSTDepsActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>
@@ -1321,6 +1329,18 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PanToGraphButtonActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="isAndOperatorButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="AND Operator"/>
+            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;Mark if you want to use the &lt;b&gt;AND&lt;/b&gt; operator instead of &lt;b&gt;OR&lt;/b&gt; to compose the Vertex Filter&#xa;&lt;br&gt;&lt;b&gt;AND&lt;/b&gt;: Vertex will only show if all the selected items are &lt;b&gt;TRUE&lt;/b&gt;&#xa;&lt;br&gt;&lt;b&gt;OR&lt;/b&gt;: Vertex will only show if at least one of the selected items are &lt;b&gt;TRUE&lt;/b&gt;"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="isAndOperatorButtonActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

@@ -339,26 +339,40 @@ public class Filters {
      * selected value
      *
      * @param vertex is the vertex being evaluated
-     * @return true to show the vertex and false to hide it
+     * @return true to hide the vertex and false to show it
      */
     private boolean vertexAttributeFilter(Object vertex) {
         List filtersL = GraphFrame.vertexFilterList.getSelectedValuesList();
+        boolean returnAND = false;
+        boolean returnOR = true;
+        
         for (Object filtersL1 : filtersL) {
             String filter = (String) filtersL1;
             if (filter.equalsIgnoreCase(VariableNames.FilterAllVertices)) {
-                return false;
+                returnOR = false;
             }
-            if (vertex instanceof Vertex) {
+            else if (vertex instanceof Vertex) {
                 String name;
                 String value;
                 name = filter.split(": ")[0];
-                value = filter.split(": ")[1];
-                if (((Vertex) vertex).getAttributeValue(name).equalsIgnoreCase(value)) {
-                    return false;
+                if(filter.split(": ").length == 2) {
+                    value = filter.split(": ")[1];
+                    if (((Vertex) vertex).getAttributeValue(name).equalsIgnoreCase(value)) {
+                        returnOR = false;
+                    } else
+                        returnAND = true;
+                } else {
+                    if (((Vertex) vertex).hasAttribute(name))
+                        returnOR = false;
+                    else
+                        returnAND = true;
                 }
             }
         }
-        return true;
+        if(GraphFrame.isAndOperatorButton.isSelected())
+            return returnAND;
+        else
+            return returnOR;
     }
 
     /**

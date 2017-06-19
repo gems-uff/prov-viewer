@@ -134,6 +134,7 @@ public class GraphFrame extends javax.swing.JFrame {
         DeleteSelectedVerticesButton = new javax.swing.JButton();
         UndoDeletionButton = new javax.swing.JButton();
         PanToGraphButton = new javax.swing.JButton();
+        isAndOperatorButton = new javax.swing.JCheckBox();
         MenuBar = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
         OpenConfig = new javax.swing.JMenuItem();
@@ -300,6 +301,7 @@ public class GraphFrame extends javax.swing.JFrame {
         });
 
         DisplayEdges.setText("Display Edge");
+        DisplayEdges.setToolTipText("Edge filter: Display only the edges with selected labels");
 
         EdgeLineShapeSelection.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "QuadCurve", "Line" }));
         EdgeLineShapeSelection.setToolTipText("Change the edge's line format");
@@ -328,7 +330,6 @@ public class GraphFrame extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        edgeFilterList.setToolTipText("Edge filter: Display only the edges with selected labels");
         edgeFilterList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 edgeFilterListValueChanged(evt);
@@ -390,7 +391,6 @@ public class GraphFrame extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        vertexFilterList.setToolTipText("Vertex filter: Display only the vertices with selected labels");
         vertexFilterList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 vertexFilterListValueChanged(evt);
@@ -399,6 +399,7 @@ public class GraphFrame extends javax.swing.JFrame {
         VertexLabels.setViewportView(vertexFilterList);
 
         DisplayVertices.setText("Display Vertices");
+        DisplayVertices.setToolTipText("<html>Vertex filter: Display only the vertices with selected attributes's values \n<br><b>AttributeNAME</b>: <b>VALUE </b>\n<br>If <b>VALUE</b> is not specified, then it will only consider if the vertex has the attribute. \n<br>If <b>VALUE</b> is specified, then it will only consider if the vertex has the attribute with the specified value");
 
         dbscanEpsilon.setText("0.5");
         dbscanEpsilon.setToolTipText("DBSCAN Epsilon Value");
@@ -410,6 +411,11 @@ public class GraphFrame extends javax.swing.JFrame {
 
         isSTDeps.setText("Use STD eps");
         isSTDeps.setToolTipText("Define if the Eps will use the defined value or multiply the value to the std of the selected attribute");
+        isSTDeps.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                isSTDepsActionPerformed(evt);
+            }
+        });
 
         simEpsilon.setText("2.0");
         simEpsilon.setToolTipText("Defines the epsilon for the similarty algorithms (Float)");
@@ -492,6 +498,14 @@ public class GraphFrame extends javax.swing.JFrame {
             }
         });
 
+        isAndOperatorButton.setText("AND Operator");
+        isAndOperatorButton.setToolTipText("<html>Mark if you want to use the <b>AND</b> operator instead of <b>OR</b> to compose the Vertex Filter\n<br><b>AND</b>: Vertex will only show if all the selected items are <b>TRUE</b>\n<br><b>OR</b>: Vertex will only show if at least one of the selected items are <b>TRUE</b>");
+        isAndOperatorButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                isAndOperatorButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ToolMenuLayout = new javax.swing.GroupLayout(ToolMenu);
         ToolMenu.setLayout(ToolMenuLayout);
         ToolMenuLayout.setHorizontalGroup(
@@ -513,8 +527,11 @@ public class GraphFrame extends javax.swing.JFrame {
                     .addComponent(EdgeTypes, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(VertexLabels, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                    .addComponent(DisplayVertices, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(VertexLabels)
+                    .addGroup(ToolMenuLayout.createSequentialGroup()
+                        .addComponent(DisplayVertices, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(isAndOperatorButton)))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(CollapseAgent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -575,7 +592,7 @@ public class GraphFrame extends javax.swing.JFrame {
         ToolMenuLayout.setVerticalGroup(
             ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ToolMenuLayout.createSequentialGroup()
-                .addGap(9, 9, 9)
+                .addGap(5, 5, 5)
                 .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ToolMenuLayout.createSequentialGroup()
                         .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -631,7 +648,8 @@ public class GraphFrame extends javax.swing.JFrame {
                         .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(DisplayEdges)
                             .addComponent(DisplayVertices)
-                            .addComponent(jLabel4))
+                            .addComponent(jLabel4)
+                            .addComponent(isAndOperatorButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(ToolMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(ToolMenuLayout.createSequentialGroup()
@@ -670,7 +688,7 @@ public class GraphFrame extends javax.swing.JFrame {
         FileMenu.add(OpenGraph);
 
         exportGraphPROVNButton.setText("Export Graph (Prov-N)");
-        exportGraphPROVNButton.setToolTipText("Export the original graph (or the resulting merged graph) in Prov-N format.\nWarning: Data loss is possible due to the format's restrictions");
+        exportGraphPROVNButton.setToolTipText("<html>Export the original graph (or the resulting merged graph) in Prov-N format.\n<br><b>Warning: Data loss is possible due to the format's restrictions</b>");
         exportGraphPROVNButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exportGraphPROVNButtonActionPerformed(evt);
@@ -697,7 +715,7 @@ public class GraphFrame extends javax.swing.JFrame {
         FileMenu.add(exportCollapsedGraphXML);
 
         exportDisplayedGraphXML.setText("Export Displayed Graph (XML)");
-        exportDisplayedGraphXML.setToolTipText("Export the current displayed graph (as it is being shown) in Prov Viewer's xml format\nWarning: Hidden information will be lost");
+        exportDisplayedGraphXML.setToolTipText("<html>Export the current displayed graph (as it is being shown) in Prov Viewer's xml format\n<br><b>Warning: Hidden information will be lost</b>");
         exportDisplayedGraphXML.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exportDisplayedGraphXMLActionPerformed(evt);
@@ -1593,6 +1611,15 @@ public class GraphFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         GuiButtons.ExportDisplayedGraphXML(variables);
     }//GEN-LAST:event_exportDisplayedGraphXMLActionPerformed
+
+    private void isSTDepsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isSTDepsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_isSTDepsActionPerformed
+
+    private void isAndOperatorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isAndOperatorButtonActionPerformed
+        // TODO add your handling code here:
+        GuiButtons.Filter(variables);
+    }//GEN-LAST:event_isAndOperatorButtonActionPerformed
    
     /**
      * Main
@@ -1690,6 +1717,7 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JCheckBoxMenuItem hideEntityVerticesButton;
     public static javax.swing.JCheckBoxMenuItem hideLonelyVerticesButton;
     public static javax.swing.JCheckBoxMenuItem hideMergedVerticesButton;
+    public static javax.swing.JCheckBox isAndOperatorButton;
     private javax.swing.JCheckBoxMenuItem isColorByEdgeValueButton;
     public static javax.swing.JCheckBox isSTDeps;
     public static javax.swing.JCheckBoxMenuItem isStrokeByValueButton;

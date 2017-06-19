@@ -170,6 +170,10 @@ THE SOFTWARE.
         <name>subtype</name>
         <value>User</value>
     </vertexAttributeFilter>
+    <vertexAttributeFilter>
+        <name>package</name>
+        <value></value>
+    </vertexAttributeFilter>
     <vertexcolor>
         <generalname>Subtype</generalname>
         <isAutomatic>False</isAutomatic>
@@ -261,6 +265,55 @@ THE SOFTWARE.
         <isAutomatic>True</isAutomatic>
         <entitycolor>
             <attribute>package</attribute>
+        </entitycolor>
+    </vertexcolor>
+    <vertexcolor>
+        <generalname>Path_#1</generalname>
+        <isAutomatic>True</isAutomatic>
+        <entitycolor>
+            <attribute>Path_#1</attribute>
+        </entitycolor>
+    </vertexcolor>
+    <vertexcolor>
+        <generalname>Path_#2</generalname>
+        <isAutomatic>True</isAutomatic>
+        <entitycolor>
+            <attribute>Path_#2</attribute>
+        </entitycolor>
+    </vertexcolor>
+    <vertexcolor>
+        <generalname>Path_#3</generalname>
+        <isAutomatic>True</isAutomatic>
+        <entitycolor>
+            <attribute>Path_#3</attribute>
+        </entitycolor>
+    </vertexcolor>
+    <vertexcolor>
+        <generalname>Path_#4</generalname>
+        <isAutomatic>True</isAutomatic>
+        <entitycolor>
+            <attribute>Path_#4</attribute>
+        </entitycolor>
+    </vertexcolor>
+    <vertexcolor>
+        <generalname>Path_#5</generalname>
+        <isAutomatic>True</isAutomatic>
+        <entitycolor>
+            <attribute>Path_#5</attribute>
+        </entitycolor>
+    </vertexcolor>
+    <vertexcolor>
+        <generalname>Path_#6</generalname>
+        <isAutomatic>True</isAutomatic>
+        <entitycolor>
+            <attribute>Path_#6</attribute>
+        </entitycolor>
+    </vertexcolor>
+    <vertexcolor>
+        <generalname>Path_#7</generalname>
+        <isAutomatic>True</isAutomatic>
+        <entitycolor>
+            <attribute>Path_#7</attribute>
         </entitycolor>
     </vertexcolor>
 </config>
