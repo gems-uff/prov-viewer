@@ -339,19 +339,69 @@ public class GuiButtons {
         variables.view.repaint();
     }
 
-    public static void ExportPROVN(Variables variables) {
+    /**
+     * Exports the original graph to PROVN
+     * If the Graph was merged, then it will lose the ability to expand the graph since it will be a normal vertex
+     * Not really recomended nor fully tested since information can be lost if the graph changed inside PROV Viewer due to format restrictions
+     * @param variables 
+     */
+    public static void ExportGraphPROVN(Variables variables) {
         PROVNWriter provnWriter = new PROVNWriter(variables.graph.getVertices(), variables.graph.getEdges());
+//        XMLWriter xmlWriter = new XMLWriter(variables.graph.getVertices(), variables.graph.getEdges());
+//        variables.filter.showHiddenEdges(variables, variables.view, variables.layout);
+//        XMLWriter xmlWriter_collapsed = new XMLWriter(variables.layout.getGraph().getVertices(), variables.layout.getGraph().getEdges());
+        try {
+            provnWriter.saveToProvn("Export_Original_Graph_PROVN");
+//            xmlWriter.saveToXML("XML_Export_Test");
+//            xmlWriter_collapsed.saveToXML("XML_Collapsed_Export_Test");
+        } catch (IOException ex) {
+            Logger.getLogger(GuiButtons.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//        variables.filter.filterHiddenEdges(variables.view, variables.layout);
+    }
+    
+    /**
+     * Export the original graph or the resulting merged graph in Prov Viewer's xml format
+     * @param variables 
+     */
+    public static void ExportGraphXML(Variables variables) {
         XMLWriter xmlWriter = new XMLWriter(variables.graph.getVertices(), variables.graph.getEdges());
+        try {
+            xmlWriter.saveToXML("Export_Original_Graph_XML");
+        } catch (IOException ex) {
+            Logger.getLogger(GuiButtons.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    /**
+     * Export the displayed graph in Prov Viewer's xml format
+     * Will result in data loss since it exports after applying filters
+     * Anything not being displayed will be lost (e.g., hidden due to filters)
+     * @param variables 
+     */
+    public static void ExportDisplayedGraphXML(Variables variables) {
         variables.filter.showHiddenEdges(variables, variables.view, variables.layout);
         XMLWriter xmlWriter_collapsed = new XMLWriter(variables.layout.getGraph().getVertices(), variables.layout.getGraph().getEdges());
         try {
-            provnWriter.saveToProvn("PROVN_Export_Test");
-            xmlWriter.saveToXML("XML_Export_Test");
-            xmlWriter_collapsed.saveToXML("XML_Collapsed_Export_Test");
+            xmlWriter_collapsed.saveToXML("Export_Displayed_Graph_XML");
         } catch (IOException ex) {
             Logger.getLogger(GuiButtons.class.getName()).log(Level.SEVERE, null, ex);
         }
         variables.filter.filterHiddenEdges(variables.view, variables.layout);
+    }
+    
+    /**
+     * Export the collapsed graph in Prov Viewer's xml format
+     * No data loss since the export is done before applying filters in the graph
+     * @param variables 
+     */
+    public static void ExportCollapsedGraphXML(Variables variables) {
+        XMLWriter xmlWriter_collapsed = new XMLWriter(variables.collapsedGraph.getVertices(), variables.collapsedGraph.getEdges());
+        try {
+            xmlWriter_collapsed.saveToXML("Export_Collapsed_Graph_XML");
+        } catch (IOException ex) {
+            Logger.getLogger(GuiButtons.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public static void TemporalLayoutGranularity(String selectedTime, Variables variables, 
