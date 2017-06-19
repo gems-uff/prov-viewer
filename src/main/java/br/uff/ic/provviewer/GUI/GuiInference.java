@@ -72,7 +72,7 @@ public class GuiInference {
      * @param variables
      */
     public static void DBSCANCollapse(Variables variables) {
-        GuiButtons.Reset(variables);
+//        GuiButtons.Reset(variables);
         ArrayList<ConcurrentHashMap<String, Object>> list = DBSCAN((String) StatusFilterBox.getSelectedItem(), variables.graph);
 //        MarkClusters(list, variables);
         variables.collapser.CollapseIrrelevant(variables, printCollapseGroups(list), (String) StatusFilterBox.getSelectedItem());
