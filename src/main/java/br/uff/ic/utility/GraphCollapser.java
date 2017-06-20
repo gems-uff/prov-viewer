@@ -284,13 +284,15 @@ public class GraphCollapser {
         }
         for (Object v : picked) {
             clusterGraph.addVertex(v);
-            Collection edges = inGraph.getIncidentEdges(v);
-            for (Object edge : edges) {
-                Pair endpoints = inGraph.getEndpoints(edge);
-                Object v1 = endpoints.getFirst();
-                Object v2 = endpoints.getSecond();
-                if (picked.containsAll(endpoints)) {
-                    clusterGraph.addEdge(edge, v1, v2, inGraph.getEdgeType(edge));
+            if(inGraph.getIncidentEdges(v) != null) {
+                Collection edges = inGraph.getIncidentEdges(v);
+                for (Object edge : edges) {
+                    Pair endpoints = inGraph.getEndpoints(edge);
+                    Object v1 = endpoints.getFirst();
+                    Object v2 = endpoints.getSecond();
+                    if (picked.containsAll(endpoints)) {
+                        clusterGraph.addEdge(edge, v1, v2, inGraph.getEdgeType(edge));
+                    }
                 }
             }
         }
