@@ -59,6 +59,11 @@ THE SOFTWARE.
         <collapsefunction>SUM</collapsefunction>
     </edgetype>
     <edgetype>
+        <edge>Chronological</edge>
+        <edgestroke>MEAN</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+    </edgetype>
+    <edgetype>
         <edge>Score</edge>
         <edgestroke>MEAN</edgestroke>
         <collapsefunction>SUM</collapsefunction>
@@ -86,18 +91,32 @@ THE SOFTWARE.
     <vertexAttributeFilter>
         <name>ObjectName</name>
         <value>Player</value>
+        <logic></logic>
     </vertexAttributeFilter>
     <vertexAttributeFilter>
         <name>ObjectTag</name>
         <value>Player</value>
+        <logic></logic>
     </vertexAttributeFilter>
     <vertexAttributeFilter>
         <name>ObjectTag</name>
         <value>Enemy</value>
+        <logic></logic>
     </vertexAttributeFilter>
     <vertexAttributeFilter>
-        <name>GraphFile</name>
-        <value>Graph_To_Merge_01.xml</value>
+        <name>Health</name>
+        <value>100</value>
+        <logic>LE</logic>
+    </vertexAttributeFilter>
+    <vertexAttributeFilter>
+        <name>Health</name>
+        <value>100</value>
+        <logic>EQ</logic>
+    </vertexAttributeFilter>
+    <vertexAttributeFilter>
+        <name>Health</name>
+        <value>100</value>
+        <logic>GT</logic>
     </vertexAttributeFilter>
     <colorscheme>
         <attribute>Health</attribute>
@@ -136,10 +155,6 @@ THE SOFTWARE.
         <goodvalue></goodvalue>
         <badvalue></badvalue>
     </colorscheme>
-    <vertexstroke>
-        <attribute>ObjectName</attribute>
-        <values>Player</values>
-    </vertexstroke>
     <activitycolor>
         <attribute>Health</attribute>
         <value>0</value>

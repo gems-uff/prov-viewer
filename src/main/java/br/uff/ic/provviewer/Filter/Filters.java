@@ -354,13 +354,84 @@ public class Filters {
             else if (vertex instanceof Vertex) {
                 String name;
                 String value;
+                String logic; // EQ NE GT GE LT LE C NC
+//                System.out.println("Filter: " + filter);
                 name = filter.split(": ")[0];
+//                System.out.println("Split: " + name);
+                logic = name.split("\\)")[0];
+                logic = logic.replace("(", "");
+//                System.out.println("Logic: " + logic);
+                name = name.split("\\) ")[1];
+//                System.out.println("Name: " + name);
                 if(filter.split(": ").length == 2) {
                     value = filter.split(": ")[1];
-                    if (((Vertex) vertex).getAttributeValue(name).equalsIgnoreCase(value)) {
-                        returnOR = false;
-                    } else
-                        returnAND = true;
+                    if(Utils.tryParseFloat(value)) {
+                        switch (logic) {
+                            case "NE":
+                                if (!((Vertex) vertex).getAttributeValue(name).equalsIgnoreCase(String.valueOf(Float.parseFloat(value)))) {
+                                    returnOR = false;
+                                } else
+                                    returnAND = true;
+                                break;
+                            case "GT":
+                                if (((Vertex) vertex).getAttributeValueFloat(name) > Float.parseFloat(value)) {
+                                    returnOR = false;
+                                } else
+                                    returnAND = true;
+                                break;
+                            case "GE":
+                                if (((Vertex) vertex).getAttributeValueFloat(name) >= Float.parseFloat(value)) {
+                                    returnOR = false;
+                                } else
+                                    returnAND = true;
+                                break;
+                            case "LT":
+                                if (((Vertex) vertex).getAttributeValueFloat(name) < Float.parseFloat(value)) {
+                                    returnOR = false;
+                                } else
+                                    returnAND = true;
+                                break;
+                            case "LE":
+                                if (((Vertex) vertex).getAttributeValueFloat(name) <= Float.parseFloat(value)) {
+                                    returnOR = false;
+                                } else
+                                    returnAND = true;
+                                break;
+                            default: // "EQ"
+                                if (((Vertex) vertex).getAttributeValue(name).equalsIgnoreCase(String.valueOf(Float.parseFloat(value)))) {
+                                    returnOR = false;
+                                } else
+                                    returnAND = true;
+                                break;
+                        }
+                    } else {
+                        switch (logic) {
+                            case "NE":
+                                if (!((Vertex) vertex).getAttributeValue(name).equalsIgnoreCase(value)) {
+                                    returnOR = false;
+                                } else
+                                    returnAND = true;
+                                break;
+                            case "C":
+                                if (((Vertex) vertex).getAttributeValue(name).contains(value)) {
+                                    returnOR = false;
+                                } else
+                                    returnAND = true;
+                                break;
+                            case "NC":
+                                if (!((Vertex) vertex).getAttributeValue(name).contains(value)) {
+                                    returnOR = false;
+                                } else
+                                    returnAND = true;
+                                break;
+                            default: // "EQ"
+                                if (((Vertex) vertex).getAttributeValue(name).equalsIgnoreCase(value)) {
+                                    returnOR = false;
+                                } else
+                                    returnAND = true;
+                                break;
+                        }
+                    }
                 } else {
                     if (((Vertex) vertex).hasAttribute(name))
                         returnOR = false;

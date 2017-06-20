@@ -385,7 +385,12 @@ public class Config {
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
                     String vertexFilter = new String();
-                    vertexFilter = eElement.getElementsByTagName("name").item(0).getTextContent();
+                    if("".equals(eElement.getElementsByTagName("logic").item(0).getTextContent()))
+                        vertexFilter = "(EQ";
+                    else
+                        vertexFilter = "(" + eElement.getElementsByTagName("logic").item(0).getTextContent();
+                    vertexFilter += ") ";
+                    vertexFilter += eElement.getElementsByTagName("name").item(0).getTextContent();
                     vertexFilter += ": ";
                     vertexFilter += eElement.getElementsByTagName("value").item(0).getTextContent();
                     vertexLabelFilter.add(vertexFilter);
@@ -609,13 +614,19 @@ public class Config {
      * @param graphNames is the list of GraphFile names
      */
     public void addGraphFileVertexFilter(Collection<String> graphNames) {
-        String[] types = new String[vertexLabelFilter.size() + graphNames.size()];
+        String[] types = new String[vertexLabelFilter.size() + (graphNames.size() * 4)];
         for (int i = 0; i < vertexLabelFilter.size(); i++) {
             types[i] = vertexLabelFilter.get(i);
         }
         int i = vertexLabelFilter.size();
         for (String s : graphNames) {
-            types[i] = VariableNames.GraphFile + ": " + s;
+            types[i] = "(EQ) "+ VariableNames.GraphFile + ": " + s;
+            i++;
+            types[i] = "(NE) "+ VariableNames.GraphFile + ": " + s;
+            i++;
+            types[i] = "(C) "+ VariableNames.GraphFile + ": " + s;
+            i++;
+            types[i] = "(NC) "+ VariableNames.GraphFile + ": " + s;
             i++;
             
         }
