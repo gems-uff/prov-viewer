@@ -1154,7 +1154,7 @@ public class GraphFrame extends javax.swing.JFrame {
 
         setJMenuBar(MenuBar);
 
-        setSize(new java.awt.Dimension(1126, 743));
+        setSize(new java.awt.Dimension(1215, 784));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     /**
