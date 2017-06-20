@@ -429,14 +429,24 @@ public class Filters {
                                     returnOR = false;
                                 } else
                                     returnAND = true;
-                                break;
+                            break;
                         }
                     }
                 } else {
-                    if (((Vertex) vertex).hasAttribute(name))
-                        returnOR = false;
-                    else
-                        returnAND = true;
+                    switch (logic) {
+                        case "NC":
+                            if (!((Vertex) vertex).hasAttribute(name)) {
+                                returnOR = false;
+                            } else
+                                returnAND = true;
+                            break;
+                        default: // "C"
+                            if (((Vertex) vertex).hasAttribute(name)) {
+                                returnOR = false;
+                            } else
+                                returnAND = true;
+                        break;
+                    }
                 }
             }
         }

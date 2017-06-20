@@ -105,6 +105,16 @@ THE SOFTWARE.
     </vertexAttributeFilter>
     <vertexAttributeFilter>
         <name>Health</name>
+        <value></value>
+        <logic></logic>
+    </vertexAttributeFilter>
+    <vertexAttributeFilter>
+        <name>Health</name>
+        <value></value>
+        <logic>NC</logic>
+    </vertexAttributeFilter>
+    <vertexAttributeFilter>
+        <name>Health</name>
         <value>100</value>
         <logic>LE</logic>
     </vertexAttributeFilter>

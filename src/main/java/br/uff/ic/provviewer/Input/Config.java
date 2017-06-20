@@ -385,8 +385,10 @@ public class Config {
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
                     String vertexFilter = new String();
-                    if("".equals(eElement.getElementsByTagName("logic").item(0).getTextContent()))
+                    if("".equals(eElement.getElementsByTagName("logic").item(0).getTextContent()) && !"".equals(eElement.getElementsByTagName("value").item(0).getTextContent()))
                         vertexFilter = "(EQ";
+                    else if("".equals(eElement.getElementsByTagName("logic").item(0).getTextContent()))
+                        vertexFilter = "(C";
                     else
                         vertexFilter = "(" + eElement.getElementsByTagName("logic").item(0).getTextContent();
                     vertexFilter += ") ";
