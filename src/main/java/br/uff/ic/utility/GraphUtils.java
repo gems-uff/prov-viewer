@@ -34,9 +34,12 @@ import br.uff.ic.utility.graph.GraphVertex;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.Graph;
+import edu.uci.ics.jung.graph.util.Pair;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Map;
 
 /**
@@ -253,5 +256,76 @@ public class GraphUtils {
             }
         }
         return false;
+    }
+    
+    /**
+     * Method that calculates the probability of using this edge
+     * @param graph is the graph
+     * @param e is the edge that connects both vertices
+     * @param numberOfGraphs is the total number of graphs used during the graph merges
+     * @return the probability of using this edge
+     */
+    public static float getSubPathProbability(Graph graph, Edge e, int numberOfGraphs) {
+        Pair endpoints = graph.getEndpoints(e);
+        Object target = endpoints.getSecond();
+        int sources = graph.getInEdges(target).size();
+        if(sources == 1)
+            return 1;
+        else
+            return e.getEdgeFrequencyValue(numberOfGraphs);
+    }
+    
+    /**
+     * Breadth first search algorithm that returns the minimum path if exist
+     * @param source is the source vertex
+     * @param target is the destination vertex
+     * @param graph is the graph
+     * @return the list of edges connecting source to target
+     */
+    public static Map<String, Edge> BFS(Vertex source, Vertex target, Graph graph)
+    {
+
+        Map<String, Boolean> visited = new HashMap<>();
+        Map<String, Edge> path = new HashMap<>();
+
+        LinkedList<Vertex> queue = new LinkedList<>();
+        LinkedList<Edge> edgeQueue = new LinkedList<>();
+ 
+        // Mark the current node as visited and enqueue it
+        visited.put(source.getID(), Boolean.TRUE);
+        queue.add(source);
+ 
+        while (!queue.isEmpty())
+        {
+            // Dequeue a vertex from queue and print it
+            source = queue.poll();
+            Edge next = edgeQueue.poll();
+            if(next != null)
+                path.put(source.getID(), next);
+            System.out.print(source.getID() + " -> ");
+            // Get all adjacent vertices of the dequeued vertex s
+            // If a adjacent has not been visited, then mark it
+            // visited and enqueue it
+            Iterator<Object> i = graph.getInEdges(source).iterator();
+            while (i.hasNext())
+            {
+                Edge edge = (Edge) i.next();
+                Vertex n = (Vertex) edge.getSource();
+                if (!visited.containsKey(n.getID()))
+                {
+                    visited.put(n.getID(), Boolean.TRUE);
+                    queue.add(n);
+                    edgeQueue.add(edge);
+                    if(n.getID().equalsIgnoreCase(target.getID())) {
+                        System.out.println("Reached target: " + n.getID());
+                        path.put(n.getID(), edge);
+                        return path;
+                    }
+                }
+            }
+        }
+        System.out.println();
+        System.out.println("No path exists");
+        return null;
     }
 }
