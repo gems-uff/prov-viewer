@@ -1054,7 +1054,7 @@
         <Component class="javax.swing.JComboBox" name="Layouts">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="16">
+              <StringArray count="17">
                 <StringItem index="0" value="Timeline"/>
                 <StringItem index="1" value="Timeline (Graphs)"/>
                 <StringItem index="2" value="One Dimensional"/>
@@ -1062,15 +1062,16 @@
                 <StringItem index="4" value="Hierarchy"/>
                 <StringItem index="5" value="Temporal"/>
                 <StringItem index="6" value="Spatial"/>
-                <StringItem index="7" value="ProvCircle"/>
-                <StringItem index="8" value="ProvCircle2"/>
-                <StringItem index="9" value="Circle"/>
-                <StringItem index="10" value="FR"/>
-                <StringItem index="11" value="FR2"/>
-                <StringItem index="12" value="ISOM"/>
-                <StringItem index="13" value="KK"/>
-                <StringItem index="14" value="Spring"/>
-                <StringItem index="15" value="Dag"/>
+                <StringItem index="7" value="List"/>
+                <StringItem index="8" value="ProvCircle"/>
+                <StringItem index="9" value="ProvCircle2"/>
+                <StringItem index="10" value="Circle"/>
+                <StringItem index="11" value="FR"/>
+                <StringItem index="12" value="FR2"/>
+                <StringItem index="13" value="ISOM"/>
+                <StringItem index="14" value="KK"/>
+                <StringItem index="15" value="Spring"/>
+                <StringItem index="16" value="Dag"/>
               </StringArray>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Change the graph layout"/>

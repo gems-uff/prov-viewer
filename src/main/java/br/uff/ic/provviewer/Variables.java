@@ -34,6 +34,7 @@ import br.uff.ic.provviewer.Layout.Spatial_Layout;
 import br.uff.ic.provviewer.Layout.Temporal_Layout;
 import br.uff.ic.provviewer.Layout.Timeline_Layout;
 import br.uff.ic.provviewer.Layout.Hierarchy_Layout;
+import br.uff.ic.provviewer.Layout.ListLayout;
 import br.uff.ic.provviewer.Layout.TimelineGraphs_Layout;
 import br.uff.ic.provviewer.Layout.OneDimensional_Layout;
 import br.uff.ic.provviewer.Layout.TwoDimensional_Layout;
@@ -309,6 +310,9 @@ public class Variables extends Object {
         }
         else if (layout.equalsIgnoreCase(VariableNames.layout_provcircle2)) {
             this.layout = new ProvCircleLayout2<>(displayGraph, this);
+        }
+        else if (layout.equalsIgnoreCase(VariableNames.layout_list)) {
+            this.layout = new ListLayout<>(displayGraph, this);
         }
         else if (layout.equalsIgnoreCase(VariableNames.layout_hierarchy)) {
             this.layout = new Hierarchy_Layout<>(displayGraph, this);

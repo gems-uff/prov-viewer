@@ -41,7 +41,7 @@ public class VariableNames {
     public static String MouseModeTransforming = "Transforming";
     public static String EdgeModeQuadCurve = "QuadCurve";
     public static String EdgeModeLine = "Line";
-    public static String FontConfiguration = "<html><font face=\"verdana\", size=\"4\", color=\"black\">";
+    public static String FontConfiguration = "<html><font face=\"verdana\", size=\"6\", color=\"black\">";
     public static String SummarizedLabelString = " (Summarized)";
     public static String DefaultVertexPainter = "Prov";
     public static String EdgeTooltipFontConfiguration = "<html><font size=\"4\">";
@@ -56,6 +56,7 @@ public class VariableNames {
     public static String layout_circle = "Circle";
     public static String layout_hierarchy = "Hierarchy";
     public static String layout_provcircle2 = "ProvCircle2";
+    public static String layout_list = "List";
     public static String layout_Two_Dimensional = "Two Dimensional";
     public static String layout_ISOM = "ISOM";
     public static String layout_provcircle = "ProvCircle";
