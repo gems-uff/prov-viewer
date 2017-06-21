@@ -766,8 +766,8 @@ public class Utils {
                     double c1t = 0;
                     double c2t = 0;
                     if(isItTime(attribute)) {
-                        c1t = ((Vertex) c1).getTime();
-                        c2t = ((Vertex) c2).getTime();
+                        c1t = ((Vertex) c1).getMinTime();
+                        c2t = ((Vertex) c2).getMinTime();
                     } else if(!tryParseFloat(((Vertex) c1).getAttributeValue(attribute))){
                         String c1v = ((Vertex) c1).getAttributeValue(attribute);
                         String c2v = ((Vertex) c2).getAttributeValue(attribute);
