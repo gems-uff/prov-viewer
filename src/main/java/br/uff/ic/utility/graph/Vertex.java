@@ -137,6 +137,18 @@ public abstract class Vertex extends GraphObject {
         else
             return -1;
     }
+    public double getMinTime() {    
+        String time = this.attributes.get(timeLabel).getMin();
+        if(Utils.tryParseFloat(time))
+            return (Double.parseDouble(time));
+        else if(Utils.tryParseDate(time))
+        {
+            double milliseconds =  Utils.convertStringDateToFloat(time);
+            return milliseconds;
+        }
+        else
+            return -1;
+    }
     
     /**
      * Method to get the value of the variable time 
