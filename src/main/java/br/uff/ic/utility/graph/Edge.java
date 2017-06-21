@@ -458,11 +458,28 @@ public class Edge extends GraphObject {
         return this;
     }
     
+    /**
+     * Method that calculates the edge frequency and returns a human-readable value (String)
+     * @param nGraphs is the total number of existing graphs used during the merge
+     * @return the edge's frequency between 0% and 100%
+     */
     public String getEdgeFrequency(float nGraphs) {
         if(this.hasAttribute(VariableNames.GraphFile)) {
             float frequency = ((float) this.getAttributeValues(VariableNames.GraphFile).length / (float)nGraphs) * 100;
             return String.format("%.02f", frequency) + "%";
         } else
             return "Frequency Unavailable";
+    }
+    
+    /**
+     * Method that calculates the edge frequency and returns the probability between 0 and 1
+     * @param nGraphs is the total number of existing graphs used during the merge
+     * @return the edge's frequency
+     */
+    public float getEdgeFrequencyValue(float nGraphs) {
+        if(this.hasAttribute(VariableNames.GraphFile)) {
+            return ((float) this.getAttributeValues(VariableNames.GraphFile).length / (float)nGraphs);
+        } else
+            return 0;
     }
 }
