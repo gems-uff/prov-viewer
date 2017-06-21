@@ -25,6 +25,8 @@ package br.uff.ic.provviewer.Layout;
 
 import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.provviewer.Variables;
+import br.uff.ic.utility.graph.ActivityVertex;
+import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.algorithms.layout.AbstractLayout;
@@ -46,6 +48,7 @@ public abstract class ProvViewerLayout<V, E> extends AbstractLayout<V, E> implem
     public Variables variables;
     public List<V> vertex_ordered_list;
     public List<V> entity_ordered_list;
+    public List<V> agent_ordered_list;
     public Graph<V, E> layout_graph;
  
     public ProvViewerLayout(Graph<V, E> g, Variables variables) {
@@ -87,6 +90,29 @@ public abstract class ProvViewerLayout<V, E> extends AbstractLayout<V, E> implem
         }
         Collections.sort(vertex_ordered_list, comparator);
         Collections.sort(entity_ordered_list, comparatorEntity);
+    }
+    
+    public void setVertexOrder(Comparator<V> comparatorAgent, Comparator<V> comparatorActivity, Comparator<V> comparatorEntity) {
+        if (vertex_ordered_list == null) {
+            vertex_ordered_list = new ArrayList<>();
+            entity_ordered_list = new ArrayList<>();
+            agent_ordered_list = new ArrayList<>();
+            for (V v : graph.getVertices()) {
+                if(v instanceof AgentVertex 
+                        || (((Vertex)v).hasAttribute(VariableNames.CollapsedVertexAgentAttribute))) {
+                    agent_ordered_list.add(v);
+                }
+                else if(v instanceof ActivityVertex 
+                        || (((Vertex)v).hasAttribute(VariableNames.CollapsedVertexActivityAttribute))) {
+                    vertex_ordered_list.add(v);
+                }
+                else
+                    entity_ordered_list.add(v);
+            }
+        }
+        Collections.sort(vertex_ordered_list, comparatorActivity);
+        Collections.sort(entity_ordered_list, comparatorEntity);
+        Collections.sort(agent_ordered_list, comparatorAgent);
     }
     
     public void setVertexOrder() {
