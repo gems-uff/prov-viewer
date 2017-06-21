@@ -245,6 +245,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="vertexBorderByGraphButtonActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="findPathButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Find Path between two Selected Vertices"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="findPathButtonActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="displayEdgeTextButton">
@@ -304,6 +312,15 @@
                 <Property name="text" type="java.lang.String" value="Edge"/>
               </Properties>
               <SubComponents>
+                <MenuItem class="javax.swing.JCheckBoxMenuItem" name="displayIDButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Display ID"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Display the Edge&apos;s ID"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="displayIDButtonActionPerformed"/>
+                  </Events>
+                </MenuItem>
                 <MenuItem class="javax.swing.JCheckBoxMenuItem" name="displayEdgeLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Display Label"/>

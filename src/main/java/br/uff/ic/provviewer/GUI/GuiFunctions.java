@@ -37,6 +37,7 @@ import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
 import br.uff.ic.provviewer.Vertex.VertexShape;
 import br.uff.ic.utility.EdgeSourceTarget;
+import br.uff.ic.utility.GraphUtils;
 import br.uff.ic.utility.StackElementUndoDeletion;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.ActivityVertex;
@@ -59,6 +60,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import org.apache.commons.collections15.Predicate;
@@ -299,6 +301,18 @@ public class GuiFunctions {
                         }
                     }
                 }
+                
+                // Highlight PATH
+                PickedState<Edge> picked_edge_state = variables.view.getPickedEdgeState();
+                if (!picked_edge_state.getPicked().isEmpty()) {
+                    for (Edge e : picked_edge_state.getPicked()) {
+                        if(edge.getID().equalsIgnoreCase(e.getID()))
+                            return edge.getColor(variables);
+                    }
+                    return new Color(edge.getColor(variables).getRed(), edge.getColor(variables).getGreen(), edge.getColor(variables).getBlue(), (int) (variables.edgeAlpha * 0.25));
+                }
+                
+                // Highlight incident edges
                 PickedState<Object> picked_state = variables.view.getPickedVertexState();
                 if (!picked_state.getPicked().isEmpty()) {
                     for (Object v : picked_state.getPicked()) {
@@ -433,6 +447,55 @@ public class GuiFunctions {
         }
         variables.layout.setGraph(variables.graph);
         variables.view.repaint();
+    }
+
+    /**
+     * Method to find a path between two selected vertices
+     * @param variables 
+     */
+    public static void FindPath(Variables variables) {
+        Vertex source;
+        Vertex target;
+        PickedState<Object> picked_state = variables.view.getPickedVertexState();
+        if (!picked_state.getPicked().isEmpty() && picked_state.getPicked().size() > 1) {
+            source = (Vertex) picked_state.getPicked().toArray()[0];
+            target = (Vertex) picked_state.getPicked().toArray()[1];
+            System.out.println("Source: " + source.getID());
+            System.out.println("target: " + target.getID());
+            Map<String, Edge> path = GraphUtils.BFS(source, target, variables.layout.getGraph());
+            Collection<Edge> cleanedPath = CleanPath(path, source.getID(), target.getID());
+            if(path != null) {
+                float probability = 1;
+                PickedState<Edge> picked_edge_state = variables.view.getPickedEdgeState();
+                for(Edge e : cleanedPath) {
+                    float x = GraphUtils.getSubPathProbability(variables.layout.getGraph(), e, variables.numberOfGraphs);
+//                    System.out.print(e.getID() + "(" + x + ")" + " - > ");
+                    probability = probability * x;
+                    picked_edge_state.pick(e, true);
+                }
+                System.out.println();
+                System.out.println("probability: " + probability);
+                 
+            }
+        }
+    }
+    
+    /**
+     * Method to clean the path returned from BFS, removing the paths that did not reach the destination
+     * This algorithm backtracks from the Target to the Source
+     * @param path is the path returned by BFS
+     * @param source is the ID of the source vertex
+     * @param target is the ID of the target vertex
+     * @return the shortest path
+     */
+    public static Collection<Edge> CleanPath(Map<String, Edge> path, String source, String target) {
+        Collection<Edge> cleanedPath = new ArrayList<>();
+        String destination = target;
+        while(destination != source) {
+            cleanedPath.add(path.get(destination));
+            destination = ((Vertex)path.get(destination).getTarget()).getID();
+        }
+        return cleanedPath;
     }
 
 }
