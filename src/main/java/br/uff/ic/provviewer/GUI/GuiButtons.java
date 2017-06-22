@@ -36,11 +36,13 @@ import br.uff.ic.utility.IO.XMLWriter;
 import br.uff.ic.utility.graph.GraphVertex;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.util.Pair;
+import edu.uci.ics.jung.visualization.Layer;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
 import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
 import edu.uci.ics.jung.visualization.decorators.EdgeShape;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.picking.PickedInfo;
+import java.awt.geom.Point2D;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashSet;
@@ -472,6 +474,17 @@ public class GuiButtons {
     public static void UpdateVertexLabel(String newLabel, Variables variables) {
         Collection picked = new HashSet(variables.view.getPickedVertexState().getPicked());
         GuiFunctions.RenameSelectedVertexLabel(newLabel, picked);
+    }
+
+    public static void SearchVertexByID(String ID, Variables variables) {
+        System.out.println("Now Here");
+        GuiFunctions.SearchVertexByID(ID, variables);
+    }
+    
+    public static void ShowVertexSearchWindow(JDialog searchVertexIDDialogBox) {
+        searchVertexIDDialogBox.setVisible(true);
+        searchVertexIDDialogBox.toFront();
+        searchVertexIDDialogBox.setLocationRelativeTo(null);
     }
 
 }

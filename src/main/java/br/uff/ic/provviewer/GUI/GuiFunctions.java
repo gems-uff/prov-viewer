@@ -497,5 +497,21 @@ public class GuiFunctions {
         }
         return cleanedPath;
     }
+    
+    public static void SearchVertexByID(String ID, Variables variables) {
+        Vertex found = null;
+        for(Object v : variables.layout.getGraph().getVertices()) {
+            if(((Vertex)v).getID().equalsIgnoreCase(ID)) {
+                found = (Vertex) v;
+            }
+        }
+        variables.view.getGraphLayout();
+        Point2D q = variables.view.getGraphLayout().transform(found);
+        Point2D lvc
+                = variables.view.getRenderContext().getMultiLayerTransformer().inverseTransform(variables.view.getCenter());
+        final double dx = (lvc.getX() - q.getX());
+        final double dy = (lvc.getY() - q.getY());
+        variables.view.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.LAYOUT).translate(dx, dy);
+    }
 
 }

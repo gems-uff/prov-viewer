@@ -91,6 +91,11 @@ public class GraphFrame extends javax.swing.JFrame {
         setNewLabelConfirmButton = new javax.swing.JButton();
         setNewLabelCancelButton = new javax.swing.JButton();
         fileChooser = new javax.swing.JFileChooser();
+        searchVertexIDDialogBox = new javax.swing.JDialog();
+        jLabel9 = new javax.swing.JLabel();
+        vertexIDTextField = new javax.swing.JTextField();
+        searchVertexIDButton = new javax.swing.JButton();
+        cancelSearchVertexButton = new javax.swing.JButton();
         ToolMenu = new javax.swing.JPanel();
         CollapseAgent = new javax.swing.JButton();
         Reset = new javax.swing.JButton();
@@ -147,14 +152,15 @@ public class GraphFrame extends javax.swing.JFrame {
         jMenu7 = new javax.swing.JMenu();
         RenameVertexLabelMenuButton = new javax.swing.JMenuItem();
         linkActivitiesButton = new javax.swing.JMenuItem();
+        SearchVertexMenuButton = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         autoDetectEdgesCheckBox = new javax.swing.JCheckBoxMenuItem();
         autoDetectAttributeCheckBox = new javax.swing.JCheckBoxMenuItem();
         useEdgeTypeColor = new javax.swing.JCheckBoxMenuItem();
-        isStrokeByValueButton = new javax.swing.JCheckBoxMenuItem();
         isColorByEdgeValueButton = new javax.swing.JCheckBoxMenuItem();
-        allowVariableLayoutButton = new javax.swing.JCheckBoxMenuItem();
+        isStrokeByValueButton = new javax.swing.JCheckBoxMenuItem();
         vertexBorderByGraphButton = new javax.swing.JCheckBoxMenuItem();
+        allowVariableLayoutButton = new javax.swing.JCheckBoxMenuItem();
         findPathButton = new javax.swing.JMenuItem();
         displayEdgeTextButton = new javax.swing.JMenu();
         jMenu10 = new javax.swing.JMenu();
@@ -255,6 +261,54 @@ public class GraphFrame extends javax.swing.JFrame {
 
         fileChooser.setCurrentDirectory(new java.io.File("C:\\Kohwalter\\GitHub\\prov-viewer\\src\\main\\resources"));
         fileChooser.setDialogTitle("This is my open dialog");
+
+        searchVertexIDDialogBox.setAlwaysOnTop(true);
+        searchVertexIDDialogBox.setMinimumSize(new java.awt.Dimension(175, 140));
+
+        jLabel9.setText("Type the Vertex ID");
+
+        searchVertexIDButton.setText("Search");
+        searchVertexIDButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchVertexIDButtonActionPerformed(evt);
+            }
+        });
+
+        cancelSearchVertexButton.setText("Cancel");
+        cancelSearchVertexButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelSearchVertexButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout searchVertexIDDialogBoxLayout = new javax.swing.GroupLayout(searchVertexIDDialogBox.getContentPane());
+        searchVertexIDDialogBox.getContentPane().setLayout(searchVertexIDDialogBoxLayout);
+        searchVertexIDDialogBoxLayout.setHorizontalGroup(
+            searchVertexIDDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(searchVertexIDDialogBoxLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(searchVertexIDDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(searchVertexIDDialogBoxLayout.createSequentialGroup()
+                        .addComponent(searchVertexIDButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cancelSearchVertexButton))
+                    .addComponent(vertexIDTextField)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        searchVertexIDDialogBoxLayout.setVerticalGroup(
+            searchVertexIDDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(searchVertexIDDialogBoxLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(vertexIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(searchVertexIDDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(searchVertexIDButton)
+                    .addComponent(cancelSearchVertexButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Prov Viewer");
@@ -753,6 +807,14 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu7.add(linkActivitiesButton);
 
+        SearchVertexMenuButton.setText("Search Vertex");
+        SearchVertexMenuButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SearchVertexMenuButtonActionPerformed(evt);
+            }
+        });
+        jMenu7.add(SearchVertexMenuButton);
+
         MenuBar.add(jMenu7);
 
         jMenu1.setText("Options");
@@ -773,22 +835,13 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu1.add(autoDetectAttributeCheckBox);
 
-        useEdgeTypeColor.setText("Use Edge Type Color");
+        useEdgeTypeColor.setText("Edge Color based on its Type");
         useEdgeTypeColor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 useEdgeTypeColorActionPerformed(evt);
             }
         });
         jMenu1.add(useEdgeTypeColor);
-
-        isStrokeByValueButton.setSelected(true);
-        isStrokeByValueButton.setText("Edge Size based on its Value");
-        isStrokeByValueButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                isStrokeByValueButtonActionPerformed(evt);
-            }
-        });
-        jMenu1.add(isStrokeByValueButton);
 
         isColorByEdgeValueButton.setSelected(true);
         isColorByEdgeValueButton.setText("Edge Color based on its Value");
@@ -799,21 +852,31 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu1.add(isColorByEdgeValueButton);
 
-        allowVariableLayoutButton.setText("Allow Layouts to Change by Filters");
-        allowVariableLayoutButton.addActionListener(new java.awt.event.ActionListener() {
+        isStrokeByValueButton.setSelected(true);
+        isStrokeByValueButton.setText("Edge Size based on its Value");
+        isStrokeByValueButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                allowVariableLayoutButtonActionPerformed(evt);
+                isStrokeByValueButtonActionPerformed(evt);
             }
         });
-        jMenu1.add(allowVariableLayoutButton);
+        jMenu1.add(isStrokeByValueButton);
 
-        vertexBorderByGraphButton.setText("Vertex Border Color based on Graph");
+        vertexBorderByGraphButton.setText("Vertex Border Color based on GraphFile");
         vertexBorderByGraphButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 vertexBorderByGraphButtonActionPerformed(evt);
             }
         });
         jMenu1.add(vertexBorderByGraphButton);
+
+        allowVariableLayoutButton.setText("Dynamic Layouts");
+        allowVariableLayoutButton.setToolTipText("Layouts will adapt upon refresh based on the graph currently being displayed");
+        allowVariableLayoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                allowVariableLayoutButtonActionPerformed(evt);
+            }
+        });
+        jMenu1.add(allowVariableLayoutButton);
 
         findPathButton.setText("Find Path between two Selected Vertices");
         findPathButton.addActionListener(new java.awt.event.ActionListener() {
@@ -1657,6 +1720,22 @@ public class GraphFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         GuiFunctions.FindPath(variables);
     }//GEN-LAST:event_findPathButtonActionPerformed
+
+    private void SearchVertexMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchVertexMenuButtonActionPerformed
+        // TODO add your handling code here:
+        GuiButtons.ShowVertexSearchWindow(searchVertexIDDialogBox);
+    }//GEN-LAST:event_SearchVertexMenuButtonActionPerformed
+
+    private void searchVertexIDButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchVertexIDButtonActionPerformed
+        // TODO add your handling code here:
+        GuiButtons.SearchVertexByID(vertexIDTextField.getText(), variables);
+        searchVertexIDDialogBox.setVisible(false);
+    }//GEN-LAST:event_searchVertexIDButtonActionPerformed
+
+    private void cancelSearchVertexButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelSearchVertexButtonActionPerformed
+        // TODO add your handling code here:
+        searchVertexIDDialogBox.setVisible(false);
+    }//GEN-LAST:event_cancelSearchVertexButtonActionPerformed
    
     /**
      * Main
@@ -1721,6 +1800,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem PerformanceArrowHeadsButton;
     private javax.swing.JMenuItem RenameVertexLabelMenuButton;
     private javax.swing.JButton Reset;
+    private javax.swing.JMenuItem SearchVertexMenuButton;
     private javax.swing.JCheckBoxMenuItem ShowEdgePathProbabilityButton;
     private javax.swing.JButton SimilarityInference;
     public static javax.swing.JComboBox StatusFilterBox;
@@ -1732,6 +1812,7 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JRadioButtonMenuItem attributeDisplaySimConfig;
     private javax.swing.JCheckBoxMenuItem autoDetectAttributeCheckBox;
     private javax.swing.JCheckBoxMenuItem autoDetectEdgesCheckBox;
+    private javax.swing.JButton cancelSearchVertexButton;
     public static javax.swing.JTextField dbscanEpsilon;
     private javax.swing.JCheckBoxMenuItem displayActivityLabelButton;
     private javax.swing.JCheckBoxMenuItem displayAgentLabelButton;
@@ -1769,6 +1850,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu11;
@@ -1788,6 +1870,8 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem mergeGraphButtom;
     private javax.swing.JTextField newVertexLabelTextBox;
     public static javax.swing.JCheckBoxMenuItem removeOutliersButton;
+    private javax.swing.JButton searchVertexIDButton;
+    private javax.swing.JDialog searchVertexIDDialogBox;
     private javax.swing.JButton setNewLabelCancelButton;
     private javax.swing.JButton setNewLabelConfirmButton;
     private javax.swing.JDialog setNewLabelDialogBox;
@@ -1808,6 +1892,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem verifyWithinClusterButton;
     private javax.swing.JCheckBoxMenuItem vertexBorderByGraphButton;
     public static javax.swing.JList vertexFilterList;
+    private javax.swing.JTextField vertexIDTextField;
     private javax.swing.JTextField vertexShapeBasedOnAttribute;
     public static javax.swing.JComboBox<String> vertexShapeComboBox;
     // End of variables declaration//GEN-END:variables

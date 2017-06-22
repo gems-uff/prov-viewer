@@ -84,6 +84,75 @@
         <Property name="dialogTitle" type="java.lang.String" value="This is my open dialog"/>
       </Properties>
     </Component>
+    <Container class="javax.swing.JDialog" name="searchVertexIDDialogBox">
+      <Properties>
+        <Property name="alwaysOnTop" type="boolean" value="true"/>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[175, 140]"/>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="searchVertexIDButton" min="-2" pref="73" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="cancelSearchVertexButton" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="vertexIDTextField" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jLabel9" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="vertexIDTextField" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="searchVertexIDButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cancelSearchVertexButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="jLabel9">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Type the Vertex ID"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="vertexIDTextField">
+        </Component>
+        <Component class="javax.swing.JButton" name="searchVertexIDButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Search"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchVertexIDButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="cancelSearchVertexButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cancel"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelSearchVertexButtonActionPerformed"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
     <Menu class="javax.swing.JMenuBar" name="MenuBar">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="FileMenu">
@@ -174,6 +243,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="linkActivitiesButtonActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="SearchVertexMenuButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Search Vertex"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SearchVertexMenuButtonActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu1">
@@ -199,22 +276,10 @@
             </MenuItem>
             <MenuItem class="javax.swing.JCheckBoxMenuItem" name="useEdgeTypeColor">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Use Edge Type Color"/>
+                <Property name="text" type="java.lang.String" value="Edge Color based on its Type"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="useEdgeTypeColorActionPerformed"/>
-              </Events>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
-              </AuxValues>
-            </MenuItem>
-            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="isStrokeByValueButton">
-              <Properties>
-                <Property name="selected" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" value="Edge Size based on its Value"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="isStrokeByValueButtonActionPerformed"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
@@ -229,20 +294,33 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="isColorByEdgeValueButtonActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="allowVariableLayoutButton">
+            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="isStrokeByValueButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Allow Layouts to Change by Filters"/>
+                <Property name="selected" type="boolean" value="true"/>
+                <Property name="text" type="java.lang.String" value="Edge Size based on its Value"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="allowVariableLayoutButtonActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="isStrokeByValueButtonActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+              </AuxValues>
             </MenuItem>
             <MenuItem class="javax.swing.JCheckBoxMenuItem" name="vertexBorderByGraphButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Vertex Border Color based on Graph"/>
+                <Property name="text" type="java.lang.String" value="Vertex Border Color based on GraphFile"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="vertexBorderByGraphButtonActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="allowVariableLayoutButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Dynamic Layouts"/>
+                <Property name="toolTipText" type="java.lang.String" value="Layouts will adapt upon refresh based on the graph currently being displayed"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="allowVariableLayoutButtonActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="findPathButton">
