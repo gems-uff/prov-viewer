@@ -27,6 +27,7 @@ import br.uff.ic.provviewer.Collapser;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.Filter.Filters;
 import br.uff.ic.provviewer.Filter.PreFilters;
+import static br.uff.ic.provviewer.GUI.GuiFunctions.PanCameraToFirstVertex;
 import br.uff.ic.provviewer.GraphFrame;
 import br.uff.ic.provviewer.ImproveJUNGPerformance;
 import br.uff.ic.provviewer.Variables;
@@ -79,6 +80,25 @@ public class GuiInitialization {
         ToolTipManager.sharedInstance().setDismissDelay(50000);
         GraphFrame.vertexFilterList.setSelectedIndex(0);
         
+    }
+    
+    /**
+     * Method to update the features after openning a new file
+     * @param variables
+     * @param Layouts 
+     */
+    public static void ReInitializeAfterReadingFile(Variables variables, JComboBox Layouts) {
+        variables.updateNumberOfGraphs();
+        GuiFunctions.Stroke(variables);
+        GuiFunctions.GraphPaint(variables);
+        GuiFunctions.VertexShape(variables);
+        InitFilters(variables);
+        Utils.NormalizeTime(variables.graph, false);
+        variables.guiBackground.InitBackground(variables, Layouts);
+        GraphFrame.edgeFilterList.setSelectedIndex(0);
+        GraphFrame.vertexFilterList.setSelectedIndex(0);
+        PanCameraToFirstVertex(variables);
+        variables.config.resetVertexModeInitializations();
     }
 
     /**
