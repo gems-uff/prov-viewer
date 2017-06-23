@@ -89,12 +89,14 @@ public class GuiInitialization {
      */
     public static void ReInitializeAfterReadingFile(Variables variables, JComboBox Layouts) {
         variables.updateNumberOfGraphs();
-        GuiFunctions.Stroke(variables);
-        GuiFunctions.GraphPaint(variables);
-        GuiFunctions.VertexShape(variables);
+        variables.ComputeEdgeTypeValues();
+//        GuiFunctions.Stroke(variables);
+//        GuiFunctions.GraphPaint(variables);
+//        GuiFunctions.VertexShape(variables);
         InitFilters(variables);
         Utils.NormalizeTime(variables.graph, false);
         variables.guiBackground.InitBackground(variables, Layouts);
+        variables.changedOutliersOption = true;
         GraphFrame.edgeFilterList.setSelectedIndex(0);
         GraphFrame.vertexFilterList.setSelectedIndex(0);
         PanCameraToFirstVertex(variables);
