@@ -160,12 +160,7 @@ public class GuiReadFile {
             } else {
                 System.out.println("File access cancelled by user.");
             }
-            variables.guiBackground.InitBackground(variables, Layouts);
-            variables.updateNumberOfGraphs();
-            GraphFrame.edgeFilterList.setSelectedIndex(0);
-            GraphFrame.vertexFilterList.setSelectedIndex(0);
-            PanCameraToFirstVertex(variables);
-            variables.config.resetVertexModeInitializations();
+            GuiInitialization.ReInitializeAfterReadingFile(variables, Layouts);
         }
     }
     
