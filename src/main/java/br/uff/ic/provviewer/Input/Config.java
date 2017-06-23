@@ -519,11 +519,13 @@ public class Config {
                             Element eElement = (Element) innerNode;
                             AttValueColor avc = new AttValueColor();
                             avc.name = eElement.getElementsByTagName("attribute").item(0).getTextContent();
-                            avc.value = eElement.getElementsByTagName("value").item(0).getTextContent();
-                            int r = Integer.parseInt(eElement.getElementsByTagName("r").item(0).getTextContent());
-                            int g = Integer.parseInt(eElement.getElementsByTagName("g").item(0).getTextContent());
-                            int b = Integer.parseInt(eElement.getElementsByTagName("b").item(0).getTextContent());
-                            avc.color = new Color(r, g, b);
+                            if(eElement.getElementsByTagName("value").getLength() > 0 && eElement.getElementsByTagName("value").item(0).getTextContent() != "") {
+                                avc.value = eElement.getElementsByTagName("value").item(0).getTextContent();
+                                int r = Integer.parseInt(eElement.getElementsByTagName("r").item(0).getTextContent());
+                                int g = Integer.parseInt(eElement.getElementsByTagName("g").item(0).getTextContent());
+                                int b = Integer.parseInt(eElement.getElementsByTagName("b").item(0).getTextContent());
+                                avc.color = new Color(r, g, b);
+                            }
                             activityVC.add(avc);
                         }
                     }
@@ -553,11 +555,13 @@ public class Config {
                             Element eElement = (Element) innerNode;
                             AttValueColor avc = new AttValueColor();
                             avc.name = eElement.getElementsByTagName("attribute").item(0).getTextContent();
-                            avc.value = eElement.getElementsByTagName("value").item(0).getTextContent();
-                            int r = Integer.parseInt(eElement.getElementsByTagName("r").item(0).getTextContent());
-                            int g = Integer.parseInt(eElement.getElementsByTagName("g").item(0).getTextContent());
-                            int b = Integer.parseInt(eElement.getElementsByTagName("b").item(0).getTextContent());
-                            avc.color = new Color(r, g, b);
+                            if(eElement.getElementsByTagName("value").getLength() > 0 && eElement.getElementsByTagName("value").item(0).getTextContent() != "") {
+                                avc.value = eElement.getElementsByTagName("value").item(0).getTextContent();
+                                int r = Integer.parseInt(eElement.getElementsByTagName("r").item(0).getTextContent());
+                                int g = Integer.parseInt(eElement.getElementsByTagName("g").item(0).getTextContent());
+                                int b = Integer.parseInt(eElement.getElementsByTagName("b").item(0).getTextContent());
+                                avc.color = new Color(r, g, b);
+                            }
                             agentVC.add(avc);
                         }
                     }
