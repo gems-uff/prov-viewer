@@ -246,7 +246,7 @@ public class Filters {
      */
     private boolean edgeAgentFilter(Edge edge) {
         if (GraphFrame.hideAgentEdgesButton.isSelected()) {
-            if (filteredGraph.getDest(edge) instanceof AgentVertex) {
+            if (filteredGraph.getDest(edge) instanceof AgentVertex || ((Vertex)filteredGraph.getDest(edge)).hasAttribute(VariableNames.CollapsedVertexAgentAttribute)) {
                 return true;
             }
         }
