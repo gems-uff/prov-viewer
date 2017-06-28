@@ -120,6 +120,7 @@ public class GuiReadFile {
      * @param Layouts
      */
     public static void openConfigFile(Variables variables, JFileChooser fileChooser, JFrame graphFrame, JComboBox Layouts) {
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         int returnVal = fileChooser.showOpenDialog(graphFrame);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
@@ -152,6 +153,7 @@ public class GuiReadFile {
      * @param Layouts is the tool's layout selection field
      */
     public static void openGraphFile(Variables variables, JFileChooser fileChooser, JFrame graphFrame, JComboBox Layouts) {
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         if (variables.initConfig) {
             int returnVal = fileChooser.showOpenDialog(graphFrame);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -171,6 +173,7 @@ public class GuiReadFile {
      * @param graphFrame 
      */
     public static void loadMergeConfiguration(Variables variables, JFileChooser fileChooser, JFrame graphFrame) {
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         int returnVal = fileChooser.showOpenDialog(graphFrame);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
@@ -211,17 +214,19 @@ public class GuiReadFile {
      * @param Layouts 
      */
     public static void MergeGraph(Variables variables, JFileChooser fileChooser, JFrame graphFrame, JComboBox Layouts) {
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         int returnVal = fileChooser.showOpenDialog(graphFrame);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            DirectedGraph<Object, Edge> fileGraph = GuiReadFile.getGraph(fileChooser.getSelectedFile());
-            variables.mergingWithGraphPath = fileChooser.getSelectedFile().getName();
-            System.out.println("Original File: " + variables.originalGraphPath);
-            System.out.println("Merging File: " + variables.mergingWithGraphPath);
-            GraphMerger merger = new GraphMerger(variables.originalGraphPath, variables.mergingWithGraphPath);
-            DirectedGraph<Object, Edge> mergedGraph = merger.Merging(variables.graph, fileGraph, variables.mergeConfig.getRestrictionList(), variables.mergeConfig.getVocabulary(), variables.mergeConfig.getSimilarityThreshold(), variables.mergeConfig.getDefaultError(), variables.mergeConfig.getDefaultWeight());
-            
-            loadGraph(variables, mergedGraph);
-            System.out.println("Merging Complete!");
+            mergeFilesFromFolder(fileChooser.getSelectedFile(), variables);
+//            DirectedGraph<Object, Edge> fileGraph = GuiReadFile.getGraph(fileChooser.getSelectedFile());
+//            variables.mergingWithGraphPath = fileChooser.getSelectedFile().getName();
+//            System.out.println("Original File: " + variables.originalGraphPath);
+//            System.out.println("Merging File: " + variables.mergingWithGraphPath);
+//            GraphMerger merger = new GraphMerger(variables.originalGraphPath, variables.mergingWithGraphPath);
+//            DirectedGraph<Object, Edge> mergedGraph = merger.Merging(variables.graph, fileGraph, variables.mergeConfig.getRestrictionList(), variables.mergeConfig.getVocabulary(), variables.mergeConfig.getSimilarityThreshold(), variables.mergeConfig.getDefaultError(), variables.mergeConfig.getDefaultWeight());
+//            
+//            loadGraph(variables, mergedGraph);
+//            System.out.println("Merging Complete!");
         } else {
             System.out.println("File access cancelled by user.");
         }
@@ -231,5 +236,40 @@ public class GuiReadFile {
         GraphFrame.vertexFilterList.setSelectedIndex(0);
         PanCameraToFirstVertex(variables);
         variables.config.resetVertexModeInitializations();
+    }
+    
+    /**
+     * Method that merges all graphs from the selected folder
+     * @param folder
+     * @param variables 
+     */
+    public static void mergeFilesFromFolder(final File folder, Variables variables) {
+        if(folder.isDirectory()) {
+            for (final File fileEntry : folder.listFiles()) {
+                if (fileEntry.isDirectory()) {
+                    mergeFilesFromFolder(fileEntry, variables);
+                } else {
+                    mergeGraphs(variables, fileEntry);
+                }
+            }
+        }
+        else {
+            mergeGraphs(variables, folder);
+        }
+    }
+    
+    /**
+     * Method to merge two graphs
+     * @param variables contains the first graph
+     * @param file is the file that has the second graph
+     */
+    private static void mergeGraphs(Variables variables, File file) {
+        DirectedGraph<Object, Edge> fileGraph = GuiReadFile.getGraph(file);
+        variables.mergingWithGraphPath = file.getName();
+//        System.out.println("Original File: " + variables.originalGraphPath);
+        System.out.println("Merging File: " + variables.mergingWithGraphPath);
+        GraphMerger merger = new GraphMerger(variables.originalGraphPath, variables.mergingWithGraphPath);
+        DirectedGraph<Object, Edge> mergedGraph = merger.Merging(variables.graph, fileGraph, variables.mergeConfig.getRestrictionList(), variables.mergeConfig.getVocabulary(), variables.mergeConfig.getSimilarityThreshold(), variables.mergeConfig.getDefaultError(), variables.mergeConfig.getDefaultWeight());
+        loadGraph(variables, mergedGraph);
     }
 }
