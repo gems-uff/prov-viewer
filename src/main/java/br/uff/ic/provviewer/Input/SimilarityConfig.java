@@ -93,6 +93,8 @@ public class SimilarityConfig {
             restrictionList.put(VariableNames.CollapsedVertexEntityAttribute, epsilon);
             epsilon = new AttributeErrorMargin(VariableNames.similarityAttribute, "", 0);
             restrictionList.put(VariableNames.similarityAttribute, epsilon);
+            epsilon = new AttributeErrorMargin(VariableNames.GraphFile, "", 0);
+            restrictionList.put(VariableNames.GraphFile, epsilon);
                     
             nList = doc.getElementsByTagName("default_error");
             defaultError = nList.item(0).getTextContent();
