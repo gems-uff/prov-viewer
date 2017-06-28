@@ -1685,7 +1685,7 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private void exportGraphXMLButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportGraphXMLButtonActionPerformed
         // TODO add your handling code here:
-        GuiButtons.ExportGraphXML(variables);
+        GuiButtons.ExportGraphXML(variables.graph.getVertices(), variables.graph.getEdges(), "Export_Original_Graph_XML");
     }//GEN-LAST:event_exportGraphXMLButtonActionPerformed
 
     private void exportCollapsedGraphXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportCollapsedGraphXMLActionPerformed

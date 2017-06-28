@@ -376,12 +376,14 @@ public class GuiButtons {
     
     /**
      * Export the original graph or the resulting merged graph in Prov Viewer's xml format
-     * @param variables 
+     * @param vertices collection of vertices
+     * @param edges collection of edges
+     * @param fileName the name the file will have
      */
-    public static void ExportGraphXML(Variables variables) {
-        XMLWriter xmlWriter = new XMLWriter(variables.graph.getVertices(), variables.graph.getEdges());
+    public static void ExportGraphXML(Collection<Object> vertices, Collection<Edge> edges, String fileName) {
+        XMLWriter xmlWriter = new XMLWriter(vertices, edges);
         try {
-            xmlWriter.saveToXML("Export_Original_Graph_XML");
+            xmlWriter.saveToXML(fileName);
         } catch (IOException ex) {
             Logger.getLogger(GuiButtons.class.getName()).log(Level.SEVERE, null, ex);
         }
