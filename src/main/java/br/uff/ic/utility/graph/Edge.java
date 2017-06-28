@@ -46,7 +46,7 @@ public class Edge extends GraphObject {
     private final String type;           // Edge type (prov edges)
     //used to hide this edge when collapsing a group of edges
 //    private boolean hide;
-    private Color defaultColor = new Color(0, 255, 255);
+    private Color defaultColor = new Color(0, 0, 255);
     private String influenceName = "Influence";
 
     /**
@@ -446,7 +446,9 @@ public class Edge extends GraphObject {
     public Edge merge(Edge edge, String mergeCode) {
         if(this.getType().equalsIgnoreCase(edge.getType())) {
             this.updateAllAttributes(edge.getAttributes());
-            this.id = this.id + ", " + edge.id;
+            // We have a problem here when merging many graphs: StringBuilder.append(StringBuilder.java:132) java.lang.OutOfMemoryError: Java heap space
+//            this.id = this.id + ", " + edge.id; 
+            this.id = "M_" + this.id; 
             if(!this.getLabel().contains(edge.getLabel()))
                 this.setLabel(this.getLabel() + ", " + edge.getLabel());
             edge.setHide(true);
