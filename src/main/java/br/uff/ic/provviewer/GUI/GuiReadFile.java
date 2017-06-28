@@ -167,10 +167,10 @@ public class GuiReadFile {
     }
     
     /**
-     * 
+     * Method to load the merge configuration
      * @param variables
-     * @param fileChooser
-     * @param graphFrame 
+     * @param fileChooser is the filechooser from the interface
+     * @param graphFrame is the main frame
      */
     public static void loadMergeConfiguration(Variables variables, JFileChooser fileChooser, JFrame graphFrame) {
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -185,10 +185,10 @@ public class GuiReadFile {
     }
     
     /**
-     * 
+     * Method to load the similarity configuration
      * @param variables
-     * @param fileChooser
-     * @param graphFrame 
+     * @param fileChooser is the filechooser from the interface
+     * @param graphFrame is the main frame
      */
     public static void loadSimilarityConfiguration(Variables variables, JFileChooser fileChooser, JFrame graphFrame) {
         int returnVal = fileChooser.showOpenDialog(graphFrame);
@@ -207,11 +207,11 @@ public class GuiReadFile {
     }
     
     /**
-     * 
+     * Method from the tool's interface to merge the current graph with another from a file or folder
      * @param variables
-     * @param fileChooser
-     * @param graphFrame
-     * @param Layouts 
+     * @param fileChooser the filechooser from the interface
+     * @param graphFrame the main frame
+     * @param Layouts the layout combo box from the interface
      */
     public static void MergeGraph(Variables variables, JFileChooser fileChooser, JFrame graphFrame, JComboBox Layouts) {
         fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
@@ -240,7 +240,7 @@ public class GuiReadFile {
     
     /**
      * Method that merges all graphs from the selected folder
-     * @param folder
+     * @param folder the selected item from the filechooser
      * @param variables 
      */
     public static void mergeFilesFromFolder(final File folder, Variables variables) {
