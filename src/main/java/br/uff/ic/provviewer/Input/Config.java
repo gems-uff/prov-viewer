@@ -75,7 +75,7 @@ public class Config {
     public String layoutSpecialVertexType;
 
     // Default Layout
-    public String defaultLayout = "SpatialLayout";
+    public String defaultLayout = "Spatial";
 
     // Coordinates Layout
     public String layoutAxis_X;
