@@ -27,10 +27,10 @@ THE SOFTWARE.
 <config
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
     xsi:noNamespaceSchemaLocation='config.xsd'>
-    <default_layout>TimelineLayout</default_layout>
+    <default_layout>Timeline</default_layout>
     <vertexSize>30</vertexSize>
     <timeScale>Seconds</timeScale>
-    <considerEdgeLabelForMerge>False</considerEdgeLabelForMerge>
+    <considerEdgeLabelForMerge>True</considerEdgeLabelForMerge>
     <spatialLayout>
         <layoutAxis_X>ObjectPosition_X</layoutAxis_X>
         <layoutAxis_Y>ObjectPosition_Z</layoutAxis_Y>
@@ -169,78 +169,81 @@ THE SOFTWARE.
         <trafficLightType>type2</trafficLightType>
         <isInverted>false</isInverted>
     </colorscheme>
-    <activitycolor>
-        <attribute>Label</attribute>
-        <value>Crash</value>
-        <vercolor>
-            <r>255</r>
-            <g>50</g>
-            <b>50</b>
-        </vercolor>
-    </activitycolor>
-    <activitycolor>
-        <attribute>Label</attribute>
-        <value>Scraping</value>
-        <vercolor>
-            <r>255</r>
-            <g>150</g>
-            <b>150</b>
-        </vercolor>
-    </activitycolor>
-    <activitycolor>
-        <attribute>Label</attribute>
-        <value>Flying</value>
-        <vercolor>
-            <r>153</r>
-            <g>51</g>
-            <b>255</b>
-        </vercolor>
-    </activitycolor>
-    <activitycolor>
-        <attribute>Label</attribute>
-        <value>Landing</value>
-        <vercolor>
-            <r>153</r>
-            <g>76</g>
-            <b>0</b>
-        </vercolor>
-    </activitycolor>
-    <activitycolor>
-        <attribute>Label</attribute>
-        <value>Brake</value>
-        <vercolor>
-            <r>0</r>
-            <g>204</g>
-            <b>204</b>
-        </vercolor>
-    </activitycolor>
-    <activitycolor>
-        <attribute>Label</attribute>
-        <value>HandBrake</value>
-        <vercolor>
-            <r>255</r>
-            <g>136</g>
-            <b>120</b>
-        </vercolor>
-    </activitycolor>
-    <activitycolor>
-        <attribute>Label</attribute>
-        <value>Flip</value>
-        <vercolor>
-            <r>255</r>
-            <g>0</g>
-            <b>0</b>
-        </vercolor>
-    </activitycolor>
-    <activitycolor>
-        <attribute>Label</attribute>
-        <value>LostControl</value>
-        <vercolor>
-            <r>255</r>
-            <g>0</g>
-            <b>255</b>
-        </vercolor>
-    </activitycolor>
-
+    <vertexcolor>
+        <generalname>Label</generalname>
+        <isAutomatic>False</isAutomatic>
+        <activitycolor>
+            <attribute>Label</attribute>
+            <value>Crash</value>
+            <vercolor>
+                <r>255</r>
+                <g>50</g>
+                <b>50</b>
+            </vercolor>
+        </activitycolor>
+        <activitycolor>
+            <attribute>Label</attribute>
+            <value>Scraping</value>
+            <vercolor>
+                <r>255</r>
+                <g>150</g>
+                <b>150</b>
+            </vercolor>
+        </activitycolor>
+        <activitycolor>
+            <attribute>Label</attribute>
+            <value>Flying</value>
+            <vercolor>
+                <r>153</r>
+                <g>51</g>
+                <b>255</b>
+            </vercolor>
+        </activitycolor>
+        <activitycolor>
+            <attribute>Label</attribute>
+            <value>Landing</value>
+            <vercolor>
+                <r>153</r>
+                <g>76</g>
+                <b>0</b>
+            </vercolor>
+        </activitycolor>
+        <activitycolor>
+            <attribute>Label</attribute>
+            <value>Brake</value>
+            <vercolor>
+                <r>0</r>
+                <g>204</g>
+                <b>204</b>
+            </vercolor>
+        </activitycolor>
+        <activitycolor>
+            <attribute>Label</attribute>
+            <value>HandBrake</value>
+            <vercolor>
+                <r>255</r>
+                <g>136</g>
+                <b>120</b>
+            </vercolor>
+        </activitycolor>
+        <activitycolor>
+            <attribute>Label</attribute>
+            <value>Flip</value>
+            <vercolor>
+                <r>255</r>
+                <g>0</g>
+                <b>0</b>
+            </vercolor>
+        </activitycolor>
+        <activitycolor>
+            <attribute>Label</attribute>
+            <value>LostControl</value>
+            <vercolor>
+                <r>255</r>
+                <g>0</g>
+                <b>255</b>
+            </vercolor>
+        </activitycolor>
+    </vertexcolor>
 
 </config>
