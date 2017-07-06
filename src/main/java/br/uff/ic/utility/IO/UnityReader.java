@@ -108,7 +108,8 @@ public class UnityReader extends XMLReader {
                             Element e = (Element) valuesList;
                             Collection<String> oValues = new ArrayList<String>();
                             for (int j = 0; j < Integer.valueOf(eElement.getElementsByTagName("quantity").item(i).getTextContent()); j++) {
-                                oValues.add(e.getElementsByTagName("originalValue").item(j).getTextContent());
+                                if(e.getElementsByTagName("originalValue").item(j) != null)
+                                    oValues.add(e.getElementsByTagName("originalValue").item(j).getTextContent());
                             }
                             att = new GraphAttribute(eElement.getElementsByTagName("name").item(i).getTextContent(),
                                     eElement.getElementsByTagName("value").item(i).getTextContent(),
