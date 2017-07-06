@@ -42,6 +42,7 @@ import java.awt.Color;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -600,6 +601,7 @@ public class Config {
         for (int i = 0; i < types.length; i++) {
             types[i] = vertexLabelFilter.get(i);
         }
+        Arrays.sort(types);
         GraphFrame.vertexFilterList.setListData(types);
     }
 
@@ -639,6 +641,7 @@ public class Config {
             i++;
             
         }
+        Arrays.sort(types);
         GraphFrame.vertexFilterList.setListData(types);
     }
 }
