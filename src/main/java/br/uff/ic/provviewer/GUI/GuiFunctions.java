@@ -43,6 +43,7 @@ import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.ActivityVertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
+import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Pair;
 import edu.uci.ics.jung.visualization.Layer;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
@@ -58,6 +59,7 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -512,6 +514,67 @@ public class GuiFunctions {
         final double dx = (lvc.getX() - q.getX());
         final double dy = (lvc.getY() - q.getY());
         variables.view.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.LAYOUT).translate(dx, dy);
+    }
+    
+    /**
+     * Method to find the causes that led the trial to fail
+     * @param trial is the trial we are debugging
+     * @param correctTrials is the list of trials that worked
+     * @param variables contains the graph
+     */
+    public static void DebugTrials(String trial, List<String> correctTrials, Variables variables) {
+        Graph g = variables.graph;
+        Map<String, List<Vertex>> diffs = new HashMap<>();
+        
+        // Runs the graph multiple times, once for each "OK" graph
+//        for(String t : correctTrials) {
+//            List<Vertex> diffVertices = new ArrayList<>();
+//            for (Object v : g.getVertices()) {
+//                if(v instanceof EntityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) {
+//                    if (((Vertex)v).getAttributeValue(VariableNames.GraphFile).contains(t)) {
+//                        if (!((Vertex)v).getAttributeValue(VariableNames.GraphFile).contains(trial)) {
+//                            diffVertices.add((Vertex) v);
+//                        }
+//                    }
+//                }
+//            }
+//            diffs.put(t, diffVertices);
+//        }
+        
+        // Run through the graph only once, building the DIFFS to all "OK" graphs
+        for(Object v : g.getVertices()) {
+            for (String t : correctTrials) {
+                if(v instanceof EntityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) {
+                    if (((Vertex)v).getAttributeValue(VariableNames.GraphFile).contains(t)) {
+                        if (!((Vertex)v).getAttributeValue(VariableNames.GraphFile).contains(trial)) {
+                            List<Vertex> diffVertices = new ArrayList<>();
+                            if(diffs.containsKey(t)) {
+                                diffVertices = diffs.get(t);
+                            }
+                            diffVertices.add((Vertex) v);
+                            diffs.put(t, diffVertices);
+                        }
+                    }
+                }
+            }
+        }
+        
+        
+        int min = Integer.MAX_VALUE;
+        List<Vertex> minDiff = new ArrayList<>(); 
+        for(List<Vertex> diff : diffs.values()) {
+            if(min > diff.size()) {
+                min = diff.size();
+                minDiff = diff;
+            }
+        }
+        
+        String ids = "";
+        for(Vertex v : minDiff) {
+            ids += " " + v.getLabel();
+        }
+        System.out.println("Min diff is: " + min);
+        System.out.println("Error Reasons: " + ids);
     }
 
 }
