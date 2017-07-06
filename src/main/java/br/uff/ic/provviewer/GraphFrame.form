@@ -1342,10 +1342,11 @@
         <Component class="javax.swing.JComboBox" name="vertexShapeComboBox">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
+              <StringArray count="4">
                 <StringItem index="0" value="Default"/>
-                <StringItem index="1" value="Graphs"/>
-                <StringItem index="2" value="Attribute"/>
+                <StringItem index="1" value="Summarized"/>
+                <StringItem index="2" value="Graphs"/>
+                <StringItem index="3" value="Attribute"/>
               </StringArray>
             </Property>
           </Properties>

@@ -496,7 +496,7 @@ public class GraphFrame extends javax.swing.JFrame {
         jLabel3.setText("Eps Increase");
         jLabel3.setToolTipText("Defines the epsilon increase before reaching the minimum cluster size (used when VE is true)");
 
-        vertexShapeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Default", "Graphs", "Attribute" }));
+        vertexShapeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Default", "Summarized", "Graphs", "Attribute" }));
         vertexShapeComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 vertexShapeComboBoxActionPerformed(evt);
