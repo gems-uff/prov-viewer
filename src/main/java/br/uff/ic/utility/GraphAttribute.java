@@ -115,7 +115,7 @@ public class GraphAttribute {
             this.value = Float.toString(Utils.convertFloat(this.value) + Utils.convertFloat(value));
             this.minValue = Math.min(this.minValue, Utils.convertFloat(value));
             this.maxValue = Math.max(this.maxValue, Utils.convertFloat(value));
-                
+            originalValues.add(value);
         } else { // This value is a String
             if(!this.value.equalsIgnoreCase(value) && !(this.value.contains(value))) {
                 String[] currentValues = this.value.split(", ");
@@ -128,11 +128,9 @@ public class GraphAttribute {
                 this.value = "";
                 for(String s : updatedValues.values())
                     this.value += ", " + s;
-                
                 this.value = this.value.replaceFirst(", ", "");
             }
         }
-        originalValues.add(value);
     }
     
     /**
