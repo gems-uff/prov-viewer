@@ -77,6 +77,8 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
         switch (selectedShape) {
             case "Prov":
                 return defaultShape(v);
+            case "Summarized":
+                return summarizedShape(v);
             case "Graphs":
                 return multipleGraphShape(v);
             case "Attribute":
@@ -92,12 +94,17 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
      * @param v is the vertex
      * @return the vertex shape
      */
-    private Shape defaultShape(V v) {
+    private Shape summarizedShape(V v) {
         if (v instanceof GraphVertex) {
             vertexGraphSizeTransformer(v);
         } else {
             setSizeTransformer(new VertexSize<V>(defaultSize));
         }
+        return provShape(v, defaultSize);
+    }
+    
+    private Shape defaultShape(V v) {
+        setSizeTransformer(new VertexSize<V>(defaultSize));
         return provShape(v, defaultSize);
     }
 
