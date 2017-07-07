@@ -608,7 +608,7 @@ public class Config {
     /**
      * Function to update the status filter list in the GraphFrame interface
      */
-    private void InterfaceStatusFilters() {
+    public void InterfaceStatusFilters() {
         String[] items = new String[vertexModes.size()];
         int j = 0;
         for (ColorScheme mode : vertexModes.values()) {
