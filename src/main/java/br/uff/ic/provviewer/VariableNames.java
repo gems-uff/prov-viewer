@@ -36,7 +36,7 @@ public class VariableNames {
     public static String GraphFile = "GraphFile";
     public static String FilterAllEdges = "All Edges";
     public static String ChronologicalEdge = "Chronological";
-    public static String FilterAllVertices = "All Vertices";
+    public static String FilterAllVertices = "(All Vertices)";
     public static String MouseModePicking = "Picking";
     public static String MouseModeTransforming = "Transforming";
     public static String EdgeModeQuadCurve = "QuadCurve";
