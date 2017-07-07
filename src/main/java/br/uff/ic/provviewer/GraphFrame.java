@@ -38,6 +38,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UnsupportedLookAndFeelException;
 import java.awt.event.MouseEvent;
+import java.util.Arrays;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  * Prov Viewer GUI. Can be used as a Template.
@@ -96,6 +98,14 @@ public class GraphFrame extends javax.swing.JFrame {
         vertexIDTextField = new javax.swing.JTextField();
         searchVertexIDButton = new javax.swing.JButton();
         cancelSearchVertexButton = new javax.swing.JButton();
+        debugDialogBox = new javax.swing.JDialog();
+        jLabel11 = new javax.swing.JLabel();
+        selectedTrialComboBox = new javax.swing.JComboBox<>();
+        jLabel12 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        correctTrialsList = new javax.swing.JList<>();
+        confirmDebuggingButton = new javax.swing.JButton();
+        cancelDebugButton = new javax.swing.JButton();
         ToolMenu = new javax.swing.JPanel();
         CollapseAgent = new javax.swing.JButton();
         Reset = new javax.swing.JButton();
@@ -208,6 +218,8 @@ public class GraphFrame extends javax.swing.JFrame {
         PerformanceAAButton = new javax.swing.JCheckBoxMenuItem();
         PerformanceArrowHeadsButton = new javax.swing.JCheckBoxMenuItem();
         PaintInvisibleVerticesButton = new javax.swing.JCheckBoxMenuItem();
+        jMenu12 = new javax.swing.JMenu();
+        debugTrialMenuItem = new javax.swing.JMenuItem();
 
         setNewLabelDialogBox.setAlwaysOnTop(true);
         setNewLabelDialogBox.setMinimumSize(new java.awt.Dimension(257, 153));
@@ -308,6 +320,77 @@ public class GraphFrame extends javax.swing.JFrame {
                     .addComponent(searchVertexIDButton)
                     .addComponent(cancelSearchVertexButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        debugDialogBox.setAlwaysOnTop(true);
+        debugDialogBox.setMinimumSize(new java.awt.Dimension(358, 450));
+
+        jLabel11.setText("Select the trial for debugging");
+
+        selectedTrialComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel12.setText("Select the trials that worked");
+
+        correctTrialsList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(correctTrialsList);
+
+        confirmDebuggingButton.setText("OK");
+        confirmDebuggingButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmDebuggingButtonActionPerformed(evt);
+            }
+        });
+
+        cancelDebugButton.setText("Cancel");
+        cancelDebugButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelDebugButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout debugDialogBoxLayout = new javax.swing.GroupLayout(debugDialogBox.getContentPane());
+        debugDialogBox.getContentPane().setLayout(debugDialogBoxLayout);
+        debugDialogBoxLayout.setHorizontalGroup(
+            debugDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(debugDialogBoxLayout.createSequentialGroup()
+                .addGroup(debugDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(debugDialogBoxLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(debugDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(selectedTrialComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, debugDialogBoxLayout.createSequentialGroup()
+                        .addComponent(confirmDebuggingButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cancelDebugButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(debugDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
+        );
+        debugDialogBoxLayout.setVerticalGroup(
+            debugDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(debugDialogBoxLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(debugDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel12))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(debugDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(debugDialogBoxLayout.createSequentialGroup()
+                        .addComponent(selectedTrialComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(debugDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(confirmDebuggingButton)
+                            .addComponent(cancelDebugButton)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -1234,6 +1317,18 @@ public class GraphFrame extends javax.swing.JFrame {
 
         MenuBar.add(jMenu9);
 
+        jMenu12.setText("Debugging");
+
+        debugTrialMenuItem.setText("Debug Trial");
+        debugTrialMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                debugTrialMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu12.add(debugTrialMenuItem);
+
+        MenuBar.add(jMenu12);
+
         setJMenuBar(MenuBar);
 
         setSize(new java.awt.Dimension(1215, 784));
@@ -1736,6 +1831,32 @@ public class GraphFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         searchVertexIDDialogBox.setVisible(false);
     }//GEN-LAST:event_cancelSearchVertexButtonActionPerformed
+
+    private void confirmDebuggingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmDebuggingButtonActionPerformed
+        // TODO add your handling code here:
+        GuiFunctions.DebugTrials(selectedTrialComboBox.getSelectedItem().toString(), correctTrialsList.getSelectedValuesList(), variables);
+        debugDialogBox.setVisible(false);
+    }//GEN-LAST:event_confirmDebuggingButtonActionPerformed
+
+    private void cancelDebugButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelDebugButtonActionPerformed
+        // TODO add your handling code here:
+        debugDialogBox.setVisible(false);
+    }//GEN-LAST:event_cancelDebugButtonActionPerformed
+
+    private void debugTrialMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_debugTrialMenuItemActionPerformed
+        // TODO add your handling code here:
+        String[] types = new String[variables.graphNames.size()];
+        int i = 0;
+        for (String s : variables.graphNames) {
+            types[i] = s;
+            i++;
+        }
+        Arrays.sort(types);
+        GraphFrame.correctTrialsList.setListData(types);
+        GraphFrame.selectedTrialComboBox.setModel(
+                new DefaultComboBoxModel(types));
+        debugDialogBox.setVisible(true);
+    }//GEN-LAST:event_debugTrialMenuItemActionPerformed
    
     /**
      * Main
@@ -1812,8 +1933,13 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JRadioButtonMenuItem attributeDisplaySimConfig;
     private javax.swing.JCheckBoxMenuItem autoDetectAttributeCheckBox;
     private javax.swing.JCheckBoxMenuItem autoDetectEdgesCheckBox;
+    private javax.swing.JButton cancelDebugButton;
     private javax.swing.JButton cancelSearchVertexButton;
+    private javax.swing.JButton confirmDebuggingButton;
+    private static javax.swing.JList<String> correctTrialsList;
     public static javax.swing.JTextField dbscanEpsilon;
+    private javax.swing.JDialog debugDialogBox;
+    private javax.swing.JMenuItem debugTrialMenuItem;
     private javax.swing.JCheckBoxMenuItem displayActivityLabelButton;
     private javax.swing.JCheckBoxMenuItem displayAgentLabelButton;
     private javax.swing.JCheckBoxMenuItem displayEdgeLabel;
@@ -1843,6 +1969,8 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JCheckBoxMenuItem isStrokeByValueButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1854,6 +1982,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu11;
+    private javax.swing.JMenu jMenu12;
     private javax.swing.JMenu jMenu2;
     public static javax.swing.JMenu jMenu3;
     public static javax.swing.JMenu jMenu4;
@@ -1864,6 +1993,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField layoutAttributeName_X_Text;
     private javax.swing.JTextField layoutAttributeName_Y_Text;
     private javax.swing.JMenuItem linkActivitiesButton;
@@ -1872,6 +2002,7 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JCheckBoxMenuItem removeOutliersButton;
     private javax.swing.JButton searchVertexIDButton;
     private javax.swing.JDialog searchVertexIDDialogBox;
+    private static javax.swing.JComboBox<String> selectedTrialComboBox;
     private javax.swing.JButton setNewLabelCancelButton;
     private javax.swing.JButton setNewLabelConfirmButton;
     private javax.swing.JDialog setNewLabelDialogBox;
