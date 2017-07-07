@@ -543,8 +543,8 @@ public class GuiFunctions {
         
         // Run through the graph only once, building the DIFFS to all "OK" graphs
         for(Object v : g.getVertices()) {
-            for (String t : correctTrials) {
-                if(v instanceof EntityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) {
+            if(v instanceof EntityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) {
+                for (String t : correctTrials) {
                     if (((Vertex)v).getAttributeValue(VariableNames.GraphFile).contains(t)) {
                         if (!((Vertex)v).getAttributeValue(VariableNames.GraphFile).contains(trial)) {
                             List<Vertex> diffVertices = new ArrayList<>();
@@ -558,7 +558,6 @@ public class GuiFunctions {
                 }
             }
         }
-        
         
         int min = Integer.MAX_VALUE;
         List<Vertex> minDiff = new ArrayList<>(); 
@@ -575,6 +574,52 @@ public class GuiFunctions {
         }
         System.out.println("Min diff is: " + min);
         System.out.println("Error Reasons: " + ids);
+        // Need to mark with ORANGE border the cases that lead this trial to failure
     }
 
+    /**
+     * Method to find out the configurations that always led to an error
+     * @param correctTrials is the list of the correct trials
+     * @param variables has the graph
+     */
+    public static void DebugTrialsAlwaysWrong(List<String> correctTrials, Variables variables) {
+        Graph g = variables.graph;
+        List<Vertex> alwaysWrong = new ArrayList<>();
+        for(Object v : g.getVertices()) {
+            if(v instanceof EntityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) {
+                boolean isCorrect = false;
+                for (String t : correctTrials) {
+
+                        if (((Vertex)v).getAttributeValue(VariableNames.GraphFile).contains(t)) {
+                            isCorrect = true;
+                        }
+                }
+                if(!isCorrect)
+                    alwaysWrong.add((Vertex) v);
+            }
+        }
+        
+        for(Vertex v : alwaysWrong) {
+            System.out.println(v.toString());//.getLabel() + ": " + v.getAttributeValue("value"));
+        }
+        // Need to mark with RED border the cases that always lead to failure
+    }
+    
+    public static void test(Variables variables) {
+        String trial = "workflow_trial_6.xml";
+        List<String> correctTrials = new ArrayList<>();
+        
+        correctTrials.add("workflow_trial_7.xml");
+        correctTrials.add("workflow_trial_11.xml");
+        correctTrials.add("workflow_trial_16.xml");
+        correctTrials.add("workflow_trial_17.xml");
+        correctTrials.add("workflow_trial_18.xml");
+        correctTrials.add("workflow_trial_22.xml");
+        correctTrials.add("workflow_trial_24.xml");
+        correctTrials.add("workflow_trial_25.xml");
+        correctTrials.add("workflow_trial_28.xml");
+        correctTrials.add("workflow_trial_32.xml");
+        DebugTrials(trial, correctTrials, variables);
+        DebugTrialsAlwaysWrong(correctTrials, variables);
+    }
 }
