@@ -171,7 +171,6 @@ public class GraphFrame extends javax.swing.JFrame {
         isStrokeByValueButton = new javax.swing.JCheckBoxMenuItem();
         vertexBorderByGraphButton = new javax.swing.JCheckBoxMenuItem();
         allowVariableLayoutButton = new javax.swing.JCheckBoxMenuItem();
-        findPathButton = new javax.swing.JMenuItem();
         displayEdgeTextButton = new javax.swing.JMenu();
         jMenu10 = new javax.swing.JMenu();
         displayID = new javax.swing.JCheckBoxMenuItem();
@@ -214,12 +213,14 @@ public class GraphFrame extends javax.swing.JFrame {
         attributeDisplaySimConfig = new javax.swing.JRadioButtonMenuItem();
         similarityConsiderNeighborsButton = new javax.swing.JCheckBoxMenuItem();
         CollapseAllAgentsButton = new javax.swing.JMenuItem();
+        jMenu12 = new javax.swing.JMenu();
+        debugTrialMenuItem = new javax.swing.JMenuItem();
+        jMenu13 = new javax.swing.JMenu();
+        findPathButton = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
         PerformanceAAButton = new javax.swing.JCheckBoxMenuItem();
         PerformanceArrowHeadsButton = new javax.swing.JCheckBoxMenuItem();
         PaintInvisibleVerticesButton = new javax.swing.JCheckBoxMenuItem();
-        jMenu12 = new javax.swing.JMenu();
-        debugTrialMenuItem = new javax.swing.JMenuItem();
 
         setNewLabelDialogBox.setAlwaysOnTop(true);
         setNewLabelDialogBox.setMinimumSize(new java.awt.Dimension(257, 153));
@@ -961,14 +962,6 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu1.add(allowVariableLayoutButton);
 
-        findPathButton.setText("Find Path between two Selected Vertices");
-        findPathButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                findPathButtonActionPerformed(evt);
-            }
-        });
-        jMenu1.add(findPathButton);
-
         MenuBar.add(jMenu1);
 
         displayEdgeTextButton.setText("Display");
@@ -1283,6 +1276,30 @@ public class GraphFrame extends javax.swing.JFrame {
 
         MenuBar.add(jMenu8);
 
+        jMenu12.setText("Debugging");
+
+        debugTrialMenuItem.setText("Debug Trial");
+        debugTrialMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                debugTrialMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu12.add(debugTrialMenuItem);
+
+        MenuBar.add(jMenu12);
+
+        jMenu13.setText("Pathing");
+
+        findPathButton.setText("Find Path between two Selected Vertices");
+        findPathButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                findPathButtonActionPerformed(evt);
+            }
+        });
+        jMenu13.add(findPathButton);
+
+        MenuBar.add(jMenu13);
+
         jMenu9.setText("Performance");
 
         PerformanceAAButton.setSelected(true);
@@ -1316,18 +1333,6 @@ public class GraphFrame extends javax.swing.JFrame {
         jMenu9.add(PaintInvisibleVerticesButton);
 
         MenuBar.add(jMenu9);
-
-        jMenu12.setText("Debugging");
-
-        debugTrialMenuItem.setText("Debug Trial");
-        debugTrialMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                debugTrialMenuItemActionPerformed(evt);
-            }
-        });
-        jMenu12.add(debugTrialMenuItem);
-
-        MenuBar.add(jMenu12);
 
         setJMenuBar(MenuBar);
 
@@ -1835,6 +1840,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private void confirmDebuggingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmDebuggingButtonActionPerformed
         // TODO add your handling code here:
         GuiFunctions.DebugTrials(selectedTrialComboBox.getSelectedItem().toString(), correctTrialsList.getSelectedValuesList(), variables);
+        GuiFunctions.DebugTrialsAlwaysWrong(correctTrialsList.getSelectedValuesList(), variables);
         debugDialogBox.setVisible(false);
     }//GEN-LAST:event_confirmDebuggingButtonActionPerformed
 
@@ -1983,6 +1989,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu11;
     private javax.swing.JMenu jMenu12;
+    private javax.swing.JMenu jMenu13;
     private javax.swing.JMenu jMenu2;
     public static javax.swing.JMenu jMenu3;
     public static javax.swing.JMenu jMenu4;
