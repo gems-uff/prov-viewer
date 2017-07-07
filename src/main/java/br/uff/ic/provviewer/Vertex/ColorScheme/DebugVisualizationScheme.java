@@ -56,7 +56,6 @@ public class DebugVisualizationScheme extends ColorScheme {
     public Paint Execute(Object v, final Variables variables) {
         String att = this.attribute;
         att = att.replace("Debug_", "");
-        System.out.println("Att: " + att);
         if(!isInitialized) {
             totalNumberGraphs = variables.numberOfGraphs;
             isInitialized = true;
