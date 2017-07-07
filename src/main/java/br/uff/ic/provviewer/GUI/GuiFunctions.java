@@ -31,6 +31,7 @@ import br.uff.ic.provviewer.Stroke.EdgeStroke;
 import br.uff.ic.provviewer.Stroke.VertexStroke;
 import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.provviewer.Variables;
+import br.uff.ic.provviewer.Vertex.ColorScheme.DebugVisualizationScheme;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.provviewer.Vertex.ColorScheme.VertexPainter;
 import br.uff.ic.utility.graph.EntityVertex;
@@ -522,7 +523,7 @@ public class GuiFunctions {
      * @param correctTrials is the list of trials that worked
      * @param variables contains the graph
      */
-    public static void DebugTrials(String trial, List<String> correctTrials, Variables variables) {
+    public static List<Vertex> DebugTrials(String trial, List<String> correctTrials, Variables variables) {
         Graph g = variables.graph;
         Map<String, List<Vertex>> diffs = new HashMap<>();
         
@@ -574,6 +575,7 @@ public class GuiFunctions {
         }
         System.out.println("Min diff is: " + min);
         System.out.println("Error Reasons: " + ids);
+        return minDiff;
         // Need to mark with ORANGE border the cases that lead this trial to failure
     }
 
@@ -582,7 +584,7 @@ public class GuiFunctions {
      * @param correctTrials is the list of the correct trials
      * @param variables has the graph
      */
-    public static void DebugTrialsAlwaysWrong(List<String> correctTrials, Variables variables) {
+    public static List<Vertex> DebugTrialsAlwaysWrong(List<String> correctTrials, Variables variables) {
         Graph g = variables.graph;
         List<Vertex> alwaysWrong = new ArrayList<>();
         for(Object v : g.getVertices()) {
@@ -600,26 +602,30 @@ public class GuiFunctions {
         }
         
         for(Vertex v : alwaysWrong) {
-            System.out.println(v.toString());//.getLabel() + ": " + v.getAttributeValue("value"));
+            System.out.println("Always leads to error: " + v.getLabel() + ": " + v.getAttributeValue("value"));
         }
+        return alwaysWrong;
         // Need to mark with RED border the cases that always lead to failure
     }
     
-    public static void test(Variables variables) {
-        String trial = "workflow_trial_6.xml";
-        List<String> correctTrials = new ArrayList<>();
+    public static void debugTrial(Variables variables, String trial, List<String> correctTrials) {
+        String trial_test = "workflow_trial_6.xml";
+        List<String> correctTrials_test = new ArrayList<>();
+        correctTrials_test.add("workflow_trial_7.xml");
+        correctTrials_test.add("workflow_trial_11.xml");
+        correctTrials_test.add("workflow_trial_16.xml");
+        correctTrials_test.add("workflow_trial_17.xml");
+        correctTrials_test.add("workflow_trial_18.xml");
+        correctTrials_test.add("workflow_trial_22.xml");
+        correctTrials_test.add("workflow_trial_24.xml");
+        correctTrials_test.add("workflow_trial_25.xml");
+        correctTrials_test.add("workflow_trial_28.xml");
+        correctTrials_test.add("workflow_trial_32.xml");
         
-        correctTrials.add("workflow_trial_7.xml");
-        correctTrials.add("workflow_trial_11.xml");
-        correctTrials.add("workflow_trial_16.xml");
-        correctTrials.add("workflow_trial_17.xml");
-        correctTrials.add("workflow_trial_18.xml");
-        correctTrials.add("workflow_trial_22.xml");
-        correctTrials.add("workflow_trial_24.xml");
-        correctTrials.add("workflow_trial_25.xml");
-        correctTrials.add("workflow_trial_28.xml");
-        correctTrials.add("workflow_trial_32.xml");
-        DebugTrials(trial, correctTrials, variables);
-        DebugTrialsAlwaysWrong(correctTrials, variables);
+        List<Vertex> reasons = DebugTrials(trial_test, correctTrials_test, variables);
+        List<Vertex> alwaysWrong = DebugTrialsAlwaysWrong(correctTrials_test, variables);
+        DebugVisualizationScheme graphMode = new DebugVisualizationScheme("Debug_" + trial_test, alwaysWrong, reasons);
+        variables.config.vertexModes.put("Debug_" + trial_test, graphMode);
+        variables.config.InterfaceStatusFilters();
     }
 }
