@@ -456,7 +456,7 @@ public class GuiFunctions {
      * Method to find a path between two selected vertices
      * @param variables 
      */
-    public static void FindPath(Variables variables) {
+    public static float FindPath(Variables variables) {
         Vertex source;
         Vertex target;
         PickedState<Object> picked_state = variables.view.getPickedVertexState();
@@ -478,9 +478,10 @@ public class GuiFunctions {
                 }
                 System.out.println();
                 System.out.println("probability: " + probability);
-                 
+                return probability;
             }
         }
+        return 0.0f;
     }
     
     /**
@@ -628,4 +629,70 @@ public class GuiFunctions {
         variables.config.vertexModes.put("Debug_" + trial_test, graphMode);
         variables.config.InterfaceStatusFilters();
     }
+    
+    public static float FindFrequencyOfNodes(Variables variables, List<String> correctTrials) {
+        
+        // Testing purposes
+        List<String> correctTrials_test = new ArrayList<>();
+        correctTrials_test.add("workflow_trial_7.xml");
+        correctTrials_test.add("workflow_trial_11.xml");
+        correctTrials_test.add("workflow_trial_16.xml");
+        correctTrials_test.add("workflow_trial_17.xml");
+        correctTrials_test.add("workflow_trial_18.xml");
+        correctTrials_test.add("workflow_trial_22.xml");
+        correctTrials_test.add("workflow_trial_24.xml");
+        correctTrials_test.add("workflow_trial_25.xml");
+        correctTrials_test.add("workflow_trial_28.xml");
+        correctTrials_test.add("workflow_trial_32.xml");
+        // End testing purposes
+        float frequency;
+        float frequencyCorrect;
+        float frequencyIncorrect;
+        int n = 0;
+        PickedState<Object> picked_state = variables.view.getPickedVertexState();
+        int numberOfNodes = picked_state.getSelectedObjects().length;
+        Map<String, Integer> graphFiles = new HashMap<>();
+        Collection<String> commonFiles = new ArrayList<>();
+        for (Object v : picked_state.getSelectedObjects()) {
+            String[] files = ((Vertex)v).getAttributeValues(VariableNames.GraphFile);
+            for(String f : files)
+            if(graphFiles.containsKey(f)) {
+                int i = graphFiles.get(f);
+                i++;
+                graphFiles.put(f, i);
+            } else {
+                graphFiles.put(f, 1);
+            }
+        }
+        for(String f : graphFiles.keySet()) {
+            int qnt = graphFiles.get(f);
+            if(qnt == numberOfNodes) {
+                System.out.println("Common graphFile to all:" + f);
+               n++; 
+               commonFiles.add(f);
+            }
+        }
+        
+        int numberofCorrect = 0;
+        for(String f : commonFiles) {
+            for(String cf : correctTrials_test) {
+                if(f.equalsIgnoreCase(cf)) {
+                    numberofCorrect++;
+                    break;
+                }
+            }
+        }
+        frequency = (float) n / (float) variables.numberOfGraphs;
+        
+        frequencyCorrect = (float) numberofCorrect / (float) commonFiles.size();
+        frequencyIncorrect = 1 - frequencyCorrect;
+        frequencyCorrect = frequencyCorrect * 100.0f;
+        frequencyIncorrect = frequencyIncorrect * 100.0f;
+        frequency = frequency * 100.0f;
+        System.out.println("The probability of all these nodes appearing together is: " + frequency);
+        System.out.println("Given that these nodes appear together, the probability of the selected nodes leading to an undesirable outbome is: " + frequencyIncorrect);
+        System.out.println("Given that these nodes appear together, the probability of the selected nodes leading to a desirable outbome is: " + frequencyCorrect);
+        return frequency;
+    }
+    
 }

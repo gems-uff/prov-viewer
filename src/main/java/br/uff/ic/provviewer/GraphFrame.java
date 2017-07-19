@@ -109,6 +109,11 @@ public class GraphFrame extends javax.swing.JFrame {
         correctTrialsList = new javax.swing.JList<>();
         confirmDebuggingButton = new javax.swing.JButton();
         cancelDebugButton = new javax.swing.JButton();
+        tooltipDialogBox = new javax.swing.JDialog();
+        jLabel10 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tooltipWindowTextPane = new javax.swing.JTextPane();
+        closeTooltipWindowButton = new javax.swing.JButton();
         ToolMenu = new javax.swing.JPanel();
         CollapseAgent = new javax.swing.JButton();
         Reset = new javax.swing.JButton();
@@ -218,6 +223,7 @@ public class GraphFrame extends javax.swing.JFrame {
         CollapseAllAgentsButton = new javax.swing.JMenuItem();
         jMenu12 = new javax.swing.JMenu();
         debugTrialMenuItem = new javax.swing.JMenuItem();
+        findNodesFrequencyButton = new javax.swing.JMenuItem();
         jMenu13 = new javax.swing.JMenu();
         findPathButton = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
@@ -394,6 +400,43 @@ public class GraphFrame extends javax.swing.JFrame {
                             .addComponent(confirmDebuggingButton)
                             .addComponent(cancelDebugButton)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        tooltipDialogBox.setMinimumSize(new java.awt.Dimension(311, 256));
+
+        jLabel10.setText("Tooltip");
+
+        jScrollPane2.setViewportView(tooltipWindowTextPane);
+
+        closeTooltipWindowButton.setText("Close");
+        closeTooltipWindowButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeTooltipWindowButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout tooltipDialogBoxLayout = new javax.swing.GroupLayout(tooltipDialogBox.getContentPane());
+        tooltipDialogBox.getContentPane().setLayout(tooltipDialogBoxLayout);
+        tooltipDialogBoxLayout.setHorizontalGroup(
+            tooltipDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tooltipDialogBoxLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(tooltipDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10)
+                    .addComponent(closeTooltipWindowButton)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        tooltipDialogBoxLayout.setVerticalGroup(
+            tooltipDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tooltipDialogBoxLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(closeTooltipWindowButton)
                 .addContainerGap())
         );
 
@@ -1289,6 +1332,14 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu12.add(debugTrialMenuItem);
 
+        findNodesFrequencyButton.setText("Find Frequency");
+        findNodesFrequencyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                findNodesFrequencyButtonActionPerformed(evt);
+            }
+        });
+        jMenu12.add(findNodesFrequencyButton);
+
         MenuBar.add(jMenu12);
 
         jMenu13.setText("Pathing");
@@ -1821,7 +1872,10 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private void findPathButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findPathButtonActionPerformed
         // TODO add your handling code here:
-        GuiFunctions.FindPath(variables);
+        float probability = GuiFunctions.FindPath(variables);
+        tooltipDialogBox.setVisible(true);
+        String tooltip = "The probability of taking this path, linking the selected source to the destination is: " + probability * 100.0f + " %";
+        tooltipWindowTextPane.setText(tooltip);
     }//GEN-LAST:event_findPathButtonActionPerformed
 
     private void SearchVertexMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchVertexMenuButtonActionPerformed
@@ -1865,6 +1919,16 @@ public class GraphFrame extends javax.swing.JFrame {
                 new DefaultComboBoxModel(types));
         debugDialogBox.setVisible(true);
     }//GEN-LAST:event_debugTrialMenuItemActionPerformed
+
+    private void closeTooltipWindowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeTooltipWindowButtonActionPerformed
+        // TODO add your handling code here:
+        tooltipDialogBox.setVisible(false);
+    }//GEN-LAST:event_closeTooltipWindowButtonActionPerformed
+
+    private void findNodesFrequencyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findNodesFrequencyButtonActionPerformed
+        // TODO add your handling code here:
+        GuiFunctions.FindFrequencyOfNodes(variables, null);
+    }//GEN-LAST:event_findNodesFrequencyButtonActionPerformed
    
     /**
      * Main
@@ -1943,6 +2007,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem autoDetectEdgesCheckBox;
     private javax.swing.JButton cancelDebugButton;
     private javax.swing.JButton cancelSearchVertexButton;
+    private javax.swing.JButton closeTooltipWindowButton;
     private javax.swing.JButton confirmDebuggingButton;
     private static javax.swing.JList<String> correctTrialsList;
     public static javax.swing.JTextField dbscanEpsilon;
@@ -1965,6 +2030,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem exportGraphPROVNButton;
     private javax.swing.JMenuItem exportGraphXMLButton;
     private javax.swing.JFileChooser fileChooser;
+    private javax.swing.JMenuItem findNodesFrequencyButton;
     private javax.swing.JMenuItem findPathButton;
     public static javax.swing.JCheckBoxMenuItem hideAgentEdgesButton;
     public static javax.swing.JCheckBoxMenuItem hideAgentVerticesButton;
@@ -1977,6 +2043,7 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JCheckBoxMenuItem isStrokeByValueButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
@@ -2003,6 +2070,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField layoutAttributeName_X_Text;
     private javax.swing.JTextField layoutAttributeName_Y_Text;
     private javax.swing.JMenuItem linkActivitiesButton;
@@ -2027,6 +2095,8 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JCheckBoxMenuItem temporalNanosecondsButton;
     public static javax.swing.JCheckBoxMenuItem temporalSecondsButton;
     public static javax.swing.JCheckBoxMenuItem temporalWeeksButton;
+    private javax.swing.JDialog tooltipDialogBox;
+    private javax.swing.JTextPane tooltipWindowTextPane;
     private javax.swing.JCheckBoxMenuItem updateErrorButton;
     public static javax.swing.JCheckBoxMenuItem useEdgeTypeColor;
     private javax.swing.JCheckBoxMenuItem verifyWithinClusterButton;
