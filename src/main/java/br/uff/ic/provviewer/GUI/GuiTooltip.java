@@ -50,7 +50,7 @@ public class GuiTooltip {
             @Override
             public String transform(Object v) {
                 ((Vertex) v).setTimeScalePrint(variables.config.timeScale, variables.selectedTimeScale);
-                return "<html>" + v.toString() + "</html>";
+                return "<html>" + ((Vertex) v).getTooltip(variables.numberOfGraphs) + "</html>";
             }
         });
         

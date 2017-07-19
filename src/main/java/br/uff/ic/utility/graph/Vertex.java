@@ -194,6 +194,15 @@ public abstract class Vertex extends GraphObject {
                 + " <br>" + printAttributes();
     }
     
+    public String getTooltip(int nGraphs) {
+        return this.getNodeType() + "<br> "
+                + "<br>ID: " + this.id + "<br>"
+                + "<b>Label: " + getLabel() + "</b>"
+                + " <br>" + printTime()
+                + "<br>Frequency: " + getFrequency(nGraphs)
+                + " <br>"
+                + " <br>" + printAttributes();
+    }
     public String printTime()
     {
         double nt = this.getTime();
