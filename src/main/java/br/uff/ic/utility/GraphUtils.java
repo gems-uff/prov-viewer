@@ -272,7 +272,7 @@ public class GraphUtils {
         if(sources == 1)
             return 1;
         else
-            return e.getEdgeFrequencyValue(numberOfGraphs);
+            return e.getFrequencyValue(numberOfGraphs);
     }
     
     /**

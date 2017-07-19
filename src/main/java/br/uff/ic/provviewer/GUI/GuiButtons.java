@@ -34,15 +34,11 @@ import br.uff.ic.provviewer.Vertex.ColorScheme.VertexPainter;
 import br.uff.ic.utility.IO.PROVNWriter;
 import br.uff.ic.utility.IO.XMLWriter;
 import br.uff.ic.utility.graph.GraphVertex;
-import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.util.Pair;
-import edu.uci.ics.jung.visualization.Layer;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
 import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
 import edu.uci.ics.jung.visualization.decorators.EdgeShape;
-import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.picking.PickedInfo;
-import java.awt.geom.Point2D;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashSet;
@@ -51,7 +47,6 @@ import java.util.logging.Logger;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import org.apache.commons.collections15.Transformer;
 
 /**
@@ -260,7 +255,7 @@ public class GuiButtons {
 
                 @Override
                 public String transform(Edge i) {
-                    return VariableNames.FontConfiguration + i.getEdgeFrequency(variables.numberOfGraphs);
+                    return VariableNames.FontConfiguration + i.getFrequency(variables.numberOfGraphs);
                 }
             });
         } else if(ShowEdgePathProbabilityButton) {
@@ -274,7 +269,7 @@ public class GuiButtons {
                     if(sources == 1)
                         return VariableNames.FontConfiguration + "100%";
                     else
-                        return VariableNames.FontConfiguration + i.getEdgeFrequency(variables.numberOfGraphs);
+                        return VariableNames.FontConfiguration + i.getFrequency(variables.numberOfGraphs);
                 }
             });
         } else {

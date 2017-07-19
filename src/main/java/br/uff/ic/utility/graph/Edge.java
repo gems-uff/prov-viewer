@@ -279,7 +279,7 @@ public class Edge extends GraphObject {
                 + "<br>Label: " + getLabel()
                 + "<br>"
                 + "<br>Type: " + getType()
-                + "<br>Frequency: " + getEdgeFrequency(nGraphs)
+                + "<br>Frequency: " + getFrequency(nGraphs)
                 + "<br>" + printAttributes();
     }
 
@@ -333,6 +333,18 @@ public class Edge extends GraphObject {
         } else {
             return font + this.type + " (" + getLabel() + ")";
         }
+    }
+    
+    private Color defaultColor() {
+        if(this.getLabel().contains("Crash"))
+            return new Color(204, 0, 204);
+        if(((Vertex)this.getTarget()).getTime() < 100)
+            return Color.RED;
+        else if (((Vertex)this.getTarget()).getTime() < 180)
+            return Color.GREEN;
+        else
+            return Color.BLUE;
+//        return defaultColor;
     }
 
     /**
@@ -448,7 +460,7 @@ public class Edge extends GraphObject {
             this.updateAllAttributes(edge.getAttributes());
             // We have a problem here when merging many graphs: StringBuilder.append(StringBuilder.java:132) java.lang.OutOfMemoryError: Java heap space
 //            this.id = this.id + ", " + edge.id; 
-            this.id = "M_" + this.id; 
+            this.id = this.id + " "; 
             if(!this.getLabel().contains(edge.getLabel()))
                 this.setLabel(this.getLabel() + ", " + edge.getLabel());
             edge.setHide(true);
@@ -460,28 +472,28 @@ public class Edge extends GraphObject {
         return this;
     }
     
-    /**
-     * Method that calculates the edge frequency and returns a human-readable value (String)
-     * @param nGraphs is the total number of existing graphs used during the merge
-     * @return the edge's frequency between 0% and 100%
-     */
-    public String getEdgeFrequency(float nGraphs) {
-        if(this.hasAttribute(VariableNames.GraphFile)) {
-            float frequency = ((float) this.getAttributeValues(VariableNames.GraphFile).length / (float)nGraphs) * 100;
-            return String.format("%.02f", frequency) + "%";
-        } else
-            return "Frequency Unavailable";
-    }
-    
-    /**
-     * Method that calculates the edge frequency and returns the probability between 0 and 1
-     * @param nGraphs is the total number of existing graphs used during the merge
-     * @return the edge's frequency
-     */
-    public float getEdgeFrequencyValue(float nGraphs) {
-        if(this.hasAttribute(VariableNames.GraphFile)) {
-            return ((float) this.getAttributeValues(VariableNames.GraphFile).length / (float)nGraphs);
-        } else
-            return 0;
-    }
+//    /**
+//     * Method that calculates the edge frequency and returns a human-readable value (String)
+//     * @param nGraphs is the total number of existing graphs used during the merge
+//     * @return the edge's frequency between 0% and 100%
+//     */
+//    public String getEdgeFrequency(float nGraphs) {
+//        if(this.hasAttribute(VariableNames.GraphFile)) {
+//            float frequency = ((float) this.getAttributeValues(VariableNames.GraphFile).length / (float)nGraphs) * 100;
+//            return String.format("%.02f", frequency) + "%";
+//        } else
+//            return "Frequency Unavailable";
+//    }
+//    
+//    /**
+//     * Method that calculates the edge frequency and returns the probability between 0 and 1
+//     * @param nGraphs is the total number of existing graphs used during the merge
+//     * @return the edge's frequency
+//     */
+//    public float getEdgeFrequencyValue(float nGraphs) {
+//        if(this.hasAttribute(VariableNames.GraphFile)) {
+//            return ((float) this.getAttributeValues(VariableNames.GraphFile).length / (float)nGraphs);
+//        } else
+//            return 0;
+//    }
 }
