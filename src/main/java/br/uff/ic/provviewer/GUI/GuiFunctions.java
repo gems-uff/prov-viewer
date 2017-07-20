@@ -524,7 +524,7 @@ public class GuiFunctions {
      * @param correctTrials is the list of trials that worked
      * @param variables contains the graph
      */
-    public static List<Vertex> DebugTrials(String trial, List<String> correctTrials, Variables variables) {
+    public static Map<String, List<Vertex>> DebugTrials(String trial, List<String> correctTrials, Variables variables) {
         Graph g = variables.graph;
         Map<String, List<Vertex>> diffs = new HashMap<>();
         
@@ -563,20 +563,47 @@ public class GuiFunctions {
         
         int min = Integer.MAX_VALUE;
         List<Vertex> minDiff = new ArrayList<>(); 
-        for(List<Vertex> diff : diffs.values()) {
-            if(min > diff.size()) {
-                min = diff.size();
-                minDiff = diff;
+        List<Vertex> failureVertices = new ArrayList<>(); 
+        String minDiffTrial = "";
+        for(String key : diffs.keySet()) {
+            int diffsize = diffs.get(key).size();
+            if(min > diffsize) {
+                min = diffsize;
+                minDiff = diffs.get(key);
+                minDiffTrial = key;
             }
         }
+//        for(List<Vertex> diff : diffs.values()) {
+//            if(min > diff.size()) {
+//                min = diff.size();
+//                minDiff = diff;
+//            }
+//        }
         
+        for(Object v : g.getVertices()) {
+            if(v instanceof EntityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) {
+                if (((Vertex)v).getAttributeValue(VariableNames.GraphFile).contains(trial)) {
+                    if (!((Vertex)v).getAttributeValue(VariableNames.GraphFile).contains(minDiffTrial)) {
+                        failureVertices.add((Vertex)v);
+                    }
+                }
+            }
+        }
         String ids = "";
+        String failureIds = "";
         for(Vertex v : minDiff) {
             ids += " " + v.getLabel();
         }
+        for(Vertex v : failureVertices) {
+            failureIds += " " + v.getID();
+        }
         System.out.println("Min diff is: " + min);
         System.out.println("Error Reasons: " + ids);
-        return minDiff;
+        System.out.println("Vertices that led to failure: " + failureIds);
+        Map<String, List<Vertex>> debugResult = new HashMap<>();
+        debugResult.put("correct", minDiff);
+        debugResult.put("error", failureVertices);
+        return debugResult;
         // Need to mark with ORANGE border the cases that lead this trial to failure
     }
 
@@ -623,7 +650,7 @@ public class GuiFunctions {
         correctTrials_test.add("workflow_trial_28.xml");
         correctTrials_test.add("workflow_trial_32.xml");
         
-        List<Vertex> reasons = DebugTrials(trial_test, correctTrials_test, variables);
+        Map<String, List<Vertex>> reasons = DebugTrials(trial_test, correctTrials_test, variables);
         List<Vertex> alwaysWrong = DebugTrialsAlwaysWrong(correctTrials_test, variables);
         DebugVisualizationScheme graphMode = new DebugVisualizationScheme("Debug_" + trial_test, alwaysWrong, reasons);
         variables.config.vertexModes.put("Debug_" + trial_test, graphMode);
@@ -689,9 +716,9 @@ public class GuiFunctions {
         frequencyCorrect = frequencyCorrect * 100.0f;
         frequencyIncorrect = frequencyIncorrect * 100.0f;
         frequency = frequency * 100.0f;
-        System.out.println("The probability of all these nodes appearing together is: " + frequency);
-        System.out.println("Given that these nodes appear together, the probability of the selected nodes leading to an undesirable outbome is: " + frequencyIncorrect);
-        System.out.println("Given that these nodes appear together, the probability of the selected nodes leading to a desirable outbome is: " + frequencyCorrect);
+        System.out.println("The probability of all these nodes appearing together based on the dataset is: " + frequency);
+        System.out.println("Given that these nodes appear together, the probability of the selected nodes leading to an undesirable outbome based on the dataset is: " + frequencyIncorrect);
+//        System.out.println("Given that these nodes appear together, the probability of the selected nodes leading to a desirable outbome is: " + frequencyCorrect);
         return frequency;
     }
     

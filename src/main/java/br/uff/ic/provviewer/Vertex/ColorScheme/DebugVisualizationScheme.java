@@ -31,6 +31,7 @@ import java.awt.Color;
 import java.awt.Paint;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -40,12 +41,14 @@ public class DebugVisualizationScheme extends ColorScheme {
     int totalNumberGraphs = 2;
     List<Vertex> alwaysWrong = new ArrayList<>();
     List<Vertex> reasonsForFailure = new ArrayList<>();
+    List<Vertex> proposedFix = new ArrayList<>();
     
 
-    public DebugVisualizationScheme(String attribute, List<Vertex> alwaysWrong, List<Vertex> reasonsForFailure) {
+    public DebugVisualizationScheme(String attribute, List<Vertex> alwaysWrong, Map<String, List<Vertex>> debugResult) {
         super(attribute);
         this.alwaysWrong = alwaysWrong;
-        this.reasonsForFailure = reasonsForFailure;
+        this.reasonsForFailure = debugResult.get("error");
+        this.proposedFix = debugResult.get("correct");
     }
 
     public DebugVisualizationScheme(boolean isZeroWhite, boolean isInverted, String attribute, String empty, String g, String y, boolean l) {
@@ -62,17 +65,17 @@ public class DebugVisualizationScheme extends ColorScheme {
         }
         String[] graphFiles = ((Vertex)v).getAttributeValues(VariableNames.GraphFile);
         if(reasonsForFailure.contains((Vertex)v)) {
-            return new Color(255, 255, 0);
+            return new Color(255, 0, 0);
         }
-        else if(alwaysWrong.contains((Vertex)v)) {
+        else if(proposedFix.contains((Vertex)v)) {
             return new Color(0, 255, 255);
         }
-        else if (graphFiles.length == totalNumberGraphs)
-            return new Color(200, 200, 200);
+        else if(alwaysWrong.contains((Vertex)v)) {
+            return new Color(255, 0, 255);
+        }
         else if (((Vertex)v).getAttributeValue(VariableNames.GraphFile).contains(att))
             return new Color(0, 255, 0);
         else
-//            return ((Vertex) v).getColor();
-            return new Color(255, 0, 0);
+            return new Color(200, 200, 200);
     }
 }
