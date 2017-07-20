@@ -115,6 +115,12 @@ public class GraphFrame extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tooltipWindowTextPane = new javax.swing.JTextPane();
         closeTooltipWindowButton = new javax.swing.JButton();
+        selectWorkingTrialsDialogBox = new javax.swing.JDialog();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        listWorkingTrials = new javax.swing.JList<>();
+        jLabel13 = new javax.swing.JLabel();
+        confirmWorkingTrialsButton = new javax.swing.JButton();
+        cancelWorkingTrialsButton = new javax.swing.JButton();
         ToolMenu = new javax.swing.JPanel();
         CollapseAgent = new javax.swing.JButton();
         Reset = new javax.swing.JButton();
@@ -404,6 +410,7 @@ public class GraphFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        tooltipDialogBox.setAlwaysOnTop(true);
         tooltipDialogBox.setMinimumSize(new java.awt.Dimension(311, 256));
 
         jLabel10.setText("Tooltip");
@@ -438,6 +445,60 @@ public class GraphFrame extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(closeTooltipWindowButton)
+                .addContainerGap())
+        );
+
+        selectWorkingTrialsDialogBox.setAlwaysOnTop(true);
+        selectWorkingTrialsDialogBox.setMinimumSize(new java.awt.Dimension(173, 452));
+
+        listWorkingTrials.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane3.setViewportView(listWorkingTrials);
+
+        jLabel13.setText("Select the working Trials");
+
+        confirmWorkingTrialsButton.setText("OK");
+        confirmWorkingTrialsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmWorkingTrialsButtonActionPerformed(evt);
+            }
+        });
+
+        cancelWorkingTrialsButton.setText("Cancel");
+        cancelWorkingTrialsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelWorkingTrialsButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout selectWorkingTrialsDialogBoxLayout = new javax.swing.GroupLayout(selectWorkingTrialsDialogBox.getContentPane());
+        selectWorkingTrialsDialogBox.getContentPane().setLayout(selectWorkingTrialsDialogBoxLayout);
+        selectWorkingTrialsDialogBoxLayout.setHorizontalGroup(
+            selectWorkingTrialsDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(selectWorkingTrialsDialogBoxLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(selectWorkingTrialsDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(selectWorkingTrialsDialogBoxLayout.createSequentialGroup()
+                        .addComponent(confirmWorkingTrialsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cancelWorkingTrialsButton))
+                    .addComponent(jLabel13))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        selectWorkingTrialsDialogBoxLayout.setVerticalGroup(
+            selectWorkingTrialsDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, selectWorkingTrialsDialogBoxLayout.createSequentialGroup()
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(selectWorkingTrialsDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cancelWorkingTrialsButton)
+                    .addComponent(confirmWorkingTrialsButton))
                 .addContainerGap())
         );
 
@@ -1915,8 +1976,8 @@ public class GraphFrame extends javax.swing.JFrame {
             i++;
         }
         Arrays.sort(types);
-        GraphFrame.correctTrialsList.setListData(types);
-        GraphFrame.selectedTrialComboBox.setModel(
+        correctTrialsList.setListData(types);
+        selectedTrialComboBox.setModel(
                 new DefaultComboBoxModel(types));
         debugDialogBox.setVisible(true);
     }//GEN-LAST:event_debugTrialMenuItemActionPerformed
@@ -1928,11 +1989,31 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private void findNodesFrequencyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findNodesFrequencyButtonActionPerformed
         // TODO add your handling code here:
-        Map<String, String> result = GuiFunctions.FindFrequencyOfNodes(variables, null);
+        
+        String[] types = new String[variables.graphNames.size()];
+        int i = 0;
+        for (String s : variables.graphNames) {
+            types[i] = s;
+            i++;
+        }
+        Arrays.sort(types);
+        listWorkingTrials.setListData(types);
+        selectWorkingTrialsDialogBox.setVisible(true);
+    }//GEN-LAST:event_findNodesFrequencyButtonActionPerformed
+
+    private void confirmWorkingTrialsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmWorkingTrialsButtonActionPerformed
+        // TODO add your handling code here:
+         Map<String, String> result = GuiFunctions.FindFrequencyOfNodes(variables, listWorkingTrials.getSelectedValuesList());
         tooltipDialogBox.setVisible(true);
         String tooltip = "Related to failing:" + "\n" + result.get("Support") + " \n" + result.get("Confidence")+ " \n" + result.get("Lift");
         tooltipWindowTextPane.setText(tooltip);
-    }//GEN-LAST:event_findNodesFrequencyButtonActionPerformed
+        selectWorkingTrialsDialogBox.setVisible(false);
+    }//GEN-LAST:event_confirmWorkingTrialsButtonActionPerformed
+
+    private void cancelWorkingTrialsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelWorkingTrialsButtonActionPerformed
+        // TODO add your handling code here:
+        selectWorkingTrialsDialogBox.setVisible(false);
+    }//GEN-LAST:event_cancelWorkingTrialsButtonActionPerformed
    
     /**
      * Main
@@ -2011,8 +2092,10 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem autoDetectEdgesCheckBox;
     private javax.swing.JButton cancelDebugButton;
     private javax.swing.JButton cancelSearchVertexButton;
+    private javax.swing.JButton cancelWorkingTrialsButton;
     private javax.swing.JButton closeTooltipWindowButton;
     private javax.swing.JButton confirmDebuggingButton;
+    private javax.swing.JButton confirmWorkingTrialsButton;
     private static javax.swing.JList<String> correctTrialsList;
     public static javax.swing.JTextField dbscanEpsilon;
     private javax.swing.JDialog debugDialogBox;
@@ -2050,6 +2133,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -2075,14 +2159,17 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField layoutAttributeName_X_Text;
     private javax.swing.JTextField layoutAttributeName_Y_Text;
     private javax.swing.JMenuItem linkActivitiesButton;
+    private javax.swing.JList<String> listWorkingTrials;
     private javax.swing.JMenuItem mergeGraphButtom;
     private javax.swing.JTextField newVertexLabelTextBox;
     public static javax.swing.JCheckBoxMenuItem removeOutliersButton;
     private javax.swing.JButton searchVertexIDButton;
     private javax.swing.JDialog searchVertexIDDialogBox;
+    private javax.swing.JDialog selectWorkingTrialsDialogBox;
     private static javax.swing.JComboBox<String> selectedTrialComboBox;
     private javax.swing.JButton setNewLabelCancelButton;
     private javax.swing.JButton setNewLabelConfirmButton;
