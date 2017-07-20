@@ -42,6 +42,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import java.awt.event.MouseEvent;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import javax.swing.DefaultComboBoxModel;
 
 /**
@@ -1927,7 +1928,10 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private void findNodesFrequencyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findNodesFrequencyButtonActionPerformed
         // TODO add your handling code here:
-        GuiFunctions.FindFrequencyOfNodes(variables, null);
+        Map<String, String> result = GuiFunctions.FindFrequencyOfNodes(variables, null);
+        tooltipDialogBox.setVisible(true);
+        String tooltip = "Related to failing:" + "\n" + result.get("Support") + " \n" + result.get("Confidence")+ " \n" + result.get("Lift");
+        tooltipWindowTextPane.setText(tooltip);
     }//GEN-LAST:event_findNodesFrequencyButtonActionPerformed
    
     /**

@@ -657,7 +657,7 @@ public class GuiFunctions {
         variables.config.InterfaceStatusFilters();
     }
     
-    public static float FindFrequencyOfNodes(Variables variables, List<String> correctTrials) {
+    public static Map<String, String> FindFrequencyOfNodes(Variables variables, List<String> correctTrials) {
         
         // Testing purposes
         List<String> correctTrials_test = new ArrayList<>();
@@ -675,6 +675,7 @@ public class GuiFunctions {
         float frequency;
         float frequencyCorrect;
         float frequencyIncorrect;
+        float lift;
         int n = 0;
         PickedState<Object> picked_state = variables.view.getPickedVertexState();
         int numberOfNodes = picked_state.getSelectedObjects().length;
@@ -710,16 +711,31 @@ public class GuiFunctions {
             }
         }
         frequency = (float) n / (float) variables.numberOfGraphs;
-        
         frequencyCorrect = (float) numberofCorrect / (float) commonFiles.size();
         frequencyIncorrect = 1 - frequencyCorrect;
-        frequencyCorrect = frequencyCorrect * 100.0f;
+        lift = frequencyIncorrect / (1 - frequency);
+//        frequencyCorrect = frequencyCorrect * 100.0f;
         frequencyIncorrect = frequencyIncorrect * 100.0f;
         frequency = frequency * 100.0f;
-        System.out.println("The probability of all these nodes appearing together based on the dataset is: " + frequency);
-        System.out.println("Given that these nodes appear together, the probability of the selected nodes leading to an undesirable outbome based on the dataset is: " + frequencyIncorrect);
+        
+        
+        // Probability of these nodes appearing together
+        String support = "Support: " + frequency + " %";
+        // Probability of these nodes leading to an undesirable outbome
+        String confidence = "Confidence: " + frequencyIncorrect+ " %";
+        String liftResult = "Lift: " + lift;
+        System.out.println(support);
+        System.out.println(confidence);
+        System.out.println(liftResult);
+        
+        Map<String, String> result = new HashMap<>();
+        result.put("Support", support);
+        result.put("Confidence", confidence);
+        result.put("Lift", liftResult);
+        
+                
 //        System.out.println("Given that these nodes appear together, the probability of the selected nodes leading to a desirable outbome is: " + frequencyCorrect);
-        return frequency;
+        return result;
     }
     
 }
