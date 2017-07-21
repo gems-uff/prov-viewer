@@ -87,9 +87,10 @@ public class GuiFunctions {
 
     /**
      * Method to define the Vertex Shape
+     *
      * @param variables
      * @param selectedMode
-     * @param attribute 
+     * @param attribute
      */
     public static void VertexShape(Variables variables, String selectedMode, String attribute) {
         variables.view.getRenderContext().setVertexShapeTransformer(new VertexShape(variables.config.vertexSize, selectedMode, attribute, variables.graph.getVertices(), variables));
@@ -177,27 +178,27 @@ public class GuiFunctions {
             public String transform(Object v) {
                 String font = VariableNames.FontConfiguration;
                 // Agent
-                if ((v instanceof AgentVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexAgentAttribute)) && agentLabel) {
+                if ((v instanceof AgentVertex || ((Vertex) v).hasAttribute(VariableNames.CollapsedVertexAgentAttribute)) && agentLabel) {
                     return font + ((Vertex) v).getLabel();
                 } // Entity
                 // Label + Time
-                else if ((v instanceof EntityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) && entityLabel && timeLabel) {
+                else if ((v instanceof EntityVertex || ((Vertex) v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) && entityLabel && timeLabel) {
                     return font + String.valueOf((int) ((Vertex) v).getTime()) + " : " + ((Vertex) v).getLabel();
                 } // Time
-                else if ((v instanceof EntityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) && timeLabel) {
+                else if ((v instanceof EntityVertex || ((Vertex) v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) && timeLabel) {
                     return font + String.valueOf((int) ((Vertex) v).getTime());
                 } // Label
-                else if ((v instanceof EntityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) && entityLabel) {
+                else if ((v instanceof EntityVertex || ((Vertex) v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) && entityLabel) {
                     return font + ((Vertex) v).getLabel();
                 } // Activity
                 // Label + Time
-                else if ((v instanceof ActivityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexActivityAttribute)) && activityLabel && timeLabel) {
+                else if ((v instanceof ActivityVertex || ((Vertex) v).hasAttribute(VariableNames.CollapsedVertexActivityAttribute)) && activityLabel && timeLabel) {
                     return font + String.valueOf((int) ((Vertex) v).getTime()) + " : " + ((Vertex) v).getLabel();
                 } // Time
-                else if ((v instanceof ActivityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexActivityAttribute)) && timeLabel) {
+                else if ((v instanceof ActivityVertex || ((Vertex) v).hasAttribute(VariableNames.CollapsedVertexActivityAttribute)) && timeLabel) {
                     return font + String.valueOf((int) ((Vertex) v).getTime());
                 } // Label
-                else if ((v instanceof ActivityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexActivityAttribute)) && activityLabel) {
+                else if ((v instanceof ActivityVertex || ((Vertex) v).hasAttribute(VariableNames.CollapsedVertexActivityAttribute)) && activityLabel) {
                     return font + ((Vertex) v).getLabel();
                 } else if (showID) {
                     return font + ((Vertex) v).getID();
@@ -304,17 +305,18 @@ public class GuiFunctions {
                         }
                     }
                 }
-                
+
                 // Highlight PATH
                 PickedState<Edge> picked_edge_state = variables.view.getPickedEdgeState();
                 if (!picked_edge_state.getPicked().isEmpty()) {
                     for (Edge e : picked_edge_state.getPicked()) {
-                        if(edge.getID().equalsIgnoreCase(e.getID()))
+                        if (edge.getID().equalsIgnoreCase(e.getID())) {
                             return edge.getColor(variables);
+                        }
                     }
                     return new Color(edge.getColor(variables).getRed(), edge.getColor(variables).getGreen(), edge.getColor(variables).getBlue(), (int) (variables.edgeAlpha * 0.25));
                 }
-                
+
                 // Highlight incident edges
                 PickedState<Object> picked_state = variables.view.getPickedVertexState();
                 if (!picked_state.getPicked().isEmpty()) {
@@ -335,22 +337,24 @@ public class GuiFunctions {
         variables.view.getRenderContext().setArrowDrawPaintTransformer(edgePainter);
         variables.view.getRenderContext().setArrowFillPaintTransformer(edgePainter);
     }
-    
+
     /**
      * Method to delete the selected vertices
+     *
      * @param variables
      * @param picked is the list of vertices to be deleted
      */
-    public static void DeleteVertices(Variables variables, Collection picked){
+    public static void DeleteVertices(Variables variables, Collection picked) {
         StackElementUndoDeletion element = new StackElementUndoDeletion();
         DirectedGraph<Object, Edge> graph = new DirectedSparseMultigraph<>();
         // Clone the current displayed graph to the "graph" variable
         variables.filter.AddFilters(variables);
         // Add all vertices, even lonely ones since it will not be capture if there is no edge connecting it in the next step just as a precation
-        for(Object v : variables.layout.getGraph().getVertices())
+        for (Object v : variables.layout.getGraph().getVertices()) {
             graph.addVertex(v);
-        
-        for(Edge edge : variables.layout.getGraph().getEdges()) {
+        }
+
+        for (Edge edge : variables.layout.getGraph().getEdges()) {
             Pair endpoints = variables.layout.getGraph().getEndpoints(edge);
             Object v1 = endpoints.getFirst();
             Object v2 = endpoints.getSecond();
@@ -360,7 +364,7 @@ public class GuiFunctions {
             // Add each vertex to the stack element
             element.vertices.add(v);
             // Add all edges from that vertex in the stack element
-            for(Edge e : graph.getIncidentEdges(v)) {
+            for (Edge e : graph.getIncidentEdges(v)) {
                 Pair endpoints = graph.getEndpoints(e);
                 Object v1 = endpoints.getFirst();
                 Object v2 = endpoints.getSecond();
@@ -369,7 +373,7 @@ public class GuiFunctions {
                 est.source = v1;
                 est.target = v2;
                 element.edges.add(est);
-                
+
                 // Need to insert new edges that connects A to C if the middle vertex was removed
             }
             graph.removeVertex(v);
@@ -378,44 +382,52 @@ public class GuiFunctions {
         variables.undoDeletion.push(element);
         variables.layout.setGraph(graph);
         variables.view.getPickedVertexState().clear();
-        
+
         variables.filter.filterHiddenEdges(variables.view, variables.layout);
 //        variables.view.repaint();
     }
-    
+
     /**
      * Method to undo the last deletion
-     * @param variables 
+     *
+     * @param variables
      */
     public static void UndoLastDeletion(Variables variables) {
-        if(!variables.undoDeletion.isEmpty()) {
+        if (!variables.undoDeletion.isEmpty()) {
             DirectedGraph<Object, Edge> graph = (DirectedGraph<Object, Edge>) variables.layout.getGraph();
             StackElementUndoDeletion element = variables.undoDeletion.pop();
-            for(EdgeSourceTarget e : element.edges)
+            for (EdgeSourceTarget e : element.edges) {
                 graph.addEdge(e.edge, e.source, e.target);
-            if(!element.insertedEdges.isEmpty()) {
-                for(EdgeSourceTarget e : element.insertedEdges)
+            }
+            if (!element.insertedEdges.isEmpty()) {
+                for (EdgeSourceTarget e : element.insertedEdges) {
                     graph.removeEdge(e.edge);
+                }
             }
             variables.layout.setGraph(graph);
             variables.filter.filterHiddenEdges(variables.view, variables.layout);
 //            variables.view.repaint();
         }
     }
-    
+
     /**
      * Method to change the label of the selected vertices
+     *
      * @param newLabel is the new label
-     * @param picked is the list of selected vertices that will have the new label
+     * @param picked is the list of selected vertices that will have the new
+     * label
      */
-    public static void RenameSelectedVertexLabel (String newLabel, Collection picked) {
-        for(Object v : picked)
-            ((Vertex)v).setLabel(newLabel);
+    public static void RenameSelectedVertexLabel(String newLabel, Collection picked) {
+        for (Object v : picked) {
+            ((Vertex) v).setLabel(newLabel);
+        }
     }
-    
+
     /**
-     * Method to create "Chronological" Edges linking the activities from each agent to create a sequence based on their timestamps
-     * @param variables 
+     * Method to create "Chronological" Edges linking the activities from each
+     * agent to create a sequence based on their timestamps
+     *
+     * @param variables
      */
     public static void AddChronologicalEdgesLinkingActivities(Variables variables) {
         Collection<Object> agents = new HashSet();
@@ -423,19 +435,20 @@ public class GuiFunctions {
         int id = 0;
         //Get the selected node
         for (Object z : variables.layout.getGraph().getVertices()) {
-            if(z instanceof AgentVertex)
+            if (z instanceof AgentVertex) {
                 agents.add(z);
+            }
         }
-        
-        for(Object node : agents) {
+
+        for (Object node : agents) {
             if (variables.graph.getNeighbors(node) != null) {
                 List<Object> neighbors = new ArrayList(variables.graph.getNeighbors(node));
-                
+
                 Collections.sort(neighbors, Utils.getVertexAttributeComparator(VariableNames.time));
                 Object previousActivity = null;
-                for(Object v : neighbors) {
-                    if(v instanceof ActivityVertex) { 
-                        if(previousActivity != null) {
+                for (Object v : neighbors) {
+                    if (v instanceof ActivityVertex) {
+                        if (previousActivity != null) {
                             Edge newEdge = new Edge("CE_" + id, VariableNames.ChronologicalEdge, previousActivity, v);
                             id++;
                             edges.add(newEdge);
@@ -445,7 +458,7 @@ public class GuiFunctions {
                 }
             }
         }
-        for(Edge e : edges) {
+        for (Edge e : edges) {
             variables.graph.addEdge(e, e.getSource(), e.getTarget());
         }
         variables.layout.setGraph(variables.graph);
@@ -454,7 +467,8 @@ public class GuiFunctions {
 
     /**
      * Method to find a path between two selected vertices
-     * @param variables 
+     *
+     * @param variables
      */
     public static float FindPath(Variables variables) {
         Vertex source;
@@ -467,10 +481,10 @@ public class GuiFunctions {
             System.out.println("target: " + target.getID());
             Map<String, Edge> path = GraphUtils.BFS(source, target, variables.layout.getGraph());
             Collection<Edge> cleanedPath = CleanPath(path, source.getID(), target.getID());
-            if(path != null) {
+            if (path != null) {
                 float probability = 1;
                 PickedState<Edge> picked_edge_state = variables.view.getPickedEdgeState();
-                for(Edge e : cleanedPath) {
+                for (Edge e : cleanedPath) {
                     float x = GraphUtils.getSubPathProbability(variables.layout.getGraph(), e, variables.numberOfGraphs);
 //                    System.out.print(e.getID() + "(" + x + ")" + " - > ");
                     probability = probability * x;
@@ -483,10 +497,12 @@ public class GuiFunctions {
         }
         return 0.0f;
     }
-    
+
     /**
-     * Method to clean the path returned from BFS, removing the paths that did not reach the destination
-     * This algorithm backtracks from the Target to the Source
+     * Method to clean the path returned from BFS, removing the paths that did
+     * not reach the destination This algorithm backtracks from the Target to
+     * the Source
+     *
      * @param path is the path returned by BFS
      * @param source is the ID of the source vertex
      * @param target is the ID of the target vertex
@@ -495,17 +511,17 @@ public class GuiFunctions {
     public static Collection<Edge> CleanPath(Map<String, Edge> path, String source, String target) {
         Collection<Edge> cleanedPath = new ArrayList<>();
         String destination = target;
-        while(destination != source) {
+        while (destination != source) {
             cleanedPath.add(path.get(destination));
-            destination = ((Vertex)path.get(destination).getTarget()).getID();
+            destination = ((Vertex) path.get(destination).getTarget()).getID();
         }
         return cleanedPath;
     }
-    
+
     public static void SearchVertexByID(String ID, Variables variables) {
         Vertex found = null;
-        for(Object v : variables.layout.getGraph().getVertices()) {
-            if(((Vertex)v).getID().equalsIgnoreCase(ID)) {
+        for (Object v : variables.layout.getGraph().getVertices()) {
+            if (((Vertex) v).getID().equalsIgnoreCase(ID)) {
                 found = (Vertex) v;
             }
         }
@@ -517,9 +533,10 @@ public class GuiFunctions {
         final double dy = (lvc.getY() - q.getY());
         variables.view.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.LAYOUT).translate(dx, dy);
     }
-    
+
     /**
      * Method to find the causes that led the trial to fail
+     *
      * @param trial is the trial we are debugging
      * @param correctTrials is the list of trials that worked
      * @param variables contains the graph
@@ -527,7 +544,7 @@ public class GuiFunctions {
     public static Map<String, List<Vertex>> DebugTrials(String trial, List<String> correctTrials, Variables variables) {
         Graph g = variables.graph;
         Map<String, List<Vertex>> diffs = new HashMap<>();
-        
+
         // Runs the graph multiple times, once for each "OK" graph
 //        for(String t : correctTrials) {
 //            List<Vertex> diffVertices = new ArrayList<>();
@@ -542,15 +559,14 @@ public class GuiFunctions {
 //            }
 //            diffs.put(t, diffVertices);
 //        }
-        
         // Run through the graph only once, building the DIFFS to all "OK" graphs
-        for(Object v : g.getVertices()) {
-            if(v instanceof EntityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) {
+        for (Object v : g.getVertices()) {
+            if (v instanceof EntityVertex || ((Vertex) v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) {
                 for (String t : correctTrials) {
-                    if (((Vertex)v).getAttributeValue(VariableNames.GraphFile).contains(t)) {
-                        if (!((Vertex)v).getAttributeValue(VariableNames.GraphFile).contains(trial)) {
+                    if (((Vertex) v).getAttributeValue(VariableNames.GraphFile).contains(t)) {
+                        if (!((Vertex) v).getAttributeValue(VariableNames.GraphFile).contains(trial)) {
                             List<Vertex> diffVertices = new ArrayList<>();
-                            if(diffs.containsKey(t)) {
+                            if (diffs.containsKey(t)) {
                                 diffVertices = diffs.get(t);
                             }
                             diffVertices.add((Vertex) v);
@@ -560,14 +576,14 @@ public class GuiFunctions {
                 }
             }
         }
-        
+
         int min = Integer.MAX_VALUE;
-        List<Vertex> minDiff = new ArrayList<>(); 
-        List<Vertex> failureVertices = new ArrayList<>(); 
+        List<Vertex> minDiff = new ArrayList<>();
+        List<Vertex> failureVertices = new ArrayList<>();
         String minDiffTrial = "";
-        for(String key : diffs.keySet()) {
+        for (String key : diffs.keySet()) {
             int diffsize = diffs.get(key).size();
-            if(min > diffsize) {
+            if (min > diffsize) {
                 min = diffsize;
                 minDiff = diffs.get(key);
                 minDiffTrial = key;
@@ -579,22 +595,22 @@ public class GuiFunctions {
 //                minDiff = diff;
 //            }
 //        }
-        
-        for(Object v : g.getVertices()) {
-            if(v instanceof EntityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) {
-                if (((Vertex)v).getAttributeValue(VariableNames.GraphFile).contains(trial)) {
-                    if (!((Vertex)v).getAttributeValue(VariableNames.GraphFile).contains(minDiffTrial)) {
-                        failureVertices.add((Vertex)v);
+
+        for (Object v : g.getVertices()) {
+            if (v instanceof EntityVertex || ((Vertex) v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) {
+                if (((Vertex) v).getAttributeValue(VariableNames.GraphFile).contains(trial)) {
+                    if (!((Vertex) v).getAttributeValue(VariableNames.GraphFile).contains(minDiffTrial)) {
+                        failureVertices.add((Vertex) v);
                     }
                 }
             }
         }
         String ids = "";
         String failureIds = "";
-        for(Vertex v : minDiff) {
+        for (Vertex v : minDiff) {
             ids += " " + v.getLabel();
         }
-        for(Vertex v : failureVertices) {
+        for (Vertex v : failureVertices) {
             failureIds += " " + v.getID();
         }
         System.out.println("Min diff is: " + min);
@@ -609,33 +625,41 @@ public class GuiFunctions {
 
     /**
      * Method to find out the configurations that always led to an error
+     *
      * @param correctTrials is the list of the correct trials
      * @param variables has the graph
      */
     public static List<Vertex> DebugTrialsAlwaysWrong(List<String> correctTrials, Variables variables) {
         Graph g = variables.graph;
         List<Vertex> alwaysWrong = new ArrayList<>();
-        for(Object v : g.getVertices()) {
-            if(v instanceof EntityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) {
+        for (Object v : g.getVertices()) {
+            if (v instanceof EntityVertex || ((Vertex) v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) {
                 boolean isCorrect = false;
                 for (String t : correctTrials) {
 
-                        if (((Vertex)v).getAttributeValue(VariableNames.GraphFile).contains(t)) {
-                            isCorrect = true;
-                        }
+                    if (((Vertex) v).getAttributeValue(VariableNames.GraphFile).contains(t)) {
+                        isCorrect = true;
+                    }
                 }
-                if(!isCorrect)
+                if (!isCorrect) {
                     alwaysWrong.add((Vertex) v);
+                }
             }
         }
-        
-        for(Vertex v : alwaysWrong) {
+
+        for (Vertex v : alwaysWrong) {
             System.out.println("Always leads to error: " + v.getLabel() + ": " + v.getAttributeValue("value"));
+            float support = v.getFrequencyValue(variables.numberOfGraphs);
+            float confidence = 1.0f;
+            float lift = confidence / (1 - support);
+            System.out.println("support: " + support * 100 + " %");
+            System.out.println("confidence: " + confidence * 100 + " %");
+            System.out.println("lift: " + lift);
         }
         return alwaysWrong;
         // Need to mark with RED border the cases that always lead to failure
     }
-    
+
     public static void debugTrial(Variables variables, String trial, List<String> correctTrials) {
         String trial_test = "workflow_trial_6.xml";
         List<String> correctTrials_test = new ArrayList<>();
@@ -649,16 +673,16 @@ public class GuiFunctions {
         correctTrials_test.add("workflow_trial_25.xml");
         correctTrials_test.add("workflow_trial_28.xml");
         correctTrials_test.add("workflow_trial_32.xml");
-        
+
         Map<String, List<Vertex>> reasons = DebugTrials(trial_test, correctTrials_test, variables);
         List<Vertex> alwaysWrong = DebugTrialsAlwaysWrong(correctTrials_test, variables);
         DebugVisualizationScheme graphMode = new DebugVisualizationScheme("Debug_" + trial_test, alwaysWrong, reasons);
         variables.config.vertexModes.put("Debug_" + trial_test, graphMode);
         variables.config.InterfaceStatusFilters();
     }
-    
+
     public static Map<String, String> FindFrequencyOfNodes(Variables variables, List<String> correctTrials) {
-        
+
         // Testing purposes
         List<String> correctTrials_test = new ArrayList<>();
         correctTrials_test.add("workflow_trial_7.xml");
@@ -682,29 +706,30 @@ public class GuiFunctions {
         Map<String, Integer> graphFiles = new HashMap<>();
         Collection<String> commonFiles = new ArrayList<>();
         for (Object v : picked_state.getSelectedObjects()) {
-            String[] files = ((Vertex)v).getAttributeValues(VariableNames.GraphFile);
-            for(String f : files)
-            if(graphFiles.containsKey(f)) {
-                int i = graphFiles.get(f);
-                i++;
-                graphFiles.put(f, i);
-            } else {
-                graphFiles.put(f, 1);
+            String[] files = ((Vertex) v).getAttributeValues(VariableNames.GraphFile);
+            for (String f : files) {
+                if (graphFiles.containsKey(f)) {
+                    int i = graphFiles.get(f);
+                    i++;
+                    graphFiles.put(f, i);
+                } else {
+                    graphFiles.put(f, 1);
+                }
             }
         }
-        for(String f : graphFiles.keySet()) {
+        for (String f : graphFiles.keySet()) {
             int qnt = graphFiles.get(f);
-            if(qnt == numberOfNodes) {
+            if (qnt == numberOfNodes) {
                 System.out.println("Common graphFile to all:" + f);
-               n++; 
-               commonFiles.add(f);
+                n++;
+                commonFiles.add(f);
             }
         }
-        
+
         int numberofCorrect = 0;
-        for(String f : commonFiles) {
-            for(String cf : correctTrials_test) {
-                if(f.equalsIgnoreCase(cf)) {
+        for (String f : commonFiles) {
+            for (String cf : correctTrials_test) {
+                if (f.equalsIgnoreCase(cf)) {
                     numberofCorrect++;
                     break;
                 }
@@ -717,25 +742,23 @@ public class GuiFunctions {
 //        frequencyCorrect = frequencyCorrect * 100.0f;
         frequencyIncorrect = frequencyIncorrect * 100.0f;
         frequency = frequency * 100.0f;
-        
-        
+
         // Probability of these nodes appearing together
         String support = "Support: " + frequency + " %";
         // Probability of these nodes leading to an undesirable outbome
-        String confidence = "Confidence: " + frequencyIncorrect+ " %";
+        String confidence = "Confidence: " + frequencyIncorrect + " %";
         String liftResult = "Lift: " + lift;
         System.out.println(support);
         System.out.println(confidence);
         System.out.println(liftResult);
-        
+
         Map<String, String> result = new HashMap<>();
         result.put("Support", support);
         result.put("Confidence", confidence);
         result.put("Lift", liftResult);
-        
-                
+
 //        System.out.println("Given that these nodes appear together, the probability of the selected nodes leading to a desirable outbome is: " + frequencyCorrect);
         return result;
     }
-    
+
 }
