@@ -165,19 +165,30 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jLabel11" max="32767" attributes="0"/>
-                              <Component id="selectedTrialComboBox" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jLabel11" max="32767" attributes="0"/>
+                                  <Component id="selectedTrialComboBox" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="confirmDebuggingButton" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="cancelDebugButton" min="-2" pref="80" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="confirmDebuggingButton" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="cancelDebugButton" min="-2" pref="80" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="considerEntityVerticesButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="considerAgentVerticesButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="considerActivityVerticesButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -202,6 +213,14 @@
                       <Group type="102" attributes="0">
                           <Component id="selectedTrialComboBox" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="considerActivityVerticesButton" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="considerAgentVerticesButton" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="considerEntityVerticesButton" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="confirmDebuggingButton" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="cancelDebugButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -282,6 +301,26 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelDebugButtonActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="considerEntityVerticesButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Entity"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="considerAgentVerticesButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Agent"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="considerActivityVerticesButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Activity"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel14">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Consider the following types:"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

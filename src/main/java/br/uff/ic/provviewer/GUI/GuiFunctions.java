@@ -687,7 +687,7 @@ public class GuiFunctions {
      * @param trial is the trial we want to analize
      * @param correctTrials is the list of known trials that worked
      */
-    public static void debugTrial(Variables variables, String trial, List<String> correctTrials) {
+    public static void debugTrial(Variables variables, String trial, List<String> correctTrials, boolean activity, boolean agent, boolean entity) {
         String trial_test = "workflow_trial_6.xml";
         List<String> correctTrials_test = new ArrayList<>();
         correctTrials_test.add("workflow_trial_7.xml");
@@ -701,8 +701,8 @@ public class GuiFunctions {
         correctTrials_test.add("workflow_trial_28.xml");
         correctTrials_test.add("workflow_trial_32.xml");
 
-        Map<String, List<Vertex>> reasons = DebugTrials(trial_test, correctTrials_test, variables, false, false, true);
-        List<Vertex> alwaysWrong = DebugTrialsAlwaysWrong(correctTrials_test, variables, false, false, true);
+        Map<String, List<Vertex>> reasons = DebugTrials(trial_test, correctTrials_test, variables, activity, agent, entity);
+        List<Vertex> alwaysWrong = DebugTrialsAlwaysWrong(correctTrials_test, variables, activity, agent, entity);
         DebugVisualizationScheme graphMode = new DebugVisualizationScheme("Debug_" + trial_test, alwaysWrong, reasons);
         variables.config.vertexModes.put("Debug_" + trial_test, graphMode);
         variables.config.InterfaceStatusFilters();

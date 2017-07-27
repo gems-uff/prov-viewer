@@ -110,6 +110,10 @@ public class GraphFrame extends javax.swing.JFrame {
         correctTrialsList = new javax.swing.JList<>();
         confirmDebuggingButton = new javax.swing.JButton();
         cancelDebugButton = new javax.swing.JButton();
+        considerEntityVerticesButton = new javax.swing.JRadioButton();
+        considerAgentVerticesButton = new javax.swing.JRadioButton();
+        considerActivityVerticesButton = new javax.swing.JRadioButton();
+        jLabel14 = new javax.swing.JLabel();
         tooltipDialogBox = new javax.swing.JDialog();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -369,22 +373,38 @@ public class GraphFrame extends javax.swing.JFrame {
             }
         });
 
+        considerEntityVerticesButton.setText("Entity");
+
+        considerAgentVerticesButton.setText("Agent");
+
+        considerActivityVerticesButton.setText("Activity");
+
+        jLabel14.setText("Consider the following types:");
+
         javax.swing.GroupLayout debugDialogBoxLayout = new javax.swing.GroupLayout(debugDialogBox.getContentPane());
         debugDialogBox.getContentPane().setLayout(debugDialogBoxLayout);
         debugDialogBoxLayout.setHorizontalGroup(
             debugDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(debugDialogBoxLayout.createSequentialGroup()
-                .addGroup(debugDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(debugDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(debugDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(debugDialogBoxLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(debugDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(selectedTrialComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, debugDialogBoxLayout.createSequentialGroup()
+                            .addComponent(confirmDebuggingButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(cancelDebugButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(11, 11, 11)))
                     .addGroup(debugDialogBoxLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(debugDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(selectedTrialComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, debugDialogBoxLayout.createSequentialGroup()
-                        .addComponent(confirmDebuggingButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cancelDebugButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11)))
+                        .addGroup(debugDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(considerEntityVerticesButton)
+                            .addComponent(considerAgentVerticesButton)
+                            .addComponent(considerActivityVerticesButton)
+                            .addComponent(jLabel14))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(debugDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -403,6 +423,14 @@ public class GraphFrame extends javax.swing.JFrame {
                     .addGroup(debugDialogBoxLayout.createSequentialGroup()
                         .addComponent(selectedTrialComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(considerActivityVerticesButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(considerAgentVerticesButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(considerEntityVerticesButton)
+                        .addGap(18, 18, 18)
                         .addGroup(debugDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(confirmDebuggingButton)
                             .addComponent(cancelDebugButton)))
@@ -1958,7 +1986,8 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private void confirmDebuggingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmDebuggingButtonActionPerformed
         // TODO add your handling code here:
-        GuiFunctions.debugTrial(variables, selectedTrialComboBox.getSelectedItem().toString(), correctTrialsList.getSelectedValuesList());
+        GuiFunctions.debugTrial(variables, selectedTrialComboBox.getSelectedItem().toString(), correctTrialsList.getSelectedValuesList(), 
+                considerActivityVerticesButton.isSelected(), considerAgentVerticesButton.isSelected(), considerEntityVerticesButton.isSelected());
         debugDialogBox.setVisible(false);
     }//GEN-LAST:event_confirmDebuggingButtonActionPerformed
 
@@ -2096,6 +2125,9 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JButton closeTooltipWindowButton;
     private javax.swing.JButton confirmDebuggingButton;
     private javax.swing.JButton confirmWorkingTrialsButton;
+    private javax.swing.JRadioButton considerActivityVerticesButton;
+    private javax.swing.JRadioButton considerAgentVerticesButton;
+    private javax.swing.JRadioButton considerEntityVerticesButton;
     private static javax.swing.JList<String> correctTrialsList;
     public static javax.swing.JTextField dbscanEpsilon;
     private javax.swing.JDialog debugDialogBox;
@@ -2134,6 +2166,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
