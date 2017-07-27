@@ -540,8 +540,9 @@ public class GuiFunctions {
      * @param trial is the trial we are debugging
      * @param correctTrials is the list of trials that worked
      * @param variables contains the graph
+     * @return two lists inside a map: "correct" showing an example to make the trial work; "error" showing the vertices that caused the failure
      */
-    public static Map<String, List<Vertex>> DebugTrials(String trial, List<String> correctTrials, Variables variables) {
+    public static Map<String, List<Vertex>> DebugTrials(String trial, List<String> correctTrials, Variables variables, boolean activity, boolean agent, boolean entity) {
         Graph g = variables.graph;
         Map<String, List<Vertex>> diffs = new HashMap<>();
 
@@ -561,7 +562,7 @@ public class GuiFunctions {
 //        }
         // Run through the graph only once, building the DIFFS to all "OK" graphs
         for (Object v : g.getVertices()) {
-            if (v instanceof EntityVertex || ((Vertex) v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) {
+            if (debugOptionModes(v, activity, agent, entity)) {
                 for (String t : correctTrials) {
                     if (((Vertex) v).getAttributeValue(VariableNames.GraphFile).contains(t)) {
                         if (!((Vertex) v).getAttributeValue(VariableNames.GraphFile).contains(trial)) {
@@ -597,7 +598,7 @@ public class GuiFunctions {
 //        }
 
         for (Object v : g.getVertices()) {
-            if (v instanceof EntityVertex || ((Vertex) v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) {
+            if (debugOptionModes(v, activity, agent, entity)) {
                 if (((Vertex) v).getAttributeValue(VariableNames.GraphFile).contains(trial)) {
                     if (!((Vertex) v).getAttributeValue(VariableNames.GraphFile).contains(minDiffTrial)) {
                         failureVertices.add((Vertex) v);
@@ -624,16 +625,36 @@ public class GuiFunctions {
     }
 
     /**
+     * 
+     * 
+     * @param v is the current vertex
+     * @param activity is the configuration that allows checking activity vertices
+     * @param agent is the configuration that allows checking agent vertices
+     * @param entity is the configuration that allows checking entity vertices
+     * @return true if the current vertex fits the used configuration for debugging
+     */
+    private static boolean debugOptionModes(Object v, boolean activity, boolean agent, boolean entity) {
+        if((v instanceof EntityVertex || ((Vertex) v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) && entity)
+            return true;
+        else if((v instanceof ActivityVertex || ((Vertex) v).hasAttribute(VariableNames.CollapsedVertexActivityAttribute)) && activity)
+            return true;
+        else if((v instanceof AgentVertex || ((Vertex) v).hasAttribute(VariableNames.CollapsedVertexAgentAttribute)) && agent)
+            return true;
+        else
+            return false;
+    }
+    
+    /**
      * Method to find out the configurations that always led to an error
      *
      * @param correctTrials is the list of the correct trials
      * @param variables has the graph
      */
-    public static List<Vertex> DebugTrialsAlwaysWrong(List<String> correctTrials, Variables variables) {
+    public static List<Vertex> DebugTrialsAlwaysWrong(List<String> correctTrials, Variables variables, boolean activity, boolean agent, boolean entity) {
         Graph g = variables.graph;
         List<Vertex> alwaysWrong = new ArrayList<>();
         for (Object v : g.getVertices()) {
-            if (v instanceof EntityVertex || ((Vertex) v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) {
+            if (debugOptionModes(v, activity, agent, entity)) {
                 boolean isCorrect = false;
                 for (String t : correctTrials) {
 
@@ -660,6 +681,12 @@ public class GuiFunctions {
         // Need to mark with RED border the cases that always lead to failure
     }
 
+    /**
+     * Debug function that returns the causes of a failure and proposes a solution
+     * @param variables
+     * @param trial is the trial we want to analize
+     * @param correctTrials is the list of known trials that worked
+     */
     public static void debugTrial(Variables variables, String trial, List<String> correctTrials) {
         String trial_test = "workflow_trial_6.xml";
         List<String> correctTrials_test = new ArrayList<>();
@@ -674,13 +701,19 @@ public class GuiFunctions {
         correctTrials_test.add("workflow_trial_28.xml");
         correctTrials_test.add("workflow_trial_32.xml");
 
-        Map<String, List<Vertex>> reasons = DebugTrials(trial_test, correctTrials_test, variables);
-        List<Vertex> alwaysWrong = DebugTrialsAlwaysWrong(correctTrials_test, variables);
+        Map<String, List<Vertex>> reasons = DebugTrials(trial_test, correctTrials_test, variables, false, false, true);
+        List<Vertex> alwaysWrong = DebugTrialsAlwaysWrong(correctTrials_test, variables, false, false, true);
         DebugVisualizationScheme graphMode = new DebugVisualizationScheme("Debug_" + trial_test, alwaysWrong, reasons);
         variables.config.vertexModes.put("Debug_" + trial_test, graphMode);
         variables.config.InterfaceStatusFilters();
     }
 
+    /**
+     * Function that returns the support, confidence, and lift of the selected pattern based on trials that worked
+     * @param variables
+     * @param correctTrials is the list of known trials that worked
+     * @return a map with "Support", "Confidence", and "Lift" of the selected pattern
+     */
     public static Map<String, String> FindFrequencyOfNodes(Variables variables, List<String> correctTrials) {
 
         // Testing purposes
