@@ -30,6 +30,7 @@ import br.uff.ic.utility.graphgenerator.NoiseGraph;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import java.awt.Color;
+import java.awt.Paint;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -828,6 +829,24 @@ public class Utils {
             return s.substring(1);
         }
         return s;
+    }
+    
+    /**
+     * Basic traffic light color scheme, returning a gradient from red to orange to green
+     * @param value is the current value
+     * @param min is the minimum possible value
+     * @param max is the maximum possilble value
+     * @param inverted defines if it is red to green or green to red
+     * @return the color based on the current value
+     */
+    public static Paint trafficLight(float value, double min, double max, boolean inverted) {
+        if (inverted) {
+            double aux = min;
+            min = max;
+            max = aux;
+        }
+        int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
+        return new Color(Math.min(255, 510 - proportion), Math.min(255, proportion), 0);
     }
 
 }
