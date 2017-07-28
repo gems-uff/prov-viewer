@@ -439,7 +439,7 @@ public class GraphFrame extends javax.swing.JFrame {
         );
 
         tooltipDialogBox.setAlwaysOnTop(true);
-        tooltipDialogBox.setMinimumSize(new java.awt.Dimension(311, 256));
+        tooltipDialogBox.setMinimumSize(new java.awt.Dimension(311, 356));
 
         jLabel10.setText("Tooltip");
 
@@ -469,15 +469,15 @@ public class GraphFrame extends javax.swing.JFrame {
             .addGroup(tooltipDialogBoxLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(closeTooltipWindowButton)
                 .addContainerGap())
         );
 
         selectWorkingTrialsDialogBox.setAlwaysOnTop(true);
-        selectWorkingTrialsDialogBox.setMinimumSize(new java.awt.Dimension(173, 452));
+        selectWorkingTrialsDialogBox.setMinimumSize(new java.awt.Dimension(173, 492));
 
         listWorkingTrials.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -522,8 +522,8 @@ public class GraphFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, selectWorkingTrialsDialogBoxLayout.createSequentialGroup()
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(selectWorkingTrialsDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelWorkingTrialsButton)
                     .addComponent(confirmWorkingTrialsButton))
@@ -2034,7 +2034,9 @@ public class GraphFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
          Map<String, String> result = GuiFunctions.FindFrequencyOfNodes(variables, listWorkingTrials.getSelectedValuesList());
         tooltipDialogBox.setVisible(true);
-        String tooltip = "Related to failing:" + "\n" + result.get("Support") + " \n" + result.get("Confidence")+ " \n" + result.get("Lift");
+        String tooltip = result.get("Selected") + "\n"
+                + "Related to failing:" + "\n" + result.get("Support_NOTOK") + " \n" + result.get("Confidence_NOTOK")+ " \n" + result.get("Lift_NOTOK")
+                + " \n" + " \n" + "Related to succeeding:" + "\n" + result.get("Support_OK") + " \n" + result.get("Confidence_OK")+ " \n" + result.get("Lift_OK");
         tooltipWindowTextPane.setText(tooltip);
         selectWorkingTrialsDialogBox.setVisible(false);
     }//GEN-LAST:event_confirmWorkingTrialsButtonActionPerformed
