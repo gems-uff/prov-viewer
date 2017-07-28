@@ -729,18 +729,24 @@ public class GuiFunctions {
         correctTrials_test.add("workflow_trial_28.xml");
         correctTrials_test.add("workflow_trial_32.xml");
         // End testing purposes
-        float frequency;
-        float frequencyCorrect;
-        float frequencyIncorrect;
-        float lift;
-        int n = 0;
+        float support_notok;
+        float support_ok;
+        float confidence_ok;
+        float confidence_notok;
+        float lift_notok;
+        float lift_ok;
+        int notok = 0;
+        int ok = 0;
+        String selected_vertices = "Selected vertices:";
         PickedState<Object> picked_state = variables.view.getPickedVertexState();
         int numberOfNodes = picked_state.getSelectedObjects().length;
         Map<String, Integer> graphFiles = new HashMap<>();
         Collection<String> commonFiles = new ArrayList<>();
-        for (Object v : picked_state.getSelectedObjects()) {
+        
+        
+        for (Object v : picked_state.getSelectedObjects()) { // For each vertex from the pattern selected by the user
             String[] files = ((Vertex) v).getAttributeValues(VariableNames.GraphFile);
-            for (String f : files) {
+            for (String f : files) { // For each graphFile from the current vertex
                 if (graphFiles.containsKey(f)) {
                     int i = graphFiles.get(f);
                     i++;
@@ -749,13 +755,22 @@ public class GuiFunctions {
                     graphFiles.put(f, 1);
                 }
             }
+            selected_vertices += "\n" + ((Vertex)v).getID();
         }
+        
         for (String f : graphFiles.keySet()) {
             int qnt = graphFiles.get(f);
             if (qnt == numberOfNodes) {
-                System.out.println("Common graphFile to all:" + f);
-                n++;
+                if(!correctTrials_test.contains(f)) {
+//                    System.out.println("Common graphFile to all:" + f);
+                    notok++;
+                }
                 commonFiles.add(f);
+//                else if(correctTrials_test.contains(f)) {
+////                    System.out.println("Common graphFile to all:" + f);
+//                    ok++;
+//                    commonFiles.add(f);
+//                }
             }
         }
 
@@ -768,27 +783,47 @@ public class GuiFunctions {
                 }
             }
         }
-        frequency = (float) n / (float) variables.numberOfGraphs;
-        frequencyCorrect = (float) numberofCorrect / (float) commonFiles.size();
-        frequencyIncorrect = 1 - frequencyCorrect;
-        lift = frequencyIncorrect / (1 - frequency);
-//        frequencyCorrect = frequencyCorrect * 100.0f;
-        frequencyIncorrect = frequencyIncorrect * 100.0f;
-        frequency = frequency * 100.0f;
+        support_notok = (float) notok / (float) variables.numberOfGraphs;
+        support_ok = (float) numberofCorrect / (float) variables.numberOfGraphs;
+        confidence_ok = (float) numberofCorrect / (float) commonFiles.size();
+        confidence_notok = (float) notok / (float) commonFiles.size();
+        lift_notok = confidence_notok / ((float) (variables.numberOfGraphs - correctTrials_test.size()) / (float) variables.numberOfGraphs);
+        lift_ok = confidence_ok / ((float) correctTrials_test.size() / (float) variables.numberOfGraphs);
+        
+        // Lets make the numbers be in the % notation (0% to 100%)
+        confidence_notok = confidence_notok * 100.0f;
+        support_notok = support_notok * 100.0f;
+        confidence_ok = confidence_ok * 100.0f;
+        support_ok = support_ok * 100.0f;
 
         // Probability of these nodes appearing together
-        String support = "Support: " + frequency + " %";
+        String s_support_notok = "Support: " + support_notok + " %";
         // Probability of these nodes leading to an undesirable outbome
-        String confidence = "Confidence: " + frequencyIncorrect + " %";
-        String liftResult = "Lift: " + lift;
-        System.out.println(support);
-        System.out.println(confidence);
-        System.out.println(liftResult);
-
+        String s_confidence_notok = "Confidence: " + confidence_notok + " %";
+        String liftResult_notok = "Lift: " + lift_notok;
+        String s_support_ok = "Support: " + support_ok + " %";
+        String s_confidence_ok = "Confidence: " + confidence_ok + " %";
+        String liftResult_ok = "Lift: " + lift_ok;
+        
+        
+        
+        System.out.println("NOT OK:");
+        System.out.println(s_support_notok);
+        System.out.println(s_confidence_notok);
+        System.out.println(liftResult_notok);
+        System.out.println("OK:");
+        System.out.println(s_support_ok);
+        System.out.println(s_confidence_ok);
+        System.out.println(liftResult_ok);
+        
         Map<String, String> result = new HashMap<>();
-        result.put("Support", support);
-        result.put("Confidence", confidence);
-        result.put("Lift", liftResult);
+        result.put("Support_NOTOK", s_support_notok);
+        result.put("Confidence_NOTOK", s_confidence_notok);
+        result.put("Lift_NOTOK", liftResult_notok);
+        result.put("Support_OK", s_support_ok);
+        result.put("Confidence_OK", s_confidence_ok);
+        result.put("Lift_OK", liftResult_ok);
+        result.put("Selected", selected_vertices);
 
 //        System.out.println("Given that these nodes appear together, the probability of the selected nodes leading to a desirable outbome is: " + frequencyCorrect);
         return result;
