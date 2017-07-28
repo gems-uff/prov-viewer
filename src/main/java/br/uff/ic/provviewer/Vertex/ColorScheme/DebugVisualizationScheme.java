@@ -70,9 +70,9 @@ public class DebugVisualizationScheme extends ColorScheme {
         else if(proposedFix.contains((Vertex)v)) {
             return new Color(0, 255, 255);
         }
-        else if(alwaysWrong.contains((Vertex)v)) {
-            return new Color(255, 0, 255);
-        }
+//        else if(alwaysWrong.contains((Vertex)v)) {
+//            return new Color(255, 0, 255);
+//        }
         else if (((Vertex)v).getAttributeValue(VariableNames.GraphFile).contains(att))
             return new Color(0, 255, 0);
         else
