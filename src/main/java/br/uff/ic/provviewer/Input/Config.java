@@ -29,6 +29,7 @@ import br.uff.ic.provviewer.GraphFrame;
 import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.provviewer.Vertex.ColorScheme.ColorScheme;
+import br.uff.ic.provviewer.Vertex.ColorScheme.DebugAllTrialsScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.VertexColorScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.DefaultVertexColorScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.GraphVisualizationScheme;
@@ -422,6 +423,10 @@ public class Config {
             //Default mode is always set, no matter the config.xml
             ProvScheme provScheme = new ProvScheme("Prov");
             vertexModes.put("Prov", provScheme);
+            
+            DebugAllTrialsScheme allTrials = new DebugAllTrialsScheme("All Trials");
+            vertexModes.put("All Trials", allTrials);
+            
             VertexGraphGrayScaleScheme graphScheme = new VertexGraphGrayScaleScheme(VariableNames.GraphFile);
             vertexModes.put(VariableNames.GraphFile, graphScheme);
 
