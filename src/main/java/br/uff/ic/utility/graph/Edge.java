@@ -45,7 +45,7 @@ public class Edge extends GraphObject {
     private Object target;
     private final String type;           // Edge type (prov edges)
     //used to hide this edge when collapsing a group of edges
-//    private boolean hide;
+    private boolean hide;
     private Color defaultColor = new Color(0, 0, 255);
     private String influenceName = "Influence";
 
@@ -60,13 +60,16 @@ public class Edge extends GraphObject {
         this.source = source;
         this.target = target;
         this.type = "";
-//        hide = false;
+        hide = false;
         this.attributes = new HashMap<>();
         GraphAttribute att = new GraphAttribute(influenceName, "");
         this.attributes.put(att.getName(), att);
         if(!this.hasAttribute(VariableNames.edgeHiddenAttribute)) {
             GraphAttribute hide = new GraphAttribute(VariableNames.edgeHiddenAttribute, "false");
             this.attributes.put(hide.getName(), hide);
+        }
+        else {
+            hide = Boolean.parseBoolean(this.getAttributeValue(VariableNames.edgeHiddenAttribute));
         }
 //        this.attributes.putAll(attributes);
         setLabel("");
@@ -77,13 +80,16 @@ public class Edge extends GraphObject {
         this.source = source;
         this.target = target;
         this.type = type;
-//        hide = false;
+        hide = false;
         this.attributes = new HashMap<>();
         GraphAttribute att = new GraphAttribute(influenceName, "");
         this.attributes.put(att.getName(), att);
         if(!this.hasAttribute(VariableNames.edgeHiddenAttribute)) {
             GraphAttribute hide = new GraphAttribute(VariableNames.edgeHiddenAttribute, "false");
             this.attributes.put(hide.getName(), hide);
+        }
+        else {
+            hide = Boolean.parseBoolean(this.getAttributeValue(VariableNames.edgeHiddenAttribute));
         }
 //        this.attributes.putAll(attributes);
         setLabel(type);
@@ -106,13 +112,16 @@ public class Edge extends GraphObject {
         this.source = source;
         this.target = target;
         this.type = type;
-//        hide = false;
+        hide = false;
         this.attributes = new HashMap<>(attributes);
         GraphAttribute att = new GraphAttribute(influenceName, value);
         this.attributes.put(att.getName(), att);
         if(!this.hasAttribute(VariableNames.edgeHiddenAttribute)) {
             GraphAttribute hide = new GraphAttribute(VariableNames.edgeHiddenAttribute, "false");
             this.attributes.put(hide.getName(), hide);
+        }
+        else {
+            hide = Boolean.parseBoolean(this.getAttributeValue(VariableNames.edgeHiddenAttribute));
         }
         setLabel(label);
     }
@@ -140,6 +149,9 @@ public class Edge extends GraphObject {
             GraphAttribute hide = new GraphAttribute(VariableNames.edgeHiddenAttribute, "false");
             this.attributes.put(hide.getName(), hide);
         }
+        else {
+            hide = Boolean.parseBoolean(this.getAttributeValue(VariableNames.edgeHiddenAttribute));
+        }
         setLabel(label);
 //        if (label.equalsIgnoreCase("") || label == null || "-".equals(label) || label.equalsIgnoreCase("Neutral")) {
 //            setLabel("Neutral");
@@ -164,7 +176,7 @@ public class Edge extends GraphObject {
         this.target = target;
         influence = "0";
         this.type = getLabel();
-//        hide = false;
+        hide = false;
         this.attributes = new HashMap<>();
         GraphAttribute att = new GraphAttribute(influenceName, influence);
         this.attributes.put(att.getName(), att);
@@ -289,7 +301,8 @@ public class Edge extends GraphObject {
      * @return (boolean) if the edge is hidden or not
      */
     public boolean isHidden() {
-        return Boolean.parseBoolean(this.attributes.get(VariableNames.edgeHiddenAttribute).getValue());
+        return hide;
+//        return Boolean.parseBoolean(this.attributes.get(VariableNames.edgeHiddenAttribute).getValue());
     }
 
     /**
@@ -298,13 +311,14 @@ public class Edge extends GraphObject {
      * @param t (boolean) Hide = t
      */
     public void setHide(boolean t) {
+        hide = t;
         GraphAttribute hide = new GraphAttribute(VariableNames.edgeHiddenAttribute, Boolean.toString(t));
         this.attributes.put(hide.getName(), hide);
     }
     
-    public String getHide() {
-        return this.attributes.get(VariableNames.edgeHiddenAttribute).getValue();
-    }
+//    public String getHide() {
+//        return this.attributes.get(VariableNames.edgeHiddenAttribute).getValue();
+//    }
 
     /**
      * Method to check if the edge is of the neutral type (Empty influence or
