@@ -1,11 +1,31 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * The MIT License
+ *
+ * Copyright 2017 Kohwalter.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 package br.uff.ic.provviewer.Filter;
 
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.GraphFrame;
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.AgentVertex;
@@ -19,7 +39,6 @@ import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import org.apache.commons.collections15.Predicate;
 
 /**
@@ -62,7 +81,7 @@ public class Filters {
             }
         });
     }
-    
+
     /**
      * Method for filtering the Graph
      *
@@ -74,7 +93,7 @@ public class Filters {
         variables.filter.filterVerticesAndEdges(variables.view,
                 variables.layout,
                 variables.collapsedGraph,
-                hiddenEdges, variables.config.timeScale, variables.selectedTimeScale);
+                hiddenEdges, variables.config.timeScale, variables.selectedTimeScale, variables.numberOfGraphs);
     }
 
     /**
@@ -86,15 +105,17 @@ public class Filters {
     public void Filters(Variables variables) {
         Filters(variables, true);
     }
-    
+
     /**
      * Method to apply filters after an operation
      *
      * @param variables
      */
     public void AddFilters(Variables variables) {
-        GraphFrame.edgeFilterList.setSelectionInterval(0, variables.config.edgetype.size() - 1);
-        GraphFrame.vertexFilterList.setSelectionInterval(0, variables.config.vertexLabelFilter.size() - 1);
+        GraphFrame.edgeFilterList.setSelectedIndex(0);
+        GraphFrame.vertexFilterList.setSelectedIndex(0);
+//        GraphFrame.edgeFilterList.setSelectionInterval(0, variables.config.edgetype.size() - 1);
+//        GraphFrame.vertexFilterList.setSelectionInterval(0, variables.config.vertexLabelFilter.size() - 1);
         Filters(variables, false);
     }
 
@@ -107,10 +128,10 @@ public class Filters {
     public void RemoveFilters(Variables variables) {
         GraphFrame.edgeFilterList.setSelectedIndex(0);
         GraphFrame.vertexFilterList.setSelectedIndex(0);
-        GraphFrame.FilterEdgeAgentButton.setSelected(false);
-        GraphFrame.FilterNodeAgentButton.setSelected(false);
-        GraphFrame.FilterNodeEntityButton.setSelected(false);
-        GraphFrame.FilterNodeLonelyButton.setSelected(false);
+        GraphFrame.hideAgentEdgesButton.setSelected(false);
+        GraphFrame.hideAgentVerticesButton.setSelected(false);
+        GraphFrame.hideEntityVerticesButton.setSelected(false);
+        GraphFrame.hideLonelyVerticesButton.setSelected(false);
         GraphFrame.TemporalFilterToggle.setSelected(false);
         Filters(variables);
     }
@@ -123,18 +144,51 @@ public class Filters {
      * @param collapsedGraph DirectedGraph<Object,Edge> collapsedGraph
      * @param hiddenEdges Boolean (filter original edges that composes a
      * collapsed one or not?)
+     * @param timeScale is the default time scale from the config.xml file
+     * @param selectedTimeScale is the time scale selected in the interface
      */
     public void filterVerticesAndEdges(VisualizationViewer<Object, Edge> view,
             Layout<Object, Edge> layout,
             DirectedGraph<Object, Edge> collapsedGraph,
-            boolean hiddenEdges, String timeScale, String selectedTimeScale) {
+            boolean hiddenEdges, String timeScale, String selectedTimeScale, int numberOfGraphs) {
         filteredGraph = collapsedGraph;
 
         EdgeFilter = filterEdges(hiddenEdges);
-        VertexFilter = filterVertex(timeScale, selectedTimeScale);
+        VertexFilter = filterVertex(timeScale, selectedTimeScale, numberOfGraphs);
 
         filteredGraph = (DirectedGraph<Object, Edge>) EdgeFilter.transform(filteredGraph);
         filteredGraph = (DirectedGraph<Object, Edge>) VertexFilter.transform(filteredGraph);
+
+        // Filter Lonely Vertices. Had to be seperated otherwise it would not work
+        VertexFilter = filterLonelyVertex();
+        filteredGraph = (DirectedGraph<Object, Edge>) VertexFilter.transform(filteredGraph);
+
+        layout.setGraph(filteredGraph);
+        view.repaint();
+    }
+    
+    /**
+     * Method to hide all edges that has the hidden parameter. This is used after an operation to hide the edges that are supposed to be hidden
+     * @param view
+     * @param layout 
+     */
+    public void filterHiddenEdges(VisualizationViewer<Object, Edge> view, Layout<Object, Edge> layout) {
+        EdgeFilter = filterEdges(true);
+        filteredGraph = (DirectedGraph<Object, Edge>) layout.getGraph();
+        filteredGraph = (DirectedGraph<Object, Edge>) EdgeFilter.transform(filteredGraph);
+        layout.setGraph(filteredGraph);
+        view.repaint();
+    }
+    
+    /**
+     * Method to unhide the edges that are supposed to be hidden to not incur in lost of information
+     * @param view
+     * @param layout 
+     */
+    public void showHiddenEdges(Variables variables, VisualizationViewer<Object, Edge> view, Layout<Object, Edge> layout) {
+        EdgeFilter = filterEdges(false);
+        filteredGraph = variables.collapsedGraph;
+        filteredGraph = (DirectedGraph<Object, Edge>) EdgeFilter.transform(filteredGraph);
         layout.setGraph(filteredGraph);
         view.repaint();
     }
@@ -166,6 +220,7 @@ public class Filters {
 
     /**
      * Edge filter to show only edges from the selected type or label
+     *
      * @param edge
      * @return if the edge will be hidden
      */
@@ -173,7 +228,7 @@ public class Filters {
         List filtersL = GraphFrame.edgeFilterList.getSelectedValuesList();
         for (Object filtersL1 : filtersL) {
             String filter = (String) filtersL1;
-            if (filter.equalsIgnoreCase("All Edges")) {
+            if (filter.equalsIgnoreCase(VariableNames.FilterAllEdges)) {
                 return false;
             }
             if (edge.getLabel().contains(filter) || edge.getType().contains(filter)) {
@@ -190,8 +245,8 @@ public class Filters {
      * @return if the edge will be hidden
      */
     private boolean edgeAgentFilter(Edge edge) {
-        if (GraphFrame.FilterEdgeAgentButton.isSelected()) {
-            if (filteredGraph.getDest(edge) instanceof AgentVertex) {
+        if (GraphFrame.hideAgentEdgesButton.isSelected()) {
+            if (filteredGraph.getDest(edge) instanceof AgentVertex || ((Vertex)filteredGraph.getDest(edge)).hasAttribute(VariableNames.CollapsedVertexAgentAttribute)) {
                 return true;
             }
         }
@@ -203,17 +258,17 @@ public class Filters {
      *
      * @return if the vertex will be hidden
      */
-    private Filter<Object, Edge> filterVertex(final String timeScale, final String selectedTimeScale) {
+    private Filter<Object, Edge> filterVertex(final String timeScale, final String selectedTimeScale, final int numberOfGraphs) {
 
         Filter<Object, Edge> filterVertex = new VertexPredicateFilter<>(new Predicate<Object>() {
             @Override
             public boolean evaluate(Object vertex) {
-                if (vertexTypeFilter(vertex)) {
+                if (vertexTypeFilter(vertex, numberOfGraphs)) {
                     return false;
                 }
-                if (vertexLonelyFilter(vertex)) {
-                    return false;
-                }
+//                if (vertexLonelyFilter(vertex)) {
+//                    return false;
+//                }
                 if (vertexAttributeFilter(vertex)) {
                     return false;
                 }
@@ -224,13 +279,29 @@ public class Filters {
     }
 
     /**
+     * Function to hide vertices without any visible edge
+     *
+     * @return if the vertex will be hidden or not
+     */
+    private Filter<Object, Edge> filterLonelyVertex() {
+
+        Filter<Object, Edge> filterVertex = new VertexPredicateFilter<>(new Predicate<Object>() {
+            @Override
+            public boolean evaluate(Object vertex) {
+                return !vertexLonelyFilter(vertex);
+            }
+        });
+        return filterVertex;
+    }
+
+    /**
      * Vertex filter for filtering lonely vertices (vertices without edges)
      *
-     * @param vertex
+     * @param vertex is the vertex being evaluated
      * @return if the vertex will be hidden
      */
     private boolean vertexLonelyFilter(Object vertex) {
-        if (GraphFrame.FilterNodeLonelyButton.isSelected()) {
+        if (GraphFrame.hideLonelyVerticesButton.isSelected()) {
             final Graph test = filteredGraph;
             if (test.getNeighborCount(vertex) == 0) {
                 return true;
@@ -242,41 +313,147 @@ public class Filters {
     /**
      * Vertex filter to filter vertices of the selected type
      *
-     * @param vertex
+     * @param vertex is the vertex being evaluated
      * @return if the vertex will be hidden
      */
-    private boolean vertexTypeFilter(Object vertex) {
-        if (GraphFrame.FilterNodeAgentButton.isSelected()) {
+    private boolean vertexTypeFilter(Object vertex, int numberOfGraphs) {
+        if (GraphFrame.hideAgentVerticesButton.isSelected()) {
             if (vertex instanceof AgentVertex) {
                 return true;
             }
         }
-        if (GraphFrame.FilterNodeEntityButton.isSelected()) {
+        if (GraphFrame.hideEntityVerticesButton.isSelected()) {
             if (vertex instanceof EntityVertex) {
                 return true;
             }
         }
+        if (GraphFrame.hideMergedVerticesButton.isSelected()) {
+            if(((Vertex)vertex).getAttributeValues(VariableNames.GraphFile).length == numberOfGraphs)
+                return true;
+        }
         return false;
     }
-    
+
+    /**
+     * Filter to hide all vertices that has the selected attribute with the
+     * selected value
+     *
+     * @param vertex is the vertex being evaluated
+     * @return true to hide the vertex and false to show it
+     */
     private boolean vertexAttributeFilter(Object vertex) {
         List filtersL = GraphFrame.vertexFilterList.getSelectedValuesList();
+        boolean returnAND = false;
+        boolean returnOR = true;
+        
         for (Object filtersL1 : filtersL) {
             String filter = (String) filtersL1;
-            if (filter.equalsIgnoreCase("All Vertices")) {
-                return false;
+            if (filter.equalsIgnoreCase(VariableNames.FilterAllVertices)) {
+                returnOR = false;
             }
-            if(vertex instanceof Vertex) {
+            else if (vertex instanceof Vertex) {
                 String name;
                 String value;
+                String logic; // EQ NE GT GE LT LE C NC
+//                System.out.println("Filter: " + filter);
                 name = filter.split(": ")[0];
-                value = filter.split(": ")[1];
-                if (((Vertex)vertex).getAttributeValue(name).equalsIgnoreCase(value)) {
-                    return false;
+//                System.out.println("Split: " + name);
+                logic = name.split("\\)")[0];
+                logic = logic.replace("(", "");
+//                System.out.println("Logic: " + logic);
+                name = name.split("\\) ")[1];
+//                System.out.println("Name: " + name);
+                if(filter.split(": ").length == 2) {
+                    value = filter.split(": ")[1];
+                    if(Utils.tryParseFloat(value)) {
+                        switch (logic) {
+                            case "NE":
+                                if (!((Vertex) vertex).getAttributeValue(name).equalsIgnoreCase(String.valueOf(Float.parseFloat(value)))) {
+                                    returnOR = false;
+                                } else
+                                    returnAND = true;
+                                break;
+                            case "GT":
+                                if (((Vertex) vertex).getAttributeValueFloat(name) > Float.parseFloat(value)) {
+                                    returnOR = false;
+                                } else
+                                    returnAND = true;
+                                break;
+                            case "GE":
+                                if (((Vertex) vertex).getAttributeValueFloat(name) >= Float.parseFloat(value)) {
+                                    returnOR = false;
+                                } else
+                                    returnAND = true;
+                                break;
+                            case "LT":
+                                if (((Vertex) vertex).getAttributeValueFloat(name) < Float.parseFloat(value)) {
+                                    returnOR = false;
+                                } else
+                                    returnAND = true;
+                                break;
+                            case "LE":
+                                if (((Vertex) vertex).getAttributeValueFloat(name) <= Float.parseFloat(value)) {
+                                    returnOR = false;
+                                } else
+                                    returnAND = true;
+                                break;
+                            default: // "EQ"
+                                if (((Vertex) vertex).getAttributeValue(name).equalsIgnoreCase(String.valueOf(Float.parseFloat(value)))) {
+                                    returnOR = false;
+                                } else
+                                    returnAND = true;
+                                break;
+                        }
+                    } else {
+                        switch (logic) {
+                            case "NE":
+                                if (!((Vertex) vertex).getAttributeValue(name).equalsIgnoreCase(value)) {
+                                    returnOR = false;
+                                } else
+                                    returnAND = true;
+                                break;
+                            case "C":
+                                if (((Vertex) vertex).getAttributeValue(name).contains(value)) {
+                                    returnOR = false;
+                                } else
+                                    returnAND = true;
+                                break;
+                            case "NC":
+                                if (!((Vertex) vertex).getAttributeValue(name).contains(value)) {
+                                    returnOR = false;
+                                } else
+                                    returnAND = true;
+                                break;
+                            default: // "EQ"
+                                if (((Vertex) vertex).getAttributeValue(name).equalsIgnoreCase(value)) {
+                                    returnOR = false;
+                                } else
+                                    returnAND = true;
+                            break;
+                        }
+                    }
+                } else {
+                    switch (logic) {
+                        case "NC":
+                            if (!((Vertex) vertex).hasAttribute(name)) {
+                                returnOR = false;
+                            } else
+                                returnAND = true;
+                            break;
+                        default: // "C"
+                            if (((Vertex) vertex).hasAttribute(name)) {
+                                returnOR = false;
+                            } else
+                                returnAND = true;
+                        break;
+                    }
                 }
             }
         }
-        return true;
+        if(GraphFrame.isAndOperatorButton.isSelected())
+            return returnAND;
+        else
+            return returnOR;
     }
 
     /**
@@ -289,21 +466,9 @@ public class Filters {
     private boolean vertexTemporalFilter(Object vertex, String timeScale, String selectedTimeScale) {
         if (GraphFrame.TemporalFilterToggle.isSelected()) {
             if (!(vertex instanceof AgentVertex)) {
-                while (vertex instanceof Graph) {
-                    vertex = ((Graph) vertex).getVertices().toArray()[0];
-                }
                 double timeDate = ((Vertex) vertex).getTime();
                 double time = ((Vertex) vertex).getNormalizedTime();
 
-//                if (GraphFrame.temporalDaysButton.isSelected()) {
-//                    time = TimeUnit.MILLISECONDS.toDays((long) time);
-//                } else if (GraphFrame.temporalWeeksButton.isSelected()) {
-//                    time = (int) TimeUnit.MILLISECONDS.toDays((long) time) / 7;
-//                } else if (GraphFrame.temporalHoursButton.isSelected()) {
-//                    time = TimeUnit.MILLISECONDS.toHours((long) time);
-//                } else if (GraphFrame.temporalMinutesButton.isSelected()) {
-//                    time = TimeUnit.MILLISECONDS.toMinutes((long) time);
-//                }
                 time = Utils.convertTime(timeScale, time, selectedTimeScale);
 
                 if (Utils.tryParseFloat(GraphFrame.FilterVertexMinValue.getText())) {

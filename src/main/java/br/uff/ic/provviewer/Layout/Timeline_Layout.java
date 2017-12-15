@@ -1,27 +1,48 @@
+/*
+ * The MIT License
+ *
+ * Copyright 2017 Kohwalter.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package br.uff.ic.provviewer.Layout;
 
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.Utils;
+import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
-import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.Graph;
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.ConcurrentModificationException;
-import java.util.List;
 
 /**
- * Template for a temporal graph layout. Lines represent each agent and his
- * activities. Columns represent passage of time
+ * Layout to display vertices in a timeline fashion
+ * Each agent will have its own line
+ * The X displacement is fixed and not based on an attribute value
+ * Vertices are ordered by their Attribute's value
  *
  * @author Kohwalter
  * @param <V> JUNG's V (Vertex) type
  * @param <E> JUNG's E (Edge) type
  */
-public class Timeline_Layout<V, E> extends ProvViewerLayout<V, E> {
+public class Timeline_Layout<V, E> extends ProvViewerTimelineLayout<V, E> {
 
     public Timeline_Layout(Graph<V, E> g, Variables variables) {
         super(g, variables);
@@ -37,129 +58,50 @@ public class Timeline_Layout<V, E> extends ProvViewerLayout<V, E> {
         doInit();
     }
 
-    private Graph<V, E> layout_graph;
-
     /**
      * Initialize layout
      */
     private void doInit() {
-        layout_graph = getGraph();
-        //Compute position for all node-types (minus Agent)
-        for (V v : layout_graph.getVertices()) {
-            calcPositions(v);
-        }
-        //Check if there are nodes at the same place, if so apply repulsion
-//         for(V v3 : layout_graph.getVertices()) 
-//         {
-//         calcRepulsion(v3);
-//         }
-    }
 
-    /**
-     * Calculate each entity and activity vertex position in the layout
-     *
-     * @param v Activity or entity vertex
-     */
-    protected synchronized void calcPositions(V v) {
-        Point2D xyd = transform(v);
-        double newXPos = 0;
-        double newYPos = 0;
-
-        // Use the middle vertex atribute for position
-        if (v instanceof Graph) {
-            int i = ((Graph) v).getVertexCount();
-           
-            //Sort vertices by ID
-            List sorted = new ArrayList(((Graph) v).getVertices());
-            Comparator comparator = new Comparator<Object>() {
-                @Override
-                public int compare(Object c1, Object c2) {
-                    if(!(c1 instanceof Graph) && !(c2 instanceof Graph))
-                        return ((Vertex)c1).getID().compareTo(((Vertex)c2).getID());
-                    else
-                        return 0;
-                }
-            };
-            Collections.sort(sorted, comparator);
-//             End sorting;
-            Vertex middle;
-            Object middleVertex = sorted.toArray()[(int) (i * 0.5)];
-            while (middleVertex instanceof Graph) {
-                middleVertex = ((Graph)middleVertex).getVertices().toArray()[0];
-            }
-            middle = (Vertex) middleVertex;
-            calcPositions(xyd, ((Vertex) v).getNormalizedTime(), 0);
-        }
-        else {
-            // Use vertex atribute for position
-            if (v instanceof AgentVertex) {
-                calcPositions(xyd, ((Vertex) v).getNormalizedTime(), 20);
-            }
-            else if (v instanceof EntityVertex) {
-                calcPositions(xyd, ((Vertex) v).getNormalizedTime(), -20);
-            }
-            else {
-                calcPositions(xyd, ((Vertex) v).getNormalizedTime(), 0);
-            }
-        }
+        x_att = Utils.removeMinusSign(x_att);
+        y_att = Utils.removeMinusSign(y_att);
         
-                
-    }
-    
-    protected synchronized void calcPositions(Point2D xyd, double t, double newYPos) {
-        double time;//.getTime();
-        time = Utils.convertTime(variables.config.timeScale, t, variables.selectedTimeScale);
-        double newXPos = time;
-        xyd.setLocation(newXPos, newYPos);
-    }
-    
-   
+        setVertexOrder(Utils.getVertexAttributeComparator(x_att), Utils.getVertexAttributeComparator(y_att));
+        int i = 0;
+        int agentY = 0;
+        double yPos = 0;
+        double xPos = 0;
+        int entityXPos = (int) (vertex_ordered_list.size() * 0.5 - (entity_ordered_list.size() * 0.5));
 
-    double variation = 1.0;
-
-    //Check if 2 nodes are at the same position, if so add an offset
-    /**
-     * Method to check if there is any other vertex at the same position of this
-     * one (x,y)
-     *
-     * @param v1 Vertex used to check if there is any other vertex at the same
-     * position
-     */
-    protected synchronized void calcRepulsion(V v1) {
-        //Only Process and Artifact types can have the same position, so lets check
-        try {
-            for (V v2 : layout_graph.getVertices()) {
-                //A check to see if we are not comparing him with himself
-                if (v1 != v2) {
-                    Point2D p1 = transform(v1);
-                    Point2D p2 = transform(v2);
-                    if (p1 == null || p2 == null) {
-                        continue;
-                    }
-                    //Need to check both X and Y positions
-                    if (Equals(p1.getX(), p2.getX()) && Equals(p1.getY(), p2.getY())) {
-                        p1.setLocation(p1.getX(), p1.getY() - variation);
-                        //p2.setLocation(p2.getX(), p2.getY() + variation);
-                        //Need to check again in case another node is at the same new position
-                        calcRepulsion(v1);
+        entityXPos = entityXPos * scale;
+        for (V v : vertex_ordered_list) {
+            Point2D coord = transform(v);
+            if (v instanceof AgentVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexAgentAttribute)) {
+                yPos = agentY;
+                agentY = agentY + scale;
+                i = i + scale;
+                xPos = i;
+            } else if (v instanceof ActivityVertex) {
+                if (layout_graph.getOutEdges(v) != null) {
+                    for (E neighbor : layout_graph.getOutEdges(v)) {
+                        //if the edge link to an Agent-node
+                        if (layout_graph.getDest(neighbor) instanceof AgentVertex || ((Vertex)layout_graph.getDest(neighbor)).hasAttribute(VariableNames.CollapsedVertexAgentAttribute)) {
+                            Point2D agentPos = transform(layout_graph.getDest(neighbor));
+                            yPos = agentPos.getY();
+                        }
+                        i = i + scale;
+                        xPos = i;
                     }
                 }
+            } else {
+                yPos = 0;
+                i = i + scale;
+                xPos = i;
             }
-        } catch (ConcurrentModificationException cme) {
+            coord.setLocation(xPos, yPos);
         }
-    }
+        positionEntitiesTimeline(entityXPos);
 
-    private double EPSILON = 1.0;
-
-    /**
-     * Check if a and b are equals
-     *
-     * @param a double
-     * @param b double
-     * @return if both values are equal
-     */
-    protected boolean Equals(double a, double b) {
-        return Math.abs(a - b) < EPSILON;
     }
 
     /**

@@ -1,8 +1,27 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * The MIT License
+ *
+ * Copyright 2017 Kohwalter.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
+
 package br.uff.ic.utility.graphgenerator;
 
 import br.uff.ic.utility.GraphAttribute;
@@ -86,15 +105,15 @@ public class OracleGraph {
         generateOracleValues(v9);
         generateOracleValues(v10);
         
-        Edge e1 = new Edge("E1", "", "", "", v1, v2);
-        Edge e2 = new Edge("E2", "", "", "", v2, v3);
-        Edge e3 = new Edge("E3", "", "", "", v3, v4);
-        Edge e4 = new Edge("E4", "", "", "", v4, v5);
-        Edge e5 = new Edge("E5", "", "", "", v5, v6);
-        Edge e6 = new Edge("E6", "", "", "", v6, v7);
-        Edge e7 = new Edge("E7", "", "", "", v7, v8);
-        Edge e8 = new Edge("E8", "", "", "", v8, v9);
-        Edge e9 = new Edge("E9", "", "", "", v9, v10);
+        Edge e1 = new Edge("E1", v1, v2);
+        Edge e2 = new Edge("E2", v2, v3);
+        Edge e3 = new Edge("E3", v3, v4);
+        Edge e4 = new Edge("E4", v4, v5);
+        Edge e5 = new Edge("E5", v5, v6);
+        Edge e6 = new Edge("E6", v6, v7);
+        Edge e7 = new Edge("E7", v7, v8);
+        Edge e8 = new Edge("E8", v8, v9);
+        Edge e9 = new Edge("E9", v9, v10);
         
         DirectedGraph<Object, Edge> templateGraph = new DirectedSparseMultigraph<>();
         templateGraph.addEdge(e1, e1.getSource(), e1.getTarget());
@@ -154,25 +173,25 @@ public class OracleGraph {
         generateOracleValues(v19);
         generateOracleValues(v20);
         
-        Edge e1 = new Edge("E1", "", "", "", v1, v2);
-        Edge e2 = new Edge("E2", "", "", "", v2, v3);
-        Edge e3 = new Edge("E3", "", "", "", v3, v4);
-        Edge e4 = new Edge("E4", "", "", "", v4, v5);
-        Edge e5 = new Edge("E5", "", "", "", v5, v6);
-        Edge e6 = new Edge("E6", "", "", "", v6, v7);
-        Edge e7 = new Edge("E7", "", "", "", v7, v8);
-        Edge e8 = new Edge("E8", "", "", "", v8, v9);
-        Edge e9 = new Edge("E9", "", "", "", v9, v10);
-        Edge e10 = new Edge("E10", "", "", "", v10, v11);
-        Edge e11 = new Edge("E11", "", "", "", v11, v12);
-        Edge e12 = new Edge("E12", "", "", "", v12, v13);
-        Edge e13 = new Edge("E13", "", "", "", v13, v14);
-        Edge e14 = new Edge("E14", "", "", "", v14, v15);
-        Edge e15 = new Edge("E15", "", "", "", v15, v16);
-        Edge e16 = new Edge("E16", "", "", "", v16, v17);
-        Edge e17 = new Edge("E17", "", "", "", v17, v18);
-        Edge e18 = new Edge("E18", "", "", "", v18, v19);
-        Edge e19 = new Edge("E19", "", "", "", v19, v20);
+        Edge e1 = new Edge("E1", v1, v2);
+        Edge e2 = new Edge("E2", v2, v3);
+        Edge e3 = new Edge("E3", v3, v4);
+        Edge e4 = new Edge("E4", v4, v5);
+        Edge e5 = new Edge("E5", v5, v6);
+        Edge e6 = new Edge("E6", v6, v7);
+        Edge e7 = new Edge("E7", v7, v8);
+        Edge e8 = new Edge("E8", v8, v9);
+        Edge e9 = new Edge("E9", v9, v10);
+        Edge e10 = new Edge("E10", v10, v11);
+        Edge e11 = new Edge("E11", v11, v12);
+        Edge e12 = new Edge("E12", v12, v13);
+        Edge e13 = new Edge("E13", v13, v14);
+        Edge e14 = new Edge("E14", v14, v15);
+        Edge e15 = new Edge("E15", v15, v16);
+        Edge e16 = new Edge("E16", v16, v17);
+        Edge e17 = new Edge("E17", v17, v18);
+        Edge e18 = new Edge("E18", v18, v19);
+        Edge e19 = new Edge("E19", v19, v20);
         
         DirectedGraph<Object, Edge> templateGraph = new DirectedSparseMultigraph<>();
         templateGraph.addEdge(e1, e1.getSource(), e1.getTarget());
@@ -214,11 +233,11 @@ public class OracleGraph {
         generateOracleValues(v5);
         
 //        Edge e6 = new Edge("E5", "", "", "", v6, v1);
-        Edge e1 = new Edge("E1", "", "", "", v1, v2);
-        Edge e2 = new Edge("E2", "", "", "", v1, v3);
-        Edge e3 = new Edge("E3", "", "", "", v2, v4);
-        Edge e4 = new Edge("E4", "", "", "", v3, v4);
-        Edge e5 = new Edge("E5", "", "", "", v4, v5);
+        Edge e1 = new Edge("E1", v1, v2);
+        Edge e2 = new Edge("E2", v1, v3);
+        Edge e3 = new Edge("E3", v2, v4);
+        Edge e4 = new Edge("E4", v3, v4);
+        Edge e5 = new Edge("E5", v4, v5);
         
         
         DirectedGraph<Object, Edge> templateGraph = new DirectedSparseMultigraph<>();
@@ -254,14 +273,14 @@ public class OracleGraph {
         generateOracleValues(v8);
         generateOracleValues(v9);
         
-        Edge e1 = new Edge("E1", "", "", "", v1, v2);
-        Edge e2 = new Edge("E2", "", "", "", v1, v3);
-        Edge e3 = new Edge("E3", "", "", "", v2, v4);
-        Edge e4 = new Edge("E4", "", "", "", v2, v5);
-        Edge e5 = new Edge("E5", "", "", "", v5, v6);
-        Edge e6 = new Edge("E6", "", "", "", v5, v7);
-        Edge e7 = new Edge("E7", "", "", "", v3, v8);
-        Edge e8 = new Edge("E8", "", "", "", v8, v9);
+        Edge e1 = new Edge("E1", v1, v2);
+        Edge e2 = new Edge("E2", v1, v3);
+        Edge e3 = new Edge("E3", v2, v4);
+        Edge e4 = new Edge("E4", v2, v5);
+        Edge e5 = new Edge("E5", v5, v6);
+        Edge e6 = new Edge("E6", v5, v7);
+        Edge e7 = new Edge("E7", v3, v8);
+        Edge e8 = new Edge("E8", v8, v9);
         
         DirectedGraph<Object, Edge> templateGraph = new DirectedSparseMultigraph<>();
         templateGraph.addEdge(e1, e1.getSource(), e1.getTarget());
@@ -318,14 +337,14 @@ public class OracleGraph {
         generateOracleValues(v18);
         generateOracleValues(v19);
         
-        Edge e1 = new Edge("E1", "", "", "", v1, v2);
-        Edge e2 = new Edge("E2", "", "", "", v1, v3);
-        Edge e3 = new Edge("E3", "", "", "", v2, v4);
-        Edge e4 = new Edge("E4", "", "", "", v2, v5);
-        Edge e5 = new Edge("E5", "", "", "", v5, v6);
-        Edge e6 = new Edge("E6", "", "", "", v5, v7);
-        Edge e7 = new Edge("E7", "", "", "", v3, v8);
-        Edge e8 = new Edge("E8", "", "", "", v8, v9);
+        Edge e1 = new Edge("E1", v1, v2);
+        Edge e2 = new Edge("E2", v1, v3);
+        Edge e3 = new Edge("E3", v2, v4);
+        Edge e4 = new Edge("E4", v2, v5);
+        Edge e5 = new Edge("E5", v5, v6);
+        Edge e6 = new Edge("E6", v5, v7);
+        Edge e7 = new Edge("E7", v3, v8);
+        Edge e8 = new Edge("E8", v8, v9);
         
         DirectedGraph<Object, Edge> templateGraph = new DirectedSparseMultigraph<>();
         templateGraph.addEdge(e1, e1.getSource(), e1.getTarget());

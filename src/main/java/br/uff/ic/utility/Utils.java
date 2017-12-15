@@ -1,7 +1,25 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * The MIT License
+ *
+ * Copyright 2017 Kohwalter.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 package br.uff.ic.utility;
 
@@ -12,6 +30,7 @@ import br.uff.ic.utility.graphgenerator.NoiseGraph;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import java.awt.Color;
+import java.awt.Paint;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -20,8 +39,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,28 +61,35 @@ public class Utils {
     Color[] colors = new Color[17];
 
     public static Color getColor(int i) {
-        int size = 15;
+        int size = 25; // Array max position + 1
         int index = i % size;
         Color[] colors = new Color[size];
         colors[0] = new Color(0, 0, 0); // Black
-//        colors[1] = new Color(255, 0, 0); // Red
-//        colors[2] = new Color(0, 255, 0); // Lime/Green
         colors[1] = new Color(0, 0, 255); // Blue
-        colors[2] = new Color(255, 255, 0); // Yellow
+        colors[2] = new Color(153, 153, 0); // Yellow-Mostard
         colors[3] = new Color(0, 255, 255); // Cyan/Aqua
         colors[4] = new Color(255, 0, 255); // Magenta
         colors[5] = new Color(128, 128, 128); // Gray
-        colors[6] = new Color(128, 0, 0); // Brown
+        colors[6] = new Color(128, 0, 0); // Brown / Maroon
         colors[7] = new Color(128, 128, 0); // olive
-//        colors[10] = new Color(0, 128, 0); // Green
         colors[8] = new Color(210, 105, 30); // Chocolate
-//        colors[12] = new Color(0, 128, 128); // Teal
         colors[9] = new Color(0, 0, 128); // Navy
         colors[10] = new Color(255, 128, 128); // Pink
         colors[11] = new Color(255, 128, 0); // Orange
-        colors[12] = new Color(192, 192, 192); // Silver
+        colors[12] = new Color(192, 192, 192); // Silver / Light-Gray
         colors[13] = new Color(70, 130, 180); // Steel blue
         colors[14] = new Color(184, 134, 11); // Dark golden rod
+        // Similar colors...
+        colors[15] = new Color(0, 128, 128); // Teal
+        colors[16] = new Color(0, 128, 0); // Green
+        colors[17] = new Color(255, 0, 0); // Red
+        colors[18] = new Color(0, 255, 0); // Lime/Green
+        colors[19] = new Color(245, 245, 220); // Beige
+        colors[20] = new Color(128, 0, 128); // Purple
+        colors[21] = new Color(218,112,214); // Orchid
+        colors[22] = new Color(210,105,30); // Chocolate
+        colors[23] = new Color(240,255,255); // Azure
+        colors[24] = new Color(255,20,147); // Deep-Pink
 
         return colors[index];
     }
@@ -90,15 +119,6 @@ public class Utils {
     public static boolean tryParseFloat(String value) {
         value = value.replace(" ", "");
         value = value.replace(",", ".");
-//        try {
-////            Float.parseFloat(value);
-//            Float.valueOf(value.trim());
-//            value.matches(("[+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+)"));
-//
-//            return true;
-//        } catch (NumberFormatException nfe) { 
-//            return false;
-//        }
         if (value.isEmpty()) {
             return false;
         } else if (value == null) {
@@ -112,7 +132,6 @@ public class Utils {
                 String v = new BigDecimal(value).toPlainString();
                 Float.parseFloat(v);
                 return true;
-//                return v.matches(("[+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+)"));
             } catch (NumberFormatException nfe) {
                 return false;
             }
@@ -226,7 +245,7 @@ public class Utils {
      */
     public static XMLGregorianCalendar stringToXMLGregorianCalendar(String time) {
         try {
-            XMLGregorianCalendar result = null;
+            XMLGregorianCalendar result;
             Date date;
             SimpleDateFormat simpleDateFormat;
             GregorianCalendar gregorianCalendar;
@@ -385,16 +404,34 @@ public class Utils {
      * Method to remove outliers from a list
      *
      * @param allNumbers is the arrayList of float
+     * @param att
      * @return the same arrayList without the outliers
      */
-    public static ArrayList<Float> removeOutLierAnalysis(ArrayList<Float> allNumbers) {
+    public static ArrayList<Float> removeOutLierAnalysis(ArrayList<Float> allNumbers, String att) {
         if (allNumbers.isEmpty()) {
             return null;
         }
-
         ArrayList<Float> normalNumbers = new ArrayList<>();
+
+        ThresholdValues thresholds = calculateOutliers(allNumbers, att);
+
+        for (float number : allNumbers) {
+            if ((thresholds.lowerThreshold <= number) && (number <= thresholds.upperThreshold)) {
+                normalNumbers.add(number);
+            }
+        }
+
+        return normalNumbers;
+    }
+    
+    /**
+     * Method to calculate the upper and lower outliers thresholds from a sequence of numbers
+     * @param allNumbers contains the numbers
+     * @param att
+     * @return the lower and upper thresholds for outlier detection
+     */
+    public static ThresholdValues calculateOutliers(ArrayList<Float> allNumbers, String att) {
         Collections.sort(allNumbers);
-//        double mean;
         float q1;
         float q3;
         if (allNumbers.size() % 2 == 0) {
@@ -415,14 +452,7 @@ public class Utils {
         float iqr = q3 - q1;
         float lowerThreshold = q1 - iqr * 1.5f;
         float upperThreshold = q3 + iqr * 1.5f;
-
-        for (float number : allNumbers) {
-            if ((lowerThreshold <= number) && (number <= upperThreshold)) {
-                normalNumbers.add(number);
-            }
-        }
-
-        return normalNumbers;
+        return new ThresholdValues(att, lowerThreshold, upperThreshold);
     }
 
     /**
@@ -432,7 +462,7 @@ public class Utils {
      * @return the stdev
      */
     public static float stdev(Float[] list) {
-        float mean = 0.0F;
+        float mean;
         mean = mean(list);
         return stdev(list, mean);
     }
@@ -446,11 +476,11 @@ public class Utils {
      */
     public static float stdev(Float[] list, float mean) {
         float num = 0.0f;
-        float numi = 0.0f;
+        float numi;
         float deno = 0.0f;
 
-        for (int i = 0; i < list.length; i++) {
-            numi = (float) Math.pow((list[i] - mean), 2);
+        for (Float list1 : list) {
+            numi = (float) Math.pow(list1 - mean, 2);
             num += numi;
             deno = list.length - 1;
         }
@@ -473,10 +503,10 @@ public class Utils {
         ArrayList<Float> values = new ArrayList<>();
         for (Object v1 : vertices) {
             float val = ((Vertex) v1).getAttributeValueFloat(attribute);
-            if (!(val != val)) {
-                values.add(val);
+                if (!(val != val)) {
+                    values.add(val);
+                }
             }
-        }
         Float[] floatArray = new Float[values.size()];
         floatArray = Utils.listToFloatArray(values);
         return stdev(floatArray);
@@ -489,10 +519,10 @@ public class Utils {
      * @return the mean of the list
      */
     public static float mean(Float[] list) {
-        float mean = 0.0F;
+        float mean;
         float sum = 0.0F;
-        for (int i = 0; i < list.length; i++) {
-            sum += list[i];
+        for (Float list1 : list) {
+            sum += list1;
         }
         mean = sum / list.length;
 
@@ -507,8 +537,8 @@ public class Utils {
      */
     public static float minimumValue(Float[] list) {
         float min = Float.POSITIVE_INFINITY;
-        for (int i = 0; i < list.length; i++) {
-            min = Math.min(min, list[i]);
+        for (Float list1 : list) {
+            min = Math.min(min, list1);
         }
 
         return min;
@@ -522,26 +552,28 @@ public class Utils {
      */
     public static float maximumValue(Float[] list) {
         float max = Float.NEGATIVE_INFINITY;
-        for (int i = 0; i < list.length; i++) {
-            max = Math.max(max, list[i]);
+        for (Float list1 : list) {
+            max = Math.max(max, list1);
+        }
+        return max;
+    }
+    
+    /**
+     * Method to find the maximum value in the graph from an attribute
+     * @param nodes is the list of vertices
+     * @param attribute is the attribute that we want to find the maximum value
+     * @return the maximum value of attribute
+     */
+    public static double findMaximumAttributeValue(Collection<Object> nodes, String attribute) {
+        double max = Double.NEGATIVE_INFINITY;
+        for (Object node : nodes) {
+            if (!((Vertex) node).getAttributeValue(attribute).contentEquals("Unknown")) {
+                max = Math.max(max, ((Vertex) node).getAttributeValueFloat(attribute));
+            }
         }
         return max;
     }
 
-    /**
-     * Method to convert a list of objects to an arraylist of double
-     *
-     * @param values is the list of objects to be convertable
-     * @return the arraylist of double
-     */
-//    public static Double[] listToDoubleArray(ArrayList<Double> values) {
-//        Double[] doubleArray = new Double[values.size()];
-//        int i = 0;
-//        for (Double f : values) {
-//            doubleArray[i++] = (f != null ? f : Double.NaN);
-//        }
-//        return doubleArray;
-//    }
     /**
      * Method to convert a list of objects to an arraylist of double
      *
@@ -564,7 +596,7 @@ public class Utils {
      * @return a clone of the graph
      */
     public static DirectedGraph<Object, Edge> copyGraph(DirectedGraph<Object, Edge> graph) {
-        DirectedGraph<Object, Edge> clone = new DirectedSparseMultigraph<>();;
+        DirectedGraph<Object, Edge> clone = new DirectedSparseMultigraph<>();
         for (Edge e : graph.getEdges()) {
             clone.addEdge(e, e.getSource(), e.getTarget());
         }
@@ -580,41 +612,36 @@ public class Utils {
      * @param timeScale is the current timescale being used
      * @return the converted value
      */
-    public static double convertTime(String timeFormat, double time, String timeScale) {
+    public static long convertTime(String timeFormat, double time, String timeScale) {
         TimeUnit t;
-
+        if(time == -1)
+            return (long) time;
         // Convert the number to a lower scale being used to avoid losing the decimals
         switch (timeFormat) {
             case "nanoseconds":
                 t = TimeUnit.NANOSECONDS;
                 break;
             case "microseconds":
-                t = TimeUnit.NANOSECONDS;
-                time *= 1000;
+                t = TimeUnit.MICROSECONDS;
                 break;
             case "milliseconds":
-                t = TimeUnit.MICROSECONDS;
-                time *= 1000;
+                t = TimeUnit.MILLISECONDS;
                 break;
             case "seconds":
-                t = TimeUnit.MILLISECONDS;
-                time *= 1000;
+                t = TimeUnit.SECONDS;
                 break;
             case "minutes":
-                t = TimeUnit.SECONDS;
-                time *= 60;
+                t = TimeUnit.MINUTES;
                 break;
             case "hours":
-                t = TimeUnit.MINUTES;
-                time *= 60;
+                t = TimeUnit.HOURS;
                 break;
             case "days":
-                t = TimeUnit.HOURS;
-                time *= 24;
+                t = TimeUnit.DAYS;
                 break;
             case "weeks":
                 t = TimeUnit.DAYS;
-                time *= 7;
+                time = time / 7;
                 break;
             default:
                 t = TimeUnit.NANOSECONDS;
@@ -625,7 +652,7 @@ public class Utils {
                 return t.toNanos((long) time);
             case "microseconds":
                 return t.toMicros((long) time);
-            case "milliseconds:":
+            case "milliseconds":
                 return t.toMillis((long) time);
             case "seconds":
                 return t.toSeconds((long) time);
@@ -638,7 +665,188 @@ public class Utils {
             case "weeks":
                 return (int) t.toDays((long) time) / 7;
             default:
-                return time;
+                return (long) time;
         }
     }
+    
+        /**
+     * Method to normalize vertex's timestamps to start from 0
+     * @param graph
+     * @param overwriteTime
+     */
+    public static void NormalizeTime(DirectedGraph<Object, Edge> graph, boolean overwriteTime) {
+        Collection<Object> vertices = graph.getVertices();
+        double minTime = Double.POSITIVE_INFINITY;
+        for (Object v : vertices) {
+            if (((Vertex) v).getTime() != -1) {
+                minTime = Math.min(minTime, ((Vertex) v).getTime());
+            }
+        }
+        // Normalize time
+        for (Object v : vertices) {
+            if (((Vertex) v).getTime() >= 0) {
+                double normalized = ((Vertex) v).getTime() - minTime;
+                ((Vertex) v).setNormalizedTime(normalized);
+                if (overwriteTime && minTime != 0) {
+                    ((Vertex) v).setTime(Double.toString(normalized));
+                }
+            } else {
+                ((Vertex) v).setNormalizedTime(-1);
+            }
+        }
+    }
+    
+    /**
+     * Method to detect all values for the ATTRIBUTE that appears in the graph
+     * @param vertices
+     * @param attribute
+     * @return 
+     */
+    public static Collection<String> DetectAllPossibleValuesFromAttribute(Collection<Object> vertices, String attribute) {
+        Map<String, String> attributeList = new HashMap<>();
+        for (Object v : vertices) {
+            String value = ((Vertex) v).getAttributeValue(attribute);
+            if(!value.contains("Unknown")) {
+                String[] values = value.split(", ");
+                for(String s : values) {
+                    attributeList.put(s, s);
+                }
+            }
+        }
+        return attributeList.values();
+    }
+    
+    /**
+     * Method that determines if the provided attribute is a timestamp/date/time type of attribute
+     * @param attribute the attribute we want to check
+     * @return TRUE if it is Time/Timestamp/Date or FALSE if not
+     */
+    public static boolean isItTime(String attribute) {
+        if(attribute.equalsIgnoreCase("Time"))         {
+            return true;
+        }
+        if(attribute.equalsIgnoreCase("Timestamp")) {
+            return true;
+        }
+        if(attribute.equalsIgnoreCase("Date")) {
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Method to return a comparator that compares two vertices based on their timestamps
+     * @return the comparator
+     */
+    public static Comparator getVertexTimeComparator() {
+        Comparator comparator = new Comparator<Object>() {
+            @Override
+            public int compare(Object c1, Object c2) {
+                    double c1t = ((Vertex) c1).getTime();
+                    double c2t = ((Vertex) c2).getTime();
+                    if (c1t != c2t) {
+                        return Double.compare(c1t, c2t);
+                    } else {
+                        return ((Vertex) c2).getNodeType().compareTo(((Vertex) c1).getNodeType());
+                    }
+                    //TODO make agent lose priority to appear after the activity
+            }
+        };
+        return comparator;
+    }
+    
+    /**
+     * Generic comparator
+     * @param attribute Is the attribute that we want to sort
+     * @return the comparator for the given attribute
+     */
+    public static Comparator getVertexAttributeComparator(final String attribute) {
+        Comparator comparator = new Comparator<Object>() {
+            @Override
+            public int compare(Object c1, Object c2) {
+                    double c1t = 0;
+                    double c2t = 0;
+                    if(isItTime(attribute)) {
+                        c1t = ((Vertex) c1).getMinTime();
+                        c2t = ((Vertex) c2).getMinTime();
+                    } else if(!tryParseFloat(((Vertex) c1).getAttributeValue(attribute))){
+                        String c1v = ((Vertex) c1).getAttributeValue(attribute);
+                        String c2v = ((Vertex) c2).getAttributeValue(attribute);
+                        return c1v.compareTo(c2v);
+                    } else {
+                        c1t = ((Vertex) c1).getAttributeValueFloat(attribute);
+                        c2t = ((Vertex) c2).getAttributeValueFloat(attribute);
+                    }
+                    if (c1t != c2t) {
+                        return Double.compare(c1t, c2t);
+                    } else {
+                        return ((Vertex) c2).getNodeType().compareTo(((Vertex) c1).getNodeType());
+                    }
+                    //TODO make agent lose priority to appear after the activity
+            }
+        };
+        return comparator;
+    }
+    
+    /**
+     * Method that return a grayscale color from the grayscale gradient
+     * @param value is the current value that we want the color
+     * @param max is the maximum possible value that the previous value can assume
+     * @return the gray color corresponding to the value, which is based on value/max
+     */
+    public static Color getGrayscaleColor(float value, float max)
+    {
+        if(max == 0)
+            max = 1;
+        float gray = value / max * 191;
+        int rgbNum = 255 - (int) gray;
+        return new Color (rgbNum,rgbNum,rgbNum);
+    }
+    
+    /**
+     * Method to determine if the string has a minus sign in the beginning
+     * @param s is the string that we want to know if it has a minus sign
+     * @return TRUE if it has a minus sign and FALSE if it does not have it
+     */
+    public static boolean getMinusSign(String s) {
+        String sign = s.substring(0, 1);
+        boolean isReverse = false;
+        
+        if("-".equals(sign)) {
+            isReverse = true;
+        }
+        return isReverse;
+    }
+    
+    /**
+     * Method to remove the minus sign in the beginning of the string (if it has it)
+     * @param s the string that we want to remove the minus sign
+     * @return the string without the minus sign
+     */
+    public static String removeMinusSign(String s) {
+        String sign = s.substring(0, 1);
+        if("-".equals(sign)) {
+            return s.substring(1);
+        }
+        return s;
+    }
+    
+    /**
+     * Basic traffic light color scheme, returning a gradient from red to orange to green
+     * @param value is the current value
+     * @param min is the minimum possible value
+     * @param max is the maximum possilble value
+     * @param inverted defines if it is red to green or green to red
+     * @return the color based on the current value
+     */
+    public static Paint trafficLight(float value, double min, double max, boolean inverted) {
+        if (inverted) {
+            double aux = min;
+            min = max;
+            max = aux;
+        }
+        int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
+        return new Color(Math.min(255, 510 - proportion), Math.min(255, proportion), 0);
+    }
+
 }

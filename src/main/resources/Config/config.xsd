@@ -1,7 +1,26 @@
 <?xml version="1.0"?>
 <!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
+The MIT License
+
+Copyright 2017 Kohwalter.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
 -->
 
 <xs:schema version="1.0"
@@ -19,6 +38,10 @@ and open the template in the editor.
             <xs:element name="timeScale" type="xs:string"/> 
             <!-- The default layout used when loading the program -->
             <xs:element name="default_layout" type="xs:string"/>
+            <!-- Parameter to define if the Edge's Label should be a factor when considering if two edges should be merged -->
+            <!--If set as True, then both edges will only be merged if their Labels, Types, Source, and Target are the same-->
+            <!--If set as False then both edges will only be merged if their Types, Source, and Target are the same-->
+            <xs:element name="considerEdgeLabelForMerge" type="xs:boolean"/>
             <!--Temporal layout parameters-->
             <xs:element name="temporalLayout" type="temporalLayout" minOccurs="1" maxOccurs="1"/>
             <!--Spatial layout parameters-->
@@ -32,7 +55,7 @@ and open the template in the editor.
             <!-- List of all special vertices that has different stroke -->
             <xs:element name="vertexstroke" type="vertexstroke" minOccurs="0" maxOccurs="unbounded"/>
             <!-- List of types of activity vertex and their configuration values -->
-            <xs:element name="activitycolor" type="activitycolor" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="vertexcolor" type="vertexcolor" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
   
@@ -79,6 +102,8 @@ and open the template in the editor.
             <xs:element name="collapsefunction" type="xs:string"/>
             <!-- Define if the color scheme for the edge is inverted (Inverted: Red = positive values, Green = negative values) -->
             <xs:element name="isInverted" type="xs:string"/>
+            <!--Define the special color for this edge type-->
+            <xs:element name="edgeColor" type="color"/>
         </xs:sequence>
     </xs:complexType>
     
@@ -86,8 +111,6 @@ and open the template in the editor.
     <xs:complexType name="vertexAttributeFilter">
         <xs:sequence>
             <xs:element name="name" type="xs:string"/>
-        </xs:sequence>
-        <xs:sequence>
             <xs:element name="value" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
@@ -115,7 +138,27 @@ and open the template in the editor.
         </xs:sequence>
     </xs:complexType>
     
-    <!-- Activity Vertex Type -->
+    <!--Vertex Color Schema that colors the vertices with the attribute that has the specified value with the specified color-->
+    <!--An automatic version is also avaiable by using the isAutomatic = True parameter where it is only necessary to specify the attribute for each vertex type-->
+    <xs:complexType name="vertexcolor">
+        <xs:sequence>
+            <!--Defines the name of this color schema in the interface-->
+            <xs:element name="generalname" type="xs:string"/>
+            <!--Defines if this color schema will use automatic value detection (isAutomatic = True) or if the user will manually inform the values and their colors (isAutomatic = False)-->
+            <xs:element name="isAutomatic" type="xs:boolean"/>
+            <!--List for the activities attributes and their respective values. Use one entry for each tuple (attribute name, attribute value)--> 
+            <!--If you desire to have different values for the same attribute, then create a new entry-->
+            <xs:element name="activitycolor" type="activitycolor" minOccurs="0" maxOccurs="unbounded"/>
+            <!--List for the entities attributes and their respective values. Use one entry for each tuple (attribute name, attribute value)--> 
+            <!--If you desire to have different values for the same attribute, then create a new entry-->
+            <xs:element name="entitycolor" type="entitycolor" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence><!--List for the agents attributes and their respective values. Use one entry for each tuple (attribute name, attribute value)--> 
+            <!--If you desire to have different values for the same attribute, then create a new entry-->
+            <xs:element name="agentcolor" type="agentcolor" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!--Parameters used in VertexColor for Activities>-->
     <xs:complexType name="activitycolor">
         <xs:sequence>
             <xs:element name="attribute" type="xs:string"/>
@@ -123,14 +166,32 @@ and open the template in the editor.
             <xs:element name="vercolor" type="color"/>
         </xs:sequence>
     </xs:complexType>
-        
-    <!-- Color Type -->
-    <xs:complexType name="color">
-        <xs:sequence minOccurs="0" maxOccurs="unbounded">
-            <xs:element name="r" type="xs:integer"/>
-            <xs:element name="g" type="xs:integer"/>
-            <xs:element name="b" type="xs:integer"/>
+    
+    <!--Parameters used in VertexColor for Entities-->
+    <xs:complexType name="entitycolor">
+        <xs:sequence>
+            <xs:element name="attribute" type="xs:string"/>
+            <xs:element name="value" type="xs:string"/>
+            <xs:element name="vercolor" type="color"/>
         </xs:sequence>
     </xs:complexType>
+    
+    <!--Parameters used in VertexColor for Agents-->
+    <xs:complexType name="agentcolor">
+        <xs:sequence>
+            <xs:element name="attribute" type="xs:string"/>
+            <xs:element name="value" type="xs:string"/>
+            <xs:element name="vercolor" type="color"/>
+        </xs:sequence>
+    </xs:complexType>
+        
+<!-- Color Type -->
+<xs:complexType name="color">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="r" type="xs:integer"/>
+        <xs:element name="g" type="xs:integer"/>
+        <xs:element name="b" type="xs:integer"/>
+    </xs:sequence>
+</xs:complexType>
 
 </xs:schema>

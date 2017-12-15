@@ -1,20 +1,43 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * The MIT License
+ *
+ * Copyright 2017 Kohwalter.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 package br.uff.ic.graphmatching;
 
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.utility.AttributeErrorMargin;
 import br.uff.ic.utility.GraphAttribute;
+import br.uff.ic.utility.GraphCollapser;
+import br.uff.ic.utility.GraphUtils;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.EntityVertex;
+import br.uff.ic.utility.graph.GraphVertex;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
+import edu.uci.ics.jung.graph.util.Pair;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -37,6 +60,7 @@ public class GraphMatching {
     private final Map<String, Object> combinedVertexList;
     private Map<String, AttributeErrorMargin> attributeList;  
     private final Map<String, String> vocabulary; 
+    DirectedGraph<Object, Edge> cg = new DirectedSparseMultigraph<>();
     // AttributeErrorMargin.name = the atribute 
     // AttributeErrorMargin.value = error margin
     // AttributeErrorMargin.value for timeDate in milliseconds for the error margin
@@ -189,7 +213,7 @@ public class GraphMatching {
     public void setRestrictionList(Map<String, AttributeErrorMargin> list) {
 //        attributeList.clear();
 //        attributeList.putAll(list);
-        attributeList = new HashMap<String,AttributeErrorMargin>(list);
+        attributeList = new HashMap<>(list);
     }
     
 
@@ -207,7 +231,7 @@ public class GraphMatching {
         float similarity = 0.0F;
 
         // Compare vertex types: If different types than it is not similar
-        if (!v1.getNodeType().equalsIgnoreCase(v2.getNodeType())) {
+        if (!GraphUtils.isSameVertexTypes(v1, v2)) {
             return false;
         }
 
@@ -215,17 +239,21 @@ public class GraphMatching {
 
         // Check all v1 attributes
         for (GraphAttribute attribute : v1.getAttributes()) {
+//            if(!attribute.getName().equalsIgnoreCase("GraphFile")) {
             attributes.put(attribute.getName(), attribute.getName());
             similarity = compareAttributes(attribute, v2, similarity);
+//            }
         }
 
         // Now check all v2 attributes
         for (GraphAttribute attribute : v2.getAttributes()) {
+//            if(!attribute.getName().equalsIgnoreCase("GraphFile")) {
             // Do not check the same attributes already verified when checking v1
             if (!attributes.containsKey(attribute.getName())) {
                 attributes.put(attribute.getName(), attribute.getName());
                 similarity = compareAttributes(attribute, v1, similarity);
             }
+//            }
         }
 
         // Compute the number of attributes, considering their weights, for the similarity check
@@ -237,14 +265,17 @@ public class GraphMatching {
             }
             size = size + (1 * weight);
         }
-        
-//        System.out.println("Similarity: " + similarity);
-//        System.out.println("Size: " + size);
+//        if(v1.getLabel().equalsIgnoreCase("Player") && v2.getLabel().equalsIgnoreCase("Player")) {
+//            System.out.println(v1.getID() + " " + v2.getID());
+//            System.out.println("Similarity: " + similarity);
+//            System.out.println("Size: " + size);
+//        }
         similarity = similarity / size;
 
 //        System.out.println("Match Similarity between " + v1.getID() + " and " + v2.getID() + ": " + similarity);
         if (similarity >= threshold) {
             isSimilar = true;
+            v1.addAttribute(new GraphAttribute(VariableNames.similarityAttribute, similarity * 100 + "%"));
         }
 
         return isSimilar;
@@ -273,17 +304,16 @@ public class GraphMatching {
             }
             if (weight != 0) {
                 // Dealing with numeric values
+//                System.out.println(attribute.getName() + ": " + av1 + " / " + av2 + " error: " + errorMargin);
                 if (Utils.tryParseFloat(av1) && Utils.tryParseFloat(av2)) { // && Utils.tryParseFloat(errorMargin)) {
                     if (Utils.tryParseFloat(errorMargin)) {
                         if (Utils.FloatEqualTo(Utils.convertFloat(av1), Utils.convertFloat(av2), Utils.convertFloat(errorMargin))) {
                             similarity = similarity + (1 * weight);
-                            //                        System.out.println(attribute.getName() + ": " + av1 + " / " + av2 + " error: " + errorMargin);
                         }
                     } else if (errorMargin.contains("%")) {
                         errorMargin = errorMargin.replaceAll("%", "");
                         if (Utils.FloatSimilar(Utils.convertFloat(av1), Utils.convertFloat(av2), Utils.convertFloat(errorMargin) * 0.01f)) {
                             similarity = similarity + (1 * weight);
-                            //                        System.out.println(attribute.getName() + ": " + av1 + " / " + av2 + " error: " + errorMargin);
                         }
                     }
                 } // Dealing with a timeDate values
@@ -317,11 +347,11 @@ public class GraphMatching {
         Vertex combinedVertex = null;
 
         if (v1 instanceof ActivityVertex) {
-            combinedVertex = new ActivityVertex(v1.getID(), v1.getLabel(), v1.getTimeString());
+            combinedVertex = new ActivityVertex(v1.getID() + ", " + v2.getID(), v1.getLabel(), v1.getTimeString());
         } else if (v1 instanceof EntityVertex) {
-            combinedVertex = new EntityVertex(v1.getID(), v1.getLabel(), v1.getTimeString());
+            combinedVertex = new EntityVertex(v1.getID() + ", " + v2.getID(), v1.getLabel(), v1.getTimeString());
         } else {
-            combinedVertex = new AgentVertex(v1.getID(), v1.getLabel(), v1.getTimeString());
+            combinedVertex = new AgentVertex(v1.getID() + ", " + v2.getID(), v1.getLabel(), v1.getTimeString());
         }
 
         // Add all attributes from v1
@@ -339,10 +369,10 @@ public class GraphMatching {
         }
 
         // Update ID and Label
-        combinedVertex.setID(combinedVertex.getID().replace(" (Merged)", ""));
-        combinedVertex.setID(combinedVertex.getID() + "_" + v2.getID() + " (Merged)");
-        if(!combinedVertex.getLabel().equalsIgnoreCase(v2.getLabel()))
-            combinedVertex.setLabel(combinedVertex.getLabel() + "_" + v2.getLabel());        
+//        combinedVertex.setID(combinedVertex.getID().replace(" (Merged)", ""));
+//        combinedVertex.setID(combinedVertex.getID() + "_" + v2.getID() + " (Merged)");
+//        if(!combinedVertex.getLabel().equalsIgnoreCase(v2.getLabel()))
+//            combinedVertex.setLabel(combinedVertex.getLabel() + "_" + v2.getLabel());        
 
         // TODO: Update time
 //        combinedVertex.setTime(null);
@@ -392,15 +422,11 @@ public class GraphMatching {
 
         for (Edge edge : edges) {
             Edge updatedEdge = edge;
-            boolean source = false;
-            boolean target = false;
             if (combinedVertexList.containsKey(((Vertex)edge.getSource()).getID())) {
                 updatedEdge.setSource(combinedVertexList.get(((Vertex)edge.getSource()).getID()));
-                source = true;
             }
             if (combinedVertexList.containsKey(((Vertex)edge.getTarget()).getID())) {
                 updatedEdge.setTarget(combinedVertexList.get(((Vertex)edge.getTarget()).getID()));
-                target = true;
             }
             // Add the edge
             newEdges.add(updatedEdge);
@@ -447,7 +473,7 @@ public class GraphMatching {
         // Code to combine similar edges from edgeList
         Collection<Edge> values = new ArrayList<>();
         values.addAll(edgeList.values());
-        duplicateEdges = new HashMap<String, Edge>();
+        duplicateEdges = new HashMap<>();
         
         for (Edge e1 : values) {
             for (Edge e2 : values) {
@@ -456,9 +482,12 @@ public class GraphMatching {
                         if(e1.getType().equalsIgnoreCase(e2.getType())) {
                             if(((Vertex)e1.getSource()).getID().equalsIgnoreCase(((Vertex)e2.getSource()).getID())) {
                                 if(((Vertex)e1.getTarget()).getID().equalsIgnoreCase(((Vertex)e2.getTarget()).getID())) {
+                                    edgeList.remove(e1.getID());
                                     edgeList.remove(e2.getID());
-                                    // TO DO: Merge E1 with E2
-                                    
+                                    // Merge E1 with E2
+                                    Edge mergedEdge = new Edge(((Edge)e1).getID(), ((Edge)e1).getType(), ((Edge)e1).getStringValue(), ((Edge)e1).getLabel(), ((Edge)e1).attributes, ((Edge)e1).getTarget(), ((Edge)e1).getSource());
+                                    mergedEdge.merge(e2, "From_GraphMerge");
+                                    edgeList.put(mergedEdge.getID(), mergedEdge);
                                     duplicateEdges.put(e1.getID(), e1);
                                     duplicateEdges.put(e2.getID(), e2);
                                 }
@@ -494,5 +523,48 @@ public class GraphMatching {
         }
 
         return combinedGraph;
+    }
+    
+    public DirectedGraph<Object, Edge> CG() {
+        return cg;
+    }
+    
+    public void asd(DirectedGraph<Object, Edge> graph_01, DirectedGraph<Object, Edge> graph_02) {
+        for(Edge e : graph_01.getEdges()) {
+            Pair endpoints = graph_01.getEndpoints(e);
+            Object v1 = endpoints.getFirst();
+            Object v2 = endpoints.getSecond();
+            cg.addEdge(e, v1, v2);
+        }
+        for(Edge e : graph_02.getEdges()) {
+           Pair endpoints = graph_02.getEndpoints(e);
+            Object v1 = endpoints.getFirst();
+            Object v2 = endpoints.getSecond();
+            cg.addEdge(e, v1, v2);
+        }
+    }
+    
+    public void combineVertices2(Vertex v1, Vertex v2) {
+        DirectedGraph<Object, Edge> clusterGraph = new DirectedSparseMultigraph<>();
+        Collection picked = new ArrayList();
+        picked.add(v1);
+        picked.add(v2);
+        GraphCollapser gCollapser = new GraphCollapser(cg, false);
+        GraphVertex combinedVertex = gCollapser.getClusterGraph(cg, picked);
+        cg = (DirectedGraph<Object, Edge>) gCollapser.collapse(cg, combinedVertex);
+//        combinedVertexList.put(v1.getID(), combinedVertex);
+//        combinedVertexList.put(v2.getID(), combinedVertex);
+    }
+    
+    private void createMergedVertex(DirectedGraph<Object, Edge> clusterGraph, Vertex v, DirectedGraph<Object, Edge> graph) {
+        clusterGraph.addVertex(v);
+        Collection edges = graph.getIncidentEdges(v);
+        for (Object edge : edges) {
+            Object source = ((Edge)edge).getSource();
+            Object target = ((Edge)edge).getTarget();
+//            if (picked.containsAll(endpoints)) {
+            clusterGraph.addEdge((Edge)edge, source, target, graph.getEdgeType((Edge)edge));
+//            }
+        }
     }
 }

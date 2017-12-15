@@ -4,7 +4,7 @@
 
     <groupId>uff</groupId>
     <artifactId>prov-viewer</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.2_Beta</version>
     <packaging>jar</packaging>
     <!--<name>Prov Viewer</name>--> 
     <!--<url>http://maven.apache.org</url> --> 
@@ -198,16 +198,6 @@
             <groupId>jpl</groupId>
             <artifactId>jpl</artifactId>
             <version>3.1.4-alpha</version>
-        </dependency>
-        <dependency>
-            <groupId>it.unibo.alice.tuprolog</groupId>
-            <artifactId>tuprolog</artifactId>
-            <version>2.1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>ufrj</groupId>
-            <artifactId>XMLInference</artifactId>
-            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.directory.studio</groupId>

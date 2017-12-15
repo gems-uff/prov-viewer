@@ -1,15 +1,33 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * The MIT License
+ *
+ * Copyright 2017 Kohwalter.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 package br.uff.ic.graphmatching;
 
 import br.uff.ic.graphmatching.Heuristics.SimpleHeuristic;
 import br.uff.ic.utility.AttributeErrorMargin;
+import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.Vocabulary;
 import br.uff.ic.utility.graph.Edge;
-import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import java.util.Collection;
 import java.util.Map;
@@ -20,6 +38,18 @@ import java.util.Map;
  */
 public class GraphMerger {
     
+//    private String graph01;
+//    private String graph02;
+    
+    
+    public GraphMerger(String g01, String g02) {
+//        graph01 = "(" + g01 + ")";
+//        graph02 = "(" + g02 + ")";
+    }
+    public GraphMerger() {
+//        graph01 = "Graph_01";
+//        graph02 = "Graph_02";
+    }
     /**
      * 
      * @param graph_01
@@ -153,45 +183,25 @@ public class GraphMerger {
             DirectedGraph<Object, Edge> graph_02, 
             GraphMatching combiner) {
         // Correct IDs
-        updateVertexIDs(graph_01, "Graph_01");
-        updateVertexIDs(graph_02, "Graph_02");
-        updateEdgeIDs(graph_01, "Graph_01");
-        updateEdgeIDs(graph_02, "Graph_02");
+//        Utils.updateVertexIDs(graph_01, graph01);
+//        Utils.updateVertexIDs(graph_02, graph02);
+//        Utils.updateEdgeIDs(graph_01, graph01);
+//        Utils.updateEdgeIDs(graph_02, graph02);
+        Utils.NormalizeTime(graph_01, true);
+        Utils.NormalizeTime(graph_02, true);
         
         // Matching Heuristic
         MatchingHeuristic heuristic = new SimpleHeuristic();
         heuristic.MatchGraphs(graph_01, graph_02, combiner);
         
+        return combiner.CG();
         // After matching all vertices
-        combiner.addVertices(graph_01.getVertices());
-        combiner.addVertices(graph_02.getVertices());
-        Collection<Edge> updatedG1edges = combiner.updateEdges(graph_01.getEdges());
-        Collection<Edge> updatedG2edges = combiner.updateEdges(graph_02.getEdges());
-        combiner.addEdges(updatedG1edges);
-        combiner.addEdges(updatedG2edges);
-        
-        return combiner.getCombinedGraph();
-    }
-    
-    /**
-     * 
-     * @param graph
-     * @param ID 
-     */
-    public void updateVertexIDs(DirectedGraph<Object, Edge> graph, String ID) {
-        for (Object v : graph.getVertices()) {
-            ((Vertex)v).setID(ID + "_" + ((Vertex)v).getID());
-        }
-    }
-    
-    /**
-     * 
-     * @param graph
-     * @param ID 
-     */
-    public void updateEdgeIDs(DirectedGraph<Object, Edge> graph, String ID) {
-        for (Edge e : graph.getEdges()) {
-            e.setID(ID + "_" + e.getID());
-        }
+//        combiner.addVertices(graph_01.getVertices());
+//        combiner.addVertices(graph_02.getVertices());
+//        Collection<Edge> updatedG1edges = combiner.updateEdges(graph_01.getEdges());
+//        Collection<Edge> updatedG2edges = combiner.updateEdges(graph_02.getEdges());
+//        combiner.addEdges(updatedG1edges);
+//        combiner.addEdges(updatedG2edges);
+//        return combiner.getCombinedGraph();
     }
 }

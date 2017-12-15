@@ -1,24 +1,49 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * The MIT License
+ *
+ * Copyright 2017 Kohwalter.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 package br.uff.ic.provviewer.Input;
 
 import br.uff.ic.utility.IO.BasePath;
 import br.uff.ic.provviewer.EdgeType;
 import br.uff.ic.provviewer.GraphFrame;
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.provviewer.Vertex.ColorScheme.ColorScheme;
-import br.uff.ic.provviewer.Vertex.ColorScheme.DefaultScheme;
+import br.uff.ic.provviewer.Vertex.ColorScheme.DebugAllTrialsScheme;
+import br.uff.ic.provviewer.Vertex.ColorScheme.VertexColorScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.DefaultVertexColorScheme;
+import br.uff.ic.provviewer.Vertex.ColorScheme.GraphVisualizationScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.ProvScheme;
+import br.uff.ic.provviewer.Vertex.ColorScheme.VertexGraphGrayScaleScheme;
+import br.uff.ic.utility.AttValueColor;
+import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
 import java.awt.Color;
-import java.awt.Paint;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -38,21 +63,21 @@ import org.w3c.dom.NodeList;
  * @author Kohwalter
  */
 public class Config {
-    
-    public int vertexSize = 10;
+
+    public int vertexSize = 40;
 
     //Filter List
     public List<EdgeType> edgetype = new ArrayList<>();
     public List<String> vertexLabelFilter = new ArrayList<>();
 
     //Modes
-    public Collection<ColorScheme> vertexModes = new ArrayList<>();
+    public Map<String, ColorScheme> vertexModes = new HashMap<>();
 
     //Temporal Layout
     public String layoutSpecialVertexType;
-    
+
     // Default Layout
-    public String defaultLayout = "SpatialLayout";
+    public String defaultLayout = "Spatial";
 
     // Coordinates Layout
     public String layoutAxis_X;
@@ -74,15 +99,16 @@ public class Config {
     public double width;
     public double height;
     public String timeScale = "";
+    public boolean considerEdgeLabelForMerge = false;
 
     //Vertex Stroke variables
     public List<String> vertexStrokevariables = new ArrayList<>();
 
     //ActivityVertex
     //All 3 arrays must have the same size
-    public List<String> actVerAtt = new ArrayList<>();
-    public List<String> actVerValue = new ArrayList<>();
-    public List<Paint> actVerColor = new ArrayList<>();
+    public List<AttValueColor> activityVC = new ArrayList<>();
+    public List<AttValueColor> entityVC = new ArrayList<>();
+    public List<AttValueColor> agentVC = new ArrayList<>();
 
     /**
      * Method to configure the tool for the first time using the default graph
@@ -96,6 +122,12 @@ public class Config {
         Initialize(fXmlFile);
 
     }
+    
+    public void resetVertexModeInitializations() {
+        for (ColorScheme vm : vertexModes.values()) {
+            vm.resetInitialization();
+        }
+    }
 
     /**
      * Method to compute the graph scale for the Spatial Layout
@@ -104,20 +136,21 @@ public class Config {
         final ImageIcon icon = new ImageIcon(BasePath.getBasePathForClass(Config.class) + imageLocation);
         width = icon.getIconWidth();
         height = icon.getIconHeight();
-        if(width > 0) {
+        if (width > 0) {
             coordinatesScale = (width * 0.5);
             coordinatesScale = coordinatesScale * 100;
             if (spatialLayoutPosition != 0) {
                 coordinatesScale = coordinatesScale / spatialLayoutPosition;
             }
             coordinatesScale = coordinatesScale / 100;
-        }
-        else
+        } else {
             coordinatesScale = -50;
+        }
     }
 
     public void DetectEdges(Collection<Edge> edges) {
         Map<String, EdgeType> newEdges = new HashMap<>();
+        int colorCount = 0;
         for (Edge edge : edges) {
             boolean isNewType = true;
             boolean isNewLabel = true;
@@ -134,6 +167,8 @@ public class Config {
                 newEdge.type = edge.getType();
                 newEdge.stroke = "MAX";
                 newEdge.collapse = "SUM";
+                newEdge.edgeColor = Utils.getColor(colorCount);
+                colorCount++;
                 newEdges.put(newEdge.type, newEdge);
             }
             if (isNewLabel) {
@@ -141,6 +176,8 @@ public class Config {
                 newEdge.type = edge.getLabel();
                 newEdge.stroke = "MAX";
                 newEdge.collapse = "SUM";
+                newEdge.edgeColor = Utils.getColor(colorCount);
+                colorCount++;
                 newEdges.put(newEdge.type, newEdge);
             }
         }
@@ -150,6 +187,17 @@ public class Config {
 
     }
 
+    public void detectGraphVisualizationModes(Collection<String> graphs) {
+        Map<String, ColorScheme> newGraphModes = new HashMap<>();
+        for(String g : graphs) {
+            if(!vertexModes.containsKey(g)) {
+                GraphVisualizationScheme graphMode = new GraphVisualizationScheme(g);
+                newGraphModes.put(g, graphMode);
+            }
+        }
+        vertexModes.putAll(newGraphModes);
+        InterfaceStatusFilters();
+    }
     public void DetectVertexModes(Collection<Object> vertices) {
         Map<String, String> attributeList = new HashMap<>();
         Map<String, ColorScheme> newAttributes = new HashMap<>();
@@ -157,22 +205,28 @@ public class Config {
             attributeList.putAll(((Vertex) v).attributeList());
         }
         for (String att : attributeList.values()) {
-            boolean isNew = true;
-            for (ColorScheme color : vertexModes) {
-                if (att.equalsIgnoreCase(color.attribute) && color.restrictedAttribute == null) {
-                    isNew = false;
-                }
-            }
-            if (isNew) {
+//            boolean isNew = true;
+            if(!vertexModes.containsKey(att)) {
                 DefaultVertexColorScheme attMode = new DefaultVertexColorScheme(att);
                 newAttributes.put(att, attMode);
             }
+//            for (ColorScheme color : vertexModes.values()) {
+//                if (att.equalsIgnoreCase(color.attribute) && color.restrictedAttribute == null) {
+//                    isNew = false;
+//                }
+//            }
+//            if (isNew) {
+//                DefaultVertexColorScheme attMode = new DefaultVertexColorScheme(att);
+//                newAttributes.put(att, attMode);
+//            }
         }
 
-        vertexModes.addAll(newAttributes.values());
+        vertexModes.putAll(newAttributes);//.addAll(newAttributes.values());
         InterfaceStatusFilters();
     }
     
+    
+
 //    public void DetectVertexAttributeFilterValues(Collection<Object> vertices) {
 //        Map<String, String> valueList = new HashMap<>();
 //        Map<String, ColorScheme> newAttributes = new HashMap<>();
@@ -184,7 +238,6 @@ public class Config {
 //        InterfaceVertexFilters();
 //        GraphFrame.vertexFilterList.setSelectedIndex(0);
 //    }
-
     /**
      * Method to configure the tool
      *
@@ -195,21 +248,28 @@ public class Config {
         try {
             edgetype = new ArrayList<>();
             vertexLabelFilter = new ArrayList<>();
-            vertexModes = new ArrayList<>();
+            vertexModes = new HashMap<>();
             layoutSpecialVertexType = "";
             scale = 1.0;
             vertexStrokevariables = new ArrayList<>();
-            actVerAtt = new ArrayList<>();
-            actVerValue = new ArrayList<>();
-            actVerColor = new ArrayList<>();
+            activityVC = new ArrayList<>();
+            entityVC = new ArrayList<>();
+            agentVC = new ArrayList<>();
 
             EdgeType allEdges = new EdgeType();
-            allEdges.type = "All Edges";
+            allEdges.type = VariableNames.FilterAllEdges;
             allEdges.stroke = "MAX";
             allEdges.collapse = "SUM";
             edgetype.add(allEdges);
             
-            String allvertices = "All Vertices";
+            EdgeType chronological = new EdgeType();
+            chronological.type = VariableNames.ChronologicalEdge;
+            chronological.stroke = "MAX";
+            chronological.collapse = "SUM";
+            edgetype.add(chronological);
+
+
+            String allvertices = VariableNames.FilterAllVertices;
             vertexLabelFilter.add(allvertices);
 
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -221,30 +281,35 @@ public class Config {
             if (nList != null && nList.getLength() > 0 && !nList.item(0).getTextContent().equalsIgnoreCase("")) {
                 vertexSize = Integer.parseInt(nList.item(0).getTextContent());
             }
-            
+
             nList = doc.getElementsByTagName("timeScale");
             if (nList != null && nList.getLength() > 0) {
                 timeScale = nList.item(0).getTextContent().toLowerCase();
             }
-            
+
             nList = doc.getElementsByTagName("default_layout");
-            if(nList.item(0) != null) {
+            if (nList.item(0) != null) {
                 defaultLayout = nList.item(0).getTextContent();
+            }
+            nList = doc.getElementsByTagName("considerEdgeLabelForMerge");
+            if (nList.item(0) != null) {
+                considerEdgeLabelForMerge = Boolean.parseBoolean(nList.item(0).getTextContent());
             }
 
             // Temporal Layout parameters
             nList = doc.getElementsByTagName("temporalLayoutbackbone");
             layoutSpecialVertexType = nList.item(0).getTextContent();
             nList = doc.getElementsByTagName("temporalLayoutscale");
-            if(nList.item(0).getTextContent().equals(""))
+            if (nList.item(0).getTextContent().equals("")) {
                 scale = 1;
-            else
+            } else {
                 scale = Double.parseDouble(nList.item(0).getTextContent());
+            }
             // To avoid empty backbone
-            if(layoutSpecialVertexType.equalsIgnoreCase(""))
+            if (layoutSpecialVertexType.equalsIgnoreCase("")) {
                 layoutSpecialVertexType = "Default";
-            
-            
+            }
+
             // Spatial Layout parameters
             nList = doc.getElementsByTagName("layoutAxis_X");
             layoutAxis_X = nList.item(0).getTextContent();
@@ -253,32 +318,35 @@ public class Config {
             nList = doc.getElementsByTagName("imageLocation");
             imageLocation = nList.item(0).getTextContent();
             nList = doc.getElementsByTagName("imageOffset_X");
-            if(nList.item(0).getTextContent().equals(""))
+            if (nList.item(0).getTextContent().equals("")) {
                 imageOffsetX = 0;
-            else
+            } else {
                 imageOffsetX = Double.parseDouble(nList.item(0).getTextContent());
-            
+            }
+
             nList = doc.getElementsByTagName("imageOffset_Y");
-            if(nList.item(0).getTextContent().equals(""))
+            if (nList.item(0).getTextContent().equals("")) {
                 imageOffsetY = 0;
-            else
+            } else {
                 imageOffsetY = Double.parseDouble(nList.item(0).getTextContent());
-            
+            }
+
             nList = doc.getElementsByTagName("spatialLayoutPosition");
-            if(nList.item(0).getTextContent().equals(""))
+            if (nList.item(0).getTextContent().equals("")) {
                 spatialLayoutPosition = 0;
-            else
+            } else {
                 spatialLayoutPosition = Double.parseDouble(nList.item(0).getTextContent());
-            
+            }
+
             nList = doc.getElementsByTagName("zoomLevel");
-            if(nList.item(0).getTextContent().equals(""))
+            if (nList.item(0).getTextContent().equals("")) {
                 googleZoomLevel = 0;
-            else
+            } else {
                 googleZoomLevel = Double.parseDouble(nList.item(0).getTextContent());
-            if(googleZoomLevel != 0)
+            }
+            if (googleZoomLevel != 0) {
                 orthogonal = false;
-            
-            
+            }
 
             ComputeCoordScale();
             //Edge Types
@@ -293,13 +361,24 @@ public class Config {
                     etype.stroke = eElement.getElementsByTagName("edgestroke").item(0).getTextContent();
                     etype.collapse = eElement.getElementsByTagName("collapsefunction").item(0).getTextContent();
                     if (eElement.getElementsByTagName("isInverted") != null && eElement.getElementsByTagName("isInverted").getLength() > 0) {
-                        if (!eElement.getElementsByTagName("isInverted").item(0).getTextContent().isEmpty())
-                            etype.isInverted = Boolean.parseBoolean(eElement.getElementsByTagName("isInverted").item(0).getTextContent()); 
+                        if (!eElement.getElementsByTagName("isInverted").item(0).getTextContent().isEmpty()) {
+                            etype.isInverted = Boolean.parseBoolean(eElement.getElementsByTagName("isInverted").item(0).getTextContent());
+                        }
                     }
-                        edgetype.add(etype);
+                    Color color;
+                    if (eElement.getElementsByTagName("r").item(0) != null) {
+                        int r = Integer.parseInt(eElement.getElementsByTagName("r").item(0).getTextContent());
+                        int g = Integer.parseInt(eElement.getElementsByTagName("g").item(0).getTextContent());
+                        int b = Integer.parseInt(eElement.getElementsByTagName("b").item(0).getTextContent());
+                        color = new Color(r, g, b);
+                    } else {
+                        color = new Color(0, 0, 0);
+                    }
+                    etype.edgeColor = color;
+                    edgetype.add(etype);
                 }
             }
-            
+
             //Vertex Label Filters
             nList = doc.getElementsByTagName("vertexAttributeFilter");
 
@@ -308,13 +387,23 @@ public class Config {
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
                     String vertexFilter = new String();
-                    vertexFilter = eElement.getElementsByTagName("name").item(0).getTextContent();
+                    if(eElement.getElementsByTagName("logic").item(0) != null) {
+                        if("".equals(eElement.getElementsByTagName("logic").item(0).getTextContent()) && !"".equals(eElement.getElementsByTagName("value").item(0).getTextContent()))
+                            vertexFilter = "(EQ";
+                        else if("".equals(eElement.getElementsByTagName("logic").item(0).getTextContent()))
+                            vertexFilter = "(C";
+                        else
+                            vertexFilter = "(" + eElement.getElementsByTagName("logic").item(0).getTextContent();
+                    } else
+                        vertexFilter = "(EQ";
+                    vertexFilter += ") ";
+                    vertexFilter += eElement.getElementsByTagName("name").item(0).getTextContent();
                     vertexFilter += ": ";
                     vertexFilter += eElement.getElementsByTagName("value").item(0).getTextContent();
                     vertexLabelFilter.add(vertexFilter);
                 }
             }
-            
+
             //Vertex Stroke Types
             nList = doc.getElementsByTagName("vertexstroke");
             for (int temp = 0; temp < nList.getLength(); temp++) {
@@ -332,10 +421,14 @@ public class Config {
 
             //Vertex Color Schemes
             //Default mode is always set, no matter the config.xml
-            DefaultScheme defaultScheme = new DefaultScheme("Default");
-            vertexModes.add(defaultScheme);
             ProvScheme provScheme = new ProvScheme("Prov");
-            vertexModes.add(provScheme);
+            vertexModes.put("Prov", provScheme);
+            
+            DebugAllTrialsScheme allTrials = new DebugAllTrialsScheme("All Trials");
+            vertexModes.put("All Trials", allTrials);
+            
+            VertexGraphGrayScaleScheme graphScheme = new VertexGraphGrayScaleScheme(VariableNames.GraphFile);
+            vertexModes.put(VariableNames.GraphFile, graphScheme);
 
             nList = doc.getElementsByTagName("colorscheme");
             for (int temp = 0; temp < nList.getLength(); temp++) {
@@ -352,18 +445,19 @@ public class Config {
                     String restrictedValue = null;
                     boolean limited = false;
                     boolean restricted = false;
-                    if(eElement.getElementsByTagName("trafficLightType") != null && eElement.getElementsByTagName("trafficLightType").getLength() > 0) {
+                    if (eElement.getElementsByTagName("trafficLightType") != null && eElement.getElementsByTagName("trafficLightType").getLength() > 0) {
                         if (!eElement.getElementsByTagName("trafficLightType").item(0).getTextContent().isEmpty()) {
-                            if(eElement.getElementsByTagName("trafficLightType").item(0).getTextContent().equalsIgnoreCase("type2"))
+                            if (eElement.getElementsByTagName("trafficLightType").item(0).getTextContent().equalsIgnoreCase("type2")) {
                                 isZeroWhite = true;
+                            }
                         }
                     }
-                    if(eElement.getElementsByTagName("isInverted") != null && eElement.getElementsByTagName("isInverted").getLength() > 0) {
+                    if (eElement.getElementsByTagName("isInverted") != null && eElement.getElementsByTagName("isInverted").getLength() > 0) {
                         if (!eElement.getElementsByTagName("isInverted").item(0).getTextContent().isEmpty()) {
                             isInverted = Boolean.parseBoolean(eElement.getElementsByTagName("isInverted").item(0).getTextContent());
                         }
                     }
-                    if(eElement.getElementsByTagName("values") != null && eElement.getElementsByTagName("values").getLength() > 0) {
+                    if (eElement.getElementsByTagName("values") != null && eElement.getElementsByTagName("values").getLength() > 0) {
                         if (!eElement.getElementsByTagName("values").item(0).getTextContent().isEmpty()) {
                             values = eElement.getElementsByTagName("values").item(0).getTextContent();
                         }
@@ -399,31 +493,86 @@ public class Config {
 
                     Class cl = Class.forName("br.uff.ic.provviewer.Vertex.ColorScheme." + eElement.getElementsByTagName("class").item(0).getTextContent());
                     if (restricted) {
-                        Constructor con = cl.getConstructor(boolean.class, boolean.class,String.class, String.class, String.class, String.class, boolean.class, String.class, String.class);
+                        Constructor con = cl.getConstructor(boolean.class, boolean.class, String.class, String.class, String.class, String.class, boolean.class, String.class, String.class);
                         ColorScheme attMode = (ColorScheme) con.newInstance(isZeroWhite, isInverted, attribute, values, maxvalue, minvalue, limited, restrictedAttribute, restrictedValue);
-                        vertexModes.add(attMode);
+                        vertexModes.put(attribute + "(" + restrictedValue + ")", attMode);
                     } else {
                         Constructor con = cl.getConstructor(boolean.class, boolean.class, String.class, String.class, String.class, String.class, boolean.class);
                         ColorScheme attMode = (ColorScheme) con.newInstance(isZeroWhite, isInverted, attribute, values, maxvalue, minvalue, limited);
-                        vertexModes.add(attMode);
+                        vertexModes.put(attribute, attMode);
                     }
 
                 }
             }
-
-            //Activity Variables
-            nList = doc.getElementsByTagName("activitycolor");
-            for (int temp = 0; temp < nList.getLength(); temp++) {
-                Node nNode = nList.item(temp);
+            VertexColorScheme vertexColorScheme;
+            nList = doc.getElementsByTagName("vertexcolor");
+            for (int i = 0; i < nList.getLength(); i++) {
+                Node nNode = nList.item(i);
+                activityVC = new ArrayList<>();
+                entityVC = new ArrayList<>();
+                agentVC = new ArrayList<>();
+                
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element eElement = (Element) nNode;
-                    actVerAtt.add(eElement.getElementsByTagName("attribute").item(0).getTextContent());
-                    actVerValue.add(eElement.getElementsByTagName("value").item(0).getTextContent());
-                    int r = Integer.parseInt(eElement.getElementsByTagName("r").item(0).getTextContent());
-                    int g = Integer.parseInt(eElement.getElementsByTagName("g").item(0).getTextContent());
-                    int b = Integer.parseInt(eElement.getElementsByTagName("b").item(0).getTextContent());
-                    Paint color = new Color(r, g, b);
-                    actVerColor.add(color);
+                    Element e = (Element) nNode;
+                    NodeList innerList;
+                    String generalname = e.getElementsByTagName("generalname").item(0).getTextContent();
+                    String isAutomatic = e.getElementsByTagName("isAutomatic").item(0).getTextContent();
+                    //Activity Variables
+                    innerList = e.getElementsByTagName("activitycolor");
+                    for (int j = 0; j < innerList.getLength(); j++) {
+                        Node innerNode = innerList.item(j);
+                        if (innerNode.getNodeType() == Node.ELEMENT_NODE) {
+                            Element eElement = (Element) innerNode;
+                            AttValueColor avc = new AttValueColor();
+                            avc.name = eElement.getElementsByTagName("attribute").item(0).getTextContent();
+                            if(eElement.getElementsByTagName("value").getLength() > 0 && eElement.getElementsByTagName("value").item(0).getTextContent() != "") {
+                                avc.value = eElement.getElementsByTagName("value").item(0).getTextContent();
+                                int r = Integer.parseInt(eElement.getElementsByTagName("r").item(0).getTextContent());
+                                int g = Integer.parseInt(eElement.getElementsByTagName("g").item(0).getTextContent());
+                                int b = Integer.parseInt(eElement.getElementsByTagName("b").item(0).getTextContent());
+                                avc.color = new Color(r, g, b);
+                            }
+                            activityVC.add(avc);
+                        }
+                    }
+                    //Entity Variables
+                    innerList = e.getElementsByTagName("entitycolor");
+                    for (int j = 0; j < innerList.getLength(); j++) {
+                        Node innerNode = innerList.item(j);
+                        if (innerNode.getNodeType() == Node.ELEMENT_NODE) {
+                            Element eElement = (Element) innerNode;
+                            AttValueColor avc = new AttValueColor();
+                            avc.name = eElement.getElementsByTagName("attribute").item(0).getTextContent();
+                            if(eElement.getElementsByTagName("value").getLength() > 0 && eElement.getElementsByTagName("value").item(0).getTextContent() != "") {
+                                avc.value = eElement.getElementsByTagName("value").item(0).getTextContent();
+                                int r = Integer.parseInt(eElement.getElementsByTagName("r").item(0).getTextContent());
+                                int g = Integer.parseInt(eElement.getElementsByTagName("g").item(0).getTextContent());
+                                int b = Integer.parseInt(eElement.getElementsByTagName("b").item(0).getTextContent());
+                                avc.color = new Color(r, g, b);
+                            }
+                            entityVC.add(avc);
+                        }
+                    }
+                    //Agent Variables
+                    innerList = e.getElementsByTagName("agentcolor");
+                    for (int j = 0; j < innerList.getLength(); j++) {
+                        Node innerNode = innerList.item(j);
+                        if (innerNode.getNodeType() == Node.ELEMENT_NODE) {
+                            Element eElement = (Element) innerNode;
+                            AttValueColor avc = new AttValueColor();
+                            avc.name = eElement.getElementsByTagName("attribute").item(0).getTextContent();
+                            if(eElement.getElementsByTagName("value").getLength() > 0 && eElement.getElementsByTagName("value").item(0).getTextContent() != "") {
+                                avc.value = eElement.getElementsByTagName("value").item(0).getTextContent();
+                                int r = Integer.parseInt(eElement.getElementsByTagName("r").item(0).getTextContent());
+                                int g = Integer.parseInt(eElement.getElementsByTagName("g").item(0).getTextContent());
+                                int b = Integer.parseInt(eElement.getElementsByTagName("b").item(0).getTextContent());
+                                avc.color = new Color(r, g, b);
+                            }
+                            agentVC.add(avc);
+                        }
+                    }
+                    vertexColorScheme = new VertexColorScheme(generalname,activityVC ,entityVC, agentVC, Boolean.parseBoolean(isAutomatic));
+                    vertexModes.put(generalname, vertexColorScheme);
                 }
             }
         } catch (Exception e) {
@@ -447,31 +596,57 @@ public class Config {
         }
         GraphFrame.edgeFilterList.setListData(types);
     }
-    
+
     /**
      * Function to update the vertex filter list in the GraphFrame interface
      */
     private void InterfaceVertexFilters() {
         //Initialize Interface Filters
         String[] types = new String[vertexLabelFilter.size()];
-        for (int x = 0; x < types.length; x++) {
-            types[x] = vertexLabelFilter.get(x);
+        for (int i = 0; i < types.length; i++) {
+            types[i] = vertexLabelFilter.get(i);
         }
+        Arrays.sort(types);
         GraphFrame.vertexFilterList.setListData(types);
     }
 
     /**
      * Function to update the status filter list in the GraphFrame interface
      */
-    private void InterfaceStatusFilters() {
+    public void InterfaceStatusFilters() {
         String[] items = new String[vertexModes.size()];
         int j = 0;
-        for (ColorScheme mode : vertexModes) {
+        for (ColorScheme mode : vertexModes.values()) {
             items[j] = mode.GetName();
             j++;
         }
 
         GraphFrame.StatusFilterBox.setModel(
                 new DefaultComboBoxModel(items));
+    }
+
+    /**
+     * Method to automatically add the GraphFile filter in the Vertex Filters menu
+     * @param graphNames is the list of GraphFile names
+     */
+    public void addGraphFileVertexFilter(Collection<String> graphNames) {
+        String[] types = new String[vertexLabelFilter.size() + (graphNames.size() * 4)];
+        for (int i = 0; i < vertexLabelFilter.size(); i++) {
+            types[i] = vertexLabelFilter.get(i);
+        }
+        int i = vertexLabelFilter.size();
+        for (String s : graphNames) {
+            types[i] = "(EQ) "+ VariableNames.GraphFile + ": " + s;
+            i++;
+            types[i] = "(NE) "+ VariableNames.GraphFile + ": " + s;
+            i++;
+            types[i] = "(C) "+ VariableNames.GraphFile + ": " + s;
+            i++;
+            types[i] = "(NC) "+ VariableNames.GraphFile + ": " + s;
+            i++;
+            
+        }
+        Arrays.sort(types);
+        GraphFrame.vertexFilterList.setListData(types);
     }
 }

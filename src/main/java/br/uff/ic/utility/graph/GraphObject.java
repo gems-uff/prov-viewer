@@ -1,9 +1,30 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * The MIT License
+ *
+ * Copyright 2017 Kohwalter.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
+
 package br.uff.ic.utility.graph;
 
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.utility.GraphAttribute;
 import java.util.Collection;
 import java.util.HashMap;
@@ -14,8 +35,8 @@ import java.util.Map;
  * @author Kohwalter
  */
 public class GraphObject extends Object{
-    private String label;                           // prov:label
     public Map<String, GraphAttribute> attributes;
+    private String label = "Label";
     
     /**
      * Get method to return one specific attribute
@@ -37,11 +58,12 @@ public class GraphObject extends Object{
     }
     
     public String getLabel(){
-        return this.label;
+        return this.attributes.get(label).getAverageValue();
     }
     
     public void setLabel(String t){
-        this.label = t;
+        GraphAttribute time = new GraphAttribute(label, t);
+        this.attributes.put(label, time);
     }
     
     /**
@@ -80,6 +102,10 @@ public class GraphObject extends Object{
         this.attributes.putAll(atts);
     }
     
+    /**
+     * method that returns a Map of the attributes
+     * @return the attributes map
+     */
     public Map<String, String> attributeList()
     {
         Map<String, String> attributeList = new HashMap<>();
@@ -91,5 +117,87 @@ public class GraphObject extends Object{
             }
         }
         return attributeList;
+    }
+    
+    /**
+     * Method to merge all the exixting attributes with another collection of attributes
+     * @param v2 is the collection that contains the attribute values that we want to "merge" with
+     */
+    public void updateAllAttributes(Collection<GraphAttribute> v2) {
+        for (GraphAttribute att : v2) {
+            if (attributes.containsKey(att.getName())) {
+                GraphAttribute temporary = attributes.get(att.getName());
+                temporary.updateAttribute(att.getAverageValue());
+                attributes.put(att.getName(), temporary);
+            } else {
+                attributes.put(att.getName(), new GraphAttribute(att.getName(), att.getAverageValue()));
+            }
+        }
+    }
+    
+    /**
+     * Method to returns all the values from an attribute that are separated by a comma
+     * @param attribute is the attribute that we want the values
+     * @return an array with the values
+     */
+    public String[] getAttributeValues(String attribute) {
+        String values = this.attributes.get(attribute).getAverageValue();
+        return values.split(", ");
+    }
+    
+    /**
+     * Method to return the attribute value (not necessarily a number)
+     * If the attribute does not exist, returns "Unknown"
+     * @param attribute is the attribute that we want the value
+     * @return the attribute's value
+     */
+    public String getAttributeValue(String attribute) {
+        if(attribute.equalsIgnoreCase("Label")) {
+            return getLabel();
+        }
+        GraphAttribute aux = attributes.get(attribute);
+        if(aux != null) {
+            return aux.getAverageValue();
+        }
+        else {
+            return VariableNames.UnknownValue;
+        }
+    }
+    
+    /**
+     * Method that returns TRUE if the vertex has the attribute and FALSE if it does not
+     * @param att is the name of the attribute we want to query
+     * @return if the vertex has the attribute
+     */
+    public boolean hasAttribute(String att) {
+        if(this.attributes.containsKey(att))
+            return true;
+        else
+            return false;
+    }
+    
+    /**
+     * Method that calculates the edge frequency and returns a human-readable value (String)
+     * @param nGraphs is the total number of existing graphs used during the merge
+     * @return the edge's frequency between 0% and 100%
+     */
+    public String getFrequency(float nGraphs) {
+        if(this.hasAttribute(VariableNames.GraphFile)) {
+            float frequency = ((float) this.getAttributeValues(VariableNames.GraphFile).length / (float)nGraphs) * 100;
+            return String.format("%.02f", frequency) + "%";
+        } else
+            return "Frequency Unavailable";
+    }
+    
+    /**
+     * Method that calculates the edge frequency and returns the probability between 0 and 1
+     * @param nGraphs is the total number of existing graphs used during the merge
+     * @return the edge's frequency
+     */
+    public float getFrequencyValue(float nGraphs) {
+        if(this.hasAttribute(VariableNames.GraphFile)) {
+            return ((float) this.getAttributeValues(VariableNames.GraphFile).length / (float)nGraphs);
+        } else
+            return 0;
     }
 }

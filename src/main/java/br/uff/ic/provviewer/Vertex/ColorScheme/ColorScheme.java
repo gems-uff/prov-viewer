@@ -1,7 +1,27 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * The MIT License
+ *
+ * Copyright 2017 Kohwalter.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
+
 package br.uff.ic.provviewer.Vertex.ColorScheme;
 
 import br.uff.ic.utility.graph.Edge;
@@ -37,6 +57,8 @@ public abstract class ColorScheme {
     public Variables variables;
     public double derivateMax = Double.NEGATIVE_INFINITY;
     public double derivateMin = Double.POSITIVE_INFINITY;
+    
+    boolean isInitialized = false;
 
     /**
      * This constructor is used by the Default color scheme
@@ -61,6 +83,8 @@ public abstract class ColorScheme {
      * goes to to a String[] variable and is split with " " due to how XML list
      * works
      *
+     * @param isWhite
+     * @param isInverted
      * @param attribute
      * @param value
      * @param max
@@ -90,6 +114,10 @@ public abstract class ColorScheme {
         this.isZeroWhite = isWhite;
         this.isInverted = isInverted;
     }
+    
+    public void resetInitialization() {
+        isInitialized = false;
+    }
 
     public String GetName() {
         return attribute;
@@ -99,20 +127,11 @@ public abstract class ColorScheme {
         if (isZeroWhite) {
             return splittedTrafficLight(value, min, max, inverted);
         } else {
-            return trafficLight(value, min, max, inverted);
+            return Utils.trafficLight(value, min, max, inverted);
         }
     }
 
-    public Paint trafficLight(float value, double min, double max, boolean inverted) {
-        if (inverted) {
-            double aux = min;
-            min = max;
-            max = aux;
-        }
-        int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
-        return new Color(Math.min(255, 510 - proportion), Math.min(255, proportion), 0);
-    }
-
+    
     public Paint splittedTrafficLight(float value, double min, double max, boolean inverted) {
         // normalize the color between 0 and 1
         float vPositive;
@@ -182,8 +201,6 @@ public abstract class ColorScheme {
 
     public Paint GetMinMaxColor(Object v) {
         if (!((Vertex) v).getAttributeValue(this.attribute).contentEquals("Unknown")) {
-            // 
-//            boolean isDerivate = true;
             if (variables.doDerivate) {
                 float slope = GraphUtils.getSlope(v, this);
                 if (slope == Float.NEGATIVE_INFINITY) {
@@ -194,7 +211,7 @@ public abstract class ColorScheme {
                     slope = (float) this.derivateMax;
                 }
                 return this.CompareValue(slope, this.derivateMin, this.derivateMax, isInverted);
-            } //
+            }
             else if (!limited) {
                 return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.min, this.max, isInverted);
             } else {
@@ -228,12 +245,18 @@ public abstract class ColorScheme {
             }
             derivateValues = Utils.removeInfinity(derivateValues);
             if (variables.removeDerivateOutliers) {
-                derivateValues = Utils.removeOutLierAnalysis(derivateValues);
+                derivateValues = Utils.removeOutLierAnalysis(derivateValues, this.attribute);
             } else {
                 Collections.sort(derivateValues);
             }
-            this.derivateMax = derivateValues.get(derivateValues.size() - 1);
-            this.derivateMin = derivateValues.get(0);
+            if(derivateValues.size() >=1) {
+                this.derivateMax = derivateValues.get(derivateValues.size() - 1);
+                this.derivateMin = derivateValues.get(0);
+            }
+            else {
+                this.derivateMax = 0;
+                this.derivateMin = 0;
+            }
             computedMinMax = true;
         }
     }
@@ -257,12 +280,14 @@ public abstract class ColorScheme {
             }
             derivateValues = Utils.removeInfinity(derivateValues);
             if (variables.removeDerivateOutliers) {
-                derivateValues = Utils.removeOutLierAnalysis(derivateValues);
+                derivateValues = Utils.removeOutLierAnalysis(derivateValues, this.attribute);
             } else {
                 Collections.sort(derivateValues);
             }
-            this.derivateMax = derivateValues.get(derivateValues.size() - 1);
-            this.derivateMin = derivateValues.get(0);
+            if(derivateValues.size() > 0) {
+                this.derivateMax = derivateValues.get(derivateValues.size() - 1);
+                this.derivateMin = derivateValues.get(0);
+            }
             computedMinMax = true;
         }
     }

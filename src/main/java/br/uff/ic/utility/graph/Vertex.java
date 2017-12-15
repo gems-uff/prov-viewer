@@ -1,7 +1,33 @@
+/*
+ * The MIT License
+ *
+ * Copyright 2017 Kohwalter.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
 package br.uff.ic.utility.graph;
 
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.utility.GraphAttribute;
 import br.uff.ic.utility.Utils;
+import static br.uff.ic.utility.Utils.isItTime;
 import java.awt.BasicStroke;
 import java.awt.Paint;
 import java.awt.Stroke;
@@ -18,8 +44,11 @@ public abstract class Vertex extends GraphObject {
 
     private String id;                              // prov:id
     private double normalizedTime;
-    private String time;                            // prov:startTime
+//    private String time;                            // prov:startTime
                                                     // Refactor for datetime type
+    private String timeFormat;
+    private String timeScale;
+    private String timeLabel = "Timestamp";
     
     /**
      * Constructor without attributes
@@ -31,9 +60,13 @@ public abstract class Vertex extends GraphObject {
      */
     public Vertex(String id, String label, String time) {
         this.id = id;
+//        this.time = time;
+        GraphAttribute t = new GraphAttribute(timeLabel, time);
+        this.attributes = new HashMap<>();
+        this.attributes.put(t.getName(), t);
         setLabel(label);
-        this.time = time;
-        this.attributes  = new HashMap<>();
+        timeFormat = "nanoseconds";
+        timeScale = "nanoseconds";
     }
     
     /**
@@ -45,9 +78,13 @@ public abstract class Vertex extends GraphObject {
      */
     public Vertex(String id, String label, String time, Map<String, GraphAttribute> attributes) {
         this.id = id;
-        setLabel(label);
-        this.time = time;
+        this.attributes = new HashMap<>();
         this.attributes.putAll(attributes);
+        GraphAttribute t = new GraphAttribute(timeLabel, time);
+        this.attributes.put(t.getName(), t);
+        setLabel(label);
+        timeFormat = "nanoseconds";
+        timeScale = "nanoseconds";
     }
 
     /**
@@ -87,18 +124,27 @@ public abstract class Vertex extends GraphObject {
      *
      * @return (int) date
      */
-    public float getTime() {    
+    public double getTime() {    
 //        String[] day = this.time.split(":");
-        if(Utils.tryParseFloat(this.time))
-            return (Float.parseFloat(this.time));
-        else if(Utils.tryParseDate(this.time))
+        String time = this.attributes.get(timeLabel).getAverageValue();
+        if(Utils.tryParseFloat(time))
+            return (Double.parseDouble(time));
+        else if(Utils.tryParseDate(time))
         {
-//            System.out.println("Time Milliseconds: " + (float) Utils.convertStringDateToDouble(this.time));
-            double milliseconds =  Utils.convertStringDateToFloat(this.time);
-//            int weeks = (int) (milliseconds / (1000*60*60*24*7));
-//            long days = TimeUnit.MILLISECONDS.toDays((long) milliseconds);
-//            long hours = TimeUnit.MILLISECONDS.toHours((long) milliseconds);
-            return (float) milliseconds;
+            double milliseconds =  Utils.convertStringDateToFloat(time);
+            return milliseconds;
+        }
+        else
+            return -1;
+    }
+    public double getMinTime() {    
+        String time = this.attributes.get(timeLabel).getMin();
+        if(Utils.tryParseFloat(time))
+            return (Double.parseDouble(time));
+        else if(Utils.tryParseDate(time))
+        {
+            double milliseconds =  Utils.convertStringDateToFloat(time);
+            return milliseconds;
         }
         else
             return -1;
@@ -109,7 +155,7 @@ public abstract class Vertex extends GraphObject {
      * @return time
      */
     public String getTimeString() {    
-        return this.time;
+        return this.attributes.get(timeLabel).getAverageValue();
     }
     
     /**
@@ -117,7 +163,8 @@ public abstract class Vertex extends GraphObject {
      * @param t is the new value
      */
     public void setTime(String t){
-        this.time = t;
+        GraphAttribute time = new GraphAttribute(timeLabel, t);
+        this.attributes.put(timeLabel, time);
     }
 
     
@@ -128,7 +175,7 @@ public abstract class Vertex extends GraphObject {
      * @return (String) the day of the week (mon, tue, wed, ...)
      */
     public String getDayName() {
-        String[] day = this.time.split(":");
+        String[] day = this.attributes.get(timeLabel).getAverageValue().split(":");
         return day[1];
     }
     
@@ -143,16 +190,28 @@ public abstract class Vertex extends GraphObject {
                 + "<br>ID: " + this.id + "<br>"
                 + "<b>Label: " + getLabel() + "</b>"
                 + " <br>" + printTime()
+                + " <br>"
                 + " <br>" + printAttributes();
     }
     
+    public String getTooltip(int nGraphs) {
+        return this.getNodeType() + "<br> "
+                + "<br>ID: " + this.id + "<br>"
+                + "<b>Label: " + getLabel() + "</b>"
+                + " <br>" + printTime()
+                + "<br>Frequency: " + getFrequency(nGraphs)
+                + " <br>"
+                + " <br>" + printAttributes();
+    }
     public String printTime()
     {
-//        if(this.time.isEmpty())
-//        {
-//            return "";
-//        }
-        return "Timestamp: " + this.time;
+        double nt = this.getTime();
+        return "Timestamp: " + Utils.convertTime(timeFormat, nt, timeScale) + " (" + timeScale + ")";
+    }
+    
+    public void setTimeScalePrint(String timeFormat, String timeScale) {
+        this.timeFormat = timeFormat;
+        this.timeScale = timeScale;
     }
 
     /**
@@ -161,26 +220,30 @@ public abstract class Vertex extends GraphObject {
      * @param attribute
      * @return 
      */
+    @Override
     public String getAttributeValue(String attribute) {
-        if(attribute.equalsIgnoreCase("Label"))
-        {
+        if(attribute.equalsIgnoreCase("Label")) {
             return getLabel();
-        }
-        if(attribute.equalsIgnoreCase("Time"))
-        {
-            return String.valueOf(getTime());
-        }
-        if(attribute.equalsIgnoreCase("Date"))
-        {
-            return String.valueOf(getTime());
         }
         GraphAttribute aux = attributes.get(attribute);
         if(aux != null) {
             return aux.getAverageValue();
         }
         else {
-            return "Unknown";
+            return deltaAttributeValue(attribute);
+//            return "Unknown";
         }
+    }
+    
+    /**
+     * Method to return the values in an attribute that were separated by a comma
+     * @param attribute is the attribute that we want to get the values
+     * @return an array with the values
+     */
+    @Override
+    public String[] getAttributeValues(String attribute) {
+        String values = this.getAttributeValue(attribute);
+        return values.split(", ");
     }
     
     /**
@@ -189,24 +252,79 @@ public abstract class Vertex extends GraphObject {
      * @return 
      */
     public float getAttributeValueFloat(String attribute) {
-        if(attribute.equalsIgnoreCase("Time"))
-        {
-            return getTime();
+        if(isItTime(attribute)) {
+            return (float)getNormalizedTime();
         }
         if(attributes.get(attribute) == null) {
-//            System.out.println("If getAttributeValue equals NULL: " + attributes.get(attribute).getValue());
-            return Float.NaN;
+            return deltaAttributeFloatValue(attribute);
         }
-            
-        if(Utils.tryParseFloat(attributes.get(attribute).getAverageValue())) {
-            return Utils.convertFloat(attributes.get(attribute).getAverageValue());
+        return getAttFloatValue(attribute);
+    }
+    
+    
+    
+    /**
+     * Method that gets both attributes in the string and subtracts them. I.e.: First_Attribute - Second_Attribute
+     * @param attribute must be a string with both atributes separared by " - ". Example: "First_Attribute - Second_Attribute"
+     * @return the delta
+     */
+    private float deltaAttributeFloatValue(String attribute) {
+        String[] atts = attribute.split(" - ");
+        if(atts.length == 2)
+            return getAttFloatValue(atts[0]) - getAttFloatValue(atts[1]);
+        else
+            return Float.NaN;
+    }
+    
+    /**
+     * Method that returns the delta from the two attributes or Unknown if any attribute is invalid
+     * @param attribute must be a string with both atributes separared by " - ". Example: "First_Attribute - Second_Attribute"
+     * @return the delta as a String
+     */
+    private String deltaAttributeValue(String attribute) {
+        if(attribute.equalsIgnoreCase("Label")) {
+            return getLabel();
+        }
+        if(isItTime(attribute)) {
+            return String.valueOf(getTime());
+        }
+        
+        String[] atts = attribute.split(" - ");
+        if(atts.length == 2) {
+            if(VariableNames.UnknownValue.equals(getAttributeValue(atts[0])) || VariableNames.UnknownValue.equals(getAttributeValue(atts[1]))) return VariableNames.UnknownValue;
+            else {
+                String delta = Float.toString(getAttFloatValue(atts[0]) - getAttFloatValue(atts[1]));
+                return delta;
+            }
+        }
+        else
+            return VariableNames.UnknownValue;
+    }
+    
+    /**
+     * Method that returns the float value of the attribute. If it is not convertable, then it returns Float.NaN
+     * @param attribute the attribute that we want to get the value from
+     * @return the float value or Float.NaN if it is not possible to convert to float
+     */
+    private float getAttFloatValue(String attribute) {
+        if(isItTime(attribute)) {
+            return (float)getNormalizedTime();
+        }
+        if(attributes.get(attribute) != null) {
+            if(Utils.tryParseFloat(attributes.get(attribute).getAverageValue())) {
+                return Utils.convertFloat(attributes.get(attribute).getAverageValue());
+            }
+            else {
+                
+                return Float.NaN;
+            }
         }
         else {
-//            System.out.println("Else getAttributeValue: " + attributes.get(attribute).getValue());
             return Float.NaN;
         }
     }
     
+
     /**
      * Method for getting the vertex border size
      *

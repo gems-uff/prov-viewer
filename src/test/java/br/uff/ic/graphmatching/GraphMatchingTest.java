@@ -1,8 +1,27 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * The MIT License
+ *
+ * Copyright 2017 Kohwalter.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
+
 package br.uff.ic.graphmatching;
 
 import br.uff.ic.utility.AttributeErrorMargin;
@@ -98,6 +117,11 @@ public class GraphMatchingTest {
         restrictionList.put("a4", epsilon);
         v1.addAttribute(av1);
         v2.addAttribute(av2);
+        
+        epsilon = new AttributeErrorMargin("Timestamp", "0", 0);
+        restrictionList.put("Timestamp", epsilon);
+        epsilon = new AttributeErrorMargin("Label", "0", 0);
+        restrictionList.put("Label", epsilon);
         
         GraphMatching instance = new GraphMatching(restrictionList, vocabulary.getVocabulary(), threshold);
         boolean result = instance.isSimilar(v1, v2);
@@ -211,6 +235,11 @@ public class GraphMatchingTest {
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         
+        epsilon = new AttributeErrorMargin("Timestamp", "0", 0);
+        restrictionList.put("Timestamp", epsilon);
+        epsilon = new AttributeErrorMargin("Label", "0", 0);
+        restrictionList.put("Label", epsilon);
+        
         GraphMatching instance = new GraphMatching(restrictionList, threshold);
         boolean result = instance.isSimilar(v1, v2);
         assertEquals(expResult, result);
@@ -257,7 +286,7 @@ public class GraphMatchingTest {
         
         GraphMatching instance = new GraphMatching(null, 0.0f);
         
-        Vertex expResult = new ActivityVertex(v1.getID() + "_" + v2.getID() + " (Merged)", v1.getLabel() + "_" + v2.getLabel(), v1.getTimeString());
+        Vertex expResult = new ActivityVertex(v1.getID() + ", " + v2.getID(), v1.getLabel() + ", " + v2.getLabel(), v1.getTimeString());
         GraphAttribute aResult;
         
         aResult = new GraphAttribute("a1", "Asd, edf");
@@ -288,7 +317,14 @@ public class GraphMatchingTest {
         aResult = new GraphAttribute("a6", "6");
         expResult.addAttribute(aResult);
         
+        expResult.attributes.get("Timestamp").updateAttribute("0");
+        expResult.attributes.get("Label").updateAttribute(v1.getLabel() + ", " + v2.getLabel());
+        
         Vertex result = instance.combineVertices(v1, v2);
+        System.out.println("result: " + result.getLabel());
+        System.out.println("expResult: " + expResult.getLabel());
+        System.out.println("result: " + result.toString());
+        System.out.println("expResult: " + expResult.toString());
         assertEquals(expResult.toString(), result.toString());
     }
 //

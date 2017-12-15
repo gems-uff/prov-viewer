@@ -1,12 +1,41 @@
+/*
+ * The MIT License
+ *
+ * Copyright 2017 Kohwalter.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package br.uff.ic.provviewer.Vertex;
 
+import br.uff.ic.provviewer.VariableNames;
+import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.GraphUtils;
+import br.uff.ic.utility.Utils;
+import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.graph.EntityVertex;
-import edu.uci.ics.jung.graph.Graph;
+import br.uff.ic.utility.graph.GraphVertex;
+import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.visualization.decorators.EllipseVertexShapeTransformer;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
+import java.util.Collection;
 
 /**
  * Class that defines each vertex type shape
@@ -17,42 +46,123 @@ import java.awt.geom.Ellipse2D;
 public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
 
     int defaultSize = 15;
-    public VertexShape() {
-        setSizeTransformer(new VertexSize<V>(defaultSize));
-    }
+    String attribute = "Timestamp";
+    String selectedShape = "Prov";
+    int max;
+    Variables variables;
 
-    public VertexShape(int vertexSize) {
+    public VertexShape(int vertexSize, Variables v) {
         defaultSize = vertexSize;
         setSizeTransformer(new VertexSize<V>(vertexSize));
+        variables = v;
+    }
+    
+    public VertexShape(int vertexSize, String selectedMode, String att, Collection<Object> vertices, Variables v) {
+        defaultSize = vertexSize;
+        selectedShape = selectedMode;
+        setSizeTransformer(new VertexSize<V>(vertexSize));
+        attribute = att;
+        max = (int) Utils.findMaximumAttributeValue(vertices, attribute);
+        variables = v;
     }
 
     /**
-     * Create the vertex shape using VertexShapeFactory<V> factory;
+     * Create the vertex shape using VertexShapeFactory factory;
      *
      * @param v JUNG's V (Vertex) type
      * @return Shape
      */
     @Override
     public Shape transform(V v) {
-        if (v instanceof Graph) {
-            int graphSize = GraphUtils.getCollapsedVertexSize(v);
-            Object vertex;
-            vertex = GraphUtils.hasAgentVertex(v);      
+        switch (selectedShape) {
+            case "Prov":
+                return defaultShape(v);
+            case "Summarized":
+                return summarizedShape(v);
+            case "Graphs":
+                return multipleGraphShape(v);
+            case "Attribute":
+                return attributeValueShape(v);
+            default:
+                return defaultShape(v);
+        }
+    }
 
-            v = (V) vertex;
-            setSizeTransformer(new VertexSize<V>(defaultSize + graphSize));
-        }
-        else
+    /**
+     * Method that defines the default vertex shape
+     *
+     * @param v is the vertex
+     * @return the vertex shape
+     */
+    private Shape summarizedShape(V v) {
+        if (v instanceof GraphVertex) {
+            vertexGraphSizeTransformer(v);
+        } else {
             setSizeTransformer(new VertexSize<V>(defaultSize));
-        
-        if (v instanceof EntityVertex) {
-            return new Ellipse2D.Float(-7, -7, defaultSize, defaultSize);
         }
-        if (v instanceof AgentVertex) {
+        return provShape(v, defaultSize);
+    }
+    
+    private Shape defaultShape(V v) {
+        setSizeTransformer(new VertexSize<V>(defaultSize));
+        return provShape(v, defaultSize);
+    }
+
+    /**
+     * Method that defines the prov shapes for the vertices
+     *
+     * @param v is the vertex
+     * @param size is the size that we want for the vertex
+     * @return the vertex shape
+     */
+    private Shape provShape(V v, int size) {
+        if (v instanceof AgentVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexAgentAttribute)) {
             return factory.getRegularPolygon(v, 5);
-        } else//activity vertex 
-        {
-            return factory.getRegularPolygon(v, 4);
+        } else if (v instanceof ActivityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexActivityAttribute)) {{//activity vertex
+            return factory.getRoundRectangle(v);
         }
+        } else if (v instanceof EntityVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexEntityAttribute)) {
+            return new Ellipse2D.Float(-7, -7, size, size);
+        } else // Unknown
+            return factory.getRegularPolygon(v, 3);
+    }
+
+    /**
+     * Default Method for setting the vertex-graph size transformer
+     *
+     * @param v is the graph vertex
+     */
+    private void vertexGraphSizeTransformer(V v) {
+        float graphSize = GraphUtils.getCollapsedVertexSize(v);
+        float maxVertices = variables.graph.getVertexCount() * 0.25f;
+        graphSize = graphSize / maxVertices;
+        int size = (int) (defaultSize * (1.1 + 3 * graphSize));
+        setSizeTransformer(new VertexSize<V>(size));
+    }
+
+    /**
+     * Method to define the vertex size based on the number of graphs it belongs
+     *
+     * @param v is the vertex
+     * @return the vertex shape
+     */
+    private Shape multipleGraphShape(V v) {
+        int numberOfGraphs;
+        int vertexSize;
+        String[] graphs = ((Vertex) v).getAttributeValues(VariableNames.GraphFile);
+        numberOfGraphs = graphs.length;
+        vertexSize = (int) (defaultSize * (1 + 1.5 * (numberOfGraphs - 1) / variables.numberOfGraphs));
+        setSizeTransformer(new VertexSize<V>(vertexSize));
+        return provShape(v, vertexSize);
+    }
+    
+    private Shape attributeValueShape(V v) {
+
+        double value;
+        int vertexSize;
+        value = ((Vertex)v).getAttributeValueFloat(attribute);
+        vertexSize = (int) (defaultSize * 2 * value / max);
+        setSizeTransformer(new VertexSize<V>(vertexSize));
+        return provShape(v, vertexSize);
     }
 }

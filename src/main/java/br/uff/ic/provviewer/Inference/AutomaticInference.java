@@ -1,12 +1,32 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * The MIT License
+ *
+ * Copyright 2017 Kohwalter.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 package br.uff.ic.provviewer.Inference;
 
 import br.uff.ic.graphmatching.GraphMatching;
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.utility.AttributeErrorMargin;
+import br.uff.ic.utility.GraphUtils;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
@@ -223,8 +243,10 @@ public class AutomaticInference {
 //        return clusters;
 //    }
     
-    
     public ArrayList<ConcurrentHashMap<String, Object>> applySimilarity(boolean updateError, boolean verifyWithinCluster) {
+        return applySimilarity(updateError, verifyWithinCluster, false);
+    }
+    public ArrayList<ConcurrentHashMap<String, Object>> applySimilarity(boolean updateError, boolean verifyWithinCluster, boolean isConsideringOnlyDirectNeighbors) {
         isUpdating = updateError;
         isRestrictingVariation = verifyWithinCluster;
         
@@ -232,8 +254,12 @@ public class AutomaticInference {
             if(!isVisited(p)) {
                 visited(p);
                 ConcurrentHashMap<String, Object> c = new ConcurrentHashMap<>();
-                c.put(((Vertex) p).getID(), p);
-                ArrayList<Object> n = getNeighbours(p, c);
+                    c.put(((Vertex) p).getID(), p);
+                ArrayList<Object> n;
+                if(isConsideringOnlyDirectNeighbors)
+                    n = getNeighbours(p, c);
+                else
+                    n = getNeighboursEntireGraph(p, c);
                 expandCluster(p, n, c, c);
                 resultList.add(c);
             }
@@ -249,7 +275,7 @@ public class AutomaticInference {
             if(!isVisited(point)) {
                 visited(point);
 //                c.add(point);
-                c.put(((Vertex) point).getID(), point);
+                    c.put(((Vertex) point).getID(), point);
                 ArrayList<Object> n2 = getNeighbours(point, cg);
                 n = merge(n, n2);
             }
@@ -269,6 +295,40 @@ public class AutomaticInference {
         return a;
     }
     
+    /**
+     * Method to do normal clustering, dicarding vertex linkage
+     * @param current is the current vertex
+     * @param cg
+     * @return 
+     */
+    private ArrayList<Object> getNeighboursEntireGraph(Object current, ConcurrentHashMap<String, Object> cg) {
+        ArrayList<Object> neighbor = new ArrayList<>();
+        Collection<Object> points = graph.getVertices();
+        for(Object point : points) {
+            // TODO: Revert to original getDistance
+            if(!point.equals(current)) {
+                if(testing) {
+                    if(getDistanceSingleAttribute(current, point, cg)) {
+                        neighbor.add(point);
+                    }
+                }
+                else {
+                    if(getDistance(current, point, cg)) {
+                        neighbor.add(point);
+                    }
+                }
+            }
+            
+        }
+        return neighbor;
+    }
+    
+    /**
+     * Method to do the similarity collapse considering only the vertex neighbors
+     * @param current
+     * @param cg
+     * @return 
+     */
     private ArrayList<Object> getNeighbours(Object current, ConcurrentHashMap<String, Object> cg) {
         ArrayList<Object> neighbor = new ArrayList<>();
         Collection<Object> points = graph.getNeighbors(current);
@@ -332,11 +392,19 @@ public class AutomaticInference {
     }
     
     private double isSimilarSingleAttribute(Object p, Object q) {
-
-        double dx = ((Vertex)p).getAttributeValueFloat(attribute) - ((Vertex)q).getAttributeValueFloat(attribute);
-
-        double distance = Math.sqrt(dx * dx);
-
+        double distance = Double.POSITIVE_INFINITY;
+//        if(!((Vertex)p).getNodeType().equalsIgnoreCase(((Vertex)q).getNodeType()))
+        if (!GraphUtils.isSameVertexTypes((Vertex)p, (Vertex)q))
+            return distance;
+        if(Utils.tryParseFloat(((Vertex)p).getAttributeValue(attribute))) {
+            double dx = ((Vertex)p).getAttributeValueFloat(attribute) - ((Vertex)q).getAttributeValueFloat(attribute);
+            distance = Math.sqrt(dx * dx);
+        } else {
+            String v1 = ((Vertex)p).getAttributeValue(attribute);
+            String v2 = ((Vertex)q).getAttributeValue(attribute);
+            if(v1.equalsIgnoreCase(v2) && !v1.equalsIgnoreCase(VariableNames.UnknownValue))
+                distance = 0;
+        }
         return distance;
     }
     

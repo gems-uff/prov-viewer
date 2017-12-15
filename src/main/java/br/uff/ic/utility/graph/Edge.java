@@ -1,11 +1,35 @@
+/*
+ * The MIT License
+ *
+ * Copyright 2017 Kohwalter.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
 package br.uff.ic.utility.graph;
 
 import br.uff.ic.utility.GraphAttribute;
 import br.uff.ic.provviewer.EdgeType;
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.Utils;
 import java.awt.Color;
-import java.awt.Paint;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,20 +43,56 @@ public class Edge extends GraphObject {
     private String id;
     private Object source;
     private Object target;
-    //private String influence;      // Influence type (i.e. Damage)
-    private String value;          // Influence Value (i.e. 5.0)
     private final String type;           // Edge type (prov edges)
     //used to hide this edge when collapsing a group of edges
-    private boolean hide;
-    //used to say this edge is a temporary one
-    private boolean collapsed;
-    private Color defaultColor = new Color(0, 255, 255);
+//    private boolean hide;
+    private Color defaultColor = new Color(0, 0, 255);
+    private String influenceName = "Influence";
 
+    /**
+     * Constructor for testing purposes since it construct a mostly blank edge
+     * @param id is the edge ID
+     * @param target is the target vertex
+     * @param source is the source vertex
+     */
+    public Edge(String id, Object target, Object source) {
+        this.id = id;
+        this.source = source;
+        this.target = target;
+        this.type = "";
+//        hide = false;
+        this.attributes = new HashMap<>();
+        GraphAttribute att = new GraphAttribute(influenceName, "");
+        this.attributes.put(att.getName(), att);
+        if(!this.hasAttribute(VariableNames.edgeHiddenAttribute)) {
+            GraphAttribute hide = new GraphAttribute(VariableNames.edgeHiddenAttribute, "false");
+            this.attributes.put(hide.getName(), hide);
+        }
+//        this.attributes.putAll(attributes);
+        setLabel("");
+    }
+    
+    public Edge(String id, String type, Object target, Object source) {
+        this.id = id;
+        this.source = source;
+        this.target = target;
+        this.type = type;
+//        hide = false;
+        this.attributes = new HashMap<>();
+        GraphAttribute att = new GraphAttribute(influenceName, "");
+        this.attributes.put(att.getName(), att);
+        if(!this.hasAttribute(VariableNames.edgeHiddenAttribute)) {
+            GraphAttribute hide = new GraphAttribute(VariableNames.edgeHiddenAttribute, "false");
+            this.attributes.put(hide.getName(), hide);
+        }
+//        this.attributes.putAll(attributes);
+        setLabel(type);
+    }
+    
     /**
      * Constructor
      *
      * @param id
-     * @param influence
      * @param type
      * @param value
      * @param label
@@ -40,23 +100,21 @@ public class Edge extends GraphObject {
      * @param target
      * @param source
      */
-    public Edge(String id, String influence, String type, String value,
+    public Edge(String id, String type, String value,
             String label, Map<String, GraphAttribute> attributes, Object target, Object source) {
         this.id = id;
         this.source = source;
         this.target = target;
         this.type = type;
-        if (influence.equalsIgnoreCase("") || (influence == null) || influence.equalsIgnoreCase("Neutral")) {
-            setLabel("Neutral");
-            this.value = "0";
-        } else {
-            setLabel(influence);
-            this.value = value;
+//        hide = false;
+        this.attributes = new HashMap<>(attributes);
+        GraphAttribute att = new GraphAttribute(influenceName, value);
+        this.attributes.put(att.getName(), att);
+        if(!this.hasAttribute(VariableNames.edgeHiddenAttribute)) {
+            GraphAttribute hide = new GraphAttribute(VariableNames.edgeHiddenAttribute, "false");
+            this.attributes.put(hide.getName(), hide);
         }
         setLabel(label);
-        hide = false;
-        collapsed = false;
-        this.attributes.putAll(attributes);
     }
 
     /**
@@ -74,16 +132,20 @@ public class Edge extends GraphObject {
         this.source = source;
         this.target = target;
         this.type = type;
-        if (label.equalsIgnoreCase("") || label == null || "-".equals(label) || label.equalsIgnoreCase("Neutral")) {
-            setLabel("Neutral");
-            this.value = "0";
-        } else {
-            this.value = value;
+//        hide = false;
+        this.attributes = new HashMap<>();
+        GraphAttribute att = new GraphAttribute(influenceName, value);
+        this.attributes.put(att.getName(), att);
+        if(!this.hasAttribute(VariableNames.edgeHiddenAttribute)) {
+            GraphAttribute hide = new GraphAttribute(VariableNames.edgeHiddenAttribute, "false");
+            this.attributes.put(hide.getName(), hide);
         }
         setLabel(label);
-        hide = false;
-        collapsed = false;
-        this.attributes = new HashMap<>();
+//        if (label.equalsIgnoreCase("") || label == null || "-".equals(label) || label.equalsIgnoreCase("Neutral")) {
+//            setLabel("Neutral");
+//            value = "0";
+//        }
+        
     }
 
     /**
@@ -100,16 +162,19 @@ public class Edge extends GraphObject {
         this.id = id;
         this.source = source;
         this.target = target;
+        influence = "0";
+        this.type = getLabel();
+//        hide = false;
+        this.attributes = new HashMap<>();
+        GraphAttribute att = new GraphAttribute(influenceName, influence);
+        this.attributes.put(att.getName(), att);
+        GraphAttribute hide = new GraphAttribute(VariableNames.edgeHiddenAttribute, "false");
+        this.attributes.put(hide.getName(), hide);
         if (influence.equalsIgnoreCase("")) {
             setLabel("Neutral");
         } else {
             setLabel(influence);
         }
-        this.value = "0";
-        this.type = getLabel();
-        hide = false;
-        collapsed = false;
-        this.attributes = new HashMap<>();
     }
 
     /**
@@ -121,6 +186,10 @@ public class Edge extends GraphObject {
         return id;
     }
 
+    /**
+     * Set the edge ID
+     * @param t is the new value
+     */
     public void setID(String t) {
         id = t;
     }
@@ -134,6 +203,10 @@ public class Edge extends GraphObject {
         return source;
     }
 
+    /**
+     * Set the edge's source
+     * @param t is the new source
+     */
     public void setSource(Object t) {
         source = t;
     }
@@ -147,27 +220,43 @@ public class Edge extends GraphObject {
         return target;
     }
 
+    /**
+     * Set the edge's target/destionation
+     * @param t  is the new target
+     */
     public void setTarget(Object t) {
         target = t;
     }
 
     /**
-     * Method for returning the edge value
+     * Method for returning the edge's numeric value (converted from String)
      *
      * @return (float) edge influence value
      */
     public float getValue() {
-        if (Utils.tryParseFloat(this.value)) {
-            return Float.parseFloat(this.value);
-        } else if (Utils.tryParseFloat(this.value.split(" ")[0])) {
-            return Float.parseFloat(this.value.split(" ")[0]);
+        if (Utils.tryParseFloat(this.getAttributeValue(influenceName))) {
+            return Float.parseFloat(this.getAttributeValue(influenceName));
+        } else if (Utils.tryParseFloat(this.getAttributeValue(influenceName).split(" ")[0])) {
+            return Float.parseFloat(this.getAttributeValue(influenceName).split(" ")[0]);
         } else {
             return 0;
         }
     }
 
+    /**
+     * Returns the edge's value as the original String instead of converting to numeric
+     * @return 
+     */
+    public String getStringValue() {
+        return this.getAttributeValue(influenceName);
+    }
+    
+    /**
+     * Updates the edge's value
+     * @param t  is the string with the new value
+     */
     public void setValue(String t) {
-        this.value = t;
+        this.getAttribute(influenceName).setValue(t);
     }
 
     /**
@@ -182,32 +271,16 @@ public class Edge extends GraphObject {
     /**
      * Method to get the edge influence + value
      *
+     * @param nGraphs is the number of different graphFiles values
      * @return (String) influence
      */
-    public String getEdgeTooltip() {
-        String atts = "";
-        if (!this.attributes.values().isEmpty()) {
-            atts = "<br>" + this.printAttributes();
-        }
-
-        String v = this.value;
-        String l = getLabel();
-        String t = "(" + this.type + ")";
-
-        if ("0".equals(this.value)) {
-            v = "";
-        }
-        if ("".equals(getLabel())) {
-            l = "";
-            t = this.type;
-        }
-        if (getLabel().contentEquals(this.type)) {
-            l = "";
-            t = this.type;
-        }
-        return v + " " + l + " " + t + " " + atts;
-
-//        return v + " " + getLabel() + " (" + this.type + ")" + atts;
+    public String getEdgeTooltip(int nGraphs) {
+        return "<br>ID: " + this.id
+                + "<br>Label: " + getLabel()
+                + "<br>"
+                + "<br>Type: " + getType()
+                + "<br>Frequency: " + getFrequency(nGraphs)
+                + "<br>" + printAttributes();
     }
 
     /**
@@ -216,17 +289,7 @@ public class Edge extends GraphObject {
      * @return (boolean) if the edge is hidden or not
      */
     public boolean isHidden() {
-        return hide;
-    }
-
-    /**
-     * Method to check if the edge is a collapsed edge (new edge that contains
-     * the information of the collapsed ones)
-     *
-     * @return (boolean) if the edge is collapsed or not
-     */
-    public boolean isCollapased() {
-        return collapsed;
+        return Boolean.parseBoolean(this.attributes.get(VariableNames.edgeHiddenAttribute).getValue());
     }
 
     /**
@@ -235,16 +298,12 @@ public class Edge extends GraphObject {
      * @param t (boolean) Hide = t
      */
     public void setHide(boolean t) {
-        hide = t;
+        GraphAttribute hide = new GraphAttribute(VariableNames.edgeHiddenAttribute, Boolean.toString(t));
+        this.attributes.put(hide.getName(), hide);
     }
-
-    /**
-     * Method to set the collapsed parameter
-     *
-     * @param t (boolean) collapsed = t
-     */
-    public void setCollapse(boolean t) {
-        collapsed = t;
+    
+    public String getHide() {
+        return this.attributes.get(VariableNames.edgeHiddenAttribute).getValue();
     }
 
     /**
@@ -266,7 +325,7 @@ public class Edge extends GraphObject {
      */
     @Override
     public String toString() {
-        String font = "<html><font size=\"3\", font color=\"blue\">";
+        String font = VariableNames.FontConfiguration;
         if (getLabel().isEmpty()) {
             return font + this.type;
         } else if (getLabel().equals(this.type)) {
@@ -275,6 +334,18 @@ public class Edge extends GraphObject {
             return font + this.type + " (" + getLabel() + ")";
         }
     }
+    
+    private Color defaultColor() {
+        if(this.getLabel().contains("Crash"))
+            return new Color(204, 0, 204);
+        if(((Vertex)this.getTarget()).getTime() < 100)
+            return Color.RED;
+        else if (((Vertex)this.getTarget()).getTime() < 180)
+            return Color.GREEN;
+        else
+            return Color.BLUE;
+//        return defaultColor;
+    }
 
     /**
      * Method to get the edge color (red, black, or green), defined by value
@@ -282,48 +353,50 @@ public class Edge extends GraphObject {
      * @param variables
      * @return
      */
-    public Paint getColor(Variables variables) {
-        float v = getValue();
-
-//        if(this.label.equalsIgnoreCase("Neutral"))
-//        {
-//            if(((Vertex)this.source).getDate() < 85)
-//                return new Color(255, 0, 0);
-//            if(((Vertex)this.source).getDate() < 150)
-//                return new Color(0, 255, 0);
-//            if(((Vertex)this.source).getDate() < 300)
-//                return new Color(0, 0, 255);
-//        }     
-        // Return blue if neutral edge (value = 0)
-        if (v == 0) {
-            return defaultColor;
+    public Color getColor(Variables variables) {
+        if(variables.isEdgeColorByGraphs) {
+            String[] graphs = getAttributeValues(VariableNames.GraphFile);
+            return Utils.getGrayscaleColor(graphs.length, variables.numberOfGraphs);
         } else {
-            int j = 0;
-            for (int i = 0; i < variables.config.edgetype.size(); i++) {
-                if (this.getLabel().contains(variables.config.edgetype.get(i).type)) {
-                    j = i;
-                }
-            }
-            // TODO add inverted color scheme for increase in value to be red and decrease to be green
-            if (variables.config.edgetype.get(j).isInverted) {
-                if (v > 0) {
-                    return compareValueRed(v, 0, variables.config.edgetype.get(j).max, variables.config.edgetype.get(j).isInverted);
-                } else {
-                    return compareValueGreen(v, variables.config.edgetype.get(j).min, 0, variables.config.edgetype.get(j).isInverted);
-                }
+            float v = getValue();
+            if (v == 0) {
+                return defaultColor;
             } else {
-            // DO
-                // else
-                if (v > 0) {
-                    return compareValueGreen(v, 0, variables.config.edgetype.get(j).max, variables.config.edgetype.get(j).isInverted);
+                int j = 0;
+                for (int i = 0; i < variables.config.edgetype.size(); i++) {
+                    if (this.getLabel().contains(variables.config.edgetype.get(i).type)) {
+                        j = i;
+                    }
+                }
+                // TODO add inverted color scheme for increase in value to be red and decrease to be green
+                if (variables.config.edgetype.get(j).isInverted) {
+                    if (v > 0) {
+                        return compareValueRed(v, 0, variables.config.edgetype.get(j).max, variables.config.edgetype.get(j).isInverted);
+                    } else {
+                        return compareValueGreen(v, variables.config.edgetype.get(j).min, 0, variables.config.edgetype.get(j).isInverted);
+                    }
                 } else {
-                    return compareValueRed(v, variables.config.edgetype.get(j).min, 0, variables.config.edgetype.get(j).isInverted);
+                // DO
+                    // else
+                    if (v > 0) {
+                        return compareValueGreen(v, 0, variables.config.edgetype.get(j).max, variables.config.edgetype.get(j).isInverted);
+                    } else {
+                        return compareValueRed(v, variables.config.edgetype.get(j).min, 0, variables.config.edgetype.get(j).isInverted);
+                    }
                 }
             }
         }
     }
 
-    public Paint compareValueGreen(float value, double min, double max, boolean isInverted) {
+    /**
+     * Method that calculates the green gradient based on the edge's value and the maximum and minimum for the same edge type
+     * @param value is the edge's value
+     * @param min is the minimum value for the edge type
+     * @param max is the maximum value for the edge type
+     * @param isInverted tells if the color gradient will be increasing or decreasing
+     * @return 
+     */
+    public Color compareValueGreen(float value, double min, double max, boolean isInverted) {
         if(!isInverted) {
             int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
             proportion = Math.max(proportion, 0);
@@ -336,7 +409,15 @@ public class Edge extends GraphObject {
         }
     }
 
-    public Paint compareValueRed(float value, double min, double max, boolean isInverted) {
+    /**
+     * Method that calculates the red gradient based on the edge's value and the maximum and minimum for the same edge type
+     * @param value is the edge's value
+     * @param min is the minimum value for the edge type
+     * @param max is the maximum value for the edge type
+     * @param isInverted tells if the color gradient will be increasing or decreasing
+     * @return 
+     */
+    public Color compareValueRed(float value, double min, double max, boolean isInverted) {
         if(!isInverted) {
             int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
             proportion = Math.min(proportion, 510);
@@ -360,7 +441,7 @@ public class Edge extends GraphObject {
      */
     public boolean addInfluence(Variables variables) {
         for (EdgeType edgetype : variables.config.edgetype) {
-            if (this.getEdgeTooltip().contains(edgetype.type)) {
+            if (this.getType().contains(edgetype.type)) {
                 if (edgetype.collapse.equalsIgnoreCase("AVERAGE")) {
                     return false;
                 }
@@ -368,4 +449,51 @@ public class Edge extends GraphObject {
         }
         return true;
     }
+    
+    /**
+     * Function to merge two edges
+     * @param edge is the edge that we want to merge with
+     * @return the updated edge after merging with "edge"
+     */
+    public Edge merge(Edge edge, String mergeCode) {
+        if(this.getType().equalsIgnoreCase(edge.getType())) {
+            this.updateAllAttributes(edge.getAttributes());
+            // We have a problem here when merging many graphs: StringBuilder.append(StringBuilder.java:132) java.lang.OutOfMemoryError: Java heap space
+//            this.id = this.id + ", " + edge.id; 
+            this.id = this.id + " "; 
+            if(!this.getLabel().contains(edge.getLabel()))
+                this.setLabel(this.getLabel() + ", " + edge.getLabel());
+            edge.setHide(true);
+            GraphAttribute merged = new GraphAttribute(VariableNames.MergedEdgeAttribute, mergeCode);
+            this.addAttribute(merged);
+            GraphAttribute hide = new GraphAttribute(VariableNames.edgeHiddenAttribute, "false");
+            this.addAttribute(hide);
+        }
+        return this;
+    }
+    
+//    /**
+//     * Method that calculates the edge frequency and returns a human-readable value (String)
+//     * @param nGraphs is the total number of existing graphs used during the merge
+//     * @return the edge's frequency between 0% and 100%
+//     */
+//    public String getEdgeFrequency(float nGraphs) {
+//        if(this.hasAttribute(VariableNames.GraphFile)) {
+//            float frequency = ((float) this.getAttributeValues(VariableNames.GraphFile).length / (float)nGraphs) * 100;
+//            return String.format("%.02f", frequency) + "%";
+//        } else
+//            return "Frequency Unavailable";
+//    }
+//    
+//    /**
+//     * Method that calculates the edge frequency and returns the probability between 0 and 1
+//     * @param nGraphs is the total number of existing graphs used during the merge
+//     * @return the edge's frequency
+//     */
+//    public float getEdgeFrequencyValue(float nGraphs) {
+//        if(this.hasAttribute(VariableNames.GraphFile)) {
+//            return ((float) this.getAttributeValues(VariableNames.GraphFile).length / (float)nGraphs);
+//        } else
+//            return 0;
+//    }
 }

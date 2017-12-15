@@ -1,14 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
+The MIT License
+
+Copyright 2017 Kohwalter.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
 -->
 
 
 <config
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
     xsi:noNamespaceSchemaLocation='config.xsd'>
-    <vertexSize></vertexSize>
+    <vertexSize>20</vertexSize>
     <timeScale>Nanoseconds</timeScale>
     <default_layout>TimelineLayout</default_layout>
     <spatialLayout>
@@ -28,37 +47,89 @@ and open the template in the editor.
         <edge>RunStarts</edge>
         <edgestroke>MAX</edgestroke>
         <collapsefunction>SUM</collapsefunction>
+        <edgeColor>
+            <r>255</r>
+            <g>255</g>
+            <b>0</b>
+        </edgeColor>
+    </edgetype>
+    <edgetype>
+        <edge>UserRuns</edge>
+        <edgestroke>MAX</edgestroke>
+        <collapsefunction>SUM</collapsefunction>
+        <edgeColor>
+            <r>255</r>
+            <g>255</g>
+            <b>0</b>
+        </edgeColor>
     </edgetype>
     <edgetype>
         <edge>PerformsFork</edge>
         <edgestroke>MAX</edgestroke>
         <collapsefunction>SUM</collapsefunction>
+        <edgeColor>
+            <r>0</r>
+            <g>255</g>
+            <b>255</b>
+        </edgeColor>
     </edgetype>
     <edgetype>
         <edge>ForkCreates</edge>
         <edgestroke>MAX</edgestroke>
         <collapsefunction>SUM</collapsefunction>
+        <edgeColor>
+            <r>0</r>
+            <g>255</g>
+            <b>255</b>
+        </edgeColor>
     </edgetype>
     <edgetype>
         <edge>PerformsFileAccess</edge>
         <edgestroke>MAX</edgestroke>
         <collapsefunction>SUM</collapsefunction>
+        <edgeColor>
+            <r>255</r>
+            <g>0</g>
+            <b>255</b>
+        </edgeColor>
     </edgetype>
     <edgetype>
         <edge>AccessFile</edge>
         <edgestroke>MAX</edgestroke>
         <collapsefunction>SUM</collapsefunction>
+        <edgeColor>
+            <r>255</r>
+            <g>0</g>
+            <b>255</b>
+        </edgeColor>
     </edgetype>
     <edgetype>
         <edge>ProcessExecution</edge>
         <edgestroke>MAX</edgestroke>
         <collapsefunction>SUM</collapsefunction>
+        <edgeColor>
+            <r>0</r>
+            <g>0</g>
+            <b>255</b>
+        </edgeColor>
     </edgetype>
     <edgetype>
         <edge>ExecutionFile</edge>
         <edgestroke>MAX</edgestroke>
         <collapsefunction>SUM</collapsefunction>
+        <edgeColor>
+            <r>0</r>
+            <g>0</g>
+            <b>255</b>
+        </edgeColor>
     </edgetype>
+    <colorscheme>
+        <attribute>Timestamp</attribute>
+        <class>ActivityScheme</class>
+        <trafficLightType>type1</trafficLightType>
+        <isInverted>True</isInverted>
+    </colorscheme>
+    
     <vertexAttributeFilter>
         <name>subtype</name>
         <value>Run</value>
@@ -91,4 +162,158 @@ and open the template in the editor.
         <name>subtype</name>
         <value>ProcessExecutes</value>
     </vertexAttributeFilter>
+    <vertexAttributeFilter>
+        <name>subtype</name>
+        <value>Thread</value>
+    </vertexAttributeFilter>
+    <vertexAttributeFilter>
+        <name>subtype</name>
+        <value>User</value>
+    </vertexAttributeFilter>
+    <vertexAttributeFilter>
+        <name>package</name>
+        <value></value>
+    </vertexAttributeFilter>
+    <vertexcolor>
+        <generalname>Subtype</generalname>
+        <isAutomatic>False</isAutomatic>
+        <activitycolor>
+            <attribute>subtype</attribute>
+            <value>Run</value>
+            <vercolor>
+                <r>255</r>
+                <g>0</g>
+                <b>0</b>
+            </vercolor>
+        </activitycolor>
+        <activitycolor>
+            <attribute>subtype</attribute>
+            <value>Fork</value>
+            <vercolor>
+                <r>0</r>
+                <g>255</g>
+                <b>255</b>
+            </vercolor>
+        </activitycolor>
+        <activitycolor>
+            <attribute>subtype</attribute>
+            <value>FileWrites</value>
+            <vercolor>
+                <r>255</r>
+                <g>0</g>
+                <b>255</b>
+            </vercolor>
+        </activitycolor>
+        <activitycolor>
+            <attribute>subtype</attribute>
+            <value>FileReads</value>
+            <vercolor>
+                <r>255</r>
+                <g>50</g>
+                <b>50</b>
+            </vercolor>
+        </activitycolor>
+        <activitycolor>
+            <attribute>subtype</attribute>
+            <value>ProcessExecutes</value>
+            <vercolor>
+                <r>100</r>
+                <g>100</g>
+                <b>100</b>
+            </vercolor>
+        </activitycolor>
+        <agentcolor>
+            <attribute>subtype</attribute>
+            <value>User</value>
+            <vercolor>
+                <r>125</r>
+                <g>255</g>
+                <b>125</b>
+            </vercolor>
+        </agentcolor>
+        <agentcolor>
+            <attribute>subtype</attribute>
+            <value>Process</value>
+            <vercolor>
+                <r>255</r>
+                <g>255</g>
+                <b>0</b>
+            </vercolor>
+        </agentcolor>
+        <entitycolor>
+            <attribute>subtype</attribute>
+            <value>File</value>
+            <vercolor>
+                <r>0</r>
+                <g>255</g>
+                <b>0</b>
+            </vercolor>
+        </entitycolor>
+        <entitycolor>
+            <attribute>subtype</attribute>
+            <value>Directory</value>
+            <vercolor>
+                <r>0</r>
+                <g>0</g>
+                <b>255</b>
+            </vercolor>
+        </entitycolor>
+    </vertexcolor>
+    
+    <vertexcolor>
+        <generalname>package</generalname>
+        <isAutomatic>True</isAutomatic>
+        <entitycolor>
+            <attribute>package</attribute>
+        </entitycolor>
+    </vertexcolor>
+    <vertexcolor>
+        <generalname>Path_#1</generalname>
+        <isAutomatic>True</isAutomatic>
+        <entitycolor>
+            <attribute>Path_#1</attribute>
+        </entitycolor>
+    </vertexcolor>
+    <vertexcolor>
+        <generalname>Path_#2</generalname>
+        <isAutomatic>True</isAutomatic>
+        <entitycolor>
+            <attribute>Path_#2</attribute>
+        </entitycolor>
+    </vertexcolor>
+    <vertexcolor>
+        <generalname>Path_#3</generalname>
+        <isAutomatic>True</isAutomatic>
+        <entitycolor>
+            <attribute>Path_#3</attribute>
+        </entitycolor>
+    </vertexcolor>
+    <vertexcolor>
+        <generalname>Path_#4</generalname>
+        <isAutomatic>True</isAutomatic>
+        <entitycolor>
+            <attribute>Path_#4</attribute>
+        </entitycolor>
+    </vertexcolor>
+    <vertexcolor>
+        <generalname>Path_#5</generalname>
+        <isAutomatic>True</isAutomatic>
+        <entitycolor>
+            <attribute>Path_#5</attribute>
+        </entitycolor>
+    </vertexcolor>
+    <vertexcolor>
+        <generalname>Path_#6</generalname>
+        <isAutomatic>True</isAutomatic>
+        <entitycolor>
+            <attribute>Path_#6</attribute>
+        </entitycolor>
+    </vertexcolor>
+    <vertexcolor>
+        <generalname>Path_#7</generalname>
+        <isAutomatic>True</isAutomatic>
+        <entitycolor>
+            <attribute>Path_#7</attribute>
+        </entitycolor>
+    </vertexcolor>
 </config>

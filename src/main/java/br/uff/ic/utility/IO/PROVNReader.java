@@ -1,10 +1,30 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * The MIT License
+ *
+ * Copyright 2017 Kohwalter.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
+
 package br.uff.ic.utility.IO;
 
+import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.GraphAttribute;
@@ -143,7 +163,9 @@ public class PROVNReader extends InputReader {
 
             GraphAttribute optAtt = new GraphAttribute("startTime", startTime);
             node.addAttribute(optAtt);
-            node.setTime(startTime);
+            GraphAttribute time = new GraphAttribute("Timestamp", startTime);
+            node.addAttribute(time);
+//            node.setTime(startTime);
         }
         if (attributes.length > 2) {
             String endTime = attributes[2];
@@ -529,6 +551,7 @@ public class PROVNReader extends InputReader {
     }
 
     public void readAttributes(GraphObject obj, String[] attributes) {
+        boolean hasGraphFile = false;
         if (attributes != null) {
             for (String attList1 : attributes) {
                 String[] att = attList1.split("=");
@@ -538,10 +561,17 @@ public class PROVNReader extends InputReader {
                     } else if ((obj instanceof Edge) && (att[0].contains("value"))) {
                         ((Edge) obj).setValue(att[1]);
                     }
+                    if(att[0].equalsIgnoreCase("GraphFile")) {
+                        hasGraphFile = true;
+                    }
                     GraphAttribute optAtt = new GraphAttribute(att[0], att[1]);
                     obj.addAttribute(optAtt);
                 }
             }
+        }
+        if (!hasGraphFile) {
+            GraphAttribute graphFileAtt = new GraphAttribute(VariableNames.GraphFile, file.getName());
+            obj.addAttribute(graphFileAtt);
         }
     }
 

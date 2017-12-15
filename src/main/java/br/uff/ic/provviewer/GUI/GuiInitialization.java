@@ -1,7 +1,25 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * The MIT License
+ *
+ * Copyright 2017 Kohwalter.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 package br.uff.ic.provviewer.GUI;
 
@@ -9,12 +27,14 @@ import br.uff.ic.provviewer.Collapser;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.Filter.Filters;
 import br.uff.ic.provviewer.Filter.PreFilters;
+import static br.uff.ic.provviewer.GUI.GuiFunctions.PanCameraToFirstVertex;
 import br.uff.ic.provviewer.GraphFrame;
+import br.uff.ic.provviewer.ImproveJUNGPerformance;
 import br.uff.ic.provviewer.Variables;
-import br.uff.ic.utility.graph.Vertex;
+import br.uff.ic.utility.Utils;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
-import java.util.Collection;
+import java.awt.RenderingHints;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.ToolTipManager;
@@ -44,6 +64,7 @@ public class GuiInitialization {
         variables.graph = graph;
         variables.collapsedGraph = variables.graph;
         GuiFunctions.SetView(variables, Layouts, graphFrame);
+        variables.updateNumberOfGraphs();
         variables.guiBackground.InitBackground(variables, Layouts);
         GuiFunctions.MouseInteraction(variables);
         GuiTooltip.Tooltip(variables);
@@ -52,11 +73,34 @@ public class GuiInitialization {
         GuiFunctions.GraphPaint(variables);
         GuiFunctions.VertexShape(variables);
         InitFilters(variables);
-        NormalizeTime(variables);
+        Utils.NormalizeTime(variables.graph, false);
+        variables.jungPerformance.init(variables.view);
         
         ToolTipManager.sharedInstance().setInitialDelay(10);
         ToolTipManager.sharedInstance().setDismissDelay(50000);
         GraphFrame.vertexFilterList.setSelectedIndex(0);
+        
+    }
+    
+    /**
+     * Method to update the features after openning a new file
+     * @param variables
+     * @param Layouts 
+     */
+    public static void ReInitializeAfterReadingFile(Variables variables, JComboBox Layouts) {
+        variables.updateNumberOfGraphs();
+        variables.ComputeEdgeTypeValues();
+//        GuiFunctions.Stroke(variables);
+//        GuiFunctions.GraphPaint(variables);
+//        GuiFunctions.VertexShape(variables);
+        InitFilters(variables);
+        Utils.NormalizeTime(variables.graph, false);
+        variables.guiBackground.InitBackground(variables, Layouts);
+        variables.changedOutliersOption = true;
+        GraphFrame.edgeFilterList.setSelectedIndex(0);
+        GraphFrame.vertexFilterList.setSelectedIndex(0);
+        PanCameraToFirstVertex(variables);
+        variables.config.resetVertexModeInitializations();
     }
 
     /**
@@ -87,27 +131,5 @@ public class GuiInitialization {
         variables.filter.Filters(variables);
     }
 
-    /**
-     * Method to normalize vertex's timestamps to start from 0
-     * @param variables 
-     */
-    public static void NormalizeTime(Variables variables) {
-        Collection<Object> vertices = variables.graph.getVertices();
-        double minTime = Double.POSITIVE_INFINITY;
-        for (Object v : vertices) {
-            if (((Vertex) v).getTime() != -1) {
-                minTime = Math.min(minTime, ((Vertex) v).getTime());
-            }
-        }
-
-        // Normalize time
-        for (Object v : vertices) {
-            if (((Vertex) v).getTime() != -1) {
-                ((Vertex) v).setNormalizedTime((((Vertex) v).getTime() - minTime) + 1);
-            } else {
-                ((Vertex) v).setNormalizedTime(-1);
-            }
-        }
-    }
 
 }

@@ -1,12 +1,33 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * The MIT License
+ *
+ * Copyright 2017 Kohwalter.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
+
 package br.uff.ic.utility;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Class to define a vertex-graph attribute (collapsed vertices)
@@ -16,8 +37,8 @@ public class GraphAttribute {
 
     private String name;
     private String value;
-    private float minValue;
-    private float maxValue;
+    private double minValue;
+    private double maxValue;
     private int quantity;
     private Collection<String> originalValues;
   
@@ -31,9 +52,10 @@ public class GraphAttribute {
         this.value = value;
         this.quantity = 1;
         if (Utils.tryParseFloat(value)){
-            this.minValue = Utils.convertFloat(value.trim());
-            this.maxValue = Utils.convertFloat(value.trim());
-            float v = ((int) (Utils.convertFloat(value.trim()) * 10000)) * 0.0001f;
+            this.minValue = Utils.convertDouble(value.trim());
+            this.maxValue = Utils.convertDouble(value.trim());
+            double v = Utils.convertDouble(value.trim());
+//            double v = ((int) (Utils.convertDouble(value.trim()) * 10000)) * 0.0001f;
             this.value = String.valueOf(v);
         }
         else {
@@ -89,16 +111,26 @@ public class GraphAttribute {
      */
     public void updateAttribute(String value) {
         this.quantity++;
-        if (Utils.tryParseFloat(value)) {
+        if (Utils.tryParseFloat(value) && Utils.tryParseFloat(this.value)) {
             this.value = Float.toString(Utils.convertFloat(this.value) + Utils.convertFloat(value));
             this.minValue = Math.min(this.minValue, Utils.convertFloat(value));
             this.maxValue = Math.max(this.maxValue, Utils.convertFloat(value));
-                
-        } else {
-            if(!this.value.equalsIgnoreCase(value))
-                this.value += ", " + value;
+            originalValues.add(value);
+        } else { // This value is a String
+            if(!this.value.equalsIgnoreCase(value) && !(this.value.contains(value))) {
+                String[] currentValues = this.value.split(", ");
+                String[] newValues = value.split(", ");
+                Map<String, String> updatedValues = new HashMap<>();
+                for(String s : currentValues) 
+                    updatedValues.put(s, s);
+                for(String s : newValues) 
+                    updatedValues.put(s, s);
+                this.value = "";
+                for(String s : updatedValues.values())
+                    this.value += ", " + s;
+                this.value = this.value.replaceFirst(", ", "");
+            }
         }
-        originalValues.add(value);
     }
     
     /**
@@ -116,7 +148,7 @@ public class GraphAttribute {
     public String getAverageValue() {
         // Return the average number
         if ((this.quantity > 1) && Utils.tryParseFloat(this.value))
-            return Float.toString(Utils.convertFloat(this.value) / this.quantity); 
+            return Double.toString(Utils.convertDouble(this.value) / this.quantity); 
         else
             return this.value;
     }
@@ -130,7 +162,7 @@ public class GraphAttribute {
      * @return 
      */
     public String getMin() {
-        return Float.toString(this.minValue);
+        return Double.toString(this.minValue);
     }
 
     /**
@@ -138,7 +170,7 @@ public class GraphAttribute {
      * @return max value
      */
     public String getMax() {
-        return Float.toString(this.maxValue);
+        return Double.toString(this.maxValue);
     }
 
     /**
