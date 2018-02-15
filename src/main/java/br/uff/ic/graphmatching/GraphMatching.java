@@ -530,6 +530,12 @@ public class GraphMatching {
     }
     
     public void asd(DirectedGraph<Object, Edge> graph_01, DirectedGraph<Object, Edge> graph_02) {
+        for(Object v : graph_01.getVertices()) {
+            cg.addVertex(v);
+        }
+        for(Object v : graph_02.getVertices()) {
+            cg.addVertex(v);
+        }
         for(Edge e : graph_01.getEdges()) {
             Pair endpoints = graph_01.getEndpoints(e);
             Object v1 = endpoints.getFirst();
