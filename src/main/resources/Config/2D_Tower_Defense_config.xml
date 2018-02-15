@@ -29,11 +29,11 @@ THE SOFTWARE.
     xsi:noNamespaceSchemaLocation='config.xsd'>
     <default_layout>FRLayout</default_layout>
     <layoutAxis_X>ObjectPosition_X</layoutAxis_X>
-    <layoutAxis_Y>ObjectPosition_Z</layoutAxis_Y>
-    <imageLocation></imageLocation>
-    <imageOffset_X>0.55</imageOffset_X>
-    <imageOffset_Y>0.81</imageOffset_Y>
-    <spatialLayoutPosition>10</spatialLayoutPosition>
+    <layoutAxis_Y>ObjectPosition_Y</layoutAxis_Y>
+    <imageLocation>/images/2D_Defense.png</imageLocation>
+    <imageOffset_X>-4.428253</imageOffset_X>
+    <imageOffset_Y>-10</imageOffset_Y>
+    <spatialLayoutPosition>-18.5228</spatialLayoutPosition>
     <zoomLevel>0</zoomLevel>
     <temporalLayoutbackbone>Player</temporalLayoutbackbone>
     <temporalLayoutscale>0.5</temporalLayoutscale>
@@ -85,6 +85,15 @@ THE SOFTWARE.
         <values></values>
         <goodvalue></goodvalue>
         <badvalue></badvalue>
+    </colorscheme>
+    <colorscheme>
+        <attribute>Health</attribute>
+        <class>ActivityRestrictedScheme</class>
+        <values></values>
+        <goodvalue>100</goodvalue>
+        <badvalue>0</badvalue>
+        <restrictedAttribute>ObjectName</restrictedAttribute>
+        <restrictedValue>hero</restrictedValue>
     </colorscheme>
     <vertexstroke>
         <attribute>Health</attribute>

@@ -27,7 +27,8 @@ THE SOFTWARE.
 <config
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
     xsi:noNamespaceSchemaLocation='config.xsd'>
-    <default_layout>SpatialLayout</default_layout>
+    <default_layout>Spatial</default_layout>
+    <vertexSize>20</vertexSize>
     <timeScale>Seconds</timeScale>
     <layoutAxis_X>ObjectPosition_X</layoutAxis_X>
     <layoutAxis_Y>ObjectPosition_Z</layoutAxis_Y>
@@ -96,6 +97,16 @@ THE SOFTWARE.
     <vertexAttributeFilter>
         <name>ObjectTag</name>
         <value>Player</value>
+        <logic></logic>
+    </vertexAttributeFilter>
+	<vertexAttributeFilter>
+        <name>Label</name>
+        <value>Dead</value>
+        <logic></logic>
+    </vertexAttributeFilter>
+	<vertexAttributeFilter>
+        <name>Label</name>
+        <value>Respawn</value>
         <logic></logic>
     </vertexAttributeFilter>
     <vertexAttributeFilter>
