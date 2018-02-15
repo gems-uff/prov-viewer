@@ -225,6 +225,7 @@ public class Filters {
      * @return if the edge will be hidden
      */
     private boolean edgeTypeFilter(Edge edge) {
+        // TODO: This is the bottleneck of the algorithm. Need to optimize
         List filtersL = GraphFrame.edgeFilterList.getSelectedValuesList();
         for (Object filtersL1 : filtersL) {
             String filter = (String) filtersL1;
