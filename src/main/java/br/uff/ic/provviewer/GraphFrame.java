@@ -31,17 +31,13 @@ import br.uff.ic.provviewer.GUI.GuiInitialization;
 import br.uff.ic.provviewer.GUI.GuiInference;
 import br.uff.ic.provviewer.GUI.GuiReadFile;
 import br.uff.ic.provviewer.GUI.GuiRun;
-import br.uff.ic.provviewer.Vertex.ColorScheme.DebugVisualizationScheme;
 import br.uff.ic.utility.IO.BasePath;
-import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UnsupportedLookAndFeelException;
-import java.awt.event.MouseEvent;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import javax.swing.DefaultComboBoxModel;
 
@@ -1986,7 +1982,7 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private void confirmDebuggingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmDebuggingButtonActionPerformed
         // TODO add your handling code here:
-        GuiFunctions.debugTrial(variables, selectedTrialComboBox.getSelectedItem().toString(), correctTrialsList.getSelectedValuesList(), 
+        ProvDebugger.debugTrial(variables, selectedTrialComboBox.getSelectedItem().toString(), correctTrialsList.getSelectedValuesList(), 
                 considerActivityVerticesButton.isSelected(), considerAgentVerticesButton.isSelected(), considerEntityVerticesButton.isSelected());
         debugDialogBox.setVisible(false);
     }//GEN-LAST:event_confirmDebuggingButtonActionPerformed
