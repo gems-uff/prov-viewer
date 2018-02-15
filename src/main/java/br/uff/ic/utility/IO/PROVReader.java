@@ -508,7 +508,7 @@ public class PROVReader extends XMLReader {
         GetXMLValues("prov:alternateOf", false, false);
     }
 
-    
+ 
 }
 
 //Generation

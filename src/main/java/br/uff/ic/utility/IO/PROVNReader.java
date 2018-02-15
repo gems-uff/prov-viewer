@@ -276,7 +276,7 @@ public class PROVNReader extends InputReader {
         String trigger = "-";
         String starterOrEnder = "-";
         String time;
-
+        
         if (attributes.length == 4) {
             id = getEdgeID(attributes[0], id);
             activity = getEdge1stAttribute(attributes[0], activity);
