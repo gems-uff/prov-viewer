@@ -268,7 +268,7 @@ public class GuiReadFile {
         variables.mergingWithGraphPath = file.getName();
 //        System.out.println("Original File: " + variables.originalGraphPath);
         System.out.println("Merging File: " + variables.mergingWithGraphPath);
-        GraphMerger merger = new GraphMerger(variables.originalGraphPath, variables.mergingWithGraphPath);
+        GraphMerger merger = new GraphMerger(variables.allowMergeUndo);
         DirectedGraph<Object, Edge> mergedGraph = merger.Merging(variables.graph, fileGraph, variables.mergeConfig.getRestrictionList(), variables.mergeConfig.getVocabulary(), variables.mergeConfig.getSimilarityThreshold(), variables.mergeConfig.getDefaultError(), variables.mergeConfig.getDefaultWeight());
         loadGraph(variables, mergedGraph);
     }

@@ -41,6 +41,12 @@ import java.util.Map;
  * @author Kohwalter
  */
 public class SimpleHeuristic implements MatchingHeuristic{
+    
+    public boolean allowUndo = false;
+    
+    public SimpleHeuristic(boolean allowUndo_) {
+        allowUndo = allowUndo_;
+    }
 
     @Override
     public void MatchGraphs(DirectedGraph<Object, Edge> graph_01, DirectedGraph<Object, Edge> graph_02, GraphMatching combiner) {
@@ -63,15 +69,21 @@ public class SimpleHeuristic implements MatchingHeuristic{
         Collections.sort(g1_vertices, comparator);
         Collections.sort(g2_vertices, comparator);
         
-        combiner.asd(graph_01, graph_02);
+        System.out.println("allowUndo: " + allowUndo);
+        if(allowUndo)
+            combiner.asd(graph_01, graph_02);
         
         for (Object v1 : g1_vertices) {
             for (Object v2 : g2_vertices) {
                 if(!(v1List.containsKey(((Vertex)v1).getID())) && !(v2List.containsKey(((Vertex)v2).getID()))) {
                     if(combiner.isSimilar((Vertex)v1, (Vertex)v2)) {
-//                        Object cv = combiner.combineVertices ((Vertex)v1, (Vertex)v2);
-//                        combiner.addVertex((Vertex)cv);
-                        combiner.combineVertices2((Vertex)v1, (Vertex)v2);
+                        if(allowUndo) {
+                            combiner.combineVertices2((Vertex)v1, (Vertex)v2);
+                        }
+                        else {
+                            Object cv = combiner.combineVertices ((Vertex)v1, (Vertex)v2);
+                            combiner.addVertex((Vertex)cv);
+                        }
                         v1List.put(((Vertex)v1).getID(), v1);
                         v2List.put(((Vertex)v2).getID(), v2);
                     }

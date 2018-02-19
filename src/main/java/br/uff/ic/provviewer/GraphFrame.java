@@ -208,6 +208,7 @@ public class GraphFrame extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         mergeGraphButtom = new javax.swing.JMenuItem();
+        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jMenu3 = new javax.swing.JMenu();
         temporalNanosecondsButton = new javax.swing.JCheckBoxMenuItem();
         temporalMicrosecondsButton = new javax.swing.JCheckBoxMenuItem();
@@ -1254,6 +1255,15 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu2.add(mergeGraphButtom);
 
+        jCheckBoxMenuItem1.setText("Allow to Undo Merge");
+        jCheckBoxMenuItem1.setToolTipText("<html>\nIf selected, then graph merging will be treated as normal collases. This generate bigger files due to multiple collapses and is considerable slower.  \n<br>\nIf unselected, then graph merging will replace merged vertices with a new vertex. This is a faster process and uses less space\n</html>");
+        jCheckBoxMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jCheckBoxMenuItem1);
+
         MenuBar.add(jMenu2);
 
         jMenu3.setText("Temporal Scale");
@@ -2041,6 +2051,11 @@ public class GraphFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         selectWorkingTrialsDialogBox.setVisible(false);
     }//GEN-LAST:event_cancelWorkingTrialsButtonActionPerformed
+
+    private void jCheckBoxMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        variables.allowMergeUndo = jCheckBoxMenuItem1.isSelected();
+    }//GEN-LAST:event_jCheckBoxMenuItem1ActionPerformed
    
     /**
      * Main
@@ -2159,6 +2174,7 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JCheckBox isSTDeps;
     public static javax.swing.JCheckBoxMenuItem isStrokeByValueButton;
     private javax.swing.JButton jButton1;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
