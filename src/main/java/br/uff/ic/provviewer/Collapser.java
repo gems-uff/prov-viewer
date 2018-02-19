@@ -54,6 +54,9 @@ public class Collapser {
     public void ResetGraph(Variables variables) {
         //Reset graph to the original version
         variables.layout.setGraph(variables.graph);
+        for (Edge e : variables.graph.getEdges()) {
+            e.setHide(false);
+        }
         variables.collapsedGraph = variables.graph;
         variables.initGraphCollapser();
 //        variables.ComputeEdgeTypeValues();
