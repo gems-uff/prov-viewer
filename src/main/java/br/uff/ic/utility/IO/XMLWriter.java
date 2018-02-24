@@ -45,6 +45,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -242,11 +243,11 @@ public final class XMLWriter {
 
                 Element values = doc.createElement("originalValues");
                 att.appendChild(values);
-                Object[] originalValues = null;
-                originalValues = ((GraphAttribute) attributes[j]).getValues().toArray();
-                for(Object s : originalValues) {
+                Map<String, String> originalValues = ((GraphAttribute) attributes[j]).getOriginalValues();
+                for(String s : originalValues.keySet()) {
+                    String ov = s + ", " + originalValues.get(s);
                     Element originalValue = doc.createElement("originalValue");
-                    originalValue.setTextContent((String)s);
+                    originalValue.setTextContent(ov);
                     values.appendChild(originalValue);
                 }
             }

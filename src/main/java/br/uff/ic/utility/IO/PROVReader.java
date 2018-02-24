@@ -387,27 +387,27 @@ public class PROVReader extends XMLReader {
             String role, String type, String value, String endTime, String plan) {
         GraphAttribute att;
         if (!"".equals(endTime)) {
-            att = new GraphAttribute("prov:endTime", endTime);
+            att = new GraphAttribute("prov:endTime", endTime, file.getName());
             attributes.put(att.getName(), att);
         }
         if (!"".equals(location)) {
-            att = new GraphAttribute("prov:location", location);
+            att = new GraphAttribute("prov:location", location, file.getName());
             attributes.put(att.getName(), att);
         }
         if (!"".equals(role)) {
-            att = new GraphAttribute("prov:role", role);
+            att = new GraphAttribute("prov:role", role, file.getName());
             attributes.put(att.getName(), att);
         }
         if (!"".equals(type)) {
-            att = new GraphAttribute("prov:type", type);
+            att = new GraphAttribute("prov:type", type, file.getName());
             attributes.put(att.getName(), att);
         }
         if (!"".equals(value)) {
-            att = new GraphAttribute("prov:value", value);
+            att = new GraphAttribute("prov:value", value, file.getName());
             attributes.put(att.getName(), att);
         }
         if (!"".equals(plan)) {
-            att = new GraphAttribute("prov:plan", plan);
+            att = new GraphAttribute("prov:plan", plan, file.getName());
             attributes.put(att.getName(), att);
         }
     }
@@ -423,7 +423,7 @@ public class PROVReader extends XMLReader {
                 Node node = nodeMap.item(i);
                 if(!node.getNodeName().equalsIgnoreCase("prov:id"))
                 {
-                    att = new GraphAttribute(node.getNodeName(), node.getNodeValue());
+                    att = new GraphAttribute(node.getNodeName(), node.getNodeValue(), file.getName());
                     attributes.put(att.getName(), att);
                 }
             }

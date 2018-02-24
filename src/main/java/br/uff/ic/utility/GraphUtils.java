@@ -143,7 +143,7 @@ public class GraphUtils {
             qnt = (int) (qnt + ((Vertex)graphVertex).getAttributeValueFloat(type));
             attributes.get(type).setValue(Integer.toString(qnt));
         } else {
-            GraphAttribute att = new GraphAttribute(type, Integer.toString((int) ((Vertex)graphVertex).getAttributeValueFloat(type)));
+            GraphAttribute att = new GraphAttribute(type, Integer.toString((int) ((Vertex)graphVertex).getAttributeValueFloat(type)), "GraphVertex");
             attributes.put(att.getName(), att);
         }
     }
@@ -160,7 +160,7 @@ public class GraphUtils {
             qnt++;
             attributes.get(type).setValue(Integer.toString(qnt));
         } else {
-            GraphAttribute att = new GraphAttribute(type, Integer.toString(1));
+            GraphAttribute att = new GraphAttribute(type, Integer.toString(1), "GraphVertex");
             attributes.put(att.getName(), att);
         }
     }
@@ -206,11 +206,11 @@ public class GraphUtils {
                                 && !att.getName().equalsIgnoreCase(VariableNames.CollapsedVertexActivityAttribute) 
                                 && !att.getName().equalsIgnoreCase(VariableNames.CollapsedVertexEntityAttribute)) {
                             GraphAttribute temporary = attributes.get(att.getName());
-                            temporary.updateAttribute(att.getAverageValue());
+                            temporary.updateAttribute(att.getOriginalValues());
                             attributes.put(att.getName(), temporary);
                         }
                     } else {
-                        attributes.put(att.getName(), new GraphAttribute(att.getName(), att.getAverageValue()));
+                        attributes.put(att.getName(), new GraphAttribute(att.getName(), att.getOriginalValues()));
                     }
                 }
             }

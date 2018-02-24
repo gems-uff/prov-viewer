@@ -38,7 +38,7 @@ import java.util.Random;
  * @author Kohwalter
  */
 public class NoiseGraph {
-    
+    String noiseGraphName = "";
     String EDGE_DEFAULT_TYPE = "Chronological";
     int id_counter;
     String attribute;
@@ -51,19 +51,21 @@ public class NoiseGraph {
      * @param oracleGraph is the template graph
      * @param attribute is the name of the attribute used by the vertices
      */
-    NoiseGraph(DirectedGraph<Object, Edge> oracleGraph, String attribute) {
+    NoiseGraph(DirectedGraph<Object, Edge> oracleGraph, String attribute, String graphName) {
         this.attribute = attribute;
         id_counter = 1;
         this.oracleGraph = oracleGraph;
         this.noiseGraph = Utils.copyGraph(this.oracleGraph);
+        this.noiseGraphName = graphName;
     }
 
-    NoiseGraph(DirectedGraph<Object, Edge> oracleGraph, String attribute, boolean b) {
+    NoiseGraph(DirectedGraph<Object, Edge> oracleGraph, String attribute, boolean b, String graphName) {
         this.attribute = attribute;
         id_counter = 1;
         this.oracleGraph = oracleGraph;
         this.noiseGraph = Utils.copyGraph(this.oracleGraph);
         isMonotonic = b;
+        this.noiseGraphName = graphName;
     }
     
     public void setMonotonic(boolean t) {
@@ -151,7 +153,7 @@ public class NoiseGraph {
         id_counter++;
         
         Vertex noise = new ActivityVertex(id, id, date);
-        GraphAttribute att = new GraphAttribute(attribute, String.valueOf(noiseValue));
+        GraphAttribute att = new GraphAttribute(attribute, String.valueOf(noiseValue), "noise_graph" + "_" + noiseGraphName);
 //        if(noiseValue != noiseValue)
 //            System.out.println("noiseValue NaN!");
         noise.addAttribute(att);
@@ -234,7 +236,7 @@ public class NoiseGraph {
      * @param noiseProbability is the probability to create a new noise
      * @return the noiseGraph, which is a templateGraph with noise
      */
-    public DirectedGraph<Object, Edge> generateNoiseGraph(float noiseFactor, float noiseProbability, String noiseGraphName) {
+    public DirectedGraph<Object, Edge> generateNoiseGraph(float noiseFactor, float noiseProbability) {
         if(noiseFactor < 1) {
             noiseFactor = 1;
         }

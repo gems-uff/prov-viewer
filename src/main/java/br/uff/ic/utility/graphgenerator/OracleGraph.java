@@ -57,13 +57,13 @@ public class OracleGraph {
      * @param v is the oracle vertex to be edited
      */
     private void generateOracleValues(Vertex v) {
-        GraphAttribute att = new GraphAttribute(attribute, String.valueOf(generateOracleNumber()));
+        GraphAttribute att = new GraphAttribute(attribute, String.valueOf(generateOracleNumber()), "Oracle");
         v.addAttribute(att);
         if(att.getValue().equalsIgnoreCase("NaN"))
             System.out.println("Oracle value NaN!");
 //        System.out.println("V = " + att.getValue());
         
-        att = new GraphAttribute("isOracle", "true");
+        att = new GraphAttribute("isOracle", "true", "Oracle");
         v.addAttribute(att);
     }
     

@@ -62,8 +62,8 @@ public class GraphObject extends Object{
     }
     
     public void setLabel(String t){
-        GraphAttribute time = new GraphAttribute(label, t);
-        this.attributes.put(label, time);
+        GraphAttribute l = new GraphAttribute(label, t, "");
+        this.attributes.put(label, l);
     }
     
     /**
@@ -127,10 +127,10 @@ public class GraphObject extends Object{
         for (GraphAttribute att : v2) {
             if (attributes.containsKey(att.getName())) {
                 GraphAttribute temporary = attributes.get(att.getName());
-                temporary.updateAttribute(att.getAverageValue());
+                temporary.updateAttribute(att.getOriginalValues());
                 attributes.put(att.getName(), temporary);
             } else {
-                attributes.put(att.getName(), new GraphAttribute(att.getName(), att.getAverageValue()));
+                attributes.put(att.getName(), new GraphAttribute(att.getName(), att.getOriginalValues()));
             }
         }
     }

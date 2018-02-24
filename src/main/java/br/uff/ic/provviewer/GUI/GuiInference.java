@@ -205,7 +205,7 @@ public class GuiInference {
         int i = 0;
         for (ConcurrentHashMap<String, Object> c : clusters) {
             for (Object v : c.values()) {
-                GraphAttribute att = new GraphAttribute("Cluster", i + "");
+                GraphAttribute att = new GraphAttribute("Cluster", i + "", variables.originalGraphPath);
                 ((Vertex) v).addAttribute(att);
             }
             i++;

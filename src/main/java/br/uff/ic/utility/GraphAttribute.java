@@ -36,18 +36,18 @@ import java.util.Map;
 public class GraphAttribute {
 
     private String name;
-    private String value;
+    private String value; // Need to change to only use this variable for speedup purposes during queries.
     private double minValue;
     private double maxValue;
     private int quantity;
-    private Collection<String> originalValues;
+    private Map<String, String> originalValues;  // Need to change to a Map<String, String> to represent (OriginGraph, Value)
   
     /**
      * Default constructor
      * @param name is the attribute name
      * @param value is the attribute value
      */
-    public GraphAttribute(String name, String value) {
+    public GraphAttribute(String name, String value, String origin) {
         this.name = name;
         this.value = value;
         this.quantity = 1;
@@ -62,8 +62,16 @@ public class GraphAttribute {
             this.minValue = 0;
             this.maxValue = 0;
         }
-        this.originalValues = new ArrayList<>();
-        this.originalValues.add(value);
+        this.originalValues = new HashMap<>();
+        this.originalValues.put(origin, value);
+    }
+    
+    public GraphAttribute(String name, Map<String, String> values) {
+        this.name = name;
+        this.originalValues = new HashMap<>();
+        this.originalValues.putAll(values);
+        
+        updateAttribute(values);
     }
     
     /**
@@ -74,17 +82,17 @@ public class GraphAttribute {
      * @param max
      * @param quantity 
      */
-    public GraphAttribute(String name, String value, String min, String max, String quantity) {
-        this.name = name;
-        this.value = value;
-        this.quantity = Integer.valueOf(quantity);
-        this.minValue = Utils.convertFloat(min);
-        this.maxValue = Utils.convertFloat(max);
-        this.originalValues = new ArrayList<>();
-        this.originalValues.add(min);
-        this.originalValues.add(max);
-
-    }
+//    public GraphAttribute(String name, String value, String min, String max, String quantity) {
+//        this.name = name;
+//        this.value = value;
+//        this.quantity = Integer.valueOf(quantity);
+//        this.minValue = Utils.convertFloat(min);
+//        this.maxValue = Utils.convertFloat(max);
+//        this.originalValues = new ArrayList<>();
+//        this.originalValues.add(min);
+//        this.originalValues.add(max);
+//
+//    }
     
     /** 
      * Constructor with all variables (used when quantity >=3)
@@ -95,42 +103,70 @@ public class GraphAttribute {
      * @param quantity
      * @param values 
      */
-    public GraphAttribute(String name, String value, String min, String max, String quantity, Collection<String> values) {
+    public GraphAttribute(String name, String value, String min, String max, String quantity, Map<String, String> values) {
         this.name = name;
         this.value = value;
         this.quantity = Integer.valueOf(quantity);
         this.minValue = Utils.convertFloat(min);
         this.maxValue = Utils.convertFloat(max);
-        this.originalValues = new ArrayList<>();
-        this.originalValues.addAll(values);
+        this.originalValues = new HashMap<>();
+        this.originalValues.putAll(values);
     }
     
     /**
      * Method to update the attribute when computing the collapsed set
      * @param value is the attribute value
      */
-    public void updateAttribute(String value) {
-        this.quantity++;
-        if (Utils.tryParseFloat(value) && Utils.tryParseFloat(this.value)) {
-            this.value = Float.toString(Utils.convertFloat(this.value) + Utils.convertFloat(value));
-            this.minValue = Math.min(this.minValue, Utils.convertFloat(value));
-            this.maxValue = Math.max(this.maxValue, Utils.convertFloat(value));
-            originalValues.add(value);
-        } else { // This value is a String
-            if(!this.value.equalsIgnoreCase(value) && !(this.value.contains(value))) {
-                String[] currentValues = this.value.split(", ");
-                String[] newValues = value.split(", ");
-                Map<String, String> updatedValues = new HashMap<>();
-                for(String s : currentValues) 
-                    updatedValues.put(s, s);
-                for(String s : newValues) 
-                    updatedValues.put(s, s);
-                this.value = "";
-                for(String s : updatedValues.values())
-                    this.value += ", " + s;
-                this.value = this.value.replaceFirst(", ", "");
+    
+    // Need to change
+    // Pass Original Values and not the Value
+    // OriginalValues should never be updated in order to preserve during collapses and merges
+    // Only add elements in the current OriginalValues Map, never edit
+    // Value is only a temporary variable from the sum of the original values to speedup the visualization
+    public void updateAttribute(Map<String, String> values) {
+//        this.quantity++;
+//        if (Utils.tryParseFloat(value) && Utils.tryParseFloat(this.value)) {
+//            this.value = Float.toString(Utils.convertFloat(this.value) + Utils.convertFloat(value)); // Need to recalculate from originvalues
+//            this.minValue = Math.min(this.minValue, Utils.convertFloat(value));
+//            this.maxValue = Math.max(this.maxValue, Utils.convertFloat(value));
+//            originalValues.put(origin, value);
+//        } else { // This value is a String
+////            if(!this.value.equalsIgnoreCase(value) && !(this.value.contains(value))) {
+//                String[] currentValues = this.value.split(", ");
+//                String[] newValues = value.split(", ");
+//                Map<String, String> updatedValues = new HashMap<>();
+//                for(String s : currentValues) 
+//                    updatedValues.put(s, s);
+//                for(String s : newValues) 
+//                    updatedValues.put(s, s);
+//                this.value = "";
+//                for(String s : updatedValues.values())
+//                    this.value += ", " + s;
+//                this.value = this.value.replaceFirst(", ", "");
+//                originalValues.put(origin, value);
+////            }
+//        }
+        this.minValue = Float.POSITIVE_INFINITY;
+        this.maxValue = Float.NEGATIVE_INFINITY;
+        String testFirstValue = (String) values.values().toArray()[0];
+        if (Utils.tryParseFloat(testFirstValue) && Utils.tryParseFloat(testFirstValue)) {
+            originalValues.putAll(values);
+            float v = 0;
+            for(String s : originalValues.values()) {
+                v += Utils.convertFloat(s);
+                this.minValue = Math.min(this.minValue, Utils.convertFloat(s));
+                this.maxValue = Math.max(this.maxValue, Utils.convertFloat(s));
             }
+            this.value = Float.toString(v);
+            
+        } else { // This value is a String
+            originalValues.putAll(values);
+            this.value = "";
+            for(String s : originalValues.values())
+                this.value += ", " + s;
+            this.value = this.value.replaceFirst(", ", "");
         }
+        this.quantity = originalValues.size();
     }
     
     /**
@@ -181,8 +217,12 @@ public class GraphAttribute {
         return Integer.toString(this.quantity);
     }
     
-    public Collection<String> getValues() {
+    public Map<String, String> getOriginalValues() {
         return this.originalValues;
+    }
+    public Collection<String> getValues() {
+        // Need to refactor to return the Map
+        return this.originalValues.values();
     }
     /**
      * Method to set the attribute name
@@ -259,7 +299,7 @@ public class GraphAttribute {
      * @return 
      */
     public String getMedian() {
-        return Utils.median(originalValues.toArray(), 0, originalValues.size());
+        return Utils.median(originalValues.values().toArray(), 0, originalValues.size());
     }
     
     /**
@@ -284,6 +324,6 @@ public class GraphAttribute {
      * @return 
      */
     public String getQuartile(int quartile) {
-        return Utils.quartile(originalValues.toArray(), quartile);
+        return Utils.quartile(originalValues.values().toArray(), quartile);
     }
 }

@@ -161,15 +161,15 @@ public class PROVNReader extends InputReader {
         if (attributes.length > 1) {
             String startTime = attributes[1];
 
-            GraphAttribute optAtt = new GraphAttribute("startTime", startTime);
+            GraphAttribute optAtt = new GraphAttribute("startTime", startTime, file.getName());
             node.addAttribute(optAtt);
-            GraphAttribute time = new GraphAttribute("Timestamp", startTime);
+            GraphAttribute time = new GraphAttribute("Timestamp", startTime, file.getName());
             node.addAttribute(time);
 //            node.setTime(startTime);
         }
         if (attributes.length > 2) {
             String endTime = attributes[2];
-            GraphAttribute optAtt = new GraphAttribute("endTime", endTime);
+            GraphAttribute optAtt = new GraphAttribute("endTime", endTime, file.getName());
             node.addAttribute(optAtt);
         }
         readAttributes(node, optionalAttributes);
@@ -205,7 +205,7 @@ public class PROVNReader extends InputReader {
         entity = testPointer(entity, "Entity");
 
         edge = new Edge(id, "wasGeneratedBy", "-", "-", nodes.get(activity), nodes.get(entity));
-        GraphAttribute optAtt = new GraphAttribute("time", time);
+        GraphAttribute optAtt = new GraphAttribute("time", time, file.getName());
         edge.addAttribute(optAtt);
 
         readAttributes(edge, optionalAttributes);
@@ -235,7 +235,7 @@ public class PROVNReader extends InputReader {
         entity = testPointer(entity, "Entity");
 
         edge = new Edge(id, "used", "-", "-", nodes.get(entity), nodes.get(activity));
-        GraphAttribute optAtt = new GraphAttribute("time", time);
+        GraphAttribute optAtt = new GraphAttribute("time", time, file.getName());
         edge.addAttribute(optAtt);
 
         readAttributes(edge, optionalAttributes);
@@ -294,13 +294,13 @@ public class PROVNReader extends InputReader {
 
         edge = new Edge(id, type, "-", "-", nodes.get(starterOrEnder), nodes.get(activity));
 
-        GraphAttribute optAtt = new GraphAttribute("trigger", trigger);
+        GraphAttribute optAtt = new GraphAttribute("trigger", trigger, file.getName());
         edge.addAttribute(optAtt);
 
-        optAtt = new GraphAttribute(type, starterOrEnder);
+        optAtt = new GraphAttribute(type, starterOrEnder, file.getName());
         edge.addAttribute(optAtt);
 
-        optAtt = new GraphAttribute("time", time);
+        optAtt = new GraphAttribute("time", time, file.getName());
         edge.addAttribute(optAtt);
 
         readAttributes(edge, optionalAttributes);
@@ -339,7 +339,7 @@ public class PROVNReader extends InputReader {
         activity = testPointer(activity, "Activity");
 
         edge = new Edge(id, "wasInvalidatedBy", "-", "-", nodes.get(activity), nodes.get(entity));
-        GraphAttribute optAtt = new GraphAttribute("time", time);
+        GraphAttribute optAtt = new GraphAttribute("time", time, file.getName());
         edge.addAttribute(optAtt);
 
         readAttributes(edge, optionalAttributes);
@@ -372,13 +372,13 @@ public class PROVNReader extends InputReader {
 
         edge = new Edge(id, "wasDerivedFrom", "-", "-", nodes.get(usedEntity), nodes.get(generatedEntity));
 
-        GraphAttribute optAtt = new GraphAttribute("activity", activity);
+        GraphAttribute optAtt = new GraphAttribute("activity", activity, file.getName());
         edge.addAttribute(optAtt);
 
-        optAtt = new GraphAttribute("generation", generation);
+        optAtt = new GraphAttribute("generation", generation, file.getName());
         edge.addAttribute(optAtt);
 
-        optAtt = new GraphAttribute("usage", usage);
+        optAtt = new GraphAttribute("usage", usage, file.getName());
         edge.addAttribute(optAtt);
 
         readAttributes(edge, optionalAttributes);
@@ -451,7 +451,7 @@ public class PROVNReader extends InputReader {
 
         edge = new Edge(id, "wasAssociatedWith", "-", "-", nodes.get(agent), nodes.get(activity));
 
-        GraphAttribute optAtt = new GraphAttribute("plan", plan);
+        GraphAttribute optAtt = new GraphAttribute("plan", plan, file.getName());
         edge.addAttribute(optAtt);
 
         readAttributes(edge, optionalAttributes);
@@ -487,7 +487,7 @@ public class PROVNReader extends InputReader {
 
         edge = new Edge(id, "actedOnBehalfOf", "-", "-", nodes.get(delegate), nodes.get(responsible));
 
-        GraphAttribute optAtt = new GraphAttribute("activity", activity);
+        GraphAttribute optAtt = new GraphAttribute("activity", activity, file.getName());
         edge.addAttribute(optAtt);
 
         readAttributes(edge, optionalAttributes);
@@ -564,13 +564,13 @@ public class PROVNReader extends InputReader {
                     if(att[0].equalsIgnoreCase("GraphFile")) {
                         hasGraphFile = true;
                     }
-                    GraphAttribute optAtt = new GraphAttribute(att[0], att[1]);
+                    GraphAttribute optAtt = new GraphAttribute(att[0], att[1], file.getName());
                     obj.addAttribute(optAtt);
                 }
             }
         }
         if (!hasGraphFile) {
-            GraphAttribute graphFileAtt = new GraphAttribute(VariableNames.GraphFile, file.getName());
+            GraphAttribute graphFileAtt = new GraphAttribute(VariableNames.GraphFile, file.getName(), file.getName());
             obj.addAttribute(graphFileAtt);
         }
     }

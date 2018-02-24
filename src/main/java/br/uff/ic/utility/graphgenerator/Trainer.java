@@ -113,8 +113,8 @@ public class Trainer {
                         DirectedGraph<Object, Edge> oracle = eval.oracleGraph.createOracleGraph(typeGraph);
                         // NUMBER_OF_NOISE_GRAPHS
                         for (int noise = 0; noise < n_noiseGraph; noise++) {
-                            NoiseGraph instance = new NoiseGraph(oracle, oracleGraph.attribute, isMonotonic);
-                            DirectedGraph<Object, Edge> noiseGraph = instance.generateNoiseGraph(noiseFactor, noiseProbability, "" + noise + iteration);
+                            NoiseGraph instance = new NoiseGraph(oracle, oracleGraph.attribute, isMonotonic, "" + noise + iteration);
+                            DirectedGraph<Object, Edge> noiseGraph = instance.generateNoiseGraph(noiseFactor, noiseProbability);
                             ArrayList<ConcurrentHashMap<String, Object>> clusters_best = new ArrayList<>();
                             ArrayList<ConcurrentHashMap<String, Object>> clusters_current1 = new ArrayList<>();
                             ArrayList<ConcurrentHashMap<String, Object>> clusters_current2 = new ArrayList<>();
@@ -255,8 +255,8 @@ public class Trainer {
                     // NUMBER_OF_NOISE_GRAPHS
                     for (int noise = 0; noise < n_noiseGraph; noise++) {
                         // Make noise graphs
-                        NoiseGraph instance = new NoiseGraph(oracle, oracleGraph.attribute, isMonotonic);
-                        DirectedGraph<Object, Edge> noiseGraph = instance.generateNoiseGraph(noiseFactor, noiseProbability, "" + noise + i);
+                        NoiseGraph instance = new NoiseGraph(oracle, oracleGraph.attribute, isMonotonic, "" + noise + i);
+                        DirectedGraph<Object, Edge> noiseGraph = instance.generateNoiseGraph(noiseFactor, noiseProbability);
                         ArrayList<ConcurrentHashMap<String, Object>> clusters_best = new ArrayList<>();
                         ArrayList<ConcurrentHashMap<String, Object>> clusters_current = new ArrayList<>();
                         ArrayList<Float> t1 = new ArrayList<>();

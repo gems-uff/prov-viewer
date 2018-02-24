@@ -61,7 +61,7 @@ public abstract class Vertex extends GraphObject {
     public Vertex(String id, String label, String time) {
         this.id = id;
 //        this.time = time;
-        GraphAttribute t = new GraphAttribute(timeLabel, time);
+        GraphAttribute t = new GraphAttribute(timeLabel, time, "");
         this.attributes = new HashMap<>();
         this.attributes.put(t.getName(), t);
         setLabel(label);
@@ -80,7 +80,7 @@ public abstract class Vertex extends GraphObject {
         this.id = id;
         this.attributes = new HashMap<>();
         this.attributes.putAll(attributes);
-        GraphAttribute t = new GraphAttribute(timeLabel, time);
+        GraphAttribute t = new GraphAttribute(timeLabel, time, "");
         this.attributes.put(t.getName(), t);
         setLabel(label);
         timeFormat = "nanoseconds";
@@ -163,7 +163,7 @@ public abstract class Vertex extends GraphObject {
      * @param t is the new value
      */
     public void setTime(String t){
-        GraphAttribute time = new GraphAttribute(timeLabel, t);
+        GraphAttribute time = new GraphAttribute(timeLabel, t, "Normalized");
         this.attributes.put(timeLabel, time);
     }
 

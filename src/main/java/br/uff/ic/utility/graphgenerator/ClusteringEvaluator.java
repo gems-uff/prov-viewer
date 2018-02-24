@@ -244,8 +244,8 @@ public class ClusteringEvaluator {
                 oracle = oracleGraph.createOracleGraph(typeGraph);
 
                 for (i = 0; i < NUMBER_OF_NOISE_GRAPHS; i++) {
-                    NoiseGraph instance = new NoiseGraph(oracle, oracleGraph.attribute, isMonotonic);
-                    DirectedGraph<Object, Edge> noiseGraph = instance.generateNoiseGraph(noiseFactor, noiseProbability, "" + j + i);
+                    NoiseGraph instance = new NoiseGraph(oracle, oracleGraph.attribute, isMonotonic, "" + j + i);
+                    DirectedGraph<Object, Edge> noiseGraph = instance.generateNoiseGraph(noiseFactor, noiseProbability);
                     float time;
 
                     ArrayList<ConcurrentHashMap<String, Object>> clusters1 = new ArrayList<>();

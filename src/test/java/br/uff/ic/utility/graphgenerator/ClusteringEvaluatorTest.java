@@ -144,20 +144,20 @@ public class ClusteringEvaluatorTest {
         
         // Generate the experiment graph
         DirectedGraph<Object, Edge> oracleGraph = eval.oracleGraph.createOracleGraph(graphType);
-        NoiseGraph instance = new NoiseGraph(oracleGraph, "A", isMonotonic);
-        DirectedGraph<Object, Edge> noiseGraph = instance.generateNoiseGraph(initialNoise, 1.0F, "");
+        NoiseGraph instance = new NoiseGraph(oracleGraph, "A", isMonotonic, "");
+        DirectedGraph<Object, Edge> noiseGraph = instance.generateNoiseGraph(initialNoise, 1.0F);
         Utils.exportGraph(noiseGraph, "Experiment_graph_" + graphType + "_" + "01");
-        instance = new NoiseGraph(oracleGraph, "A", isMonotonic);
-        noiseGraph = instance.generateNoiseGraph(initialNoise, 1.0F, "");
+        instance = new NoiseGraph(oracleGraph, "A", isMonotonic, "");
+        noiseGraph = instance.generateNoiseGraph(initialNoise, 1.0F);
         Utils.exportGraph(noiseGraph, "Experiment_graph_" + graphType + "_" + "02");
-        instance = new NoiseGraph(oracleGraph, "A", isMonotonic);
-        noiseGraph = instance.generateNoiseGraph(initialNoise, 1.0F, "");
+        instance = new NoiseGraph(oracleGraph, "A", isMonotonic, "");
+        noiseGraph = instance.generateNoiseGraph(initialNoise, 1.0F);
         Utils.exportGraph(noiseGraph, "Experiment_graph_" + graphType + "_" + "03");
-        instance = new NoiseGraph(oracleGraph, "A", isMonotonic);
-        noiseGraph = instance.generateNoiseGraph(initialNoise, 1.0F, "");
+        instance = new NoiseGraph(oracleGraph, "A", isMonotonic, "");
+        noiseGraph = instance.generateNoiseGraph(initialNoise, 1.0F);
         Utils.exportGraph(noiseGraph, "Experiment_graph_" + graphType + "_" + "04");
-        instance = new NoiseGraph(oracleGraph, "A", isMonotonic);
-        noiseGraph = instance.generateNoiseGraph(initialNoise, 1.0F, "");
+        instance = new NoiseGraph(oracleGraph, "A", isMonotonic, "");
+        noiseGraph = instance.generateNoiseGraph(initialNoise, 1.0F);
         Utils.exportGraph(noiseGraph, "Experiment_graph_" + graphType + "_" + "05");
     }
     

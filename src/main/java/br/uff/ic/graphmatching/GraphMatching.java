@@ -275,7 +275,7 @@ public class GraphMatching {
 //        System.out.println("Match Similarity between " + v1.getID() + " and " + v2.getID() + ": " + similarity);
         if (similarity >= threshold) {
             isSimilar = true;
-            v1.addAttribute(new GraphAttribute(VariableNames.similarityAttribute, similarity * 100 + "%"));
+            v1.addAttribute(new GraphAttribute(VariableNames.similarityAttribute, similarity * 100 + "%", "Merged"));
         }
 
         return isSimilar;
@@ -361,10 +361,10 @@ public class GraphMatching {
         for (GraphAttribute att : v2.getAttributes()) {
             if (combinedVertex.attributes.containsKey(att.getName())) {
                 GraphAttribute temporary = combinedVertex.attributes.get(att.getName());
-                temporary.updateAttribute(att.getAverageValue());
+                temporary.updateAttribute(att.getOriginalValues());
                 combinedVertex.attributes.put(att.getName(), temporary);
             } else {
-                combinedVertex.attributes.put(att.getName(), new GraphAttribute(att.getName(), att.getAverageValue()));
+                combinedVertex.attributes.put(att.getName(), new GraphAttribute(att.getName(), att.getOriginalValues()));
             }
         }
 

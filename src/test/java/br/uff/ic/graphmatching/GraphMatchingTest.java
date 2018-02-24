@@ -90,29 +90,29 @@ public class GraphMatchingTest {
         Vocabulary vocabulary = new Vocabulary("asd, bvF");
         vocabulary.addVocabulary("qwe, rty, asd");
         
-        GraphAttribute av1 = new GraphAttribute("a1", a11);
-        GraphAttribute av2 = new GraphAttribute("a1", a12);
+        GraphAttribute av1 = new GraphAttribute("a1", a11, "test1");
+        GraphAttribute av2 = new GraphAttribute("a1", a12, "test2");
         AttributeErrorMargin epsilon = new AttributeErrorMargin("a1", e1);
         restrictionList.put("a1", epsilon);
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         
-        av1 = new GraphAttribute("a2", a21);
-        av2 = new GraphAttribute("a2", a22);
+        av1 = new GraphAttribute("a2", a21, "test1");
+        av2 = new GraphAttribute("a2", a22, "test2");
         epsilon = new AttributeErrorMargin("a2", e2);
         restrictionList.put("a2", epsilon);
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         
-        av1 = new GraphAttribute("a3", "3");
-        av2 = new GraphAttribute("a3", "1.5");
+        av1 = new GraphAttribute("a3", "3", "test1");
+        av2 = new GraphAttribute("a3", "1.5", "test2");
         epsilon = new AttributeErrorMargin("a3", e3);
         restrictionList.put("a3", epsilon);
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         
-        av1 = new GraphAttribute("a4", "1");
-        av2 = new GraphAttribute("a4", "-2");
+        av1 = new GraphAttribute("a4", "1", "test1");
+        av2 = new GraphAttribute("a4", "-2", "test2");
         epsilon = new AttributeErrorMargin("a4", e4);
         restrictionList.put("a4", epsilon);
         v1.addAttribute(av1);
@@ -136,25 +136,25 @@ public class GraphMatchingTest {
         Vertex v2 = new ActivityVertex("v2", "test", "0");
         Map<String, AttributeErrorMargin> restrictionList = new HashMap<String, AttributeErrorMargin>();
         
-        GraphAttribute av1 = new GraphAttribute("a1", a11);
-        GraphAttribute av2 = new GraphAttribute("a1", a12);
+        GraphAttribute av1 = new GraphAttribute("a1", a11, "test1");
+        GraphAttribute av2 = new GraphAttribute("a1", a12, "test2");
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         
-        av1 = new GraphAttribute("a2", a21);
-        av2 = new GraphAttribute("a2", a22);
+        av1 = new GraphAttribute("a2", a21, "test1");
+        av2 = new GraphAttribute("a2", a22, "test2");
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         
-        av1 = new GraphAttribute("a3", "3");
-        av2 = new GraphAttribute("a3", "1.5");
+        av1 = new GraphAttribute("a3", "3", "test1");
+        av2 = new GraphAttribute("a3", "1.5", "test2");
         AttributeErrorMargin epsilon = new AttributeErrorMargin("a3", e3);
         restrictionList.put("a3", epsilon);
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         
-        av1 = new GraphAttribute("a4", "1");
-        av2 = new GraphAttribute("a4", "-2");
+        av1 = new GraphAttribute("a4", "1", "test1");
+        av2 = new GraphAttribute("a4", "-2", "test2");
         epsilon = new AttributeErrorMargin("a4", e4);
         restrictionList.put("a4", epsilon);
         v1.addAttribute(av1);
@@ -200,8 +200,8 @@ public class GraphMatchingTest {
         Vertex v1 = new ActivityVertex("v1", "test", "0");
         Vertex v2 = new EntityVertex("v2", "test", "0");
         Map<String, AttributeErrorMargin> restrictionList = new HashMap<String, AttributeErrorMargin>();
-        GraphAttribute av1 = new GraphAttribute("a1", "0");
-        GraphAttribute av2 = new GraphAttribute("a1", "0");
+        GraphAttribute av1 = new GraphAttribute("a1", "0", "test1");
+        GraphAttribute av2 = new GraphAttribute("a1", "0", "test2");
         AttributeErrorMargin epsilon = new AttributeErrorMargin("a1", "0");
         restrictionList.put("a1", epsilon);
         v1.addAttribute(av1);
@@ -217,21 +217,21 @@ public class GraphMatchingTest {
         Vertex v1 = new ActivityVertex("v1", "test", "0");
         Vertex v2 = new ActivityVertex("v2", "test", "0");
         Map<String, AttributeErrorMargin> restrictionList = new HashMap<String, AttributeErrorMargin>();
-        GraphAttribute av1 = new GraphAttribute("a1", "0");
-        GraphAttribute av2 = new GraphAttribute("a1", "0");
+        GraphAttribute av1 = new GraphAttribute("a1", "0", "test1");
+        GraphAttribute av2 = new GraphAttribute("a1", "0", "test2");
         AttributeErrorMargin epsilon = new AttributeErrorMargin("a1", "0");
         restrictionList.put("a1", epsilon);
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         
-        av1 = new GraphAttribute("a2", "1.5");
+        av1 = new GraphAttribute("a2", "1.5", "test1");
         v1.addAttribute(av1);
         
-        av2 = new GraphAttribute("a3", "1.5");
+        av2 = new GraphAttribute("a3", "1.5", "test2");
         v2.addAttribute(av2);
         
-        av1 = new GraphAttribute("a4", "1");
-        av2 = new GraphAttribute("a4", "1");
+        av1 = new GraphAttribute("a4", "1", "test1");
+        av2 = new GraphAttribute("a4", "1", "test2");
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         
@@ -258,71 +258,73 @@ public class GraphMatchingTest {
         GraphAttribute av1;
         GraphAttribute av2;
         
-        av1 = new GraphAttribute("a1", "Asd");
-        av2 = new GraphAttribute("a1", "edf");
+        av1 = new GraphAttribute("a1", "Asd", "test1");
+        av2 = new GraphAttribute("a1", "edf", "test2");
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         
-        av1 = new GraphAttribute("a2", "4");
-        av2 = new GraphAttribute("a2", "2");
+        av1 = new GraphAttribute("a2", "4", "test1");
+        av2 = new GraphAttribute("a2", "2", "test2");
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         
-        av1 = new GraphAttribute("a3", "3");
-        av2 = new GraphAttribute("a3", "1");
+        av1 = new GraphAttribute("a3", "3", "test1");
+        av2 = new GraphAttribute("a3", "1", "test2");
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         
-        av1 = new GraphAttribute("a4", "2");
-        av2 = new GraphAttribute("a4", "-2");
+        av1 = new GraphAttribute("a4", "2", "test1");
+        av2 = new GraphAttribute("a4", "-2", "test2");
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         
-        av1 = new GraphAttribute("a5", "5");
+        av1 = new GraphAttribute("a5", "5", "test1");
         v1.addAttribute(av1);
         
-        av2 = new GraphAttribute("a6", "6");
+        av2 = new GraphAttribute("a6", "6", "test2");
         v2.addAttribute(av2);
         
         GraphMatching instance = new GraphMatching(null, 0.0f);
         
-        Vertex expResult = new ActivityVertex(v1.getID() + ", " + v2.getID(), v1.getLabel() + ", " + v2.getLabel(), v1.getTimeString());
+        Vertex expResult = new ActivityVertex(v1.getID() + ", " + v2.getID(), v2.getLabel(), v1.getTimeString());
         GraphAttribute aResult;
         
-        aResult = new GraphAttribute("a1", "Asd, edf");
+        aResult = new GraphAttribute("a1", "Asd, edf", "test");
         aResult.incrementQuantity();
         expResult.addAttribute(aResult);
         
-        aResult = new GraphAttribute("a2", "6");
+        aResult = new GraphAttribute("a2", "6", "test");
         aResult.incrementQuantity();
         aResult.setMin(2);
         aResult.setMax(4);
         expResult.addAttribute(aResult);
         
-        aResult = new GraphAttribute("a3", "4");
+        aResult = new GraphAttribute("a3", "4", "test");
         aResult.incrementQuantity();
         aResult.setMin(1);
         aResult.setMax(3);
         expResult.addAttribute(aResult);
         
-        aResult = new GraphAttribute("a4", "0");
+        aResult = new GraphAttribute("a4", "0", "test");
         aResult.incrementQuantity();
         aResult.setMin(-2);
         aResult.setMax(2);
         expResult.addAttribute(aResult);
         
-        aResult = new GraphAttribute("a5", "5");
+        aResult = new GraphAttribute("a5", "5", "test");
         expResult.addAttribute(aResult);
         
-        aResult = new GraphAttribute("a6", "6");
+        aResult = new GraphAttribute("a6", "6", "test");
         expResult.addAttribute(aResult);
         
-        expResult.attributes.get("Timestamp").updateAttribute("0");
-        expResult.attributes.get("Label").updateAttribute(v1.getLabel() + ", " + v2.getLabel());
+//        expResult.attributes.get("Timestamp").setValue("0");
+//        expResult.attributes.get("Label").setValue(v1.getLabel() + ", " + v2.getLabel());
         
         Vertex result = instance.combineVertices(v1, v2);
         System.out.println("result: " + result.getLabel());
         System.out.println("expResult: " + expResult.getLabel());
+        System.out.println("result: " + result.getTimeString());
+        System.out.println("expResult: " + expResult.getTimeString());
         System.out.println("result: " + result.toString());
         System.out.println("expResult: " + expResult.toString());
         assertEquals(expResult.toString(), result.toString());
@@ -376,8 +378,8 @@ public class GraphMatchingTest {
         GraphAttribute av1;
         GraphAttribute av2;
         
-        av1 = new GraphAttribute("a1", "0");
-        av2 = new GraphAttribute("a1", "0");
+        av1 = new GraphAttribute("a1", "0", "test1");
+        av2 = new GraphAttribute("a1", "0", "test2");
         v1.addAttribute(av1);
         v2.addAttribute(av2);
         

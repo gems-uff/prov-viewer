@@ -103,7 +103,7 @@ public class MergerTest {
         File f = new File(BasePath.getBasePathForClass(GuiRun.class) + File.separator + "Graph" + File.separator + path);
         UnityReader file = new UnityReader(f);
         file.readFile();
-        DirectedGraph<Object, Edge> g = new DirectedSparseMultigraph<Object, Edge>();
+        DirectedGraph<Object, Edge> g = new DirectedSparseMultigraph<>();
         
         for (Edge edge : file.getEdges()) {
                 g.addEdge(edge, (Vertex) edge.getSource(), (Vertex) edge.getTarget());
@@ -113,7 +113,7 @@ public class MergerTest {
     
     private DirectedGraph<Vertex, Edge> graph01() {
 //        Map<String, GraphAttribute> restrictionList = new HashMap<String, GraphAttribute>();
-        Collection<Edge> edges = new ArrayList<Edge>();;
+        Collection<Edge> edges = new ArrayList<>();
         Vertex v1;
         Vertex v2;
         Vertex v3;
@@ -121,20 +121,20 @@ public class MergerTest {
         Edge edge;
         
         v1 = new ActivityVertex("A", "test", "0");
-        GraphAttribute av1 = new GraphAttribute("a1", "2");
+        GraphAttribute av1 = new GraphAttribute("a1", "2", "");
         v1.addAttribute(av1);
         
         v2 = new ActivityVertex("B", "test", "0");
-        GraphAttribute av2 = new GraphAttribute("a1", "4");
+        GraphAttribute av2 = new GraphAttribute("a1", "4", "");
         v2.addAttribute(av2);
         
         
         v3 = new ActivityVertex("C", "test", "0");
-        GraphAttribute av3 = new GraphAttribute("a1", "6");
+        GraphAttribute av3 = new GraphAttribute("a1", "6", "");
         v3.addAttribute(av3);
         
         v4 = new ActivityVertex("D", "test", "0");
-        GraphAttribute av4 = new GraphAttribute("a1", "8");
+        GraphAttribute av4 = new GraphAttribute("a1", "8", "");
         v4.addAttribute(av4);
         
         edge = new Edge("edge01_g1", "Test", "Testing", "0", v1, v2);
@@ -146,7 +146,7 @@ public class MergerTest {
         edge = new Edge("edge03_g1", "Test", "Testing", "0", v3, v4);
         edges.add(edge);
         
-        DirectedGraph<Vertex, Edge> graph = new DirectedSparseMultigraph<Vertex, Edge>();
+        DirectedGraph<Vertex, Edge> graph = new DirectedSparseMultigraph<>();
         for (Edge e : edges) {
             graph.addEdge(e, (Vertex) e.getSource(), (Vertex) e.getTarget());
         } 
@@ -155,7 +155,7 @@ public class MergerTest {
     }
     
     private DirectedGraph<Vertex, Edge> graph02() {
-        Collection<Edge> edges = new ArrayList<Edge>();
+        Collection<Edge> edges = new ArrayList<>();
         Vertex v1;
         Vertex v2;
         Vertex v3;
@@ -163,20 +163,20 @@ public class MergerTest {
         Edge edge;
         
         v1 = new ActivityVertex("E", "test", "0");
-        GraphAttribute av1 = new GraphAttribute("a1", "2");
+        GraphAttribute av1 = new GraphAttribute("a1", "2", "");
         v1.addAttribute(av1);
         
         v2 = new ActivityVertex("F", "test", "0");
-        GraphAttribute av2 = new GraphAttribute("a1", "4");
+        GraphAttribute av2 = new GraphAttribute("a1", "4", "");
         v2.addAttribute(av2);
         
         
         v3 = new ActivityVertex("G", "test", "0");
-        GraphAttribute av3 = new GraphAttribute("a1", "7");
+        GraphAttribute av3 = new GraphAttribute("a1", "7", "");
         v3.addAttribute(av3);
         
         v4 = new ActivityVertex("H", "test", "0");
-        GraphAttribute av4 = new GraphAttribute("a1", "9");
+        GraphAttribute av4 = new GraphAttribute("a1", "9", "");
         v4.addAttribute(av4);
         
         edge = new Edge("edge01_g2", "Test", "Testing", "0", v1, v2);
@@ -188,7 +188,7 @@ public class MergerTest {
         edge = new Edge("edge03_g2", "Test", "Testing", "0", v3, v4);
         edges.add(edge);
         
-        DirectedGraph<Vertex, Edge> graph = new DirectedSparseMultigraph<Vertex, Edge>();
+        DirectedGraph<Vertex, Edge> graph = new DirectedSparseMultigraph<>();
         for (Edge e : edges) {
             graph.addEdge(e, (Vertex) e.getSource(), (Vertex) e.getTarget());
         } 
@@ -197,7 +197,7 @@ public class MergerTest {
     }
     
     private Map<String, AttributeErrorMargin> restriction(){
-        Map<String, AttributeErrorMargin> restrictionList = new HashMap<String, AttributeErrorMargin>();
+        Map<String, AttributeErrorMargin> restrictionList = new HashMap<>();
         AttributeErrorMargin epsilon = new AttributeErrorMargin("a1", "0");
         restrictionList.put("a1", epsilon);
         

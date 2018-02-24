@@ -92,7 +92,7 @@ public class UnityReader extends XMLReader {
                             String[] paths = eElement.getElementsByTagName("value").item(0).getTextContent().split("/");
                             int j = 0;
                             for (String s : paths) {
-                                mPath.add(new GraphAttribute("Path_#" + j, s));
+                                mPath.add(new GraphAttribute("Path_#" + j, s, file.getName()));
                                 j++;
                             }
                             for (GraphAttribute ga : mPath) {
@@ -104,10 +104,13 @@ public class UnityReader extends XMLReader {
                     if (eElement.getElementsByTagName("originalValues").item(0) != null) {
                         Node valuesList = eElement.getElementsByTagName("originalValues").item(0);
                         Element e = (Element) valuesList;
-                        Collection<String> oValues = new ArrayList<>();
+                        Map<String, String> oValues = new HashMap<>();
                         for (int j = 0; j < Integer.valueOf(eElement.getElementsByTagName("quantity").item(0).getTextContent()); j++) {
-                            if(e.getElementsByTagName("originalValue").item(j) != null)
-                                oValues.add(e.getElementsByTagName("originalValue").item(j).getTextContent());
+                            if(e.getElementsByTagName("originalValue").item(j) != null) {
+                                String ov = e.getElementsByTagName("originalValue").item(j).getTextContent();
+                                String[] v = ov.split(", ");
+                                oValues.put(v[0], v[1]);
+                            }
                         }
                         att = new GraphAttribute(eElement.getElementsByTagName("name").item(0).getTextContent(),
                                 eElement.getElementsByTagName("value").item(0).getTextContent(),
@@ -116,17 +119,17 @@ public class UnityReader extends XMLReader {
                                 eElement.getElementsByTagName("quantity").item(0).getTextContent(), oValues);
                     } else {
                         att = new GraphAttribute(eElement.getElementsByTagName("name").item(0).getTextContent(),
-                                eElement.getElementsByTagName("value").item(0).getTextContent());
+                                eElement.getElementsByTagName("value").item(0).getTextContent(), file.getName());
                     }
                     attributes.put(att.getName(), att);
                 }
                 if (!hasGraphFile) {
-                    GraphAttribute att = new GraphAttribute(VariableNames.GraphFile, file.getName());
+                    GraphAttribute att = new GraphAttribute(VariableNames.GraphFile, file.getName(), file.getName());
                     attributes.put(att.getName(), att);
                 }
             }
         } else {
-            GraphAttribute att = new GraphAttribute(VariableNames.GraphFile, file.getName());
+            GraphAttribute att = new GraphAttribute(VariableNames.GraphFile, file.getName(), file.getName());
             attributes.put(att.getName(), att);
         }
     }
@@ -175,8 +178,8 @@ public class UnityReader extends XMLReader {
                     String[] folders = label.split("/");
                     String filePath = label.replace(folders[folders.length - 1], "");
                     String fn = folders[folders.length - 1];
-                    path = new GraphAttribute("Path", filePath);
-                    fileName = new GraphAttribute("FileName", fn);
+                    path = new GraphAttribute("Path", filePath, file.getName());
+                    fileName = new GraphAttribute("FileName", fn, file.getName());
                     if (type.equalsIgnoreCase("Entity")) {
                         label = fn;
                     }

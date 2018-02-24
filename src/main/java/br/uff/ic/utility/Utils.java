@@ -148,8 +148,15 @@ public class Utils {
     public static float convertFloat(String value) {
         value = value.replace(" ", "");
         value = value.replace(",", ".");
-        String v = new BigDecimal(value.trim()).toPlainString();
-        return Float.valueOf(v);
+        String v;
+        if(value.contains("Infinity")) {
+            return Float.POSITIVE_INFINITY;
+        } else {
+            v = new BigDecimal(value.trim()).toPlainString();
+            return Float.valueOf(v);
+        }
+        
+        
     }
 
     /**
