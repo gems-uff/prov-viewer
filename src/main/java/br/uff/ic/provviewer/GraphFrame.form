@@ -1051,7 +1051,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu12">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Debugging"/>
+            <Property name="text" type="java.lang.String" value="Debugging&lt;Prototype&gt;"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="debugTrialMenuItem">

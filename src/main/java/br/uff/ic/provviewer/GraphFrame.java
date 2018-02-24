@@ -1418,7 +1418,7 @@ public class GraphFrame extends javax.swing.JFrame {
 
         MenuBar.add(jMenu8);
 
-        jMenu12.setText("Debugging");
+        jMenu12.setText("Debugging<Prototype>");
 
         debugTrialMenuItem.setText("Debug Trial");
         debugTrialMenuItem.addActionListener(new java.awt.event.ActionListener() {
