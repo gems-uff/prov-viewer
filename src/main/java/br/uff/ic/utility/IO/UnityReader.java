@@ -70,25 +70,26 @@ public class UnityReader extends XMLReader {
      * edge or a vertex)
      *
      * @param element
-     * @param node
+     * @param attributes
      */
     public void readAttribute(Element element, Map<String, GraphAttribute> attributes) {
         NodeList attributesList = element.getElementsByTagName("attributes");
         if (attributesList.getLength() > 0) {
             Node nNode = attributesList.item(0);
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                Element eElement = (Element) nNode;
-                NodeList aList = eElement.getElementsByTagName("attribute");
+                NodeList aList = ((Element) nNode).getElementsByTagName("attribute");
                 boolean hasGraphFile = false;
                 for (int i = 0; i < aList.getLength(); i++) {
+                    Node nAttributeNode = aList.item(i);
+                    Element eElement = (Element) nAttributeNode;
                     GraphAttribute att;
-                    if (eElement.getElementsByTagName("name").item(i).getTextContent().equalsIgnoreCase("GraphFile")) {
+                    if (eElement.getElementsByTagName("name").item(0).getTextContent().equalsIgnoreCase("GraphFile")) {
                         hasGraphFile = true;
                     }
                     if (hackSplitFilePath) {
-                        if (eElement.getElementsByTagName("name").item(i).getTextContent().equalsIgnoreCase("Path")) {
+                        if (eElement.getElementsByTagName("name").item(0).getTextContent().equalsIgnoreCase("Path")) {
                             Collection<GraphAttribute> mPath = new ArrayList<>();
-                            String[] paths = eElement.getElementsByTagName("value").item(i).getTextContent().split("/");
+                            String[] paths = eElement.getElementsByTagName("value").item(0).getTextContent().split("/");
                             int j = 0;
                             for (String s : paths) {
                                 mPath.add(new GraphAttribute("Path_#" + j, s));
@@ -99,46 +100,33 @@ public class UnityReader extends XMLReader {
                             }
                         }
                     }
-                    if (eElement.getElementsByTagName("min").item(i) != null
-                            && eElement.getElementsByTagName("max").item(i) != null
-                            && eElement.getElementsByTagName("quantity").item(i) != null) {
-                        if (eElement.getElementsByTagName("originalValues").item(i) != null) {
-                            Node valuesList;
-                            valuesList = eElement.getElementsByTagName("originalValues").item(i);
-                            Element e = (Element) valuesList;
-                            Collection<String> oValues = new ArrayList<String>();
-                            for (int j = 0; j < Integer.valueOf(eElement.getElementsByTagName("quantity").item(i).getTextContent()); j++) {
-                                if(e.getElementsByTagName("originalValue").item(j) != null)
-                                    oValues.add(e.getElementsByTagName("originalValue").item(j).getTextContent());
-                            }
-                            att = new GraphAttribute(eElement.getElementsByTagName("name").item(i).getTextContent(),
-                                    eElement.getElementsByTagName("value").item(i).getTextContent(),
-                                    eElement.getElementsByTagName("min").item(i).getTextContent(),
-                                    eElement.getElementsByTagName("max").item(i).getTextContent(),
-                                    eElement.getElementsByTagName("quantity").item(i).getTextContent(), oValues);
-                        } else {
-                            att = new GraphAttribute(eElement.getElementsByTagName("name").item(i).getTextContent(),
-                                    eElement.getElementsByTagName("value").item(i).getTextContent(),
-                                    eElement.getElementsByTagName("min").item(i).getTextContent(),
-                                    eElement.getElementsByTagName("max").item(i).getTextContent(),
-                                    eElement.getElementsByTagName("quantity").item(i).getTextContent());
+                    
+                    if (eElement.getElementsByTagName("originalValues").item(0) != null) {
+                        Node valuesList = eElement.getElementsByTagName("originalValues").item(0);
+                        Element e = (Element) valuesList;
+                        Collection<String> oValues = new ArrayList<>();
+                        for (int j = 0; j < Integer.valueOf(eElement.getElementsByTagName("quantity").item(0).getTextContent()); j++) {
+                            if(e.getElementsByTagName("originalValue").item(j) != null)
+                                oValues.add(e.getElementsByTagName("originalValue").item(j).getTextContent());
                         }
+                        att = new GraphAttribute(eElement.getElementsByTagName("name").item(0).getTextContent(),
+                                eElement.getElementsByTagName("value").item(0).getTextContent(),
+                                eElement.getElementsByTagName("min").item(0).getTextContent(),
+                                eElement.getElementsByTagName("max").item(0).getTextContent(),
+                                eElement.getElementsByTagName("quantity").item(0).getTextContent(), oValues);
                     } else {
-                        att = new GraphAttribute(eElement.getElementsByTagName("name").item(i).getTextContent(),
-                                eElement.getElementsByTagName("value").item(i).getTextContent());
+                        att = new GraphAttribute(eElement.getElementsByTagName("name").item(0).getTextContent(),
+                                eElement.getElementsByTagName("value").item(0).getTextContent());
                     }
-//                    node.addAttribute(att);
                     attributes.put(att.getName(), att);
                 }
                 if (!hasGraphFile) {
                     GraphAttribute att = new GraphAttribute(VariableNames.GraphFile, file.getName());
-//                    node.addAttribute(att);
                     attributes.put(att.getName(), att);
                 }
             }
         } else {
             GraphAttribute att = new GraphAttribute(VariableNames.GraphFile, file.getName());
-//            node.addAttribute(att);
             attributes.put(att.getName(), att);
         }
     }
