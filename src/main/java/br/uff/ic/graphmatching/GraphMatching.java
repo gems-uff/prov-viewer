@@ -395,7 +395,7 @@ public class GraphMatching {
             vertexList.put(vertex.getID(), vertex);
         }
     }
-
+    
     /**
      * Method to add vertices from a graph to the combined graph
      *
@@ -517,6 +517,10 @@ public class GraphMatching {
         DirectedGraph<Object, Edge> combinedGraph = new DirectedSparseMultigraph<>();
 
         removeDuplicateEdges();
+        
+        for (Object vertex : this.getVertexList()) {
+            combinedGraph.addVertex(vertex);
+        }
 
         for (Edge edge : this.getEdges()) {
             combinedGraph.addEdge(edge, (Vertex) edge.getSource(), (Vertex) edge.getTarget());
