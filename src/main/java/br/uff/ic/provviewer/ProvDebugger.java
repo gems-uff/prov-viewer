@@ -180,9 +180,12 @@ public class ProvDebugger {
         System.out.println("Error Reasons: " + ids);
         System.out.println("Vertices that led to failure: " + failureIds);
         Map<String, List<Vertex>> debugResult = new HashMap<>();
+        List<Vertex> minDiffTrialName = new ArrayList<>();
+        minDiffTrialName.add(new AgentVertex(minDiffTrial));
         debugResult.put("correct", minDiff);
         debugResult.put("error", failureVertices);
         debugResult.put("originalVertices", originalTrialVertices);
+        debugResult.put("minDiffTrial", minDiffTrialName);
         return debugResult;
         // Need to mark with ORANGE border the cases that lead this trial to failure
     }
