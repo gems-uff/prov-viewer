@@ -24,7 +24,6 @@
 
 package br.uff.ic.utility;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,6 +45,7 @@ public class GraphAttribute {
      * Default constructor
      * @param name is the attribute name
      * @param value is the attribute value
+     * @param origin is the name of the graph that has this attribute
      */
     public GraphAttribute(String name, String value, String origin) {
         this.name = name;
@@ -74,26 +74,6 @@ public class GraphAttribute {
         updateAttribute(values);
     }
     
-    /**
-     * Constructor with min and max values (used when quantity == 2)
-     * @param name
-     * @param value
-     * @param min
-     * @param max
-     * @param quantity 
-     */
-//    public GraphAttribute(String name, String value, String min, String max, String quantity) {
-//        this.name = name;
-//        this.value = value;
-//        this.quantity = Integer.valueOf(quantity);
-//        this.minValue = Utils.convertFloat(min);
-//        this.maxValue = Utils.convertFloat(max);
-//        this.originalValues = new ArrayList<>();
-//        this.originalValues.add(min);
-//        this.originalValues.add(max);
-//
-//    }
-    
     /** 
      * Constructor with all variables (used when quantity >=3)
      * @param name
@@ -115,37 +95,9 @@ public class GraphAttribute {
     
     /**
      * Method to update the attribute when computing the collapsed set
-     * @param value is the attribute value
+     * @param values is the Map that contains all original values
      */
-    
-    // Need to change
-    // Pass Original Values and not the Value
-    // OriginalValues should never be updated in order to preserve during collapses and merges
-    // Only add elements in the current OriginalValues Map, never edit
-    // Value is only a temporary variable from the sum of the original values to speedup the visualization
     public void updateAttribute(Map<String, String> values) {
-//        this.quantity++;
-//        if (Utils.tryParseFloat(value) && Utils.tryParseFloat(this.value)) {
-//            this.value = Float.toString(Utils.convertFloat(this.value) + Utils.convertFloat(value)); // Need to recalculate from originvalues
-//            this.minValue = Math.min(this.minValue, Utils.convertFloat(value));
-//            this.maxValue = Math.max(this.maxValue, Utils.convertFloat(value));
-//            originalValues.put(origin, value);
-//        } else { // This value is a String
-////            if(!this.value.equalsIgnoreCase(value) && !(this.value.contains(value))) {
-//                String[] currentValues = this.value.split(", ");
-//                String[] newValues = value.split(", ");
-//                Map<String, String> updatedValues = new HashMap<>();
-//                for(String s : currentValues) 
-//                    updatedValues.put(s, s);
-//                for(String s : newValues) 
-//                    updatedValues.put(s, s);
-//                this.value = "";
-//                for(String s : updatedValues.values())
-//                    this.value += ", " + s;
-//                this.value = this.value.replaceFirst(", ", "");
-//                originalValues.put(origin, value);
-////            }
-//        }
         this.minValue = Float.POSITIVE_INFINITY;
         this.maxValue = Float.NEGATIVE_INFINITY;
         String testFirstValue = (String) values.values().toArray()[0];
@@ -162,8 +114,10 @@ public class GraphAttribute {
         } else { // This value is a String
             originalValues.putAll(values);
             this.value = "";
-            for(String s : originalValues.values())
-                this.value += ", " + s;
+            for(String s : originalValues.values()) {
+                if(!this.value.contains(s))
+                    this.value += ", " + s;
+            }
             this.value = this.value.replaceFirst(", ", "");
         }
         this.quantity = originalValues.size();
