@@ -33,9 +33,11 @@ import java.util.Collection;
 public class StackElementUndoDeletion {
     public Collection<Object> vertices;
     public Collection<EdgeSourceTarget> edges;
+    public Collection<EdgeSourceTarget> insertedEdges;
     
     public StackElementUndoDeletion() {
         vertices = new ArrayList<>();
         edges = new ArrayList<>();
+        insertedEdges = new ArrayList<>();
     }
 }
