@@ -96,7 +96,7 @@ public class MergerTest {
 //        fail("The test case is a prototype.");
         
         XMLWriter xmlWriter = new XMLWriter(result.getVertices(), result.getEdges());
-        xmlWriter.saveToXML("Merge_Test");
+        xmlWriter.saveToXML("target" + File.separator + "Merge_Test");
     }
     
     private DirectedGraph<Object, Edge> graphFile(String path) throws URISyntaxException, IOException {

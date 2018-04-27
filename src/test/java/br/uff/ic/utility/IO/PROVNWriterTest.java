@@ -93,8 +93,8 @@ public class PROVNWriterTest {
                 g.addEdge(edge, edge.getSource(), edge.getTarget());
             }
         PROVNWriter provnWriter = new PROVNWriter(g.getVertices(), g.getEdges());
-        provnWriter.saveToProvn("PROVN_Writer_Test");
-        readFile("PROVN_Writer_Test.provn");
+        provnWriter.saveToProvn("target" + File.separator + "PROVN_Writer_Test");
+        readFile("target" + File.separator + "PROVN_Writer_Test.provn");
     }
     public void readFile(String path) throws URISyntaxException, IOException {
         File f = new File(path);
