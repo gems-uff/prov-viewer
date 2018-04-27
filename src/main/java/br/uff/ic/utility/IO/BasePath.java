@@ -44,7 +44,7 @@ public class BasePath {
             String basePath = null;
             file = new File(clazz.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
             if (file.isFile() || file.getPath().endsWith(".jar") || file.getPath().endsWith(".zip")) {
-                basePath = file.getParent() + File.separator + "Classes";
+                basePath = file.getParent() + File.separator + "classes";
             } else {
                 basePath = file.getPath();
             }
