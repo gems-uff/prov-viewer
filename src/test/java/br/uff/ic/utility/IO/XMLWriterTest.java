@@ -68,7 +68,7 @@ public class XMLWriterTest {
             }
             
         XMLWriter xmlWriter = new XMLWriter(g.getVertices(), g.getEdges());
-        xmlWriter.saveToXML("XML_Writer_Test");
+        xmlWriter.saveToXML("target" + File.separator + "XML_Writer_Test");
     }
     
 //    @Test
