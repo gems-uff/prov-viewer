@@ -98,7 +98,8 @@ public class PROVNReaderTest {
     public void testRead() throws Exception {
 //        System.out.println("Read");
         String line = "wasGeneratedBy(e2, a1, -, [ex:fct=\\\"save\\\"])";
-        PROVNReader instance = new PROVNReader(null);
+        File f = File.createTempFile("empty", ".provn");
+        PROVNReader instance = new PROVNReader(f);
         instance.Read(line);
     }
 }

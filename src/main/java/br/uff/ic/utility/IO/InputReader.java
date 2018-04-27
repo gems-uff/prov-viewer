@@ -61,6 +61,9 @@ public abstract class InputReader {
     }
 
     public InputReader(File f){
+        if (! f.canRead()) {
+            throw new IllegalArgumentException("Invalid file: " + f);
+        }
         file = f;
         nodes = new HashMap<>();
         edges = new ArrayList<>();
