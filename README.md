@@ -20,6 +20,8 @@ This project was initiated by Troy Kohwalter and professors Leonardo Murta and E
 
 # Documentation
 * [Prov Viewer Wiki](https://github.com/gems-uff/prov-viewer/wiki)
+* [Published Paper](https://www.researchgate.net/profile/Troy_Kohwalter)
+
 
 # Development
 
