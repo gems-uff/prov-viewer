@@ -379,6 +379,8 @@ public class GuiFunctions {
         // Add to the stack
         variables.undoDeletion.push(element);
         variables.layout.setGraph(graph);
+        variables.graph = graph;
+        variables.collapsedGraph = graph;
         variables.view.getPickedVertexState().clear();
 
         variables.filter.filterHiddenEdges(variables.view, variables.layout);
@@ -403,6 +405,8 @@ public class GuiFunctions {
                 }
             }
             variables.layout.setGraph(graph);
+            variables.graph = graph;
+            variables.collapsedGraph = graph;
             variables.filter.filterHiddenEdges(variables.view, variables.layout);
 //            variables.view.repaint();
         }
