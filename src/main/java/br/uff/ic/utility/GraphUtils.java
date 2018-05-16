@@ -199,8 +199,8 @@ public class GraphUtils {
                 } else if (vertex instanceof EntityVertex) {
                     UpdateVertexTypeQuantity(attributes, (Vertex)vertex, VariableNames.CollapsedVertexEntityAttribute);
                 }
-                
                 for (GraphAttribute att : ((Vertex) vertex).getAttributes()) {
+                    att.updateOriginalValuesWithID(((Vertex) vertex).getID());
                     if (attributes.containsKey(att.getName())) {
                         if(!att.getName().equalsIgnoreCase(VariableNames.CollapsedVertexAgentAttribute) 
                                 && !att.getName().equalsIgnoreCase(VariableNames.CollapsedVertexActivityAttribute) 

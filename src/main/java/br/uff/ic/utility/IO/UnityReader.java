@@ -115,8 +115,7 @@ public class UnityReader extends XMLReader {
                         att = new GraphAttribute(eElement.getElementsByTagName("name").item(0).getTextContent(),
                                 eElement.getElementsByTagName("value").item(0).getTextContent(),
                                 eElement.getElementsByTagName("min").item(0).getTextContent(),
-                                eElement.getElementsByTagName("max").item(0).getTextContent(),
-                                eElement.getElementsByTagName("quantity").item(0).getTextContent(), oValues);
+                                eElement.getElementsByTagName("max").item(0).getTextContent(), oValues);
                     } else {
                         att = new GraphAttribute(eElement.getElementsByTagName("name").item(0).getTextContent(),
                                 eElement.getElementsByTagName("value").item(0).getTextContent(), file.getName());

@@ -38,7 +38,7 @@ public class GraphAttribute {
     private String value; // Need to change to only use this variable for speedup purposes during queries.
     private double minValue;
     private double maxValue;
-    private int quantity;
+//    private int quantity;
     private Map<String, String> originalValues;  // Need to change to a Map<String, String> to represent (OriginGraph, Value)
   
     /**
@@ -50,7 +50,7 @@ public class GraphAttribute {
     public GraphAttribute(String name, String value, String origin) {
         this.name = name;
         this.value = value;
-        this.quantity = 1;
+//        this.quantity = 1;
         if (Utils.tryParseFloat(value)){
             this.minValue = Utils.convertDouble(value.trim());
             this.maxValue = Utils.convertDouble(value.trim());
@@ -83,10 +83,10 @@ public class GraphAttribute {
      * @param quantity
      * @param values 
      */
-    public GraphAttribute(String name, String value, String min, String max, String quantity, Map<String, String> values) {
+    public GraphAttribute(String name, String value, String min, String max, Map<String, String> values) {
         this.name = name;
         this.value = value;
-        this.quantity = Integer.valueOf(quantity);
+//        this.quantity = Integer.valueOf(quantity);
         this.minValue = Utils.convertFloat(min);
         this.maxValue = Utils.convertFloat(max);
         this.originalValues = new HashMap<>();
@@ -120,7 +120,7 @@ public class GraphAttribute {
             }
             this.value = this.value.replaceFirst(", ", "");
         }
-        this.quantity = originalValues.size();
+//        this.quantity = originalValues.size();
     }
     
     /**
@@ -137,8 +137,8 @@ public class GraphAttribute {
      */
     public String getAverageValue() {
         // Return the average number
-        if ((this.quantity > 1) && Utils.tryParseFloat(this.value))
-            return Double.toString(Utils.convertDouble(this.value) / this.quantity); 
+        if ((this.originalValues.size() > 1) && Utils.tryParseFloat(this.value))
+            return Double.toString(Utils.convertDouble(this.value) / this.originalValues.size()); 
         else
             return this.value;
     }
@@ -168,7 +168,7 @@ public class GraphAttribute {
      * @return 
      */
     public String getQuantity() {
-        return Integer.toString(this.quantity);
+        return Integer.toString(this.originalValues.size());
     }
     
     public Map<String, String> getOriginalValues() {
@@ -199,7 +199,7 @@ public class GraphAttribute {
      * @return string with the attribute
      */
     public String printAttribute() {
-        if(this.quantity == 1)
+        if(this.originalValues.size() == 1)
             return this.getName() + ": " + this.getAverageValue() + " <br>";
         else
             return this.getName() + ": " + printValue();
@@ -210,16 +210,17 @@ public class GraphAttribute {
      * @return a string with the attribute characteristics
      */
     public String printValue() {
+        System.out.println("Multiple values");
         if (Utils.tryParseFloat(this.value)) {
-            if(this.quantity > 2) {
-                return (Utils.convertFloat(this.value) / this.quantity)
+            if(this.originalValues.size() > 2) {
+                return (Utils.convertFloat(this.value) / this.originalValues.size())
                         + " (" + this.getMin() + " ~ "
                         + this.get1stQuartile() + " ~"
                         + this.getMedian() + " ~"
                         + this.get3rdQuartile() + " ~"
                         + this.getMax() + ")" + "<br>";
-            } else if(this.quantity > 1){
-                return (Utils.convertFloat(this.value) / this.quantity)
+            } else if(this.originalValues.size() > 1){
+                return (Utils.convertFloat(this.value) / this.originalValues.size())
                         + " (" + this.getMin() + " ~ "
                         + this.getMax() + ")" + "<br>";
             }
@@ -236,9 +237,9 @@ public class GraphAttribute {
     }
     
      // This method is only used for tests cases
-    public void incrementQuantity() {
-        quantity++;
-    }
+//    public void incrementQuantity() {
+//        quantity++;
+//    }
      // This method is only used for tests cases
     public void setMax(float t) {
         this.maxValue = t;
@@ -279,5 +280,19 @@ public class GraphAttribute {
      */
     public String getQuartile(int quartile) {
         return Utils.quartile(originalValues.values().toArray(), quartile);
+    }
+    
+    /**
+     * Method created to rename the "origin" key from the originalValues Map to
+     * be "Graph Origin + vertex ID".
+     * @param ID 
+     */
+    public void updateOriginalValuesWithID(String ID){
+        Map<String, String> temporaryValues; 
+        temporaryValues = new HashMap<>();
+        for(String key : originalValues.keySet())
+            temporaryValues.put(key + "_VERTEXID_" + ID, originalValues.get(key));
+        originalValues.clear();
+        originalValues.putAll(temporaryValues);
     }
 }

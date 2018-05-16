@@ -290,23 +290,23 @@ public class GraphMatchingTest {
         GraphAttribute aResult;
         
         aResult = new GraphAttribute("a1", "Asd, edf", "test");
-        aResult.incrementQuantity();
+//        aResult.incrementQuantity();
         expResult.addAttribute(aResult);
         
         aResult = new GraphAttribute("a2", "6", "test");
-        aResult.incrementQuantity();
+//        aResult.incrementQuantity();
         aResult.setMin(2);
         aResult.setMax(4);
         expResult.addAttribute(aResult);
         
         aResult = new GraphAttribute("a3", "4", "test");
-        aResult.incrementQuantity();
+//        aResult.incrementQuantity();
         aResult.setMin(1);
         aResult.setMax(3);
         expResult.addAttribute(aResult);
         
         aResult = new GraphAttribute("a4", "0", "test");
-        aResult.incrementQuantity();
+//        aResult.incrementQuantity();
         aResult.setMin(-2);
         aResult.setMax(2);
         expResult.addAttribute(aResult);
