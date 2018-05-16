@@ -210,7 +210,6 @@ public class GraphAttribute {
      * @return a string with the attribute characteristics
      */
     public String printValue() {
-        System.out.println("Multiple values");
         if (Utils.tryParseFloat(this.value)) {
             if(this.originalValues.size() > 2) {
                 return (Utils.convertFloat(this.value) / this.originalValues.size())
