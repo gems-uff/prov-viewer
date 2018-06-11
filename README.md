@@ -15,6 +15,7 @@ This project was initiated by Troy Kohwalter and professors Leonardo Murta and E
 # Additional contributors
 
 # Installation
+* [Prov Viewer Releases](https://github.com/gems-uff/prov-viewer/releases)
 * [Prov Viewer Installation Guide](https://github.com/gems-uff/prov-viewer/wiki/Installation)
 
 
