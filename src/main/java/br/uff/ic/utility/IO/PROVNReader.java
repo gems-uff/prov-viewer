@@ -55,12 +55,12 @@ public class PROVNReader extends InputReader {
         try {
             String line = br.readLine();
 
-            Vertex node = new AgentVertex("Unknown Agent", "Unknown Agent", "");
-            addNode(node);
-            node = new ActivityVertex("Unknown Activity", "Unknown Activity", "");
-            addNode(node);
-            node = new EntityVertex("Unknown Entity", "Unknown Entity", "");
-            addNode(node);
+//            Vertex node = new AgentVertex("Unknown Agent", "Unknown Agent", "");
+//            addNode(node);
+//            node = new ActivityVertex("Unknown Activity", "Unknown Activity", "");
+//            addNode(node);
+//            node = new EntityVertex("Unknown Entity", "Unknown Entity", "");
+//            addNode(node);
 
             while (line != null) {
                 Read(line);
@@ -230,7 +230,6 @@ public class PROVNReader extends InputReader {
             activity = getEdge1stAttribute(attributes[0], activity);
             time = "-";
         }
-
         activity = testPointer(activity, "Activity");
         entity = testPointer(entity, "Entity");
 
@@ -447,8 +446,7 @@ public class PROVNReader extends InputReader {
 
         activity = testPointer(activity, "Activity");
         agent = testPointer(agent, "Agent");
-        plan = testPointer(plan, "Entity");
-
+        
         edge = new Edge(id, "wasAssociatedWith", "-", "-", nodes.get(agent), nodes.get(activity));
 
         GraphAttribute optAtt = new GraphAttribute("plan", plan, file.getName());
@@ -461,6 +459,7 @@ public class PROVNReader extends InputReader {
 //            Vertex node = new EntityVertex(plan, plan, "");
 //            GraphAttribute optAtt = new GraphAttribute("prov:type", "prov:Plan");
 //            addNode(node);
+            plan = testPointer(plan, "Entity");
             edge = new Edge(id, "wasAssociatedWith(Plan)", "-", "-", nodes.get(plan), nodes.get(agent));
             readAttributes(edge, optionalAttributes);
             addEdge(edge);
@@ -613,12 +612,22 @@ public class PROVNReader extends InputReader {
     public String testPointer(String pointer, String type) {
         if (nodes.get(pointer) == null) {
             if (pointer.contentEquals("-")) {
-                if(type.contentEquals("Entity"))
+                System.out.println(pointer + " " + type);
+                if(type.contentEquals("Entity")) {
                     pointer = "Unknown Entity";
-                else if(type.contentEquals("Agent"))
+                    Vertex node = new EntityVertex("Unknown Entity", "Unknown Entity", "");
+                    addNode(node);
+                }
+                else if(type.contentEquals("Agent")) {
                     pointer = "Unknown Agent";
-                else
+                    Vertex node = new AgentVertex("Unknown Agent", "Unknown Agent", "");
+                    addNode(node);
+                }
+                else if(type.contentEquals("Activity")) {
                     pointer = "Unknown Activity";
+                    Vertex node = new ActivityVertex("Unknown Activity", "Unknown Activity", "");
+                    addNode(node);
+                }
             } else if (pointer == null) {
                 pointer = "Unknown";
             } else if (pointer.isEmpty()) {
