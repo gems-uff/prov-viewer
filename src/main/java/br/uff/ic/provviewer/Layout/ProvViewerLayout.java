@@ -56,7 +56,12 @@ public abstract class ProvViewerLayout<V, E> extends AbstractLayout<V, E> implem
         this.variables = variables;
         layout_graph = (DirectedGraph<V, E>) variables.graph;
     }
-    
+    /**
+     * Sets the order of the vertices in the layout according to the ordering of
+     * {@code vertex_list}.
+     * Used by ProvCircleLayout and ProvCircleLayout2
+     * @param comparator 
+     */
     public void setVertexOrder(Comparator<V> comparator) {
         if (vertex_ordered_list == null) {
             vertex_ordered_list = new ArrayList<>();
@@ -73,6 +78,13 @@ public abstract class ProvViewerLayout<V, E> extends AbstractLayout<V, E> implem
         Collections.sort(entity_ordered_list, comparator);
     }
     
+    /**
+     * Sets the order of the vertices in the layout according to the ordering of
+     * {@code vertex_list}.
+     * Used by Hierarchy, TimelineGraphs, Timiline Layouts
+     * @param comparator
+     * @param comparatorEntity 
+     */
     public void setVertexOrder(Comparator<V> comparator, Comparator<V> comparatorEntity) {
         if (vertex_ordered_list == null) {
             vertex_ordered_list = new ArrayList<>();
@@ -92,6 +104,31 @@ public abstract class ProvViewerLayout<V, E> extends AbstractLayout<V, E> implem
         Collections.sort(entity_ordered_list, comparatorEntity);
     }
     
+    /**
+     * Sets the order of the vertices in the layout according to the ordering of
+     * {@code vertex_list}.
+     * Used by One Dimensional Layout
+     * @param comparator
+     * @param comparatorEntity 
+     */
+    public void setAllVertexOrder(Comparator<V> comparator, Comparator<V> comparatorEntity) {
+        if (vertex_ordered_list == null) {
+            vertex_ordered_list = new ArrayList<>();
+            for (V v : graph.getVertices()) {
+                    vertex_ordered_list.add(v);
+            }
+        }
+        Collections.sort(vertex_ordered_list, comparator);
+    }
+    
+    /**
+     * Sets the order of the vertices in the layout according to the ordering of
+     * {@code vertex_list}.
+     * Used by ListLayout
+     * @param comparatorAgent
+     * @param comparatorActivity
+     * @param comparatorEntity 
+     */
     public void setVertexOrder(Comparator<V> comparatorAgent, Comparator<V> comparatorActivity, Comparator<V> comparatorEntity) {
         if (vertex_ordered_list == null) {
             vertex_ordered_list = new ArrayList<>();
@@ -115,6 +152,11 @@ public abstract class ProvViewerLayout<V, E> extends AbstractLayout<V, E> implem
         Collections.sort(agent_ordered_list, comparatorAgent);
     }
     
+    /**
+     * Sets the order of the vertices in the layout according to the ordering of
+     * {@code vertex_list}.
+     * Used by TwoDimensional Layout
+     */
     public void setVertexOrder() {
         if (vertex_ordered_list == null) {
             vertex_ordered_list = new ArrayList<>();
@@ -127,18 +169,5 @@ public abstract class ProvViewerLayout<V, E> extends AbstractLayout<V, E> implem
                     vertex_ordered_list.add(v);
             }
         }
-    }
-    
-    /**
-     * Sets the order of the vertices in the layout according to the ordering of
-     * {@code vertex_list}.
-     * @param vertex_list
-     */
-    public void setVertexOrder(List<V> vertex_list) {
-        if (!vertex_list.containsAll(getGraph().getVertices())) {
-            throw new IllegalArgumentException("Supplied list must include "
-                    + "all vertices of the graph");
-        }
-        this.vertex_ordered_list = vertex_list;
     }
 }
