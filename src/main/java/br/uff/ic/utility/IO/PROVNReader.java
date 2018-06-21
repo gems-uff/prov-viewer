@@ -612,7 +612,6 @@ public class PROVNReader extends InputReader {
     public String testPointer(String pointer, String type) {
         if (nodes.get(pointer) == null) {
             if (pointer.contentEquals("-")) {
-                System.out.println(pointer + " " + type);
                 if(type.contentEquals("Entity")) {
                     pointer = "Unknown Entity";
                     Vertex node = new EntityVertex("Unknown Entity", "Unknown Entity", "");
