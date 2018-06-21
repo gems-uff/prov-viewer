@@ -58,7 +58,7 @@ public class GraphObject extends Object{
     }
     
     public String getLabel(){
-        return this.attributes.get(label).getAverageValue();
+        return this.attributes.get(label).getValue();
     }
     
     public void setLabel(String t){

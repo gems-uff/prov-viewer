@@ -56,7 +56,7 @@ public class GraphAttribute {
             this.maxValue = Utils.convertDouble(value.trim());
             double v = Utils.convertDouble(value.trim());
 //            double v = ((int) (Utils.convertDouble(value.trim()) * 10000)) * 0.0001f;
-            this.value = String.valueOf(v);
+//            this.value = String.valueOf(v);
         }
         else {
             this.minValue = 0;
