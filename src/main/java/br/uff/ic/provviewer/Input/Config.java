@@ -98,7 +98,7 @@ public class Config {
 
     public double width;
     public double height;
-    public String timeScale = "";
+    public String timeScale = "milliseconds";
     public boolean considerEdgeLabelForMerge = false;
 
     //Vertex Stroke variables
