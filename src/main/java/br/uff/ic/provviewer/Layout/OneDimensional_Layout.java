@@ -68,10 +68,9 @@ public class OneDimensional_Layout<V, E> extends ProvViewerTimelineLayout<V, E> 
     private void doInit() {
 
         x_att = Utils.removeMinusSign(x_att);
-        y_att = Utils.removeMinusSign(y_att);
         boolean isReverse_X = Utils.getMinusSign(x_att);
 
-        setAllVertexOrder(Utils.getVertexAttributeComparator(x_att), Utils.getVertexAttributeComparator(y_att));
+        setAllVertexOrder(Utils.getVertexAttributeComparator(x_att));
         V previous = vertex_ordered_list.get(0);
         int xOffset = 0;
         int previousAttValue = 0;

@@ -111,7 +111,7 @@ public abstract class ProvViewerLayout<V, E> extends AbstractLayout<V, E> implem
      * @param comparator
      * @param comparatorEntity 
      */
-    public void setAllVertexOrder(Comparator<V> comparator, Comparator<V> comparatorEntity) {
+    public void setAllVertexOrder(Comparator<V> comparator) {
         if (vertex_ordered_list == null) {
             vertex_ordered_list = new ArrayList<>();
             for (V v : graph.getVertices()) {
