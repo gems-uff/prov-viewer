@@ -33,6 +33,8 @@ import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.Graph;
 import java.awt.geom.Point2D;
 import java.util.ConcurrentModificationException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Layout to display vertices in a timeline fashion
@@ -45,7 +47,7 @@ import java.util.ConcurrentModificationException;
  * @param <E> JUNG's E (Edge) type
  */
 public class OneDimensional_Layout<V, E> extends ProvViewerTimelineLayout<V, E> {
-    double variation = (3 * variables.config.vertexSize);
+    double variation = (5 * variables.config.vertexSize);
     private double EPSILON = 0.000001D;
 
     public OneDimensional_Layout(Graph<V, E> g, Variables variables) {
@@ -78,7 +80,7 @@ public class OneDimensional_Layout<V, E> extends ProvViewerTimelineLayout<V, E> 
         double yPos = 0;
         double xPos = 0;
         int yGraphOffset = 0;
-        int agentScale = (int) (10 * variables.config.vertexSize);
+        int agentScale = (int) (12 * variables.config.vertexSize);
         scale = (int) (6 * variables.config.vertexSize);
         for (V v : vertex_ordered_list) {
             yPos = 0;
@@ -102,21 +104,16 @@ public class OneDimensional_Layout<V, E> extends ProvViewerTimelineLayout<V, E> 
                 yPos = agentY;
                 agentY = agentY + agentScale;
                 xPos = attValue;
-            } else if (v instanceof ActivityVertex) {
-                if (layout_graph.getOutEdges(v) != null) {
-                    yPos = findNeighbor(v);
-                    xPos = attValue;
-                }
-            } else if (v instanceof EntityVertex) {
-                if (layout_graph.getOutEdges(v) != null) {
-                    yPos = findNeighbor(v);
-                    xPos = attValue;
-                }
             } else {
-                System.out.println("Not found");
-                yPos = 0;
-                xPos = attValue;
-            }
+                if (layout_graph.getOutEdges(v) != null) {
+                    yPos = findNeighbor(v);
+                    xPos = attValue;
+                } else {
+                    System.out.println("Not found");
+                    yPos = 0;
+                    xPos = attValue;
+                }
+            } 
             yPos = yPos + yGraphOffset;
             if (isReverse_X) {
                 xPos *= -1;
@@ -124,92 +121,58 @@ public class OneDimensional_Layout<V, E> extends ProvViewerTimelineLayout<V, E> 
             coord.setLocation(xPos, yPos);
             previous = v;
             calcRepulsion(v);
+//            System.out.println("Vertex: " + ((Vertex)v).getID() + " = " + transform(v).getX() + " / " + transform(v).getY());
         }
-        
+//        System.out.println("Variation: " + variation);
+//        System.out.println("Scale: " + scale);
     }
 
     protected synchronized void calcRepulsion(V v1) {
-        //Only Process and Artifact types can have the same position, so lets check
-        if ((v1 instanceof ActivityVertex) || (v1 instanceof EntityVertex)) {
-            try {
-                for (V v2 : graph.getVertices()) {
-                    if ((v2 instanceof ActivityVertex) || (v2 instanceof EntityVertex)) {
-                        //A check to see if we are not comparing him with himself
-                        if (v1 != v2) {
-                            Point2D p1 = transform(v1);
-                            Point2D p2 = transform(v2);
-                            if (p1 == null || p2 == null) {
-                                continue;
-                            }
-                            //Need to check both X and Y positions, so it is from the same employee
-                            if (Equals(p1.getX(), p2.getX()) && Equals(p1.getY(), p2.getY())) {
-                                p1.setLocation(p1.getX(), p1.getY() + variation);
-//                                p2.setLocation(p2.getX(), p2.getY() + variation);
-                                //Need to check again in case another node is at the same new position
-                                calcRepulsion(v1);
-                            }
+        try {
+            for (V v2 : graph.getVertices()) {
+                if (v1 != v2) {
+                    Point2D p1 = transform(v1);
+                    Point2D p2 = transform(v2);
+                    if (p1 == null || p2 == null) {
+                        continue;
+                    }
+                    if (Equals(p1.getX(), p2.getX()) && Equals(p1.getY(), p2.getY())) {
+                        if(v1 instanceof EntityVertex && v2 instanceof ActivityVertex) {
+                            p1.setLocation(p1.getX() + variables.config.vertexSize, p1.getY() - 3 * variables.config.vertexSize);
+                            calcRepulsion(v1);
+                            break;
+                        }
+                        else {
+                            p1.setLocation(p1.getX(), p1.getY() + variation);
+                            calcRepulsion(v1);
+                            break;
                         }
                     }
                 }
-            } catch (ConcurrentModificationException cme) {
-//                calcRepulsion(v1);
             }
+        } catch (ConcurrentModificationException cme) {
+//                calcRepulsion(v1);
         }
     }
     
     private double findNeighbor(V v) {
-        double y = 10;
+        double y = 0;
+        Map<String, V> neighbors = new HashMap<>();
         if (layout_graph.getOutEdges(v).size() > 0) {
             for (E neighbor : layout_graph.getOutEdges(v)) {
-                //if the edge link to an Agent-node
                 Point2D vNeighbor = transform(layout_graph.getDest(neighbor));
-                y += vNeighbor.getY();
+                if(!neighbors.containsKey(((Vertex)layout_graph.getDest(neighbor)).getID())) {
+                    y += vNeighbor.getY();
+                    neighbors.put(((Vertex)layout_graph.getDest(neighbor)).getID(), layout_graph.getDest(neighbor));
+                }
             }
-            y /= layout_graph.getOutEdges(v).size();
+//            System.out.println("Vertex Position: " + ((Vertex)v).getID() + " = " + y + " / " + neighbors.size());
+            y /= neighbors.size();
         }
+        
         return y;
     }
-//    private V getNeighbor(V v) {
-//        if (layout_graph.getOutEdges(v) != null) {
-//            for (E neighbor : layout_graph.getOutEdges(v)) {
-//                if(neighbor != null)
-//                    return layout_graph.getDest(neighbor);
-//            
-//            }
-//        }
-//        return null;
-//    }
-//    
-//    private double findAgent(V v, double y) {
-//        if (layout_graph.getOutEdges(v) != null) {
-//            for (E neighbor : layout_graph.getOutEdges(v)) {
-//                //if the edge link to an Agent-node
-//                if (layout_graph.getDest(neighbor) instanceof AgentVertex || ((Vertex)layout_graph.getDest(neighbor)).hasAttribute(VariableNames.CollapsedVertexAgentAttribute)) {
-//                    Point2D agentPos = transform(layout_graph.getDest(neighbor));
-//                    return agentPos.getY();
-//                }
-//                else {
-//                    return findAgent(layout_graph.getDest(neighbor), y);
-//                }
-//            }
-//        }
-//        return y;
-//    }
-//    private double findActivity(V v, double y) {
-//        if (layout_graph.getOutEdges(v) != null) {
-//            for (E neighbor : layout_graph.getOutEdges(v)) {
-//                //if the edge link to an Agent-node
-//                if (layout_graph.getDest(neighbor) instanceof ActivityVertex || ((Vertex)layout_graph.getDest(neighbor)).hasAttribute(VariableNames.CollapsedVertexActivityAttribute)) {
-//                    Point2D actPos = transform(layout_graph.getDest(neighbor));
-//                    return actPos.getY();
-//                }
-//                else {
-//                    return findActivity(layout_graph.getDest(neighbor), y);
-//                }
-//            }
-//        }
-//        return y;
-//    }
+    
     protected boolean Equals(double a, double b) {
         return Math.abs(a - b) < EPSILON;
     }
