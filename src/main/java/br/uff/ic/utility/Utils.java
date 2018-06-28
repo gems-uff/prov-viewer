@@ -787,9 +787,13 @@ public class Utils {
                     if (c1t != c2t) {
                         return Double.compare(c1t, c2t);
                     } else {
-                        return ((Vertex) c2).getNodeType().compareTo(((Vertex) c1).getNodeType());
+                        if(((Vertex) c1).getNodeType().contentEquals("Agent")) {
+                            return -1;
+                        } else if(((Vertex) c2).getNodeType().contentEquals("Agent")) {
+                            return -1;
+                        } else
+                            return ((Vertex) c1).getNodeType().compareTo(((Vertex) c2).getNodeType());
                     }
-                    //TODO make agent lose priority to appear after the activity
             }
         };
         return comparator;
