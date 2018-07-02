@@ -26,6 +26,7 @@ package br.uff.ic.provviewer.Layout;
 import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.Utils;
+import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.Graph;
@@ -41,9 +42,9 @@ import java.awt.geom.Point2D;
  * @param <V> JUNG's V (Vertex) type
  * @param <E> JUNG's E (Edge) type
  */
-public class Timeline_Layout<V, E> extends ProvViewerTimelineLayout<V, E> {
+public class Timeline_Layout_2<V, E> extends ProvViewerTimelineLayout<V, E> {
 
-    public Timeline_Layout(Graph<V, E> g, Variables variables) {
+    public Timeline_Layout_2(Graph<V, E> g, Variables variables) {
         super(g, variables);
     }
 
@@ -63,12 +64,16 @@ public class Timeline_Layout<V, E> extends ProvViewerTimelineLayout<V, E> {
     private void doInit() {
 
         x_att = Utils.removeMinusSign(x_att);
-        setAllVertexOrder(Utils.getVertexAttributeComparator(x_att));
+        y_att = Utils.removeMinusSign(y_att);
+        
+        setVertexOrder(Utils.getVertexAttributeComparator(x_att), Utils.getVertexAttributeComparator(y_att));
         int i = 0;
         int agentY = 0;
         double yPos = 0;
         double xPos = 0;
+        int entityXPos = (int) (vertex_ordered_list.size() * 0.5 - (entity_ordered_list.size() * 0.5));
 
+        entityXPos = entityXPos * scale;
         for (V v : vertex_ordered_list) {
             Point2D coord = transform(v);
             if (v instanceof AgentVertex || ((Vertex)v).hasAttribute(VariableNames.CollapsedVertexAgentAttribute)) {
@@ -76,7 +81,7 @@ public class Timeline_Layout<V, E> extends ProvViewerTimelineLayout<V, E> {
                 agentY = agentY + scale;
                 i = i + scale;
                 xPos = i;
-            } else {
+            } else if (v instanceof ActivityVertex) {
                 if (layout_graph.getOutEdges(v) != null) {
                     for (E neighbor : layout_graph.getOutEdges(v)) {
                         //if the edge link to an Agent-node
@@ -84,21 +89,19 @@ public class Timeline_Layout<V, E> extends ProvViewerTimelineLayout<V, E> {
                             Point2D agentPos = transform(layout_graph.getDest(neighbor));
                             yPos = agentPos.getY();
                         }
-                        else if (layout_graph.getOutEdges(v) != null) {
-                            yPos = findNeighbor(v);
-                            xPos = i;
-                        } else {
-                            System.out.println("Not found");
-                            yPos = 0;
-                            xPos = i;
-                        }
                         i = i + scale;
                         xPos = i;
                     }
                 }
+            } else {
+                yPos = 0;
+                i = i + scale;
+                xPos = i;
             }
             coord.setLocation(xPos, yPos);
         }
+        positionEntitiesTimeline(entityXPos);
+
     }
 
     /**
