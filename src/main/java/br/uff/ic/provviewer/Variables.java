@@ -31,12 +31,13 @@ import br.uff.ic.provviewer.Input.SimilarityConfig;
 import br.uff.ic.provviewer.Layout.ProvCircleLayout;
 import br.uff.ic.provviewer.Layout.ProvCircleLayout2;
 import br.uff.ic.provviewer.Layout.Spatial_Layout;
-import br.uff.ic.provviewer.Layout.Temporal_Layout;
 import br.uff.ic.provviewer.Layout.Timeline_Layout;
-import br.uff.ic.provviewer.Layout.Hierarchy_Layout;
+import br.uff.ic.provviewer.Layout.Hierarchy_Layout_2;
 import br.uff.ic.provviewer.Layout.ListLayout;
 import br.uff.ic.provviewer.Layout.TimelineGraphs_Layout;
 import br.uff.ic.provviewer.Layout.OneDimensional_Layout;
+import br.uff.ic.provviewer.Layout.Temporal_Layout;
+import br.uff.ic.provviewer.Layout.OneDimensional_Layout_Ordered;
 import br.uff.ic.provviewer.Layout.TwoDimensional_Layout;
 import br.uff.ic.utility.GraphCollapser;
 import br.uff.ic.utility.GraphUtils;
@@ -79,8 +80,8 @@ public class Variables extends Object {
 //    public String configDemo = File.separator + "Config" + File.separator + "Angry_Robots_config.xml";
 //    public static String demo = File.separator + "Graph" + File.separator + "Angry_Robots_paperCIG.xml";
     
-    public static String demo = "Graph" + File.separator + "Car_Tutorial.xml";   
-    public String configDemo = "Config" + File.separator + "Car_Tutorial_config.xml";
+//    public static String demo = "Graph" + File.separator + "Car_Tutorial.xml";   
+//    public String configDemo = "Config" + File.separator + "Car_Tutorial_config.xml";
     
 //    public static String demo = File.separator + "Graph" + File.separator + "MorphWing2.xml";
 //    public String configDemo = "Config" + File.separator + "Morph_config.xml";
@@ -107,8 +108,8 @@ public class Variables extends Object {
 //    public static String demo = File.separator + "Graph" + File.separator + "Gradient.xml";
 //    public String configDemo = File.separator + "Config" + File.separator + "map_config.xml";
     
-//    public static String demo = File.separator + "Graph" + File.separator + "program_prov_example.xml";
-//    public String configDemo = File.separator + "Config" + File.separator + "prog_example_config.xml";  
+    public static String demo = File.separator + "Graph" + File.separator + "program_prov_example.xml";
+    public String configDemo = File.separator + "Config" + File.separator + "prog_example_config.xml";  
     
 //    public static String demo = File.separator + "Graph" + File.separator + "Car_Tutorial.xml";
 //    public String configDemo = File.separator + "Config" + File.separator + "Noise_config.xml";
@@ -309,6 +310,9 @@ public class Variables extends Object {
         else if (layout.equalsIgnoreCase(VariableNames.layout_One_Dimensional)) {
             this.layout = new OneDimensional_Layout<>(displayGraph, this);
         }
+        else if (layout.equalsIgnoreCase(VariableNames.layout_One_Dimensional_2)) {
+            this.layout = new OneDimensional_Layout_Ordered<>(displayGraph, this);
+        }
         else if (layout.equalsIgnoreCase(VariableNames.layout_Two_Dimensional)) {
             this.layout = new TwoDimensional_Layout<>(displayGraph, this);
         }
@@ -322,7 +326,7 @@ public class Variables extends Object {
             this.layout = new ListLayout<>(displayGraph, this);
         }
         else if (layout.equalsIgnoreCase(VariableNames.layout_hierarchy)) {
-            this.layout = new Hierarchy_Layout<>(displayGraph, this);
+            this.layout = new Hierarchy_Layout_2<>(displayGraph, this);
         }
         else {
             this.layout = new Timeline_Layout<>(displayGraph, this);

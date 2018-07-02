@@ -66,6 +66,7 @@ public class VariableNames {
     public static String layout_fr2 = "FR2";
     public static String layout_dag = "DAG";
     public static String layout_One_Dimensional = "One Dimensional";
+    public static String layout_One_Dimensional_2 = "One Dimensional (Variant)";
     public static String layout_timeline_graphs = "Timeline (Graphs)";
     public static String layout_spatial = "Spatial";
     public static String layout_fr = "FR";
