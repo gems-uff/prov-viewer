@@ -32,6 +32,7 @@ import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.Graph;
 import java.awt.geom.Point2D;
+import java.util.Collection;
 import java.util.ConcurrentModificationException;
 
 /**
@@ -41,14 +42,14 @@ import java.util.ConcurrentModificationException;
  * @param <V>
  * @param <E>
  */
-public class Temporal_Layout<V, E> extends ProvViewerLayout<V, E> {
+public class Temporal_Layout_entityAppart<V, E> extends ProvViewerLayout<V, E> {
 
     /**
      * Creates an instance for the specified graph.
      *
      * @param g
      */
-    public Temporal_Layout(Graph<V, E> g, Variables variables) {
+    public Temporal_Layout_entityAppart(Graph<V, E> g, Variables variables) {
         super(g, variables);
 //        initialize();
     }
@@ -63,15 +64,15 @@ public class Temporal_Layout<V, E> extends ProvViewerLayout<V, E> {
         doInit();
     }
 
-    private double XDISTANCE = variables.config.vertexSize * this.variables.config.scale;
-    private double YDISTANCE = 200.0;
+    private double XDISTANCE = 50.0 * this.variables.config.scale;
+    private double YDISTANCE = -100.0;
     private int agentQnt = 0;
     private Graph<V, E> graph;
 
     private void doInit() {
         graph = getGraph();
         //Starting Y position
-        double ypos = YDISTANCE;
+        double ypos = 100.0;
         //X offset for Agent-type nodes
         double xOffset = 10.0;
         //Compute Agent-type node position
@@ -81,7 +82,7 @@ public class Temporal_Layout<V, E> extends ProvViewerLayout<V, E> {
                 agentQnt++;
             }
         }
-        ypos = -ypos * (int) (agentQnt * 0.5);
+        ypos = ypos * (int) (agentQnt * 0.5);
         for (V v1 : graph.getVertices()) {
             // If the backbone happens to be an agent, then we need to set it to y = 0 to correctly position all his activities
             if ((v1 instanceof AgentVertex) && ((Vertex) v1).getLabel().contains(this.variables.config.layoutSpecialVertexType)) {
@@ -100,6 +101,11 @@ public class Temporal_Layout<V, E> extends ProvViewerLayout<V, E> {
                         //Compute position for the agent
                         calcAgentPositions((V) v1, ypos, xOffset);
                         //Update Y position for the next agent
+                        ypos += 100.0;
+                        //Skip position 0
+                        if (ypos == -100.0) {
+                            ypos += 400.0;
+                        }
                     }
                 }
             } else if (v1 instanceof AgentVertex) {
@@ -113,7 +119,11 @@ public class Temporal_Layout<V, E> extends ProvViewerLayout<V, E> {
                 //Compute position for the agent
                 calcAgentPositions((V) v1, ypos, xOffset);
                 //Update Y position for the next agent
-                ypos += YDISTANCE;
+                ypos += 100.0;
+                //Skip position 0
+                if (ypos == -100.0) {
+                    ypos += 400.0;
+                }
             }
         }
         //Compute position for all node-types (minus Agent)
@@ -149,17 +159,38 @@ public class Temporal_Layout<V, E> extends ProvViewerLayout<V, E> {
         double newYPos;
 
         if (v instanceof Vertex) {
+            //Node's X position is defined by the day it was created
             double time = ((Vertex) v).getNormalizedTime();
             time = Utils.convertTime(variables.config.timeScale, time, variables.selectedTimeScale);
             
             newXPos = Math.round(time) * XDISTANCE;
-            if (v instanceof EntityVertex) {
-                newYPos = findAgent(v);
-                xyd.setLocation(newXPos, newYPos);
-            }
+            //If node is from the backbone type
+            if ((v instanceof Vertex) && ((Vertex) v).getLabel().contains(this.variables.config.layoutSpecialVertexType)) {
+                //I want the backbone-type node to always be on Y = 0
+                xyd.setLocation(newXPos + XDISTANCE * 0.2, 0);
+            } //If node is a ArtifactNode-type
+            else if (v instanceof EntityVertex) {
+                xyd.setLocation(newXPos, 200);
+            } //If node is a ProcessNode-type
+            //            else if(v instanceof ActivityVertex)
             else if (v instanceof ActivityVertex){
-                newYPos = findAgent(v);
-                xyd.setLocation(newXPos, newYPos);
+                //The XY position for this type of node is dependable of the
+                //agent who executed the process
+                //Get edges from node v
+                Collection<E> edges = graph.getOutEdges(v);
+                for (E edge : edges) {
+                    //if the edge link to an Agent-node
+                    if (graph.getDest(edge) instanceof AgentVertex) {
+                        //Compute position according to the agent position
+                        Point2D agentPos = transform(graph.getDest(edge));
+                        //Adding an offset to not be in the same line
+                        newYPos = agentPos.getY() + 50;
+                        //Compute X from the Agent position, removing the -XDISTANCE
+                        //to start at x=0, instead of x= -XDISTANCE position
+                        //newXPos = agentPos.getX() + XDISTANCE + newXPos;
+                        xyd.setLocation(newXPos, newYPos);
+                    }
+                }
             }
         } else if (v instanceof Graph) {
             newXPos = xyd.getX();
