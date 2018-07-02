@@ -155,23 +155,6 @@ public class OneDimensional_Layout<V, E> extends ProvViewerTimelineLayout<V, E> 
         }
     }
     
-    private double findNeighbor(V v) {
-        double y = 0;
-        Map<String, V> neighbors = new HashMap<>();
-        if (layout_graph.getOutEdges(v).size() > 0) {
-            for (E neighbor : layout_graph.getOutEdges(v)) {
-                Point2D vNeighbor = transform(layout_graph.getDest(neighbor));
-                if(!neighbors.containsKey(((Vertex)layout_graph.getDest(neighbor)).getID())) {
-                    y += vNeighbor.getY();
-                    neighbors.put(((Vertex)layout_graph.getDest(neighbor)).getID(), layout_graph.getDest(neighbor));
-                }
-            }
-//            System.out.println("Vertex Position: " + ((Vertex)v).getID() + " = " + y + " / " + neighbors.size());
-            y /= neighbors.size();
-        }
-        
-        return y;
-    }
     
     protected boolean Equals(double a, double b) {
         return Math.abs(a - b) < EPSILON;

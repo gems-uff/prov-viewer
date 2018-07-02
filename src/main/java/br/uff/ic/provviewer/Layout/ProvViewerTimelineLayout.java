@@ -27,6 +27,7 @@ import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.Graph;
 import java.awt.geom.Point2D;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -100,6 +101,23 @@ public abstract class ProvViewerTimelineLayout<V, E> extends ProvViewerLayout<V,
         }
         
         return yGraphOffset;
+    }
+    
+    public double findNeighbor(V v) {
+        double y = 0;
+        Map<String, V> neighbors = new HashMap<>();
+        if (layout_graph.getOutEdges(v).size() > 0) {
+            for (E neighbor : layout_graph.getOutEdges(v)) {
+                Point2D vNeighbor = transform(layout_graph.getDest(neighbor));
+                if(!neighbors.containsKey(((Vertex)layout_graph.getDest(neighbor)).getID())) {
+                    y += vNeighbor.getY();
+                    neighbors.put(((Vertex)layout_graph.getDest(neighbor)).getID(), layout_graph.getDest(neighbor));
+                }
+            }
+            y /= neighbors.size();
+        }
+        
+        return y;
     }
     
 }
