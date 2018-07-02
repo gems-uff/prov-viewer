@@ -33,8 +33,6 @@ import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.Graph;
 import java.awt.geom.Point2D;
 import java.util.ConcurrentModificationException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Layout to display vertices in a timeline fashion
@@ -48,7 +46,7 @@ import java.util.Map;
  */
 public class OneDimensional_Layout<V, E> extends ProvViewerTimelineLayout<V, E> {
     double variation = (5 * variables.config.vertexSize);
-    private double EPSILON = 0.000001D;
+    private final double EPSILON = 0.000001D;
 
     public OneDimensional_Layout(Graph<V, E> g, Variables variables) {
         super(g, variables);
@@ -77,13 +75,12 @@ public class OneDimensional_Layout<V, E> extends ProvViewerTimelineLayout<V, E> 
         int xOffset = 0;
         int previousAttValue = 0;
         int agentY = 0;
-        double yPos = 0;
-        double xPos = 0;
-        int yGraphOffset = 0;
+        double yPos;
+        double xPos;
+        int yGraphOffset;
         int agentScale = (int) (12 * variables.config.vertexSize);
         scale = (int) (6 * variables.config.vertexSize);
         for (V v : vertex_ordered_list) {
-            yPos = 0;
             int attValue;
             
             Point2D coord = transform(v);
@@ -121,10 +118,7 @@ public class OneDimensional_Layout<V, E> extends ProvViewerTimelineLayout<V, E> 
             coord.setLocation(xPos, yPos);
             previous = v;
             calcRepulsion(v);
-//            System.out.println("Vertex: " + ((Vertex)v).getID() + " = " + transform(v).getX() + " / " + transform(v).getY());
         }
-//        System.out.println("Variation: " + variation);
-//        System.out.println("Scale: " + scale);
     }
 
     protected synchronized void calcRepulsion(V v1) {
