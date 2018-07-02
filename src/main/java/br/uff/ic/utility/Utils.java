@@ -307,7 +307,7 @@ public class Utils {
      * @param d1 is the string to be converted
      * @return the value in Float for the date
      */
-    public static double convertStringDateToFloat(String d1) {
+    public static long convertStringDateToFloat(String d1) {
         // Try to convert to date format and return how many milliseconds have passed since January 1, 1970, 00:00:00 GMT
         try {
             Date date;
@@ -771,34 +771,48 @@ public class Utils {
         Comparator comparator = new Comparator<Object>() {
             @Override
             public int compare(Object c1, Object c2) {
-                    double c1t = 0;
-                    double c2t = 0;
-                    if(isItTime(attribute)) {
-                        c1t = ((Vertex) c1).getMinTime();
-                        c2t = ((Vertex) c2).getMinTime();
-                    } else if(!tryParseFloat(((Vertex) c1).getAttributeValue(attribute))){
+                    long c1t = 0;
+                    long c2t = 0;
+                    if(!tryParseFloat(((Vertex) c1).getAttributeValue(attribute))){
                         String c1v = ((Vertex) c1).getAttributeValue(attribute);
                         String c2v = ((Vertex) c2).getAttributeValue(attribute);
-                        return c1v.compareTo(c2v);
+                        int result = c1v.compareTo(c2v);
+                        if(result == 0) {
+                            return untieVertexAttributeComparator(c1, c2);
+                        }
+                        else
+                            return result;
                     } else {
-                        c1t = ((Vertex) c1).getAttributeValueFloat(attribute);
-                        c2t = ((Vertex) c2).getAttributeValueFloat(attribute);
+                        c1t = (long) (((Vertex) c1).getAttributeValueFloat(attribute) * 1000);
+                        c2t = (long) (((Vertex) c2).getAttributeValueFloat(attribute)* 1000);
                     }
                     if (c1t != c2t) {
-                        return Double.compare(c1t, c2t);
+                        return Long.compare(c1t, c2t);
                     } else {
-                        if(((Vertex) c1).getNodeType().contentEquals("Agent")) {
-                            return -1;
-                        } else if(((Vertex) c2).getNodeType().contentEquals("Agent")) {
-                            return -1;
-                        } else
-                            return ((Vertex) c1).getNodeType().compareTo(((Vertex) c2).getNodeType());
+                        return untieVertexAttributeComparator(c1, c2);
+//                        return ((Vertex) c1).getNodeType().compareTo(((Vertex) c2).getNodeType());
                     }
             }
         };
         return comparator;
     }
     
+    private static int untieVertexAttributeComparator(Object c1, Object c2) {
+        if(((Vertex) c1).getNodeType().equalsIgnoreCase("Agent"))
+            return -1;
+        else if(((Vertex) c2).getNodeType().equalsIgnoreCase("Agent"))
+            return 1;
+        else if(((Vertex) c1).getNodeType().equalsIgnoreCase("Activity"))
+            return -1;
+        else if(((Vertex) c2).getNodeType().equalsIgnoreCase("Activity"))
+            return 1;
+        else if(((Vertex) c1).getNodeType().equalsIgnoreCase("Entity"))
+            return 1;
+        else if(((Vertex) c2).getNodeType().equalsIgnoreCase("Entity"))
+            return -1;
+        else
+            return 0;
+    }
     /**
      * Method that return a grayscale color from the grayscale gradient
      * @param value is the current value that we want the color
