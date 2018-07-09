@@ -137,13 +137,13 @@ public abstract class Vertex extends GraphObject {
         else
             return -1;
     }
-    public double getMinTime() {    
+    public long getMinTime() {    
         String time = this.attributes.get(timeLabel).getMin();
         if(Utils.tryParseFloat(time))
-            return (Double.parseDouble(time));
+            return (long) ((Float.parseFloat(time))*1000);
         else if(Utils.tryParseDate(time))
         {
-            double milliseconds =  Utils.convertStringDateToFloat(time);
+            long milliseconds = Utils.convertStringDateToFloat(time);
             return milliseconds;
         }
         else
