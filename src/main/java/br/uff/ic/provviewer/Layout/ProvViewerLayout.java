@@ -166,7 +166,18 @@ public abstract class ProvViewerLayout<V, E> extends AbstractLayout<V, E> implem
     public double findAgent(V v) {
         Collection<E> edges = graph.getOutEdges(v);
         double ypos = 0;
+//        for (E edge : edges) {
+//            V dest = graph.getDest(edge);
+//            if (dest instanceof AgentVertex) {
+//                Point2D agentPos = transform(dest);
+//                return agentPos.getY() + 50;
+//            }
+//        }
         for (E edge : edges) {
+//            V dest = graph.getDest(edge);
+//            ypos = findAgent(dest);
+//            if (ypos != 0)
+//                return ypos;
             V dest = graph.getDest(edge);
             if (dest instanceof AgentVertex) {
                 Point2D agentPos = transform(dest);
