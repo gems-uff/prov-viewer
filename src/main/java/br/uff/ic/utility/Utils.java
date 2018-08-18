@@ -798,29 +798,24 @@ public class Utils {
     }
     
     private static int untieVertexAttributeComparator(Object c1, Object c2) {
-        if(((Vertex) c1).getNodeType() != null) {
-            if(((Vertex) c1).getNodeType().equalsIgnoreCase("Agent"))
+        if((((Vertex) c1).getNodeType() != null) && (((Vertex) c2).getNodeType() != null)){
+            if((((Vertex) c1).getNodeType().equalsIgnoreCase("Agent")) && !(((Vertex) c2).getNodeType().equalsIgnoreCase("Agent")))
                 return -1;
-            else if(((Vertex) c1).getNodeType().equalsIgnoreCase("Activity"))
-                return -1;
-            else if(((Vertex) c1).getNodeType().equalsIgnoreCase("Entity"))
+            else if((((Vertex) c2).getNodeType().equalsIgnoreCase("Agent")) && !(((Vertex) c1).getNodeType().equalsIgnoreCase("Agent")))
                 return 1;
+            else if((((Vertex) c1).getNodeType().equalsIgnoreCase("Activity")) && !(((Vertex) c2).getNodeType().equalsIgnoreCase("Activity")))
+                return -1;
+            else if((((Vertex) c2).getNodeType().equalsIgnoreCase("Activity")) && !(((Vertex) c1).getNodeType().equalsIgnoreCase("Activity")))
+                return 1;
+            else if((((Vertex) c1).getNodeType().equalsIgnoreCase("Entity")) && !(((Vertex) c2).getNodeType().equalsIgnoreCase("Entity")))
+                return 1;
+            else if((((Vertex) c2).getNodeType().equalsIgnoreCase("Entity")) && !(((Vertex) c1).getNodeType().equalsIgnoreCase("Entity")))
+                return -1;
             else
                 return 0;
         }
-        else if(((Vertex) c2).getNodeType() != null) {
-            if(((Vertex) c2).getNodeType().equalsIgnoreCase("Agent"))
-                return 1;
-
-            else if(((Vertex) c2).getNodeType().equalsIgnoreCase("Activity"))
-                return 1;
-
-            else if(((Vertex) c2).getNodeType().equalsIgnoreCase("Entity"))
-                return -1;
-        }
         else
             return 0;
-        return 0;
     }
     /**
      * Method that return a grayscale color from the grayscale gradient
