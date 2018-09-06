@@ -109,7 +109,10 @@ public class UnityReader extends XMLReader {
                             if(e.getElementsByTagName("originalValue").item(j) != null) {
                                 String ov = e.getElementsByTagName("originalValue").item(j).getTextContent();
                                 String[] v = ov.split(", ");
-                                oValues.put(v[0], v[1]);
+                                if(v.length >= 2)
+                                    oValues.put(v[0], v[1]);
+                                else
+                                    oValues.put(v[0], "-1");
                             }
                         }
                         att = new GraphAttribute(eElement.getElementsByTagName("name").item(0).getTextContent(),
