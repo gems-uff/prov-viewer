@@ -70,7 +70,7 @@ public class ProvDebugger {
      * @param agent
      * @param entity
      */
-    public static void debugTrial(Variables variables, String trial, List<String> correctTrials, boolean activity, boolean agent, boolean entity) {
+    public static void debugTrial_test(Variables variables, String trial, List<String> correctTrials, boolean activity, boolean agent, boolean entity) {
         String trial_test = "workflow_trial_6.xml";
         List<String> correctTrials_test = new ArrayList<>();
         correctTrials_test.add("workflow_trial_7.xml");
@@ -89,7 +89,7 @@ public class ProvDebugger {
         variables.config.vertexModes.put("Debug_" + trial_test, graphMode);
         variables.config.InterfaceStatusFilters();
     }
-    public static void debugTrial_original(Variables variables, String trial, List<String> correctTrials, boolean activity, boolean agent, boolean entity) {
+    public static void debugTrial(Variables variables, String trial, List<String> correctTrials, boolean activity, boolean agent, boolean entity) {
         Map<String, List<Vertex>> reasons = DebugTrials(trial, correctTrials, variables.graph, activity, agent, entity);
         List<Vertex> alwaysWrong = DebugTrialsAlwaysWrong(correctTrials, variables, activity, agent, entity);
         DebugVisualizationScheme graphMode = new DebugVisualizationScheme("Debug_" + trial, alwaysWrong, reasons);

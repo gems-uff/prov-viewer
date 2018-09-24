@@ -58,7 +58,10 @@ public class GraphObject extends Object{
     }
     
     public String getLabel(){
-        return this.attributes.get(label).getValue();
+        if(this.attributes.get(label).getValue().length() > 20)
+            return this.attributes.get(label).getValue().substring(0, 20);
+        else
+            return this.attributes.get(label).getValue();
     }
     
     public void setLabel(String t){

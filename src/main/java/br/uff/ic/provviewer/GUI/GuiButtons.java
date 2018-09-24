@@ -26,7 +26,7 @@ package br.uff.ic.provviewer.GUI;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.graph.Edge;
 import static br.uff.ic.provviewer.GraphFrame.StatusFilterBox;
-import br.uff.ic.provviewer.Layout.Temporal_Layout;
+import br.uff.ic.provviewer.Layout.Temporal_Layout_entityAppart;
 import br.uff.ic.provviewer.Layout.OneDimensional_Layout;
 import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.utility.graph.AgentVertex;
@@ -313,7 +313,7 @@ public class GuiButtons {
     public static void UpdateTemporalLayout(Variables variables, JComboBox Layouts) {
         String layout = (String) Layouts.getSelectedItem();
         if (layout.equalsIgnoreCase(VariableNames.layout_temporal)) {
-            variables.layout = new Temporal_Layout<>(variables.layout.getGraph(), variables);
+            variables.layout = new Temporal_Layout_entityAppart<>(variables.layout.getGraph(), variables);
             variables.guiBackground.InitBackground(variables, Layouts);
             variables.view.setGraphLayout(variables.layout);
             variables.view.repaint();

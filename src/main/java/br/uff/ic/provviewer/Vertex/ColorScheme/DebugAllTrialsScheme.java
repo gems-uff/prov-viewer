@@ -40,7 +40,7 @@ import java.util.List;
  */
 public class DebugAllTrialsScheme extends ColorScheme {
     List<String> correctTrials = new ArrayList<>();
-    List<String> pickedTrias = new ArrayList<>();
+    List<String> pickedTrials = new ArrayList<>();
     
     public DebugAllTrialsScheme(String attribute) {
         super(attribute);
@@ -63,7 +63,7 @@ public class DebugAllTrialsScheme extends ColorScheme {
                 Object picked = picked_state.getSelectedObjects()[0];
                 if(picked instanceof Vertex) {
                     String[] pickedVertex_graphs = ((Vertex)picked).getAttributeValues(VariableNames.GraphFile);
-                    pickedTrias = new ArrayList<>(Arrays.asList(pickedVertex_graphs));
+                    pickedTrials = new ArrayList<>(Arrays.asList(pickedVertex_graphs));
                 }
             }
         }
@@ -79,7 +79,7 @@ public class DebugAllTrialsScheme extends ColorScheme {
             int n = 0;
             
             for(String s : graphs) {
-                if(pickedTrias.contains(s)) {
+                if(pickedTrials.contains(s)) {
                     belongsToPickedTrials = true;
                     if(correctTrials.contains(s))
                         n++;
@@ -87,7 +87,7 @@ public class DebugAllTrialsScheme extends ColorScheme {
             }
             
             if(belongsToPickedTrials) {
-                return Utils.trafficLight(n, 0, pickedTrias.size(), false);
+                return Utils.trafficLight(n, 0, pickedTrials.size(), false);
             } else
                 return new Color(200, 200, 200, 0);
         }

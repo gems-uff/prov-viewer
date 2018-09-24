@@ -424,6 +424,7 @@ public class Config {
             ProvScheme provScheme = new ProvScheme("Prov");
             vertexModes.put("Prov", provScheme);
             
+            //TODO: Change name to be more intuitive and the hardcoded Scheme
             DebugAllTrialsScheme allTrials = new DebugAllTrialsScheme("All Trials");
             vertexModes.put("All Trials", allTrials);
             
