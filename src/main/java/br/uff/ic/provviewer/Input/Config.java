@@ -32,6 +32,7 @@ import br.uff.ic.provviewer.Vertex.ColorScheme.ColorScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.DebugAllTrialsScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.VertexColorScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.DefaultVertexColorScheme;
+import br.uff.ic.provviewer.Vertex.ColorScheme.FrequencyColorScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.GraphVisualizationScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.ProvScheme;
 import br.uff.ic.provviewer.Vertex.ColorScheme.VertexGraphGrayScaleScheme;
@@ -430,6 +431,8 @@ public class Config {
             
             VertexGraphGrayScaleScheme graphScheme = new VertexGraphGrayScaleScheme(VariableNames.GraphFile);
             vertexModes.put(VariableNames.GraphFile, graphScheme);
+            ColorScheme cs = new FrequencyColorScheme("Frequency");
+            vertexModes.put("Frequency", cs);
 
             nList = doc.getElementsByTagName("colorscheme");
             for (int temp = 0; temp < nList.getLength(); temp++) {
