@@ -33,6 +33,7 @@ import br.uff.ic.utility.graph.AgentVertex;
 import br.uff.ic.provviewer.Vertex.ColorScheme.VertexPainter;
 import br.uff.ic.utility.IO.PROVNWriter;
 import br.uff.ic.utility.IO.XMLWriter;
+import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.GraphVertex;
 import edu.uci.ics.jung.graph.util.Pair;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
@@ -255,7 +256,13 @@ public class GuiButtons {
 
                 @Override
                 public String transform(Edge i) {
-                    return VariableNames.FontConfiguration + i.getFrequency(variables.numberOfGraphs);
+                    if(Utils.edgeHighlighted(i, variables)) {
+                        return VariableNames.FontConfiguration + 
+                            "Frequency: " + i.getFrequency(variables.numberOfGraphs)
+                            + "<br>MarkovIn: " + i.getAttributeValue(VariableNames.MarkovIn)
+                            + "<br>MarkovOut: " + i.getAttributeValue(VariableNames.MarkovOut);
+                    } else
+                        return "";
                 }
             });
         } else if(ShowEdgePathProbabilityButton) {
@@ -482,6 +489,10 @@ public class GuiButtons {
         searchVertexIDDialogBox.setVisible(true);
         searchVertexIDDialogBox.toFront();
         searchVertexIDDialogBox.setLocationRelativeTo(null);
+    }
+
+    public static void ComputeMarkov(Variables variables) {
+        GuiFunctions.ComputeMarkovChain(variables);
     }
 
 }
