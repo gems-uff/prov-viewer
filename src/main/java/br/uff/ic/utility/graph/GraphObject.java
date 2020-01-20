@@ -36,7 +36,6 @@ import java.util.Map;
  */
 public class GraphObject extends Object{
     public Map<String, GraphAttribute> attributes;
-    private String label = "Label";
     
     /**
      * Get method to return one specific attribute
@@ -58,15 +57,15 @@ public class GraphObject extends Object{
     }
     
     public String getLabel(){
-        if(this.attributes.get(label).getValue().length() > 20)
-            return this.attributes.get(label).getValue().substring(0, 20);
+        if(this.attributes.get(VariableNames.label).getValue().length() > 20)
+            return this.attributes.get(VariableNames.label).getValue().substring(0, 20);
         else
-            return this.attributes.get(label).getValue();
+            return this.attributes.get(VariableNames.label).getValue();
     }
     
     public void setLabel(String t){
-        GraphAttribute l = new GraphAttribute(label, t, "");
-        this.attributes.put(label, l);
+        GraphAttribute l = new GraphAttribute(VariableNames.label, t, "");
+        this.attributes.put(VariableNames.label, l);
     }
     
     /**
@@ -80,8 +79,10 @@ public class GraphObject extends Object{
         {
             for(GraphAttribute att : this.attributes.values())
             {
-                if (!att.getAverageValue().isEmpty() && !att.getValue().equalsIgnoreCase("-") && !att.getValue().equalsIgnoreCase(""))
-                    attributeList += att.printAttribute();
+                if(!(att.getName().matches(VariableNames.Frequency) || att.getName().matches(VariableNames.time) || att.getName().matches(VariableNames.label))) {
+                    if (!att.getAverageValue().isEmpty() && !att.getValue().equalsIgnoreCase("-") && !att.getValue().equalsIgnoreCase(""))
+                        attributeList += att.printAttribute();
+                }
             }
         }
         return attributeList;
@@ -186,8 +187,7 @@ public class GraphObject extends Object{
      */
     public String getFrequency(float nGraphs) {
         if(this.hasAttribute(VariableNames.GraphFile)) {
-            float frequency = ((float) this.getAttributeValues(VariableNames.GraphFile).length / (float)nGraphs) * 100;
-            return String.format("%.02f", frequency) + "%";
+            return String.format("%.02f", this.getFrequencyValue(nGraphs) * 100) + "%";
         } else
             return "Frequency Unavailable";
     }
@@ -199,8 +199,26 @@ public class GraphObject extends Object{
      */
     public float getFrequencyValue(float nGraphs) {
         if(this.hasAttribute(VariableNames.GraphFile)) {
-            return ((float) this.getAttributeValues(VariableNames.GraphFile).length / (float)nGraphs);
+            if(this.hasAttribute(VariableNames.Frequency)){
+                return Float.valueOf(this.getAttributeValue(VariableNames.Frequency));
+            }
+            else {
+                return updateFrequency(nGraphs);
+            }
+        //if(this.hasAttribute(VariableNames.GraphFile)) {
+        //    return ((float) this.getAttributeValues(VariableNames.GraphFile).length / (float)nGraphs);
         } else
             return 0;
+    }
+    
+    /**
+     * Method to force the update of the variable frequency
+     * @param nGraphs
+     * @return the freqneucy new value
+     */
+    public float updateFrequency(float nGraphs) {
+        float frequency = ((float) this.getAttributeValues(VariableNames.GraphFile).length / (float)nGraphs);
+        this.addAttribute(new GraphAttribute(VariableNames.Frequency, String.valueOf(frequency), "ProvViewer"));
+        return frequency;
     }
 }
