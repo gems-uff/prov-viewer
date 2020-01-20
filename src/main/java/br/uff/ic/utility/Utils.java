@@ -23,12 +23,14 @@
  */
 package br.uff.ic.utility;
 
+import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.IO.XMLWriter;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
 import br.uff.ic.utility.graphgenerator.NoiseGraph;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
+import edu.uci.ics.jung.visualization.picking.PickedState;
 import java.awt.Color;
 import java.awt.Paint;
 import java.io.FileNotFoundException;
@@ -877,5 +879,35 @@ public class Utils {
         int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
         return new Color(Math.min(255, 510 - proportion), Math.min(255, proportion), 0);
     }
-
+    
+    /**
+     * Method to decide if the current edge should be highlighted or not
+     * @param e the edge we are evaluating
+     * @param variables location that has the view variable so we can select the vertices and edges that were marked by the user
+     * @return true if the edge should be highlighted and false if not
+     */
+    public static boolean edgeHighlighted(Edge e, Variables variables){
+        PickedState<Object> picked_state = variables.view.getPickedVertexState();
+        PickedState<Edge> edge_picked_state = variables.view.getPickedEdgeState();
+        if(!picked_state.getPicked().isEmpty() || !edge_picked_state.getPicked().isEmpty()) {
+            if (!picked_state.getPicked().isEmpty()) {
+                for (Object v : picked_state.getPicked()) {
+                    if (e.getSource().equals(v)) {
+                        return true;
+                    } else if (e.getTarget().equals(v)) {
+                        return true;
+                    }
+                }
+            }
+            if (!edge_picked_state.getPicked().isEmpty()) {
+                for (Object v : edge_picked_state.getPicked()) {
+                    if (e.equals(v)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        return true;
+    }
 }
