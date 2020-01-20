@@ -302,7 +302,7 @@ public class GraphUtils {
             Edge next = edgeQueue.poll();
             if(next != null)
                 path.put(source.getID(), next);
-            System.out.print(source.getID() + " -> ");
+//            System.out.print(source.getID() + " -> ");
             // Get all adjacent vertices of the dequeued vertex s
             // If a adjacent has not been visited, then mark it
             // visited and enqueue it
@@ -317,7 +317,7 @@ public class GraphUtils {
                     queue.add(n);
                     edgeQueue.add(edge);
                     if(n.getID().equalsIgnoreCase(target.getID())) {
-                        System.out.println("Reached target: " + n.getID());
+//                        System.out.println("Reached target: " + n.getID());
                         path.put(n.getID(), edge);
                         return path;
                     }
