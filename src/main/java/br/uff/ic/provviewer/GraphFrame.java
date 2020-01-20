@@ -208,7 +208,7 @@ public class GraphFrame extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         mergeGraphButtom = new javax.swing.JMenuItem();
-        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
+        allowMergeUndoButtom = new javax.swing.JCheckBoxMenuItem();
         jMenu3 = new javax.swing.JMenu();
         temporalNanosecondsButton = new javax.swing.JCheckBoxMenuItem();
         temporalMicrosecondsButton = new javax.swing.JCheckBoxMenuItem();
@@ -232,6 +232,7 @@ public class GraphFrame extends javax.swing.JFrame {
         jMenu12 = new javax.swing.JMenu();
         debugTrialMenuItem = new javax.swing.JMenuItem();
         findNodesFrequencyButton = new javax.swing.JMenuItem();
+        computeMarkovChainButton = new javax.swing.JMenuItem();
         jMenu13 = new javax.swing.JMenu();
         findPathButton = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
@@ -455,20 +456,27 @@ public class GraphFrame extends javax.swing.JFrame {
             tooltipDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tooltipDialogBoxLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(tooltipDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addComponent(closeTooltipWindowButton)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(tooltipDialogBoxLayout.createSequentialGroup()
+                        .addComponent(closeTooltipWindowButton)
+                        .addGap(0, 318, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
+                .addContainerGap())
         );
         tooltipDialogBoxLayout.setVerticalGroup(
             tooltipDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tooltipDialogBoxLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(tooltipDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tooltipDialogBoxLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(tooltipDialogBoxLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(closeTooltipWindowButton)
                 .addContainerGap())
         );
@@ -1255,14 +1263,14 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu2.add(mergeGraphButtom);
 
-        jCheckBoxMenuItem1.setText("Allow to Undo Merge");
-        jCheckBoxMenuItem1.setToolTipText("<html>\nIf selected, then graph merging will be treated as normal collases. This generate bigger files due to multiple collapses and is considerable slower.  \n<br>\nIf unselected, then graph merging will replace merged vertices with a new vertex. This is a faster process and uses less space\n</html>");
-        jCheckBoxMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        allowMergeUndoButtom.setText("Allow to Undo Merge");
+        allowMergeUndoButtom.setToolTipText("<html>\nIf selected, then graph merging will be treated as normal collases. This generate bigger files due to multiple collapses and is considerable slower.  \n<br>\nIf unselected, then graph merging will replace merged vertices with a new vertex. This is a faster process and uses less space\n</html>");
+        allowMergeUndoButtom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxMenuItem1ActionPerformed(evt);
+                allowMergeUndoButtomActionPerformed(evt);
             }
         });
-        jMenu2.add(jCheckBoxMenuItem1);
+        jMenu2.add(allowMergeUndoButtom);
 
         MenuBar.add(jMenu2);
 
@@ -1436,6 +1444,14 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu12.add(findNodesFrequencyButton);
 
+        computeMarkovChainButton.setText("Markov Chain");
+        computeMarkovChainButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                computeMarkovChainButtonActionPerformed(evt);
+            }
+        });
+        jMenu12.add(computeMarkovChainButton);
+
         MenuBar.add(jMenu12);
 
         jMenu13.setText("Pathing");
@@ -1486,7 +1502,7 @@ public class GraphFrame extends javax.swing.JFrame {
 
         setJMenuBar(MenuBar);
 
-        setSize(new java.awt.Dimension(1215, 784));
+        setSize(new java.awt.Dimension(1189, 784));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     /**
@@ -1968,10 +1984,10 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private void findPathButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findPathButtonActionPerformed
         // TODO add your handling code here:
-        float probability = GuiFunctions.FindPath(variables);
+//        float probability = GuiFunctions.FindPath(variables);
         tooltipDialogBox.setVisible(true);
-        String tooltip = "The probability of taking this path, linking the selected source to the destination is: " + probability * 100.0f + " %";
-        tooltipWindowTextPane.setText(tooltip);
+//        String tooltip = "The probability of taking this path, linking the selected source to the destination is: " + probability * 100.0f + " %";
+        tooltipWindowTextPane.setText(GuiFunctions.ComputePath(variables));
     }//GEN-LAST:event_findPathButtonActionPerformed
 
     private void SearchVertexMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchVertexMenuButtonActionPerformed
@@ -2052,10 +2068,15 @@ public class GraphFrame extends javax.swing.JFrame {
         selectWorkingTrialsDialogBox.setVisible(false);
     }//GEN-LAST:event_cancelWorkingTrialsButtonActionPerformed
 
-    private void jCheckBoxMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem1ActionPerformed
+    private void allowMergeUndoButtomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allowMergeUndoButtomActionPerformed
         // TODO add your handling code here:
-        variables.allowMergeUndo = jCheckBoxMenuItem1.isSelected();
-    }//GEN-LAST:event_jCheckBoxMenuItem1ActionPerformed
+        variables.allowMergeUndo = allowMergeUndoButtom.isSelected();
+    }//GEN-LAST:event_allowMergeUndoButtomActionPerformed
+
+    private void computeMarkovChainButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_computeMarkovChainButtonActionPerformed
+        // TODO add your handling code here:
+        GuiButtons.ComputeMarkov(variables);
+    }//GEN-LAST:event_computeMarkovChainButtonActionPerformed
    
     /**
      * Main
@@ -2128,6 +2149,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JPanel ToolMenu;
     private javax.swing.JButton UndoDeletionButton;
     private javax.swing.JScrollPane VertexLabels;
+    private javax.swing.JCheckBoxMenuItem allowMergeUndoButtom;
     private javax.swing.JCheckBoxMenuItem allowVariableLayoutButton;
     public static javax.swing.JRadioButtonMenuItem attributeDisplaySimConfig;
     private javax.swing.JCheckBoxMenuItem autoDetectAttributeCheckBox;
@@ -2136,6 +2158,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JButton cancelSearchVertexButton;
     private javax.swing.JButton cancelWorkingTrialsButton;
     private javax.swing.JButton closeTooltipWindowButton;
+    private javax.swing.JMenuItem computeMarkovChainButton;
     private javax.swing.JButton confirmDebuggingButton;
     private javax.swing.JButton confirmWorkingTrialsButton;
     private javax.swing.JRadioButton considerActivityVerticesButton;
@@ -2174,7 +2197,6 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JCheckBox isSTDeps;
     public static javax.swing.JCheckBoxMenuItem isStrokeByValueButton;
     private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

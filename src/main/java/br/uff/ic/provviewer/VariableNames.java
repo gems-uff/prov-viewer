@@ -41,7 +41,7 @@ public class VariableNames {
     public static String MouseModeTransforming = "Transforming";
     public static String EdgeModeQuadCurve = "QuadCurve";
     public static String EdgeModeLine = "Line";
-    public static String FontConfiguration = "<html><font face=\"verdana\", size=\"6\", color=\"black\">";
+    public static String FontConfiguration = "<html><font face=\"verdana\", size=\"2\", color=\"black\">";
     public static String SummarizedLabelString = " (Summarized)";
     public static String DefaultVertexPainter = "Prov";
     public static String EdgeTooltipFontConfiguration = "<html><font size=\"4\">";
@@ -70,9 +70,14 @@ public class VariableNames {
     public static String layout_timeline_graphs = "Timeline (Graphs)";
     public static String layout_spatial = "Spatial";
     public static String layout_fr = "FR";
+    public static String layout_test = "Test";
     
     public static Color AgentColor = new Color(254, 211, 127);
     public static Color ActivityColor = new Color(159, 177, 252);
     public static Color EntityColor = new Color(255, 252, 135);
     public static String MergedEdgeAttribute = "Merged_Edge";
+    public static String Frequency = "Frequency";
+    public static String MarkovIn = "MarkovIn";
+    public static String MarkovOut = "MarkovOut";
+    public static String label = "Label";
 }

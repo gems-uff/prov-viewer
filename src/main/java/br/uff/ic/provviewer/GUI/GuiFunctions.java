@@ -36,6 +36,7 @@ import br.uff.ic.provviewer.Vertex.ColorScheme.VertexPainter;
 import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
 import br.uff.ic.provviewer.Vertex.VertexShape;
+import br.uff.ic.provviewer.markov.Markov;
 import br.uff.ic.utility.EdgeSourceTarget;
 import br.uff.ic.utility.GraphUtils;
 import br.uff.ic.utility.StackElementUndoDeletion;
@@ -471,33 +472,76 @@ public class GuiFunctions {
      * Method to find a path between two selected vertices
      *
      * @param variables
+     * @return the edges that compose the path
      */
-    public static float FindPath(Variables variables) {
+    public static Collection<Edge> FindPath(Variables variables) {
         Vertex source;
         Vertex target;
         PickedState<Object> picked_state = variables.view.getPickedVertexState();
         if (!picked_state.getPicked().isEmpty() && picked_state.getPicked().size() > 1) {
             source = (Vertex) picked_state.getPicked().toArray()[0];
             target = (Vertex) picked_state.getPicked().toArray()[1];
-            System.out.println("Source: " + source.getID());
-            System.out.println("target: " + target.getID());
+//            System.out.println("Source: " + source.getID());
+//            System.out.println("target: " + target.getID());
             Map<String, Edge> path = GraphUtils.BFS(source, target, variables.layout.getGraph());
-            Collection<Edge> cleanedPath = CleanPath(path, source.getID(), target.getID());
-            if (path != null) {
-                float probability = 1;
-                PickedState<Edge> picked_edge_state = variables.view.getPickedEdgeState();
-                for (Edge e : cleanedPath) {
-                    float x = GraphUtils.getSubPathProbability(variables.layout.getGraph(), e, variables.numberOfGraphs);
-//                    System.out.print(e.getID() + "(" + x + ")" + " - > ");
-                    probability = probability * x;
-                    picked_edge_state.pick(e, true);
-                }
-                System.out.println();
-                System.out.println("probability: " + probability);
-                return probability;
-            }
+            return CleanPath(path, source.getID(), target.getID());
         }
-        return 0.0f;
+        return null;
+    }
+    
+    /**
+     * Method to calculate the probability of reaching the destination from the source following the cleanedPath path
+     * @param variables
+     * @param cleanedPath requires the path
+     * @return the detailed information in the form of a String for the TooltipDialogBox
+     */
+    public static String PathProbability(Variables variables, Collection<Edge> cleanedPath) {
+        String answer = "";
+        if (cleanedPath != null) {
+            float probabilityIn = 1;
+            float probabilityOut = 1;
+            String probPathIn = "";
+            String probPathOut = "";
+            String path = "";
+            PickedState<Edge> picked_edge_state = variables.view.getPickedEdgeState();
+            picked_edge_state.clear();
+            for (Edge e : cleanedPath) {
+                float in = Float.valueOf(e.getAttributeValue(VariableNames.MarkovIn));
+                float out = Float.valueOf(e.getAttributeValue(VariableNames.MarkovOut));
+                probPathIn += " * " + in;
+                probPathOut += " * " + out;
+                path += e.getID() + " - > ";
+                System.out.print(e.getID() + " - > ");
+                probabilityIn = probabilityIn * in;
+                probabilityOut = probabilityOut * out;
+                picked_edge_state.pick(e, true);
+            }
+            System.out.println();
+//            System.out.println("probability: " + probability);
+            PickedState<Object> picked_state = variables.view.getPickedVertexState();
+            Vertex source = (Vertex) picked_state.getPicked().toArray()[0];
+            Vertex target = (Vertex) picked_state.getPicked().toArray()[1];
+            picked_state.clear();
+            answer = "Source: " + source.getID() +
+                    "\n" + "Target: " + target.getID() +
+                    "\n" + "Path: " + path +
+                    "\nThe probability of taking this path, linking the selected source to the destination is: " +
+                    "\n" + "Prob IN: " + probabilityIn + " ( 1" + probPathIn + ")" +
+                    "\n" + "Prob OUT: " + probabilityOut + " ( 1" + probPathOut + ")" +
+                    "\n";
+        }
+        
+//        answer += "<br>The probability of taking this path, linking the selected source to the destination is: ";
+        return answer;
+    }
+    
+    /**
+     * Method to compute the Path probability, invoking the methods FindPath and PathProbability
+     * @param variables
+     * @return the detailed information in the form of a String for the TooltipDialogBox
+     */
+    public static String ComputePath(Variables variables) {
+        return PathProbability(variables, FindPath(variables));
     }
 
     /**
@@ -656,6 +700,10 @@ public class GuiFunctions {
 
 //        System.out.println("Given that these nodes appear together, the probability of the selected nodes leading to a desirable outbome is: " + frequencyCorrect);
         return result;
+    }
+
+    static void ComputeMarkovChain(Variables variables) {
+        Markov.computeMarkovChain(variables);
     }
 
 }
