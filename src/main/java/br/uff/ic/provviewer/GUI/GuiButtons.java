@@ -49,7 +49,6 @@ import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import org.apache.commons.collections15.Transformer;
-import static br.uff.ic.provviewer.GraphFrame.EdgeStrokeByValueButton;
 
 /**
  * Class responsible for implementing each GUI button

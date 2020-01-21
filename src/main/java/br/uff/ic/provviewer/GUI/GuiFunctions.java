@@ -26,6 +26,7 @@ package br.uff.ic.provviewer.GUI;
 import br.uff.ic.provviewer.EdgeType;
 import br.uff.ic.provviewer.GraphFrame;
 import static br.uff.ic.provviewer.GraphFrame.StatusFilterBox;
+import br.uff.ic.provviewer.Path.GraphPath;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.Stroke.EdgeStroke;
 import br.uff.ic.provviewer.Stroke.VertexStroke;
@@ -466,108 +467,6 @@ public class GuiFunctions {
         variables.view.repaint();
     }
 
-    /**
-     * Method to find a path between two selected vertices
-     *
-     * @param variables
-     * @return the edges that compose the path
-     */
-    public static Collection<Edge> FindPath(Variables variables) {
-        Vertex source;
-        Vertex target;
-        PickedState<Object> picked_state = variables.view.getPickedVertexState();
-        if (!picked_state.getPicked().isEmpty() && picked_state.getPicked().size() > 1) {
-            source = (Vertex) picked_state.getPicked().toArray()[0];
-            target = (Vertex) picked_state.getPicked().toArray()[1];
-//            System.out.println("Source: " + source.getID());
-//            System.out.println("target: " + target.getID());
-            Map<String, Edge> path = GraphUtils.BFS(source, target, variables.layout.getGraph());
-            return CleanPath(path, source.getID(), target.getID());
-        }
-        return null;
-    }
-
-    /**
-     * Method to calculate the probability of reaching the destination from the
-     * source following the cleanedPath path
-     *
-     * @param variables
-     * @param cleanedPath requires the path
-     * @return the detailed information in the form of a String for the
-     * TooltipDialogBox
-     */
-    public static String PathProbability(Variables variables, Collection<Edge> cleanedPath) {
-        String answer = "";
-        if (cleanedPath != null) {
-            float probabilityIn = 1;
-            float probabilityOut = 1;
-            String probPathIn = "";
-            String probPathOut = "";
-            String path = "";
-            PickedState<Edge> picked_edge_state = variables.view.getPickedEdgeState();
-            picked_edge_state.clear();
-            for (Edge e : cleanedPath) {
-                float in = Float.valueOf(e.getAttributeValue(VariableNames.MarkovIn));
-                float out = Float.valueOf(e.getAttributeValue(VariableNames.MarkovOut));
-                probPathIn += " * " + in;
-                probPathOut += " * " + out;
-                path += e.getID() + " - > ";
-                System.out.print(e.getID() + " - > ");
-                probabilityIn = probabilityIn * in;
-                probabilityOut = probabilityOut * out;
-                picked_edge_state.pick(e, true);
-            }
-            System.out.println();
-//            System.out.println("probability: " + probability);
-            PickedState<Object> picked_state = variables.view.getPickedVertexState();
-            Vertex source = (Vertex) picked_state.getPicked().toArray()[0];
-            Vertex target = (Vertex) picked_state.getPicked().toArray()[1];
-            picked_state.clear();
-            answer = "Source: " + source.getID()
-                    + "\n" + "Target: " + target.getID()
-                    + "\n" + "Path: " + path
-                    + "\nThe probability of taking this path, linking the selected source to the destination is: "
-                    + "\n" + "Prob IN: " + probabilityIn + " ( 1" + probPathIn + ")"
-                    + "\n" + "Prob OUT: " + probabilityOut + " ( 1" + probPathOut + ")"
-                    + "\n";
-        }
-
-//        answer += "<br>The probability of taking this path, linking the selected source to the destination is: ";
-        return answer;
-    }
-
-    /**
-     * Method to compute the Path probability, invoking the methods FindPath and
-     * PathProbability
-     *
-     * @param variables
-     * @return the detailed information in the form of a String for the
-     * TooltipDialogBox
-     */
-    public static String ComputePath(Variables variables) {
-        return PathProbability(variables, FindPath(variables));
-    }
-
-    /**
-     * Method to clean the path returned from BFS, removing the paths that did
-     * not reach the destination This algorithm backtracks from the Target to
-     * the Source
-     *
-     * @param path is the path returned by BFS
-     * @param source is the ID of the source vertex
-     * @param target is the ID of the target vertex
-     * @return the shortest path
-     */
-    public static Collection<Edge> CleanPath(Map<String, Edge> path, String source, String target) {
-        Collection<Edge> cleanedPath = new ArrayList<>();
-        String destination = target;
-        while (destination != source) {
-            cleanedPath.add(path.get(destination));
-            destination = ((Vertex) path.get(destination).getTarget()).getID();
-        }
-        return cleanedPath;
-    }
-
     public static void SearchVertexByID(String ID, Variables variables) {
         Vertex found = null;
         for (Object v : variables.layout.getGraph().getVertices()) {
@@ -709,4 +608,7 @@ public class GuiFunctions {
         Markov.computeMarkovChain(variables);
     }
 
+    public static String ComputePath(Variables variables) {
+        return GraphPath.ComputePath(variables);
+    }
 }
