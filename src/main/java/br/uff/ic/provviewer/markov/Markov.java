@@ -35,19 +35,23 @@ import br.uff.ic.utility.graph.Vertex;
  * @author Kohwalter
  */
 public class Markov {
-    
-    public static void computeMarkovChain(Variables variables){
-        for(Edge e : variables.graph.getEdges()) {
-            if(!(e.getTarget() instanceof AgentVertex)) {
-                float eFreq = e.updateFrequency(variables.numberOfGraphs);
-                Vertex vsource = (Vertex) e.getSource();
-                float sourceFreq = vsource.updateFrequency(variables.numberOfGraphs);
-                Vertex vstarget = (Vertex) e.getTarget();
-                float targetFreq = vstarget.updateFrequency(variables.numberOfGraphs);
-                e.addAttribute(new GraphAttribute(VariableNames.MarkovIn, String.valueOf(eFreq / targetFreq), "ProvViewer"));
-                e.addAttribute(new GraphAttribute(VariableNames.MarkovOut, String.valueOf(eFreq / sourceFreq), "ProvViewer"));
-            }
+
+    public static void computeMarkovChain(Variables variables) {
+        for (Edge e : variables.graph.getEdges()) {
+            calculateMarkovValues(e, variables.numberOfGraphs);
         }
-        System.out.println("Done!");
+        System.out.println("Markov calculation is done!");
+    }
+
+    public static void calculateMarkovValues(Edge e, int ngraphs) {
+        if (!(e.getTarget() instanceof AgentVertex)) {
+            float eFreq = e.updateFrequency(ngraphs);
+            Vertex vsource = (Vertex) e.getSource();
+            float sourceFreq = vsource.updateFrequency(ngraphs);
+            Vertex vstarget = (Vertex) e.getTarget();
+            float targetFreq = vstarget.updateFrequency(ngraphs);
+            e.addAttribute(new GraphAttribute(VariableNames.MarkovIn, String.valueOf(eFreq / targetFreq), "ProvViewer"));
+            e.addAttribute(new GraphAttribute(VariableNames.MarkovOut, String.valueOf(eFreq / sourceFreq), "ProvViewer"));
+        }
     }
 }
