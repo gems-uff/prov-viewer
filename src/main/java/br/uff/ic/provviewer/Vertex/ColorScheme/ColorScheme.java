@@ -27,6 +27,7 @@ package br.uff.ic.provviewer.Vertex.ColorScheme;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.GraphUtils;
+import br.uff.ic.utility.TrafficLight;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.DirectedGraph;
@@ -125,79 +126,13 @@ public abstract class ColorScheme {
 
     public Paint CompareValue(float value, double min, double max, boolean inverted) {
         if (isZeroWhite) {
-            return splittedTrafficLight(value, min, max, inverted);
+            return TrafficLight.splittedTrafficLight(value, min, max, inverted);
         } else {
-            return Utils.trafficLight(value, min, max, inverted);
+            return TrafficLight.trafficLight(value, min, max, inverted);
         }
     }
 
     
-    public Paint splittedTrafficLight(float value, double min, double max, boolean inverted) {
-        // normalize the color between 0 and 1
-        float vPositive;
-        float vNegative;
-
-        // Fix one of the extremes to be zero in order to always have white as zero
-        if (min > 0) {
-            min = 0;
-        }
-        if (max < 0) {
-            max = 0;
-        }
-
-        if (min < 0 && max > 0) {
-            vNegative = (float) (Math.abs(value - min) / (float) Math.abs(0 - min));
-            vPositive = (float) (Math.abs(value - 0) / (float) Math.abs(max - 0));
-        } else {
-            vPositive = (float) (Math.abs(value - min) / (float) Math.abs(max - min));
-            vNegative = vPositive;
-        }
-
-        if (value == 0) {
-            return new Color(255, 255, 255);
-        }
-        if (!inverted) {
-            if (value > 0) {
-                return compareValueGreen(vPositive, min, max);
-            } else {
-                return compareValueRed(1 - vNegative, min, max);
-            }
-        } else {
-            if (value >= 0) {
-                return compareValueRed(vPositive, min, max);
-            } else {
-                return compareValueGreen(1 - vNegative, min, max);
-            }
-        }
-    }
-
-    public Paint compareValueGreen(float value, double min, double max) {
-        int aR = 255;
-        int aG = 255;
-        int aB = 255;  // RGB for the lowest value.
-        int bR = 0;
-        int bG = 255;
-        int bB = 0;    // RGB for the highest value.
-
-        return gradientColor(aR, aG, aB, bR, bG, bB, value);
-    }
-
-    public Paint compareValueRed(float value, double min, double max) {
-        int aR = 255;
-        int aG = 255;
-        int aB = 255;  // RGB for the lowest value.
-        int bR = 255;
-        int bG = 0;
-        int bB = 0;    // RGB for the highest value.
-        return gradientColor(aR, aG, aB, bR, bG, bB, value);
-    }
-
-    private Paint gradientColor(int aR, int aG, int aB, int bR, int bG, int bB, float v) {
-        int red = (int) ((float) (bR - aR) * v + aR);      // Evaluated as -255*value + 255.
-        int green = (int) ((float) (bG - aG) * v + aG);      // Evaluates as 0.
-        int blue = (int) ((float) (bB - aB) * v + aB);      // Evaluates as 255*value + 0.
-        return new Color(red, green, blue);
-    }
 
     public Paint GetMinMaxColor(Object v) {
         if (!((Vertex) v).getAttributeValue(this.attribute).contentEquals("Unknown")) {

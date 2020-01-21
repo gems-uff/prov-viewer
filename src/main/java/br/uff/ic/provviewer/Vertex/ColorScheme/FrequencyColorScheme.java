@@ -24,11 +24,9 @@
 
 package br.uff.ic.provviewer.Vertex.ColorScheme;
 
-import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.provviewer.Variables;
+import br.uff.ic.utility.TrafficLight;
 import br.uff.ic.utility.Utils;
-import br.uff.ic.utility.graph.ActivityVertex;
-import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
 import java.awt.Paint;
 
@@ -45,7 +43,7 @@ public class FrequencyColorScheme extends ColorScheme {
     @Override
     public Paint Execute(Object v, final Variables variables) {
         this.variables = variables;
-        float frequency = ((float) ((Vertex)v).getAttributeValues(VariableNames.GraphFile).length / (float)variables.numberOfGraphs) * 100;
-        return Utils.trafficLight(frequency, 0, 100, false);
+        float frequency = ((float) ((Vertex)v).getFrequencyValue(variables.numberOfGraphs));
+        return TrafficLight.trafficLight(frequency, 0, 1, false);
     }
 }

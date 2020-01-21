@@ -26,6 +26,7 @@ package br.uff.ic.provviewer.Vertex.ColorScheme;
 
 import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.provviewer.Variables;
+import br.uff.ic.utility.TrafficLight;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.graph.Graph;
@@ -46,7 +47,7 @@ public class VertexGraphGrayScaleScheme extends ColorScheme {
         this.variables = variables;
         if (!(v instanceof Graph)) {
             String[] graphs = ((Vertex)v).getAttributeValues(VariableNames.GraphFile);
-            return Utils.getGrayscaleColor(graphs.length, variables.numberOfGraphs);
+            return TrafficLight.getGrayscaleColor(graphs.length, variables.numberOfGraphs);
         }
         return ((Vertex) v).getColor();
     }

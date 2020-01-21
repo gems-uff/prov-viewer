@@ -25,6 +25,7 @@ package br.uff.ic.provviewer.Vertex.ColorScheme;
 
 import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.provviewer.Variables;
+import br.uff.ic.utility.TrafficLight;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.Vertex;
 import edu.uci.ics.jung.visualization.picking.PickedState;
@@ -87,7 +88,7 @@ public class DebugAllTrialsScheme extends ColorScheme {
             }
             
             if(belongsToPickedTrials) {
-                return Utils.trafficLight(n, 0, pickedTrials.size(), false);
+                return TrafficLight.trafficLight(n, 0, pickedTrials.size(), false);
             } else
                 return new Color(200, 200, 200, 0);
         }
@@ -99,7 +100,7 @@ public class DebugAllTrialsScheme extends ColorScheme {
                     n++;
             }
 
-            return Utils.trafficLight(n, 0, graphs.length, false);
+            return TrafficLight.trafficLight(n, 0, graphs.length, false);
         }
     }
     

@@ -28,6 +28,7 @@ import br.uff.ic.utility.GraphAttribute;
 import br.uff.ic.provviewer.EdgeType;
 import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.provviewer.Variables;
+import br.uff.ic.utility.TrafficLight;
 import br.uff.ic.utility.Utils;
 import java.awt.Color;
 import java.util.HashMap;
@@ -370,7 +371,7 @@ public class Edge extends GraphObject {
     public Color getColor(Variables variables) {
         if(variables.isEdgeColorByGraphs) {
             String[] graphs = getAttributeValues(VariableNames.GraphFile);
-            return Utils.getGrayscaleColor(graphs.length, variables.numberOfGraphs);
+            return TrafficLight.getGrayscaleColor(graphs.length, variables.numberOfGraphs);
         } else {
             float v = getValue();
             if (v == 0) {
