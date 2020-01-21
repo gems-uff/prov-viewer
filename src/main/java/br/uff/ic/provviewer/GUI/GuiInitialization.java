@@ -77,7 +77,9 @@ public class GuiInitialization {
         ToolTipManager.sharedInstance().setInitialDelay(10);
         ToolTipManager.sharedInstance().setDismissDelay(50000);
         GraphFrame.vertexFilterList.setSelectedIndex(0);
-        
+        // TODO: Optimization, do this operation when reading the graph file
+        variables.config.DetectEdges(variables.graph.getEdges());
+        variables.ComputeEdgeTypeValues();
     }
     
     /**

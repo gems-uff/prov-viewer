@@ -74,49 +74,40 @@ public class Variables extends Object {
     public String originalGraphPath = "demo";
 
 //    public static String demo = File.separator + "Graph" + File.separator + "Merge_Test.xml";
-//    public static String demo = File.separator + "Graph" + File.separator + "AngryBots_3_Merge.xml";
+    public static String demo = File.separator + "Graph" + File.separator + "AngryBots_3_Merge.xml";
 //    public static String demo = File.separator + "Graph" + File.separator + "Angry_Robots.xml";
 //    public static String demo = File.separator + "Graph" + File.separator + "Graph_to_Merge_01.xml";
-//    public String configDemo = File.separator + "Config" + File.separator + "Angry_Robots_config.xml";
+    public String configDemo = File.separator + "Config" + File.separator + "Angry_Robots_config.xml";
 //    public static String demo = File.separator + "Graph" + File.separator + "Angry_Robots_paperCIG.xml";
-    
+
 //    public static String demo = "Graph" + File.separator + "Car_Tutorial.xml";   
 //    public String configDemo = "Config" + File.separator + "Car_Tutorial_config.xml";
-    
+//    
 //    public static String demo = File.separator + "Graph" + File.separator + "MorphWing2.xml";
 //    public String configDemo = "Config" + File.separator + "Morph_config.xml";
-    
 //    public static String demo = File.separator + "Graph" + File.separator + "rio_city_bus_example.xml";
 //    public static String demo = File.separator + "Graph" + File.separator + "bus_linha5.xml";
 //    public String configDemo = File.separator + "Config" + File.separator + "rio_de_janeiro_cidade_config.xml";
-    
 //    public static String demo = File.separator + "Graph" + File.separator + "input.xml";
 //    public String configDemo = File.separator + "Config" + File.separator + "config.xml";
-    
 //    public static String demo = File.separator + "Graph" + File.separator + "Test" + File.separator + "prov-dm-example1.prov-asn";
 //    public static String demo = File.separator + "Graph" + File.separator + "test" + File.separator + "example-blog1.provn";
 //    public static String demo = File.separator + "Graph" + File.separator + "workflow_trial_0.xml";
 //    public String configDemo = File.separator + "Config" + File.separator + "PROV_config.xml";
-    
 //    public static String demo = File.separator + "Graph" + File.separator + "2D_Provenance.xml";
 //    public String configDemo = File.separator + "Config" + File.separator + "2D_Tower_Defense_config.xml";
-
 //    public static String demo = File.separator + "Graph" + File.separator + "map.xml";
 //    public static String demo = File.separator + "Graph" + File.separator + "graph_features_example.xml";
 //    public static String demo = File.separator + "Graph" + File.separator + "graph1.xml";
 //    public static String demo = File.separator + "Graph" + File.separator + "graph2.xml";
 //    public static String demo = File.separator + "Graph" + File.separator + "Gradient.xml";
 //    public String configDemo = File.separator + "Config" + File.separator + "map_config.xml";
-    
-    public static String demo = File.separator + "Graph" + File.separator + "program_prov_example.xml";
-    public String configDemo = File.separator + "Config" + File.separator + "prog_example_config.xml";  
-    
+//    public static String demo = File.separator + "Graph" + File.separator + "program_prov_example.xml";
+//    public String configDemo = File.separator + "Config" + File.separator + "prog_example_config.xml";  
 //    public static String demo = File.separator + "Graph" + File.separator + "Car_Tutorial.xml";
 //    public String configDemo = File.separator + "Config" + File.separator + "Noise_config.xml";
-    
 //    public static String demo = File.separator + "Graph" + File.separator + "bash-count.xml"; 
 //    public String configDemo = File.separator + "Config" + File.separator + "Reprozip_config.xml";
-
     public GuiBackground guiBackground = new GuiBackground();
     public VisualizationViewer<Object, Edge> view;
     public Layout<Object, Edge> layout;
@@ -137,14 +128,14 @@ public class Variables extends Object {
     public SimilarityConfig mergeConfig;
     public SimilarityConfig similarityConfig;
     public boolean considerOnlyNeighborsSimilarityCollapse = true;
-    
+
     public String selectedTimeScale = config.timeScale;
     public boolean doDerivate = false;
     public boolean removeDerivateOutliers = false;
     public boolean changedOutliersOption = false;
     public boolean isEdgeStrokeByValue = true;
     public boolean isEdgeColorByGraphs = false;
-    
+
     public ImproveJUNGPerformance jungPerformance = new ImproveJUNGPerformance();
     public String layout_attribute_X = "Timestamp";
     public String layout_attribute_Y = "Timestamp";
@@ -155,14 +146,15 @@ public class Variables extends Object {
     public ThresholdValues outliersThresholds;
     public boolean allowVariableLayout = false;
     public int edgeAlpha = 25;
-    
+
     public Stack<StackElementUndoDeletion> undoDeletion = new Stack();
-    
+
     public boolean allowMergeUndo = false;
 
     /**
      * Method that updates the number of graphs that comprises the current graph
-     * Should be called everytime after a graph is loaded: File Open / Merge Graph
+     * Should be called everytime after a graph is loaded: File Open / Merge
+     * Graph
      */
     public void updateNumberOfGraphs() {
         graphNames = Utils.DetectAllPossibleValuesFromAttribute(graph.getVertices(), VariableNames.GraphFile);
@@ -171,7 +163,6 @@ public class Variables extends Object {
         this.config.addGraphFileVertexFilter(this.graphNames);
     }
 
-    
     /**
      * Return the max value between 2 values
      *
@@ -181,10 +172,8 @@ public class Variables extends Object {
      * influence type is the same
      * @return max value between value and edge.getValue
      */
-    public float CompareMax(String type, float value, Edge edge) {
-        if ((edge.getLabel().contains(type))) {
-            value = Math.max(value, edge.getValue());
-        }
+    public float CompareMax(float value, Edge edge) {
+        value = Math.max(value, edge.getValue());
         return value;
     }
 
@@ -197,10 +186,8 @@ public class Variables extends Object {
      * influence type is the same
      * @return max value between value and edge.getValue
      */
-    public float CompareMin(String type, float value, Edge edge) {
-        if ((edge.getLabel().contains(type))) {
-            value = Math.min(value, edge.getValue());
-        }
+    public float CompareMin(float value, Edge edge) {
+        value = Math.min(value, edge.getValue());
         return value;
     }
 
@@ -213,10 +200,8 @@ public class Variables extends Object {
      * influence type is the same
      * @return added value between value and edge.getValue
      */
-    public float Add(String type, float value, Edge edge) {
-        if (edge.getLabel().contains(type)) {
-            value += Math.abs(edge.getValue());
-        }
+    public float Add(float value, Edge edge) {
+        value += Math.abs(edge.getValue());
         return value;
     }
 
@@ -245,11 +230,11 @@ public class Variables extends Object {
      * @return value, according to the operation, between value and
      * edge.getValue
      */
-    public EdgeType ComputeValue(EdgeType etype, String type, Edge edge, String max) {
-        etype.max = CompareMax(type, etype.max, edge);
-        etype.min = CompareMin(type, etype.min, edge);
+    public EdgeType ComputeValue(EdgeType etype, Edge edge) {
+        etype.max = CompareMax(etype.max, edge);
+        etype.min = CompareMin(etype.min, edge);
         etype.count++;
-        etype.total = Add(type, etype.total, edge);
+        etype.total = Add(etype.total, edge);
         return etype;
     }
 
@@ -260,97 +245,85 @@ public class Variables extends Object {
     public void ComputeEdgeTypeValues() {
         Collection<Edge> edges = this.graph.getEdges();
         for (Edge edge : edges) {
-            for (int i = 0; i < this.config.edgetype.size(); i++) {
-                GraphFrame.edgeFilterList.setSelectedIndex(i);
-                this.config.edgetype.set(i, ComputeValue(this.config.edgetype.get(i), GraphFrame.edgeFilterList.getSelectedValue().toString(), edge, this.config.edgetype.get(i).stroke));
+            if (this.config.edgeTypes.containsKey(edge.getLabel())) {
+                EdgeType et = this.config.edgeTypes.get(edge.getLabel());
+                ComputeValue(et, edge);
+            } else if (this.config.edgeTypes.containsKey(edge.getType())) {
+                EdgeType et = this.config.edgeTypes.get(edge.getType());
+                ComputeValue(et, edge);
             }
         }
         GraphFrame.edgeFilterList.setSelectedIndex(0);
     }
-    
+
     public void newLayout(String layout) {
         DirectedGraph<Object, Edge> displayGraph;
-        if(this.layout != null && this.allowVariableLayout)
+        if (this.layout != null && this.allowVariableLayout) {
             displayGraph = (DirectedGraph<Object, Edge>) this.layout.getGraph();
-        else
+        } else {
             displayGraph = this.graph;
+        }
         if (layout.equalsIgnoreCase(VariableNames.layout_circle)) {
             this.layout = new CircleLayout<>(displayGraph);
-        }
-        else if (layout.equalsIgnoreCase(VariableNames.layout_fr)) {
+        } else if (layout.equalsIgnoreCase(VariableNames.layout_fr)) {
             this.layout = new FRLayout<>(displayGraph);
-        }
-        else if (layout.equalsIgnoreCase(VariableNames.layout_fr2)) {
+        } else if (layout.equalsIgnoreCase(VariableNames.layout_fr2)) {
             this.layout = new FRLayout2<>(displayGraph);
-        }
-        else if (layout.equalsIgnoreCase(VariableNames.layout_ISOM)) {
+        } else if (layout.equalsIgnoreCase(VariableNames.layout_ISOM)) {
             this.layout = new ISOMLayout<>(displayGraph);
-        }
-        else if (layout.equalsIgnoreCase(VariableNames.layout_kk)) {
+        } else if (layout.equalsIgnoreCase(VariableNames.layout_kk)) {
             this.layout = new KKLayout<>(displayGraph);
-        }
-        else if (layout.equalsIgnoreCase(VariableNames.layout_spring)) {
+        } else if (layout.equalsIgnoreCase(VariableNames.layout_spring)) {
             this.layout = new SpringLayout<>(displayGraph);
-        }
-        else if (layout.equalsIgnoreCase(VariableNames.layout_dag)) {
+        } else if (layout.equalsIgnoreCase(VariableNames.layout_dag)) {
             this.layout = new DAGLayout<>(displayGraph);
-        }
-        else if (layout.equalsIgnoreCase(VariableNames.layout_temporal)) {
+        } else if (layout.equalsIgnoreCase(VariableNames.layout_temporal)) {
             this.layout = new Temporal_Layout<>(displayGraph, this);
-        }
-        else if (layout.equalsIgnoreCase(VariableNames.layout_spatial)) {
+        } else if (layout.equalsIgnoreCase(VariableNames.layout_spatial)) {
             this.layout = new Spatial_Layout<>(displayGraph, this);
-        }
-        else if (layout.equalsIgnoreCase(VariableNames.layout_timeline)) {
+        } else if (layout.equalsIgnoreCase(VariableNames.layout_timeline)) {
             this.layout = new Timeline_Layout<>(displayGraph, this);
-        }
-        else if (layout.equalsIgnoreCase(VariableNames.layout_timeline_graphs)) {
+        } else if (layout.equalsIgnoreCase(VariableNames.layout_timeline_graphs)) {
             this.layout = new TimelineGraphs_Layout<>(displayGraph, this);
-        }
-        else if (layout.equalsIgnoreCase(VariableNames.layout_One_Dimensional)) {
+        } else if (layout.equalsIgnoreCase(VariableNames.layout_One_Dimensional)) {
             this.layout = new OneDimensional_Layout<>(displayGraph, this);
-        }
-        else if (layout.equalsIgnoreCase(VariableNames.layout_One_Dimensional_2)) {
+        } else if (layout.equalsIgnoreCase(VariableNames.layout_One_Dimensional_2)) {
             this.layout = new OneDimensional_Layout_Ordered<>(displayGraph, this);
-        }
-        else if (layout.equalsIgnoreCase(VariableNames.layout_Two_Dimensional)) {
+        } else if (layout.equalsIgnoreCase(VariableNames.layout_Two_Dimensional)) {
             this.layout = new TwoDimensional_Layout<>(displayGraph, this);
-        }
-        else if (layout.equalsIgnoreCase(VariableNames.layout_provcircle)) {
+        } else if (layout.equalsIgnoreCase(VariableNames.layout_provcircle)) {
             this.layout = new ProvCircleLayout<>(displayGraph, this);
-        }
-        else if (layout.equalsIgnoreCase(VariableNames.layout_provcircle2)) {
+        } else if (layout.equalsIgnoreCase(VariableNames.layout_provcircle2)) {
             this.layout = new ProvCircleLayout2<>(displayGraph, this);
-        }
-        else if (layout.equalsIgnoreCase(VariableNames.layout_list)) {
+        } else if (layout.equalsIgnoreCase(VariableNames.layout_list)) {
             this.layout = new ListLayout<>(displayGraph, this);
-        }
-        else if (layout.equalsIgnoreCase(VariableNames.layout_hierarchy)) {
+        } else if (layout.equalsIgnoreCase(VariableNames.layout_hierarchy)) {
             this.layout = new Hierarchy_Layout_2<>(displayGraph, this);
-        }
-        else {
+        } else {
             this.layout = new Timeline_Layout<>(displayGraph, this);
         }
     }
-    
+
     public void initGraphCollapser() {
-        gCollapser = new GraphCollapser(this.graph, this.config.considerEdgeLabelForMerge); 
+        gCollapser = new GraphCollapser(this.graph, this.config.considerEdgeLabelForMerge);
     }
-    
+
     /**
-     * Method to set the parameters for Highlighting the outliers during a display mode
-     * The actual highlighting happnes at GuiFunctions Stroke method
+     * Method to set the parameters for Highlighting the outliers during a
+     * display mode The actual highlighting happnes at GuiFunctions Stroke
+     * method
+     *
      * @param attribute is the attribute that we are using to display the values
      */
     public void highlightOutliers(String attribute) {
-        if(this.highlightVertexOutliers) {
+        if (this.highlightVertexOutliers) {
             ArrayList<Float> values = GraphUtils.getAttributeValuesFromVertices(this.graph, attribute);
-            if(!values.isEmpty() && values.size() > 5)
+            if (!values.isEmpty() && values.size() > 5) {
                 this.outliersThresholds = Utils.calculateOutliers(values, attribute);
-            else {
+            } else {
                 this.outliersThresholds = new ThresholdValues("", 0, 0);
                 this.highlightVertexOutliers = false;
             }
         }
-    } 
+    }
 }

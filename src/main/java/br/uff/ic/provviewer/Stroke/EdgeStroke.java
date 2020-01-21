@@ -21,7 +21,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package br.uff.ic.provviewer.Stroke;
 
 import br.uff.ic.provviewer.EdgeType;
@@ -42,7 +41,8 @@ public class EdgeStroke {
      * Defines neutral edges stroke
      *
      * @param edge The edge to be analyzed
-     * @param isStrokeByValue define if we want to use the stroke size based on the edge's value (TRUE) or by the #graphs it belongs (FALSE)
+     * @param isStrokeByValue define if we want to use the stroke size based on
+     * the edge's value (TRUE) or by the #graphs it belongs (FALSE)
      * @param nGraphs is the number of graphFiles
      * @return Stroke (neutral edges are dashed, others are not)
      */
@@ -53,16 +53,17 @@ public class EdgeStroke {
 //            return new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
 //        }
         float size = 1;
-        if(!isStrokeByValue) {
+        if (!isStrokeByValue) {
 //            Vertex target = (Vertex) edge.getTarget();
             String[] graphs = edge.getAttributeValues(VariableNames.GraphFile);
-            size = 1 + (((float)graphs.length - 1) / (nGraphs - 1)) * 10;
+            size = 1 + (((float) graphs.length - 1) / (nGraphs - 1)) * 10;
         }
         return new BasicStroke(size, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, null, 0.0f);
     }
 
     /**
      * Allows to manually define (any) edge's stroke
+     *
      * @deprecated
      * @param edge Edge to have the stroke changed
      * @param dash The array representing the dashing pattern
@@ -97,15 +98,14 @@ public class EdgeStroke {
      * @return Stroke
      */
     public static Stroke StrokeByType(Edge edge, Variables variables) {
-        if(variables.isEdgeStrokeByValue) {
-            for (EdgeType edgetype : variables.config.edgetype) {
-                if (edge.getLabel().contains(edgetype.type)) {
-                    if (edgetype.stroke.equalsIgnoreCase("MAX")) {
-                        float maxAbs = Math.max(Math.abs(edgetype.max), Math.abs(edgetype.min));
-                        return defineStroke(edge.getValue(), maxAbs);
-                    } else {
-                        return defineStroke(edge.getValue(), edgetype.total / edgetype.count);
-                    }
+        if (variables.isEdgeStrokeByValue) {
+            if (variables.config.edgeTypes.containsKey(edge.getLabel())) {
+                EdgeType et = variables.config.edgeTypes.get(edge.getLabel());
+                if (et.stroke.equalsIgnoreCase("MAX")) {
+                    float maxAbs = Math.max(Math.abs(et.max), Math.abs(et.min));
+                    return defineStroke(edge.getValue(), maxAbs);
+                } else {
+                    return defineStroke(edge.getValue(), et.total / et.count);
                 }
             }
         }

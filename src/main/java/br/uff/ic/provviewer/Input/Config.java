@@ -68,7 +68,7 @@ public class Config {
     public int vertexSize = 40;
 
     //Filter List
-    public List<EdgeType> edgetype = new ArrayList<>();
+    public Map<String, EdgeType> edgeTypes = new HashMap<>();
     public List<String> vertexLabelFilter = new ArrayList<>();
 
     //Modes
@@ -123,7 +123,7 @@ public class Config {
         Initialize(fXmlFile);
 
     }
-    
+
     public void resetVertexModeInitializations() {
         for (ColorScheme vm : vertexModes.values()) {
             vm.resetInitialization();
@@ -150,39 +150,29 @@ public class Config {
     }
 
     public void DetectEdges(Collection<Edge> edges) {
-        Map<String, EdgeType> newEdges = new HashMap<>();
         int colorCount = 0;
         for (Edge edge : edges) {
-            boolean isNewType = true;
-            boolean isNewLabel = true;
-            for (EdgeType e : edgetype) {
-                if (edge.getType().equalsIgnoreCase(e.type)) {
-                    isNewType = false;
-                }
-                if (edge.getLabel().equalsIgnoreCase(e.type)) {
-                    isNewLabel = false;
-                }
-            }
-            if (isNewType) {
-                EdgeType newEdge = new EdgeType();
-                newEdge.type = edge.getType();
-                newEdge.stroke = "MAX";
-                newEdge.collapse = "SUM";
-                newEdge.edgeColor = Utils.getColor(colorCount);
+            if (!edgeTypes.containsKey(edge.getType())) {
+                System.out.println("Edge Label: " + edge.getType());
+                EdgeType newEdgeType = new EdgeType();
+                newEdgeType.type = edge.getType();
+                newEdgeType.stroke = "MAX";
+                newEdgeType.collapse = "SUM";
+                newEdgeType.edgeColor = Utils.getColor(colorCount);
                 colorCount++;
-                newEdges.put(newEdge.type, newEdge);
+                edgeTypes.put(edge.getType(), newEdgeType);
             }
-            if (isNewLabel) {
-                EdgeType newEdge = new EdgeType();
-                newEdge.type = edge.getLabel();
-                newEdge.stroke = "MAX";
-                newEdge.collapse = "SUM";
-                newEdge.edgeColor = Utils.getColor(colorCount);
+            if (!edgeTypes.containsKey(edge.getLabel())) {
+                System.out.println("Edge Label: " + edge.getLabel());
+                EdgeType newEdgeLabel = new EdgeType();
+                newEdgeLabel.type = edge.getLabel();
+                newEdgeLabel.stroke = "MAX";
+                newEdgeLabel.collapse = "SUM";
+                newEdgeLabel.edgeColor = Utils.getColor(colorCount);
                 colorCount++;
-                newEdges.put(newEdge.type, newEdge);
+                edgeTypes.put(edge.getLabel(), newEdgeLabel);
             }
         }
-        edgetype.addAll(newEdges.values());
         InterfaceEdgeFilters();
         GraphFrame.edgeFilterList.setSelectedIndex(0);
 
@@ -190,8 +180,8 @@ public class Config {
 
     public void detectGraphVisualizationModes(Collection<String> graphs) {
         Map<String, ColorScheme> newGraphModes = new HashMap<>();
-        for(String g : graphs) {
-            if(!vertexModes.containsKey(g)) {
+        for (String g : graphs) {
+            if (!vertexModes.containsKey(g)) {
                 GraphVisualizationScheme graphMode = new GraphVisualizationScheme(g);
                 newGraphModes.put(g, graphMode);
             }
@@ -199,6 +189,7 @@ public class Config {
         vertexModes.putAll(newGraphModes);
         InterfaceStatusFilters();
     }
+
     public void DetectVertexModes(Collection<Object> vertices) {
         Map<String, String> attributeList = new HashMap<>();
         Map<String, ColorScheme> newAttributes = new HashMap<>();
@@ -207,7 +198,7 @@ public class Config {
         }
         for (String att : attributeList.values()) {
 //            boolean isNew = true;
-            if(!vertexModes.containsKey(att)) {
+            if (!vertexModes.containsKey(att)) {
                 DefaultVertexColorScheme attMode = new DefaultVertexColorScheme(att);
                 newAttributes.put(att, attMode);
             }
@@ -225,8 +216,6 @@ public class Config {
         vertexModes.putAll(newAttributes);//.addAll(newAttributes.values());
         InterfaceStatusFilters();
     }
-    
-    
 
 //    public void DetectVertexAttributeFilterValues(Collection<Object> vertices) {
 //        Map<String, String> valueList = new HashMap<>();
@@ -247,7 +236,7 @@ public class Config {
      */
     public void Initialize(File fXmlFile) {
         try {
-            edgetype = new ArrayList<>();
+            edgeTypes = new HashMap<>();
             vertexLabelFilter = new ArrayList<>();
             vertexModes = new HashMap<>();
             layoutSpecialVertexType = "";
@@ -261,14 +250,13 @@ public class Config {
             allEdges.type = VariableNames.FilterAllEdges;
             allEdges.stroke = "MAX";
             allEdges.collapse = "SUM";
-            edgetype.add(allEdges);
-            
+            edgeTypes.put(allEdges.type, allEdges);
+
             EdgeType chronological = new EdgeType();
             chronological.type = VariableNames.ChronologicalEdge;
             chronological.stroke = "MAX";
             chronological.collapse = "SUM";
-            edgetype.add(chronological);
-
+            edgeTypes.put(chronological.type, chronological);
 
             String allvertices = VariableNames.FilterAllVertices;
             vertexLabelFilter.add(allvertices);
@@ -376,7 +364,7 @@ public class Config {
                         color = new Color(0, 0, 0);
                     }
                     etype.edgeColor = color;
-                    edgetype.add(etype);
+                    edgeTypes.put(etype.type, etype);
                 }
             }
 
@@ -388,15 +376,17 @@ public class Config {
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
                     String vertexFilter = new String();
-                    if(eElement.getElementsByTagName("logic").item(0) != null) {
-                        if("".equals(eElement.getElementsByTagName("logic").item(0).getTextContent()) && !"".equals(eElement.getElementsByTagName("value").item(0).getTextContent()))
+                    if (eElement.getElementsByTagName("logic").item(0) != null) {
+                        if ("".equals(eElement.getElementsByTagName("logic").item(0).getTextContent()) && !"".equals(eElement.getElementsByTagName("value").item(0).getTextContent())) {
                             vertexFilter = "(EQ";
-                        else if("".equals(eElement.getElementsByTagName("logic").item(0).getTextContent()))
+                        } else if ("".equals(eElement.getElementsByTagName("logic").item(0).getTextContent())) {
                             vertexFilter = "(C";
-                        else
+                        } else {
                             vertexFilter = "(" + eElement.getElementsByTagName("logic").item(0).getTextContent();
-                    } else
+                        }
+                    } else {
                         vertexFilter = "(EQ";
+                    }
                     vertexFilter += ") ";
                     vertexFilter += eElement.getElementsByTagName("name").item(0).getTextContent();
                     vertexFilter += ": ";
@@ -424,11 +414,11 @@ public class Config {
             //Default mode is always set, no matter the config.xml
             ProvScheme provScheme = new ProvScheme("Prov");
             vertexModes.put("Prov", provScheme);
-            
+
             //TODO: Change name to be more intuitive and the hardcoded Scheme
             DebugAllTrialsScheme allTrials = new DebugAllTrialsScheme("All Trials");
             vertexModes.put("All Trials", allTrials);
-            
+
             VertexGraphGrayScaleScheme graphScheme = new VertexGraphGrayScaleScheme(VariableNames.GraphFile);
             vertexModes.put(VariableNames.GraphFile, graphScheme);
             ColorScheme cs = new FrequencyColorScheme("Frequency");
@@ -515,7 +505,7 @@ public class Config {
                 activityVC = new ArrayList<>();
                 entityVC = new ArrayList<>();
                 agentVC = new ArrayList<>();
-                
+
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element e = (Element) nNode;
                     NodeList innerList;
@@ -529,7 +519,7 @@ public class Config {
                             Element eElement = (Element) innerNode;
                             AttValueColor avc = new AttValueColor();
                             avc.name = eElement.getElementsByTagName("attribute").item(0).getTextContent();
-                            if(eElement.getElementsByTagName("value").getLength() > 0 && eElement.getElementsByTagName("value").item(0).getTextContent() != "") {
+                            if (eElement.getElementsByTagName("value").getLength() > 0 && eElement.getElementsByTagName("value").item(0).getTextContent() != "") {
                                 avc.value = eElement.getElementsByTagName("value").item(0).getTextContent();
                                 int r = Integer.parseInt(eElement.getElementsByTagName("r").item(0).getTextContent());
                                 int g = Integer.parseInt(eElement.getElementsByTagName("g").item(0).getTextContent());
@@ -547,7 +537,7 @@ public class Config {
                             Element eElement = (Element) innerNode;
                             AttValueColor avc = new AttValueColor();
                             avc.name = eElement.getElementsByTagName("attribute").item(0).getTextContent();
-                            if(eElement.getElementsByTagName("value").getLength() > 0 && eElement.getElementsByTagName("value").item(0).getTextContent() != "") {
+                            if (eElement.getElementsByTagName("value").getLength() > 0 && eElement.getElementsByTagName("value").item(0).getTextContent() != "") {
                                 avc.value = eElement.getElementsByTagName("value").item(0).getTextContent();
                                 int r = Integer.parseInt(eElement.getElementsByTagName("r").item(0).getTextContent());
                                 int g = Integer.parseInt(eElement.getElementsByTagName("g").item(0).getTextContent());
@@ -565,7 +555,7 @@ public class Config {
                             Element eElement = (Element) innerNode;
                             AttValueColor avc = new AttValueColor();
                             avc.name = eElement.getElementsByTagName("attribute").item(0).getTextContent();
-                            if(eElement.getElementsByTagName("value").getLength() > 0 && eElement.getElementsByTagName("value").item(0).getTextContent() != "") {
+                            if (eElement.getElementsByTagName("value").getLength() > 0 && eElement.getElementsByTagName("value").item(0).getTextContent() != "") {
                                 avc.value = eElement.getElementsByTagName("value").item(0).getTextContent();
                                 int r = Integer.parseInt(eElement.getElementsByTagName("r").item(0).getTextContent());
                                 int g = Integer.parseInt(eElement.getElementsByTagName("g").item(0).getTextContent());
@@ -575,7 +565,7 @@ public class Config {
                             agentVC.add(avc);
                         }
                     }
-                    vertexColorScheme = new VertexColorScheme(generalname,activityVC ,entityVC, agentVC, Boolean.parseBoolean(isAutomatic));
+                    vertexColorScheme = new VertexColorScheme(generalname, activityVC, entityVC, agentVC, Boolean.parseBoolean(isAutomatic));
                     vertexModes.put(generalname, vertexColorScheme);
                 }
             }
@@ -594,11 +584,7 @@ public class Config {
      */
     private void InterfaceEdgeFilters() {
         //Initialize Interface Filters
-        String[] types = new String[edgetype.size()];
-        for (int x = 0; x < types.length; x++) {
-            types[x] = edgetype.get(x).type;
-        }
-        GraphFrame.edgeFilterList.setListData(types);
+        GraphFrame.edgeFilterList.setListData(edgeTypes.keySet().toArray());
     }
 
     /**
@@ -630,7 +616,9 @@ public class Config {
     }
 
     /**
-     * Method to automatically add the GraphFile filter in the Vertex Filters menu
+     * Method to automatically add the GraphFile filter in the Vertex Filters
+     * menu
+     *
      * @param graphNames is the list of GraphFile names
      */
     public void addGraphFileVertexFilter(Collection<String> graphNames) {
@@ -640,15 +628,15 @@ public class Config {
         }
         int i = vertexLabelFilter.size();
         for (String s : graphNames) {
-            types[i] = "(EQ) "+ VariableNames.GraphFile + ": " + s;
+            types[i] = "(EQ) " + VariableNames.GraphFile + ": " + s;
             i++;
-            types[i] = "(NE) "+ VariableNames.GraphFile + ": " + s;
+            types[i] = "(NE) " + VariableNames.GraphFile + ": " + s;
             i++;
-            types[i] = "(C) "+ VariableNames.GraphFile + ": " + s;
+            types[i] = "(C) " + VariableNames.GraphFile + ": " + s;
             i++;
-            types[i] = "(NC) "+ VariableNames.GraphFile + ": " + s;
+            types[i] = "(NC) " + VariableNames.GraphFile + ": " + s;
             i++;
-            
+
         }
         Arrays.sort(types);
         GraphFrame.vertexFilterList.setListData(types);

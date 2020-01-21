@@ -49,6 +49,16 @@ public class TrafficLight {
         return gradientColor(aR, aG, aB, bR, bG, bB, value);
     }
 
+    public static Paint compareValueRed(float value, double min, double max) {
+        int aR = 255;
+        int aG = 255;
+        int aB = 255; // RGB for the lowest value.
+        int bR = 255;
+        int bG = 0;
+        int bB = 0; // RGB for the highest value.
+        return gradientColor(aR, aG, aB, bR, bG, bB, value);
+    }
+
     public static Paint splittedTrafficLight(float value, double min, double max, boolean inverted) {
         // normalize the color between 0 and 1
         float vPositive;
@@ -85,18 +95,10 @@ public class TrafficLight {
         }
     }
 
-    public static Paint compareValueRed(float value, double min, double max) {
-        int aR = 255;
-        int aG = 255;
-        int aB = 255; // RGB for the lowest value.
-        int bR = 255;
-        int bG = 0;
-        int bB = 0; // RGB for the highest value.
-        return gradientColor(aR, aG, aB, bR, bG, bB, value);
-    }
-
     /**
-     * Basic traffic light color scheme, returning a gradient from red to orange to green
+     * Basic traffic light color scheme, returning a gradient from red to orange
+     * to green
+     *
      * @param value is the current value
      * @param min is the minimum possible value
      * @param max is the maximum possilble value
@@ -115,9 +117,12 @@ public class TrafficLight {
 
     /**
      * Method that return a grayscale color from the grayscale gradient
+     *
      * @param value is the current value that we want the color
-     * @param max is the maximum possible value that the previous value can assume
-     * @return the gray color corresponding to the value, which is based on value/max
+     * @param max is the maximum possible value that the previous value can
+     * assume
+     * @return the gray color corresponding to the value, which is based on
+     * value/max
      */
     public static Color getGrayscaleColor(float value, float max) {
         if (max == 0) {
@@ -127,5 +132,5 @@ public class TrafficLight {
         int rgbNum = 255 - (int) gray;
         return new Color(rgbNum, rgbNum, rgbNum);
     }
-    
+
 }

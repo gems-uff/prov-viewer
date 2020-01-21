@@ -298,10 +298,8 @@ public class GuiFunctions {
             @Override
             public Paint transform(Edge edge) {
                 if (GraphFrame.useEdgeTypeColor.isSelected()) {
-                    for (EdgeType e : variables.config.edgetype) {
-                        if (e.type.equalsIgnoreCase(edge.getType())) {
-                            return e.edgeColor;
-                        }
+                    if (variables.config.edgeTypes.containsKey(edge.getLabel())) {
+                        return variables.config.edgeTypes.get(edge.getLabel()).edgeColor;
                     }
                 }
 
@@ -488,12 +486,15 @@ public class GuiFunctions {
         }
         return null;
     }
-    
+
     /**
-     * Method to calculate the probability of reaching the destination from the source following the cleanedPath path
+     * Method to calculate the probability of reaching the destination from the
+     * source following the cleanedPath path
+     *
      * @param variables
      * @param cleanedPath requires the path
-     * @return the detailed information in the form of a String for the TooltipDialogBox
+     * @return the detailed information in the form of a String for the
+     * TooltipDialogBox
      */
     public static String PathProbability(Variables variables, Collection<Edge> cleanedPath) {
         String answer = "";
@@ -522,23 +523,26 @@ public class GuiFunctions {
             Vertex source = (Vertex) picked_state.getPicked().toArray()[0];
             Vertex target = (Vertex) picked_state.getPicked().toArray()[1];
             picked_state.clear();
-            answer = "Source: " + source.getID() +
-                    "\n" + "Target: " + target.getID() +
-                    "\n" + "Path: " + path +
-                    "\nThe probability of taking this path, linking the selected source to the destination is: " +
-                    "\n" + "Prob IN: " + probabilityIn + " ( 1" + probPathIn + ")" +
-                    "\n" + "Prob OUT: " + probabilityOut + " ( 1" + probPathOut + ")" +
-                    "\n";
+            answer = "Source: " + source.getID()
+                    + "\n" + "Target: " + target.getID()
+                    + "\n" + "Path: " + path
+                    + "\nThe probability of taking this path, linking the selected source to the destination is: "
+                    + "\n" + "Prob IN: " + probabilityIn + " ( 1" + probPathIn + ")"
+                    + "\n" + "Prob OUT: " + probabilityOut + " ( 1" + probPathOut + ")"
+                    + "\n";
         }
-        
+
 //        answer += "<br>The probability of taking this path, linking the selected source to the destination is: ";
         return answer;
     }
-    
+
     /**
-     * Method to compute the Path probability, invoking the methods FindPath and PathProbability
+     * Method to compute the Path probability, invoking the methods FindPath and
+     * PathProbability
+     *
      * @param variables
-     * @return the detailed information in the form of a String for the TooltipDialogBox
+     * @return the detailed information in the form of a String for the
+     * TooltipDialogBox
      */
     public static String ComputePath(Variables variables) {
         return PathProbability(variables, FindPath(variables));
@@ -580,12 +584,14 @@ public class GuiFunctions {
         variables.view.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.LAYOUT).translate(dx, dy);
     }
 
-
     /**
-     * Function that returns the support, confidence, and lift of the selected pattern based on trials that worked
+     * Function that returns the support, confidence, and lift of the selected
+     * pattern based on trials that worked
+     *
      * @param variables
      * @param correctTrials is the list of known trials that worked
-     * @return a map with "Support", "Confidence", and "Lift" of the selected pattern
+     * @return a map with "Support", "Confidence", and "Lift" of the selected
+     * pattern
      */
     public static Map<String, String> FindFrequencyOfNodes(Variables variables, List<String> correctTrials) {
 
@@ -615,8 +621,7 @@ public class GuiFunctions {
         int numberOfNodes = picked_state.getSelectedObjects().length;
         Map<String, Integer> graphFiles = new HashMap<>();
         Collection<String> commonFiles = new ArrayList<>();
-        
-        
+
         for (Object v : picked_state.getSelectedObjects()) { // For each vertex from the pattern selected by the user
             String[] files = ((Vertex) v).getAttributeValues(VariableNames.GraphFile);
             for (String f : files) { // For each graphFile from the current vertex
@@ -628,13 +633,13 @@ public class GuiFunctions {
                     graphFiles.put(f, 1);
                 }
             }
-            selected_vertices += "\n" + ((Vertex)v).getID();
+            selected_vertices += "\n" + ((Vertex) v).getID();
         }
-        
+
         for (String f : graphFiles.keySet()) {
             int qnt = graphFiles.get(f);
             if (qnt == numberOfNodes) {
-                if(!correctTrials_test.contains(f)) {
+                if (!correctTrials_test.contains(f)) {
 //                    System.out.println("Common graphFile to all:" + f);
                     notok++;
                 }
@@ -662,7 +667,7 @@ public class GuiFunctions {
         confidence_notok = (float) notok / (float) commonFiles.size();
         lift_notok = confidence_notok / ((float) (variables.numberOfGraphs - correctTrials_test.size()) / (float) variables.numberOfGraphs);
         lift_ok = confidence_ok / ((float) correctTrials_test.size() / (float) variables.numberOfGraphs);
-        
+
         // Lets make the numbers be in the % notation (0% to 100%)
         confidence_notok = confidence_notok * 100.0f;
         support_notok = support_notok * 100.0f;
@@ -677,9 +682,7 @@ public class GuiFunctions {
         String s_support_ok = "Support: " + support_ok + " %";
         String s_confidence_ok = "Confidence: " + confidence_ok + " %";
         String liftResult_ok = "Lift: " + lift_ok;
-        
-        
-        
+
         System.out.println("NOT OK:");
         System.out.println(s_support_notok);
         System.out.println(s_confidence_notok);
@@ -688,7 +691,7 @@ public class GuiFunctions {
         System.out.println(s_support_ok);
         System.out.println(s_confidence_ok);
         System.out.println(liftResult_ok);
-        
+
         Map<String, String> result = new HashMap<>();
         result.put("Support_NOTOK", s_support_notok);
         result.put("Confidence_NOTOK", s_confidence_notok);

@@ -21,7 +21,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package br.uff.ic.utility.graph;
 
 import br.uff.ic.utility.GraphAttribute;
@@ -52,6 +51,7 @@ public class Edge extends GraphObject {
 
     /**
      * Constructor for testing purposes since it construct a mostly blank edge
+     *
      * @param id is the edge ID
      * @param target is the target vertex
      * @param source is the source vertex
@@ -65,17 +65,16 @@ public class Edge extends GraphObject {
         this.attributes = new HashMap<>();
         GraphAttribute att = new GraphAttribute(influenceName, "", "");
         this.attributes.put(att.getName(), att);
-        if(!this.hasAttribute(VariableNames.edgeHiddenAttribute)) {
+        if (!this.hasAttribute(VariableNames.edgeHiddenAttribute)) {
             GraphAttribute hide = new GraphAttribute(VariableNames.edgeHiddenAttribute, "false", "");
             this.attributes.put(hide.getName(), hide);
-        }
-        else {
+        } else {
             hide = Boolean.parseBoolean(this.getAttributeValue(VariableNames.edgeHiddenAttribute));
         }
 //        this.attributes.putAll(attributes);
         setLabel("");
     }
-    
+
     public Edge(String id, String type, Object target, Object source) {
         this.id = id;
         this.source = source;
@@ -85,17 +84,16 @@ public class Edge extends GraphObject {
         this.attributes = new HashMap<>();
         GraphAttribute att = new GraphAttribute(influenceName, "", "");
         this.attributes.put(att.getName(), att);
-        if(!this.hasAttribute(VariableNames.edgeHiddenAttribute)) {
+        if (!this.hasAttribute(VariableNames.edgeHiddenAttribute)) {
             GraphAttribute hide = new GraphAttribute(VariableNames.edgeHiddenAttribute, "false", "");
             this.attributes.put(hide.getName(), hide);
-        }
-        else {
+        } else {
             hide = Boolean.parseBoolean(this.getAttributeValue(VariableNames.edgeHiddenAttribute));
         }
 //        this.attributes.putAll(attributes);
         setLabel(type);
     }
-    
+
     /**
      * Constructor
      *
@@ -117,11 +115,10 @@ public class Edge extends GraphObject {
         this.attributes = new HashMap<>(attributes);
         GraphAttribute att = new GraphAttribute(influenceName, value, "");
         this.attributes.put(att.getName(), att);
-        if(!this.hasAttribute(VariableNames.edgeHiddenAttribute)) {
+        if (!this.hasAttribute(VariableNames.edgeHiddenAttribute)) {
             GraphAttribute hide = new GraphAttribute(VariableNames.edgeHiddenAttribute, "false", "");
             this.attributes.put(hide.getName(), hide);
-        }
-        else {
+        } else {
             hide = Boolean.parseBoolean(this.getAttributeValue(VariableNames.edgeHiddenAttribute));
         }
         setLabel(label);
@@ -146,11 +143,10 @@ public class Edge extends GraphObject {
         this.attributes = new HashMap<>();
         GraphAttribute att = new GraphAttribute(influenceName, value, "");
         this.attributes.put(att.getName(), att);
-        if(!this.hasAttribute(VariableNames.edgeHiddenAttribute)) {
+        if (!this.hasAttribute(VariableNames.edgeHiddenAttribute)) {
             GraphAttribute hide = new GraphAttribute(VariableNames.edgeHiddenAttribute, "false", "");
             this.attributes.put(hide.getName(), hide);
-        }
-        else {
+        } else {
             hide = Boolean.parseBoolean(this.getAttributeValue(VariableNames.edgeHiddenAttribute));
         }
         setLabel(label);
@@ -158,7 +154,7 @@ public class Edge extends GraphObject {
 //            setLabel("Neutral");
 //            value = "0";
 //        }
-        
+
     }
 
     /**
@@ -201,6 +197,7 @@ public class Edge extends GraphObject {
 
     /**
      * Set the edge ID
+     *
      * @param t is the new value
      */
     public void setID(String t) {
@@ -218,6 +215,7 @@ public class Edge extends GraphObject {
 
     /**
      * Set the edge's source
+     *
      * @param t is the new source
      */
     public void setSource(Object t) {
@@ -235,7 +233,8 @@ public class Edge extends GraphObject {
 
     /**
      * Set the edge's target/destionation
-     * @param t  is the new target
+     *
+     * @param t is the new target
      */
     public void setTarget(Object t) {
         target = t;
@@ -257,16 +256,19 @@ public class Edge extends GraphObject {
     }
 
     /**
-     * Returns the edge's value as the original String instead of converting to numeric
-     * @return 
+     * Returns the edge's value as the original String instead of converting to
+     * numeric
+     *
+     * @return
      */
     public String getStringValue() {
         return this.getAttributeValue(influenceName);
     }
-    
+
     /**
      * Updates the edge's value
-     * @param t  is the string with the new value
+     *
+     * @param t is the string with the new value
      */
     public void setValue(String t) {
         this.getAttribute(influenceName).setValue(t);
@@ -316,11 +318,10 @@ public class Edge extends GraphObject {
         GraphAttribute hide = new GraphAttribute(VariableNames.edgeHiddenAttribute, Boolean.toString(t), "");
         this.attributes.put(hide.getName(), hide);
     }
-    
+
 //    public String getHide() {
 //        return this.attributes.get(VariableNames.edgeHiddenAttribute).getValue();
 //    }
-
     /**
      * Method to check if the edge is of the neutral type (Empty influence or
      * value equals zero
@@ -349,16 +350,18 @@ public class Edge extends GraphObject {
             return font + this.type + " (" + getLabel() + ")";
         }
     }
-    
+
     private Color defaultColor() {
-        if(this.getLabel().contains("Crash"))
+        if (this.getLabel().contains("Crash")) {
             return new Color(204, 0, 204);
-        if(((Vertex)this.getTarget()).getTime() < 100)
+        }
+        if (((Vertex) this.getTarget()).getTime() < 100) {
             return Color.RED;
-        else if (((Vertex)this.getTarget()).getTime() < 180)
+        } else if (((Vertex) this.getTarget()).getTime() < 180) {
             return Color.GREEN;
-        else
+        } else {
             return Color.BLUE;
+        }
 //        return defaultColor;
     }
 
@@ -369,7 +372,8 @@ public class Edge extends GraphObject {
      * @return
      */
     public Color getColor(Variables variables) {
-        if(variables.isEdgeColorByGraphs) {
+
+        if (variables.isEdgeColorByGraphs) {
             String[] graphs = getAttributeValues(VariableNames.GraphFile);
             return TrafficLight.getGrayscaleColor(graphs.length, variables.numberOfGraphs);
         } else {
@@ -377,71 +381,18 @@ public class Edge extends GraphObject {
             if (v == 0) {
                 return defaultColor;
             } else {
-                int j = 0;
-                for (int i = 0; i < variables.config.edgetype.size(); i++) {
-                    if (this.getLabel().contains(variables.config.edgetype.get(i).type)) {
-                        j = i;
-                    }
+                EdgeType et = null;
+                if (variables.config.edgeTypes.containsKey(this.getLabel())) {
+                    et = variables.config.edgeTypes.get(this.getLabel());
+                } else if (variables.config.edgeTypes.containsKey(this.getType())) {
+                    et = variables.config.edgeTypes.get(this.getType());
                 }
-                // TODO add inverted color scheme for increase in value to be red and decrease to be green
-                if (variables.config.edgetype.get(j).isInverted) {
-                    if (v > 0) {
-                        return compareValueRed(v, 0, variables.config.edgetype.get(j).max, variables.config.edgetype.get(j).isInverted);
-                    } else {
-                        return compareValueGreen(v, variables.config.edgetype.get(j).min, 0, variables.config.edgetype.get(j).isInverted);
-                    }
-                } else {
-                // DO
-                    // else
-                    if (v > 0) {
-                        return compareValueGreen(v, 0, variables.config.edgetype.get(j).max, variables.config.edgetype.get(j).isInverted);
-                    } else {
-                        return compareValueRed(v, variables.config.edgetype.get(j).min, 0, variables.config.edgetype.get(j).isInverted);
-                    }
-                }
+                double min = et.min;
+                double max = et.max;
+                min = Math.min(min, 510);
+                max = Math.max(max, 0);
+                return (Color) TrafficLight.splittedTrafficLight(v, min, max, et.isInverted);
             }
-        }
-    }
-
-    /**
-     * Method that calculates the green gradient based on the edge's value and the maximum and minimum for the same edge type
-     * @param value is the edge's value
-     * @param min is the minimum value for the edge type
-     * @param max is the maximum value for the edge type
-     * @param isInverted tells if the color gradient will be increasing or decreasing
-     * @return 
-     */
-    public Color compareValueGreen(float value, double min, double max, boolean isInverted) {
-        if(!isInverted) {
-            int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
-            proportion = Math.max(proportion, 0);
-            return new Color(0, Math.min(255, proportion), 0);
-        }
-        else {
-            int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
-            proportion = Math.min(proportion, 510);
-            return new Color(0, Math.min(255, 510 - proportion), 0);
-        }
-    }
-
-    /**
-     * Method that calculates the red gradient based on the edge's value and the maximum and minimum for the same edge type
-     * @param value is the edge's value
-     * @param min is the minimum value for the edge type
-     * @param max is the maximum value for the edge type
-     * @param isInverted tells if the color gradient will be increasing or decreasing
-     * @return 
-     */
-    public Color compareValueRed(float value, double min, double max, boolean isInverted) {
-        if(!isInverted) {
-            int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
-            proportion = Math.min(proportion, 510);
-            return new Color(Math.min(255, 510 - proportion), 0, 0);
-        } else
-        {
-            int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
-            proportion = Math.max(proportion, 0);
-            return new Color(Math.min(255, proportion), 0, 0);
         }
     }
 
@@ -455,29 +406,43 @@ public class Edge extends GraphObject {
      * added. Return false if average
      */
     public boolean addInfluence(Variables variables) {
-        for (EdgeType edgetype : variables.config.edgetype) {
-            if (this.getType().contains(edgetype.type)) {
-                if (edgetype.collapse.equalsIgnoreCase("AVERAGE")) {
-                    return false;
-                }
+        EdgeType et = null;
+        if (variables.config.edgeTypes.containsKey(this.getLabel())) {
+            et = variables.config.edgeTypes.get(this.getLabel());
+        } else if (variables.config.edgeTypes.containsKey(this.getType())) {
+            et = variables.config.edgeTypes.get(this.getType());
+        }
+        if (et != null) {
+            if (et.collapse.equalsIgnoreCase("AVERAGE")) {
+                return false;
             }
         }
+
+//        for (EdgeType edgetype : variables.config.edgetype) {
+//            if (this.getType().contains(edgetype.type)) {
+//                if (edgetype.collapse.equalsIgnoreCase("AVERAGE")) {
+//                    return false;
+//                }
+//            }
+//        }
         return true;
     }
-    
+
     /**
      * Function to merge two edges
+     *
      * @param edge is the edge that we want to merge with
      * @return the updated edge after merging with "edge"
      */
     public Edge merge(Edge edge, String mergeCode) {
-        if(this.getType().equalsIgnoreCase(edge.getType())) {
+        if (this.getType().equalsIgnoreCase(edge.getType())) {
             this.updateAllAttributes(edge.getAttributes());
             // We have a problem here when merging many graphs: StringBuilder.append(StringBuilder.java:132) java.lang.OutOfMemoryError: Java heap space
 //            this.id = this.id + ", " + edge.id; 
-            this.id = this.id + " "; 
-            if(!this.getLabel().contains(edge.getLabel()))
+            this.id = this.id + " ";
+            if (!this.getLabel().contains(edge.getLabel())) {
                 this.setLabel(this.getLabel() + ", " + edge.getLabel());
+            }
             edge.setHide(true);
             GraphAttribute merged = new GraphAttribute(VariableNames.MergedEdgeAttribute, mergeCode, "");
             this.addAttribute(merged);
@@ -486,7 +451,7 @@ public class Edge extends GraphObject {
         }
         return this;
     }
-    
+
 //    /**
 //     * Method that calculates the edge frequency and returns a human-readable value (String)
 //     * @param nGraphs is the total number of existing graphs used during the merge
