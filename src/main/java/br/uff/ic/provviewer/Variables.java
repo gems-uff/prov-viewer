@@ -158,6 +158,7 @@ public class Variables extends Object {
     public boolean isEdgeStrokeByGraph = false;
     public boolean isEdgeStrokeByMarkovIn = false;
     public boolean isEdgeStrokeByMarkovOut = false;
+    public boolean isEdgeStrokeDefault = false;
 
     /**
      * Method that updates the number of graphs that comprises the current graph

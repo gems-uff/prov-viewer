@@ -245,6 +245,7 @@ public class GraphFrame extends javax.swing.JFrame {
         EdgeStrokeByGraphButton = new javax.swing.JCheckBoxMenuItem();
         EdgeStrokeByMarkovinButton = new javax.swing.JCheckBoxMenuItem();
         EdgeStrokeByMarkovoutButton = new javax.swing.JCheckBoxMenuItem();
+        EdgeStrokeDefaultButton = new javax.swing.JCheckBoxMenuItem();
         jMenu15 = new javax.swing.JMenu();
         vertexBorderByGraphButton = new javax.swing.JCheckBoxMenuItem();
 
@@ -1550,6 +1551,14 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu14.add(EdgeStrokeByMarkovoutButton);
 
+        EdgeStrokeDefaultButton.setText("Default Edge Size");
+        EdgeStrokeDefaultButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EdgeStrokeDefaultButtonActionPerformed(evt);
+            }
+        });
+        jMenu14.add(EdgeStrokeDefaultButton);
+
         MenuBar.add(jMenu14);
 
         jMenu15.setText("Vertex");
@@ -1842,7 +1851,7 @@ public class GraphFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_isEdgeColorByTypeActionPerformed
 
     private void EdgeStrokeByValueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EdgeStrokeByValueButtonActionPerformed
-        GuiButtons.EdgeStrokeConfiguration(variables, true, false, false, false, EdgeStrokeByValueButton, EdgeStrokeByGraphButton, EdgeStrokeByMarkovinButton, EdgeStrokeByMarkovoutButton);
+        GuiButtons.EdgeStrokeConfiguration(variables, true, false, false, false, false, EdgeStrokeByValueButton, EdgeStrokeByGraphButton, EdgeStrokeByMarkovinButton, EdgeStrokeByMarkovoutButton, EdgeStrokeDefaultButton);
     }//GEN-LAST:event_EdgeStrokeByValueButtonActionPerformed
 
     private void displayEdgeLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayEdgeLabelActionPerformed
@@ -2151,16 +2160,20 @@ public class GraphFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_EdgeColorGraphsButtomActionPerformed
 
     private void EdgeStrokeByGraphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EdgeStrokeByGraphButtonActionPerformed
-        GuiButtons.EdgeStrokeConfiguration(variables, false, true, false, false, EdgeStrokeByValueButton, EdgeStrokeByGraphButton, EdgeStrokeByMarkovinButton, EdgeStrokeByMarkovoutButton);
+        GuiButtons.EdgeStrokeConfiguration(variables, false, true, false, false, false, EdgeStrokeByValueButton, EdgeStrokeByGraphButton, EdgeStrokeByMarkovinButton, EdgeStrokeByMarkovoutButton, EdgeStrokeDefaultButton);
     }//GEN-LAST:event_EdgeStrokeByGraphButtonActionPerformed
 
     private void EdgeStrokeByMarkovinButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EdgeStrokeByMarkovinButtonActionPerformed
-        GuiButtons.EdgeStrokeConfiguration(variables, false, false, true, false, EdgeStrokeByValueButton, EdgeStrokeByGraphButton, EdgeStrokeByMarkovinButton, EdgeStrokeByMarkovoutButton);
+        GuiButtons.EdgeStrokeConfiguration(variables, false, false, true, false, false, EdgeStrokeByValueButton, EdgeStrokeByGraphButton, EdgeStrokeByMarkovinButton, EdgeStrokeByMarkovoutButton, EdgeStrokeDefaultButton);
     }//GEN-LAST:event_EdgeStrokeByMarkovinButtonActionPerformed
 
     private void EdgeStrokeByMarkovoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EdgeStrokeByMarkovoutButtonActionPerformed
-        GuiButtons.EdgeStrokeConfiguration(variables, false, false, false, true, EdgeStrokeByValueButton, EdgeStrokeByGraphButton, EdgeStrokeByMarkovinButton, EdgeStrokeByMarkovoutButton);
+        GuiButtons.EdgeStrokeConfiguration(variables, false, false, false, true, false, EdgeStrokeByValueButton, EdgeStrokeByGraphButton, EdgeStrokeByMarkovinButton, EdgeStrokeByMarkovoutButton, EdgeStrokeDefaultButton);
     }//GEN-LAST:event_EdgeStrokeByMarkovoutButtonActionPerformed
+
+    private void EdgeStrokeDefaultButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EdgeStrokeDefaultButtonActionPerformed
+        GuiButtons.EdgeStrokeConfiguration(variables, false, false, false, false, true, EdgeStrokeByValueButton, EdgeStrokeByGraphButton, EdgeStrokeByMarkovinButton, EdgeStrokeByMarkovoutButton, EdgeStrokeDefaultButton);
+    }//GEN-LAST:event_EdgeStrokeDefaultButtonActionPerformed
    
     /**
      * Main
@@ -2212,6 +2225,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem EdgeStrokeByMarkovinButton;
     private javax.swing.JCheckBoxMenuItem EdgeStrokeByMarkovoutButton;
     public static javax.swing.JCheckBoxMenuItem EdgeStrokeByValueButton;
+    private javax.swing.JCheckBoxMenuItem EdgeStrokeDefaultButton;
     private javax.swing.JLabel EdgeStyle;
     private javax.swing.JScrollPane EdgeTypes;
     private javax.swing.JMenuItem Exit;

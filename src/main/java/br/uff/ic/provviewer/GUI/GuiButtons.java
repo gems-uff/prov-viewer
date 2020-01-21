@@ -523,18 +523,22 @@ public class GuiButtons {
             boolean graphs, 
             boolean markovin, 
             boolean markovout, 
+            boolean defaultStroke,
             JCheckBoxMenuItem EdgeStrokeByValueButton, 
             JCheckBoxMenuItem EdgeStrokeByGraphButton, 
             JCheckBoxMenuItem EdgeStrokeByMarkovinButton, 
-            JCheckBoxMenuItem EdgeStrokeByMarkovoutButton) {
+            JCheckBoxMenuItem EdgeStrokeByMarkovoutButton,
+            JCheckBoxMenuItem EdgeStrokeDefaultButton) {
         variables.isEdgeStrokeByValue = value;
         variables.isEdgeStrokeByGraph = graphs;
         variables.isEdgeStrokeByMarkovIn = markovin;
         variables.isEdgeStrokeByMarkovOut = markovout;
+        variables.isEdgeStrokeDefault = defaultStroke;
         EdgeStrokeByValueButton.setSelected(value);
         EdgeStrokeByGraphButton.setSelected(graphs);
         EdgeStrokeByMarkovinButton.setSelected(markovin);
         EdgeStrokeByMarkovoutButton.setSelected(markovout);
+        EdgeStrokeDefaultButton.setSelected(markovout);
         variables.view.repaint();
     }
 
