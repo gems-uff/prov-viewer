@@ -25,6 +25,7 @@ package br.uff.ic.utility.graph;
 
 import br.uff.ic.utility.GraphAttribute;
 import br.uff.ic.provviewer.EdgeType;
+import br.uff.ic.provviewer.GraphFrame;
 import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.TrafficLight;
@@ -372,11 +373,23 @@ public class Edge extends GraphObject {
      * @return
      */
     public Color getColor(Variables variables) {
-
-        if (variables.isEdgeColorByGraphs) {
+        //TODO Refactor this method
+        if (variables.isEdgeColorByMarkovIn) {
+            if (!this.getAttributeValue(VariableNames.MarkovIn).equals(VariableNames.UnknownValue)) {
+                return (Color) TrafficLight.trafficLight(Float.valueOf(this.getAttributeValue(VariableNames.MarkovIn)), 0, 1, false);
+            } else {
+                return defaultColor;
+            }
+        } else if (variables.isEdgeColorByMarkovOut) {
+            if (!this.getAttributeValue(VariableNames.MarkovOut).equals(VariableNames.UnknownValue)) {
+                return (Color) TrafficLight.trafficLight(Float.valueOf(this.getAttributeValue(VariableNames.MarkovOut)), 0, 1, false);
+            } else {
+                return defaultColor;
+            }
+        } else if (variables.isEdgeColorByGraphs) {
             String[] graphs = getAttributeValues(VariableNames.GraphFile);
             return TrafficLight.getGrayscaleColor(graphs.length, variables.numberOfGraphs);
-        } else {
+        } else if (variables.isEdgeColorByValue) {
             float v = getValue();
             if (v == 0) {
                 return defaultColor;
@@ -393,7 +406,12 @@ public class Edge extends GraphObject {
                 max = Math.max(max, 0);
                 return (Color) TrafficLight.splittedTrafficLight(v, min, max, et.isInverted);
             }
+        } else { // By Type
+            if (variables.config.edgeTypes.containsKey(this.getType())) {
+                return variables.config.edgeTypes.get(this.getType()).edgeColor;
+            }
         }
+        return defaultColor;
     }
 
     /**

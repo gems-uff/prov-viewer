@@ -133,8 +133,6 @@ public class Variables extends Object {
     public boolean doDerivate = false;
     public boolean removeDerivateOutliers = false;
     public boolean changedOutliersOption = false;
-    public boolean isEdgeStrokeByValue = true;
-    public boolean isEdgeColorByGraphs = false;
 
     public ImproveJUNGPerformance jungPerformance = new ImproveJUNGPerformance();
     public String layout_attribute_X = "Timestamp";
@@ -150,6 +148,16 @@ public class Variables extends Object {
     public Stack<StackElementUndoDeletion> undoDeletion = new Stack();
 
     public boolean allowMergeUndo = false;
+    public boolean isEdgeColorByMarkovIn = false;
+    public boolean isEdgeColorByMarkovOut = false;
+    public boolean isEdgeColorByGraphs = false;
+    public boolean isEdgeColorByType = false;
+    public boolean isEdgeColorByValue = true;
+    
+    public boolean isEdgeStrokeByValue = true;
+    public boolean isEdgeStrokeByGraph = false;
+    public boolean isEdgeStrokeByMarkovIn = false;
+    public boolean isEdgeStrokeByMarkovOut = false;
 
     /**
      * Method that updates the number of graphs that comprises the current graph

@@ -153,7 +153,6 @@ public class Config {
         int colorCount = 0;
         for (Edge edge : edges) {
             if (!edgeTypes.containsKey(edge.getType())) {
-                System.out.println("Edge Label: " + edge.getType());
                 EdgeType newEdgeType = new EdgeType();
                 newEdgeType.type = edge.getType();
                 newEdgeType.stroke = "MAX";
@@ -163,7 +162,6 @@ public class Config {
                 edgeTypes.put(edge.getType(), newEdgeType);
             }
             if (!edgeTypes.containsKey(edge.getLabel())) {
-                System.out.println("Edge Label: " + edge.getLabel());
                 EdgeType newEdgeLabel = new EdgeType();
                 newEdgeLabel.type = edge.getLabel();
                 newEdgeLabel.stroke = "MAX";

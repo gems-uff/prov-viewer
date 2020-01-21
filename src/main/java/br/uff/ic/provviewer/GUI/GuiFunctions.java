@@ -297,11 +297,11 @@ public class GuiFunctions {
         Transformer edgePainter = new Transformer<Edge, Paint>() {
             @Override
             public Paint transform(Edge edge) {
-                if (GraphFrame.useEdgeTypeColor.isSelected()) {
-                    if (variables.config.edgeTypes.containsKey(edge.getLabel())) {
-                        return variables.config.edgeTypes.get(edge.getLabel()).edgeColor;
-                    }
-                }
+//                if (GraphFrame.isEdgeColorByType.isSelected()) {
+//                    if (variables.config.edgeTypes.containsKey(edge.getLabel())) {
+//                        return variables.config.edgeTypes.get(edge.getLabel()).edgeColor;
+//                    }
+//                }
 
                 // Highlight PATH
                 PickedState<Edge> picked_edge_state = variables.view.getPickedEdgeState();

@@ -49,6 +49,7 @@ import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import org.apache.commons.collections15.Transformer;
+import static br.uff.ic.provviewer.GraphFrame.EdgeStrokeByValueButton;
 
 /**
  * Class responsible for implementing each GUI button
@@ -493,6 +494,49 @@ public class GuiButtons {
 
     public static void ComputeMarkov(Variables variables) {
         GuiFunctions.ComputeMarkovChain(variables);
+    }
+    
+    public static void EdgeColorConfiguration(Variables variables, 
+            boolean type, 
+            boolean value, 
+            boolean graphs, 
+            boolean markovin, 
+            boolean markovout, 
+            JCheckBoxMenuItem isEdgeColorByType, 
+            JCheckBoxMenuItem isColorByEdgeValueButton, 
+            JCheckBoxMenuItem EdgeColorGraphsButtom, 
+            JCheckBoxMenuItem EdgeColorMarkovInButtom, 
+            JCheckBoxMenuItem EdgeColorMarkovOutButtom) {
+        variables.isEdgeColorByType = type;
+        variables.isEdgeColorByValue = value;
+        variables.isEdgeColorByGraphs = graphs;
+        variables.isEdgeColorByMarkovIn = markovin;
+        variables.isEdgeColorByMarkovOut = markovout;
+        isEdgeColorByType.setSelected(type);
+        isColorByEdgeValueButton.setSelected(value);
+        EdgeColorGraphsButtom.setSelected(graphs);
+        EdgeColorMarkovInButtom.setSelected(markovin);
+        EdgeColorMarkovOutButtom.setSelected(markovout);
+        variables.view.repaint();
+    }
+    public static void EdgeStrokeConfiguration(Variables variables, 
+            boolean value, 
+            boolean graphs, 
+            boolean markovin, 
+            boolean markovout, 
+            JCheckBoxMenuItem EdgeStrokeByValueButton, 
+            JCheckBoxMenuItem EdgeStrokeByGraphButton, 
+            JCheckBoxMenuItem EdgeStrokeByMarkovinButton, 
+            JCheckBoxMenuItem EdgeStrokeByMarkovoutButton) {
+        variables.isEdgeStrokeByValue = value;
+        variables.isEdgeStrokeByGraph = graphs;
+        variables.isEdgeStrokeByMarkovIn = markovin;
+        variables.isEdgeStrokeByMarkovOut = markovout;
+        EdgeStrokeByValueButton.setSelected(value);
+        EdgeStrokeByGraphButton.setSelected(graphs);
+        EdgeStrokeByMarkovinButton.setSelected(markovin);
+        EdgeStrokeByMarkovoutButton.setSelected(markovout);
+        variables.view.repaint();
     }
 
 }

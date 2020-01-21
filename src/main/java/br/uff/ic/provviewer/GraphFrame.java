@@ -181,10 +181,6 @@ public class GraphFrame extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         autoDetectEdgesCheckBox = new javax.swing.JCheckBoxMenuItem();
         autoDetectAttributeCheckBox = new javax.swing.JCheckBoxMenuItem();
-        useEdgeTypeColor = new javax.swing.JCheckBoxMenuItem();
-        isColorByEdgeValueButton = new javax.swing.JCheckBoxMenuItem();
-        isStrokeByValueButton = new javax.swing.JCheckBoxMenuItem();
-        vertexBorderByGraphButton = new javax.swing.JCheckBoxMenuItem();
         allowVariableLayoutButton = new javax.swing.JCheckBoxMenuItem();
         displayEdgeTextButton = new javax.swing.JMenu();
         jMenu10 = new javax.swing.JMenu();
@@ -239,6 +235,18 @@ public class GraphFrame extends javax.swing.JFrame {
         PerformanceAAButton = new javax.swing.JCheckBoxMenuItem();
         PerformanceArrowHeadsButton = new javax.swing.JCheckBoxMenuItem();
         PaintInvisibleVerticesButton = new javax.swing.JCheckBoxMenuItem();
+        jMenu14 = new javax.swing.JMenu();
+        isEdgeColorByType = new javax.swing.JCheckBoxMenuItem();
+        isColorByEdgeValueButton = new javax.swing.JCheckBoxMenuItem();
+        EdgeColorGraphsButtom = new javax.swing.JCheckBoxMenuItem();
+        EdgeColorMarkovInButtom = new javax.swing.JCheckBoxMenuItem();
+        EdgeColorMarkovOutButtom = new javax.swing.JCheckBoxMenuItem();
+        EdgeStrokeByValueButton = new javax.swing.JCheckBoxMenuItem();
+        EdgeStrokeByGraphButton = new javax.swing.JCheckBoxMenuItem();
+        EdgeStrokeByMarkovinButton = new javax.swing.JCheckBoxMenuItem();
+        EdgeStrokeByMarkovoutButton = new javax.swing.JCheckBoxMenuItem();
+        jMenu15 = new javax.swing.JMenu();
+        vertexBorderByGraphButton = new javax.swing.JCheckBoxMenuItem();
 
         setNewLabelDialogBox.setAlwaysOnTop(true);
         setNewLabelDialogBox.setMinimumSize(new java.awt.Dimension(257, 153));
@@ -1060,40 +1068,6 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu1.add(autoDetectAttributeCheckBox);
 
-        useEdgeTypeColor.setText("Edge Color based on its Type");
-        useEdgeTypeColor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                useEdgeTypeColorActionPerformed(evt);
-            }
-        });
-        jMenu1.add(useEdgeTypeColor);
-
-        isColorByEdgeValueButton.setSelected(true);
-        isColorByEdgeValueButton.setText("Edge Color based on its Value");
-        isColorByEdgeValueButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                isColorByEdgeValueButtonActionPerformed(evt);
-            }
-        });
-        jMenu1.add(isColorByEdgeValueButton);
-
-        isStrokeByValueButton.setSelected(true);
-        isStrokeByValueButton.setText("Edge Size based on its Value");
-        isStrokeByValueButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                isStrokeByValueButtonActionPerformed(evt);
-            }
-        });
-        jMenu1.add(isStrokeByValueButton);
-
-        vertexBorderByGraphButton.setText("Vertex Border Color based on GraphFile");
-        vertexBorderByGraphButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                vertexBorderByGraphButtonActionPerformed(evt);
-            }
-        });
-        jMenu1.add(vertexBorderByGraphButton);
-
         allowVariableLayoutButton.setText("Dynamic Layouts");
         allowVariableLayoutButton.setToolTipText("Layouts will adapt upon refresh based on the graph currently being displayed");
         allowVariableLayoutButton.addActionListener(new java.awt.event.ActionListener() {
@@ -1500,6 +1474,96 @@ public class GraphFrame extends javax.swing.JFrame {
 
         MenuBar.add(jMenu9);
 
+        jMenu14.setText("Edge");
+
+        isEdgeColorByType.setText("Edge Color based on its Type");
+        isEdgeColorByType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                isEdgeColorByTypeActionPerformed(evt);
+            }
+        });
+        jMenu14.add(isEdgeColorByType);
+
+        isColorByEdgeValueButton.setSelected(true);
+        isColorByEdgeValueButton.setText("Edge Color based on its Value");
+        isColorByEdgeValueButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                isColorByEdgeValueButtonActionPerformed(evt);
+            }
+        });
+        jMenu14.add(isColorByEdgeValueButton);
+
+        EdgeColorGraphsButtom.setText("Edge Color based on Graphs");
+        EdgeColorGraphsButtom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EdgeColorGraphsButtomActionPerformed(evt);
+            }
+        });
+        jMenu14.add(EdgeColorGraphsButtom);
+
+        EdgeColorMarkovInButtom.setText("Edge Color based on Markov In");
+        EdgeColorMarkovInButtom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EdgeColorMarkovInButtomActionPerformed(evt);
+            }
+        });
+        jMenu14.add(EdgeColorMarkovInButtom);
+
+        EdgeColorMarkovOutButtom.setText("Edge Color based on Markov Out");
+        EdgeColorMarkovOutButtom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EdgeColorMarkovOutButtomActionPerformed(evt);
+            }
+        });
+        jMenu14.add(EdgeColorMarkovOutButtom);
+
+        EdgeStrokeByValueButton.setSelected(true);
+        EdgeStrokeByValueButton.setText("Edge Size based on Value");
+        EdgeStrokeByValueButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EdgeStrokeByValueButtonActionPerformed(evt);
+            }
+        });
+        jMenu14.add(EdgeStrokeByValueButton);
+
+        EdgeStrokeByGraphButton.setText("Edge Size based on Graphs");
+        EdgeStrokeByGraphButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EdgeStrokeByGraphButtonActionPerformed(evt);
+            }
+        });
+        jMenu14.add(EdgeStrokeByGraphButton);
+
+        EdgeStrokeByMarkovinButton.setText("Edge Size based on Markov In");
+        EdgeStrokeByMarkovinButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EdgeStrokeByMarkovinButtonActionPerformed(evt);
+            }
+        });
+        jMenu14.add(EdgeStrokeByMarkovinButton);
+
+        EdgeStrokeByMarkovoutButton.setText("Edge Size based on Markov Out");
+        EdgeStrokeByMarkovoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EdgeStrokeByMarkovoutButtonActionPerformed(evt);
+            }
+        });
+        jMenu14.add(EdgeStrokeByMarkovoutButton);
+
+        MenuBar.add(jMenu14);
+
+        jMenu15.setText("Vertex");
+
+        vertexBorderByGraphButton.setText("Vertex Border Color based on GraphFile");
+        vertexBorderByGraphButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vertexBorderByGraphButtonActionPerformed(evt);
+            }
+        });
+        jMenu15.add(vertexBorderByGraphButton);
+
+        MenuBar.add(jMenu15);
+
         setJMenuBar(MenuBar);
 
         setSize(new java.awt.Dimension(1189, 784));
@@ -1773,16 +1837,13 @@ public class GraphFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_attributeDisplaySimConfigActionPerformed
 
-    private void useEdgeTypeColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useEdgeTypeColorActionPerformed
-        // TODO add your handling code here:
-        variables.view.repaint();
-    }//GEN-LAST:event_useEdgeTypeColorActionPerformed
+    private void isEdgeColorByTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isEdgeColorByTypeActionPerformed
+        GuiButtons.EdgeColorConfiguration(variables, true, false, false, false, false, isEdgeColorByType, isColorByEdgeValueButton, EdgeColorGraphsButtom, EdgeColorMarkovInButtom, EdgeColorMarkovOutButtom);
+    }//GEN-LAST:event_isEdgeColorByTypeActionPerformed
 
-    private void isStrokeByValueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isStrokeByValueButtonActionPerformed
-        // TODO add your handling code here:
-        variables.isEdgeStrokeByValue = isStrokeByValueButton.getState();
-        variables.view.repaint();
-    }//GEN-LAST:event_isStrokeByValueButtonActionPerformed
+    private void EdgeStrokeByValueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EdgeStrokeByValueButtonActionPerformed
+        GuiButtons.EdgeStrokeConfiguration(variables, true, false, false, false, EdgeStrokeByValueButton, EdgeStrokeByGraphButton, EdgeStrokeByMarkovinButton, EdgeStrokeByMarkovoutButton);
+    }//GEN-LAST:event_EdgeStrokeByValueButtonActionPerformed
 
     private void displayEdgeLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayEdgeLabelActionPerformed
         // TODO add your handling code here:
@@ -1828,8 +1889,7 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private void isColorByEdgeValueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isColorByEdgeValueButtonActionPerformed
         // TODO add your handling code here:
-        variables.isEdgeColorByGraphs = !isColorByEdgeValueButton.getState();
-        variables.view.repaint();
+        GuiButtons.EdgeColorConfiguration(variables, false, true, false, false, false, isEdgeColorByType, isColorByEdgeValueButton, EdgeColorGraphsButtom, EdgeColorMarkovInButtom, EdgeColorMarkovOutButtom);
     }//GEN-LAST:event_isColorByEdgeValueButtonActionPerformed
 
     private void hideMergedVerticesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hideMergedVerticesButtonActionPerformed
@@ -2077,6 +2137,30 @@ public class GraphFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         GuiButtons.ComputeMarkov(variables);
     }//GEN-LAST:event_computeMarkovChainButtonActionPerformed
+
+    private void EdgeColorMarkovInButtomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EdgeColorMarkovInButtomActionPerformed
+        GuiButtons.EdgeColorConfiguration(variables, false, false, false, true, false, isEdgeColorByType, isColorByEdgeValueButton, EdgeColorGraphsButtom, EdgeColorMarkovInButtom, EdgeColorMarkovOutButtom);
+    }//GEN-LAST:event_EdgeColorMarkovInButtomActionPerformed
+
+    private void EdgeColorMarkovOutButtomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EdgeColorMarkovOutButtomActionPerformed
+        GuiButtons.EdgeColorConfiguration(variables, false, false, false, false, true, isEdgeColorByType, isColorByEdgeValueButton, EdgeColorGraphsButtom, EdgeColorMarkovInButtom, EdgeColorMarkovOutButtom);
+    }//GEN-LAST:event_EdgeColorMarkovOutButtomActionPerformed
+
+    private void EdgeColorGraphsButtomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EdgeColorGraphsButtomActionPerformed
+        GuiButtons.EdgeColorConfiguration(variables, false, false, true, false, false, isEdgeColorByType, isColorByEdgeValueButton, EdgeColorGraphsButtom, EdgeColorMarkovInButtom, EdgeColorMarkovOutButtom);
+    }//GEN-LAST:event_EdgeColorGraphsButtomActionPerformed
+
+    private void EdgeStrokeByGraphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EdgeStrokeByGraphButtonActionPerformed
+        GuiButtons.EdgeStrokeConfiguration(variables, false, true, false, false, EdgeStrokeByValueButton, EdgeStrokeByGraphButton, EdgeStrokeByMarkovinButton, EdgeStrokeByMarkovoutButton);
+    }//GEN-LAST:event_EdgeStrokeByGraphButtonActionPerformed
+
+    private void EdgeStrokeByMarkovinButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EdgeStrokeByMarkovinButtonActionPerformed
+        GuiButtons.EdgeStrokeConfiguration(variables, false, false, true, false, EdgeStrokeByValueButton, EdgeStrokeByGraphButton, EdgeStrokeByMarkovinButton, EdgeStrokeByMarkovoutButton);
+    }//GEN-LAST:event_EdgeStrokeByMarkovinButtonActionPerformed
+
+    private void EdgeStrokeByMarkovoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EdgeStrokeByMarkovoutButtonActionPerformed
+        GuiButtons.EdgeStrokeConfiguration(variables, false, false, false, true, EdgeStrokeByValueButton, EdgeStrokeByGraphButton, EdgeStrokeByMarkovinButton, EdgeStrokeByMarkovoutButton);
+    }//GEN-LAST:event_EdgeStrokeByMarkovoutButtonActionPerformed
    
     /**
      * Main
@@ -2120,7 +2204,14 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JButton DeleteSelectedVerticesButton;
     private javax.swing.JLabel DisplayEdges;
     private javax.swing.JLabel DisplayVertices;
+    private javax.swing.JCheckBoxMenuItem EdgeColorGraphsButtom;
+    private javax.swing.JCheckBoxMenuItem EdgeColorMarkovInButtom;
+    private javax.swing.JCheckBoxMenuItem EdgeColorMarkovOutButtom;
     private javax.swing.JComboBox EdgeLineShapeSelection;
+    private javax.swing.JCheckBoxMenuItem EdgeStrokeByGraphButton;
+    private javax.swing.JCheckBoxMenuItem EdgeStrokeByMarkovinButton;
+    private javax.swing.JCheckBoxMenuItem EdgeStrokeByMarkovoutButton;
+    public static javax.swing.JCheckBoxMenuItem EdgeStrokeByValueButton;
     private javax.swing.JLabel EdgeStyle;
     private javax.swing.JScrollPane EdgeTypes;
     private javax.swing.JMenuItem Exit;
@@ -2194,8 +2285,8 @@ public class GraphFrame extends javax.swing.JFrame {
     public static javax.swing.JCheckBoxMenuItem hideMergedVerticesButton;
     public static javax.swing.JCheckBox isAndOperatorButton;
     private javax.swing.JCheckBoxMenuItem isColorByEdgeValueButton;
+    public static javax.swing.JCheckBoxMenuItem isEdgeColorByType;
     public static javax.swing.JCheckBox isSTDeps;
-    public static javax.swing.JCheckBoxMenuItem isStrokeByValueButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -2216,6 +2307,8 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu11;
     private javax.swing.JMenu jMenu12;
     private javax.swing.JMenu jMenu13;
+    private javax.swing.JMenu jMenu14;
+    private javax.swing.JMenu jMenu15;
     private javax.swing.JMenu jMenu2;
     public static javax.swing.JMenu jMenu3;
     public static javax.swing.JMenu jMenu4;
@@ -2258,7 +2351,6 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JDialog tooltipDialogBox;
     private javax.swing.JTextPane tooltipWindowTextPane;
     private javax.swing.JCheckBoxMenuItem updateErrorButton;
-    public static javax.swing.JCheckBoxMenuItem useEdgeTypeColor;
     private javax.swing.JCheckBoxMenuItem verifyWithinClusterButton;
     private javax.swing.JCheckBoxMenuItem vertexBorderByGraphButton;
     public static javax.swing.JList vertexFilterList;

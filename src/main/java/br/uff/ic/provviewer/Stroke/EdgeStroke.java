@@ -27,6 +27,7 @@ import br.uff.ic.provviewer.EdgeType;
 import br.uff.ic.provviewer.VariableNames;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.provviewer.Variables;
+import br.uff.ic.utility.graph.AgentVertex;
 import java.awt.BasicStroke;
 import java.awt.Stroke;
 
@@ -53,11 +54,11 @@ public class EdgeStroke {
 //            return new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
 //        }
         float size = 1;
-        if (!isStrokeByValue) {
-//            Vertex target = (Vertex) edge.getTarget();
-            String[] graphs = edge.getAttributeValues(VariableNames.GraphFile);
-            size = 1 + (((float) graphs.length - 1) / (nGraphs - 1)) * 10;
-        }
+//        if (!isStrokeByValue) {
+////            Vertex target = (Vertex) edge.getTarget();
+//            String[] graphs = edge.getAttributeValues(VariableNames.GraphFile);
+//            size = 1 + (((float) graphs.length - 1) / (nGraphs - 1)) * 10;
+//        }
         return new BasicStroke(size, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, null, 0.0f);
     }
 
@@ -108,6 +109,22 @@ public class EdgeStroke {
                     return defineStroke(edge.getValue(), et.total / et.count);
                 }
             }
+        }
+        else if (variables.isEdgeStrokeByGraph) {
+            String[] graphs = edge.getAttributeValues(VariableNames.GraphFile);
+            return defineStroke(((float) graphs.length - 1), variables.numberOfGraphs);
+//            float size = 1 + (((float) graphs.length - 1) / (variables.numberOfGraphs - 1)) * 10;
+//            return new BasicStroke(size, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, null, 0.0f);
+        } else if (variables.isEdgeStrokeByMarkovIn) {
+            if (!(edge.getTarget() instanceof AgentVertex) && !edge.getAttributeValue(VariableNames.MarkovIn).equals(VariableNames.UnknownValue))
+                return defineStroke(Float.valueOf(edge.getAttributeValue(VariableNames.MarkovIn)), 1);
+            else
+                return defineStroke(0, 1);
+        } else if (variables.isEdgeStrokeByMarkovOut) {
+            if (!(edge.getTarget() instanceof AgentVertex) && !edge.getAttributeValue(VariableNames.MarkovIn).equals(VariableNames.UnknownValue))
+                return defineStroke(Float.valueOf(edge.getAttributeValue(VariableNames.MarkovOut)), 1);
+            else
+                return defineStroke(0, 1);
         }
         return EdgeStroke(edge, variables.isEdgeStrokeByValue, variables.numberOfGraphs);
     }
