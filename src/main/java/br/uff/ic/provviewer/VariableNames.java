@@ -80,4 +80,7 @@ public class VariableNames {
     public static String MarkovIn = "MarkovIn";
     public static String MarkovOut = "MarkovOut";
     public static String label = "Label";
+    public static String MarkovLayout = "Markov Layout";
+    public static String MarkovInLayout = "MarkovInLayout";
+    public static String MarkovOutLayout = "MarkovOutLayout";
 }

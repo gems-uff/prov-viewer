@@ -545,7 +545,7 @@ public class GraphFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Prov Viewer");
-        setMinimumSize(new java.awt.Dimension(850, 0));
+        setMinimumSize(new java.awt.Dimension(1255, 800));
 
         ToolMenu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
