@@ -32,34 +32,36 @@ import java.awt.Paint;
  */
 public class TrafficLight {
 
-    private static Paint gradientColor(int aR, int aG, int aB, int bR, int bG, int bB, float v) {
+    private static Paint gradientColor(int aR, int aG, int aB, int bR, int bG, int bB, float v, int alpha) {
         int red = (int) ((float) (bR - aR) * v + aR); // Evaluated as -255*value + 255.
         int green = (int) ((float) (bG - aG) * v + aG); // Evaluates as 0.
         int blue = (int) ((float) (bB - aB) * v + aB); // Evaluates as 255*value + 0.
-        return new Color(red, green, blue);
+        return new Color(red, green, blue, alpha);
     }
 
-    public static Paint compareValueGreen(float value, double min, double max) {
+    public static Paint compareValueGreen(float value, double min, double max, int alpha) {
         int aR = 255;
         int aG = 255;
         int aB = 255; // RGB for the lowest value.
         int bR = 0;
-        int bG = 255;
+        int bG = 128;
         int bB = 0; // RGB for the highest value.
-        return gradientColor(aR, aG, aB, bR, bG, bB, value);
+        return gradientColor(aR, aG, aB, bR, bG, bB, value, alpha);
     }
 
-    public static Paint compareValueRed(float value, double min, double max) {
+    public static Paint compareValueRed(float value, double min, double max, int alpha) {
         int aR = 255;
         int aG = 255;
         int aB = 255; // RGB for the lowest value.
         int bR = 255;
         int bG = 0;
         int bB = 0; // RGB for the highest value.
-        return gradientColor(aR, aG, aB, bR, bG, bB, value);
+        return gradientColor(aR, aG, aB, bR, bG, bB, value, alpha);
     }
-
     public static Paint splittedTrafficLight(float value, double min, double max, boolean inverted) {
+        return splittedTrafficLight(value, min, max, inverted, 255);
+    }
+    public static Paint splittedTrafficLight(float value, double min, double max, boolean inverted, int alpha) {
         // normalize the color between 0 and 1
         float vPositive;
         float vNegative;
@@ -78,19 +80,19 @@ public class TrafficLight {
             vNegative = vPositive;
         }
         if (value == 0) {
-            return new Color(255, 255, 255);
+            return new Color(255, 255, 255, alpha);
         }
         if (!inverted) {
             if (value > 0) {
-                return compareValueGreen(vPositive, min, max);
+                return compareValueGreen(vPositive, min, max, alpha);
             } else {
-                return compareValueRed(1 - vNegative, min, max);
+                return compareValueRed(1 - vNegative, min, max, alpha);
             }
         } else {
             if (value >= 0) {
-                return compareValueRed(vPositive, min, max);
+                return compareValueRed(vPositive, min, max, alpha);
             } else {
-                return compareValueGreen(1 - vNegative, min, max);
+                return compareValueGreen(1 - vNegative, min, max, alpha);
             }
         }
     }
