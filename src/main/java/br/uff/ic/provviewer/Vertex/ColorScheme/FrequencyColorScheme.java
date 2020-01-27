@@ -43,6 +43,6 @@ public class FrequencyColorScheme extends ColorScheme {
     public Paint Execute(Object v, final Variables variables) {
         this.variables = variables;
         float frequency = ((float) ((Vertex)v).getFrequencyValue(variables.numberOfGraphs));
-        return TrafficLight.trafficLight(frequency, 0, 1, false);
+        return TrafficLight.splittedTrafficLight(frequency, 0, 1, false);
     }
 }
