@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.uff.ic.provviewer.SimilarityCollapse;
+package br.uff.ic.SimilarityCollapse;
 
 import br.uff.ic.graphmatching.GraphMatching;
 import br.uff.ic.provviewer.VariableNames;

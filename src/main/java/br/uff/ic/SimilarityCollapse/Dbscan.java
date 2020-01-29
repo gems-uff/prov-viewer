@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-package br.uff.ic.provviewer.SimilarityCollapse;
+package br.uff.ic.SimilarityCollapse;
 
 
 import br.uff.ic.utility.graph.Edge;

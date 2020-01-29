@@ -22,9 +22,9 @@
  * THE SOFTWARE.
  */
 
-package br.uff.ic.provviewer.SimilarityCollapse.graphgenerator;
+package br.uff.ic.SimilarityCollapse.graphgenerator;
 
-import br.uff.ic.provviewer.SimilarityCollapse.Dbscan;
+import br.uff.ic.SimilarityCollapse.Dbscan;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.Edge;
 import edu.uci.ics.jung.graph.DirectedGraph;
