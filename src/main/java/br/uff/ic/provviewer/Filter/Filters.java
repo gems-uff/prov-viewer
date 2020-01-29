@@ -366,7 +366,7 @@ public class Filters {
 //                System.out.println("Name: " + name);
                 if(filter.split(": ").length == 2) {
                     value = filter.split(": ")[1];
-                    if(Utils.tryParseFloat(value)) {
+                    if(Utils.tryParseDouble(value)) {
                         switch (logic) {
                             case "NE":
                                 if (!((Vertex) vertex).getAttributeValue(name).equalsIgnoreCase(String.valueOf(Float.parseFloat(value)))) {
@@ -375,25 +375,25 @@ public class Filters {
                                     returnAND = true;
                                 break;
                             case "GT":
-                                if (((Vertex) vertex).getAttributeValueFloat(name) > Float.parseFloat(value)) {
+                                if (((Vertex) vertex).getAttributeValueDouble(name) > Float.parseFloat(value)) {
                                     returnOR = false;
                                 } else
                                     returnAND = true;
                                 break;
                             case "GE":
-                                if (((Vertex) vertex).getAttributeValueFloat(name) >= Float.parseFloat(value)) {
+                                if (((Vertex) vertex).getAttributeValueDouble(name) >= Float.parseFloat(value)) {
                                     returnOR = false;
                                 } else
                                     returnAND = true;
                                 break;
                             case "LT":
-                                if (((Vertex) vertex).getAttributeValueFloat(name) < Float.parseFloat(value)) {
+                                if (((Vertex) vertex).getAttributeValueDouble(name) < Float.parseFloat(value)) {
                                     returnOR = false;
                                 } else
                                     returnAND = true;
                                 break;
                             case "LE":
-                                if (((Vertex) vertex).getAttributeValueFloat(name) <= Float.parseFloat(value)) {
+                                if (((Vertex) vertex).getAttributeValueDouble(name) <= Float.parseFloat(value)) {
                                     returnOR = false;
                                 } else
                                     returnAND = true;
@@ -472,25 +472,25 @@ public class Filters {
 
                 time = Utils.convertTime(timeScale, time, selectedTimeScale);
 
-                if (Utils.tryParseFloat(GraphFrame.FilterVertexMinValue.getText())) {
+                if (Utils.tryParseDouble(GraphFrame.FilterVertexMinValue.getText())) {
                     double minTime = Float.parseFloat(GraphFrame.FilterVertexMinValue.getText());
                     if (time < minTime) {
                         return true;
                     }
                 } else if (Utils.tryParseDate(GraphFrame.FilterVertexMinValue.getText())) {
-                    double minTime = Utils.convertStringDateToFloat(GraphFrame.FilterVertexMinValue.getText());
+                    double minTime = Utils.convertStringDateToLong(GraphFrame.FilterVertexMinValue.getText());
                     if (timeDate < minTime) {
                         return true;
                     }
                 }
-                if (Utils.tryParseFloat(GraphFrame.FilterVertexMaxValue.getText())) {
+                if (Utils.tryParseDouble(GraphFrame.FilterVertexMaxValue.getText())) {
                     double maxTime;
                     maxTime = Float.parseFloat(GraphFrame.FilterVertexMaxValue.getText());
                     if (time > maxTime) {
                         return true;
                     }
                 } else if (Utils.tryParseDate(GraphFrame.FilterVertexMaxValue.getText())) {
-                    double maxTime = Utils.convertStringDateToFloat(GraphFrame.FilterVertexMaxValue.getText());
+                    double maxTime = Utils.convertStringDateToLong(GraphFrame.FilterVertexMaxValue.getText());
                     if (timeDate > maxTime) {
                         return true;
                     }
