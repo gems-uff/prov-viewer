@@ -29,11 +29,11 @@ package br.uff.ic.utility;
  */
 public class ThresholdValues {
     
-    public float lowerThreshold;
-    public float upperThreshold;
+    public double lowerThreshold;
+    public double upperThreshold;
     public String attributeName;
 
-    public ThresholdValues(String att, float lt, float ut) {
+    public ThresholdValues(String att, double lt, double ut) {
         lowerThreshold = lt;
         upperThreshold = ut;
         attributeName = att;

@@ -29,6 +29,7 @@ import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.GoogleMapsAPIProjection;
 import edu.uci.ics.jung.visualization.Layer;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
+import java.awt.AlphaComposite;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
@@ -158,6 +159,9 @@ public class GuiBackground {
      */
     public void DrawImage(Graphics g, Variables variables,
             final ImageIcon icon, final int offsetX, final int offsetY) {
+        float alpha = 0.25f; //draw half transparent
+        AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER,alpha);
+        ((Graphics2D)g).setComposite(ac);
         g.drawImage(icon.getImage(), offsetX, offsetY,
                 icon.getIconWidth(), icon.getIconHeight(), variables.view);
     }

@@ -53,7 +53,7 @@ public class GraphMatching {
     private int vertexID = 0;
     private double threshold;
     private String defaultError;
-    private float defaultWeight;
+    private double defaultWeight;
     Map<String, Edge> duplicateEdges;
     private final Map<String, Object> vertexList;
     private final Map<String, Edge> edgeList;
@@ -75,7 +75,7 @@ public class GraphMatching {
      * @param similarityThreshold is the percentage used to define when two
      * vertices are considered similar. Varies from 0 to 1.0
      */
-    public GraphMatching(Map<String, AttributeErrorMargin> restrictionList, Map<String, String> vocabulary, float similarityThreshold) {
+    public GraphMatching(Map<String, AttributeErrorMargin> restrictionList, Map<String, String> vocabulary, double similarityThreshold) {
         vertexList = new HashMap<>();
         edgeList = new HashMap<>();
         attributeList = restrictionList;
@@ -88,7 +88,7 @@ public class GraphMatching {
         defaultWeight = 1;
     }
     
-    public GraphMatching(Map<String, AttributeErrorMargin> restrictionList, Map<String, String> vocabulary, float similarityThreshold, String errorMargin) {
+    public GraphMatching(Map<String, AttributeErrorMargin> restrictionList, Map<String, String> vocabulary, double similarityThreshold, String errorMargin) {
         vertexList = new HashMap<>();
         edgeList = new HashMap<>();
         attributeList = restrictionList;
@@ -101,7 +101,7 @@ public class GraphMatching {
         defaultWeight = 1;
     }
     
-    public GraphMatching(Map<String, AttributeErrorMargin> restrictionList, Map<String, String> vocabulary, float similarityThreshold, String errorMargin, float weight) {
+    public GraphMatching(Map<String, AttributeErrorMargin> restrictionList, Map<String, String> vocabulary, double similarityThreshold, String errorMargin, double weight) {
         vertexList = new HashMap<>();
         edgeList = new HashMap<>();
         attributeList = restrictionList;
@@ -122,7 +122,7 @@ public class GraphMatching {
      * @param similarityThreshold is the percentage used to define when two
      * vertices are considered similar. Varies from 0 to 1.0
      */
-    public GraphMatching(Map<String, AttributeErrorMargin> restrictionList, float similarityThreshold) {
+    public GraphMatching(Map<String, AttributeErrorMargin> restrictionList, double similarityThreshold) {
         vertexList = new HashMap<>();
         edgeList = new HashMap<>();
         attributeList = restrictionList;
@@ -135,7 +135,7 @@ public class GraphMatching {
         defaultWeight = 1;
     }
     
-    public GraphMatching(Map<String, AttributeErrorMargin> restrictionList, float similarityThreshold, String errorMargin) {
+    public GraphMatching(Map<String, AttributeErrorMargin> restrictionList, double similarityThreshold, String errorMargin) {
         vertexList = new HashMap<>();
         edgeList = new HashMap<>();
         attributeList = restrictionList;
@@ -148,7 +148,7 @@ public class GraphMatching {
         defaultWeight = 1;
     }
     
-    public GraphMatching(Map<String, AttributeErrorMargin> restrictionList, float similarityThreshold, String errorMargin, float weight) {
+    public GraphMatching(Map<String, AttributeErrorMargin> restrictionList, double similarityThreshold, String errorMargin, double weight) {
         vertexList = new HashMap<>();
         edgeList = new HashMap<>();
         attributeList = restrictionList;
@@ -167,7 +167,7 @@ public class GraphMatching {
      * @param similarityThreshold is the percentage used to define when two
      * vertices are considered similar. Varies from 0 to 1.0
      */
-    public GraphMatching(float similarityThreshold) {
+    public GraphMatching(double similarityThreshold) {
         vertexList = new HashMap<>();
         edgeList = new HashMap<>();
         attributeList = new HashMap<>();
@@ -228,7 +228,7 @@ public class GraphMatching {
         boolean isSimilar = false;
         // Code here
         // Use the attributeList to determine if vertices are similar
-        float similarity = 0.0F;
+        double similarity = 0.0F;
 
         // Compare vertex types: If different types than it is not similar
         if (!GraphUtils.isSameVertexTypes(v1, v2)) {
@@ -257,9 +257,9 @@ public class GraphMatching {
         }
 
         // Compute the number of attributes, considering their weights, for the similarity check
-        float size = 0;
+        double size = 0;
         for (String att : attributes.values()) {
-            float weight = defaultWeight;
+            double weight = defaultWeight;
             if (attributeList.get(att) != null) {
                 weight = attributeList.get(att).getWeight();
             }
@@ -290,14 +290,14 @@ public class GraphMatching {
      * are similar
      * @return
      */
-    public float compareAttributes(GraphAttribute attribute, Vertex v2, float similarity) {
+    public double compareAttributes(GraphAttribute attribute, Vertex v2, double similarity) {
 //        attributes.put(attribute.getName(), attribute.getName());
         String attName = attribute.getName();
         if (v2.getAttribute(attName) != null) {
             String av1 = attribute.getAverageValue();
             String av2 = v2.getAttribute(attName).getAverageValue();
             String errorMargin = defaultError;
-            float weight = defaultWeight;
+            double weight = defaultWeight;
             if (attributeList.get(attName) != null) {
                 errorMargin = attributeList.get(attName).getValue();
                 weight = attributeList.get(attName).getWeight();
@@ -305,20 +305,20 @@ public class GraphMatching {
             if (weight != 0) {
                 // Dealing with numeric values
 //                System.out.println(attribute.getName() + ": " + av1 + " / " + av2 + " error: " + errorMargin);
-                if (Utils.tryParseFloat(av1) && Utils.tryParseFloat(av2)) { // && Utils.tryParseFloat(errorMargin)) {
-                    if (Utils.tryParseFloat(errorMargin)) {
-                        if (Utils.FloatEqualTo(Utils.convertFloat(av1), Utils.convertFloat(av2), Utils.convertFloat(errorMargin))) {
+                if (Utils.tryParseDouble(av1) && Utils.tryParseDouble(av2)) { // && Utils.tryParseFloat(errorMargin)) {
+                    if (Utils.tryParseDouble(errorMargin)) {
+                        if (Utils.DoubleEqualTo(Utils.convertStringToDouble(av1), Utils.convertStringToDouble(av2), Utils.convertStringToDouble(errorMargin))) {
                             similarity = similarity + (1 * weight);
                         }
                     } else if (errorMargin.contains("%")) {
                         errorMargin = errorMargin.replaceAll("%", "");
-                        if (Utils.FloatSimilar(Utils.convertFloat(av1), Utils.convertFloat(av2), Utils.convertFloat(errorMargin) * 0.01f)) {
+                        if (Utils.DoubleSimilar(Utils.convertStringToDouble(av1), Utils.convertStringToDouble(av2), Utils.convertStringToDouble(errorMargin) * 0.01f)) {
                             similarity = similarity + (1 * weight);
                         }
                     }
                 } // Dealing with a timeDate values
                 else if (Utils.tryParseDate(av1) && Utils.tryParseDate(av2)) {
-                    if (Utils.DoubleEqualTo(Utils.convertStringDateToFloat(av1), Utils.convertStringDateToFloat(av2), Utils.convertFloat(errorMargin))) {
+                    if (Utils.DoubleEqualTo(Utils.convertStringDateToLong(av1), Utils.convertStringDateToLong(av2), Utils.convertStringToDouble(errorMargin))) {
                         similarity = similarity + (1 * weight);
                     }
                 } // Dealing with string values: Checking if they are equals

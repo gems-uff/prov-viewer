@@ -247,9 +247,9 @@ public class Edge extends GraphObject {
      * @return (float) edge influence value
      */
     public float getValue() {
-        if (Utils.tryParseFloat(this.getAttributeValue(influenceName))) {
+        if (Utils.tryParseDouble(this.getAttributeValue(influenceName))) {
             return Float.parseFloat(this.getAttributeValue(influenceName));
-        } else if (Utils.tryParseFloat(this.getAttributeValue(influenceName).split(" ")[0])) {
+        } else if (Utils.tryParseDouble(this.getAttributeValue(influenceName).split(" ")[0])) {
             return Float.parseFloat(this.getAttributeValue(influenceName).split(" ")[0]);
         } else {
             return 0;
@@ -376,13 +376,13 @@ public class Edge extends GraphObject {
         //TODO Refactor this method
         if (variables.isEdgeColorByMarkovIn) {
             if (!this.getAttributeValue(VariableNames.MarkovIn).equals(VariableNames.UnknownValue)) {
-                return (Color) TrafficLight.trafficLight(Float.valueOf(this.getAttributeValue(VariableNames.MarkovIn)), 0, 1, false);
+                return (Color) TrafficLight.splittedTrafficLight(Float.valueOf(this.getAttributeValue(VariableNames.MarkovIn)), 0, 1, false);
             } else {
                 return defaultColor;
             }
         } else if (variables.isEdgeColorByMarkovOut) {
             if (!this.getAttributeValue(VariableNames.MarkovOut).equals(VariableNames.UnknownValue)) {
-                return (Color) TrafficLight.trafficLight(Float.valueOf(this.getAttributeValue(VariableNames.MarkovOut)), 0, 1, false);
+                return (Color) TrafficLight.splittedTrafficLight(Float.valueOf(this.getAttributeValue(VariableNames.MarkovOut)), 0, 1, false);
             } else {
                 return defaultColor;
             }

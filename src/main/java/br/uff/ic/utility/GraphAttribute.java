@@ -51,7 +51,7 @@ public class GraphAttribute {
         this.name = name;
         this.value = value;
 //        this.quantity = 1;
-        if (Utils.tryParseFloat(value)){
+        if (Utils.tryParseDouble(value)){
             this.minValue = Utils.convertDouble(value.trim());
             this.maxValue = Utils.convertDouble(value.trim());
             double v = Utils.convertDouble(value.trim());
@@ -87,8 +87,8 @@ public class GraphAttribute {
         this.name = name;
         this.value = value;
 //        this.quantity = Integer.valueOf(quantity);
-        this.minValue = Utils.convertFloat(min);
-        this.maxValue = Utils.convertFloat(max);
+        this.minValue = Utils.convertStringToDouble(min);
+        this.maxValue = Utils.convertStringToDouble(max);
         this.originalValues = new HashMap<>();
         this.originalValues.putAll(values);
     }
@@ -101,13 +101,13 @@ public class GraphAttribute {
         this.minValue = Float.POSITIVE_INFINITY;
         this.maxValue = Float.NEGATIVE_INFINITY;
         String testFirstValue = (String) values.values().toArray()[0];
-        if (Utils.tryParseFloat(testFirstValue) && Utils.tryParseFloat(testFirstValue)) {
+        if (Utils.tryParseDouble(testFirstValue) && Utils.tryParseDouble(testFirstValue)) {
             originalValues.putAll(values);
             float v = 0;
             for(String s : originalValues.values()) {
-                v += Utils.convertFloat(s);
-                this.minValue = Math.min(this.minValue, Utils.convertFloat(s));
-                this.maxValue = Math.max(this.maxValue, Utils.convertFloat(s));
+                v += Utils.convertStringToDouble(s);
+                this.minValue = Math.min(this.minValue, Utils.convertStringToDouble(s));
+                this.maxValue = Math.max(this.maxValue, Utils.convertStringToDouble(s));
             }
             this.value = Float.toString(v);
             
@@ -137,7 +137,7 @@ public class GraphAttribute {
      */
     public String getAverageValue() {
         // Return the average number
-        if ((this.originalValues.size() > 1) && Utils.tryParseFloat(this.value))
+        if ((this.originalValues.size() > 1) && Utils.tryParseDouble(this.value))
             return Double.toString(Utils.convertDouble(this.value) / this.originalValues.size()); 
         else
             return this.value;
@@ -210,16 +210,16 @@ public class GraphAttribute {
      * @return a string with the attribute characteristics
      */
     public String printValue() {
-        if (Utils.tryParseFloat(this.value)) {
+        if (Utils.tryParseDouble(this.value)) {
             if(this.originalValues.size() > 2) {
-                return (Utils.convertFloat(this.value) / this.originalValues.size())
+                return (Utils.convertStringToDouble(this.value) / this.originalValues.size())
                         + " (" + this.getMin() + " ~ "
                         + this.get1stQuartile() + " ~"
                         + this.getMedian() + " ~"
                         + this.get3rdQuartile() + " ~"
                         + this.getMax() + ")" + "<br>";
             } else if(this.originalValues.size() > 1){
-                return (Utils.convertFloat(this.value) / this.originalValues.size())
+                return (Utils.convertStringToDouble(this.value) / this.originalValues.size())
                         + " (" + this.getMin() + " ~ "
                         + this.getMax() + ")" + "<br>";
             }

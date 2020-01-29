@@ -23,8 +23,6 @@
  */
 package br.uff.ic.provviewer.GUI;
 
-import br.uff.ic.provviewer.EdgeType;
-import br.uff.ic.provviewer.GraphFrame;
 import static br.uff.ic.provviewer.GraphFrame.StatusFilterBox;
 import br.uff.ic.provviewer.Path.GraphPath;
 import br.uff.ic.utility.graph.Edge;
@@ -37,9 +35,8 @@ import br.uff.ic.provviewer.Vertex.ColorScheme.VertexPainter;
 import br.uff.ic.utility.graph.EntityVertex;
 import br.uff.ic.utility.graph.Vertex;
 import br.uff.ic.provviewer.Vertex.VertexShape;
-import br.uff.ic.provviewer.markov.Markov;
+import br.uff.ic.utility.AttValueColor;
 import br.uff.ic.utility.EdgeSourceTarget;
-import br.uff.ic.utility.GraphUtils;
 import br.uff.ic.utility.StackElementUndoDeletion;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.ActivityVertex;
@@ -118,12 +115,12 @@ public class GuiFunctions {
             public Paint transform(Object v) {
                 if (v instanceof Vertex) {
                     if (variables.highlightVertexOutliers) {
-                        float value = ((Vertex) v).getAttributeValueFloat(variables.outliersThresholds.attributeName);
+                        double value = ((Vertex) v).getAttributeValueDouble(variables.outliersThresholds.attributeName);
                         if (value < variables.outliersThresholds.lowerThreshold || value > variables.outliersThresholds.upperThreshold) {
                             return new Color(255, 0, 0);
                         }
                     }
-                    if (variables.vertexBorderByGraphs) {
+                    else if (variables.vertexBorderByGraphs) {
                         String graphs = ((Vertex) v).getAttributeValue(VariableNames.GraphFile);
                         int i = 0;
                         if (((Vertex) v).getAttributeValues(VariableNames.GraphFile).length == variables.numberOfGraphs) {
@@ -136,6 +133,18 @@ public class GuiFunctions {
                             i++;
                         }
                         return Utils.getColor(i);
+                    }
+                    else if (variables.vertexBorderByLabel) {
+                        List<AttValueColor> avc = variables.config.activityVC;
+                        for (int i = 0; i < avc.size(); i++) {
+                            if (((Vertex)v).getLabel().equalsIgnoreCase(avc.get(i).value)) {
+                                return avc.get(i).color;
+                            }
+                        }
+                        return Color.BLACK;
+                    }
+                    else {
+                        return Color.BLACK;
                     }
                 }
 //                if(v instanceof Vertex) {
@@ -507,12 +516,12 @@ public class GuiFunctions {
         correctTrials_test.add("workflow_trial_28.xml");
         correctTrials_test.add("workflow_trial_32.xml");
         // End testing purposes
-        float support_notok;
-        float support_ok;
-        float confidence_ok;
-        float confidence_notok;
-        float lift_notok;
-        float lift_ok;
+        double support_notok;
+        double support_ok;
+        double confidence_ok;
+        double confidence_notok;
+        double lift_notok;
+        double lift_ok;
         int notok = 0;
         int ok = 0;
         String selected_vertices = "Selected vertices:";
@@ -560,12 +569,12 @@ public class GuiFunctions {
                 }
             }
         }
-        support_notok = (float) notok / (float) variables.numberOfGraphs;
-        support_ok = (float) numberofCorrect / (float) variables.numberOfGraphs;
-        confidence_ok = (float) numberofCorrect / (float) commonFiles.size();
-        confidence_notok = (float) notok / (float) commonFiles.size();
-        lift_notok = confidence_notok / ((float) (variables.numberOfGraphs - correctTrials_test.size()) / (float) variables.numberOfGraphs);
-        lift_ok = confidence_ok / ((float) correctTrials_test.size() / (float) variables.numberOfGraphs);
+        support_notok = (double) notok / (double) variables.numberOfGraphs;
+        support_ok = (double) numberofCorrect / (double) variables.numberOfGraphs;
+        confidence_ok = (double) numberofCorrect / (double) commonFiles.size();
+        confidence_notok = (double) notok / (double) commonFiles.size();
+        lift_notok = confidence_notok / ((double) (variables.numberOfGraphs - correctTrials_test.size()) / (double) variables.numberOfGraphs);
+        lift_ok = confidence_ok / ((double) correctTrials_test.size() / (double) variables.numberOfGraphs);
 
         // Lets make the numbers be in the % notation (0% to 100%)
         confidence_notok = confidence_notok * 100.0f;
@@ -605,7 +614,7 @@ public class GuiFunctions {
     }
 
     static void ComputeMarkovChain(Variables variables) {
-        Markov.computeMarkovChain(variables);
+        variables.markov.computeMarkovChain(variables);
     }
 
     public static String ComputePath(Variables variables) {

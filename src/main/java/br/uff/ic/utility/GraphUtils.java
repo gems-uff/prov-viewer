@@ -88,11 +88,11 @@ public class GraphUtils {
 
     // TO DO: Get the mean of slopes if there are more than 1 vertex with the attribute
     // TO DO: Allow for jumping vertices until finding the vertex with the same attribute (e.g., skip an entity between two activities)
-    public static float getSlope(Object node, ColorScheme colorScheme) {
+    public static double getSlope(Object node, ColorScheme colorScheme) {
         double slope = Double.NEGATIVE_INFINITY;
         for (Edge e : colorScheme.variables.graph.getOutEdges(node)) {
             if (!((Vertex) e.getTarget()).getAttributeValue(colorScheme.attribute).contentEquals(VariableNames.UnknownValue)) {
-                float attValue = ((Vertex) node).getAttributeValueFloat(colorScheme.attribute) - ((Vertex) e.getTarget()).getAttributeValueFloat(colorScheme.attribute);
+                double attValue = ((Vertex) node).getAttributeValueDouble(colorScheme.attribute) - ((Vertex) e.getTarget()).getAttributeValueDouble(colorScheme.attribute);
                 double time = ((Vertex) node).getTime() - ((Vertex) e.getTarget()).getTime();
                 if (time != 0) {
                     slope = attValue / time;
@@ -103,15 +103,15 @@ public class GraphUtils {
                 }
             }
         }
-        return (float) slope;
+        return (double) slope;
     }
     
-    public static ArrayList<Float> getAttributeValuesFromVertices(DirectedGraph<Object, Edge> graph, String attribute) {
+    public static ArrayList<Double> getAttributeValuesFromVertices(DirectedGraph<Object, Edge> graph, String attribute) {
         Collection<Object> nodes = graph.getVertices();
-            ArrayList<Float> values = new ArrayList<>();
+            ArrayList<Double> values = new ArrayList<>();
             for (Object node : nodes) {
                 if (!((Vertex) node).getAttributeValue(attribute).contentEquals(VariableNames.UnknownValue)) {
-                    values.add(((Vertex) node).getAttributeValueFloat(attribute));
+                    values.add(((Vertex) node).getAttributeValueDouble(attribute));
                 }
             }
             return values;
@@ -137,11 +137,11 @@ public class GraphUtils {
      */
     private static void UpdateVertexTypeQuantityGraphVertex(Map<String, GraphAttribute> attributes, GraphVertex graphVertex, String type) {
         if(attributes.containsKey(type)) {
-            int qnt = (int) Float.parseFloat(attributes.get(type).getValue());
-            qnt = (int) (qnt + ((Vertex)graphVertex).getAttributeValueFloat(type));
+            int qnt = (int) Double.parseDouble(attributes.get(type).getValue());
+            qnt = (int) (qnt + ((Vertex)graphVertex).getAttributeValueDouble(type));
             attributes.get(type).setValue(Integer.toString(qnt));
         } else {
-            GraphAttribute att = new GraphAttribute(type, Integer.toString((int) ((Vertex)graphVertex).getAttributeValueFloat(type)), "GraphVertex");
+            GraphAttribute att = new GraphAttribute(type, Integer.toString((int) ((Vertex)graphVertex).getAttributeValueDouble(type)), "GraphVertex");
             attributes.put(att.getName(), att);
         }
     }
@@ -154,7 +154,7 @@ public class GraphUtils {
      */
     private static void UpdateVertexTypeQuantity(Map<String, GraphAttribute> attributes, Vertex v, String type) {
         if(attributes.containsKey(type)) {
-            int qnt = (int) Float.parseFloat(attributes.get(type).getValue());
+            int qnt = (int) Double.parseDouble(attributes.get(type).getValue());
             qnt++;
             attributes.get(type).setValue(Integer.toString(qnt));
         } else {
@@ -263,7 +263,7 @@ public class GraphUtils {
      * @param numberOfGraphs is the total number of graphs used during the graph merges
      * @return the probability of using this edge
      */
-    public static float getSubPathProbability(Graph graph, Edge e, int numberOfGraphs) {
+    public static double getSubPathProbability(Graph graph, Edge e, int numberOfGraphs) {
         Pair endpoints = graph.getEndpoints(e);
         Object target = endpoints.getSecond();
         int sources = graph.getInEdges(target).size();

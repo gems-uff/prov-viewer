@@ -85,7 +85,7 @@ public class TimelineGraphs_Layout<V, E> extends ProvViewerTimelineLayout<V, E> 
         entityXPos = entityXPos * scale;
         for (V v : vertex_ordered_list) {
             yPos = 0;
-            int attValue = (int) ((Vertex) v).getAttributeValueFloat(x_att);
+            int attValue = (int) ((Vertex) v).getAttributeValueDouble(x_att);
             Point2D coord = transform(v);
             yGraphOffset = getYGraphOffSet(v);
 

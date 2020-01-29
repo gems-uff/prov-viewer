@@ -160,7 +160,7 @@ public class VertexShape<V> extends EllipseVertexShapeTransformer<V> {
 
         double value;
         int vertexSize;
-        value = ((Vertex)v).getAttributeValueFloat(attribute);
+        value = ((Vertex)v).getAttributeValueDouble(attribute);
         vertexSize = (int) (defaultSize * 2 * value / max);
         setSizeTransformer(new VertexSize<V>(vertexSize));
         return provShape(v, vertexSize);

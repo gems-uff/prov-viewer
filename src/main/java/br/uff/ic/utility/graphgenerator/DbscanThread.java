@@ -41,13 +41,13 @@ import java.util.logging.Logger;
 public class DbscanThread implements Runnable{
     
     ArrayList<ConcurrentHashMap<String, Object>> clusters;
-    float epsilon;
+    double epsilon;
     OracleGraph oracleGraph;
     DirectedGraph<Object, Edge> noiseGraph;
-    ArrayList<Float> t;
+    ArrayList<Double> t;
             
             
-    DbscanThread(ArrayList<ConcurrentHashMap<String, Object>> answer, OracleGraph og, DirectedGraph<Object, Edge> noiseGraph, float eps, ArrayList<Float> t) {
+    DbscanThread(ArrayList<ConcurrentHashMap<String, Object>> answer, OracleGraph og, DirectedGraph<Object, Edge> noiseGraph, double eps, ArrayList<Double> t) {
         this.clusters = answer;
         this.oracleGraph = og;
         this.noiseGraph = noiseGraph;
@@ -62,9 +62,9 @@ public class DbscanThread implements Runnable{
      * @return the time it took to execute this algorithm
      * @throws IOException 
      */
-    public long dbscan(DirectedGraph<Object, Edge> noiseGraph, float epsMod) throws IOException {
+    public long dbscan(DirectedGraph<Object, Edge> noiseGraph, double epsMod) throws IOException {
         
-        float eps = epsMod; 
+        double eps = epsMod; 
         eps = Utils.std(noiseGraph.getVertices(), oracleGraph.attribute) * epsMod;
         Dbscan instance = new Dbscan(noiseGraph, oracleGraph.attribute, eps, 1);
         long startTime = System.nanoTime();
@@ -78,7 +78,7 @@ public class DbscanThread implements Runnable{
     @Override
     public void run() {
         try {
-            float time = dbscan(noiseGraph, epsilon);
+            double time = dbscan(noiseGraph, epsilon);
             t.add(time);
         } catch (IOException ex) {
             Logger.getLogger(DbscanThread.class.getName()).log(Level.SEVERE, null, ex);

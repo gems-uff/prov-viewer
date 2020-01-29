@@ -52,25 +52,25 @@ public class UtilsTest {
     @Test
     public void testTryParseFloat() {
 //        System.out.println("tryParseFloat");
-        boolean result = Utils.tryParseFloat("");
+        boolean result = Utils.tryParseDouble("");
         assertEquals(false, result);
-        result = Utils.tryParseFloat("1");
+        result = Utils.tryParseDouble("1");
         assertEquals(true, result);
-        result = Utils.tryParseFloat("1.5");
+        result = Utils.tryParseDouble("1.5");
         assertEquals(true, result);
-        result = Utils.tryParseFloat("-1.5");
+        result = Utils.tryParseDouble("-1.5");
         assertEquals(true, result);
-        result = Utils.tryParseFloat("+1.5");
+        result = Utils.tryParseDouble("+1.5");
         assertEquals(true, result);
-        result = Utils.tryParseFloat("-1.5");
+        result = Utils.tryParseDouble("-1.5");
         assertEquals(true, result);
-        result = Utils.tryParseFloat("1.5");
+        result = Utils.tryParseDouble("1.5");
         assertEquals(true, result);
-        result = Utils.tryParseFloat("1.5");
+        result = Utils.tryParseDouble("1.5");
         assertEquals(true, result);
-        result = Utils.tryParseFloat("asd1");
+        result = Utils.tryParseDouble("asd1");
         assertEquals(false, result);
-        result = Utils.tryParseFloat("8.4696454E-4");
+        result = Utils.tryParseDouble("8.4696454E-4");
         assertEquals(true, result);
         
     }
@@ -82,23 +82,23 @@ public class UtilsTest {
     public void testConvertFloat() {
 //        System.out.println("convertFloat");
         Utils instance = new Utils();
-        double result = instance.convertFloat("1");
+        double result = instance.convertStringToDouble("1");
         assertEquals(1, result, 0.0);
-        result = instance.convertFloat("0");
+        result = instance.convertStringToDouble("0");
         assertEquals(0.0F, result, 0.0);
-        result = instance.convertFloat("1.0");
+        result = instance.convertStringToDouble("1.0");
         assertEquals(1.0F, result, 0.0);
-        result = instance.convertFloat("1.0");
+        result = instance.convertStringToDouble("1.0");
         assertEquals(1.0F, result, 0.0);
-        result = instance.convertFloat("1.0");
+        result = instance.convertStringToDouble("1.0");
         assertEquals(1.0F, result, 0.0);
-        result = instance.convertFloat("-1.0");
+        result = instance.convertStringToDouble("-1.0");
         assertEquals(-1.0F, result, 0.0);
-        result = instance.convertFloat("-1.0");
+        result = instance.convertStringToDouble("-1.0");
         assertEquals(- 1.0F, result, 0.0);
-        result = instance.convertFloat("1.5");
+        result = instance.convertStringToDouble("1.5");
         assertEquals(1.5F, result, 0.0);
-        result = instance.convertFloat("-1.5");
+        result = instance.convertStringToDouble("-1.5");
         assertEquals(-1.5F, result, 0.0);
     }
 
@@ -154,7 +154,7 @@ public class UtilsTest {
     public void testRoundToInt() {
 //        System.out.println("roundToInt");
         Utils instance = new Utils();
-        float result = instance.roundToInt("0");
+        double result = instance.roundToInt("0");
         assertEquals(0, result, 0.0);
         result = instance.roundToInt("1.4");
         assertEquals(1, result, 0.0);
@@ -176,32 +176,32 @@ public class UtilsTest {
      * Test of FloatEqualTo method, of class Utils.
      */
     @Test
-    public void testFloatEqualTo() {
+    public void testDoubleEqualTo() {
 //        System.out.println("FloatEqualTo");
-        float left = 0.0F;
-        float right = 0.0F;
-        float epsilon = 0.0F;
-        assertEquals(true, Utils.FloatEqualTo(left, right, epsilon));
+        double left = 0.0F;
+        double right = 0.0F;
+        double epsilon = 0.0F;
+        assertEquals(true, Utils.DoubleEqualTo(left, right, epsilon));
         
         left = 1.0F;
         right = 0.0F;
         epsilon = 0.0F;
-        assertEquals(false, Utils.FloatEqualTo(left, right, epsilon));
+        assertEquals(false, Utils.DoubleEqualTo(left, right, epsilon));
         
         left = 0.0F;
         right = 1.0F;
         epsilon = 0.0F;
-        assertEquals(false, Utils.FloatEqualTo(left, right, epsilon));
+        assertEquals(false, Utils.DoubleEqualTo(left, right, epsilon));
         
         left = 1.0F;
         right = 0.0F;
         epsilon = 1.0F;
-        assertEquals(true, Utils.FloatEqualTo(left, right, epsilon));
+        assertEquals(true, Utils.DoubleEqualTo(left, right, epsilon));
         
         left = 1.0F;
         right = 0.0F;
         epsilon = 2.0F;
-        assertEquals(true, Utils.FloatEqualTo(left, right, epsilon));
+        assertEquals(true, Utils.DoubleEqualTo(left, right, epsilon));
     }
     
     /**

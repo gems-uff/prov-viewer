@@ -41,7 +41,7 @@ public class VariableNames {
     public static String MouseModeTransforming = "Transforming";
     public static String EdgeModeQuadCurve = "QuadCurve";
     public static String EdgeModeLine = "Line";
-    public static String FontConfiguration = "<html><font face=\"verdana\", size=\"2\", color=\"black\">";
+    public static String FontConfiguration = "<html><font face=\"verdana\", size=\"6\", color=\"yellow\">";
     public static String SummarizedLabelString = " (Summarized)";
     public static String DefaultVertexPainter = "Prov";
     public static String EdgeTooltipFontConfiguration = "<html><font size=\"4\">";

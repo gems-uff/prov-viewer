@@ -124,7 +124,7 @@ public abstract class ColorScheme {
         return attribute;
     }
 
-    public Paint CompareValue(float value, double min, double max, boolean inverted) {
+    public Paint CompareValue(double value, double min, double max, boolean inverted) {
         if (isZeroWhite) {
             return TrafficLight.splittedTrafficLight(value, min, max, inverted);
         } else {
@@ -137,26 +137,26 @@ public abstract class ColorScheme {
     public Paint GetMinMaxColor(Object v) {
         if (!((Vertex) v).getAttributeValue(this.attribute).contentEquals("Unknown")) {
             if (variables.doDerivate) {
-                float slope = GraphUtils.getSlope(v, this);
-                if (slope == Float.NEGATIVE_INFINITY) {
+                double slope = GraphUtils.getSlope(v, this);
+                if (slope == Double.NEGATIVE_INFINITY) {
                     return new Color(0, 0, 0);
                 } else if (slope < this.derivateMin) {
-                    slope = (float) this.derivateMin;
+                    slope = (double) this.derivateMin;
                 } else if (slope > this.derivateMax) {
-                    slope = (float) this.derivateMax;
+                    slope = (double) this.derivateMax;
                 }
                 return this.CompareValue(slope, this.derivateMin, this.derivateMax, isInverted);
             }
             else if (!limited) {
-                return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.min, this.max, isInverted);
+                return this.CompareValue(((Vertex) v).getAttributeValueDouble(this.attribute), this.min, this.max, isInverted);
             } else {
                 if (this.givenMax == null) {
-                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMin), this.max, isInverted);
+                    return this.CompareValue(((Vertex) v).getAttributeValueDouble(this.attribute), Double.parseDouble(this.givenMin), this.max, isInverted);
                 }
                 if (this.givenMin == null) {
-                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), this.min, Double.parseDouble(this.givenMax), isInverted);
+                    return this.CompareValue(((Vertex) v).getAttributeValueDouble(this.attribute), this.min, Double.parseDouble(this.givenMax), isInverted);
                 } else {
-                    return this.CompareValue(((Vertex) v).getAttributeValueFloat(this.attribute), Double.parseDouble(this.givenMin), Double.parseDouble(this.givenMax), isInverted);
+                    return this.CompareValue(((Vertex) v).getAttributeValueDouble(this.attribute), Double.parseDouble(this.givenMin), Double.parseDouble(this.givenMax), isInverted);
                 }
             }
         }
@@ -170,11 +170,11 @@ public abstract class ColorScheme {
         }
         if (!computedMinMax) {
             Collection<Object> nodes = graph.getVertices();
-            ArrayList<Float> derivateValues = new ArrayList<>();
+            ArrayList<Double> derivateValues = new ArrayList<>();
             for (Object node : nodes) {
                 if (!((Vertex) node).getAttributeValue(this.attribute).contentEquals("Unknown")) {
-                    this.max = Math.max(this.max, ((Vertex) node).getAttributeValueFloat(this.attribute));
-                    this.min = Math.min(this.min, ((Vertex) node).getAttributeValueFloat(this.attribute));
+                    this.max = Math.max(this.max, ((Vertex) node).getAttributeValueDouble(this.attribute));
+                    this.min = Math.min(this.min, ((Vertex) node).getAttributeValueDouble(this.attribute));
                     derivateValues.add(GraphUtils.getSlope(node, this));
                 }
             }
@@ -203,12 +203,12 @@ public abstract class ColorScheme {
         }
         if (!computedMinMax) {
             Collection<Object> nodes = graph.getVertices();
-            ArrayList<Float> derivateValues = new ArrayList<>();
+            ArrayList<Double> derivateValues = new ArrayList<>();
             for (Object node : nodes) {
                 if (!((Vertex) node).getAttributeValue(this.attribute).contentEquals("Unknown")) {
                     if (((Vertex) node).getAttributeValue(aRestriction).equalsIgnoreCase(aValue)) {
-                        this.max = Math.max(this.max, ((Vertex) node).getAttributeValueFloat(this.attribute));
-                        this.min = Math.min(this.min, ((Vertex) node).getAttributeValueFloat(this.attribute));
+                        this.max = Math.max(this.max, ((Vertex) node).getAttributeValueDouble(this.attribute));
+                        this.min = Math.min(this.min, ((Vertex) node).getAttributeValueDouble(this.attribute));
                         derivateValues.add(GraphUtils.getSlope(node, this));
                     }
                 }

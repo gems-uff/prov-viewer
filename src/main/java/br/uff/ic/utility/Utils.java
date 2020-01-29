@@ -32,7 +32,6 @@ import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.uci.ics.jung.visualization.picking.PickedState;
 import java.awt.Color;
-import java.awt.Paint;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -113,12 +112,12 @@ public class Utils {
     }
 
     /**
-     * Method to check if it is possible to parse the value to float
+     * Method to check if it is possible to parse the value to double
      *
-     * @param value desired to be parsed to float
+     * @param value desired to be parsed to double
      * @return boolean
      */
-    public static boolean tryParseFloat(String value) {
+    public static boolean tryParseDouble(String value) {
         value = value.replace(" ", "");
         value = value.replace(",", ".");
         if (value.isEmpty()) {
@@ -132,7 +131,7 @@ public class Utils {
         } else {
             try {
                 String v = new BigDecimal(value).toPlainString();
-                Float.parseFloat(v);
+                Double.parseDouble(v);
                 return true;
             } catch (NumberFormatException nfe) {
                 return false;
@@ -142,30 +141,30 @@ public class Utils {
     }
 
     /**
-     * Function that verifies if it is possible to convert the String to a float
+     * Function that verifies if it is possible to convert the String to a double
      *
      * @param value is the String to be verified
-     * @return true if it is possible to convert to a float
+     * @return true if it is possible to convert to a double
      */
-    public static float convertFloat(String value) {
+    public static double convertStringToDouble(String value) {
         value = value.replace(" ", "");
         value = value.replace(",", ".");
         String v;
         if(value.contains("Infinity")) {
-            return Float.POSITIVE_INFINITY;
+            return Double.POSITIVE_INFINITY;
         } else {
             v = new BigDecimal(value.trim()).toPlainString();
-            return Float.valueOf(v);
+            return Double.valueOf(v);
         }
         
         
     }
 
     /**
-     * Function that verifies if it is possible to convert the String to a float
+     * Function that verifies if it is possible to convert the String to a double
      *
      * @param value is the String to be verified
-     * @return true if it is possible to convert to a float
+     * @return true if it is possible to convert to a double
      */
     public static double convertDouble(String value) {
         value = value.replace(" ", "");
@@ -206,32 +205,39 @@ public class Utils {
      * @param value is the String to be converted
      * @return the rounded int value of the string
      */
-    public static float roundToInt(String value) {
+    public static double roundToInt(String value) {
         value = value.replace(" ", "");
-        return Math.round(convertFloat(value));
+        return Math.round(convertStringToDouble(value));
     }
 
     /**
-     * Function to compare two floats with an epsilon margin of error
+     * Function to compare two doubles with an epsilon margin of error
      *
-     * @param f1 is the first float
-     * @param f2 is the second float
+     * @param f1 is the first double
+     * @param f2 is the second double
      * @param epsilon is the margin of error for the comparison
-     * @return true if floats are equals within the epsilon error margin
+     * @return true if doubles are equals within the epsilon error margin
      */
-    public static boolean FloatEqualTo(float f1, float f2, float epsilon) {
-        return Math.abs(f1 - f2) <= epsilon;
-    }
+//    public static boolean DoubleEqualTo(double f1, double f2, double epsilon) {
+//        return Math.abs(f1 - f2) <= epsilon;
+//    }
 
     public static boolean DoubleEqualTo(double f1, double f2, double epsilon) {
         return Math.abs(f1 - f2) <= epsilon;
     }
 
-    public static boolean FloatSimilar(float f1, float f2, float epsilon) {
-        float max = Math.max(f1, f2);
-        float min = Math.min(f1, f2);
+    public static boolean DoubleSimilar(double f1, double f2, double epsilon) {
+        double max = Math.max(f1, f2);
+        double min = Math.min(f1, f2);
 
         return min + Math.abs(max * epsilon) >= max;
+    }
+    
+    public static boolean DoubleLesserThan(double f1, double f2, double epsilon) {
+        if (Double.compare(f1, f2) < 0)
+            return true;
+        else
+            return false;
     }
 
     /**
@@ -242,7 +248,7 @@ public class Utils {
      * @param value is the value to be clamped between min and max
      * @return clamped value
      */
-    public static float clamp(float min, float max, float value) {
+    public static double clamp(double min, double max, double value) {
         return Math.max(min, Math.min(max, value));
     }
 
@@ -304,12 +310,12 @@ public class Utils {
     }
 
     /**
-     * Convert a Date in the format of a string to float
+     * Convert a Date in the format of a string to double
      *
      * @param d1 is the string to be converted
-     * @return the value in Float for the date
+     * @return the value in Double for the date
      */
-    public static long convertStringDateToFloat(String d1) {
+    public static long convertStringDateToLong(String d1) {
         // Try to convert to date format and return how many milliseconds have passed since January 1, 1970, 00:00:00 GMT
         try {
             Date date;
@@ -336,11 +342,11 @@ public class Utils {
             int middle = (end - start) / 2; //l.length / 2;
             middle = middle + start;
             boolean isString = false;
-            float[] v = new float[l.length];
+            double[] v = new double[l.length];
             int i = 0;
             for (Object s : l) {
-                if (tryParseFloat((String) s)) {
-                    v[i++] = convertFloat((String) s);
+                if (tryParseDouble((String) s)) {
+                    v[i++] = convertStringToDouble((String) s);
                 } else {
                     isString = true;
                 }
@@ -349,8 +355,8 @@ public class Utils {
             if (!isString) {
                 Arrays.sort(v);
                 if ((end - start) % 2 == 0) {
-                    float left = v[middle - 1];
-                    float right = v[middle];
+                    double left = v[middle - 1];
+                    double right = v[middle];
                     return String.valueOf((left + right) / 2);
                 } else {
                     return String.valueOf(v[middle]);
@@ -396,13 +402,13 @@ public class Utils {
     /**
      * Method to remove the infinity numbers from an arrayList
      *
-     * @param allNumbers is the arrayList of float
+     * @param allNumbers is the arrayList of double
      * @return the same arrayList without the infinity numbers
      */
-    public static ArrayList<Float> removeInfinity(ArrayList<Float> allNumbers) {
-        ArrayList<Float> normalNumbers = new ArrayList<>();
-        for (float number : allNumbers) {
-            if ((number != Float.NEGATIVE_INFINITY) && (number != Float.POSITIVE_INFINITY)) {
+    public static ArrayList<Double> removeInfinity(ArrayList<Double> allNumbers) {
+        ArrayList<Double> normalNumbers = new ArrayList<>();
+        for (double number : allNumbers) {
+            if ((number != Double.NEGATIVE_INFINITY) && (number != Double.POSITIVE_INFINITY)) {
                 normalNumbers.add(number);
             }
         }
@@ -412,19 +418,19 @@ public class Utils {
     /**
      * Method to remove outliers from a list
      *
-     * @param allNumbers is the arrayList of float
+     * @param allNumbers is the arrayList of double
      * @param att
      * @return the same arrayList without the outliers
      */
-    public static ArrayList<Float> removeOutLierAnalysis(ArrayList<Float> allNumbers, String att) {
+    public static ArrayList<Double> removeOutLierAnalysis(ArrayList<Double> allNumbers, String att) {
         if (allNumbers.isEmpty()) {
             return null;
         }
-        ArrayList<Float> normalNumbers = new ArrayList<>();
+        ArrayList<Double> normalNumbers = new ArrayList<>();
 
         ThresholdValues thresholds = calculateOutliers(allNumbers, att);
 
-        for (float number : allNumbers) {
+        for (double number : allNumbers) {
             if ((thresholds.lowerThreshold <= number) && (number <= thresholds.upperThreshold)) {
                 normalNumbers.add(number);
             }
@@ -439,10 +445,10 @@ public class Utils {
      * @param att
      * @return the lower and upper thresholds for outlier detection
      */
-    public static ThresholdValues calculateOutliers(ArrayList<Float> allNumbers, String att) {
+    public static ThresholdValues calculateOutliers(ArrayList<Double> allNumbers, String att) {
         Collections.sort(allNumbers);
-        float q1;
-        float q3;
+        double q1;
+        double q3;
         if (allNumbers.size() % 2 == 0) {
             int position;
 //            mean = (allNumbers.get(position) + allNumbers.get(position - 1)) * 0.5;
@@ -458,20 +464,20 @@ public class Utils {
             position = (int) (allNumbers.size() * 0.75);
             q3 = allNumbers.get(position);
         }
-        float iqr = q3 - q1;
-        float lowerThreshold = q1 - iqr * 1.5f;
-        float upperThreshold = q3 + iqr * 1.5f;
+        double iqr = q3 - q1;
+        double lowerThreshold = q1 - iqr * 1.5f;
+        double upperThreshold = q3 + iqr * 1.5f;
         return new ThresholdValues(att, lowerThreshold, upperThreshold);
     }
 
     /**
      * Method to compute the standard deviation
      *
-     * @param list is the list of float values
+     * @param list is the list of double values
      * @return the stdev
      */
-    public static float stdev(Float[] list) {
-        float mean;
+    public static double stdev(Double[] list) {
+        double mean;
         mean = mean(list);
         return stdev(list, mean);
     }
@@ -479,24 +485,24 @@ public class Utils {
     /**
      * Method to compute the standard deviation when the mean is already known
      *
-     * @param list is the list of float values
+     * @param list is the list of double values
      * @param mean is the known mean of the list
      * @return the stdev
      */
-    public static float stdev(Float[] list, float mean) {
-        float num = 0.0f;
-        float numi;
-        float deno = 0.0f;
+    public static double stdev(Double[] list, double mean) {
+        double num = 0.0f;
+        double numi;
+        double deno = 0.0f;
 
-        for (Float list1 : list) {
-            numi = (float) Math.pow(list1 - mean, 2);
+        for (Double list1 : list) {
+            numi = (double) Math.pow(list1 - mean, 2);
             num += numi;
             deno = list.length - 1;
         }
 
-        float stdevResult = (float) Math.sqrt(num / deno);
+        double stdevResult = (double) Math.sqrt(num / deno);
 
-//        float v = (float) ((int) stdevResult * 10000) * 0.0001f;
+//        double v = (double) ((int) stdevResult * 10000) * 0.0001f;
         return stdevResult;
     }
 
@@ -508,17 +514,17 @@ public class Utils {
      * deviation
      * @return the standard deviation
      */
-    public static float std(Collection<Object> vertices, String attribute) {
-        ArrayList<Float> values = new ArrayList<>();
+    public static double std(Collection<Object> vertices, String attribute) {
+        ArrayList<Double> values = new ArrayList<>();
         for (Object v1 : vertices) {
-            float val = ((Vertex) v1).getAttributeValueFloat(attribute);
+            double val = ((Vertex) v1).getAttributeValueDouble(attribute);
                 if (!(val != val)) {
                     values.add(val);
                 }
             }
-        Float[] floatArray = new Float[values.size()];
-        floatArray = Utils.listToFloatArray(values);
-        return stdev(floatArray);
+        Double[] doubleArray = new Double[values.size()];
+        doubleArray = Utils.listToDoubleArray(values);
+        return stdev(doubleArray);
     }
 
     /**
@@ -527,10 +533,10 @@ public class Utils {
      * @param list is the list
      * @return the mean of the list
      */
-    public static float mean(Float[] list) {
-        float mean;
-        float sum = 0.0F;
-        for (Float list1 : list) {
+    public static double mean(Double[] list) {
+        double mean;
+        double sum = 0.0F;
+        for (Double list1 : list) {
             sum += list1;
         }
         mean = sum / list.length;
@@ -544,9 +550,9 @@ public class Utils {
      * @param list is the list of values
      * @return the minimum value of the list
      */
-    public static float minimumValue(Float[] list) {
-        float min = Float.POSITIVE_INFINITY;
-        for (Float list1 : list) {
+    public static double minimumValue(Double[] list) {
+        double min = Double.POSITIVE_INFINITY;
+        for (Double list1 : list) {
             min = Math.min(min, list1);
         }
 
@@ -559,9 +565,9 @@ public class Utils {
      * @param list is the list of values
      * @return the maximum value of the list
      */
-    public static float maximumValue(Float[] list) {
-        float max = Float.NEGATIVE_INFINITY;
-        for (Float list1 : list) {
+    public static double maximumValue(Double[] list) {
+        double max = Double.NEGATIVE_INFINITY;
+        for (Double list1 : list) {
             max = Math.max(max, list1);
         }
         return max;
@@ -577,7 +583,7 @@ public class Utils {
         double max = Double.NEGATIVE_INFINITY;
         for (Object node : nodes) {
             if (!((Vertex) node).getAttributeValue(attribute).contentEquals("Unknown")) {
-                max = Math.max(max, ((Vertex) node).getAttributeValueFloat(attribute));
+                max = Math.max(max, ((Vertex) node).getAttributeValueDouble(attribute));
             }
         }
         return max;
@@ -589,13 +595,13 @@ public class Utils {
      * @param values is the list of objects to be convertable
      * @return the arraylist of double
      */
-    public static Float[] listToFloatArray(ArrayList<Float> values) {
-        Float[] floatArray = new Float[values.size()];
+    public static Double[] listToDoubleArray(ArrayList<Double> values) {
+        Double[] doubleArray = new Double[values.size()];
         int i = 0;
-        for (Float f : values) {
-            floatArray[i++] = (f != null ? f : Float.NaN);
+        for (Double f : values) {
+            doubleArray[i++] = (f != null ? f : Double.NaN);
         }
-        return floatArray;
+        return doubleArray;
     }
 
     /**
@@ -775,7 +781,7 @@ public class Utils {
             public int compare(Object c1, Object c2) {
                     long c1t = 0;
                     long c2t = 0;
-                    if(!tryParseFloat(((Vertex) c1).getAttributeValue(attribute))){
+                    if(!tryParseDouble(((Vertex) c1).getAttributeValue(attribute))){
                         String c1v = ((Vertex) c1).getAttributeValue(attribute);
                         String c2v = ((Vertex) c2).getAttributeValue(attribute);
                         int result = c1v.compareTo(c2v);
@@ -785,8 +791,8 @@ public class Utils {
                         else
                             return result;
                     } else {
-                        c1t = (long) (((Vertex) c1).getAttributeValueFloat(attribute) * 1000);
-                        c2t = (long) (((Vertex) c2).getAttributeValueFloat(attribute)* 1000);
+                        c1t = (long) (((Vertex) c1).getAttributeValueDouble(attribute) * 1000);
+                        c2t = (long) (((Vertex) c2).getAttributeValueDouble(attribute)* 1000);
                     }
                     if (c1t != c2t) {
                         return Long.compare(c1t, c2t);

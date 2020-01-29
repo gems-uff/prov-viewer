@@ -40,7 +40,7 @@ public class Trainer {
     OracleGraph oracleGraph = new OracleGraph("A", -200, 200);
     ClusteringEvaluator eval;
     private boolean isMonotonic = false;
-    float noiseProbability = 1.0F;
+    double noiseProbability = 1.0F;
     int n_iterations = 5;
     int n_oracleGraph = 20;
     int n_noiseGraph = 3;
@@ -52,44 +52,44 @@ public class Trainer {
         eval = new ClusteringEvaluator(isMonotonic, oracleGraph);
     }
 
-    public float trainSimilarity(boolean updateError, boolean withinCluster, OracleGraph oracleGraph,
+    public double trainSimilarity(boolean updateError, boolean withinCluster, OracleGraph oracleGraph,
             //            int ITERATIONS,
             //            int NUMBER_OF_ORACLE_GRAPHS, 
             //            int NUMBER_OF_NOISE_GRAPHS,
             //            float INITIAL_NOISE_GRAPH_SIZE, 
             //            float NOISE_INCREASE_NUMBER,
-            String typeGraph, float dbscanEps) throws IOException, InterruptedException {
+            String typeGraph, double dbscanEps) throws IOException, InterruptedException {
 
         int current_size = 5;
         int bestSize = 5; // 17
         int inc_initial_value = 2;
         int current_inc = inc_initial_value;
         int bestInc = 1;
-        float currentqnt = 0.3f;
-        float bestqnt = 0.1f;
-        float noiseFactor;
-        float qntIncrement = 0.2f;
+        double currentqnt = 0.3f;
+        double bestqnt = 0.1f;
+        double noiseFactor;
+        double qntIncrement = 0.2f;
         int incIncrement = 1;
-        ArrayList<Float> p = new ArrayList<>();
-        ArrayList<Float> r = new ArrayList<>();
-        ArrayList<Float> f_best = new ArrayList<>();
-        ArrayList<Float> c = new ArrayList<>();
-        ArrayList<Float> p2 = new ArrayList<>();
-        ArrayList<Float> r2 = new ArrayList<>();
-        ArrayList<Float> f2 = new ArrayList<>();
-        ArrayList<Float> c2 = new ArrayList<>();
-        ArrayList<Float> p3 = new ArrayList<>();
-        ArrayList<Float> r3 = new ArrayList<>();
-        ArrayList<Float> f3 = new ArrayList<>();
-        ArrayList<Float> c3 = new ArrayList<>();
-        ArrayList<Float> p4 = new ArrayList<>();
-        ArrayList<Float> r4 = new ArrayList<>();
-        ArrayList<Float> f4 = new ArrayList<>();
-        ArrayList<Float> c4 = new ArrayList<>();
-        ArrayList<Float> p5 = new ArrayList<>();
-        ArrayList<Float> r5 = new ArrayList<>();
-        ArrayList<Float> f_dbscan = new ArrayList<>();
-        ArrayList<Float> c5 = new ArrayList<>();
+        ArrayList<Double> p = new ArrayList<>();
+        ArrayList<Double> r = new ArrayList<>();
+        ArrayList<Double> f_best = new ArrayList<>();
+        ArrayList<Double> c = new ArrayList<>();
+        ArrayList<Double> p2 = new ArrayList<>();
+        ArrayList<Double> r2 = new ArrayList<>();
+        ArrayList<Double> f2 = new ArrayList<>();
+        ArrayList<Double> c2 = new ArrayList<>();
+        ArrayList<Double> p3 = new ArrayList<>();
+        ArrayList<Double> r3 = new ArrayList<>();
+        ArrayList<Double> f3 = new ArrayList<>();
+        ArrayList<Double> c3 = new ArrayList<>();
+        ArrayList<Double> p4 = new ArrayList<>();
+        ArrayList<Double> r4 = new ArrayList<>();
+        ArrayList<Double> f4 = new ArrayList<>();
+        ArrayList<Double> c4 = new ArrayList<>();
+        ArrayList<Double> p5 = new ArrayList<>();
+        ArrayList<Double> r5 = new ArrayList<>();
+        ArrayList<Double> f_dbscan = new ArrayList<>();
+        ArrayList<Double> c5 = new ArrayList<>();
         int current = 0;
         int best = 0;
         double best_fmeasure = 0;
@@ -120,11 +120,11 @@ public class Trainer {
                             ArrayList<ConcurrentHashMap<String, Object>> clusters_current2 = new ArrayList<>();
                             ArrayList<ConcurrentHashMap<String, Object>> clusters_current3 = new ArrayList<>();
                             ArrayList<ConcurrentHashMap<String, Object>> clusters_dbscan = new ArrayList<>();
-                            ArrayList<Float> t1 = new ArrayList<>();
-                            ArrayList<Float> t2 = new ArrayList<>();
-                            ArrayList<Float> t3 = new ArrayList<>();
-                            ArrayList<Float> t4 = new ArrayList<>();
-                            ArrayList<Float> t5 = new ArrayList<>();
+                            ArrayList<Double> t1 = new ArrayList<>();
+                            ArrayList<Double> t2 = new ArrayList<>();
+                            ArrayList<Double> t3 = new ArrayList<>();
+                            ArrayList<Double> t4 = new ArrayList<>();
+                            ArrayList<Double> t5 = new ArrayList<>();
                             
                             Thread worker1 = new Thread(new SimilarityThread(clusters_best, oracleGraph, noiseGraph, updateError, withinCluster, t1, bestSize, bestInc, bestqnt));
                             Thread worker2 = new Thread(new SimilarityThread(clusters_current1, oracleGraph, noiseGraph, updateError, withinCluster, t2, current_size, current_inc, currentqnt));
@@ -154,37 +154,37 @@ public class Trainer {
                     noiseFactor *= noise_increase;
 
                 }                
-                if (Utils.mean(Utils.listToFloatArray(f2)) > Utils.mean(Utils.listToFloatArray(f_best))) {
+                if (Utils.mean(Utils.listToDoubleArray(f2)) > Utils.mean(Utils.listToDoubleArray(f_best))) {
                     bestInc = current_inc;
                     bestqnt = currentqnt;
                     f_best.clear();
                     f_best.addAll(f2);
-                    best_fmeasure = Utils.mean(Utils.listToFloatArray(f2));
-                    dbscan_fmeasure = Utils.mean(Utils.listToFloatArray(f_dbscan));
+                    best_fmeasure = Utils.mean(Utils.listToDoubleArray(f2));
+                    dbscan_fmeasure = Utils.mean(Utils.listToDoubleArray(f_dbscan));
 //                    if (Utils.mean(Utils.listToFloatArray(f2)) > Utils.mean(Utils.listToFloatArray(f_dbscan))) {
 //                        System.out.println("DBSCAN: " + Utils.mean(Utils.listToFloatArray(f_dbscan)));
 //                        System.out.println("Better than DBSCAN: " + best_fmeasure + " / QNT: " + bestqnt);
 //                    }
                 }
-                if (Utils.mean(Utils.listToFloatArray(f3)) > Utils.mean(Utils.listToFloatArray(f_best))) {
+                if (Utils.mean(Utils.listToDoubleArray(f3)) > Utils.mean(Utils.listToDoubleArray(f_best))) {
                     bestInc = current_inc + incIncrement;
                     bestqnt = currentqnt + qntIncrement;
                     f_best.clear();
                     f_best.addAll(f3);
-                    best_fmeasure = Utils.mean(Utils.listToFloatArray(f3));
-                    dbscan_fmeasure = Utils.mean(Utils.listToFloatArray(f_dbscan));
+                    best_fmeasure = Utils.mean(Utils.listToDoubleArray(f3));
+                    dbscan_fmeasure = Utils.mean(Utils.listToDoubleArray(f_dbscan));
 //                    if (Utils.mean(Utils.listToFloatArray(f3)) > Utils.mean(Utils.listToFloatArray(f_dbscan))) {
 //                        System.out.println("DBSCAN: " + Utils.mean(Utils.listToFloatArray(f_dbscan)));
 //                        System.out.println("Better than DBSCAN: " + best_fmeasure + " / QNT: " + bestqnt);
 //                    }
                 }
-                if (Utils.mean(Utils.listToFloatArray(f4)) > Utils.mean(Utils.listToFloatArray(f_best))) {
+                if (Utils.mean(Utils.listToDoubleArray(f4)) > Utils.mean(Utils.listToDoubleArray(f_best))) {
                     bestInc = current_inc + (2* incIncrement);
                     bestqnt = currentqnt + (2* qntIncrement);
                     f_best.clear();
                     f_best.addAll(f4);
-                    best_fmeasure = Utils.mean(Utils.listToFloatArray(f4));
-                    dbscan_fmeasure = Utils.mean(Utils.listToFloatArray(f_dbscan));
+                    best_fmeasure = Utils.mean(Utils.listToDoubleArray(f4));
+                    dbscan_fmeasure = Utils.mean(Utils.listToDoubleArray(f_dbscan));
 //                    if (Utils.mean(Utils.listToFloatArray(f4)) > Utils.mean(Utils.listToFloatArray(f_dbscan))) {
 //                        System.out.println("DBSCAN: " + Utils.mean(Utils.listToFloatArray(f_dbscan)));
 //                        System.out.println("Better than DBSCAN: " + best_fmeasure + " / QNT: " + bestqnt);
@@ -216,25 +216,25 @@ public class Trainer {
         return bestSize;
     }
 
-    public float trainDBSCAN(OracleGraph oracleGraph,
+    public double trainDBSCAN(OracleGraph oracleGraph,
             //            int ITERATIONS,
             //            int NUMBER_OF_ORACLE_GRAPHS,
             //            int NUMBER_OF_NOISE_GRAPHS,
             //            float INITIAL_NOISE_GRAPH_SIZE, 
             //            float NOISE_INCREASE_NUMBER,
             String typeGraph) throws IOException {
-        float initialValue = 0.1F;
-        float current_eps = initialValue;
-        float best_eps = 1;
-        float noiseFactor;
-        ArrayList<Float> p = new ArrayList<>();
-        ArrayList<Float> r = new ArrayList<>();
-        ArrayList<Float> f_best = new ArrayList<>();
-        ArrayList<Float> p2 = new ArrayList<>();
-        ArrayList<Float> r2 = new ArrayList<>();
-        ArrayList<Float> f_current = new ArrayList<>();
-        ArrayList<Float> c = new ArrayList<>();
-        ArrayList<Float> c2 = new ArrayList<>();
+        double initialValue = 0.1F;
+        double current_eps = initialValue;
+        double best_eps = 1;
+        double noiseFactor;
+        ArrayList<Double> p = new ArrayList<>();
+        ArrayList<Double> r = new ArrayList<>();
+        ArrayList<Double> f_best = new ArrayList<>();
+        ArrayList<Double> p2 = new ArrayList<>();
+        ArrayList<Double> r2 = new ArrayList<>();
+        ArrayList<Double> f_current = new ArrayList<>();
+        ArrayList<Double> c = new ArrayList<>();
+        ArrayList<Double> c2 = new ArrayList<>();
         int current = 0;
         int best = 0;
         System.out.println("Training");
@@ -259,8 +259,8 @@ public class Trainer {
                         DirectedGraph<Object, Edge> noiseGraph = instance.generateNoiseGraph(noiseFactor, noiseProbability);
                         ArrayList<ConcurrentHashMap<String, Object>> clusters_best = new ArrayList<>();
                         ArrayList<ConcurrentHashMap<String, Object>> clusters_current = new ArrayList<>();
-                        ArrayList<Float> t1 = new ArrayList<>();
-                        ArrayList<Float> t2 = new ArrayList<>();
+                        ArrayList<Double> t1 = new ArrayList<>();
+                        ArrayList<Double> t2 = new ArrayList<>();
                         DbscanThread dbscan1 = new DbscanThread(clusters_best, oracleGraph, noiseGraph, best_eps, t1);
                         DbscanThread dbscan2 = new DbscanThread(clusters_current, oracleGraph, noiseGraph, current_eps, t2);
                         dbscan1.run();
@@ -276,7 +276,7 @@ public class Trainer {
             best += eval.isWinner(f_best, f_current);
 
             if (current > (best)) {
-                if (Utils.mean(Utils.listToFloatArray(f_current)) > Utils.mean(Utils.listToFloatArray(f_best))) {
+                if (Utils.mean(Utils.listToDoubleArray(f_current)) > Utils.mean(Utils.listToDoubleArray(f_best))) {
                     best_eps = current_eps;
 //                    System.out.println("Best F-measure: " + Utils.mean(Utils.listToFloatArray(f2)));
 //                    System.out.println("Old F-measure: " + Utils.mean(Utils.listToFloatArray(f)));

@@ -77,13 +77,13 @@ public class TwoDimensional_Layout<V, E> extends ProvViewerLayout<V, E> {
                 attValue_x = (int) ((Vertex) v).getNormalizedTime();
                 attValue_x = (int) Utils.convertTime(variables.config.timeScale, attValue_x, variables.selectedTimeScale);
             } else {
-                attValue_x = (int) ((Vertex) v).getAttributeValueFloat(x_att);
+                attValue_x = (int) ((Vertex) v).getAttributeValueDouble(x_att);
             }
             if (Utils.isItTime(y_att)) {
                 attValue_y = (int) ((Vertex) v).getNormalizedTime();
                 attValue_y = (int) Utils.convertTime(variables.config.timeScale, attValue_y, variables.selectedTimeScale);
             } else {
-                attValue_y = (int) ((Vertex) v).getAttributeValueFloat(y_att);
+                attValue_y = (int) ((Vertex) v).getAttributeValueDouble(y_att);
             }
             Point2D coord = transform(v);
 

@@ -32,14 +32,14 @@ import java.awt.Paint;
  */
 public class TrafficLight {
 
-    private static Paint gradientColor(int aR, int aG, int aB, int bR, int bG, int bB, float v, int alpha) {
-        int red = (int) ((float) (bR - aR) * v + aR); // Evaluated as -255*value + 255.
-        int green = (int) ((float) (bG - aG) * v + aG); // Evaluates as 0.
-        int blue = (int) ((float) (bB - aB) * v + aB); // Evaluates as 255*value + 0.
+    private static Paint gradientColor(int aR, int aG, int aB, int bR, int bG, int bB, double v, int alpha) {
+        int red = (int) ((double) (bR - aR) * v + aR); // Evaluated as -255*value + 255.
+        int green = (int) ((double) (bG - aG) * v + aG); // Evaluates as 0.
+        int blue = (int) ((double) (bB - aB) * v + aB); // Evaluates as 255*value + 0.
         return new Color(red, green, blue, alpha);
     }
 
-    public static Paint compareValueGreen(float value, double min, double max, int alpha) {
+    public static Paint compareValueGreen(double value, double min, double max, int alpha) {
         int aR = 255;
         int aG = 255;
         int aB = 255; // RGB for the lowest value.
@@ -49,7 +49,7 @@ public class TrafficLight {
         return gradientColor(aR, aG, aB, bR, bG, bB, value, alpha);
     }
 
-    public static Paint compareValueRed(float value, double min, double max, int alpha) {
+    public static Paint compareValueRed(double value, double min, double max, int alpha) {
         int aR = 255;
         int aG = 255;
         int aB = 255; // RGB for the lowest value.
@@ -58,13 +58,13 @@ public class TrafficLight {
         int bB = 0; // RGB for the highest value.
         return gradientColor(aR, aG, aB, bR, bG, bB, value, alpha);
     }
-    public static Paint splittedTrafficLight(float value, double min, double max, boolean inverted) {
+    public static Paint splittedTrafficLight(double value, double min, double max, boolean inverted) {
         return splittedTrafficLight(value, min, max, inverted, 255);
     }
-    public static Paint splittedTrafficLight(float value, double min, double max, boolean inverted, int alpha) {
+    public static Paint splittedTrafficLight(double value, double min, double max, boolean inverted, int alpha) {
         // normalize the color between 0 and 1
-        float vPositive;
-        float vNegative;
+        double vPositive;
+        double vNegative;
         // Fix one of the extremes to be zero in order to always have white as zero
         if (min > 0) {
             min = 0;
@@ -73,10 +73,10 @@ public class TrafficLight {
             max = 0;
         }
         if (min < 0 && max > 0) {
-            vNegative = (float) (Math.abs(value - min) / (float) Math.abs(0 - min));
-            vPositive = (float) (Math.abs(value - 0) / (float) Math.abs(max - 0));
+            vNegative = (double) (Math.abs(value - min) / (double) Math.abs(0 - min));
+            vPositive = (double) (Math.abs(value - 0) / (double) Math.abs(max - 0));
         } else {
-            vPositive = (float) (Math.abs(value - min) / (float) Math.abs(max - min));
+            vPositive = (double) (Math.abs(value - min) / (double) Math.abs(max - min));
             vNegative = vPositive;
         }
         if (value == 0) {
@@ -107,13 +107,13 @@ public class TrafficLight {
      * @param inverted defines if it is red to green or green to red
      * @return the color based on the current value
      */
-    public static Paint trafficLight(float value, double min, double max, boolean inverted) {
+    public static Paint trafficLight(double value, double min, double max, boolean inverted) {
         if (inverted) {
             double aux = min;
             min = max;
             max = aux;
         }
-        int proportion = (int) Math.round(510 * Math.abs(value - min) / (float) Math.abs(max - min));
+        int proportion = (int) Math.round(510 * Math.abs(value - min) / (double) Math.abs(max - min));
         return new Color(Math.min(255, 510 - proportion), Math.min(255, proportion), 0);
     }
 
@@ -126,11 +126,11 @@ public class TrafficLight {
      * @return the gray color corresponding to the value, which is based on
      * value/max
      */
-    public static Color getGrayscaleColor(float value, float max) {
+    public static Color getGrayscaleColor(double value, double max) {
         if (max == 0) {
             max = 1;
         }
-        float gray = value / max * 191;
+        double gray = value / max * 191;
         int rgbNum = 255 - (int) gray;
         return new Color(rgbNum, rgbNum, rgbNum);
     }

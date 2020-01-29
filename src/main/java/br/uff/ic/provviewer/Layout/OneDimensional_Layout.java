@@ -89,7 +89,7 @@ public class OneDimensional_Layout<V, E> extends ProvViewerTimelineLayout<V, E> 
                 attValue = (int) ((Vertex) v).getNormalizedTime();
                 attValue = (int) Utils.convertTime(variables.config.timeScale, attValue, variables.selectedTimeScale);
             } else {
-                attValue = (int) ((Vertex) v).getAttributeValueFloat(x_att);
+                attValue = (int) ((Vertex) v).getAttributeValueDouble(x_att);
             }
             if(attValue != previousAttValue) {
                 xOffset += (((Vertex)previous).getLabel().length()) * 10 + 30;

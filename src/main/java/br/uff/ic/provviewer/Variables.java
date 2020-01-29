@@ -39,6 +39,7 @@ import br.uff.ic.provviewer.Layout.OneDimensional_Layout;
 import br.uff.ic.provviewer.Layout.Temporal_Layout;
 import br.uff.ic.provviewer.Layout.OneDimensional_Layout_Ordered;
 import br.uff.ic.provviewer.Layout.TwoDimensional_Layout;
+import br.uff.ic.provviewer.markov.Markov;
 import br.uff.ic.utility.GraphCollapser;
 import br.uff.ic.utility.GraphUtils;
 import br.uff.ic.utility.StackElementUndoDeletion;
@@ -72,16 +73,17 @@ public class Variables extends Object {
 
     public String mergingWithGraphPath;
     public String originalGraphPath = "demo";
+    public Markov markov = new Markov();
 
 //    public static String demo = File.separator + "Graph" + File.separator + "Merge_Test.xml";
-    public static String demo = File.separator + "Graph" + File.separator + "AngryBots_3_Merge.xml";
+//    public static String demo = File.separator + "Graph" + File.separator + "AngryBots_3_Merge.xml";
 //    public static String demo = File.separator + "Graph" + File.separator + "Angry_Robots.xml";
 //    public static String demo = File.separator + "Graph" + File.separator + "Graph_to_Merge_01.xml";
-    public String configDemo = File.separator + "Config" + File.separator + "Angry_Robots_config.xml";
+//    public String configDemo = File.separator + "Config" + File.separator + "Angry_Robots_config.xml";
 //    public static String demo = File.separator + "Graph" + File.separator + "Angry_Robots_paperCIG.xml";
 
-//    public static String demo = "Graph" + File.separator + "Car_Tutorial.xml";   
-//    public String configDemo = "Config" + File.separator + "Car_Tutorial_config.xml";
+    public static String demo = "Graph" + File.separator + "Car_Tutorial.xml";   
+    public String configDemo = "Config" + File.separator + "Car_Tutorial_config.xml";
 //    
 //    public static String demo = File.separator + "Graph" + File.separator + "MorphWing2.xml";
 //    public String configDemo = "Config" + File.separator + "Morph_config.xml";
@@ -141,6 +143,7 @@ public class Variables extends Object {
     public Collection<String> graphNames;
     public boolean highlightVertexOutliers = true;
     public boolean vertexBorderByGraphs = false;
+    public boolean vertexBorderByLabel = false;
     public ThresholdValues outliersThresholds;
     public boolean allowVariableLayout = false;
     public int edgeAlpha = 25;
@@ -326,7 +329,7 @@ public class Variables extends Object {
      */
     public void highlightOutliers(String attribute) {
         if (this.highlightVertexOutliers) {
-            ArrayList<Float> values = GraphUtils.getAttributeValuesFromVertices(this.graph, attribute);
+            ArrayList<Double> values = GraphUtils.getAttributeValuesFromVertices(this.graph, attribute);
             if (!values.isEmpty() && values.size() > 5) {
                 this.outliersThresholds = Utils.calculateOutliers(values, attribute);
             } else {

@@ -48,17 +48,17 @@ public class SimilarityThread implements Runnable{
     DirectedGraph<Object, Edge> noiseGraph; 
     boolean ve; // Variable Epsilon: Update error for each cluster
     boolean ic; // Inter-cluster verification: Verify with all cluster members before inserting a new element
-    ArrayList<Float> t;
+    ArrayList<Double> t;
     int minClusterSize; // Defines the minimum size of the cluster before updating the epsilon
     int thresholdIncrease; // Defines the epsilon multiplier used before reaching the minimum cluster size
-    float simEpsilon; // The epsilon used for similarity
+    double simEpsilon; // The epsilon used for similarity
     ArrayList<ConcurrentHashMap<String, Object>> clusters;
             
             
     SimilarityThread(ArrayList<ConcurrentHashMap<String, Object>> answer, OracleGraph og, DirectedGraph<Object, Edge> noiseGraph, boolean updateError, 
             boolean verifyWithinCluster,
-            ArrayList<Float> t,
-            int minSize, int thresholdIncrease, float qnt) {
+            ArrayList<Double> t,
+            int minSize, int thresholdIncrease, double qnt) {
         oracleGraph = og;
         this.noiseGraph = noiseGraph;
         this.ve = updateError;
@@ -83,7 +83,7 @@ public class SimilarityThread implements Runnable{
      */
     public long SimilarityCollapse(DirectedGraph<Object, Edge> noiseGraph, boolean updateError, 
             boolean verifyWithinCluster,
-            int minSize, int thresholdIncrease, float epsilon) throws IOException {
+            int minSize, int thresholdIncrease, double epsilon) throws IOException {
         
         GraphMatching combiner = configureSimilarityMatcher(noiseGraph, epsilon);
         AutomaticInference infer = new AutomaticInference(combiner, noiseGraph, minSize, thresholdIncrease, epsilon);
@@ -106,9 +106,9 @@ public class SimilarityThread implements Runnable{
      * @param noiseGraph is the graph that will be used in the similarity algorithm
      * @return 
      */
-    private GraphMatching configureSimilarityMatcher(DirectedGraph<Object, Edge> noiseGraph, float base_error_std) {
-        float std = Utils.std(noiseGraph.getVertices(), oracleGraph.attribute);
-        float similarityThreshold = 0.5f;
+    private GraphMatching configureSimilarityMatcher(DirectedGraph<Object, Edge> noiseGraph, double base_error_std) {
+        double std = Utils.std(noiseGraph.getVertices(), oracleGraph.attribute);
+        double similarityThreshold = 0.5f;
         String defaultError = "0";
         Map<String, AttributeErrorMargin> restrictionList = new HashMap<>();
         AttributeErrorMargin epsilon;
@@ -120,7 +120,7 @@ public class SimilarityThread implements Runnable{
     @Override
     public void run() {
         try {
-            float time = SimilarityCollapse(noiseGraph, ve, ic, minClusterSize, thresholdIncrease, simEpsilon);
+            double time = SimilarityCollapse(noiseGraph, ve, ic, minClusterSize, thresholdIncrease, simEpsilon);
             t.add(time);
         } catch (IOException ex) {
             Logger.getLogger(SimilarityThread.class.getName()).log(Level.SEVERE, null, ex);

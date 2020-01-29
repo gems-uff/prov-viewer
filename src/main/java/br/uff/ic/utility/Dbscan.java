@@ -103,7 +103,7 @@ public class Dbscan {
     
     private double getDistance(Object p, Object q) {
 
-        double dx = ((Vertex)p).getAttributeValueFloat(attribute) - ((Vertex)q).getAttributeValueFloat(attribute);
+        double dx = ((Vertex)p).getAttributeValueDouble(attribute) - ((Vertex)q).getAttributeValueDouble(attribute);
 
         double distance = Math.sqrt(dx * dx);
 

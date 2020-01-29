@@ -130,14 +130,14 @@ public class Spatial_Layout<V, E> extends ProvViewerLayout<V, E> {
     }
     
     protected synchronized void calcPositionsPixel(Point2D xyd, Vertex v) {
-        double newXPos = -((Vertex) v).getAttributeValueFloat(variables.config.layoutAxis_X) * variables.config.coordinatesScale;
-        double newYPos = ((Vertex) v).getAttributeValueFloat(variables.config.layoutAxis_Y) * variables.config.coordinatesScale;
+        double newXPos = -((Vertex) v).getAttributeValueDouble(variables.config.layoutAxis_X) * variables.config.coordinatesScale;
+        double newYPos = ((Vertex) v).getAttributeValueDouble(variables.config.layoutAxis_Y) * variables.config.coordinatesScale;
         xyd.setLocation(newXPos, newYPos);
     }
     
     protected synchronized void calcPositionsLatLon(Point2D xyd, Vertex v) {
-        double latitude    = v.getAttributeValueFloat(variables.config.layoutAxis_Y); // (φ)
-        double longitude   = v.getAttributeValueFloat(variables.config.layoutAxis_X);   // (λ)
+        double latitude    = v.getAttributeValueDouble(variables.config.layoutAxis_Y); // (φ)
+        double longitude   = v.getAttributeValueDouble(variables.config.layoutAxis_X);   // (λ)
 
         double mapWidth    = variables.config.width;
         double mapHeight   = variables.config.height;
@@ -153,7 +153,7 @@ public class Spatial_Layout<V, E> extends ProvViewerLayout<V, E> {
         double y     = (mapHeight / 2) - (mapWidth * mercN / (2 * Math.PI));
         
         GoogleMapsAPIProjection googleAPI = new GoogleMapsAPIProjection(variables.config.googleZoomLevel);
-        Point2D coord = googleAPI.FromCoordinatesToPixel(v.getAttributeValueFloat(variables.config.layoutAxis_X), v.getAttributeValueFloat(variables.config.layoutAxis_Y));
+        Point2D coord = googleAPI.FromCoordinatesToPixel((float)v.getAttributeValueDouble(variables.config.layoutAxis_X), (float)v.getAttributeValueDouble(variables.config.layoutAxis_Y));
         xyd.setLocation(coord.getX(), coord.getY());
     }
 

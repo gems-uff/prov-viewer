@@ -114,26 +114,26 @@ public class GuiInference {
     public static ArrayList<ConcurrentHashMap<String, Object>> ColorSchemeCollapse(String attribute, Variables variables, boolean updateError, boolean verifyWithinCluster) {
         AutomaticInference infer;
         int simSize = 1;
-        float simInc = 1;
-        float simEpsilonModifier = 1;
+        double simInc = 1;
+        double simEpsilonModifier = 1;
         double eps = 1;
         GraphMatching combiner;
 
         // -----------------------------
         // Standard Deviation
         // -----------------------------
-        float std = Utils.std(variables.layout.getGraph().getVertices(), attribute);
+        double std = Utils.std(variables.layout.getGraph().getVertices(), attribute);
 
         // -----------------------------
         // Similarity configuration
         // -----------------------------
-        if (Utils.tryParseFloat(GraphFrame.simEpsilon.getText())) {
-            simEpsilonModifier = Float.parseFloat(GraphFrame.simEpsilon.getText());
+        if (Utils.tryParseDouble(GraphFrame.simEpsilon.getText())) {
+            simEpsilonModifier = Double.parseDouble(GraphFrame.simEpsilon.getText());
         }
         
         if(GraphFrame.attributeDisplaySimConfig.isSelected()) {
             String defaultError = "0";
-            float similarityThreshold = 0.5f;
+            double similarityThreshold = 0.5f;
             Map<String, AttributeErrorMargin> restrictionList = new HashMap<>();
             AttributeErrorMargin epsilon;
             eps = std * simEpsilonModifier; // The epsilon used by the algorithm
@@ -150,11 +150,11 @@ public class GuiInference {
         
 
         if (updateError) {
-            if (Utils.tryParseFloat(GraphFrame.simStdSize.getText())) {
+            if (Utils.tryParseDouble(GraphFrame.simStdSize.getText())) {
                 simSize = Integer.parseInt(GraphFrame.simStdSize.getText());
             }
-            if (Utils.tryParseFloat(GraphFrame.simStdInc.getText())) {
-                simInc = Float.parseFloat(GraphFrame.simStdInc.getText());
+            if (Utils.tryParseDouble(GraphFrame.simStdInc.getText())) {
+                simInc = Double.parseDouble(GraphFrame.simStdInc.getText());
             }
             infer = new AutomaticInference(combiner, (DirectedGraph<Object, Edge>) variables.layout.getGraph(), simSize, simInc, simEpsilonModifier);
         } else {
@@ -180,12 +180,12 @@ public class GuiInference {
     public static ArrayList<ConcurrentHashMap<String, Object>> DBSCAN(String attribute, DirectedGraph<Object, Edge> graph) {
         Dbscan dbscan;
 
-        float eps = 1;
-        if (Utils.tryParseFloat(GraphFrame.dbscanEpsilon.getText())) {
-            eps = Float.parseFloat(GraphFrame.dbscanEpsilon.getText());
+        double eps = 1;
+        if (Utils.tryParseDouble(GraphFrame.dbscanEpsilon.getText())) {
+            eps = Double.parseDouble(GraphFrame.dbscanEpsilon.getText());
         }
         if (GraphFrame.isSTDeps.isSelected()) {
-            float epsilon = Utils.std(graph.getVertices(), attribute);
+            double epsilon = Utils.std(graph.getVertices(), attribute);
             dbscan = new Dbscan(graph, attribute, epsilon * eps, 1);
         } else {
             dbscan = new Dbscan(graph, attribute, eps, 1);

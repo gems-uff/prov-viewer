@@ -43,14 +43,17 @@ public class MarkovChainColorScheme extends ColorScheme {
     @Override
     public Paint Execute(Object v, final Variables variables) {
         this.variables = variables;
-        float markov;
+        double markov;
+        int alpha = 255;
         if(!((Vertex)v).getAttributeValue(VariableNames.MarkovInLayout).equals(VariableNames.UnknownValue)) {
-            markov = Float.valueOf(((Vertex)v).getAttributeValue(VariableNames.MarkovInLayout));
+            markov = Double.valueOf(((Vertex)v).getAttributeValue(VariableNames.MarkovInLayout));
         } else if(!((Vertex)v).getAttributeValue(VariableNames.MarkovOutLayout).equals(VariableNames.UnknownValue)) {
-            markov = Float.valueOf(((Vertex)v).getAttributeValue(VariableNames.MarkovOutLayout));
-        } else
+            markov = Double.valueOf(((Vertex)v).getAttributeValue(VariableNames.MarkovOutLayout));
+        } else {
             markov = 0;
-         
-        return TrafficLight.splittedTrafficLight(markov, 0, 1, false);
+            alpha = 0;
+        }
+//        System.out.println("ID: " + ((Vertex)v).getID() + " ////  Markov: " + markov); 
+        return TrafficLight.splittedTrafficLight(markov, 0, 1, false, alpha);
     }
 }

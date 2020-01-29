@@ -47,30 +47,30 @@ public class ClusteringEvaluatorTest {
     ClusteringEvaluator eval = new ClusteringEvaluator(false, oracle);
     int NUMBER_OF_ORACLE_GRAPHS = 40;
     int NUMBER_OF_NOISE_GRAPHS = 5;
-    float INITIAL_NOISE_GRAPH_SIZE = 10;
-    float NOISE_INCREASE_NUMBER = 2;
+    double INITIAL_NOISE_GRAPH_SIZE = 10;
+    double NOISE_INCREASE_NUMBER = 2;
     int NUMBER_ITERATIONS = 7;
 //    int smallCluster = 7;
 //    int threshold = 4;
 //    int smallClusterMod = 4;
-    float dagEps;// = 288; // Dag previous 177.63
-    float linearEps;// = 380; // Linear 248
-    float treeEps;// = 364; // Tree 202.78
+    double dagEps;// = 288; // Dag previous 177.63
+    double linearEps;// = 380; // Linear 248
+    double treeEps;// = 364; // Tree 202.78
 //    float monotonicLinearEps = 312F;
 //    float monotonicDagEps = 268;
 //    float monotonicTreeEps = 328F;
-    float monotonicLinearEps;// = 40.64F; // Monotonic 312
-    float monotonicDagEps;// = 89.88F; // Monotonic 268
-    float monotonicTreeEps;// = 23.45F; // Monotonic 328
+    double monotonicLinearEps;// = 40.64F; // Monotonic 312
+    double monotonicDagEps;// = 89.88F; // Monotonic 268
+    double monotonicTreeEps;// = 23.45F; // Monotonic 328
     int TF_size;
     int TF_increase;
-    float TF_qnt;
+    double TF_qnt;
     int TT_size;
     int TT_increase;
-    float TT_qnt;
+    double TT_qnt;
     int FT_size;
     int FT_increase;
-    float FT_qnt;
+    double FT_qnt;
     
     public ClusteringEvaluatorTest() {
     }

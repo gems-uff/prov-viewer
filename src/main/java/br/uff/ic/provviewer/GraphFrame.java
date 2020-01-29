@@ -121,6 +121,7 @@ public class GraphFrame extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         confirmWorkingTrialsButton = new javax.swing.JButton();
         cancelWorkingTrialsButton = new javax.swing.JButton();
+        VertexStroke = new javax.swing.ButtonGroup();
         ToolMenu = new javax.swing.JPanel();
         CollapseAgent = new javax.swing.JButton();
         Reset = new javax.swing.JButton();
@@ -248,6 +249,10 @@ public class GraphFrame extends javax.swing.JFrame {
         EdgeStrokeDefaultButton = new javax.swing.JCheckBoxMenuItem();
         jMenu15 = new javax.swing.JMenu();
         vertexBorderByGraphButton = new javax.swing.JCheckBoxMenuItem();
+        vertexStrokeDefault = new javax.swing.JRadioButtonMenuItem();
+        vertexStrokeGraphFile = new javax.swing.JRadioButtonMenuItem();
+        vertexStrokeLabel = new javax.swing.JRadioButtonMenuItem();
+        vertexStrokeOutlier = new javax.swing.JRadioButtonMenuItem();
 
         setNewLabelDialogBox.setAlwaysOnTop(true);
         setNewLabelDialogBox.setMinimumSize(new java.awt.Dimension(257, 153));
@@ -1571,6 +1576,43 @@ public class GraphFrame extends javax.swing.JFrame {
         });
         jMenu15.add(vertexBorderByGraphButton);
 
+        VertexStroke.add(vertexStrokeDefault);
+        vertexStrokeDefault.setSelected(true);
+        vertexStrokeDefault.setText("Default Stroke");
+        vertexStrokeDefault.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vertexStrokeDefaultActionPerformed(evt);
+            }
+        });
+        jMenu15.add(vertexStrokeDefault);
+
+        VertexStroke.add(vertexStrokeGraphFile);
+        vertexStrokeGraphFile.setText("Stroke by GraphFile");
+        vertexStrokeGraphFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vertexStrokeGraphFileActionPerformed(evt);
+            }
+        });
+        jMenu15.add(vertexStrokeGraphFile);
+
+        VertexStroke.add(vertexStrokeLabel);
+        vertexStrokeLabel.setText("Stroke by Label");
+        vertexStrokeLabel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vertexStrokeLabelActionPerformed(evt);
+            }
+        });
+        jMenu15.add(vertexStrokeLabel);
+
+        VertexStroke.add(vertexStrokeOutlier);
+        vertexStrokeOutlier.setText("Stroke by Outlier");
+        vertexStrokeOutlier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vertexStrokeOutlierActionPerformed(evt);
+            }
+        });
+        jMenu15.add(vertexStrokeOutlier);
+
         MenuBar.add(jMenu15);
 
         setJMenuBar(MenuBar);
@@ -1914,8 +1956,8 @@ public class GraphFrame extends javax.swing.JFrame {
 
     private void vertexBorderByGraphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vertexBorderByGraphButtonActionPerformed
         // TODO add your handling code here:
-        variables.vertexBorderByGraphs = vertexBorderByGraphButton.getState();
-        variables.view.repaint();
+//        variables.vertexBorderByGraphs = vertexBorderByGraphButton.getState();
+//        variables.view.repaint();
     }//GEN-LAST:event_vertexBorderByGraphButtonActionPerformed
 
     private void similarityConsiderNeighborsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_similarityConsiderNeighborsButtonActionPerformed
@@ -2174,6 +2216,33 @@ public class GraphFrame extends javax.swing.JFrame {
     private void EdgeStrokeDefaultButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EdgeStrokeDefaultButtonActionPerformed
         GuiButtons.EdgeStrokeConfiguration(variables, false, false, false, false, true, EdgeStrokeByValueButton, EdgeStrokeByGraphButton, EdgeStrokeByMarkovinButton, EdgeStrokeByMarkovoutButton, EdgeStrokeDefaultButton);
     }//GEN-LAST:event_EdgeStrokeDefaultButtonActionPerformed
+
+    private void vertexStrokeGraphFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vertexStrokeGraphFileActionPerformed
+        variables.vertexBorderByGraphs = vertexStrokeGraphFile.isSelected();
+        variables.highlightVertexOutliers = vertexStrokeOutlier.isSelected();
+        variables.vertexBorderByLabel = vertexStrokeLabel.isSelected();
+        variables.view.repaint();
+        
+    }//GEN-LAST:event_vertexStrokeGraphFileActionPerformed
+
+    private void vertexStrokeOutlierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vertexStrokeOutlierActionPerformed
+        variables.highlightVertexOutliers = vertexStrokeOutlier.isSelected();
+        variables.view.repaint();
+    }//GEN-LAST:event_vertexStrokeOutlierActionPerformed
+
+    private void vertexStrokeDefaultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vertexStrokeDefaultActionPerformed
+        variables.vertexBorderByGraphs = vertexStrokeGraphFile.isSelected();
+        variables.highlightVertexOutliers = vertexStrokeOutlier.isSelected();
+        variables.vertexBorderByLabel = vertexStrokeLabel.isSelected();
+        variables.view.repaint();
+    }//GEN-LAST:event_vertexStrokeDefaultActionPerformed
+
+    private void vertexStrokeLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vertexStrokeLabelActionPerformed
+        variables.vertexBorderByGraphs = vertexStrokeGraphFile.isSelected();
+        variables.highlightVertexOutliers = vertexStrokeOutlier.isSelected();
+        variables.vertexBorderByLabel = vertexStrokeLabel.isSelected();
+        variables.view.repaint();
+    }//GEN-LAST:event_vertexStrokeLabelActionPerformed
    
     /**
      * Main
@@ -2254,6 +2323,7 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JPanel ToolMenu;
     private javax.swing.JButton UndoDeletionButton;
     private javax.swing.JScrollPane VertexLabels;
+    private javax.swing.ButtonGroup VertexStroke;
     private javax.swing.JCheckBoxMenuItem allowMergeUndoButtom;
     private javax.swing.JCheckBoxMenuItem allowVariableLayoutButton;
     public static javax.swing.JRadioButtonMenuItem attributeDisplaySimConfig;
@@ -2371,5 +2441,9 @@ public class GraphFrame extends javax.swing.JFrame {
     private javax.swing.JTextField vertexIDTextField;
     private javax.swing.JTextField vertexShapeBasedOnAttribute;
     public static javax.swing.JComboBox<String> vertexShapeComboBox;
+    private javax.swing.JRadioButtonMenuItem vertexStrokeDefault;
+    private javax.swing.JRadioButtonMenuItem vertexStrokeGraphFile;
+    private javax.swing.JRadioButtonMenuItem vertexStrokeLabel;
+    private javax.swing.JRadioButtonMenuItem vertexStrokeOutlier;
     // End of variables declaration//GEN-END:variables
 }

@@ -127,11 +127,11 @@ public abstract class Vertex extends GraphObject {
     public double getTime() {    
 //        String[] day = this.time.split(":");
         String time = this.attributes.get(timeLabel).getAverageValue();
-        if(Utils.tryParseFloat(time))
+        if(Utils.tryParseDouble(time))
             return (Double.parseDouble(time));
         else if(Utils.tryParseDate(time))
         {
-            double milliseconds =  Utils.convertStringDateToFloat(time);
+            double milliseconds =  Utils.convertStringDateToLong(time);
             return milliseconds;
         }
         else
@@ -139,11 +139,11 @@ public abstract class Vertex extends GraphObject {
     }
     public long getMinTime() {    
         String time = this.attributes.get(timeLabel).getMin();
-        if(Utils.tryParseFloat(time))
+        if(Utils.tryParseDouble(time))
             return (long) ((Float.parseFloat(time))*1000);
         else if(Utils.tryParseDate(time))
         {
-            long milliseconds = Utils.convertStringDateToFloat(time);
+            long milliseconds = Utils.convertStringDateToLong(time);
             return milliseconds;
         }
         else
@@ -251,14 +251,14 @@ public abstract class Vertex extends GraphObject {
      * @param attribute
      * @return 
      */
-    public float getAttributeValueFloat(String attribute) {
+    public double getAttributeValueDouble(String attribute) {
         if(isItTime(attribute)) {
             return (float)getNormalizedTime();
         }
         if(attributes.get(attribute) == null) {
-            return deltaAttributeFloatValue(attribute);
+            return deltaAttributeDoubleValue(attribute);
         }
-        return getAttFloatValue(attribute);
+        return getAttDoubleValue(attribute);
     }
     
     
@@ -268,10 +268,10 @@ public abstract class Vertex extends GraphObject {
      * @param attribute must be a string with both atributes separared by " - ". Example: "First_Attribute - Second_Attribute"
      * @return the delta
      */
-    private float deltaAttributeFloatValue(String attribute) {
+    private double deltaAttributeDoubleValue(String attribute) {
         String[] atts = attribute.split(" - ");
         if(atts.length == 2)
-            return getAttFloatValue(atts[0]) - getAttFloatValue(atts[1]);
+            return getAttDoubleValue(atts[0]) - getAttDoubleValue(atts[1]);
         else
             return Float.NaN;
     }
@@ -293,7 +293,7 @@ public abstract class Vertex extends GraphObject {
         if(atts.length == 2) {
             if(VariableNames.UnknownValue.equals(getAttributeValue(atts[0])) || VariableNames.UnknownValue.equals(getAttributeValue(atts[1]))) return VariableNames.UnknownValue;
             else {
-                String delta = Float.toString(getAttFloatValue(atts[0]) - getAttFloatValue(atts[1]));
+                String delta = Double.toString(getAttDoubleValue(atts[0]) - getAttDoubleValue(atts[1]));
                 return delta;
             }
         }
@@ -306,13 +306,13 @@ public abstract class Vertex extends GraphObject {
      * @param attribute the attribute that we want to get the value from
      * @return the float value or Float.NaN if it is not possible to convert to float
      */
-    private float getAttFloatValue(String attribute) {
+    private double getAttDoubleValue(String attribute) {
         if(isItTime(attribute)) {
             return (float)getNormalizedTime();
         }
         if(attributes.get(attribute) != null) {
-            if(Utils.tryParseFloat(attributes.get(attribute).getAverageValue())) {
-                return Utils.convertFloat(attributes.get(attribute).getAverageValue());
+            if(Utils.tryParseDouble(attributes.get(attribute).getAverageValue())) {
+                return Utils.convertStringToDouble(attributes.get(attribute).getAverageValue());
             }
             else {
                 

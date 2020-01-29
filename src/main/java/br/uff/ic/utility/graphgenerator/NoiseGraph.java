@@ -77,16 +77,16 @@ public class NoiseGraph {
      * @param vertex is the template vertex that will be used to generate a noise vertex
      * @return the noise threshold
      */
-    private float noiseThreshold(Vertex vertex) {
+    private double noiseThreshold(Vertex vertex) {
         Collection<Object> neighbors = oracleGraph.getNeighbors(vertex);
-        float minDelta = Float.POSITIVE_INFINITY;
+        double minDelta = Double.POSITIVE_INFINITY;
         for (Object v : neighbors) {
-            float n_value;
-            float v_value;
+            double n_value;
+            double v_value;
             if (!((Vertex) v).getAttributeValue(attribute).contentEquals("Unknown")) {
-                n_value = ((Vertex)v).getAttributeValueFloat(attribute);
+                n_value = ((Vertex)v).getAttributeValueDouble(attribute);
                 if (!vertex.getAttributeValue(attribute).contentEquals("Unknown")) {
-                    v_value = vertex.getAttributeValueFloat(attribute);
+                    v_value = vertex.getAttributeValueDouble(attribute);
                     minDelta = Math.min(minDelta, Math.abs(n_value - v_value));
                 }
             }
@@ -101,7 +101,7 @@ public class NoiseGraph {
      * @param minDelta is the minimum distance between the template vertex and it's neighbors
      * @return the three sigma
      */
-    private float threeSigma(float minDelta) {
+    private double threeSigma(double minDelta) {
         return minDelta;
     }
     
@@ -112,12 +112,12 @@ public class NoiseGraph {
      * @param threeSigma is the threshold for the noise value
      * @return the value for the noise vertex
      */
-    private float randomNoiseValue (float mean, float threeSigma)  {
-        float value = 0;
-        float sigma = (float) (threeSigma * 0.333);
+    private double randomNoiseValue (double mean, double threeSigma)  {
+        double value = 0;
+        double sigma = (double) (threeSigma * 0.333);
         Random rng = new Random();
         
-        value = (float) (mean + sigma * rng.nextGaussian());
+        value = (double) (mean + sigma * rng.nextGaussian());
         if(value != value) {
             System.out.println("randomNoiseValue NaN!");
             System.out.println("Mean: " + mean);
@@ -127,11 +127,11 @@ public class NoiseGraph {
     }
     
     private Vertex createMonotonicNoise (Edge edge)  {
-        float value;
+        double value;
         
-        float source = ((Vertex)edge.getSource()).getAttributeValueFloat(attribute);
-        float target = ((Vertex)edge.getTarget()).getAttributeValueFloat(attribute);
-        value = (float) (Math.min(source, target) + (Math.random() * ((Math.max(source, target) - Math.min(source, target)) + 1)));
+        double source = ((Vertex)edge.getSource()).getAttributeValueDouble(attribute);
+        double target = ((Vertex)edge.getTarget()).getAttributeValueDouble(attribute);
+        value = (double) (Math.min(source, target) + (Math.random() * ((Math.max(source, target) - Math.min(source, target)) + 1)));
 //        if(value != value) {
 //            System.out.println("createMonotonicNoise NaN!");
 //            System.out.println("createMonotonicNoise source: " + source);
@@ -147,7 +147,7 @@ public class NoiseGraph {
      * @param noiseValue is the value for the noise vertex
      * @return the noise vertex
      */
-    private Vertex newNoiseVertex(float noiseValue, String date) {
+    private Vertex newNoiseVertex(double noiseValue, String date) {
         String id;
         id = id_counter + "N";
         id_counter++;
@@ -166,8 +166,8 @@ public class NoiseGraph {
      * @param vertex is the template vertex
      * @return the mean
      */
-    private float getMean(Object vertex) {
-        return((Vertex) vertex).getAttributeValueFloat(attribute);
+    private double getMean(Object vertex) {
+        return((Vertex) vertex).getAttributeValueDouble(attribute);
     }
     
     /**
@@ -209,9 +209,9 @@ public class NoiseGraph {
     private void addNoise (Object[] oracleVertices) {
         int random = pickRandomly(oracleVertices.length);
         Object vertex = oracleVertices[random];
-        float threeSigma = noiseThreshold((Vertex) vertex);
-        float mean = getMean(vertex);
-        float noiseValue = randomNoiseValue(mean, threeSigma);
+        double threeSigma = noiseThreshold((Vertex) vertex);
+        double mean = getMean(vertex);
+        double noiseValue = randomNoiseValue(mean, threeSigma);
         
         Vertex noise = newNoiseVertex(noiseValue, ((Vertex)vertex).getTimeString());
         
@@ -223,7 +223,7 @@ public class NoiseGraph {
      * @param noiseProbability is the probability of generating a new noise, ranging from 0 to 1
      * @return true or false
      */
-    private boolean generateNewNoise(float noiseProbability) {
+    private boolean generateNewNoise(double noiseProbability) {
         if(Math.random() < noiseProbability)
             return true;
         else
@@ -236,7 +236,7 @@ public class NoiseGraph {
      * @param noiseProbability is the probability to create a new noise
      * @return the noiseGraph, which is a templateGraph with noise
      */
-    public DirectedGraph<Object, Edge> generateNoiseGraph(float noiseFactor, float noiseProbability) {
+    public DirectedGraph<Object, Edge> generateNoiseGraph(double noiseFactor, double noiseProbability) {
         if(noiseFactor < 1) {
             noiseFactor = 1;
         }

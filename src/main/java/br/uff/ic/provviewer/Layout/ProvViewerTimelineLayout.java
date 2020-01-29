@@ -77,7 +77,7 @@ public abstract class ProvViewerTimelineLayout<V, E> extends ProvViewerLayout<V,
                 }
                 k++;
             }
-            if (previous_Value != (int) ((Vertex) v).getAttributeValueFloat(x_att)) {
+            if (previous_Value != (int) ((Vertex) v).getAttributeValueDouble(x_att)) {
                 entityXPos = entityXPos + scale;
             } else if (previous_yOffset == yGraphOffset) {
                 entityXPos = (int) (entityXPos + (scale * 0.25));

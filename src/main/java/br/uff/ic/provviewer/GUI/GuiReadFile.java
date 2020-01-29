@@ -264,6 +264,7 @@ public class GuiReadFile {
      * @param file is the file that has the second graph
      */
     private static void mergeGraphs(Variables variables, File file) {
+        long start = System.currentTimeMillis();
         DirectedGraph<Object, Edge> fileGraph = GuiReadFile.getGraph(file);
         variables.mergingWithGraphPath = file.getName();
 //        System.out.println("Original File: " + variables.originalGraphPath);
@@ -271,5 +272,8 @@ public class GuiReadFile {
         GraphMerger merger = new GraphMerger(variables.allowMergeUndo);
         DirectedGraph<Object, Edge> mergedGraph = merger.Merging(variables.graph, fileGraph, variables.mergeConfig.getRestrictionList(), variables.mergeConfig.getVocabulary(), variables.mergeConfig.getSimilarityThreshold(), variables.mergeConfig.getDefaultError(), variables.mergeConfig.getDefaultWeight());
         loadGraph(variables, mergedGraph);
+        long end = System.currentTimeMillis();
+        long elapsedTime = end - start;
+        System.out.println("Elapsed Time: " + elapsedTime);
     }
 }
