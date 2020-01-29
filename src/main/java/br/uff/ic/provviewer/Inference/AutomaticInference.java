@@ -43,9 +43,9 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class AutomaticInference {
     
-    float STD_QUANTITY = 3;
+    double STD_QUANTITY = 3;
     int MINIMUM_SIZE = 10;
-    float smallClusterError = 3;
+    double smallClusterError = 3;
     boolean isUpdating = false;
     boolean isRestrictingVariation = false;
     GraphMatching combiner;
@@ -67,7 +67,7 @@ public class AutomaticInference {
      * @param thresholdIncrease is the epsilon modifier before reaching the minimum cluster size
      * @param std is the epsilon used by the algorithms
      */
-    public AutomaticInference(GraphMatching combiner, DirectedGraph<Object, Edge> g, int minSize, float thresholdIncrease, float std) {
+    public AutomaticInference(GraphMatching combiner, DirectedGraph<Object, Edge> g, int minSize, double thresholdIncrease, double std) {
         MINIMUM_SIZE = minSize;
         smallClusterError = thresholdIncrease;
         STD_QUANTITY = std;
@@ -193,11 +193,11 @@ public class AutomaticInference {
             Map<String, AttributeErrorMargin> error = combiner.getRestrictionList();
             for (String e : error.keySet()) {
 //                System.out.println("Old error: " + error.get(e).getValue());
-                float std = Utils.std(cg.values(), e) * STD_QUANTITY;
+                double std = Utils.std(cg.values(), e) * STD_QUANTITY;
                 if (cg.size() < MINIMUM_SIZE) {
                     std *= smallClusterError;
                 }
-                AttributeErrorMargin newError = new AttributeErrorMargin(e, Float.toString(std));
+                AttributeErrorMargin newError = new AttributeErrorMargin(e, Double.toString(std));
                 error.put(e, newError);
 //                System.out.println("New error: " + error.get(e).getValue());
             }
@@ -396,8 +396,8 @@ public class AutomaticInference {
 //        if(!((Vertex)p).getNodeType().equalsIgnoreCase(((Vertex)q).getNodeType()))
         if (!GraphUtils.isSameVertexTypes((Vertex)p, (Vertex)q))
             return distance;
-        if(Utils.tryParseFloat(((Vertex)p).getAttributeValue(attribute))) {
-            double dx = ((Vertex)p).getAttributeValueFloat(attribute) - ((Vertex)q).getAttributeValueFloat(attribute);
+        if(Utils.tryParseDouble(((Vertex)p).getAttributeValue(attribute))) {
+            double dx = ((Vertex)p).getAttributeValueDouble(attribute) - ((Vertex)q).getAttributeValueDouble(attribute);
             distance = Math.sqrt(dx * dx);
         } else {
             String v1 = ((Vertex)p).getAttributeValue(attribute);
@@ -411,7 +411,7 @@ public class AutomaticInference {
     private void updateErrorSingleAttribute(ConcurrentHashMap<String, Object> cg) {
         if (cg.size() > 2) {
 //            System.out.println("Updating error");
-            float std = Utils.std(cg.values(), attribute) * STD_QUANTITY;
+            double std = Utils.std(cg.values(), attribute) * STD_QUANTITY;
             if (cg.size() < MINIMUM_SIZE) {
                 std *= smallClusterError;
             }
