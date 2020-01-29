@@ -50,11 +50,14 @@ import java.util.stream.Collectors;
 public class Markov {
     
 //    public Map<String, Map<String, Double>> probability = new HashMap<>();
-    public Map<String, Map<String, Double>> probabilityFirst = new HashMap<>();
+    private Map<String, Map<String, Double>> probabilityFirst = new HashMap<>();
+    private ArrayList<String> updatedMarkovInValue = new ArrayList<>();
+    private ArrayList<String> calculatedMarkovInValue = new ArrayList<>();
 //    public Map<String, Map<String, Double>> probability_independant = new HashMap<>();
     DecimalFormat df = new DecimalFormat("#.###");
+    DecimalFormat df2 = new DecimalFormat("#.######");
     private int labelsCount = 0; 
-    private double minProbability = 0.005;
+    private double minProbability = 0.001;
 //    Map<String, Boolean> visistedLabels = new HashMap<>();
 
     public void computeMarkovChain(Variables variables) {
@@ -99,8 +102,7 @@ public class Markov {
         this.initProbabilityMap();
         if (picked_state.getPicked().size() > 0) {
             Vertex source = (Vertex) picked_state.getPicked().toArray()[0];
-            markovInChain(new ArrayList<String>(), source, 1, 0, 50, variables);
-            markovOutChain(source, 1, 0, 50, variables);
+            startMarkovChain(source, variables);
             this.printAllProbabilities();
         }
         long end = System.currentTimeMillis();
@@ -108,38 +110,52 @@ public class Markov {
         System.out.println("Elapsed Time for Markov Chain: " + elapsedTime);
     }
 
-    public void markovInChain(ArrayList<String> parent, Vertex source, double markov, int currentDepth, int maxDepth, Variables variables) {      
-        if (currentDepth < maxDepth && markov > this.minProbability) {
+    private void startMarkovChain(Vertex source, Variables variables) {
+        addMarkovInEvent(source, 1);
+        markovInChain(new ArrayList<String>(), source, 1, source.getTime(), 20, variables);
+        markovOutChain(source, 1, 0, 50, variables);
+    }
+        
+    public void markovInChain(ArrayList<String> ancestor, Vertex source, double markov, double initialTime, double timeWindow, Variables variables) { 
+        if (Double.compare(markov, this.minProbability) > 0) {
             List<Edge> i = new ArrayList(variables.layout.getGraph().getInEdges(source));
             for(Edge edge : i) {
                 double markIn = Double.valueOf(edge.getAttributeValue(VariableNames.MarkovIn));
-                addEvent(source, parent, markIn * markov);
-                ArrayList<String> hasVisitedLabels = cloneArrayList(parent);
                 Vertex newSource = (Vertex) edge.getSource();
-                markovInChain(hasVisitedLabels, newSource, markIn * markov, currentDepth + 1, maxDepth, variables);
+                if ((newSource.getTime() - initialTime)  < timeWindow) {
+                    double newSourceMarkov = markIn * markov;
+                    boolean changedValue = addMarkovInEvent(newSource, newSourceMarkov);
+                    ArrayList<String> child = cloneArrayList(ancestor);
+                    calculateMarkovInForEvents(newSource, ancestor, child, newSourceMarkov, changedValue);
+//                    if(changedValue)
+                    markovInChain(child, newSource, newSourceMarkov, initialTime, timeWindow, variables);
+            }
             }
         }
     }
     
-    private void addEvent(Vertex source, ArrayList<String> parent, double markov) {
+    private boolean addMarkovInEvent(Vertex source, double markov) {
         // Lets compute the markov probability to reach this vertex
         if (source.hasAttribute(VariableNames.MarkovInLayout)) {
             if (Double.compare(Double.valueOf(source.getAttributeValue(VariableNames.MarkovInLayout)), markov) < 0) {
                 source.addAttribute(new GraphAttribute(VariableNames.MarkovInLayout, String.valueOf(markov), "ProvViewer"));
+                return true;
+//                updatedMarkovInValue.add(source.getID());
             }
+            else
+                return false;
         } else {
             source.addAttribute(new GraphAttribute(VariableNames.MarkovInLayout, String.valueOf(markov), "ProvViewer"));
+            return true;
+//            calculatedMarkovInValue.add(source.getID());
         }
-        
+    }
+    
+    private void calculateMarkovInForEvents(Vertex source, ArrayList<String> parent, ArrayList<String> child, double markov, boolean changed) {
         // Lets compute the probability of occuring at least one of each event type
         if(!parent.contains(source.getLabel())) {
             this.addProbability(this.probabilityFirst, source.getLabel(), source.getID(), markov);
-            parent.add(source.getLabel());
-        }
-        else {
-            if(this.probabilityFirst.get(source.getLabel()).containsKey(source.getID())) {
-                this.addProbability(this.probabilityFirst, source.getLabel(), source.getID(), markov);
-            }
+            child.add(source.getLabel());
         }
     }
     
@@ -172,6 +188,8 @@ public class Markov {
     
     public void initProbabilityMap() {
         this.probabilityFirst = new HashMap<>();
+        this.updatedMarkovInValue = new ArrayList<>();
+        this.calculatedMarkovInValue = new ArrayList<>();
     }
     
     public void addProbability(Map<String, Map<String, Double>> probMap, String label, String innerKey, double v){
@@ -194,42 +212,8 @@ public class Markov {
     }
     
     public void printAllProbabilities() {
-//        printAllDefaultProbabilities();
-//        printAllSumProbabilities();
         printAllSumFirstProbabilities();
-//        printAllIndependantProbabilities();
     }
-//    public void printAllSumProbabilities() {
-//        for(String label : probability.keySet()) {
-////            System.out.println();
-////            System.out.print(label + ": ");
-//            Map<String, Double> innerMap = probability.get(label);
-//            double prob = 0;
-//            for(double v : innerMap.values()) {
-//                prob += v;
-////                System.out.print(df.format(v) + " + ");
-//            }
-////            System.out.println();
-////            System.out.println("total = " + prob);
-//            System.out.println("(Sum) Probability (" + label + ") = " + df.format(prob * 100) + "%");
-//        }
-//    }
-    
-//    public void printAllDefaultProbabilities() {
-//        for(String label : probability.keySet()) {
-////            System.out.println();
-////            System.out.print(label + ": ");
-//            Map<String, Double> innerMap = probability.get(label);
-//            double prob = 1;
-//            for(double v : innerMap.values()) {
-//                prob *= (1 - v);
-////                System.out.print(df.format(1 - v) + " * ");
-//            }
-////            System.out.println();
-////            System.out.println("total = " + prob);
-//            System.out.println("(Default) Probability (" + label + ") = " + df.format((1 - prob) * 100) + "%");
-//        }
-//    }
     
     public void printAllSumFirstProbabilities() {
         for(String label : probabilityFirst.keySet()) {
@@ -246,20 +230,4 @@ public class Markov {
             System.out.println("(StopFirst) Probability (" + label + ") = " + df.format(prob * 100) + "%");
         }
     }
-//    
-//    public void printAllIndependantProbabilities() {
-//        for(String label : probability_independant.keySet()) {
-////            System.out.println();
-////            System.out.print(label + ": ");
-//            Map<String, Double> innerMap = probability_independant.get(label);
-//            double prob = 1;
-//            for(double v : innerMap.values()) {
-//                prob *= (1 - v);
-////                System.out.print(df.format(1 - v) + " * ");
-//            }
-////            System.out.println();
-////            System.out.println("total = " + (1 - prob));
-//            System.out.println("(Independant) Probability (" + label + ") = " + df.format((1 - prob) * 100) + "%");
-//        }
-//    }
 }
