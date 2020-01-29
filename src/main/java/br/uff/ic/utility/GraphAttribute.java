@@ -98,18 +98,18 @@ public class GraphAttribute {
      * @param values is the Map that contains all original values
      */
     public void updateAttribute(Map<String, String> values) {
-        this.minValue = Float.POSITIVE_INFINITY;
-        this.maxValue = Float.NEGATIVE_INFINITY;
+        this.minValue = Double.POSITIVE_INFINITY;
+        this.maxValue = Double.NEGATIVE_INFINITY;
         String testFirstValue = (String) values.values().toArray()[0];
         if (Utils.tryParseDouble(testFirstValue) && Utils.tryParseDouble(testFirstValue)) {
             originalValues.putAll(values);
-            float v = 0;
+            double v = 0;
             for(String s : originalValues.values()) {
                 v += Utils.convertStringToDouble(s);
                 this.minValue = Math.min(this.minValue, Utils.convertStringToDouble(s));
                 this.maxValue = Math.max(this.maxValue, Utils.convertStringToDouble(s));
             }
-            this.value = Float.toString(v);
+            this.value = Double.toString(v);
             
         } else { // This value is a String
             originalValues.putAll(values);
@@ -240,11 +240,11 @@ public class GraphAttribute {
 //        quantity++;
 //    }
      // This method is only used for tests cases
-    public void setMax(float t) {
+    public void setMax(double t) {
         this.maxValue = t;
     }
      // This method is only used for tests cases
-    public void setMin(float t) {
+    public void setMin(double t) {
         this.minValue = t;
     }
     

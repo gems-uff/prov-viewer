@@ -80,7 +80,7 @@ public class GraphMatchingTest {
         differentAttributes(0.51f, false);
     }
     
-    public void Comparing(float threshold, boolean expResult, 
+    public void Comparing(double threshold, boolean expResult, 
             String a11, String a12, 
             String a21, String a22, 
             String e1, String e2, String e3, String e4) {
@@ -128,7 +128,7 @@ public class GraphMatchingTest {
         assertEquals(expResult, result);
     }
     
-    public void ComparingDefault(float threshold, boolean expResult, 
+    public void ComparingDefault(double threshold, boolean expResult, 
             String a11, String a12, 
             String a21, String a22, 
             String e3, String e4) {
@@ -165,7 +165,7 @@ public class GraphMatchingTest {
         assertEquals(expResult, result);
     }
     
-    public void equals(float threshold, boolean expResult) {
+    public void equals(double threshold, boolean expResult) {
 //        System.out.println("Equal");
         Comparing(threshold, expResult, "asd", "bvF", "2012-05-24T10:00:02", "2012-05-24T10:00:01", "asd, bvf", "2000", "50%", "300%");
         Comparing(threshold, expResult, "8", "10", "2012-05-24T10:00:02", "2012-05-24T10:00:01", "2", "2000", "50%", "300%");
@@ -173,29 +173,29 @@ public class GraphMatchingTest {
         ComparingDefault(threshold, expResult, "8", "10", "-10", "-10", "50%", "300%");
     }
     
-    public void almostEquals(float threshold, boolean expResult) {
+    public void almostEquals(double threshold, boolean expResult) {
 //        System.out.println("AlmostEqual");
         Comparing(threshold, expResult, "asd", "AsD", "2012-05-24T10:00:01", "2012-05-24T10:00:02", "0", "2000", "50%", "0%");
         ComparingDefault(threshold, expResult, "8", "10", "7", "10", "50%", "300%");
     }
     
-    public void halfEquals(float threshold, boolean expResult) {
+    public void halfEquals(double threshold, boolean expResult) {
 //        System.out.println("HalfEqual");
         Comparing(threshold, expResult, "asd", "AsD", "2012-05-24T10:00:01", "2012-05-24T10:00:02", "0", "2000", "0%", "0%");
         ComparingDefault(threshold, expResult, "8", "10", "7", "10", "50%", "0");
     }
     
-    public void quarterEquals(float threshold, boolean expResult) {
+    public void quarterEquals(double threshold, boolean expResult) {
 //        System.out.println("notEqual");
         Comparing(threshold, expResult, "asd", "AsD", "2012-05-24T10:00:01", "2012-05-24T10:00:02", "0", "0", "0%", "0%");
     }
     
-    public void notEquals(float threshold, boolean expResult) {
+    public void notEquals(double threshold, boolean expResult) {
 //        System.out.println("notEqual");
         Comparing(threshold, expResult, "asd", "AsDD", "2012-05-24T10:00:01", "2012-05-24T10:00:02", "0", "0", "0%", "0%");
     }
     
-    public void differentTypes(float threshold, boolean expResult) {
+    public void differentTypes(double threshold, boolean expResult) {
 //        System.out.println("Different Types");
         Vertex v1 = new ActivityVertex("v1", "test", "0");
         Vertex v2 = new EntityVertex("v2", "test", "0");
@@ -212,7 +212,7 @@ public class GraphMatchingTest {
         assertEquals(expResult, result);
     }
     
-    public void differentAttributes(float threshold, boolean expResult) {
+    public void differentAttributes(double threshold, boolean expResult) {
 //        System.out.println("Different Types");
         Vertex v1 = new ActivityVertex("v1", "test", "0");
         Vertex v2 = new ActivityVertex("v2", "test", "0");

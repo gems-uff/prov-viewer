@@ -140,7 +140,7 @@ public abstract class Vertex extends GraphObject {
     public long getMinTime() {    
         String time = this.attributes.get(timeLabel).getMin();
         if(Utils.tryParseDouble(time))
-            return (long) ((Float.parseFloat(time))*1000);
+            return (long) ((Double.parseDouble(time))*1000);
         else if(Utils.tryParseDate(time))
         {
             long milliseconds = Utils.convertStringDateToLong(time);
@@ -253,7 +253,7 @@ public abstract class Vertex extends GraphObject {
      */
     public double getAttributeValueDouble(String attribute) {
         if(isItTime(attribute)) {
-            return (float)getNormalizedTime();
+            return (double)getNormalizedTime();
         }
         if(attributes.get(attribute) == null) {
             return deltaAttributeDoubleValue(attribute);
@@ -273,7 +273,7 @@ public abstract class Vertex extends GraphObject {
         if(atts.length == 2)
             return getAttDoubleValue(atts[0]) - getAttDoubleValue(atts[1]);
         else
-            return Float.NaN;
+            return Double.NaN;
     }
     
     /**
@@ -308,7 +308,7 @@ public abstract class Vertex extends GraphObject {
      */
     private double getAttDoubleValue(String attribute) {
         if(isItTime(attribute)) {
-            return (float)getNormalizedTime();
+            return (double)getNormalizedTime();
         }
         if(attributes.get(attribute) != null) {
             if(Utils.tryParseDouble(attributes.get(attribute).getAverageValue())) {
@@ -316,11 +316,11 @@ public abstract class Vertex extends GraphObject {
             }
             else {
                 
-                return Float.NaN;
+                return Double.NaN;
             }
         }
         else {
-            return Float.NaN;
+            return Double.NaN;
         }
     }
     

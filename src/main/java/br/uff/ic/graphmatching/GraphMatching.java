@@ -312,7 +312,7 @@ public class GraphMatching {
                         }
                     } else if (errorMargin.contains("%")) {
                         errorMargin = errorMargin.replaceAll("%", "");
-                        if (Utils.DoubleSimilar(Utils.convertStringToDouble(av1), Utils.convertStringToDouble(av2), Utils.convertStringToDouble(errorMargin) * 0.01f)) {
+                        if (Utils.DoubleSimilar(Utils.convertStringToDouble(av1), Utils.convertStringToDouble(av2), Utils.convertStringToDouble(errorMargin) * 0.01)) {
                             similarity = similarity + (1 * weight);
                         }
                     }
