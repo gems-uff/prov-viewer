@@ -22,10 +22,10 @@
  * THE SOFTWARE.
  */
 
-package br.uff.ic.utility.graphgenerator;
+package br.uff.ic.provviewer.SimilarityCollapse.graphgenerator;
 
 import br.uff.ic.graphmatching.GraphMatching;
-import br.uff.ic.provviewer.Inference.AutomaticInference;
+import br.uff.ic.provviewer.SimilarityCollapse.AutomaticInference;
 import br.uff.ic.utility.AttributeErrorMargin;
 import br.uff.ic.utility.Utils;
 import br.uff.ic.utility.graph.Edge;

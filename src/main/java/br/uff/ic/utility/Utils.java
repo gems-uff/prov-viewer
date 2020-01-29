@@ -27,7 +27,6 @@ import br.uff.ic.provviewer.Variables;
 import br.uff.ic.utility.IO.XMLWriter;
 import br.uff.ic.utility.graph.Edge;
 import br.uff.ic.utility.graph.Vertex;
-import br.uff.ic.utility.graphgenerator.NoiseGraph;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.uci.ics.jung.visualization.picking.PickedState;
@@ -93,22 +92,6 @@ public class Utils {
         colors[24] = new Color(255,20,147); // Deep-Pink
 
         return colors[index];
-    }
-
-    /**
-     * Method to export the graph in an xml format
-     *
-     * @param graph is the desired graph to be exported
-     * @param fileName is the name of the file (without extension)
-     */
-    public static void exportGraph(DirectedGraph<Object, Edge> graph, String fileName) {
-        try {
-            XMLWriter xmlWriter = new XMLWriter(graph.getVertices(), graph.getEdges());
-            xmlWriter.saveToXML(fileName);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(NoiseGraph.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
     }
 
     /**

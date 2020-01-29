@@ -21,10 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.uff.ic.utility;
+package br.uff.ic.debugging;
 
 import br.uff.ic.provviewer.GUI.GuiButtons;
 import br.uff.ic.provviewer.GUI.GuiReadFile;
+import br.uff.ic.utility.GraphAttribute;
 import static br.uff.ic.provviewer.ProvDebugger.DebugTrials;
 import br.uff.ic.utility.graph.ActivityVertex;
 import br.uff.ic.utility.graph.Edge;
@@ -781,4 +782,5 @@ public class Physics {
         System.out.println("Hit target? " + reachedTarget + " / targetX: " + targetPos);
         return reachedTarget;
     }
+    
 }
